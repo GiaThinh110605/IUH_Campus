@@ -24,6 +24,21 @@ namespace IUHCampus.Editor
             GenerateGraniteTexture();
             GenerateGrassTexture();
             GenerateFlowerTexture();
+            GenerateBuildingGSign();
+            GenerateWeatheredWallTexture();
+            GenerateConcreteSeamsTexture();
+            GenerateAsphaltRoadTexture();
+            GenerateDrainGrateTexture();
+            GenerateManholeCoverTexture();
+            GenerateDirectionalSignTexture();
+            GenerateNoticeBoardTexture();
+            GenerateACLouversTexture();
+            GenerateWindowBlindsTexture();
+            GenerateTreeBarkTexture();
+            GenerateWayfindingSignTexture();
+            GenerateFireExtinguisherTexture();
+            GenerateAccessControlTexture();
+            GenerateUrbanHouseTexture();
 
             AssetDatabase.Refresh();
             Debug.Log("[IUH] All textures generated successfully in " + TexturePath);
@@ -494,5 +509,777 @@ namespace IUHCampus.Editor
                 }
             }
         }
+
+        private static void GenerateBuildingGSign()
+        {
+            int width = 1024;
+            int height = 128;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color bgBlue = new Color(0.02f, 0.18f, 0.48f, 1.0f); // Deep IUH Blue #052E7A
+            Color goldAccent = new Color(0.96f, 0.78f, 0.18f, 1.0f); // Gold #F5C72E
+            Color textWhite = new Color(0.98f, 0.98f, 0.98f, 1.0f);
+            Color emblemRed = new Color(0.85f, 0.12f, 0.12f, 1.0f);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Base deep blue
+                    Color c = bgBlue;
+
+                    // Gold top and bottom accent stripes
+                    if (y < 6 || y >= height - 6)
+                    {
+                        c = goldAccent;
+                    }
+                    else if (y == 7 || y == height - 7)
+                    {
+                        c = new Color(0.7f, 0.55f, 0.1f, 1f);
+                    }
+
+                    // Left & right border
+                    if (x < 6 || x >= width - 6)
+                    {
+                        c = goldAccent;
+                    }
+
+                    tex.SetPixel(x, y, c);
+                }
+            }
+
+            // Left side circular emblem
+            int emblemCx = 64;
+            int emblemCy = height / 2;
+            int emblemRadius = 38;
+
+            for (int y = emblemCy - emblemRadius; y <= emblemCy + emblemRadius; y++)
+            {
+                for (int x = emblemCx - emblemRadius; x <= emblemCx + emblemRadius; x++)
+                {
+                    float dx = x - emblemCx;
+                    float dy = y - emblemCy;
+                    float dist = Mathf.Sqrt(dx * dx + dy * dy);
+
+                    if (dist <= emblemRadius && dist >= emblemRadius - 4)
+                    {
+                        tex.SetPixel(x, y, goldAccent);
+                    }
+                    else if (dist < emblemRadius - 4)
+                    {
+                        if (dx < 0)
+                            tex.SetPixel(x, y, emblemRed);
+                        else
+                            tex.SetPixel(x, y, new Color(0.1f, 0.45f, 0.85f, 1f));
+                    }
+                }
+            }
+
+            // Primary title text banner pattern: "TRƯỜNG ĐẠI HỌC CÔNG NGHIỆP TP. HỒ CHÍ MINH"
+            // Stylized high-contrast bold signage bars and glyphs
+            int startX = 125;
+            int textW = width - 150;
+            int textY = height / 2 - 12;
+            int textH = 26;
+
+            for (int y = textY; y < textY + textH; y++)
+            {
+                for (int x = startX; x < startX + textW; x++)
+                {
+                    // Alternating rhythmic character glyph patterns representing Vietnamese text
+                    int glyphIndex = (x - startX) / 16;
+                    int glyphOffset = (x - startX) % 16;
+
+                    // Space between words
+                    bool isWordSpace = (glyphIndex == 6 || glyphIndex == 13 || glyphIndex == 22 || glyphIndex == 26 || glyphIndex == 30 || glyphIndex == 34);
+                    if (!isWordSpace && glyphOffset > 2 && glyphOffset < 14)
+                    {
+                        // Crossbar or vertical stems
+                        bool isStroke = (glyphOffset <= 5 || glyphOffset >= 11 || y <= textY + 4 || y >= textY + textH - 5 || (y >= textY + 11 && y <= textY + 15));
+                        if (isStroke)
+                        {
+                            tex.SetPixel(x, y, goldAccent);
+                        }
+                    }
+                }
+            }
+
+            // English subtitle bar: "INDUSTRIAL UNIVERSITY OF HO CHI MINH CITY"
+            int subY = textY - 20;
+            int subH = 10;
+            for (int y = subY; y < subY + subH; y++)
+            {
+                for (int x = startX + 10; x < startX + textW - 40; x++)
+                {
+                    int subIndex = (x - startX) / 9;
+                    int subOffset = (x - startX) % 9;
+                    if (subOffset > 1 && subOffset < 7)
+                    {
+                        tex.SetPixel(x, y, textWhite);
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Sign_BuildingG.png");
+        }
+
+        private static void GenerateWeatheredWallTexture()
+        {
+            int width = 512;
+            int height = 512;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color baseWall = new Color(0.92f, 0.91f, 0.88f, 1f); // Warm off-white
+            System.Random rnd = new System.Random(42);
+
+            for (int y = 0; y < height; y++)
+            {
+                float vNorm = (float)y / height;
+                // Subtle bottom contact grime gradient & top under-eave shade
+                float verticalFactor = 1.0f;
+                if (vNorm < 0.15f)
+                {
+                    verticalFactor -= (0.15f - vNorm) * 0.45f; // Slight contact dirt at base
+                }
+                else if (vNorm > 0.85f)
+                {
+                    verticalFactor -= (vNorm - 0.85f) * 0.25f; // Slight shadow under roof eave
+                }
+
+                for (int x = 0; x < width; x++)
+                {
+                    // Fine plaster noise
+                    float noise = (float)(rnd.NextDouble() * 0.05f - 0.025f);
+                    // Subtle vertical water streak modulation
+                    float streak = Mathf.Sin(x * 0.12f) * Mathf.Cos(x * 0.04f + y * 0.01f) * 0.025f;
+
+                    float factor = Mathf.Clamp01(verticalFactor + noise + streak);
+                    Color c = new Color(baseWall.r * factor, baseWall.g * factor, baseWall.b * (factor * 0.98f), 1f);
+                    tex.SetPixel(x, y, c);
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Wall_Weathered.png");
+        }
+
+        private static void GenerateConcreteSeamsTexture()
+        {
+            int width = 512;
+            int height = 512;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color concreteBase = new Color(0.78f, 0.79f, 0.81f, 1f);
+            Color seamDark = new Color(0.42f, 0.43f, 0.45f, 1f);
+            System.Random rnd = new System.Random(88);
+
+            int tileSize = 128;
+
+            for (int y = 0; y < height; y++)
+            {
+                int modY = y % tileSize;
+                bool isSeamY = (modY <= 2 || modY >= tileSize - 2);
+
+                for (int x = 0; x < width; x++)
+                {
+                    int modX = x % tileSize;
+                    bool isSeamX = (modX <= 2 || modX >= tileSize - 2);
+
+                    float noise = (float)(rnd.NextDouble() * 0.06f - 0.03f);
+                    Color c = concreteBase + new Color(noise, noise, noise, 0f);
+
+                    if (isSeamX || isSeamY)
+                    {
+                        c = Color.Lerp(c, seamDark, 0.65f);
+                    }
+                    tex.SetPixel(x, y, c);
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Concrete_Seams.png");
+        }
+
+        private static void GenerateAsphaltRoadTexture()
+        {
+            int width = 512;
+            int height = 512;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color asphaltBase = new Color(0.28f, 0.29f, 0.31f, 1f);
+            System.Random rnd = new System.Random(133);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Fine aggregate speckling
+                    float noise = (float)(rnd.NextDouble() * 0.08f - 0.04f);
+                    // Slight tire wear bands
+                    float wear = Mathf.Sin(x * 0.03f) * 0.02f;
+                    Color c = asphaltBase + new Color(noise + wear, noise + wear, noise + wear, 0f);
+                    tex.SetPixel(x, y, c);
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Asphalt_Cracks.png");
+        }
+
+        private static void GenerateDrainGrateTexture()
+        {
+            int width = 256;
+            int height = 256;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color iron = new Color(0.22f, 0.23f, 0.25f, 1f);
+            Color ironHighlight = new Color(0.35f, 0.37f, 0.40f, 1f);
+            Color voidBlack = new Color(0.04f, 0.04f, 0.05f, 1f);
+
+            int rim = 16;
+            int slotPeriod = 16;
+
+            for (int y = 0; y < height; y++)
+            {
+                bool inRimY = (y < rim || y >= height - rim);
+
+                for (int x = 0; x < width; x++)
+                {
+                    bool inRimX = (x < rim || x >= width - rim);
+
+                    if (inRimX || inRimY)
+                    {
+                        // Outer cast frame
+                        tex.SetPixel(x, y, iron);
+                    }
+                    else
+                    {
+                        int slotX = (x - rim) % slotPeriod;
+                        if (slotX < 7)
+                        {
+                            // Iron bar
+                            float t = (float)slotX / 6f;
+                            Color c = Color.Lerp(iron, ironHighlight, Mathf.Sin(t * Mathf.PI));
+                            tex.SetPixel(x, y, c);
+                        }
+                        else
+                        {
+                            // Drain slot opening (void)
+                            tex.SetPixel(x, y, voidBlack);
+                        }
+                    }
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Drain_Grate.png");
+        }
+
+        private static void GenerateManholeCoverTexture()
+        {
+            int size = 256;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color ironBase = new Color(0.25f, 0.26f, 0.28f, 1f);
+            Color ironGrip = new Color(0.38f, 0.40f, 0.43f, 1f);
+            Color ironGroove = new Color(0.12f, 0.13f, 0.14f, 1f);
+
+            Vector2 center = new Vector2(size * 0.5f, size * 0.5f);
+            float radius = size * 0.46f;
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    Vector2 pos = new Vector2(x, y);
+                    float dist = Vector2.Distance(pos, center);
+
+                    if (dist > radius + 4f)
+                    {
+                        // Surrounding asphalt/concrete rim
+                        tex.SetPixel(x, y, ironGroove);
+                    }
+                    else if (dist > radius - 6f)
+                    {
+                        // Raised outer rim
+                        tex.SetPixel(x, y, ironBase);
+                    }
+                    else
+                    {
+                        // Internal tread pattern (radial notches and concentric rings)
+                        float angle = Mathf.Atan2(pos.y - center.y, pos.x - center.x);
+                        bool isRing = Mathf.Abs(dist - radius * 0.65f) < 3f || Mathf.Abs(dist - radius * 0.35f) < 3f;
+                        bool isRadialSpoke = Mathf.Abs(Mathf.Sin(angle * 12f)) > 0.85f;
+
+                        if (isRing || isRadialSpoke)
+                        {
+                            tex.SetPixel(x, y, ironGrip);
+                        }
+                        else
+                        {
+                            tex.SetPixel(x, y, ironBase);
+                        }
+                    }
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Manhole_Cover.png");
+        }
+
+        private static void GenerateDirectionalSignTexture()
+        {
+            int width = 512;
+            int height = 256;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color headerBlue = new Color(0.08f, 0.32f, 0.68f, 1f);
+            Color boardWhite = new Color(0.96f, 0.97f, 0.98f, 1f);
+            Color textDark = new Color(0.12f, 0.15f, 0.20f, 1f);
+            Color arrowGreen = new Color(0.10f, 0.62f, 0.28f, 1f);
+
+            int headerH = 64;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (y >= height - headerH)
+                    {
+                        tex.SetPixel(x, y, headerBlue);
+                    }
+                    else
+                    {
+                        tex.SetPixel(x, y, boardWhite);
+                    }
+
+                    // Border
+                    if (x < 6 || x >= width - 6 || y < 6 || y >= height - 6)
+                    {
+                        tex.SetPixel(x, y, headerBlue);
+                    }
+                }
+            }
+
+            // Draw directional text bands & arrow icons
+            int[] lineYs = { 150, 105, 60, 20 };
+            for (int i = 0; i < lineYs.Length; i++)
+            {
+                int ly = lineYs[i];
+                // Draw arrow indicator on left
+                for (int dy = 0; dy < 20; dy++)
+                {
+                    for (int dx = 0; dx < 24; dx++)
+                    {
+                        if (dx > 4 && dy > 4 && dy < 16)
+                        {
+                            tex.SetPixel(24 + dx, ly + dy, arrowGreen);
+                        }
+                    }
+                }
+
+                // Text line blocks
+                for (int ty = 0; ty < 16; ty++)
+                {
+                    for (int tx = 60; tx < width - 40; tx++)
+                    {
+                        int charIdx = (tx - 60) / 18;
+                        int charOff = (tx - 60) % 18;
+                        if (charOff > 2 && charOff < 14)
+                        {
+                            tex.SetPixel(tx, ly + ty, textDark);
+                        }
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Sign_Directional.png");
+        }
+
+        private static void GenerateNoticeBoardTexture()
+        {
+            int width = 512;
+            int height = 256;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color corkBacking = new Color(0.85f, 0.76f, 0.62f, 1f);
+            Color woodFrame = new Color(0.48f, 0.32f, 0.20f, 1f);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (x < 12 || x >= width - 12 || y < 12 || y >= height - 12)
+                    {
+                        tex.SetPixel(x, y, woodFrame);
+                    }
+                    else
+                    {
+                        tex.SetPixel(x, y, corkBacking);
+                    }
+                }
+            }
+
+            // Draw student flyers and notice posters pinned to board
+            Color[] flyerColors = {
+                new Color(0.98f, 0.98f, 0.98f, 1f), // White official bulletin
+                new Color(0.95f, 0.88f, 0.25f, 1f), // Yellow student activity flyer
+                new Color(0.25f, 0.65f, 0.92f, 1f), // Blue youth union poster
+                new Color(0.92f, 0.35f, 0.35f, 1f), // Red announcement
+                new Color(0.96f, 0.96f, 0.96f, 1f)  // White timetable
+            };
+
+            int[] flyerXs = { 24, 120, 220, 310, 410 };
+            int[] flyerYs = { 30, 45, 25, 40, 35 };
+            int[] flyerWs = { 80, 85, 75, 85, 75 };
+            int[] flyerHs = { 180, 160, 190, 170, 180 };
+
+            for (int f = 0; f < flyerXs.Length; f++)
+            {
+                int fx = flyerXs[f];
+                int fy = flyerYs[f];
+                int fw = flyerWs[f];
+                int fh = flyerHs[f];
+                Color fc = flyerColors[f];
+
+                for (int py = fy; py < fy + fh; py++)
+                {
+                    for (int px = fx; px < fx + fw; px++)
+                    {
+                        if (px < width - 14 && py < height - 14)
+                        {
+                            // Header bar on flyer
+                            if (py > fy + fh - 24)
+                            {
+                                tex.SetPixel(px, py, Color.Lerp(fc, Color.blue, 0.3f));
+                            }
+                            else
+                            {
+                                // Text lines on flyer
+                                int lineMod = py % 8;
+                                if (lineMod < 3 && px > fx + 6 && px < fx + fw - 6)
+                                {
+                                    tex.SetPixel(px, py, new Color(0.2f, 0.2f, 0.25f, 1f));
+                                }
+                                else
+                                {
+                                    tex.SetPixel(px, py, fc);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Sign_NoticeBoard.png");
+        }
+
+        private static void GenerateACLouversTexture()
+        {
+            int size = 256;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color casing = new Color(0.88f, 0.89f, 0.90f, 1f);
+            Color darkGrill = new Color(0.18f, 0.20f, 0.22f, 1f);
+            Color fanSilhouette = new Color(0.12f, 0.13f, 0.14f, 1f);
+            Vector2 fanCenter = new Vector2(size * 0.62f, size * 0.5f);
+            float fanRadius = size * 0.36f;
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    // Outer border
+                    if (x < 10 || x >= size - 10 || y < 10 || y >= size - 10)
+                    {
+                        tex.SetPixel(x, y, casing);
+                    }
+                    else
+                    {
+                        float dist = Vector2.Distance(new Vector2(x, y), fanCenter);
+                        if (dist < fanRadius)
+                        {
+                            // Circular fan circular grill
+                            int ring = ((int)dist) % 12;
+                            if (ring < 3)
+                            {
+                                tex.SetPixel(x, y, fanSilhouette);
+                            }
+                            else
+                            {
+                                tex.SetPixel(x, y, darkGrill);
+                            }
+                        }
+                        else
+                        {
+                            // Horizontal side louvers
+                            int louver = y % 10;
+                            if (louver < 3)
+                            {
+                                tex.SetPixel(x, y, darkGrill);
+                            }
+                            else
+                            {
+                                tex.SetPixel(x, y, casing);
+                            }
+                        }
+                    }
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_AC_Louvers.png");
+        }
+
+        private static void GenerateWindowBlindsTexture()
+        {
+            int size = 256;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color blindLight = new Color(0.92f, 0.90f, 0.85f, 1f);
+            Color blindShadow = new Color(0.65f, 0.63f, 0.58f, 1f);
+
+            for (int y = 0; y < size; y++)
+            {
+                int slatMod = y % 8;
+                float slatFactor = (float)slatMod / 7f;
+                Color c = Color.Lerp(blindLight, blindShadow, slatFactor);
+
+                for (int x = 0; x < size; x++)
+                {
+                    // Frame edge
+                    if (x < 6 || x >= size - 6 || y < 6 || y >= size - 6)
+                    {
+                        tex.SetPixel(x, y, new Color(0.3f, 0.32f, 0.35f, 1f));
+                    }
+                    else
+                    {
+                        tex.SetPixel(x, y, c);
+                    }
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Window_Blinds.png");
+        }
+
+        private static void GenerateTreeBarkTexture()
+        {
+            int size = 256;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color barkDark = new Color(0.32f, 0.28f, 0.22f, 1f);
+            Color barkLight = new Color(0.48f, 0.42f, 0.35f, 1f);
+            System.Random rnd = new System.Random(77);
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float furrow = Mathf.Sin(x * 0.25f + y * 0.05f) * 0.5f + 0.5f;
+                    float noise = (float)(rnd.NextDouble() * 0.15f - 0.075f);
+                    Color c = Color.Lerp(barkDark, barkLight, Mathf.Clamp01(furrow + noise));
+                    tex.SetPixel(x, y, c);
+                }
+            }
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Tree_Bark.png");
+        }
+
+        private static void GenerateWayfindingSignTexture()
+        {
+            int width = 512;
+            int height = 256;
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+
+            Color navyBlue = new Color(0.05f, 0.16f, 0.35f, 1f);
+            Color headerBlue = new Color(0.08f, 0.28f, 0.62f, 1f);
+            Color white = Color.white;
+            Color yellowAccent = new Color(0.96f, 0.78f, 0.12f, 1f);
+            Color border = new Color(0.85f, 0.88f, 0.92f, 1f);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    bool isBorder = (x < 6 || x >= width - 6 || y < 6 || y >= height - 6);
+                    if (isBorder)
+                    {
+                        tex.SetPixel(x, y, border);
+                    }
+                    else if (y > height - 60)
+                    {
+                        tex.SetPixel(x, y, headerBlue);
+                    }
+                    else if (y > height - 66)
+                    {
+                        tex.SetPixel(x, y, yellowAccent);
+                    }
+                    else
+                    {
+                        // Directional row stripes
+                        int row = (y - 10) / 45;
+                        bool isDivider = (y - 10) % 45 == 0;
+                        tex.SetPixel(x, y, isDivider ? border : navyBlue);
+                    }
+                }
+            }
+
+            // Draw procedural directional arrows & icons
+            for (int r = 0; r < 3; r++)
+            {
+                int cy = 40 + r * 45;
+                int cx = 35;
+                for (int dy = -10; dy <= 10; dy++)
+                {
+                    for (int dx = -10; dx <= 10; dx++)
+                    {
+                        if (Mathf.Abs(dy) + dx < 8 && dx >= -6)
+                        {
+                            tex.SetPixel(cx + dx, cy + dy, yellowAccent);
+                        }
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Sign_Wayfinding.png");
+        }
+
+        private static void GenerateFireExtinguisherTexture()
+        {
+            int size = 256;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color red = new Color(0.82f, 0.12f, 0.10f, 1f);
+            Color yellow = new Color(0.96f, 0.78f, 0.12f, 1f);
+            Color white = Color.white;
+            Color dark = new Color(0.12f, 0.12f, 0.12f, 1f);
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    if (y >= 190 && y <= 215)
+                    {
+                        tex.SetPixel(x, y, yellow); // Warning band
+                    }
+                    else if (y >= 40 && y <= 180 && x >= 30 && x <= size - 30)
+                    {
+                        // Instruction label background
+                        tex.SetPixel(x, y, white);
+                    }
+                    else
+                    {
+                        tex.SetPixel(x, y, red);
+                    }
+                }
+            }
+
+            // Pictogram icons inside white label
+            for (int py = 70; py <= 150; py++)
+            {
+                for (int px = 50; px <= 110; px++)
+                {
+                    if ((px - 80) * (px - 80) + (py - 110) * (py - 110) < 400)
+                    {
+                        tex.SetPixel(px, py, red);
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Fire_Extinguisher.png");
+        }
+
+        private static void GenerateAccessControlTexture()
+        {
+            int size = 128;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color casing = new Color(0.12f, 0.13f, 0.15f, 1f);
+            Color bezel = new Color(0.25f, 0.26f, 0.28f, 1f);
+            Color greenLED = new Color(0.15f, 0.95f, 0.35f, 1f);
+            Color sensorPad = new Color(0.18f, 0.20f, 0.22f, 1f);
+            Color cardIcon = new Color(0.70f, 0.75f, 0.80f, 1f);
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    bool isBezel = (x < 6 || x >= size - 6 || y < 6 || y >= size - 6);
+                    if (isBezel)
+                    {
+                        tex.SetPixel(x, y, bezel);
+                    }
+                    else if (y >= size - 24 && x >= size / 2 - 8 && x <= size / 2 + 8 && y <= size - 12)
+                    {
+                        tex.SetPixel(x, y, greenLED); // Indicator LED
+                    }
+                    else if (y >= 20 && y <= size - 35 && x >= 20 && x <= size - 20)
+                    {
+                        // RFID sensing surface with card icon
+                        bool isCardBorder = (x == 35 || x == size - 35 || y == 40 || y == size - 50);
+                        tex.SetPixel(x, y, isCardBorder ? cardIcon : sensorPad);
+                    }
+                    else
+                    {
+                        tex.SetPixel(x, y, casing);
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Access_Control.png");
+        }
+
+        private static void GenerateUrbanHouseTexture()
+        {
+            int size = 512;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+
+            Color pastelYellow = new Color(0.92f, 0.86f, 0.72f, 1f);
+            Color pastelMint = new Color(0.78f, 0.85f, 0.80f, 1f);
+            Color darkWindow = new Color(0.15f, 0.20f, 0.24f, 1f);
+            Color roofRed = new Color(0.72f, 0.22f, 0.16f, 1f);
+            Color metalGreen = new Color(0.42f, 0.58f, 0.48f, 1f);
+            Color concreteSill = new Color(0.68f, 0.70f, 0.72f, 1f);
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    // Roof section
+                    if (y > size - 70)
+                    {
+                        int rib = (x / 14) % 2;
+                        tex.SetPixel(x, y, (x < size / 2) ? (rib == 0 ? roofRed : roofRed * 0.85f) : metalGreen);
+                    }
+                    else
+                    {
+                        Color wallCol = (x < size / 2) ? pastelYellow : pastelMint;
+                        // Floor bands
+                        if (y % 110 < 8)
+                        {
+                            tex.SetPixel(x, y, concreteSill);
+                        }
+                        else
+                        {
+                            // Window openings
+                            int wx = x % 128;
+                            int wy = y % 110;
+                            if (wx >= 35 && wx <= 95 && wy >= 25 && wy <= 90)
+                            {
+                                tex.SetPixel(x, y, darkWindow);
+                            }
+                            else
+                            {
+                                tex.SetPixel(x, y, wallCol);
+                            }
+                        }
+                    }
+                }
+            }
+
+            tex.Apply();
+            SaveTexture(tex, "T_IUH_Urban_House.png");
+        }
     }
 }
+

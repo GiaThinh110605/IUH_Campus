@@ -1,0 +1,1039 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.5/staging' branch; Version is '6000.5.8f1 (5cb7df797b7d) revision 6076383'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) CoreSingleLanguage' Language: 'en' Physical Memory: 32454 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+[Licensing::IpcConnector] Channel LicenseClient-Admin doesn't exist
+System  architecture: x64
+Process architecture: x64
+Date: 2026-09-05T16:36:31Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 32304)
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.5.8f1\Editor\Unity.exe
+-quit
+-batchmode
+-projectPath
+C:\Users\Admin\MonHoc\IUH_Campus
+-executeMethod
+IUHCampus.Editor.IUHGameReadyAutomation.BuildAndCaptureAll7Views
+-logFile
+C:\Users\Admin\MonHoc\IUH_Campus\build_gameready.log
+Successfully changed project path to: C:\Users\Admin\MonHoc\IUH_Campus
+C:/Users/Admin/MonHoc/IUH_Campus
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=0"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.Player connection [46712]  Target information:
+
+Player connection [46712]  * "[IP] 192.168.1.211 [Port] 55504 [Flags] 2 [Guid] 2471636830 [EditorId] 2471636830 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP-H90JRBR1) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [46712] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [46712] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Admin" at "2026-09-05T16:36:32.0330285Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 32304, path: "C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              5fbc44e1f1d2425e8dc195531016b8ad
+  Correlation Id:          0eeb4d520740a69383eff5375b051ef9
+  External correlation Id: 3452863286009082432
+  Machine Id:              qCxBsc4AzdtYVFL8JGkGCs9S810=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Admin" (connect: 0.24s, validation: 0.14s, handshake: 0.05s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Admin-notifications" at "2026-09-05T16:36:32.2232789Z"
+[Licensing::Module] Connected to LicensingClient (PId: 32304, launch time: 0.00, total connection time: 0.43s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 18968480794457-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.48s
+[Package Manager] Connected to IPC stream "Upm-37792" after 0.3 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Default GameObject Tag: Player already registered
+Default GameObject Tag: MainCamera already registered
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Artifact Garbage Collection - Removed 1 unused hashed content files
+Initialize engine version: 6000.5.8f1 (5cb7df797b7d)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Admin/MonHoc/IUH_Campus/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2560)
+    Vendor:          NVIDIA
+    VRAM:            5994 MB
+    App VRAM Budget: 5226 MB
+    Driver:          32.0.15.9174
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56792
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.5.8f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001677 seconds.
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.471 seconds
+Domain Reload Profiling: 912ms
+	BeginReloadAssembly (119ms)
+		CreateAndSetChildDomain (12ms)
+	RebuildCommonClasses (5ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (55ms)
+	LoadAllAssembliesAndSetupDomain (249ms)
+		LoadAssemblies (105ms)
+		AnalyzeDomain (181ms)
+			TypeCache.Refresh (180ms)
+				TypeCache.ScanAssembly (167ms)
+	FinalizeReload (472ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (87ms)
+			ProcessInitializeOnLoadAttributes (88ms)
+			ProcessInitializeOnLoadMethodAttributes (235ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 59 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.ai.navigation@2.0.14 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.ai.navigation@134dd6a3b97b)
+    com.unity.collab-proxy@2.13.5 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.collab-proxy@120d77864ebc)
+    com.unity.ide.rider@3.0.38 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.ide.rider@1f60b3138684)
+    com.unity.ide.visualstudio@2.0.26 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.inputsystem@1.20.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.inputsystem@7a4e1a2a8194)
+    com.unity.timeline@1.8.12 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.timeline@8cd8509afae5)
+    com.unity.visualscripting@1.9.12 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.visualscripting@4edfcc09512f)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.searcher@4.9.5 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.searcher@a463122f2c00)
+    com.unity.burst@1.8.30 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.burst@2f3d916873ea)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.test-framework.performance@8b56083ec0f0)
+  Built-in packages:
+    com.unity.multiplayer.center@1.0.1 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.multiplayer.center@b860850997d0)
+    com.unity.render-pipelines.universal@17.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.render-pipelines.universal@73b4c4ff130e)
+    com.unity.test-framework@1.7.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.test-framework@1405238725ab)
+    com.unity.ugui@2.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.ugui@1c4864518158)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.1.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.ext.nunit@44f7d31723bd)
+    com.unity.render-pipelines.core@17.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.render-pipelines.core@a4c9a9793789)
+    com.unity.shadergraph@17.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.shadergraph@8d7376ec43ee)
+    com.unity.render-pipelines.universal-config@17.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.render-pipelines.universal-config@fdda01c80fe3)
+    com.unity.collections@6.5.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.collections@ec2c217e4cb2)
+    com.unity.mathematics@1.4.0 (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.unity.mathematics@981956d94fb6)
+  Git packages:
+    com.coplaydev.unity-mcp@https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main (location: C:\Users\Admin\MonHoc\IUH_Campus\Library\PackageCache\com.coplaydev.unity-mcp@045e809812a8)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.02 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.5.8f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/Admin/MonHoc/IUH_Campus
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 4s178ms
+[750/956    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[952/956    1s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\IUH_Campus\Editor\IUHMultiFloorAutomation.cs(44,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\IUH_Campus\Editor\IUHPlayerAutomation.cs(63,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\IUH_Campus\Editor\IUHPlayerAutomation.cs(63,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\IUH_Campus\Editor\IUHGameSystemsAutomation.cs(45,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\IUH_Campus\Editor\IUHMultiFloorMasterBuilder.cs(98,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\IUH_Campus\Editor\IUHMultiFloorMasterBuilder.cs(98,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\IUH_Campus\Editor\IUHGameReadyMasterBuilder.cs(84,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\IUH_Campus\Editor\IUHGameReadyMasterBuilder.cs(84,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\IUH_Campus\Editor\IUHRightClusterInteriorBuilder.cs(71,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\IUH_Campus\Editor\IUHRightClusterInteriorBuilder.cs(71,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\IUH_Campus\Editor\IUHGameSystemsMasterBuilder.cs(98,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\IUH_Campus\Editor\IUHGameSystemsMasterBuilder.cs(98,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\IUH_Campus\Editor\IUHGameSystemsAutomation.cs(158,26): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\IUH_Campus\Editor\IUHGameSystemsAutomation.cs(159,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\IUH_Campus\Editor\IUHRealismAutomation.cs(56,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\IUH_Campus\Editor\IUHRealismAutomation.cs(56,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+[953/956    0s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll, with 139 defines and 364 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[954/956    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[955/956    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (4.15 seconds), 5 items updated, 956 evaluated
+Assets\IUH_Campus\Editor\IUHMultiFloorAutomation.cs(44,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\IUH_Campus\Editor\IUHPlayerAutomation.cs(63,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\IUH_Campus\Editor\IUHPlayerAutomation.cs(63,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\IUH_Campus\Editor\IUHGameSystemsAutomation.cs(45,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\IUH_Campus\Editor\IUHMultiFloorMasterBuilder.cs(98,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\IUH_Campus\Editor\IUHMultiFloorMasterBuilder.cs(98,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\IUH_Campus\Editor\IUHGameReadyMasterBuilder.cs(84,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\IUH_Campus\Editor\IUHGameReadyMasterBuilder.cs(84,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\IUH_Campus\Editor\IUHRightClusterInteriorBuilder.cs(71,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\IUH_Campus\Editor\IUHRightClusterInteriorBuilder.cs(71,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\IUH_Campus\Editor\IUHGameSystemsMasterBuilder.cs(98,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\IUH_Campus\Editor\IUHGameSystemsMasterBuilder.cs(98,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\IUH_Campus\Editor\IUHGameSystemsAutomation.cs(158,26): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\IUH_Campus\Editor\IUHGameSystemsAutomation.cs(159,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\IUH_Campus\Editor\IUHRealismAutomation.cs(56,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\IUH_Campus\Editor\IUHRealismAutomation.cs(56,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Total cache size 268424252
+Total cache size after purge 268424252, took 00:00:00.1796450
+AssetDatabase: script compilation time: 5.423847s
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  3.077 seconds
+Domain Reload Profiling: 3946ms
+	BeginReloadAssembly (196ms)
+		DisableScriptedObjects (21ms)
+		CreateAndSetChildDomain (32ms)
+	RebuildCommonClasses (9ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (51ms)
+	LoadAllAssembliesAndSetupDomain (600ms)
+		LoadAssemblies (340ms)
+		AnalyzeDomain (252ms)
+			TypeCache.Refresh (180ms)
+				TypeCache.ScanAssembly (166ms)
+			BuildScriptInfoCaches (62ms)
+			ResolveRequiredComponents (8ms)
+	FinalizeReload (3078ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (79ms)
+			ProcessInitializeOnLoadAttributes (2475ms)
+			ProcessInitializeOnLoadMethodAttributes (186ms)
+			AfterProcessingInitializeOnLoad (6ms)
+		AwakeInstancesAfterBackupRestoration (33ms)
+Starting new worker id: 0 with log in C:/Users/Admin/MonHoc/IUH_Campus/Logs/AssetImportWorkerHW0.log
+Refreshing native plugins compatible for Editor in 2.02 ms, found 4 plugins.
+
+Asset Pipeline Refresh (id=caacae997fcf0f647946d7586600151b): Total: 10.357 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=3698 ms
+		Asset DB Callback time: managed=233 ms, native=28 ms
+		Scripting: domain reloads=1, domain reload time=918 ms, compile time=5426 ms, other=52 ms
+		Project Asset Count: scripts=1440, non-scripts=2620
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 19.198ms
+	ApplyChangesToAssetFolders: 0.542ms
+	Scan: 238.554ms
+	Collect global state as custom dependencies: 18.416ms
+	OnSourceAssetsModified: 0.778ms
+	CategorizeScriptCompilationAssets: 52.774ms
+	ProcessAssetsWithTransientArtifactChanges: 77.102ms
+	CategorizeAssets: 48.416ms
+	CompileScripts: 5425.828ms
+	ImportOutOfDateAssets: 3152.956ms (3098.141ms without children)
+		UnloadImportedAssets: 0.640ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.548ms
+		ImportSchedulerStart: 53.588ms
+	PostProcessAllAssets: 234.601ms
+		VCAutoAddAssetPostprocess 1.210ms
+		XRBuildSystem.XRAssetImported 0.506ms
+		MonoPostProcessAllAssets: 232.408ms
+			AssetPostprocessor.OnPostprocessAllAssets 146.981ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 19.275ms
+			SyncVS.PostprocessSyncProject 14.215ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 12.730ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 6.745ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 2.859ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 2.496ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 2.085ms
+			AssetChangedListener.OnPostprocessAllAssets 1.874ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.388ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 1.038ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.930ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.924ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.602ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.522ms
+			SampleDependencyImporterPostProcessor.OnPostprocessAllAssets 0.419ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.403ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.398ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.389ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.381ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.342ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.323ms
+			AssetEvents.OnPostprocessAllAssets 0.309ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.302ms
+			PostProcessor.OnPostprocessAllAssets 0.266ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.261ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.231ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.195ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.193ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.165ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.158ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.140ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.137ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.132ms
+	PostAssetChangesProfiler: 8.516ms
+	UnloadStreamsBegin: 2.355ms
+	PersistCurrentRevisions: 0.143ms
+	GenerateScriptTypeHashes: 1.374ms
+	GenerateScriptTypeSerializationHashes: 2.341ms
+	Untracked: 1072.207ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Scanning for USB devices : 2.737ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-IUH_Campus
+Unloading 25 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7001 unused Assets / (7.4 MB). Loaded Objects now: 8043.
+Memory consumption went from 438.0 MB to 430.6 MB.
+Total: 15.158500 ms (FindLiveObjects: 0.607700 ms CreateObjectMapping: 3.220500 ms MarkObjects: 6.837100 ms  DeleteObjects: 4.488800 ms)
+
+[IUH Game-Ready Automation] Starting Complete Generation and 7-View Verification...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:17)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 17)
+
+[IUH Game-Ready Master Builder] Starting Full Generation...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyMasterBuilder:BuildGameReadyScene () (at Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs:50)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:20)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs Line: 50)
+
+Importing 'GUID: b105c918063334edb8f111eedaa196c6 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_CurtainWall.png' with importer (TextureImporter)
+Imported 'GUID: b105c918063334edb8f111eedaa196c6' -> (Import Result ID: '0eda8b3c985718cbb8f2c9f941e2b630') in 0.102 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ea3a59b6ca33f77d6af52ff09e4a7f46 DependenciesID=90b60764c7a4c8b9e023070ed9658a2b StaticDependenciesID=5c4b02f1fcfe8ac3cc33a2a9e2406580 
+Asset Pipeline Refresh (id=e9fd8ed1e1224bc42985bed69f1aa0fa): Total: 0.222 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: d819f6b117ba744708a35d167a27288d - Path: Assets/IUH_Campus/Textures/T_IUH_Logo_Crest.png' with importer (TextureImporter)
+Imported 'GUID: d819f6b117ba744708a35d167a27288d' -> (Import Result ID: 'ccb521e3d2c6245065b4165bebb87d47') in 0.022 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f35a3c353fd2e301dada763829884152 DependenciesID=4e89b886bb8c38dfaf345b1d06c8491f StaticDependenciesID=be52b9965576203413544bc8b74659f3 
+Asset Pipeline Refresh (id=60e17e936b263e0459dc44459826f684): Total: 0.082 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: d819f6b117ba744708a35d167a27288d - Path: Assets/IUH_Campus/Textures/T_IUH_Logo_Crest.png' with importer (TextureImporter)
+Imported 'GUID: d819f6b117ba744708a35d167a27288d' -> (Import Result ID: 'ccb521e3d2c6245065b4165bebb87d47') in 0.022 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f35a3c353fd2e301dada763829884152 DependenciesID=4e89b886bb8c38dfaf345b1d06c8491f StaticDependenciesID=be52b9965576203413544bc8b74659f3 
+Asset Pipeline Refresh (id=4b98618680cf95248af16c01a396d5b8): Total: 0.086 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: cf2c1ce5cd83a4f3b9041bf1ed49c7f3 - Path: Assets/IUH_Campus/Textures/T_Flag_Vietnam.png' with importer (TextureImporter)
+Imported 'GUID: cf2c1ce5cd83a4f3b9041bf1ed49c7f3' -> (Import Result ID: 'fdfa077733db3976325adc826dd5aa21') in 0.009 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=856f8e2480038f4df3fae11558a74712 DependenciesID=2340c7899fbaa4c7398d1e837cfe2bd1 StaticDependenciesID=64ff2f52ddcb2c2228ff690b20afa278 
+Refreshing native plugins compatible for Editor in 2.20 ms, found 4 plugins.
+Asset Pipeline Refresh (id=b328a040a5b173446b6756443dfe4156): Total: 0.078 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: cf2c1ce5cd83a4f3b9041bf1ed49c7f3 - Path: Assets/IUH_Campus/Textures/T_Flag_Vietnam.png' with importer (TextureImporter)
+Imported 'GUID: cf2c1ce5cd83a4f3b9041bf1ed49c7f3' -> (Import Result ID: 'fdfa077733db3976325adc826dd5aa21') in 0.009 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=856f8e2480038f4df3fae11558a74712 DependenciesID=2340c7899fbaa4c7398d1e837cfe2bd1 StaticDependenciesID=64ff2f52ddcb2c2228ff690b20afa278 
+Refreshing native plugins compatible for Editor in 2.80 ms, found 4 plugins.
+Asset Pipeline Refresh (id=03e65ef8d5187694aafdd7ac19f2df91): Total: 0.086 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: bc52cf2e0304044a8bd022825f3073af - Path: Assets/IUH_Campus/Textures/T_Flag_IUH.png' with importer (TextureImporter)
+Imported 'GUID: bc52cf2e0304044a8bd022825f3073af' -> (Import Result ID: '1bde9339b8e831fc7457aae45e34d86a') in 0.018 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=a7e531db04d2847ab7a84338b1576110 DependenciesID=709d81708bdb1bdd7964d1bed1d1387b StaticDependenciesID=8005b1a737e45929b02ccd90013818d3 
+Refreshing native plugins compatible for Editor in 2.19 ms, found 4 plugins.
+Asset Pipeline Refresh (id=8d4529046bb6bd84797ea12705da9b49): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: bc52cf2e0304044a8bd022825f3073af - Path: Assets/IUH_Campus/Textures/T_Flag_IUH.png' with importer (TextureImporter)
+Imported 'GUID: bc52cf2e0304044a8bd022825f3073af' -> (Import Result ID: '1bde9339b8e831fc7457aae45e34d86a') in 0.008 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=a7e531db04d2847ab7a84338b1576110 DependenciesID=709d81708bdb1bdd7964d1bed1d1387b StaticDependenciesID=8005b1a737e45929b02ccd90013818d3 
+Refreshing native plugins compatible for Editor in 2.14 ms, found 4 plugins.
+Asset Pipeline Refresh (id=67075ad357806164ca4b2d28db36c4e5): Total: 0.073 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c289e37746c1e461690898b0d17f40c1 - Path: Assets/IUH_Campus/Textures/T_Flag_YouthUnion.png' with importer (TextureImporter)
+Imported 'GUID: c289e37746c1e461690898b0d17f40c1' -> (Import Result ID: 'd5d3e9f6527e592360a1666115b319d8') in 0.012 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=0818fea43614c90c04811630036e66a6 DependenciesID=b442fadc9af3831ec83bea17cefe6311 StaticDependenciesID=c184049208a1c65471c879339356ffac 
+Asset Pipeline Refresh (id=44182ba7f56464241802d870883a2ff2): Total: 0.079 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c289e37746c1e461690898b0d17f40c1 - Path: Assets/IUH_Campus/Textures/T_Flag_YouthUnion.png' with importer (TextureImporter)
+Imported 'GUID: c289e37746c1e461690898b0d17f40c1' -> (Import Result ID: 'd5d3e9f6527e592360a1666115b319d8') in 0.009 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=0818fea43614c90c04811630036e66a6 DependenciesID=b442fadc9af3831ec83bea17cefe6311 StaticDependenciesID=c184049208a1c65471c879339356ffac 
+Asset Pipeline Refresh (id=b9f37bb3e987bb944a5636f52704ab56): Total: 0.066 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 6fd2d71661ca9454b889e90e44e2fc39 - Path: Assets/IUH_Campus/Textures/T_Road_Arrow_Yellow.png' with importer (TextureImporter)
+Imported 'GUID: 6fd2d71661ca9454b889e90e44e2fc39' -> (Import Result ID: '29666f2db4667e534463ccfd5484ec56') in 0.015 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1cb3c1f84d6275845fc6063d523300a4 DependenciesID=084ce3e12dc2e1c30ff7d67d23402e04 StaticDependenciesID=d400385296ac93eb72d61f5fe79ccd9e 
+Asset Pipeline Refresh (id=ed19fcbc719383d4fbbbca7030886c28): Total: 0.070 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 6fd2d71661ca9454b889e90e44e2fc39 - Path: Assets/IUH_Campus/Textures/T_Road_Arrow_Yellow.png' with importer (TextureImporter)
+Imported 'GUID: 6fd2d71661ca9454b889e90e44e2fc39' -> (Import Result ID: '29666f2db4667e534463ccfd5484ec56') in 0.013 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1cb3c1f84d6275845fc6063d523300a4 DependenciesID=084ce3e12dc2e1c30ff7d67d23402e04 StaticDependenciesID=d400385296ac93eb72d61f5fe79ccd9e 
+Asset Pipeline Refresh (id=c2fb34dbb944d2a4fab9e58718f87934): Total: 0.068 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 56813d3727bdf4d3591856dd44ec7faa - Path: Assets/IUH_Campus/Textures/T_Granite_Noise.png' with importer (TextureImporter)
+Imported 'GUID: 56813d3727bdf4d3591856dd44ec7faa' -> (Import Result ID: 'de51b3ca9e7a2a861c19dbb0bbf24c88') in 0.009 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=aac06b84bce095b63eb4e48e26a007f0 DependenciesID=bb8ede297cd47c6dd70aea4294124354 StaticDependenciesID=d15c94728040b8fc699c5ef253d5b6a7 
+Asset Pipeline Refresh (id=eface56c50306a946bc6754245c9e831): Total: 0.081 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 56813d3727bdf4d3591856dd44ec7faa - Path: Assets/IUH_Campus/Textures/T_Granite_Noise.png' with importer (TextureImporter)
+Imported 'GUID: 56813d3727bdf4d3591856dd44ec7faa' -> (Import Result ID: 'de51b3ca9e7a2a861c19dbb0bbf24c88') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=aac06b84bce095b63eb4e48e26a007f0 DependenciesID=bb8ede297cd47c6dd70aea4294124354 StaticDependenciesID=d15c94728040b8fc699c5ef253d5b6a7 
+Asset Pipeline Refresh (id=6a7804f23135ee7408714127cbf21ffb): Total: 0.058 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: f74fbe2cb7bf34995a0eae58a12d801f - Path: Assets/IUH_Campus/Textures/T_Grass_Noise.png' with importer (TextureImporter)
+Imported 'GUID: f74fbe2cb7bf34995a0eae58a12d801f' -> (Import Result ID: '668abb68c583fcbe2d6b7b4954f6fa66') in 0.008 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=4a2d37c6f58422a2e6cb66622932502d DependenciesID=ec41504d5b4def6ba47143b978f66e9f StaticDependenciesID=233068332999313eed18efc09ed36cf4 
+Asset Pipeline Refresh (id=e364572f66f121a4c8849e64f8e4ed35): Total: 0.060 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: f74fbe2cb7bf34995a0eae58a12d801f - Path: Assets/IUH_Campus/Textures/T_Grass_Noise.png' with importer (TextureImporter)
+Imported 'GUID: f74fbe2cb7bf34995a0eae58a12d801f' -> (Import Result ID: '668abb68c583fcbe2d6b7b4954f6fa66') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=4a2d37c6f58422a2e6cb66622932502d DependenciesID=ec41504d5b4def6ba47143b978f66e9f StaticDependenciesID=233068332999313eed18efc09ed36cf4 
+Asset Pipeline Refresh (id=ccc6f46c33cbdbc44ad0420d9010574c): Total: 0.056 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 1197ccb95ba3e466598f1acae320be83 - Path: Assets/IUH_Campus/Textures/T_Flowers_YellowOrange.png' with importer (TextureImporter)
+Imported 'GUID: 1197ccb95ba3e466598f1acae320be83' -> (Import Result ID: '6c509910a87e2509cb17f3a2220dd5aa') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=aac08082bf3dc81bd9b3911285f36f42 DependenciesID=7021e610d24c88e87c6f75096e265aec StaticDependenciesID=77554be1e6fab26f46b049eb8f642a70 
+Asset Pipeline Refresh (id=0d45a605a97c692438ad7a7a5005be4d): Total: 0.058 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 1197ccb95ba3e466598f1acae320be83 - Path: Assets/IUH_Campus/Textures/T_Flowers_YellowOrange.png' with importer (TextureImporter)
+Imported 'GUID: 1197ccb95ba3e466598f1acae320be83' -> (Import Result ID: '6c509910a87e2509cb17f3a2220dd5aa') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=aac08082bf3dc81bd9b3911285f36f42 DependenciesID=7021e610d24c88e87c6f75096e265aec StaticDependenciesID=77554be1e6fab26f46b049eb8f642a70 
+Asset Pipeline Refresh (id=591bf0f7e82ee9d43be8016f056f5d47): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Worker ready: AssetImportWorkerHW0 0
+Importing 'GUID: 72f1b52cb69ee5c4f88dd9c0860f2ea9 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_BuildingG.png' with importer (TextureImporter)
+Imported 'GUID: 72f1b52cb69ee5c4f88dd9c0860f2ea9' -> (Import Result ID: '38d62b107fd2ddd3403fe49455ab0854') in 0.009 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ca8cf01d1ede1c7330d1326909b0e72d DependenciesID=49148180f968d51439bbba3842b62442 StaticDependenciesID=b9050a9e8a875c4f357f35548a652645 
+Asset Pipeline Refresh (id=3ebff6a0333011e4eb4612b475607e15): Total: 0.059 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 72f1b52cb69ee5c4f88dd9c0860f2ea9 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_BuildingG.png' with importer (TextureImporter)
+Imported 'GUID: 72f1b52cb69ee5c4f88dd9c0860f2ea9' -> (Import Result ID: '38d62b107fd2ddd3403fe49455ab0854') in 0.010 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ca8cf01d1ede1c7330d1326909b0e72d DependenciesID=49148180f968d51439bbba3842b62442 StaticDependenciesID=b9050a9e8a875c4f357f35548a652645 
+Asset Pipeline Refresh (id=d44f0e025d4287d46b1ccd840ff2dcca): Total: 0.059 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: db2e58d5a6d341249ac705dadd7dd254 - Path: Assets/IUH_Campus/Textures/T_IUH_Wall_Weathered.png' with importer (TextureImporter)
+Imported 'GUID: db2e58d5a6d341249ac705dadd7dd254' -> (Import Result ID: '659dd661ab66817ee82a1f2f021c7c6d') in 0.021 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=d2e60ecefa3d711647c1c193e81527a3 DependenciesID=6a40f1ae014d0d96e981ab736234845e StaticDependenciesID=157dbb0ad326dc63282236626ec3156b 
+Asset Pipeline Refresh (id=433f95089f39ddd429852cbb4946a22d): Total: 0.075 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: db2e58d5a6d341249ac705dadd7dd254 - Path: Assets/IUH_Campus/Textures/T_IUH_Wall_Weathered.png' with importer (TextureImporter)
+Imported 'GUID: db2e58d5a6d341249ac705dadd7dd254' -> (Import Result ID: '659dd661ab66817ee82a1f2f021c7c6d') in 0.020 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=d2e60ecefa3d711647c1c193e81527a3 DependenciesID=6a40f1ae014d0d96e981ab736234845e StaticDependenciesID=157dbb0ad326dc63282236626ec3156b 
+Asset Pipeline Refresh (id=09b75cddce935e94aae0baf861cd0b4c): Total: 0.070 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 853db2e41830a8147ade716778152a65 - Path: Assets/IUH_Campus/Textures/T_IUH_Concrete_Seams.png' with importer (TextureImporter)
+Imported 'GUID: 853db2e41830a8147ade716778152a65' -> (Import Result ID: '1322bd7787da38acbcff814942a1d6ac') in 0.022 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=27afa5afaca00ea61acc3926a8427d49 DependenciesID=664d7dc79f5314c7bdecaf1d613a4854 StaticDependenciesID=ad4c7e039763aaab66d073d87dcd4a42 
+Asset Pipeline Refresh (id=8713548df44dbd84fa086ef84de5d68b): Total: 0.073 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 853db2e41830a8147ade716778152a65 - Path: Assets/IUH_Campus/Textures/T_IUH_Concrete_Seams.png' with importer (TextureImporter)
+Imported 'GUID: 853db2e41830a8147ade716778152a65' -> (Import Result ID: '1322bd7787da38acbcff814942a1d6ac') in 0.020 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=27afa5afaca00ea61acc3926a8427d49 DependenciesID=664d7dc79f5314c7bdecaf1d613a4854 StaticDependenciesID=ad4c7e039763aaab66d073d87dcd4a42 
+Asset Pipeline Refresh (id=e96540e88945ab242915f61501cfec3e): Total: 0.073 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Curl error 7: Failed to connect to config.uca.cloud.unity3d.com port 443 after 2253 ms: Could not connect to server
+Importing 'GUID: 9f4e0e5332d3720488bfd2c7ab536975 - Path: Assets/IUH_Campus/Textures/T_IUH_Asphalt_Cracks.png' with importer (TextureImporter)
+Imported 'GUID: 9f4e0e5332d3720488bfd2c7ab536975' -> (Import Result ID: '05d05478b3816b6ab94c85582835876b') in 0.022 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1f61474167a5d9850d8067ea4bd3cead DependenciesID=73cb441c501ccc1c400973cc13dac30b StaticDependenciesID=6cf4eab59f459283725f2c94d084075c 
+Asset Pipeline Refresh (id=0ce20af1bf3aec441a0d103b35d8d644): Total: 0.078 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 9f4e0e5332d3720488bfd2c7ab536975 - Path: Assets/IUH_Campus/Textures/T_IUH_Asphalt_Cracks.png' with importer (TextureImporter)
+Imported 'GUID: 9f4e0e5332d3720488bfd2c7ab536975' -> (Import Result ID: '05d05478b3816b6ab94c85582835876b') in 0.021 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1f61474167a5d9850d8067ea4bd3cead DependenciesID=73cb441c501ccc1c400973cc13dac30b StaticDependenciesID=6cf4eab59f459283725f2c94d084075c 
+Asset Pipeline Refresh (id=4d22dc233dc957942840d8457901d884): Total: 0.078 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: a70f8f82cae522a44904c2dbe95b0f17 - Path: Assets/IUH_Campus/Textures/T_IUH_Drain_Grate.png' with importer (TextureImporter)
+Imported 'GUID: a70f8f82cae522a44904c2dbe95b0f17' -> (Import Result ID: 'df2ac492838d3938ee94f4009ba4a2c1') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f07b04ed8173c39c99a34ff71d894a2c DependenciesID=2f57f44791e5cfdf7dfeddf4c76cf161 StaticDependenciesID=95bcd1866308a772afe3d1b9d415ca02 
+Asset Pipeline Refresh (id=9873eefea8bfde946bc39d2f4a45e68c): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: a70f8f82cae522a44904c2dbe95b0f17 - Path: Assets/IUH_Campus/Textures/T_IUH_Drain_Grate.png' with importer (TextureImporter)
+Imported 'GUID: a70f8f82cae522a44904c2dbe95b0f17' -> (Import Result ID: 'df2ac492838d3938ee94f4009ba4a2c1') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f07b04ed8173c39c99a34ff71d894a2c DependenciesID=2f57f44791e5cfdf7dfeddf4c76cf161 StaticDependenciesID=95bcd1866308a772afe3d1b9d415ca02 
+Asset Pipeline Refresh (id=17aa5d4e5c06ca3459d31fd1edb171b3): Total: 0.059 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: e8b534f9f898d154cb94990ef7abec8a - Path: Assets/IUH_Campus/Textures/T_IUH_Manhole_Cover.png' with importer (TextureImporter)
+Imported 'GUID: e8b534f9f898d154cb94990ef7abec8a' -> (Import Result ID: 'acc9a4cb3530b7d1ffbc2cb7ad801c2e') in 0.006 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=8567b01bd975c63a6b49d5f621dfa098 DependenciesID=a1eaa9dbfbb9a8ec8d3ce449663da948 StaticDependenciesID=33d7b9083d5184785133ad4a4ef46508 
+Asset Pipeline Refresh (id=f90ee8f1563f8304d945fa45cb7d408e): Total: 0.057 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: e8b534f9f898d154cb94990ef7abec8a - Path: Assets/IUH_Campus/Textures/T_IUH_Manhole_Cover.png' with importer (TextureImporter)
+Imported 'GUID: e8b534f9f898d154cb94990ef7abec8a' -> (Import Result ID: 'acc9a4cb3530b7d1ffbc2cb7ad801c2e') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=8567b01bd975c63a6b49d5f621dfa098 DependenciesID=a1eaa9dbfbb9a8ec8d3ce449663da948 StaticDependenciesID=33d7b9083d5184785133ad4a4ef46508 
+Asset Pipeline Refresh (id=d18040056b72af84aa0d4213d7aacbab): Total: 0.052 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: ba11b5b11ad70944fa91b842a92a644c - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_Directional.png' with importer (TextureImporter)
+Imported 'GUID: ba11b5b11ad70944fa91b842a92a644c' -> (Import Result ID: '3fd03f74f5b47296aa4d5323d67f195a') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=3bb1e65e27b123750af1a22bb362ee24 DependenciesID=debc44b54bc015a93377ae7942a708c3 StaticDependenciesID=1c670061d6b4494b6d9215959966314a 
+Asset Pipeline Refresh (id=bd9041149c5253345ba1e08ebd6763c4): Total: 0.057 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: ba11b5b11ad70944fa91b842a92a644c - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_Directional.png' with importer (TextureImporter)
+Imported 'GUID: ba11b5b11ad70944fa91b842a92a644c' -> (Import Result ID: '3fd03f74f5b47296aa4d5323d67f195a') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=3bb1e65e27b123750af1a22bb362ee24 DependenciesID=debc44b54bc015a93377ae7942a708c3 StaticDependenciesID=1c670061d6b4494b6d9215959966314a 
+Asset Pipeline Refresh (id=eeb5f78ae7fea7640896a13d94c6a622): Total: 0.052 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 7fb1e694f3deae64aa2ac21e50168742 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_NoticeBoard.png' with importer (TextureImporter)
+Imported 'GUID: 7fb1e694f3deae64aa2ac21e50168742' -> (Import Result ID: '7097a8005dcb7821880a75eb5b810941') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=b38d2e01c207662002590fea4bbc9b51 DependenciesID=4b055fbc1928bab5ee85907ea268d393 StaticDependenciesID=db0ef4652a684f62114cc16260be20dc 
+Asset Pipeline Refresh (id=c6e197ac16f4db74ea4cb8a635955208): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 7fb1e694f3deae64aa2ac21e50168742 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_NoticeBoard.png' with importer (TextureImporter)
+Imported 'GUID: 7fb1e694f3deae64aa2ac21e50168742' -> (Import Result ID: '7097a8005dcb7821880a75eb5b810941') in 0.008 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=b38d2e01c207662002590fea4bbc9b51 DependenciesID=4b055fbc1928bab5ee85907ea268d393 StaticDependenciesID=db0ef4652a684f62114cc16260be20dc 
+Asset Pipeline Refresh (id=55c6ea716c773c940abd0d654cc8b602): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 3b9ac85aa6aff514b8ec368138523c7c - Path: Assets/IUH_Campus/Textures/T_IUH_AC_Louvers.png' with importer (TextureImporter)
+Imported 'GUID: 3b9ac85aa6aff514b8ec368138523c7c' -> (Import Result ID: '0708b5cf5a9448b84502003ab3ec5127') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ebf6e80e775d8d633339ee83fba9c71f DependenciesID=0c28cda58e6b062f8dd8f06d8190e441 StaticDependenciesID=f40f0074aa4b1fde0caf35059c0c40fc 
+Asset Pipeline Refresh (id=e5cd00ed93f41584baba9f45400a1321): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 3b9ac85aa6aff514b8ec368138523c7c - Path: Assets/IUH_Campus/Textures/T_IUH_AC_Louvers.png' with importer (TextureImporter)
+Imported 'GUID: 3b9ac85aa6aff514b8ec368138523c7c' -> (Import Result ID: '0708b5cf5a9448b84502003ab3ec5127') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ebf6e80e775d8d633339ee83fba9c71f DependenciesID=0c28cda58e6b062f8dd8f06d8190e441 StaticDependenciesID=f40f0074aa4b1fde0caf35059c0c40fc 
+Asset Pipeline Refresh (id=fd86a749669fd5847bb782cc1ae48a25): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 92a50b70e8aa1a14a9bf1464be9fe345 - Path: Assets/IUH_Campus/Textures/T_IUH_Window_Blinds.png' with importer (TextureImporter)
+Imported 'GUID: 92a50b70e8aa1a14a9bf1464be9fe345' -> (Import Result ID: 'dcd73dd9724233cb5ef67301b879b184') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=deaa8cff2da096ef56a3d70eceeeef7c DependenciesID=cff0b2d004f6eb9c4263380e395c6053 StaticDependenciesID=c49ae8a4156079e9227fb817a3b53931 
+Asset Pipeline Refresh (id=f66c4556657a14845a8755f7a95fae9c): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 92a50b70e8aa1a14a9bf1464be9fe345 - Path: Assets/IUH_Campus/Textures/T_IUH_Window_Blinds.png' with importer (TextureImporter)
+Imported 'GUID: 92a50b70e8aa1a14a9bf1464be9fe345' -> (Import Result ID: 'dcd73dd9724233cb5ef67301b879b184') in 0.006 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=deaa8cff2da096ef56a3d70eceeeef7c DependenciesID=cff0b2d004f6eb9c4263380e395c6053 StaticDependenciesID=c49ae8a4156079e9227fb817a3b53931 
+Asset Pipeline Refresh (id=4be90e2b1bd5da24c88460a127828eaf): Total: 0.052 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 644a53defcebefc489266b8facd48e72 - Path: Assets/IUH_Campus/Textures/T_IUH_Tree_Bark.png' with importer (TextureImporter)
+Imported 'GUID: 644a53defcebefc489266b8facd48e72' -> (Import Result ID: 'fb94e6134c04417ccbae244bb9d7d8e8') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=25cd7af4e44005b910678c6e187aa4af DependenciesID=ab7c92896acbe892f4f3e2a4b9d694a6 StaticDependenciesID=6391b7d0258efe20f6d27d1a62c8280c 
+Asset Pipeline Refresh (id=2cfdfe990677a3d4492979520558061e): Total: 0.067 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 644a53defcebefc489266b8facd48e72 - Path: Assets/IUH_Campus/Textures/T_IUH_Tree_Bark.png' with importer (TextureImporter)
+Imported 'GUID: 644a53defcebefc489266b8facd48e72' -> (Import Result ID: 'fb94e6134c04417ccbae244bb9d7d8e8') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=25cd7af4e44005b910678c6e187aa4af DependenciesID=ab7c92896acbe892f4f3e2a4b9d694a6 StaticDependenciesID=6391b7d0258efe20f6d27d1a62c8280c 
+Asset Pipeline Refresh (id=154e45cc348e0564eb8e31dc01d4928a): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 378e6ce637b9bc54d849330ab33f9991 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_Wayfinding.png' with importer (TextureImporter)
+Imported 'GUID: 378e6ce637b9bc54d849330ab33f9991' -> (Import Result ID: '847f66985fff5f7caa19f3af1a9c3bc6') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=0b7ecd21063c05129b93f570e373d6dc DependenciesID=bdc4bd002009c982f0dc2cb9b666c62a StaticDependenciesID=540ce7c695edf7b6a21bda6b1cd6c583 
+Asset Pipeline Refresh (id=0e27377f595f5e04582f3d203a957987): Total: 0.058 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 378e6ce637b9bc54d849330ab33f9991 - Path: Assets/IUH_Campus/Textures/T_IUH_Sign_Wayfinding.png' with importer (TextureImporter)
+Imported 'GUID: 378e6ce637b9bc54d849330ab33f9991' -> (Import Result ID: '847f66985fff5f7caa19f3af1a9c3bc6') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=0b7ecd21063c05129b93f570e373d6dc DependenciesID=bdc4bd002009c982f0dc2cb9b666c62a StaticDependenciesID=540ce7c695edf7b6a21bda6b1cd6c583 
+Asset Pipeline Refresh (id=63b48a2fb9a7c4e4cbeb235ee5a348d0): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 0a9f076115438574d8031f791c2d33d9 - Path: Assets/IUH_Campus/Textures/T_IUH_Fire_Extinguisher.png' with importer (TextureImporter)
+Imported 'GUID: 0a9f076115438574d8031f791c2d33d9' -> (Import Result ID: '95246d20012328a228d3ebcb049f1e75') in 0.004 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=e2d5c11ff59d86df1740c7ca94b5dc2b DependenciesID=de74d2f79ef2ec6e7215f1e9404fc087 StaticDependenciesID=05b72278734d7a20f6cc4a5c0b097375 
+Asset Pipeline Refresh (id=2a27b18031665894c982fe78455210b7): Total: 0.056 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 0a9f076115438574d8031f791c2d33d9 - Path: Assets/IUH_Campus/Textures/T_IUH_Fire_Extinguisher.png' with importer (TextureImporter)
+Imported 'GUID: 0a9f076115438574d8031f791c2d33d9' -> (Import Result ID: '95246d20012328a228d3ebcb049f1e75') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=e2d5c11ff59d86df1740c7ca94b5dc2b DependenciesID=de74d2f79ef2ec6e7215f1e9404fc087 StaticDependenciesID=05b72278734d7a20f6cc4a5c0b097375 
+Asset Pipeline Refresh (id=57e18b3d2278e954c9d794dfd58b8a38): Total: 0.051 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: d4f9d36ac9fd3d145bb959bcebacef16 - Path: Assets/IUH_Campus/Textures/T_IUH_Access_Control.png' with importer (TextureImporter)
+Imported 'GUID: d4f9d36ac9fd3d145bb959bcebacef16' -> (Import Result ID: '7898780052a562fcc46e6abebce9e237') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=d565789b8097eab9ea64caab9d29cf6d DependenciesID=c3e5c474019c185b2ed4d642452b8883 StaticDependenciesID=c2002fa65355a6a5b337c3f99c65edf2 
+Asset Pipeline Refresh (id=4156a7615ac21f3479bdf7957f3e95c4): Total: 0.052 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: d4f9d36ac9fd3d145bb959bcebacef16 - Path: Assets/IUH_Campus/Textures/T_IUH_Access_Control.png' with importer (TextureImporter)
+Imported 'GUID: d4f9d36ac9fd3d145bb959bcebacef16' -> (Import Result ID: '7898780052a562fcc46e6abebce9e237') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=d565789b8097eab9ea64caab9d29cf6d DependenciesID=c3e5c474019c185b2ed4d642452b8883 StaticDependenciesID=c2002fa65355a6a5b337c3f99c65edf2 
+Asset Pipeline Refresh (id=ebbd046f3f559ea4fa1a9d82c95a2a17): Total: 0.050 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: af4dafbfceb3c3541abaf3406680b4ea - Path: Assets/IUH_Campus/Textures/T_IUH_Urban_House.png' with importer (TextureImporter)
+Imported 'GUID: af4dafbfceb3c3541abaf3406680b4ea' -> (Import Result ID: '2c50f1620cf9d349c60138ff93e04fa5') in 0.013 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1d68ada85a43504da1101ef5b69bfa7c DependenciesID=bc0f7c2bae2f8a9221914673765f423e StaticDependenciesID=72eb008d7923be05be9a26ce3819e137 
+Asset Pipeline Refresh (id=fd5ace04b22be2c4a9281c4e59fb7401): Total: 0.060 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: af4dafbfceb3c3541abaf3406680b4ea - Path: Assets/IUH_Campus/Textures/T_IUH_Urban_House.png' with importer (TextureImporter)
+Imported 'GUID: af4dafbfceb3c3541abaf3406680b4ea' -> (Import Result ID: '2c50f1620cf9d349c60138ff93e04fa5') in 0.011 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1d68ada85a43504da1101ef5b69bfa7c DependenciesID=bc0f7c2bae2f8a9221914673765f423e StaticDependenciesID=72eb008d7923be05be9a26ce3819e137 
+Asset Pipeline Refresh (id=0ee6583e70e6d79498b298c4d0c53fa5): Total: 0.059 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=5c9bcca8a2f79bf41af798a52a31ad93): Total: 0.009 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+[IUH] All textures generated successfully in Assets/IUH_Campus/Textures/
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHTextureGenerator:GenerateAllTextures () (at Assets/IUH_Campus/Editor/IUHTextureGenerator.cs:44)
+IUHCampus.Editor.IUHGameReadyMasterBuilder:BuildGameReadyScene () (at Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs:53)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:20)
+
+(Filename: Assets/IUH_Campus/Editor/IUHTextureGenerator.cs Line: 44)
+
+Importing 'GUID: 00de7c90271c47f4a99c634753bf48f0 - Path: Assets/IUH_Campus/Materials/M_IUH_AC_Unit.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 00de7c90271c47f4a99c634753bf48f0' -> (Import Result ID: 'b20982a3ac600a2b9d08855d2cf29b2d') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=4453f94c78104e76fb996b9a91e873d9 DependenciesID=055a431a67e89e29e7d53b05d36ecf23 StaticDependenciesID=167bc9687e7d139913e89118385a61c3 
+Importing 'GUID: 2060a7ba31478490c85a1c49019a6992 - Path: Assets/IUH_Campus/Materials/M_IUH_GreenGlass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 2060a7ba31478490c85a1c49019a6992' -> (Import Result ID: '5b29aa1ae16be8155f145989cdb830fe') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1325eab6c0bbde3cbc5931b657595ddd DependenciesID=862b7ef6243553dba9e2223633a271ad StaticDependenciesID=9ff00a4924b10cb11a8267e7491ac757 
+Importing 'GUID: 40dc6abcce07bed4fa1b56e67a25b67a - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_White.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 40dc6abcce07bed4fa1b56e67a25b67a' -> (Import Result ID: '141fa6aa5c9833efb154e05297ec465a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=44c009502a86c6be515d9a26865b6969 DependenciesID=c0541f9ce3b996a9af5c8e7df3d0ff47 StaticDependenciesID=84b10dc5d3aadf23c58c1f3b172df213 
+Importing 'GUID: b076e6eb01e204c4395cd0715779accf - Path: Assets/IUH_Campus/Materials/M_IUH_Cloth_Red.mat' with importer (NativeFormatImporter)
+Imported 'GUID: b076e6eb01e204c4395cd0715779accf' -> (Import Result ID: 'caa588b6c9944102cd48b7906179b52a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=ab19390a02c2c4c80c6148ab8a9d9688 DependenciesID=6c00683f8fdd9500cb52a4df23934036 StaticDependenciesID=a648439faf019453d411856b55368619 
+Importing 'GUID: c050d9f735b5c4a0f81db69e4b8fbf99 - Path: Assets/IUH_Campus/Materials/M_IUH_Main_DarkMetal.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c050d9f735b5c4a0f81db69e4b8fbf99' -> (Import Result ID: 'fc6d362354d404c37691061bf399937d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=eb0d61ae15e07f9b7868b0c6f2d34656 DependenciesID=eba799514e9b9d683c365f0210d21554 StaticDependenciesID=abe0bcd7459f151cd552daa5d1b52301 
+Importing 'GUID: e010e4fed650fc648af8b1b84dcba988 - Path: Assets/IUH_Campus/Materials/M_IUH_Sign_NoticeBoard.mat' with importer (NativeFormatImporter)
+Imported 'GUID: e010e4fed650fc648af8b1b84dcba988' -> (Import Result ID: 'd092660cd324d263b479a7d3d6fb9d69') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=8402a7297ff82ef093bd00c9c80b3eba DependenciesID=f4d0eebf70d4cdba1d251c43f07825af StaticDependenciesID=4be95d47737de05a99c61396171e6af6 
+Importing 'GUID: 11c1a5a24e41945cdaf531394b5ccacd - Path: Assets/IUH_Campus/Materials/M_IUH_Monument_Stone.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 11c1a5a24e41945cdaf531394b5ccacd' -> (Import Result ID: '1cc7996ab81255efe60e5cf95b019f4b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a8f598ae4fffef85b2290d90ed7f8687 DependenciesID=a2dd7bc13a1d5f1f18444f4a75a8de49 StaticDependenciesID=ab7d7ea5ec0ab63183c993ecd6c15116 
+Importing 'GUID: 71de2a2045d184329a0af34f8070bc53 - Path: Assets/IUH_Campus/Materials/M_IUH_BlueFacade.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 71de2a2045d184329a0af34f8070bc53' -> (Import Result ID: '7075c12e7b592fb919ca07c736ab7432') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=7c86bb06d404152e32a8e539091b8ba9 DependenciesID=d175e232e67aebc5b727b491a4d819e7 StaticDependenciesID=a2245ad206d6bffc029a8fddd3d2857b 
+Importing 'GUID: 81da785f13c5b1c47bc660373cca1330 - Path: Assets/IUH_Campus/Materials/M_IUH_WaterTank_Black.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 81da785f13c5b1c47bc660373cca1330' -> (Import Result ID: 'f5892b468caf910813966c4dea5b3928') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=20c3cf21145f4c2fb674006f9eab7e81 DependenciesID=21b6b2b5b49f09acafa1e4ab3813bd52 StaticDependenciesID=0eed4628ecf1e240bb6014ca61b45537 
+Importing 'GUID: 917b346720302be409d6ce09649aa7fb - Path: Assets/IUH_Campus/Materials/M_IUH_I_Railings.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 917b346720302be409d6ce09649aa7fb' -> (Import Result ID: '75e99860046e547d0691dcf7b235709b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=50d9b99a4d85d353dbc46fb612ec2a1a DependenciesID=49a502e948b7cfca1b3ebaf3301b877c StaticDependenciesID=b75fd90bed2eac4bf733e7f88b91bc0a 
+Importing 'GUID: a1c2663f95bfd874a815646596d8b8b6 - Path: Assets/IUH_Campus/Materials/M_IUH_I_Glass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: a1c2663f95bfd874a815646596d8b8b6' -> (Import Result ID: 'ec62515a0544ccd6a0d41bd0a821551a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6ab613f66e5fe9e96f19c0f9f7087c43 DependenciesID=8703d60f54caad77e922ba61f8c4e6fc StaticDependenciesID=159049146a87cf3765958d66b4a2d107 
+Importing 'GUID: b1d1153118572423d8663c1fcb9bea50 - Path: Assets/IUH_Campus/Materials/M_IUH_Concrete_Ground.mat' with importer (NativeFormatImporter)
+Imported 'GUID: b1d1153118572423d8663c1fcb9bea50' -> (Import Result ID: 'a07a982028081f4727663fd09a9a453e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=3ed0aa2a1dcab4ce9547a6d9d9a245f1 DependenciesID=adf0f7d8a9f444e66aaccf57a56ac643 StaticDependenciesID=2d3eddd2ca55989266f7ffe123fd36e8 
+Importing 'GUID: d1b5a79c02c59bb42919b51ffb9e5f44 - Path: Assets/IUH_Campus/Materials/M_IUH_Sign_Directional.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d1b5a79c02c59bb42919b51ffb9e5f44' -> (Import Result ID: '3d6c95261ab0685804412c11a5077aa0') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4fbc80d95818390c259af35675ef63fb DependenciesID=189bf170758eea794c5549a43c172e31 StaticDependenciesID=4421cfe2fc3eeeac2880c22ca993ef88 
+Importing 'GUID: d1d88022af9d36641bd8733990ee1c79 - Path: Assets/IUH_Campus/Materials/M_IUH_G_RoofEdge.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d1d88022af9d36641bd8733990ee1c79' -> (Import Result ID: 'bd074c96fdaf657efbfffdeb0f2e7ed4') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=2e77dce95ff9c4661533be41e11238f7 DependenciesID=6ea7e24f14ea7d985f8a1c2f98cebbcc StaticDependenciesID=596160eca058b36c00fb0c419966a84d 
+Importing 'GUID: e19b4450361a4479abf30ce1d61a8e3f - Path: Assets/IUH_Campus/Materials/M_IUH_WhiteFacade.mat' with importer (NativeFormatImporter)
+Imported 'GUID: e19b4450361a4479abf30ce1d61a8e3f' -> (Import Result ID: 'baa8563c2f0369b1cdd43261617c1341') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=3c1550470b5281a0ff6cab594290afb6 DependenciesID=4dc87ce5dc5c2831aecb087ad634bb2e StaticDependenciesID=59719ffe9ad5c90b7e772410d3618175 
+Importing 'GUID: f13b880025a0c420982f1df9204dbc25 - Path: Assets/IUH_Campus/Materials/M_IUH_Main_LightBlueFin.mat' with importer (NativeFormatImporter)
+Imported 'GUID: f13b880025a0c420982f1df9204dbc25' -> (Import Result ID: '5a813b0241d98bb6a4385f88de80685d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=ab15719a5554b0b963e53b18b1421d67 DependenciesID=384f9a3caefa8bbc49581c330710eb4c StaticDependenciesID=7a08c183ea5ad42ba513f233c0a828d9 
+Importing 'GUID: 0293bb24152114d75bbdcb4cf05dbed8 - Path: Assets/IUH_Campus/Materials/M_IUH_Foliage_Tree.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 0293bb24152114d75bbdcb4cf05dbed8' -> (Import Result ID: '751e2249f30dc709f7dc9203299bee14') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=81060dc56ff86cced7ed66a131079110 DependenciesID=dc8c84dd4a042ef7c7c4da0a776e5336 StaticDependenciesID=e5a3854e03d555ccbf7302b206c55b7b 
+Importing 'GUID: 12cc9d0cc12dcfc4aa4f2b08c8c7ef63 - Path: Assets/IUH_Campus/Materials/M_IUH_G_WindowGlass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 12cc9d0cc12dcfc4aa4f2b08c8c7ef63' -> (Import Result ID: '301984ed70775980cb71ed1f5bb2791e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=fdf49af48023cce97abdb46669fd3500 DependenciesID=cd815638c15126db64f54bf32c105f8b StaticDependenciesID=b330e168d450a2ce53dd9115291ae95f 
+Importing 'GUID: 22b5a5fa290684f1fbd0c9464bafda38 - Path: Assets/IUH_Campus/Materials/M_IUH_Academic_White.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 22b5a5fa290684f1fbd0c9464bafda38' -> (Import Result ID: '0aeb6bc4c2c2a9e1e13bc7324c287b23') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=aa049ca671773c17e6fa2ea0967d3f31 DependenciesID=eb71dc26de8aec039d59a6753f664334 StaticDependenciesID=9f4b0acc04f561b4776abf381e9f80f1 
+Importing 'GUID: 2217fea46bafc514d991457c01905675 - Path: Assets/IUH_Campus/Materials/M_IUH_Student_Jeans.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 2217fea46bafc514d991457c01905675' -> (Import Result ID: '8c0b449c3004994322ab07bcfd566342') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=75405ab43f3962de19c01b6811d59930 DependenciesID=7f3e2914a9287abcfa75b7a6e75cab56 StaticDependenciesID=cdb0fcf86330ea5d9b00171fa2257aa5 
+Importing 'GUID: 22f8322bda52d4b56a6356ed6c9012e9 - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_BlueRailing.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 22f8322bda52d4b56a6356ed6c9012e9' -> (Import Result ID: 'e93ffb70e4fb52dcc70679dac81f49c5') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=fd58e5848c56c80e1c4138c67123b084 DependenciesID=9e67ea85193f30f89184942a2cb928be StaticDependenciesID=04d7c55ab0a669957de9431248264e76 
+Importing 'GUID: 22ecc40ef72a92144b669d8f129dca8f - Path: Assets/IUH_Campus/Materials/M_IUH_Window_Blinds.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 22ecc40ef72a92144b669d8f129dca8f' -> (Import Result ID: '28f18fed288f72bf1bd50cf768a21a64') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=f3a67a7006d7513a1833f6a9ac6a94a6 DependenciesID=3848c026119d30164caab444b3e5b0a3 StaticDependenciesID=5ede870c53a2e19617b51778d887c5da 
+Importing 'GUID: 5265754a7102643ddae6e7169a74f92f - Path: Assets/IUH_Campus/Materials/M_IUH_Main_Stone.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5265754a7102643ddae6e7169a74f92f' -> (Import Result ID: '4c2d839bdc1d1f97044ff765d8b8ee87') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=b35f396548380e5fec26971bab97f4a0 DependenciesID=62632b760d9b0884f17759d7b3fccb51 StaticDependenciesID=f972511f51b6d2d055a7a87030784a44 
+Importing 'GUID: d222ff6ae24a556479f2830923ae2927 - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Yellow.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d222ff6ae24a556479f2830923ae2927' -> (Import Result ID: 'a71c841bd42bb913e363d31f2c0bed06') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=83eb1775e23dc4700715044c1204c461 DependenciesID=9ee1f462edd8f71a81176e8b1f06947f StaticDependenciesID=3323285427a1aea9645cf4e16ad48fe2 
+Importing 'GUID: 039cd454afa7a470ab38eafba0b9061d - Path: Assets/IUH_Campus/Materials/M_IUH_Logo_Crest.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 039cd454afa7a470ab38eafba0b9061d' -> (Import Result ID: '2caa315f4632e77c576516cd126b5edb') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=58d2df80b78da8cfb2b7c1e06eb13e22 DependenciesID=8d4d2374d384a72a265f19fddebdda62 StaticDependenciesID=fd2dab264971815904952904a5383e20 
+Importing 'GUID: 1389d6b62a40e4534ad75080cb43beb2 - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Red.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 1389d6b62a40e4534ad75080cb43beb2' -> (Import Result ID: '016c32cea87a23043f46ce7954d54988') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4253298ca1b3fecf4c425cd6dfc6b35b DependenciesID=87a937a1b16b31bc46d96c960bae8d62 StaticDependenciesID=d067307ee2c6e10ffdfe3b1c3e47b096 
+Importing 'GUID: 635f0c26db9a2ff46bcae8fd5f4180d2 - Path: Assets/IUH_Campus/Materials/M_IUH_G_Roof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 635f0c26db9a2ff46bcae8fd5f4180d2' -> (Import Result ID: '7dc06c308df37c94dbb0c334a1aecb9e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c04735c5070390276ed300a604435008 DependenciesID=42c5c8a7b72bbdc010f39ae8ceb8e4f6 StaticDependenciesID=f5b21596f91d0e53e96b7ee05c4da7da 
+Importing 'GUID: 936294eb277a205428c9b4b3cce8ec82 - Path: Assets/IUH_Campus/Materials/M_IUH_Podium_Roof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 936294eb277a205428c9b4b3cce8ec82' -> (Import Result ID: '75d218f5d1abc19799149c8f583715fe') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c6bf6c8b5b9ad4665a28a62ffdb6b707 DependenciesID=9bac5f5b5ac1b00158db9f7e6ba98ec6 StaticDependenciesID=8575c9e37f4c059e0b43ba4f8f2de33c 
+Importing 'GUID: c34165df67b18487c9bb570528f75306 - Path: Assets/IUH_Campus/Materials/M_IUH_MatureFoliage.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c34165df67b18487c9bb570528f75306' -> (Import Result ID: '3312f09da7491778f6f13b3367c2c47e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1c01bd7bc464846afb25499f7176a4ad DependenciesID=162299ae11deb39aceab55639e0f5fe1 StaticDependenciesID=659123b9ab8bf17b1a494b7b16df8443 
+Importing 'GUID: c3b964b0a65fb43bb979f8856982a4f8 - Path: Assets/IUH_Campus/Materials/M_IUH_Flag_YouthUnion.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c3b964b0a65fb43bb979f8856982a4f8' -> (Import Result ID: 'bbd4fd9c3d10736dcd1cd25a27d0d9cf') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5a13c0cfeee1b2cd7f90eeddff67d300 DependenciesID=de5fdb4c85397da94f29f14ba31e297f StaticDependenciesID=2e29c8f37bef86656a6ae148fb6d2bf1 
+Importing 'GUID: 244890a778e355e42a08c7458953e43e - Path: Assets/IUH_Campus/Materials/M_IUH_C_GreenGlass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 244890a778e355e42a08c7458953e43e' -> (Import Result ID: '6ee032a2092201dd3668ed1c212c437c') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1e717a26dc15b348db26c8daeb7d0156 DependenciesID=6ca96b721da6e5326be34c035a8a44b8 StaticDependenciesID=606997fc409710262c0845f4c91d1338 
+Importing 'GUID: 3467e7f398bc67649968b9ab47d1a7b3 - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Orange.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 3467e7f398bc67649968b9ab47d1a7b3' -> (Import Result ID: '255ce4af4ce3683f51221c043dc4c129') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=78620b2b1afde2b4493d6e952eb61450 DependenciesID=476b1224d6a9bf3287f2372106c29d47 StaticDependenciesID=f0cb3462d0bab76995a0ab646ef0935a 
+Importing 'GUID: 54acbfe91b4cb4ab9ada027214d2451c - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_Curb.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 54acbfe91b4cb4ab9ada027214d2451c' -> (Import Result ID: '84a7cdcb8d23247bcec171d7665a872b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=cca9789a07481116b2d419649a4f0234 DependenciesID=b11355f107685323279b29e9acc948de StaticDependenciesID=10a596aa4d00f11e3cd5aaaed7e50bee 
+Importing 'GUID: 9444df368642c468eb49936925916181 - Path: Assets/IUH_Campus/Materials/M_IUH_Flag_Vietnam.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 9444df368642c468eb49936925916181' -> (Import Result ID: '248948f342827a6cf3d2e5bbd37a30f0') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0449397c06abc15a2143da40162e9ea2 DependenciesID=5af5938e16d213d639611f5be289cbf5 StaticDependenciesID=f761c2c229796a61f3d7f783ce9c5893 
+Importing 'GUID: 94c523f860cd95e41b750c5881108eeb - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Silver.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 94c523f860cd95e41b750c5881108eeb' -> (Import Result ID: 'eb43a48a0b30658ccc3c246d3d93f64a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5f4d3aae2449f5ee192d5c449152eb83 DependenciesID=aaf0121067b6bda6846487f8d0d8e211 StaticDependenciesID=98df5a097695f5282c1c51e1edf043a8 
+Importing 'GUID: c4404847d0e395847a6ef44e92f559d3 - Path: Assets/IUH_Campus/Materials/M_IUH_C_AccentMint.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c4404847d0e395847a6ef44e92f559d3' -> (Import Result ID: '446ef65c69cf364bf4dffc05be2c26f8') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=dbcc29dec6a4aa33684ab6f7099b7eb6 DependenciesID=1b354b8584625632179477fda23c9e49 StaticDependenciesID=62de520a9cf8ea85c20e4657c61ed525 
+Importing 'GUID: c4e93f7f1c2d1f042a8b12c79e51e83e - Path: Assets/IUH_Campus/Materials/M_IUH_Podium_Turquoise.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c4e93f7f1c2d1f042a8b12c79e51e83e' -> (Import Result ID: '40a54080d9da7af53c2d222e79cd38a6') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c73ee3bc6c3ce66e535332f7e1f61bd2 DependenciesID=443120fd77ea117c5983fd2cf6c23176 StaticDependenciesID=bb7087568ad987745a66aa94f92ae3c0 
+Importing 'GUID: d420b94ae9a00b242b4ea2fdc699ef8c - Path: Assets/IUH_Campus/Materials/M_IUH_Helmet_White.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d420b94ae9a00b242b4ea2fdc699ef8c' -> (Import Result ID: '4b9e04b74770fe20706dd9f9a614bdac') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=80934b3d79606ff974deb63bd53d461b DependenciesID=96d1f9b2ba251201b1e2c78d1d0ad102 StaticDependenciesID=540fe063037b917a6be4097eb5711660 
+Importing 'GUID: d49bc74a8aea744c98020b67b0deef09 - Path: Assets/IUH_Campus/Materials/M_IUH_Main_Grass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d49bc74a8aea744c98020b67b0deef09' -> (Import Result ID: '01913107b319bc5473957c2cd66ef3d5') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4c0b346fdee96b1ac006859122554c55 DependenciesID=995d9e972bbd662fdf185ae8833890d0 StaticDependenciesID=8958b31aa4b3e6cb960296d3f2f128b1 
+Importing 'GUID: 455713ccd71e84312ad9a399969dfcbf - Path: Assets/IUH_Campus/Materials/M_IUH_Main_Glass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 455713ccd71e84312ad9a399969dfcbf' -> (Import Result ID: '0f34ee2e2af284c59bb13328d6f9f661') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5936dc02ad0405bbc03ebbeb3676e8ef DependenciesID=a8a7fcad2f730cc06cb8e518dce00a48 StaticDependenciesID=b1d6641da7f8cd2d6d441f219a2eda82 
+Importing 'GUID: 45fb845db13fd9e41be113009b69ca48 - Path: Assets/IUH_Campus/Materials/M_IUH_Podium_Glazing.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 45fb845db13fd9e41be113009b69ca48' -> (Import Result ID: '26efdc53c0c32bc0d5a434201f567540') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=e66d180d5092230499181d20056c1b93 DependenciesID=cdb47ef0e40129bc96878d83f2016fa8 StaticDependenciesID=6e27c5b578cfa70ff96adf83b1aa1d37 
+Importing 'GUID: 85c3d67062aeb40179aed663a3198c17 - Path: Assets/IUH_Campus/Materials/M_IUH_Academic_Turquoise.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 85c3d67062aeb40179aed663a3198c17' -> (Import Result ID: 'c4e04ef68da25bc919c6fb4397aca89c') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=70189de9aaeb9f5e6cbf0936afc23425 DependenciesID=f49726d9403b22266619680f961c1d6a StaticDependenciesID=b2d00d036259f447d81cb28a06b4b824 
+Importing 'GUID: f51947882a28c472eaeee91b7d2db359 - Path: Assets/IUH_Campus/Materials/M_IUH_Grass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: f51947882a28c472eaeee91b7d2db359' -> (Import Result ID: '8cc894f6d81b8af23041240ec7f24a53') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=f8abc5187926e99f69ea1f5dbb14f46c DependenciesID=42fef5ef565e9195e577f4e2c8be22ad StaticDependenciesID=41feae1561cea67ed7ebe5db4774365c 
+Importing 'GUID: 3640f5b1721df43ad873bb940b750803 - Path: Assets/IUH_Campus/Materials/M_IUH_Sign_CurtainWall.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 3640f5b1721df43ad873bb940b750803' -> (Import Result ID: 'c269fae29fcd05cb0863f6506a2adf06') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5592914ae05385c438257db241215653 DependenciesID=3c5c482eb4102b6494dde309734e9bfd StaticDependenciesID=3826d7ab5d89f9ada1aa09905178c349 
+Importing 'GUID: 569ea817e14e84bb2890677a805c225a - Path: Assets/IUH_Campus/Materials/M_IUH_RedMetalRoof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 569ea817e14e84bb2890677a805c225a' -> (Import Result ID: '528b3d06e1825de6bc9b7c0502a7c347') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=eea1815cb0b98b5d6b57770119251bba DependenciesID=4c6c1cf1d7de575ece8560368c58f6e8 StaticDependenciesID=e6c5086046b700c1f4815123b2161809 
+Importing 'GUID: 66b562b6bc1ab8041beb2bf5b1c25999 - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Blue.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 66b562b6bc1ab8041beb2bf5b1c25999' -> (Import Result ID: '42c02538fe6b6ead79f61a752992f3ea') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=345c04fc390213ce4ff7ec2427992f84 DependenciesID=b75369f5342798bfd05729ec99865667 StaticDependenciesID=b16cfb04f996000fe92b1cbed7b28ec8 
+Importing 'GUID: b6fab5cf78e734a8ca2fad43137f3dc3 - Path: Assets/IUH_Campus/Materials/M_IUH_Academic_DarkFrame.mat' with importer (NativeFormatImporter)
+Imported 'GUID: b6fab5cf78e734a8ca2fad43137f3dc3' -> (Import Result ID: '8ffb0b391f26b27c9ba993dfad095615') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=cf13ff65255960a558a74dd7ee72c7ff DependenciesID=2a52571842ef3a9d02eee0e77141fb00 StaticDependenciesID=64525a2e9d2a7108f112cc373ad3e37f 
+Importing 'GUID: d603cd22bad8f4cfd99db3c13db5eba3 - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_BoothRoof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d603cd22bad8f4cfd99db3c13db5eba3' -> (Import Result ID: 'a6d9b21b55174ca6536d0eb64cbe04a1') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5ed1832c4cbc7c284bfbe4aed7e3ba68 DependenciesID=b050978f73ffb8b894c42df39bddfc45 StaticDependenciesID=f65f83ed3a09f3d3d00361ed40e97eb1 
+Importing 'GUID: 2722dc147ae3744be9d99956df5c1aed - Path: Assets/IUH_Campus/Materials/M_IUH_Flag_IUH.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 2722dc147ae3744be9d99956df5c1aed' -> (Import Result ID: '3837254769a30699c8779ad65b092ce0') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=791936813d33f84caac360a5bc020408 DependenciesID=62734c497cdd63445cd5f3fbb0281e3b StaticDependenciesID=db9d55aab46f8e644b0b140c9348c652 
+Importing 'GUID: 4791cf47010a48641bf135c199bcd9df - Path: Assets/IUH_Campus/Materials/M_IUH_Student_WhiteShirt.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 4791cf47010a48641bf135c199bcd9df' -> (Import Result ID: 'b31af33aea5522b783bca88c4f1b2922') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=d706907d49143371d8524b244236b322 DependenciesID=397675824961d4fe3992dd637184fe2f StaticDependenciesID=41b2e5a0ec7f7f4c5bddbbdcca014a80 
+Importing 'GUID: 67ac078a8214b4f2e8c0ae4f6a436617 - Path: Assets/IUH_Campus/Materials/M_IUH_Main_Glass_Reflective.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 67ac078a8214b4f2e8c0ae4f6a436617' -> (Import Result ID: 'f2d637895886525c44810dd7858c108c') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5a1b432e8217d21887ab6e475d683513 DependenciesID=ed66b57f17bac9dd92b10f0caf4d0c50 StaticDependenciesID=2797d8eb75d8a8684cc5d0900401c265 
+Importing 'GUID: 87c0c1b9f76182a4f9b8800cf620e884 - Path: Assets/IUH_Campus/Materials/M_IUH_AC_Louvers.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 87c0c1b9f76182a4f9b8800cf620e884' -> (Import Result ID: '04e2b238912e9ad6e9dfff0bfaba4d44') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a9756156007c21c060e8a7cb6ab6ab22 DependenciesID=f5ef1ab1f5028ab8fda4b46e94dba0a8 StaticDependenciesID=a1e56dc49ef56a10e70572e9bffb45f9 
+Importing 'GUID: 87724dcbc68b8984eb34a39a740260e9 - Path: Assets/IUH_Campus/Materials/M_IUH_I_Wall.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 87724dcbc68b8984eb34a39a740260e9' -> (Import Result ID: '210db91acb5326aee1ea32cad4a97ece') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=fcb60014b7a2983629867d66f95b52bc DependenciesID=4db3b2e5ad8a68f63919c43ccc4100f1 StaticDependenciesID=4e180740afe5e0f7c6f5c0cf0764a643 
+Importing 'GUID: d7c9c36318db4964ea59779990be1d2e - Path: Assets/IUH_Campus/Materials/M_IUH_Access_Control.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d7c9c36318db4964ea59779990be1d2e' -> (Import Result ID: '2d1ffaca2c4f6c9d61a7d9dd4ea55988') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c5bce14440ad41c00ea020b47cbf7868 DependenciesID=546520d92c4de5e0e33e17bc09a90c43 StaticDependenciesID=800b00dba3aed7244cacf648ca1fd0e2 
+Importing 'GUID: f7416732910e547d2b09d70ac72d7447 - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_GoldText.mat' with importer (NativeFormatImporter)
+Imported 'GUID: f7416732910e547d2b09d70ac72d7447' -> (Import Result ID: 'cd0251294744b02c38ab1a352a965792') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=408f4093ba636f54e93bc5857187c0dc DependenciesID=c8d558660847de5a7d9443ec48f03be0 StaticDependenciesID=150421f4ef2d496744b5992704a395c0 
+Importing 'GUID: f72fcc47011cf47dba76ea444b66b25c - Path: Assets/IUH_Campus/Materials/M_IUH_FlowerPot_White.mat' with importer (NativeFormatImporter)
+Imported 'GUID: f72fcc47011cf47dba76ea444b66b25c' -> (Import Result ID: '916250a98ab9fcb4a7a8199e096d9fbf') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=247e325e80508fe87989d207b4a553fc DependenciesID=a546705a15d2079c07f6296985afa0f6 StaticDependenciesID=07d7c2391f1a0be9438d867ab726a487 
+Importing 'GUID: 18db03f34e2da4973bc73ad72a635f82 - Path: Assets/IUH_Campus/Materials/M_IUH_Road_Arrow.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 18db03f34e2da4973bc73ad72a635f82' -> (Import Result ID: 'ab79bf96e282e0cc4c2d516db38e3dfb') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=8d31829f0df445b6c5a57a05dac7ec7e DependenciesID=449b208f37c2d79015ae21401558e4f4 StaticDependenciesID=7b4c12cbd0e3689de168584490f276c9 
+Importing 'GUID: 48819b80a06e3ee4f8cd5db778a66492 - Path: Assets/IUH_Campus/Materials/M_IUH_Tree_Bark.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 48819b80a06e3ee4f8cd5db778a66492' -> (Import Result ID: 'bafea6ce8d061b72360adbb6653e6d5e') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=22ad9dd1f886667eb3ef18fc6ebe367e DependenciesID=f337a03d4fc8d4a989a26150922a9ea0 StaticDependenciesID=b31982a6f78e016a1d52c9f1d95bfa4a 
+Importing 'GUID: 581f8fed23f721d49b3ac03a09b6bbb4 - Path: Assets/IUH_Campus/Materials/M_IUH_Bench_Granite.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 581f8fed23f721d49b3ac03a09b6bbb4' -> (Import Result ID: 'cdd46f84c41d1858c23b3cd4de251136') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=dd0bc9e57964b9f19215b24748219653 DependenciesID=d58dfcd3955bb1e778bc6a2c2d30f462 StaticDependenciesID=e9f86c8fa0f44bedc3af6e4d1b59641c 
+Importing 'GUID: 68cdab2c82820884eae32afb64403730 - Path: Assets/IUH_Campus/Materials/M_IUH_Parking_Line.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 68cdab2c82820884eae32afb64403730' -> (Import Result ID: '3d99c8f58514fe0158ef60b5beeaf44a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9b948ea9aa27a10e2540b6b2eb338d6b DependenciesID=f065d746032c0c1bf190defe967d16aa StaticDependenciesID=f80328d4d01bb39e869fff1997e064a0 
+Importing 'GUID: 884283af7ad9b465ca0a3973b018c42e - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_Road.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 884283af7ad9b465ca0a3973b018c42e' -> (Import Result ID: '0a6ac42b75ec2a4507d299bb4357fe79') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=cfe4463b67be86abc35b344d48799ff7 DependenciesID=cb41d7ad44b0106e4a3ada77c22bd5a2 StaticDependenciesID=d5f70af07ea0cad4efc76fedcbaedb71 
+Importing 'GUID: a8a7cb530db6f4a0e9db7ea902ec8083 - Path: Assets/IUH_Campus/Materials/M_IUH_BlueTarp.mat' with importer (NativeFormatImporter)
+Imported 'GUID: a8a7cb530db6f4a0e9db7ea902ec8083' -> (Import Result ID: '9d6abfa953805baca80051d2dd6624e8') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=b829f7bbdd1445920b12ed7927d2c25a DependenciesID=9b29eaeeed6e0a0fcbb7da9bbec73974 StaticDependenciesID=0d6b2fdafe566419d20ad1639e154a44 
+Importing 'GUID: c8640016f68aaab40b2588b0278c49ad - Path: Assets/IUH_Campus/Materials/M_IUH_G_Wall.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c8640016f68aaab40b2588b0278c49ad' -> (Import Result ID: '1b144a423b9c5be542e4f4e69aa0e26c') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0dd62e8015c62549d51f75e781acf063 DependenciesID=928d3348fd642e3bca276fbe95b29e80 StaticDependenciesID=f4833e950dea85c8c339a8160f4aa386 
+Importing 'GUID: c8a8f82f824f6457a9a8b828dcd52df1 - Path: Assets/IUH_Campus/Materials/M_IUH_Academic_TopSign.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c8a8f82f824f6457a9a8b828dcd52df1' -> (Import Result ID: '3d9de3f33b782423c7ac42dd467567a8') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1899175f443b76e890a81c6459059c50 DependenciesID=4af087f98c603581e16b3a8228baa0c7 StaticDependenciesID=74e234223c5a19c9bfedbaf12a7672cf 
+Importing 'GUID: c88b33e3b37ef4813bd769653bf04a5d - Path: Assets/IUH_Campus/Materials/M_IUH_PaleGreenRoof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c88b33e3b37ef4813bd769653bf04a5d' -> (Import Result ID: '79a0b8fea01b4e2701fa60ec33924aaa') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0ad89ae7205a0444e131742ea06fe65b DependenciesID=3bc6b33b93fef968da4be7b67d352a96 StaticDependenciesID=a52da16fde9ee109c6bf42079d567091 
+Importing 'GUID: e8ec2fc064aff4481912a39917701059 - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Dark.mat' with importer (NativeFormatImporter)
+Imported 'GUID: e8ec2fc064aff4481912a39917701059' -> (Import Result ID: 'caf84122d204841b82424dd6837b2c1a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=d08b43ce5545c4151053a04c0bb36a2c DependenciesID=b22ca4e6b8102a8279c68a9fa8d9f974 StaticDependenciesID=d06c344a9933aeedc54519f8c129a515 
+Importing 'GUID: 094b5a38ed19c441a8c73ddfa136269f - Path: Assets/IUH_Campus/Materials/M_IUH_Granite_Stairs.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 094b5a38ed19c441a8c73ddfa136269f' -> (Import Result ID: 'adb2a29e690f57975a907a8e93281641') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c5a66a6296f75ffd96f56f5e8b4c841e DependenciesID=3737053b9daae0f9c10e3756bd058a34 StaticDependenciesID=e502097d984aaf8b8a9e36b9092af40f 
+Importing 'GUID: 29db9575f02d7604b82b3be4c7fc0e00 - Path: Assets/IUH_Campus/Materials/M_IUH_G_Railings.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 29db9575f02d7604b82b3be4c7fc0e00' -> (Import Result ID: '33e9fead3b5bc5237ae4bb27fa48af6f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=3eab2ea4c1aa694bd74fabb1b76bcd1b DependenciesID=2cc0c2ab405c1463c5d8bddcf3c0c2dc StaticDependenciesID=b7c8b722ff5fc60f5fda8a93deb6c8b0 
+Importing 'GUID: 69702a4c6a3a54bff8827d37be90926e - Path: Assets/IUH_Campus/Materials/M_IUH_Background_Building.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 69702a4c6a3a54bff8827d37be90926e' -> (Import Result ID: 'a38764420aa3cbcc35c7ad5d08eb62b7') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5f7b6c1c2c42a32f55ad694cf9a229a7 DependenciesID=f82c46d3ccefe701bc54f770110ad9b3 StaticDependenciesID=16cd3d82ea9102104a28a98d05423f9c 
+Importing 'GUID: 7986eb88817504a44895eef72fc5fa23 - Path: Assets/IUH_Campus/Materials/M_IUH_PVC_Pipe.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 7986eb88817504a44895eef72fc5fa23' -> (Import Result ID: '5a31cc14690d2477490d7e82000848b6') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=56022af9a0836da40d282b79a487d1fb DependenciesID=fb00a16faa35b9832ba5e8816c860b73 StaticDependenciesID=f3f6cf3232a7a9d41210c1c5393fe6c8 
+Importing 'GUID: d9e23d97315b0064c84ebd9f68625443 - Path: Assets/IUH_Campus/Materials/M_IUH_Drain_Grate.mat' with importer (NativeFormatImporter)
+Imported 'GUID: d9e23d97315b0064c84ebd9f68625443' -> (Import Result ID: 'e8f61930e122a987beeb7eb657bd61fb') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9184d7e9d98ad0c0820aa57d8030135c DependenciesID=7fb32fdc8cd54962de1aa9bd309acc4a StaticDependenciesID=2fdbd02f4ba14cf05f5408020eb26367 
+Importing 'GUID: f9f0f52b543c07f499e513db6efbaa47 - Path: Assets/IUH_Campus/Materials/M_IUH_Helmet_Red.mat' with importer (NativeFormatImporter)
+Imported 'GUID: f9f0f52b543c07f499e513db6efbaa47' -> (Import Result ID: 'f7477c13e4259584f93661ee70c5dcdb') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=2ddb5684fec391492278a615e9119ec6 DependenciesID=c2c64c32da3fbba294ce28d2a5b004be StaticDependenciesID=5cc630c98415bc95f2c94d3cfab6233d 
+Importing 'GUID: f97fa8e5994ccac429b0543441468190 - Path: Assets/IUH_Campus/Materials/M_IUH_Urban_House.mat' with importer (NativeFormatImporter)
+Imported 'GUID: f97fa8e5994ccac429b0543441468190' -> (Import Result ID: '7494bbf53b938bc98791d4f783a51fbd') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=cf4387b2e2dce1b522677e4a63b57621 DependenciesID=b818458ded9518a54478aa8597b62a02 StaticDependenciesID=c39b8be17b02616b1f5f1ee285e9daf4 
+Importing 'GUID: 2ae070a6c89fd47a99011a6e2f448efd - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_Stone.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 2ae070a6c89fd47a99011a6e2f448efd' -> (Import Result ID: 'edf2411f7285519eef11f48943de651f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a00bf698d678f37c635db7c7cd681d6 DependenciesID=c1504f5af29d7eb34c497e6ba68bf132 StaticDependenciesID=455a0da634446672b7054ed648d92614 
+Importing 'GUID: 4ad25cf3e8bee4696b52f99a0073d247 - Path: Assets/IUH_Campus/Materials/M_IUH_Academic_Glass.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 4ad25cf3e8bee4696b52f99a0073d247' -> (Import Result ID: 'f87f2184fe0bcae3e8cd90238978989d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=72f6ffee7603be7b0b164c6e3850c79d DependenciesID=00a775dd4619dbabb1dd46b7e62598be StaticDependenciesID=85a5e18213c53db12d95295ba236d195 
+Importing 'GUID: da503293145c3c449bffd6b740c74104 - Path: Assets/IUH_Campus/Materials/M_IUH_Helmet_Blue.mat' with importer (NativeFormatImporter)
+Imported 'GUID: da503293145c3c449bffd6b740c74104' -> (Import Result ID: '9010dc9e8bb72b66b067af7ac61f3789') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=981c239514e176ef86d40e139eb5f139 DependenciesID=f282065dc183e053087bc141a2ac6c6c StaticDependenciesID=2a7eeb43c91e920315a282b82f3fb50b 
+Importing 'GUID: 4bba295354908ab459b4780d60c005a1 - Path: Assets/IUH_Campus/Materials/M_IUH_Bench_Wood.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 4bba295354908ab459b4780d60c005a1' -> (Import Result ID: '66d6e9392c134ba7c3994325a9842a95') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=2dfede80733ccf148a1839649270ec24 DependenciesID=01b535dacc1d72e699f9ad84bc28f325 StaticDependenciesID=0db2662b71ef54087bbb132dadbbb0df 
+Importing 'GUID: cb5569ddf493a41ed929c2b4bf4439d0 - Path: Assets/IUH_Campus/Materials/M_IUH_TowerPyramidRoof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: cb5569ddf493a41ed929c2b4bf4439d0' -> (Import Result ID: '4362f76b015f25b67804e855ce180595') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=19b9cde9ef535ce4d517b4b0b4c0c5e0 DependenciesID=ab438814b74591481780d9c3000772eb StaticDependenciesID=6296440250e2238af6f9463b93bb9761 
+Importing 'GUID: cb6d17c65af5ab142af56a785b95aa5a - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Teal.mat' with importer (NativeFormatImporter)
+Imported 'GUID: cb6d17c65af5ab142af56a785b95aa5a' -> (Import Result ID: '5989a329b243f7addc14bd8f10ec2942') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=f97c2b177eff0e8a8993e9fe97f4ed98 DependenciesID=41f04af058185092a7c5b795e5d3c0d5 StaticDependenciesID=aa8e87b8209d70ebb36ea2887466a641 
+Importing 'GUID: eb3e31b27ab5cb440bc1c6fd68b9109e - Path: Assets/IUH_Campus/Materials/M_IUH_C_Roof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: eb3e31b27ab5cb440bc1c6fd68b9109e' -> (Import Result ID: '217c278606e6c63254023008fc5e5602') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=92d2e4d744ea569946ee7c9e34e80a26 DependenciesID=11c9e7df3edbf9c32abddd3fa21c7f74 StaticDependenciesID=62b02e9fefac0079da1820da4b1fbabb 
+Importing 'GUID: fb6d936a83240d845a09ebb18c4fa0ff - Path: Assets/IUH_Campus/Materials/M_IUH_Cloth_Blue.mat' with importer (NativeFormatImporter)
+Imported 'GUID: fb6d936a83240d845a09ebb18c4fa0ff' -> (Import Result ID: '58f6c4a73ce5de2a79a2c56873337c30') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=419fa5eda87d391d2d9d2d9ed996df7a DependenciesID=86697fea6af40a120185bf622aefabc1 StaticDependenciesID=6646fbeffc50badeb579148390486872 
+Importing 'GUID: 1c172ffdc61db44c79e301db11d5568a - Path: Assets/IUH_Campus/Materials/M_IUH_Main_WhiteMetal.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 1c172ffdc61db44c79e301db11d5568a' -> (Import Result ID: '3c228190674ca6816393d3095dd08413') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=d43944cacb38f323693740f75ee134cb DependenciesID=ef46e4dbb94b50cce3e73112ada32a94 StaticDependenciesID=9e915dcfabae61acfe27ea6a3062b6d8 
+Importing 'GUID: 7cc54ba0006da498696fbf0d0168f8de - Path: Assets/IUH_Campus/Materials/M_IUH_DarkMetal.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 7cc54ba0006da498696fbf0d0168f8de' -> (Import Result ID: 'a586538e71b51437b4fb1f8fba589282') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=f5a5d60d42180142eac4d617ed38a192 DependenciesID=609e6b57aa6701e711d69d70ecaa20d3 StaticDependenciesID=59bdc1bd3aa0774f6fb70adc99903b50 
+Importing 'GUID: 8cf013afad64a4f81ab45b31c70855c8 - Path: Assets/IUH_Campus/Materials/M_IUH_Main_Concrete.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 8cf013afad64a4f81ab45b31c70855c8' -> (Import Result ID: '12f7005003ed59e684aa25319cf122d4') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c22767ab482522b1bc13822f141a743b DependenciesID=638534f8d5d998792ad2f1d09309968a StaticDependenciesID=8e2b69f528b96f07ffcf41f9ec51aaf2 
+Importing 'GUID: dcca38cb2531a40da8f9e2ddb753cebb - Path: Assets/IUH_Campus/Materials/M_IUH_Glass_CurtainWall.mat' with importer (NativeFormatImporter)
+Imported 'GUID: dcca38cb2531a40da8f9e2ddb753cebb' -> (Import Result ID: '425cd676b4e5859b4fa2ec20c6c35c06') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=13aa8df80b9c5c4e4aec56dcdfadea16 DependenciesID=1f7b30cff8729021df340ff643145108 StaticDependenciesID=282ed00335492afc816481975c8e534b 
+Importing 'GUID: ec180ae1b86b34cb9bf93956765bbf5f - Path: Assets/IUH_Campus/Materials/M_IUH_Main_Roof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: ec180ae1b86b34cb9bf93956765bbf5f' -> (Import Result ID: '3c6871c60b6255cd70beb2156c61a8d1') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=24478c06db41cfa836ca6e23a91bfc30 DependenciesID=f850cbb67c2fdc6be294fe3acd7e43a4 StaticDependenciesID=0cadbd60bd231783934aecb961a939f1 
+Importing 'GUID: 0d27fb6b2a9e844ba85b04f29c77e368 - Path: Assets/IUH_Campus/Materials/M_IUH_Monument_Letter.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 0d27fb6b2a9e844ba85b04f29c77e368' -> (Import Result ID: '71a8e0ef61b8ff8a8485b0b4280d1c1b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0c044fc98ee1d34b61f06fa22e9b12ea DependenciesID=9326b9337aa0644c89d2a57d6e4b0c8b StaticDependenciesID=84a8ad52fb3ef157b8d0e12f6703b935 
+Importing 'GUID: 1d0ec78080c4e384aa01aeb01ada8614 - Path: Assets/IUH_Campus/Materials/M_IUH_I_Roof.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 1d0ec78080c4e384aa01aeb01ada8614' -> (Import Result ID: '5c1b8811437f4f657380c6982e8aead4') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a1e785c3d37a4fca71aba13bd27cfa7e DependenciesID=07e8e4387137eed8679d9583452e74a9 StaticDependenciesID=12f14381b6674b44533edcbefb019bea 
+Importing 'GUID: 2d00a6c92eed5e6479706bb35239e9f1 - Path: Assets/IUH_Campus/Materials/M_IUH_Student_Hair.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 2d00a6c92eed5e6479706bb35239e9f1' -> (Import Result ID: '99eea72db23cccc710c06766249ef91b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c73de4efc67a5495df1e52b0c3791468 DependenciesID=99c7b4e6d719fae40df3827637161852 StaticDependenciesID=17739a594f1519aba63af498d23a72b6 
+Importing 'GUID: 5d1ace88f416f7d45a4e584aa2cf72cf - Path: Assets/IUH_Campus/Materials/M_IUH_G_Sign.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5d1ace88f416f7d45a4e584aa2cf72cf' -> (Import Result ID: '646d1238c01e1715b4a0ad2feb75b370') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=747782e5ab59e0fdd12b2a8263ab5f37 DependenciesID=60ad54574c202015479bf3b658fd90cd StaticDependenciesID=3ad24606d1384dc9b555d69189ff0792 
+Importing 'GUID: 6dce0d2ffd174e94d862f00478cf2838 - Path: Assets/IUH_Campus/Materials/M_IUH_Student_Skin.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 6dce0d2ffd174e94d862f00478cf2838' -> (Import Result ID: 'c560985ba969c62123014da4d8a43127') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9d075d72cb51a6a03a3a2eea32000947 DependenciesID=e2ad5d70674a734d4ed0c4e5338f3929 StaticDependenciesID=fef4eec1d92207edb45251db64070fb8 
+Importing 'GUID: 8d86b8d5f5ddc334b86460335c7c37d5 - Path: Assets/IUH_Campus/Materials/M_IUH_Planter_Soil.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 8d86b8d5f5ddc334b86460335c7c37d5' -> (Import Result ID: '5218f02814f9019d84c957e704ea9c25') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a170285fe1d66462a9d586f6fbe92894 DependenciesID=7928397576942c27c48766da77d86a78 StaticDependenciesID=9bbfeb04c82ddb8bf8aa4931c1f81c4e 
+Importing 'GUID: ad750bd12e6fb4e14aabaec4426859c1 - Path: Assets/IUH_Campus/Materials/M_IUH_LightMetal.mat' with importer (NativeFormatImporter)
+Imported 'GUID: ad750bd12e6fb4e14aabaec4426859c1' -> (Import Result ID: 'b78c8478b21af6a47804c1f8f1fcafc2') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4cf22c92f66fbbb6671ce9c1688fddc9 DependenciesID=f27c1df5ee5019ce33a44cd57f647276 StaticDependenciesID=44591389239a2442d63dd3bed454150e 
+Importing 'GUID: bd889619d90744e45bd9daab46c633e1 - Path: Assets/IUH_Campus/Materials/M_IUH_C_Wall.mat' with importer (NativeFormatImporter)
+Imported 'GUID: bd889619d90744e45bd9daab46c633e1' -> (Import Result ID: '6f49786bacc337e4eaa1c54792e1d048') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=183ec296cb82411d77a8a01498480764 DependenciesID=048dd248ea7e30e968852c08763030f8 StaticDependenciesID=9f1434d718b4af84c7223896577c8632 
+Importing 'GUID: 2ef8730cfda7a4968ba60d747f7373d4 - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_EventFlag.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 2ef8730cfda7a4968ba60d747f7373d4' -> (Import Result ID: 'f540d0b127a57a77c99f8a45d1c686db') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=ae7c6ffd741d0f3d921ec06448811cfd DependenciesID=33c3721324a4a73a109d2929ed0756e5 StaticDependenciesID=15a3aa42b8b3cf08311534cc52120e32 
+Importing 'GUID: 5e7007fef656c4b19bab8826d36219b7 - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_Booth.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5e7007fef656c4b19bab8826d36219b7' -> (Import Result ID: '811d1bede6f832ffdb8e7cec932e8020') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=c6c309c250f3a1fd0d8326039aae318b DependenciesID=3d47ac7037bad09c14d222e63464f97d StaticDependenciesID=5f949c154679ed39a94429d235de9f6f 
+Importing 'GUID: 5e97dc74ae403ef4798ec0e38ccd84e8 - Path: Assets/IUH_Campus/Materials/M_IUH_Fire_Extinguisher.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5e97dc74ae403ef4798ec0e38ccd84e8' -> (Import Result ID: '9cdca8a1e7ba7cc6cfe702bf499fe406') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9181304856c85fc0e820834b351ff181 DependenciesID=9a3ad4605d53768fb611b344ff296985 StaticDependenciesID=7a0ed3d610fef26383223a8d758349dd 
+Importing 'GUID: 7e5df72062fadd145b7a897f57dbad7e - Path: Assets/IUH_Campus/Materials/M_IUH_FireCabinet.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 7e5df72062fadd145b7a897f57dbad7e' -> (Import Result ID: '1cea473effa4e643c4900be02603e9c3') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0cde7975306978c2a027a20bedf40cf8 DependenciesID=a7e54ca81a958f66d2f521797847b1cb StaticDependenciesID=232e04be4bb83473724140e4e255bc14 
+Importing 'GUID: 8eb069c23724646388a3c70f2cb1aa9c - Path: Assets/IUH_Campus/Materials/M_IUH_Main_WhiteFacade.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 8eb069c23724646388a3c70f2cb1aa9c' -> (Import Result ID: '9c340d0d81d86e9bc8541c9ac389e4b5') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a6d32ed6178d3f8c6e870f59603e5392 DependenciesID=f4b54590f4e310d192f5147059f28418 StaticDependenciesID=0214fbcdff64acfc5431c0619c6d11b2 
+Importing 'GUID: 8e18803f33a3142d7b6c5fc0f0bf5721 - Path: Assets/IUH_Campus/Materials/M_IUH_RooftopMetal.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 8e18803f33a3142d7b6c5fc0f0bf5721' -> (Import Result ID: 'a8b574ab1caa8f6c6225bb35d0c34e6b') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=fefac9ed3db117d9a38ca51f3018d392 DependenciesID=f312339605021f84bda699079bc6601a StaticDependenciesID=c6c7e6fd9312fc03c3700fa62a89140f 
+Importing 'GUID: 8e49c0a719b47324b8fe2012e578075a - Path: Assets/IUH_Campus/Materials/M_IUH_Student_DarkPants.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 8e49c0a719b47324b8fe2012e578075a' -> (Import Result ID: '2d30acf306d29b29bcf4b61ccd7c8006') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=5190681ce4934ad16800f98ad1aefb5b DependenciesID=3c1dfe6648110d801652a181563b62b7 StaticDependenciesID=fe38f0846f3d87d526538b08086763fb 
+Importing 'GUID: 8edb0f6328cc2c34fa9ec438eb72dd49 - Path: Assets/IUH_Campus/Materials/M_IUH_Window_Dark.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 8edb0f6328cc2c34fa9ec438eb72dd49' -> (Import Result ID: 'd8e383e1022b49d35385b0284fab44b5') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=bf94ba572821534eb71f34fc2686039a DependenciesID=ea33935645a5bac6122a466dba55d0bb StaticDependenciesID=70a3718bffa9069eb345c4faa3a31707 
+Importing 'GUID: be66184fb48bb488b841bb116847d11a - Path: Assets/IUH_Campus/Materials/M_IUH_Glass_Reflective.mat' with importer (NativeFormatImporter)
+Imported 'GUID: be66184fb48bb488b841bb116847d11a' -> (Import Result ID: '831fd4acdfcaaf27d0ad0f950c14512f') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=fb537396a074f4a9da770585811f8a1e DependenciesID=d54b280a4e4e06ceb52f4e0cea21f51d StaticDependenciesID=a887660b380370a72564cf138ccf592b 
+Importing 'GUID: beafd246d67ad4cbc83508911465b8d5 - Path: Assets/IUH_Campus/Materials/M_IUH_Academic_Concrete.mat' with importer (NativeFormatImporter)
+Imported 'GUID: beafd246d67ad4cbc83508911465b8d5' -> (Import Result ID: 'da58f7b17a34e8828757095a96d7c33c') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a68e8bf69b0b91331dbff416dd924531 DependenciesID=3260a9e05cf057c7619ec219f3d61402 StaticDependenciesID=5ce5e507dfc148af77b206ad5573716c 
+Importing 'GUID: de41f383fb991874099ffa9f9fc1a722 - Path: Assets/IUH_Campus/Materials/M_IUH_Sign_Wayfinding.mat' with importer (NativeFormatImporter)
+Imported 'GUID: de41f383fb991874099ffa9f9fc1a722' -> (Import Result ID: 'dab8551d555eb2d835f97bdfc98475fe') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=a5f87c6bf329bd083a5cee208a777725 DependenciesID=6562e6ff975d8ac3bd513b31847afdea StaticDependenciesID=c88ed024b540ef1970258942b3ed8506 
+Importing 'GUID: dee9fce074b9bb241adc7f525f622fda - Path: Assets/IUH_Campus/Materials/M_IUH_Cloth_Yellow.mat' with importer (NativeFormatImporter)
+Imported 'GUID: dee9fce074b9bb241adc7f525f622fda' -> (Import Result ID: '05c8b131f99211504bb25fdd2adb95f5') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=291ab1f01e221f48eb3d76dc39aeba8f DependenciesID=b01849d8c139eb2e43a5c0075034086d StaticDependenciesID=9ce1d149be59080f19a695dbff4ebe16 
+Importing 'GUID: eeb145085172a422a8e70e521259e008 - Path: Assets/IUH_Campus/Materials/M_IUH_Gate_WelcomeBanner.mat' with importer (NativeFormatImporter)
+Imported 'GUID: eeb145085172a422a8e70e521259e008' -> (Import Result ID: '2a7316e4b9562edd5c297459cd2a696d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9c7c8c01395a72d7fb8d192d7eb4b48b DependenciesID=7c4d3ac8c0be1b07e03febeca2814e08 StaticDependenciesID=e916b16a209d90b5910692777675662c 
+Importing 'GUID: 3fbe465c6b6993747baed68f7797f425 - Path: Assets/IUH_Campus/Materials/M_IUH_Student_BluePolo.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 3fbe465c6b6993747baed68f7797f425' -> (Import Result ID: 'e034e04794d3f59789a140f87d9109fe') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=22e13840883749aa4f9d8786e8db6db0 DependenciesID=6906671b5ba4daf235066be501a83892 StaticDependenciesID=28897e65e4ee801ffc6b17f20a142895 
+Importing 'GUID: 4fd96c8017d904311acc01d041f55ff4 - Path: Assets/IUH_Campus/Materials/M_IUH_Flower_Orange.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 4fd96c8017d904311acc01d041f55ff4' -> (Import Result ID: '741f6bd3d495d2eb90e5f566e1139033') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=ddcf128187029a62df1e0df6f6bf40b1 DependenciesID=9c13e0eb178bf4b939a2b2d0f766c64d StaticDependenciesID=372c115459929af7447e543cdfea2b02 
+Importing 'GUID: 4f0b4f64ccb43a34f875bd013abc1610 - Path: Assets/IUH_Campus/Materials/M_IUH_Manhole_Cover.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 4f0b4f64ccb43a34f875bd013abc1610' -> (Import Result ID: 'ff825c45c00bc8a6e77aa6b2f6eaa771') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=e07f2fe6ae005127363a991ef82b55e6 DependenciesID=bed35ed4b3fdaaa745fdab61be66eac8 StaticDependenciesID=14f308a17f7da4b57277cf20089e29e4 
+Importing 'GUID: 5fc1a10c7f8124760b585687c6f0c51c - Path: Assets/IUH_Campus/Materials/M_IUH_Asphalt_Road.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5fc1a10c7f8124760b585687c6f0c51c' -> (Import Result ID: '6de3e831cedfff3811547731c50b4484') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6ef5f201054c74e7f08d16a166bcd774 DependenciesID=b3850ee98471522a8d0e3456b12ad196 StaticDependenciesID=7303a5097b76f60ccd0ccf3447734f0b 
+Importing 'GUID: 5fa30a790247c4f5fadbc5b11530c9cb - Path: Assets/IUH_Campus/Materials/M_IUH_BlueFins.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5fa30a790247c4f5fadbc5b11530c9cb' -> (Import Result ID: '801e2a8b9f6440476709a412c69b3f39') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=4cda00b1ebbc8bab77bd3f4400d408de DependenciesID=a229c54411d2f7502dfa6829fab5e93f StaticDependenciesID=e62372b427f85c57b539e88167442621 
+Importing 'GUID: 6f6f83c34363e184ca62c16a1ace6f01 - Path: Assets/IUH_Campus/Materials/M_IUH_WaterTank_Stainless.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 6f6f83c34363e184ca62c16a1ace6f01' -> (Import Result ID: 'bbac46bbfcd62cfda7a469179f8e9ab6') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=9d7890e6c79f32e51d7a700e2a487118 DependenciesID=be6a016b1115fc3db7f5ebdbe423c293 StaticDependenciesID=d7ac7042bf7c27199295adf245494f52 
+Importing 'GUID: afc1603da39c968449033029f27c11d1 - Path: Assets/IUH_Campus/Materials/M_IUH_Concrete_Curb.mat' with importer (NativeFormatImporter)
+Imported 'GUID: afc1603da39c968449033029f27c11d1' -> (Import Result ID: '8b72ba3cb172e3c11c033f8479ca9e85') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=41b925f36b203daca9eb1c636ec6e0c7 DependenciesID=851a97cb6b008b0e62485088f643d998 StaticDependenciesID=8c730e7785ebc02b63e7d3e10536bc81 
+Importing 'GUID: af7e7b1a829bbcc4cb1389858c79481e - Path: Assets/IUH_Campus/Materials/M_IUH_Cloth_White.mat' with importer (NativeFormatImporter)
+Imported 'GUID: af7e7b1a829bbcc4cb1389858c79481e' -> (Import Result ID: '461e504b2a19a13297382bb02997868d') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1e5499f27ea632af76e37bea7693c2ab DependenciesID=79dae7f974832a791def2a1ea32f8ee9 StaticDependenciesID=feddbe025bfc463c6c69844f4cfbd304 
+Asset Pipeline Refresh (id=36799c7f0b5ad124e97d579424789bae): Total: 0.243 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=fb727e1f2bb02114284f42ae9bce0c7a): Total: 0.010 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+[IUH] All materials generated successfully in Assets/IUH_Campus/Materials/
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHMaterialGenerator:GenerateAllMaterials () (at Assets/IUH_Campus/Editor/IUHMaterialGenerator.cs:412)
+IUHCampus.Editor.IUHGameReadyMasterBuilder:BuildGameReadyScene () (at Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs:54)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:20)
+
+(Filename: Assets/IUH_Campus/Editor/IUHMaterialGenerator.cs Line: 412)
+
+Asset Pipeline Refresh (id=74062d0d8989b8d498f0b77683606fd6): Total: 0.010 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=624a3d8a63725f5488ab20988144152d): Total: 0.012 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=c1d3627976cc8c74ebb0f645031cd548): Total: 0.010 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=541416dd71faacf419246a190a15cb6b): Total: 0.012 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=993f96c013fb38d42835a89aae5dfd45): Total: 0.009 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=f6231b84aad4a16479727669dee457b6): Total: 0.015 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=02b854ce655e9e24a8b9e021b06dd3a0): Total: 0.010 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=b3583d68bc7c1ea4cad9692eb2e09eae): Total: 0.010 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=a14c3fe21190a174fb4b50701a5b1c12): Total: 0.010 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=d5aa99c8d70d123409cf58d8b2acd49c): Total: 0.010 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=b2e19d66dd404284f9e1fcc71ca1c41f): Total: 0.009 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+[IUH Prefab Generator] All 10 Standard Prefabs generated successfully in Assets/IUH_Campus/Prefabs/
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHCampusPrefabGenerator:GenerateAllStandardPrefabs () (at Assets/IUH_Campus/Editor/IUHCampusPrefabGenerator.cs:32)
+IUHCampus.Editor.IUHGameReadyMasterBuilder:BuildGameReadyScene () (at Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs:60)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:20)
+
+(Filename: Assets/IUH_Campus/Editor/IUHCampusPrefabGenerator.cs Line: 32)
+
+Opening scene 'Assets/IUH_Campus/Scenes/IUH_RightCluster.unity'
+Unloading 11 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/IUH_Campus/Scenes/IUH_RightCluster.unity'
+	Deserialize:            29.937 ms
+	Integration:            181.949 ms
+	Integration of assets:  0.003 ms
+	Thread Wait Time:       0.051 ms
+	Total Operation Time:   211.941 ms
+Unloading 615 unused Assets / (1.3 MB). Loaded Objects now: 10380.
+Memory consumption went from 423.7 MB to 422.4 MB.
+Total: 8.550100 ms (FindLiveObjects: 0.489500 ms CreateObjectMapping: 1.161800 ms MarkObjects: 6.210500 ms  DeleteObjects: 0.687400 ms)
+
+Importing 'GUID: ab6029ac44d10da4bb30bce0dfb243db - Path: Assets/IUH_Campus/Scenes/IUH_RightCluster.unity' with importer (DefaultImporter)
+Imported 'GUID: ab6029ac44d10da4bb30bce0dfb243db' -> (Import Result ID: 'a0b9ecd939d052fe4b9a00afae5b2e70') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=7ab89cf714bf4a20a0fc5f73007aaf6d DependenciesID=71f2f8074baef412ca9d2c23a8de19a9 StaticDependenciesID=dc27d383f540c0484f6057cd35e3109c 
+Asset Pipeline Refresh (id=e8ee4c4e32cb2374ea83953784aa8279): Total: 0.073 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=c71527a11d189ba40a4f73496470733c): Total: 0.009 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+[IUH Game-Ready Master Builder] Game-Ready Campus Scene Built Successfully!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyMasterBuilder:BuildGameReadyScene () (at Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs:91)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:20)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs Line: 91)
+
+[IUH Game-Ready] Capturing Shot 1: Aerial View...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:36)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 36)
+
+[IUH Game-Ready] Capturing Shot 2: Courtyard Human Height...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:43)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 43)
+
+[IUH Game-Ready] Capturing Shot 3: Building G Entrance...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:50)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 50)
+
+[IUH Game-Ready] Capturing Shot 4: Reception Lobby...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:57)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 57)
+
+[IUH Game-Ready] Capturing Shot 5: Corridor Spine...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:64)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 64)
+
+[IUH Game-Ready] Capturing Shot 6: Computer Training Lab...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:71)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 71)
+
+[IUH Game-Ready] Capturing Shot 7: Motorcycle Parking...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:78)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 78)
+
+Importing 'GUID: b1d1153118572423d8663c1fcb9bea50 - Path: Assets/IUH_Campus/Materials/M_IUH_Concrete_Ground.mat' with importer (NativeFormatImporter)
+Imported 'GUID: b1d1153118572423d8663c1fcb9bea50' -> (Import Result ID: '7b088659bef5b829b44cc173b258a36d') in 0.011 seconds [static dependencies only]. Details - ImportResultOutputID=3ed0aa2a1dcab4ce9547a6d9d9a245f1 DependenciesID=e700879536fe845871d6f117d95affcb StaticDependenciesID=7b90c143d349c408bbdfc12d408c8fe4 
+Importing 'GUID: c34165df67b18487c9bb570528f75306 - Path: Assets/IUH_Campus/Materials/M_IUH_MatureFoliage.mat' with importer (NativeFormatImporter)
+Imported 'GUID: c34165df67b18487c9bb570528f75306' -> (Import Result ID: 'a332db4b1c22967f3469df022fc6d2d2') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=1c01bd7bc464846afb25499f7176a4ad DependenciesID=f7982d3f4489c537951e9f275293d6c9 StaticDependenciesID=73a96ac8ab993b58798a041a5c444f1b 
+Importing 'GUID: e8ec2fc064aff4481912a39917701059 - Path: Assets/IUH_Campus/Materials/M_IUH_Motorbike_Dark.mat' with importer (NativeFormatImporter)
+Imported 'GUID: e8ec2fc064aff4481912a39917701059' -> (Import Result ID: '45a986531d1ff06bdad03f854a817fc5') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=d08b43ce5545c4151053a04c0bb36a2c DependenciesID=9dae78df4536740eda49c993327df2bf StaticDependenciesID=38d5e49e604aaca27bf5521c44d1f46c 
+Importing 'GUID: 5fc1a10c7f8124760b585687c6f0c51c - Path: Assets/IUH_Campus/Materials/M_IUH_Asphalt_Road.mat' with importer (NativeFormatImporter)
+Imported 'GUID: 5fc1a10c7f8124760b585687c6f0c51c' -> (Import Result ID: '6b2a4c8d00a03328c4d9aa32cf129b38') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=6ef5f201054c74e7f08d16a166bcd774 DependenciesID=89009f6c4f89e50862cae2669a33f458 StaticDependenciesID=d325829d7ac54c81141fe607109f1c8e 
+Asset Pipeline Refresh (id=c9e3a676fed8e88448e9b862987c28dc): Total: 0.084 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: ab6029ac44d10da4bb30bce0dfb243db - Path: Assets/IUH_Campus/Scenes/IUH_RightCluster.unity' with importer (DefaultImporter)
+Imported 'GUID: ab6029ac44d10da4bb30bce0dfb243db' -> (Import Result ID: '32466221596df86c2ba2ee7d44af8520') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=7ab89cf714bf4a20a0fc5f73007aaf6d DependenciesID=6eab24810e48e3a88ffc021e6c45c279 StaticDependenciesID=f09edf4e5675752616b70741528c46e2 
+Asset Pipeline Refresh (id=981a92cc51e3b1e47aff798a05740c16): Total: 0.065 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 91bc3416e87f8484f9e907c60c74c797 - Path: Assets/IUH_Campus/Screenshots/screenshot_05_corridor.png' with importer (TextureImporter)
+Imported 'GUID: 91bc3416e87f8484f9e907c60c74c797' -> (Import Result ID: '5356813f1308db9d505343fdc12c2035') in 0.074 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=2ec09f4e29ac50fd1312efb198d3f178 DependenciesID=616762836fa3e8fd2d48119303eab325 StaticDependenciesID=7834ec0114be568f4ab055623ffa0ee7 
+Importing 'GUID: e265b80ee0b26d64abea99e535521262 - Path: Assets/IUH_Campus/Screenshots/screenshot_07_motorcycle_parking.png' with importer (TextureImporter)
+Imported 'GUID: e265b80ee0b26d64abea99e535521262' -> (Import Result ID: '59f96bcd059d4114fa0ecc8ff941c80f') in 0.067 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1e5312cc720addbbfda4a1978c169512 DependenciesID=9d03da5daf6b3c0155c4a311cd958338 StaticDependenciesID=a3f7bd7400dc402825af26afd9b94818 
+Importing 'GUID: 834fc2df3e6331145adcc45309d3d970 - Path: Assets/IUH_Campus/Screenshots/screenshot_01_aerial.png' with importer (TextureImporter)
+Imported 'GUID: 834fc2df3e6331145adcc45309d3d970' -> (Import Result ID: '9a195e3e363e2353f9bd4a9873b68aff') in 0.058 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=a1f8d1adccedf86a80e64fdcf2310b2e DependenciesID=cabeeb55ce0e5ff483d638992d047070 StaticDependenciesID=2006df9d16b2c43fe1fd4a7abcf906c3 
+Importing 'GUID: f3d4af32676668045b10f2d5efc7ac9c - Path: Assets/IUH_Campus/Screenshots/screenshot_06_computer_training_room.png' with importer (TextureImporter)
+Imported 'GUID: f3d4af32676668045b10f2d5efc7ac9c' -> (Import Result ID: 'f3852b76fd0f4c63b93c77a63589b0a5') in 0.070 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=c7caeea0e94ab272c48edbe0f552a5d1 DependenciesID=8f1fa7bf279c12515ee99fd1dc18ff76 StaticDependenciesID=4de95e9d5cff07b90012a1929696869d 
+Importing 'GUID: 256f6d4b4f9846042947c54443a731d5 - Path: Assets/IUH_Campus/Screenshots/screenshot_02_courtyard_human.png' with importer (TextureImporter)
+Imported 'GUID: 256f6d4b4f9846042947c54443a731d5' -> (Import Result ID: 'ad5cb8e6f4cfdb15132999a5e005296f') in 0.082 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=de3dab38277b4733316e3f9649cd7079 DependenciesID=c2cc0b0604a40591565c067a1c1db24d StaticDependenciesID=a5ac0b2d72a6994daaddbb00b6d35b84 
+Importing 'GUID: a5a6874f12b1aa24791e42551e090f0e - Path: Assets/IUH_Campus/Screenshots/screenshot_03_building_g_entrance.png' with importer (TextureImporter)
+Imported 'GUID: a5a6874f12b1aa24791e42551e090f0e' -> (Import Result ID: '26e1004229e9aa0b66dc6ad343b852cf') in 0.074 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=6ab56bf070d6e104b3817b2419f0e93d DependenciesID=f443a84bd86b293e3939d6ea5c01b026 StaticDependenciesID=804324e2e18a0a8dec217c636f1a3235 
+Importing 'GUID: 680a840c566acc2448eeef3ee8567997 - Path: Assets/IUH_Campus/Screenshots/screenshot_04_lobby.png' with importer (TextureImporter)
+Imported 'GUID: 680a840c566acc2448eeef3ee8567997' -> (Import Result ID: 'd83d5f56bb77d476d90ac6f06f07c945') in 0.078 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=456560d664782d9bd5e2e63ce8fbe332 DependenciesID=99b5b178e56ef037b96ede01e1756e5b StaticDependenciesID=4e601444e51b78dd8fd3d8b7970ec00f 
+
+Asset Pipeline Refresh (id=4d959b37c26688744afb7ec0dcde87c0): Total: 0.571 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=7 (actual=7, local cache=0, cache server=0)
+		Asset DB Process Time: managed=1 ms, native=565 ms
+		Asset DB Callback time: managed=2 ms, native=2 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1440, non-scripts=2620
+		Asset File Changes: new=0, changed=7, moved=0, deleted=0
+		Scan Filter Count: 0
+	ApplyChangesToAssetFolders: 0.086ms
+	Scan: 7.405ms
+	Collect global state as custom dependencies: 0.185ms
+	OnSourceAssetsModified: 0.055ms
+	ProcessAssetsWithTransientArtifactChanges: 0.064ms
+	CategorizeAssets: 14.072ms
+	ImportOutOfDateAssets: 539.911ms (5.916ms without children)
+		ImportManagerImport: 505.342ms (0.351ms without children)
+			UpdateCategorizedAssets: 0.053ms
+		ReloadNativeAssets: 0.090ms
+		UnloadImportedAssets: 0.227ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.370ms
+		ImportSchedulerStart: 27.956ms
+	PostProcessAllAssets: 2.737ms
+		XRBuildSystem.XRAssetImported 0.514ms
+		MonoPostProcessAllAssets: 1.883ms
+			SyncVS.PostprocessSyncProject 0.900ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.355ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.087ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.074ms
+			PostProcessor.OnPostprocessAllAssets 0.066ms
+	PostAssetChangesProfiler: 2.131ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.364ms
+	PersistCurrentRevisions: 0.256ms
+	Untracked: 3.829ms
+
+[IUH Game-Ready Automation] All 7 Verification Shots Successfully Captured!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGameReadyAutomation:BuildAndCaptureAll7Views () (at Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs:92)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGameReadyAutomation.cs Line: 92)
+
+Batchmode quit successfully invoked - shutting down!
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-Admin-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-Admin channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0
