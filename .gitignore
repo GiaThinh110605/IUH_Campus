@@ -79,3 +79,5 @@ ExportedObj/
 # *.dll
 # *.exe
 Library/
+"/Library/`n/Temp/`n/Logs/`n/obj/`n/Build/`n/Builds/`n/UserSettings/" 
+"/Library/`n/Temp/`n/Logs/`n/UserSettings/`n/Build/`n/Builds/`n*.log" 

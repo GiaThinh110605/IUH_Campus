@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "IUH_Campus.slnx"
+    "dotnet.defaultSolution": "IUH_Campus.slnx",
+    "powershell.developer.setExecutionPolicy": true
 }
