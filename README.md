@@ -182,9 +182,29 @@ Tất cả materials được tạo tự động với URP Lit shader và các g
 
 ---
 
-## 👨‍💻 Tác giả
+## 🎮 Kế hoạch 6 Minigame Scenes (3 Thành Viên — 2 Scenes/Người)
 
-- **Gia Thịnh** — Unity Development, Kiến trúc thủ tục
+Dự án được mở rộng thành mô hình **1 Central Campus Hub + 6 Scenes Minigame** độc lập:
+
+| Thành viên | Scene | Tên Minigame & Thể loại | Khuôn viên IUH |
+|---|---|---|---|
+| **Gia Thịnh** | `Scene_Thinh_SprintToClass` | 🏃 **Sprint To Class** (Obstacle Runner / Parkour) | Cổng trường → Nhà Hiệu Bộ |
+| **Gia Thịnh** | `Scene_Thinh_RideHailingRush` | 🛵 **Xe Ôm Công Nghệ (Grab / Be / Xanh SM)** (Crazy Taxi Delivery) | Đại lộ Nguyễn Văn Bảo & KTX |
+| **Huy** | `Scene_Huy_DronePatrol` | 🚁 **Drone Sky Patrol** (FPV Drone 6DOF Simulator) | Tháp Kính Xanh Ngọc 13 Tầng |
+| **Huy** | `Scene_Huy_RoboBattleLab` | 🤖 **Đại Chiến Robot Tự Hành** (Line-tracking & Sumo Arena) | Xưởng Cơ Khí 4.0 & Sân Đấu |
+| **Nhật** | `Scene_Nhat_ParkingMaster` | 🏍️ **Parking Master** (Traffic Jam & Parking Puzzle) | Khu Bãi Đỗ Xe Sinh Viên IUH |
+| **Nhật** | `Scene_Nhat_CanteenRush` | 🍳 **Cơn Lốc Canteen & Trà Đào** (Overcooked Cooking Rush) | Canteen & Hẻm Ăn Vặt 15 Phút |
+
+- 📄 **Tài liệu kế hoạch chi tiết:** Xem [`IUH_TEAM_PLAN.md`](IUH_TEAM_PLAN.md)
+- 🌐 **Dashboard trực quan hóa tương tác:** Mở file [`IUH_Plan_Dashboard.html`](IUH_Plan_Dashboard.html) trên trình duyệt để trải nghiệm demo chọn 6 games, xem checklist và roadmap.
+
+---
+
+## 👨‍💻 Nhóm Phát Triển (Team Members)
+
+- **Gia Thịnh** — Core Architecture, Scene 1 (Sprint Runner) & Scene 4 (Xe Ôm Grab/Be/Xanh SM)
+- **Huy** — Physics Simulation, Scene 2 (FPV Drone Tháp Kính) & Scene 5 (Đua Robot Xưởng Cơ Khí)
+- **Nhật** — Puzzle & Management, Scene 3 (Bãi Xe Giờ Cao Điểm) & Scene 6 (Canteen Cooking Rush)
 
 ---
 

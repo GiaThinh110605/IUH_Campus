@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IUH Campus - Kế Hoạch 6 Minigame Cho 3 Thành Viên</title>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --iuh-blue: #0054A6;
+      --iuh-blue-glow: rgba(0, 84, 166, 0.45);
+      --iuh-red: #E31837;
+      --iuh-yellow: #FFB800;
+      
+      --thinh-color: #3B82F6;
+      --thinh-gradient: linear-gradient(135deg, #2563EB, #1D4ED8);
+      --huy-color: #10B981;
+      --huy-gradient: linear-gradient(135deg, #059669, #047857);
+      --nhat-color: #F59E0B;
+      --nhat-gradient: linear-gradient(135deg, #D97706, #B45309);
+      
+      /* Xe ôm công nghệ theme colors */
+      --grab-green: #00B14F;
+      --be-yellow: #FFC700;
+      --xanh-cyan: #00D1D2;
+      
+      --bg-dark: #0B1120;
+      --bg-surface: #131D31;
+      --bg-surface-elevated: #1B2842;
+      --bg-glass: rgba(19, 29, 49, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.16);
+      
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-lg: 0 16px 40px -10px rgba(0, 0, 0, 0.6);
+      --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(0, 84, 166, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(227, 24, 55, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px 80px 20px;
+    }
+
+    /* Header */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      margin-bottom: 28px;
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo-badge {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #0054A6, #002D5B);
+      border: 2px solid #FFD200;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #FFF;
+      box-shadow: 0 4px 14px rgba(0, 84, 166, 0.4);
+    }
+
+    .brand-info h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #FFF, #CBD5E1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-info p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-badge.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34D399;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 10px #10B981;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+      100% { opacity: 0.4; transform: scale(0.9); }
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(0, 84, 166, 0.28), rgba(19, 29, 49, 0.96)), var(--bg-surface);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(0, 84, 166, 0.35), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #FBBF24;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      padding: 4px 14px;
+      border-radius: var(--radius-full);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #60A5FA, #38BDF8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 900px;
+      margin-bottom: 24px;
+    }
+
+    /* Suggestion Highlights Box */
+    .suggestions-callout {
+      background: rgba(0, 84, 166, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .suggestions-callout .icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .suggestions-callout-text h4 {
+      font-family: 'Outfit', sans-serif;
+      color: #38BDF8;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .suggestions-callout-text p {
+      font-size: 0.86rem;
+      color: #CBD5E1;
+      line-height: 1.5;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(8px);
+      transition: var(--transition-smooth);
+    }
+
+    .metric-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .metric-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+    }
+
+    .metric-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFF;
+      line-height: 1.1;
+    }
+
+    .metric-lbl {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Nav Tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+      margin-bottom: 30px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      color: #FFF;
+      background: var(--bg-surface-elevated);
+      border-color: var(--border-bright);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Headings */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .section-title h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Category Divider */
+    .category-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 20px 0;
+    }
+
+    .category-divider h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .category-divider .line {
+      height: 1px;
+      background: var(--border-color);
+      flex: 1;
+    }
+
+    /* 6 Cards Grid */
+    .game-scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 1080px) {
+      .game-scenes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .game-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-bright);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-top-accent {
+      height: 6px;
+      width: 100%;
+    }
+
+    .accent-thinh { background: var(--thinh-gradient); }
+    .accent-huy { background: var(--huy-gradient); }
+    .accent-nhat { background: var(--nhat-gradient); }
+    .accent-ridehail { background: linear-gradient(135deg, var(--grab-green), var(--be-yellow), var(--xanh-cyan)); }
+    .accent-robot { background: linear-gradient(135deg, #06B6D4, #3B82F6); }
+    .accent-canteen { background: linear-gradient(135deg, #EC4899, #F59E0B); }
+
+    .card-head {
+      padding: 22px 22px 14px 22px;
+    }
+
+    .card-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .member-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .member-thinh {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93C5FD;
+    }
+
+    .member-huy {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6EE7B7;
+    }
+
+    .member-nhat {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #FCD34D;
+    }
+
+    .scene-id-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+    }
+
+    .game-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      color: #FFF;
+    }
+
+    .game-genre {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .landmark-box {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: #CBD5E1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-body {
+      padding: 16px 22px;
+      flex-grow: 1;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #CBD5E1;
+      line-height: 1.45;
+    }
+
+    .feature-item .icon {
+      font-size: 0.95rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .special-selection-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .fleet-options-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .fleet-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .fleet-grab { background: rgba(0, 177, 79, 0.2); color: #4ADE80; border: 1px solid rgba(0, 177, 79, 0.4); }
+    .fleet-be { background: rgba(255, 199, 0, 0.2); color: #FDE047; border: 1px solid rgba(255, 199, 0, 0.4); }
+    .fleet-xanh { background: rgba(0, 209, 210, 0.2); color: #67E8F9; border: 1px solid rgba(0, 209, 210, 0.4); }
+
+    .script-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .script-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 4px;
+      color: #94A3B8;
+    }
+
+    .card-footer {
+      padding: 14px 22px;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-play-sim {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #FFF;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-play-sim:hover {
+      filter: brightness(1.15);
+      transform: scale(1.03);
+    }
+
+    /* Simulator Hub */
+    .sim-container {
+      background: #000;
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 40px;
+    }
+
+    .sim-screen {
+      height: 520px;
+      background: linear-gradient(180deg, #091224 0%, #030712 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .sim-top-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .sim-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #FFD200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sim-stats-hud {
+      display: flex;
+      gap: 12px;
+    }
+
+    .sim-badge-stat {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #38BDF8;
+    }
+
+    .sim-center-content {
+      text-align: center;
+      z-index: 10;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .sim-scene-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #FFF;
+      margin-bottom: 6px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.8);
+    }
+
+    .sim-scene-desc {
+      font-size: 0.92rem;
+      color: #94A3B8;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .sim-portals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      z-index: 10;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .sim-portals-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sim-portal-btn {
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .sim-portal-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .sim-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    /* Comparison & Highlights Table */
+    .table-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      margin-bottom: 36px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.86rem;
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 14px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: #CBD5E1;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      color: #CBD5E1;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+      color: #38BDF8;
+      font-size: 0.8rem;
+    }
+
+    /* Toast */
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateY(120%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast-notify.show {
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Brand & Header -->
+    <header class="top-header">
+      <div class="brand-group">
+        <div class="brand-logo-badge">IUH</div>
+        <div class="brand-info">
+          <h1>Đại Học Công Nghiệp TP.HCM — Multi-Game Hub</h1>
+          <p>Kế Hoạch Mở Rộng: 3 Thành Viên • Mỗi Người 2 Scenes (Tổng Cộng 6 Minigames)</p>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="pill-badge active"><span class="pulse-dot"></span>Unity 6.0 URP</span>
+        <span class="pill-badge">🎮 6 Minigames + 1 Hub</span>
+        <span class="pill-badge">👥 Thịnh • Huy • Nhật (2 Scenes/Người)</span>
+      </div>
+    </header>
+
+    <!-- Hero Overview -->
+    <section class="hero-banner">
+      <div class="hero-tagline">🔥 Kế Hoạch Nâng Cấp Toàn Diện • Đậm Chất Sinh Viên & Kỹ Thuật IUH</div>
+      <h2 class="hero-title">6 Trò Chơi Độc Lập — <span>3 Thành Viên Phụ Trách</span></h2>
+      <p class="hero-desc">
+        Dự án mở rộng để mỗi người trong nhóm phụ trách <b>2 Scene Minigame khác nhau</b>. Điểm nhấn đột phá là minigame <b>"Chạy Xe Ôm Công Nghệ (Grab / Be / Xanh SM)"</b> kiếm thêm thu nhập sinh viên quanh cổng trường Nguyễn Văn Bảo, kết hợp cùng 2 đề tài đặc sắc được đề xuất: <b>"Đua Robot Tự Hành Xưởng Công Nghệ IUH"</b> và <b>"Cơn Lốc Canteen & Hẻm Ăn Vặt Giờ Ra Chơi"</b>.
+      </p>
+
+      <!-- Highlights Box for User's Question -->
+      <div class="suggestions-callout">
+        <div class="icon">💡</div>
+        <div class="suggestions-callout-text">
+          <h4>2 Đề Tài Đề Xuất Đột Phá Để Làm Nổi Bật Thương Hiệu IUH:</h4>
+          <p>
+            <b>1. Đua Robot Xưởng Cơ Khí & Tự Động Hóa 4.0:</b> Làm nổi bật thế mạnh kỹ thuật cốt lõi của Đại học Công nghiệp — sinh viên tự lắp ráp, nạp cảm biến dò line và đấu Robot Sumo trong xưởng máy.<br>
+            <b>2. Cơn Lốc Canteen & Trà Đào Nguyễn Văn Bảo (Overcooked):</b> Nổi bật văn hóa ẩm thực và đời sống sinh viên Gò Vấp — phục vụ cơm tấm, bánh tráng nướng, trà đào cho hàng trăm sinh viên trong 15 phút nghỉ giải lao.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric-card">
+          <div class="metric-icon" style="color: #3B82F6;">🏃🛵</div>
+          <div>
+            <div class="metric-val">Gia Thịnh (2)</div>
+            <div class="metric-lbl">Sprint Runner + Xe Ôm Grab/Be/Xanh</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="color: #10B981;">🚁🤖</div>
+          <div>
+            <div class="metric-val">Huy (2)</div>
+            <div class="metric-lbl">Drone Tháp Kính + Đua Robot Tự Động</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="color: #F59E0B;">🏍️🍳</div>
+          <div>
+            <div class="metric-val">Nhật (2)</div>
+            <div class="metric-lbl">Bãi Xe Kẹt + Canteen Hẻm Ăn Vặt</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="color: #A855F7;">🏛️</div>
+          <div>
+            <div class="metric-val">Central Hub</div>
+            <div class="metric-lbl">Menu 3D chọn 6 Minigames</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('scenes-tab')">
+        <span>🎮</span> Danh Sách 6 Scenes Minigame
+      </button>
+      <button class="tab-btn" onclick="switchTab('simulator-tab')">
+        <span>🕹️</span> Mô Phỏng Chọn 6 Games
+      </button>
+      <button class="tab-btn" onclick="switchTab('members-tab')">
+        <span>👥</span> Phân Công: Thịnh • Huy • Nhật
+      </button>
+      <button class="tab-btn" onclick="switchTab('roadmap-tab')">
+        <span>📅</span> Lộ Trình 4 Tuần (6 Games)
+      </button>
+      <button class="tab-btn" onclick="switchTab('tech-tab')">
+        <span>⚙️</span> Cấu Trúc Git & Build Settings
+      </button>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- TAB 1: 6 MINIGAME SCENES -->
+    <!-- ============================================== -->
+    <section id="scenes-tab" class="tab-content active">
+      
+      <!-- PHẦN 1: 3 SCENE GỐC -->
+      <div class="category-divider">
+        <h3>🏛️ Nhóm Phân Cảnh 1: Thử Thách Khám Phá Khuôn Viên (Original 3 Scenes)</h3>
+        <div class="line"></div>
+      </div>
+
+      <div class="game-scenes-grid">
+        <!-- 1. THỊNH - SPRINT -->
+        <div class="game-card">
+          <div class="card-top-accent accent-thinh"></div>
+          <div class="card-head">
+            <div class="card-tag-row">
+              <span class="member-badge member-thinh">👤 Gia Thịnh • Scene 1</span>
+              <span class="scene-id-pill">Scene_Thinh_SprintToClass</span>
+            </div>
+            <h3 class="game-title">Chạy Nhanh Kẻo Trễ Giờ Điểm Danh</h3>
+            <div class="game-genre">🏃 3D Endless / Obstacle Runner & Parkour</div>
+            <div class="landmark-box">📍 Cổng Trường → Sân Cột Cờ → Nhà Hiệu Bộ 5 Tầng</div>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="icon">⏰</span>
+                <div>Chạy đua kịp 7:00 AM, né bảo vệ, vũng nước sau mưa, rào chắn barie.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">☕</span>
+                <div>Nhặt Thẻ sinh viên (+100đ), uống cà phê sữa đá tăng tốc 1.5x.</div>
+              </li>
+            </ul>
+            <div class="script-tags">
+              <span class="script-badge">ThinhPlayerRunner.cs</span>
+              <span class="script-badge">ThinhObstacleSpawner.cs</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span style="font-size: 0.75rem; color: var(--text-dim);">Chế độ: Bàn phím / Mobile</span>
+            <button class="btn-play-sim" style="background: var(--thinh-gradient);" onclick="previewScene('thinh_sprint')">▶ Thử Demo</button>
+          </div>
+        </div>
+
+        <!-- 2. HUY - DRONE -->
+        <div class="game-card">
+          <div class="card-top-accent accent-huy"></div>
+          <div class="card-head">
+            <div class="card-tag-row">
+              <span class="member-badge member-huy">👤 Huy • Scene 2</span>
+              <span class="scene-id-pill">Scene_Huy_DronePatrol</span>
+            </div>
+            <h3 class="game-title">Drone Tuần Tra Tháp Kính & Phòng Lab</h3>
+            <div class="game-genre">🚁 3D FPV Drone Simulator 6DOF & Laser Scan</div>
+            <div class="landmark-box">📍 Tháp Kính Xanh Ngọc 13 Tầng (Nhà B/E) cao 56m</div>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="icon">⭕</span>
+                <div>Bay xuyên vòng neon trên không, quét mã QR sự cố tại ban công tầng 9-10.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">📸</span>
+                <div>Xịt CO2 làm mát bảng điện tử, bay lên đỉnh vòm đen chụp ảnh panorama.</div>
+              </li>
+            </ul>
+            <div class="script-tags">
+              <span class="script-badge">HuyDroneFlight.cs</span>
+              <span class="script-badge">HuyRingCheckpoint.cs</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span style="font-size: 0.75rem; color: var(--text-dim);">Chế độ: Vật lý 6DOF</span>
+            <button class="btn-play-sim" style="background: var(--huy-gradient);" onclick="previewScene('huy_drone')">▶ Thử Demo</button>
+          </div>
+        </div>
+
+        <!-- 3. NHẬT - PARKING -->
+        <div class="game-card">
+          <div class="card-top-accent accent-nhat"></div>
+          <div class="card-head">
+            <div class="card-tag-row">
+              <span class="member-badge member-nhat">👤 Nhật • Scene 3</span>
+              <span class="scene-id-pill">Scene_Nhat_ParkingMaster</span>
+            </div>
+            <h3 class="game-title">Đại Chiến Bãi Xe Giờ Cao Điểm</h3>
+            <div class="game-genre">🏍️ Parking Simulation & Traffic Jam Unblock Puzzle</div>
+            <div class="landmark-box">📍 Khu Vực Bãi Giữ Xe Sinh Viên & Trạm Gác Barie</div>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="icon">🅿️</span>
+                <div>Phân loại xe ga, xe số, xe điện vào ô quy định; quẹt thẻ RFID mở barie.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">🧩</span>
+                <div>Màn giải đố Unblock: di chuyển các xe chắn để thông đường xe cấp cứu.</div>
+              </li>
+            </ul>
+            <div class="script-tags">
+              <span class="script-badge">NhatParkingSlot.cs</span>
+              <span class="script-badge">NhatTrafficFlow.cs</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span style="font-size: 0.75rem; color: var(--text-dim);">Chế độ: Click & Kéo thả</span>
+            <button class="btn-play-sim" style="background: var(--nhat-gradient);" onclick="previewScene('nhat_parking')">▶ Thử Demo</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHẦN 2: 3 SCENE MỚI BỔ SUNG -->
+      <div class="category-divider">
+        <h3>✨ Nhóm Phân Cảnh 2: Đời Sống Sinh Viên & Kỹ Thuật Công Nghiệp (3 New Scenes)</h3>
+        <div class="line"></div>
+      </div>
+
+      <div class="game-scenes-grid">
+        <!-- 4. THỊNH (MỚI) - XE ÔM CÔNG NGHỆ -->
+        <div class="game-card">
+          <div class="card-top-accent accent-ridehail"></div>
+          <div class="card-head">
+            <div class="card-tag-row">
+              <span class="member-badge member-thinh">👤 Gia Thịnh • Scene 4</span>
+              <span class="scene-id-pill">Scene_Thinh_RideHailingRush</span>
+            </div>
+            <h3 class="game-title">Tài Xế Công Nghệ IUH: Kiếm Tiền Đóng Học Phí</h3>
+            <div class="game-genre">🛵 Lái Xe Giao Hàng & Đón Khách (Crazy Taxi / Open Campus)</div>
+            <div class="landmark-box">📍 Cổng Nguyễn Văn Bảo ↔ Vòng Xoay ↔ Cổng Phụ & KTX</div>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="icon">🎯</span>
+                <div><b>Cốt truyện:</b> Hết giờ học, sinh viên bật app xe ôm công nghệ nhận cuốc chở bạn bè hoặc giao trà sữa xung quanh trường kiếm tiền trang trải sinh hoạt.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">🛵</span>
+                <div><b>Tùy chọn 3 Hãng Xe Nổi Tiếng:</b></div>
+              </li>
+            </ul>
+
+            <div class="special-selection-box">
+              <div style="font-size: 0.76rem; color: var(--text-muted);">Người chơi tự do chọn màu áo & loại xe:</div>
+              <div class="fleet-options-row">
+                <span class="fleet-badge fleet-grab">🟢 GrabBike (Xăng)</span>
+                <span class="fleet-badge fleet-be">🟡 BeBike (Tốc độ)</span>
+                <span class="fleet-badge fleet-xanh">🔵 Xanh SM (Xe Điện Êm)</span>
+              </div>
+            </div>
+
+            <ul class="feature-list" style="margin-top: 10px;">
+              <li class="feature-item">
+                <span class="icon">⭐</span>
+                <div>Nhận cuốc trên bản đồ Mini-map, chạy tránh kẹt xe giờ tan tầm, tích lũy đánh giá 5 sao từ khách hàng sinh viên!</div>
+              </li>
+            </ul>
+
+            <div class="script-tags">
+              <span class="script-badge">ThinhMotorbikeController.cs</span>
+              <span class="script-badge">ThinhRideOrderManager.cs</span>
+              <span class="script-badge">ThinhMinimapGPS.cs</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span style="font-size: 0.75rem; color: #4ADE80;">⭐ Đề tài theo yêu cầu</span>
+            <button class="btn-play-sim" style="background: linear-gradient(135deg, #00B14F, #00873D);" onclick="previewScene('thinh_ride')">▶ Thử Demo Xe Ôm</button>
+          </div>
+        </div>
+
+        <!-- 5. HUY (MỚI) - ĐUA ROBOT XƯỞNG CƠ KHÍ & TỰ ĐỘNG HÓA -->
+        <div class="game-card">
+          <div class="card-top-accent accent-robot"></div>
+          <div class="card-head">
+            <div class="card-tag-row">
+              <span class="member-badge member-huy">👤 Huy • Scene 5</span>
+              <span class="scene-id-pill">Scene_Huy_RoboBattleLab</span>
+            </div>
+            <h3 class="game-title">Đại Chiến Robot Tự Hành: Xưởng Kỹ Thuật 4.0</h3>
+            <div class="game-genre">🤖 Đua Xe Robot Dò Line & Đấu Trường Robot Sumo</div>
+            <div class="landmark-box">📍 Tầng Hầm Phòng Lab Kỹ Thuật & Sân Đấu Tự Động Hóa</div>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="icon">💡</span>
+                <div><b>Điểm nhấn nổi bật trường IUH:</b> Thể hiện đúng bản sắc trường Đại học Công nghiệp hàng đầu về Cơ khí, Điện tử, Tự động hóa và Vi mạch.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">⚙️</span>
+                <div><b>Cơ chế điều khiển Robot:</b> Nâng cấp bánh xe đa hướng Mecanum, cánh tay gắp linh kiện cơ khí, cảm biến hồng ngoại dò vạch đen trên sàn xưởng.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">💥</span>
+                <div><b>Chế độ thi đấu:</b> Vòng 1 vượt mê cung xưởng máy; Vòng 2 đẩy lùi Robot đối thủ ra khỏi vòng tròn đấu trường Sumo sân trường!</div>
+              </li>
+            </ul>
+
+            <div class="script-tags">
+              <span class="script-badge">HuyRobotChassis.cs</span>
+              <span class="script-badge">HuyLineSensorTracker.cs</span>
+              <span class="script-badge">HuyArenaSumoJudge.cs</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span style="font-size: 0.75rem; color: #38BDF8;">🔥 Đề xuất 1: Đậm chất IUH</span>
+            <button class="btn-play-sim" style="background: linear-gradient(135deg, #0284C7, #0369A1);" onclick="previewScene('huy_robot')">▶ Thử Demo Robot</button>
+          </div>
+        </div>
+
+        <!-- 6. NHẬT (MỚI) - CANTEEN & HẺM ĂN VẶT NGUYỄN VĂN BẢO -->
+        <div class="game-card">
+          <div class="card-top-accent accent-canteen"></div>
+          <div class="card-head">
+            <div class="card-tag-row">
+              <span class="member-badge member-nhat">👤 Nhật • Scene 6</span>
+              <span class="scene-id-pill">Scene_Nhat_CanteenRush</span>
+            </div>
+            <h3 class="game-title">Cơn Lốc Canteen & Trà Đào Nguyễn Văn Bảo</h3>
+            <div class="game-genre">🍳 Time-Management Cooking / Phục Vụ (Overcooked Style)</div>
+            <div class="landmark-box">📍 Khu Canteen Trường & Hẻm Ăn Vặt Cổng Trường</div>
+          </div>
+          <div class="card-body">
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="icon">💡</span>
+                <div><b>Điểm nhấn đời sống sinh viên:</b> Giờ ra chơi 15 phút, cả nghìn sinh viên ùa xuống canteen mua đồ ăn trưa và giải khát.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">🍜</span>
+                <div><b>Thực đơn chuẩn sinh viên Gò Vấp:</b> Nấu Cơm tấm sườn bì chả, cuộn Bánh tráng nướng trứng cút, pha Trà đào cam sả trân châu theo order.</div>
+              </li>
+              <li class="feature-item">
+                <span class="icon">⏱️</span>
+                <div><b>Nhịp độ dồn dập:</b> Phối hợp lấy nguyên liệu, canh lửa không bị khét, thanh toán tiền nhanh trước khi chuông vào tiết vang lên!</div>
+              </li>
+            </ul>
+
+            <div class="script-tags">
+              <span class="script-badge">NhatCookingStation.cs</span>
+              <span class="script-badge">NhatOrderQueueManager.cs</span>
+              <span class="script-badge">NhatStudentCustomerAI.cs</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span style="font-size: 0.75rem; color: #F472B6;">🍜 Đề xuất 2: Đời sống SV</span>
+            <button class="btn-play-sim" style="background: linear-gradient(135deg, #DB2777, #BE185D);" onclick="previewScene('nhat_canteen')">▶ Thử Demo Canteen</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 2: SIMULATOR HUB -->
+    <!-- ============================================== -->
+    <section id="simulator-tab" class="tab-content">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Trải Nghiệm Mô Phỏng 6 Minigames Tại Sân Trường IUH</h2>
+          <p>Nhấp vào các phân cảnh dưới đây để trải nghiệm luồng nạp scene tương ứng của Thịnh, Huy và Nhật</p>
+        </div>
+      </div>
+
+      <div class="sim-container">
+        <div class="sim-screen" id="simScreen">
+          <div class="sim-top-hud">
+            <div class="sim-logo">
+              <span>🏫</span> IUH CAMPUS PORTAL • 6 MINIGAMES
+            </div>
+            <div class="sim-stats-hud">
+              <div class="sim-badge-stat">FPS: 60 (URP)</div>
+              <div class="sim-badge-stat" id="simPlayerScore">Trạng thái: Sảnh Trung Tâm</div>
+            </div>
+          </div>
+
+          <div class="sim-center-content">
+            <div style="font-size: 2.2rem; margin-bottom: 4px;" id="simSceneIcon">🏛️</div>
+            <div class="sim-scene-name" id="simSceneTitle">Sân Trường Trung Tâm IUH</div>
+            <div class="sim-scene-desc" id="simSceneDesc">
+              Chào mừng bạn đến với khuôn viên Đại Học Công Nghiệp TP.HCM. Hãy chọn 1 trong 6 thử thách minigame độc lập bên dưới do nhóm phát triển:
+            </div>
+
+            <!-- 6 Scene Buttons -->
+            <div class="sim-portals-grid">
+              <button class="sim-portal-btn" style="background: var(--thinh-gradient); color:#FFF;" onclick="loadSimGame('thinh_sprint')">
+                🏃 Game 1: Chạy Điểm Danh (Thịnh)
+              </button>
+              <button class="sim-portal-btn" style="background: var(--huy-gradient); color:#FFF;" onclick="loadSimGame('huy_drone')">
+                🚁 Game 2: Drone Tháp Kính (Huy)
+              </button>
+              <button class="sim-portal-btn" style="background: var(--nhat-gradient); color:#FFF;" onclick="loadSimGame('nhat_parking')">
+                🏍️ Game 3: Bãi Đỗ Xe (Nhật)
+              </button>
+              <button class="sim-portal-btn" style="background: linear-gradient(135deg, #00B14F, #00873D); color:#FFF;" onclick="loadSimGame('thinh_ride')">
+                🛵 Game 4: Xe Ôm Grab/Be/Xanh (Thịnh)
+              </button>
+              <button class="sim-portal-btn" style="background: linear-gradient(135deg, #0284C7, #0369A1); color:#FFF;" onclick="loadSimGame('huy_robot')">
+                🤖 Game 5: Đua Robot Tự Hành (Huy)
+              </button>
+              <button class="sim-portal-btn" style="background: linear-gradient(135deg, #DB2777, #BE185D); color:#FFF;" onclick="loadSimGame('nhat_canteen')">
+                🍳 Game 6: Canteen Trà Đào (Nhật)
+              </button>
+            </div>
+          </div>
+
+          <div class="sim-bottom-bar">
+            <span>Vị trí camera: Nhìn bao quát Tượng đài & Tháp Kính</span>
+            <span id="simActiveSceneFile">Scene đang nạp: Assets/IUH_Campus/Scenes/IUH_Campus_Main.unity</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+          <button class="tab-btn active" style="font-size: 0.85rem;" onclick="resetSimHub()">
+            🔄 Reset Về Sân Trường Trung Tâm (Hub)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 3: MEMBERS DETAIL BREAKDOWN -->
+    <!-- ============================================== -->
+    <section id="members-tab" class="tab-content">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Bảng Phân Công: 3 Thành Viên • Mỗi Bạn 2 Scenes Hoàn Chỉnh</h2>
+          <p>Mỗi bạn làm chủ toàn bộ 2 phân cảnh từ gameplay, vật lý, đồ họa đến âm thanh và giao diện kết thúc</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Thành Viên</th>
+              <th>Scene 1 (Cốt Lõi)</th>
+              <th>Scene 2 (Mở Rộng Đột Phá)</th>
+              <th>Công Việc & Scripts Đảm Nhiệm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <b style="color: #93C5FD; font-size: 1rem;">Gia Thịnh</b><br>
+                <span style="font-size: 0.75rem; color: var(--text-dim);">Runner & Ride-Hailing</span>
+              </td>
+              <td>
+                <b>🏃 Scene_Thinh_SprintToClass</b><br>
+                Chạy 3 làn đường, nhảy trượt qua barie kịp giờ 7:00 AM.
+              </td>
+              <td>
+                <b>🛵 Scene_Thinh_RideHailingRush</b><br>
+                Chạy xe ôm công nghệ Grab/Be/Xanh SM đón sinh viên quanh cổng trường.
+              </td>
+              <td>
+                <span class="code-font">ThinhPlayerRunner.cs</span>, <span class="code-font">ThinhMotorbikeController.cs</span>, <span class="code-font">ThinhRideOrderManager.cs</span>, tích hợp chọn 3 màu áo Grab/Be/Xanh.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b style="color: #6EE7B7; font-size: 1rem;">Huy</b><br>
+                <span style="font-size: 0.75rem; color: var(--text-dim);">Drone & Robot Engineering</span>
+              </td>
+              <td>
+                <b>🚁 Scene_Huy_DronePatrol</b><br>
+                Vật lý FPV Drone 6DOF, quét laser QR ban công tháp kính 13 tầng.
+              </td>
+              <td>
+                <b>🤖 Scene_Huy_RoboBattleLab</b><br>
+                Chế tạo xe robot dò line xưởng cơ khí & đấu trường Robot Sumo IUH.
+              </td>
+              <td>
+                <span class="code-font">HuyDroneFlight.cs</span>, <span class="code-font">HuyLaserScanner.cs</span>, <span class="code-font">HuyRobotChassis.cs</span>, <span class="code-font">HuyLineSensorTracker.cs</span>.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b style="color: #FCD34D; font-size: 1rem;">Nhật</b><br>
+                <span style="font-size: 0.75rem; color: var(--text-dim);">Traffic & Cooking Simulation</span>
+              </td>
+              <td>
+                <b>🏍️ Scene_Nhat_ParkingMaster</b><br>
+                Quản lý ô đỗ xe, quẹt thẻ RFID, giải đố unblock cứu xe kẹt giờ cao điểm.
+              </td>
+              <td>
+                <b>🍳 Scene_Nhat_CanteenRush</b><br>
+                Phục vụ cơm tấm, bánh tráng nướng, trà đào cho sinh viên 15p ra chơi.
+              </td>
+              <td>
+                <span class="code-font">NhatParkingSlot.cs</span>, <span class="code-font">NhatVehicleGrid.cs</span>, <span class="code-font">NhatCookingStation.cs</span>, <span class="code-font">NhatOrderQueue.cs</span>.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 4: ROADMAP -->
+    <!-- ============================================== -->
+    <section id="roadmap-tab" class="tab-content">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Lộ Trình Triển Khai 4 Tuần (Quản Lý 6 Minigames)</h2>
+          <p>Mỗi tuần tập trung vào 1 cột mốc cụ thể để đảm bảo cả 6 game đều hoàn thành đúng hạn</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Tuần</th>
+              <th>Mục Tiêu Sprint</th>
+              <th>Nhiệm Vụ Của Thịnh</th>
+              <th>Nhiệm Vụ Của Huy</th>
+              <th>Nhiệm Vụ Của Nhật</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b style="color: #38BDF8;">Tuần 1</b></td>
+              <td><b>Dựng Layout 6 Scenes</b></td>
+              <td>Tạo đường chạy Sprint từ cổng trường; Dựng map đường phố quanh cổng Nguyễn Văn Bảo cho xe ôm.</td>
+              <td>Tạo tháp kính 13 tầng cho Drone; Dựng sàn xưởng máy và võ đài cho Robot Arena.</td>
+              <td>Dựng mặt bằng bãi giữ xe thông minh; Dựng quầy bếp Canteen và hẻm ăn vặt.</td>
+            </tr>
+            <tr>
+              <td><b style="color: #38BDF8;">Tuần 2</b></td>
+              <td><b>Core Controller 6 Games</b></td>
+              <td>Điều khiển nhân vật chạy 3 làn; Lập trình vật lý lái xe máy số/tay ga/xe điện công nghệ.</td>
+              <td>Bay Drone 6DOF xuyên vòng neon; Lập trình bánh xe robot mecanum & cảm biến dò line.</td>
+              <td>Hệ thống kéo thả xe vào ô đỗ; Trạm chế biến lấy cơm, nướng bánh, rót trà đào.</td>
+            </tr>
+            <tr>
+              <td><b style="color: #38BDF8;">Tuần 3</b></td>
+              <td><b>Logic & Thử Thách</b></td>
+              <td>Bảo vệ đi tuần, app nhận cuốc Grab/Be/Xanh tính cước phí và chấm sao rating.</td>
+              <td>Quét laser QR tầng 9, trọng tài phân xử đấu trường Robot Sumo lọt sàn.</td>
+              <td>Câu đố unblock giải cứu xe kẹt, hàng chờ order sinh viên kiên nhẫn/hối thúc.</td>
+            </tr>
+            <tr>
+              <td><b style="color: #38BDF8;">Tuần 4</b></td>
+              <td><b>Tích Hợp Hub & Polish</b></td>
+              <td colspan="3" style="text-align: center; color: #34D399;">
+                <b>Ghép 6 Scene vào Menu Hub trung tâm</b>, thêm âm thanh còi xe, nhạc xưởng máy, chuông vào lớp; Test đóng gói Windows & WebGL.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 5: TECHNICAL & GIT -->
+    <!-- ============================================== -->
+    <section id="tech-tab" class="tab-content">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Quy Chuẩn Build Settings & Cấu Trúc Git 6 Scenes</h2>
+          <p>Mỗi bạn quản lý 1 thư mục riêng để 3 người làm song song không bao giờ bị xung đột</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Index Build</th>
+              <th>Đường Dẫn Scene Trong Unity</th>
+              <th>Phụ Trách</th>
+              <th>Mục Đích</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-font">Index 0</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/IUH_Campus_Main.unity</span></td>
+              <td>Cả Nhóm (Hub)</td>
+              <td>Sân trường trung tâm - Menu chọn 6 minigame</td>
+            </tr>
+            <tr>
+              <td><span class="code-font">Index 1</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/Thinh/Scene_Thinh_SprintToClass.unity</span></td>
+              <td>Gia Thịnh</td>
+              <td>Minigame 1: Chạy kịp giờ điểm danh</td>
+            </tr>
+            <tr>
+              <td><span class="code-font">Index 2</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/Thinh/Scene_Thinh_RideHailingRush.unity</span></td>
+              <td>Gia Thịnh</td>
+              <td>Minigame 4: Xe ôm công nghệ Grab/Be/Xanh</td>
+            </tr>
+            <tr>
+              <td><span class="code-font">Index 3</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/Huy/Scene_Huy_DronePatrol.unity</span></td>
+              <td>Huy</td>
+              <td>Minigame 2: Drone tuần tra tháp kính</td>
+            </tr>
+            <tr>
+              <td><span class="code-font">Index 4</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/Huy/Scene_Huy_RoboBattleLab.unity</span></td>
+              <td>Huy</td>
+              <td>Minigame 5: Đua Robot & Đấu trường Sumo</td>
+            </tr>
+            <tr>
+              <td><span class="code-font">Index 5</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/Nhat/Scene_Nhat_ParkingMaster.unity</span></td>
+              <td>Nhật</td>
+              <td>Minigame 3: Xếp bãi xe & giải cứu xe kẹt</td>
+            </tr>
+            <tr>
+              <td><span class="code-font">Index 6</span></td>
+              <td><span class="code-font">Assets/IUH_Campus/Scenes/Nhat/Scene_Nhat_CanteenRush.unity</span></td>
+              <td>Nhật</td>
+              <td>Minigame 6: Canteen & Trà đào Nguyễn Văn Bảo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>🏫 <b>IUH_Campus — Đại Học Công Nghiệp TP. Hồ Chí Minh</b> • Bản Kế Hoạch 6 Minigame 3D</p>
+      <p style="margin-top: 6px;">Nhóm thực hiện: <b>Gia Thịnh • Huy • Nhật</b> | Unity 6 URP</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-notify" id="toastBox">
+    <span id="toastIcon" style="font-size: 1.4rem;">🚀</span>
+    <div>
+      <div id="toastTitle" style="font-weight: 700; color: #FFF;">Thông báo</div>
+      <div id="toastDesc" style="font-size: 0.8rem; color: #94A3B8;">Mô tả</div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      const targetContent = document.getElementById(tabId);
+      if (targetContent) targetContent.classList.add('active');
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      const tabMap = {
+        'scenes-tab': 0,
+        'simulator-tab': 1,
+        'members-tab': 2,
+        'roadmap-tab': 3,
+        'tech-tab': 4
+      };
+      if (tabMap[tabId] !== undefined && buttons[tabMap[tabId]]) {
+        buttons[tabMap[tabId]].classList.add('active');
+      }
+      playUiSound('tab');
+    }
+
+    function previewScene(gameKey) {
+      switchTab('simulator-tab');
+      loadSimGame(gameKey);
+    }
+
+    function loadSimGame(gameKey) {
+      const screen = document.getElementById('simScreen');
+      const icon = document.getElementById('simSceneIcon');
+      const title = document.getElementById('simSceneTitle');
+      const desc = document.getElementById('simSceneDesc');
+      const file = document.getElementById('simActiveSceneFile');
+      const score = document.getElementById('simPlayerScore');
+
+      playUiSound('portal');
+
+      if (gameKey === 'thinh_sprint') {
+        screen.style.background = 'radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.4), #060F1E 90%)';
+        icon.innerHTML = '🏃💨';
+        title.innerHTML = 'Sprint To Class — Gia Thịnh (Scene 1)';
+        title.style.color = '#93C5FD';
+        desc.innerHTML = 'Xuất phát từ Cổng Trường IUH! Đồng hồ 6:58 AM! Tránh bác bảo vệ và nhặt cà phê sữa đá để chạy đến Nhà Hiệu Bộ!';
+        file.innerHTML = 'Đang chạy: Scene_Thinh_SprintToClass.unity (A/D/Space/Ctrl)';
+        score.innerHTML = 'Điểm: 350 pts • 06:59:15 AM';
+        showToast('🏃 Chuyển Sang Scene 1', 'Đã nạp Minigame Chạy Đến Lớp (Gia Thịnh)');
+      } else if (gameKey === 'huy_drone') {
+        screen.style.background = 'radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.4), #041410 90%)';
+        icon.innerHTML = '🚁✨';
+        title.innerHTML = 'Drone Patrol Tower — Huy (Scene 2)';
+        title.style.color = '#6EE7B7';
+        desc.innerHTML = 'Bay lên độ cao 40m quanh Tháp Kính Xanh Ngọc (Nhà B/E). Quét 3 mã QR và chụp ảnh toàn cảnh khuôn viên IUH!';
+        file.innerHTML = 'Đang chạy: Scene_Huy_DronePatrol.unity (W/A/S/D + Shift/Ctrl)';
+        score.innerHTML = 'Độ cao: 42m • Pin: 88%';
+        showToast('🚁 Chuyển Sang Scene 2', 'Đã nạp Minigame Drone Tuần Tra Tháp Kính (Huy)');
+      } else if (gameKey === 'nhat_parking') {
+        screen.style.background = 'radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.4), #1A1005 90%)';
+        icon.innerHTML = '🏍️🚥';
+        title.innerHTML = 'Parking Master Rush — Nhật (Scene 3)';
+        title.style.color = '#FCD34D';
+        desc.innerHTML = 'Bãi đỗ xe IUH đang dồn ứ tại cổng! Phân loại xe số vào ô xanh, xe tay ga vào ô vàng và giải cứu xe kẹt!';
+        file.innerHTML = 'Đang chạy: Scene_Nhat_ParkingMaster.unity (Chuột: Kéo & Thả xe)';
+        score.innerHTML = 'Đã xếp: 14/20 xe • Ùn tắc: 20%';
+        showToast('🏍️ Chuyển Sang Scene 3', 'Đã nạp Minigame Bãi Xe Giờ Cao Điểm (Nhật)');
+      } else if (gameKey === 'thinh_ride') {
+        screen.style.background = 'radial-gradient(circle at 50% 50%, rgba(0, 177, 79, 0.45), #02160C 90%)';
+        icon.innerHTML = '🛵💰';
+        title.innerHTML = 'Xe Ôm Công Nghệ IUH: Grab / Be / Xanh SM — Gia Thịnh (Scene 4)';
+        title.style.color = '#4ADE80';
+        desc.innerHTML = 'Đang đón khách tại Cổng Nguyễn Văn Bảo! Chọn xe máy điện Xanh SM / Grab / Be, đón sinh viên chở về KTX hoặc giao trà sữa kiếm tiền học phí!';
+        file.innerHTML = 'Đang chạy: Scene_Thinh_RideHailingRush.unity (W/A/S/D + Space Phanh)';
+        score.innerHTML = 'Thu nhập: 145.000 VNĐ • Đánh giá: 5.0 ⭐';
+        showToast('🛵 Chuyển Sang Scene 4', 'Đã nạp Minigame Xe Ôm Công Nghệ (Gia Thịnh)');
+      } else if (gameKey === 'huy_robot') {
+        screen.style.background = 'radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.45), #03121F 90%)';
+        icon.innerHTML = '🤖⚡';
+        title.innerHTML = 'Đua Robot Tự Hành & Robot Sumo Xưởng IUH — Huy (Scene 5)';
+        title.style.color = '#38BDF8';
+        desc.innerHTML = 'Robot xưởng cơ khí kích hoạt! Bánh xe Mecanum tăng tốc bám vạch cảm biến và húc văng robot đối thủ ra khỏi đấu trường!';
+        file.innerHTML = 'Đang chạy: Scene_Huy_RoboBattleLab.unity (Mũi tên + Phím F Kẹp)';
+        score.innerHTML = 'Thời gian dò line: 18.4s • Sumo: Thắng 2 hiệp';
+        showToast('🤖 Chuyển Sang Scene 5', 'Đã nạp Minigame Đua Robot Xưởng Cơ Khí (Huy)');
+      } else if (gameKey === 'nhat_canteen') {
+        screen.style.background = 'radial-gradient(circle at 50% 50%, rgba(219, 39, 119, 0.45), #1A030F 90%)';
+        icon.innerHTML = '🍳🥤';
+        title.innerHTML = 'Cơn Lốc Canteen & Trà Đào Nguyễn Văn Bảo — Nhật (Scene 6)';
+        title.style.color = '#F472B6';
+        desc.innerHTML = 'Giờ ra chơi 15 phút bắt đầu! Hàng trăm sinh viên xếp hàng! Nhanh tay nướng bánh tráng, làm cơm tấm sườn và pha trà đào kịp order!';
+        file.innerHTML = 'Đang chạy: Scene_Nhat_CanteenRush.unity (Phím Space Bếp + Chuột Đưa Đĩa)';
+        score.innerHTML = 'Phục vụ: 28/30 sinh viên • Tiền tip: +45.000đ';
+        showToast('🍳 Chuyển Sang Scene 6', 'Đã nạp Minigame Canteen Giờ Ra Chơi (Nhật)');
+      }
+    }
+
+    function resetSimHub() {
+      const screen = document.getElementById('simScreen');
+      const icon = document.getElementById('simSceneIcon');
+      const title = document.getElementById('simSceneTitle');
+      const desc = document.getElementById('simSceneDesc');
+      const file = document.getElementById('simActiveSceneFile');
+      const score = document.getElementById('simPlayerScore');
+
+      screen.style.background = 'linear-gradient(180deg, #091224 0%, #030712 100%)';
+      icon.innerHTML = '🏛️';
+      title.innerHTML = 'Sân Trường Trung Tâm IUH';
+      title.style.color = '#FFF';
+      desc.innerHTML = 'Chào mừng bạn đến với khuôn viên Đại Học Công Nghiệp TP.HCM. Hãy chọn 1 trong 6 thử thách minigame bên dưới do nhóm phát triển:';
+      file.innerHTML = 'Scene đang nạp: Assets/IUH_Campus/Scenes/IUH_Campus_Main.unity';
+      score.innerHTML = 'Trạng thái: Sảnh Trung Tâm';
+
+      playUiSound('tab');
+      showToast('🏛️ Trở Về Sân Trường', 'Đã nạp lại Hub Trung Tâm IUH_Campus_Main');
+    }
+
+    function playUiSound(type) {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        const now = ctx.currentTime;
+        if (type === 'tab') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'portal') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(280, now);
+          osc.frequency.exponentialRampToValueAtTime(650, now + 0.16);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.start(now);
+          osc.stop(now + 0.16);
+        }
+      } catch (e) {}
+    }
+
+    function showToast(title, message) {
+      const toast = document.getElementById('toastBox');
+      document.getElementById('toastTitle').innerText = title;
+      document.getElementById('toastDesc').innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+  </script>
+</body>
+</html>
