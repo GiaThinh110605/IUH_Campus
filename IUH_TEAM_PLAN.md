@@ -1,9 +1,23 @@
 # 📋 IUH Campus — Kế Hoạch 6 Minigames (Mỗi Thành Viên 2 Phân Cảnh)
 
 > **Dự án:** 3D Virtual Campus & Multi-Minigame Hub — Đại Học Công Nghiệp TP. Hồ Chí Minh (IUH)  
-> **Nhóm thực hiện (3 thành viên):** Gia Thịnh (2 Scenes) • Huy (2 Scenes) • Nhật (2 Scenes)  
-> **Tổng cộng:** 1 Central Campus Hub + 6 Minigame Scenes Độc Lập  
+> **Môn học:** New Technology and Application Development in IT (Phát triển ứng dụng và công nghệ mới trong CNTT)  
+> **Nhóm thực hiện (3 thành viên):** Gia Thịnh (2 Scenes + Mobile) • Huy (2 Scenes + AR/AI/Docker) • Nhật (2 Scenes + 2D/Cloud)  
+> **Mục tiêu điểm số:** **100 / 100 Base Score • 0 Điểm trừ Supporting Work** (Xem chi tiết tại [`requirement_mark_score.md`](./requirement_mark_score.md))  
 > **Giao diện trực quan hóa HTML:** Mở file [`IUH_Plan_Dashboard.html`](./IUH_Plan_Dashboard.html) trên trình duyệt.
+
+---
+
+## 🏆 Ma Trận Đáp Ứng Rubric Chấm Điểm (100 / 100)
+
+| Tiêu chí Rubric | Điểm | Giải pháp kỹ thuật triển khai trong dự án | Phụ trách chính |
+|---|:---:|---|---|
+| **1. Unity 2D & 3D implementation** | **20/20** | **3D:** Master Campus 3D URP, 3D Runner, FPV Drone 6DOF.<br>**2D:** Minigame 2D Tilemap Canteen Overcooked dùng Rigidbody2D, Sprite Animation. | Thịnh (3D)<br>Nhật (2D) |
+| **2. AR implementation & Deep Learning model** | **20/20** | **AR:** AR Foundation quét thẻ SV chiếu Hologram 3D IUH.<br>**Deep Learning:** Model YOLOv8 / MobileNet ONNX nhận diện thẻ SV & logo. | Huy (AR & AI) |
+| **3. Mobile deployment** | **20/20** | Xuất file **Android APK / AAB**, Virtual Touch Joystick cảm ứng, tối ưu 60 FPS. | Thịnh (Build Lead) |
+| **4. IO cloud integration** | **20/20** | Tích hợp **Firebase / Supabase** lưu bảng vàng điểm số (Leaderboard) & Auth MSSV. | Nhật (Cloud Lead) |
+| **5. Docker use** | **20/20** | Đóng gói Backend bằng **Docker & docker-compose.yml** chạy FastAPI + ONNX Runtime. | Huy (DevOps Lead) |
+| **Supporting Work** | **-0 đ** | Đầy đủ 5 mục: Planning (Gantt), Testing (NUnit), Evidence (Architecture), Docs, Demo video. | Cả nhóm |
 
 ---
 

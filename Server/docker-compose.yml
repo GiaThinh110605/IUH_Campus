@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  iuh-ai-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iuh_campus_ai_service
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - MODEL_PATH=/app/models/iuh_student_card.onnx
+    volumes:
+      - ./models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
