@@ -1,226 +1,405 @@
-# 🏫 IUH_Campus — Virtual Campus of Industrial University of Ho Chi Minh City
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Unity-6.0%2F6.5-black?logo=unity&logoColor=white" />
-  <img src="https://img.shields.io/badge/Render_Pipeline-URP-blue?logo=unity" />
-  <img src="https://img.shields.io/badge/Language-C%23-239120?logo=csharp" />
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20VR-lightgrey" />
-  <img src="https://img.shields.io/badge/License-MIT-green" />
-</p>
+# PLAN ĐỒ ÁN UNITY 3D: CAMPUS ADVENTURE
 
-<p align="center">
-  Dự án 3D khuôn viên ảo của <b>Trường Đại học Công nghiệp TP. Hồ Chí Minh (IUH)</b>, được xây dựng hoàn toàn bằng Unity 6 sử dụng các script Editor tùy chỉnh — không cần asset 3D bên ngoài.
-</p>
+## 1. Tổng quan dự án
+
+### Tên dự án
+**Campus Adventure: Haunted & Green Campus**
+
+### Thể loại
+Game phiêu lưu 3D trong khuôn viên trường đại học, kết hợp nhiệm vụ, khám phá, kinh dị nhẹ, nhận diện vật thể bằng Deep Learning, AR và IoT Cloud.
+
+### Ý tưởng cốt truyện
+Người chơi nhập vai một sinh viên kiêm tài xế giao hàng trong khuôn viên trường. Trường sắp tổ chức một lễ hội lớn, nhưng người chơi cần hoàn thành nhiều nhiệm vụ trước giờ khai mạc: giao hàng, khám phá bí ẩn trong ký túc xá, tìm đồ vật, chụp ảnh địa điểm và cải thiện môi trường trường học.
+
+Thành tích ở các nhiệm vụ trước sẽ ảnh hưởng đến tài nguyên, điểm xanh và kết quả lễ hội cuối game. Sáu hoạt động được tích hợp trong **một game Unity 3D duy nhất**, không phải sáu game riêng lẻ.
+
+### Mục tiêu dự án
+- **Lựa chọn công nghệ trọng tâm**: **100% Unity 3D** (giảng viên xác nhận chọn 1 giữa 2D và 3D).
+- **Phân công 2 thành viên (3 - 3 Mini-game)**:
+  - **Bạn (Trưởng nhóm)**: 3 Mini-game (1. Grab Campus, 2. Trốn ma KTX, 3. AI Object Hunt) + Unity 3D Core & AR/Mobile Build.
+  - **Minh Nhật**: 3 Mini-game (4. Thợ săn khoảnh khắc, 5. Green Campus, 6. Campus Festival) + Adafruit IO Cloud & Docker Backend.
+- Xây dựng môi trường campus 3D có thể khám phá.
+- Tạo hệ thống nhân vật, nhiệm vụ, vật phẩm, điểm số và tiến trình.
+- Tích hợp AR và Deep Learning bằng chức năng có thể kiểm thử thực tế.
+- Xây dựng bản mobile, ưu tiên Android nếu thiết bị tương thích.
+- Kết nối IoT Cloud qua Adafruit IO.
+- Đóng gói backend và dịch vụ AI bằng Docker.
+- Chuẩn bị tài liệu, kiểm thử và video demo để chứng minh các yêu cầu.
+- **Bảng điều khiển & mô phỏng trực quan**: Xem file [IUH_Plan_Dashboard.html](IUH_Plan_Dashboard.html) để trải nghiệm luồng game mô phỏng và bảng tính điểm Rubric 100đ tương tác.
 
 ---
 
-## 🏗️ Tổng quan kiến trúc
+## 2. Sáu hoạt động chính
 
-Toàn bộ khuôn viên được **tạo thủ tục (procedurally generated)** từ các script C# Editor. Tất cả geometry được xây từ các primitive của Unity (`Cube`, `Cylinder`, `Sphere`) ghép thành các công trình kiến trúc thực tế.
+### 2.1. Grab Campus: Chuyến xe tâm linh
 
+**Mô tả:** Người chơi nhận đơn giao hàng giữa cổng trường, căn tin, thư viện và ký túc xá. Một số nhiệm vụ diễn ra ban đêm, khi hồn ma xuất hiện.
+
+**Gameplay**
+- Nhận đơn hàng từ NPC hoặc bảng nhiệm vụ.
+- Lái xe đến điểm nhận và điểm giao hàng.
+- Tránh chướng ngại vật, né ma và bảo vệ hàng hóa.
+- Giao đúng hạn để nhận tiền, điểm kinh nghiệm hoặc vật phẩm.
+- Mở khóa đơn hàng khó hơn và các khu vực mới.
+
+**Yêu cầu hoàn thành**
+- Điều khiển phương tiện và camera hoạt động ổn định.
+- Có điểm nhận hàng, điểm giao hàng và điều kiện hoàn thành.
+- Có tính điểm, thưởng/phạt và trạng thái thắng/thua.
+- Tiến trình nhiệm vụ được lưu hoặc đồng bộ theo thiết kế.
+
+### 2.2. Trốn tìm với ma ở ký túc xá
+
+**Mô tả:** Người chơi tìm chìa khóa, bật cầu dao và thoát khỏi ký túc xá trong khi hồn ma tuần tra và săn đuổi.
+
+**Gameplay**
+- Khám phá phòng, hành lang và khu vực ẩn nấp.
+- Thu thập chìa khóa, cầu chì hoặc nhật ký.
+- Ẩn nấp để tránh bị phát hiện.
+- Giải mã manh mối để mở lối thoát.
+- Đạt điều kiện thắng trước khi bị bắt hoặc hết thời gian.
+
+**AI hành vi của ma**
+- `Patrol`: tuần tra theo tuyến đường.
+- `Investigate`: điều tra tiếng động hoặc dấu hiệu bất thường.
+- `Chase`: truy đuổi khi phát hiện người chơi.
+- `Search`: tìm quanh vị trí cuối cùng nhìn thấy người chơi.
+- `Return`: quay lại tuyến tuần tra khi không tìm thấy người chơi.
+
+**Yêu cầu hoàn thành**
+- Có chuyển trạng thái AI rõ ràng.
+- Có điều kiện phát hiện, mất dấu, thắng và thua.
+- Có thể kiểm thử hành vi ma trong nhiều tình huống.
+
+### 2.3. AI Object Hunt: Truy tìm đồ vật
+
+**Mô tả:** NPC giao nhiệm vụ tìm một đồ vật cụ thể, chẳng hạn sách, ghế, bình chữa cháy hoặc dụng cụ phòng thí nghiệm. Người chơi dùng camera để nhận diện mục tiêu.
+
+**Gameplay**
+- Hiển thị đồ vật mục tiêu và gợi ý vị trí.
+- Chụp ảnh hoặc lấy khung hình từ camera.
+- Gửi ảnh đến mô hình AI hoặc chạy mô hình trực tiếp trên thiết bị.
+- Đọc nhãn, độ tin cậy và bounding box từ kết quả inference.
+- Chỉ hoàn thành nhiệm vụ khi kết quả đáp ứng điều kiện đã định.
+
+**Tích hợp AR**
+- Sau khi nhận diện đúng, hiển thị mô hình 3D, nhãn hoặc thông tin ảo.
+- Có thể đặt nội dung lên bề mặt được AR phát hiện.
+
+**Yêu cầu hoàn thành**
+- Mô hình Deep Learning thực sự chạy inference.
+- Có đầu vào, đầu ra và xử lý trường hợp không nhận diện được.
+- Không thay nhận diện bằng QR code hoặc dữ liệu giả.
+- Lưu kết quả nhiệm vụ và điểm thưởng.
+
+### 2.4. Thợ săn khoảnh khắc
+
+**Mô tả:** Người chơi khám phá trường và hoàn thành thử thách chụp ảnh các địa điểm như cổng trường, thư viện, sân bóng, vườn cây hoặc khu lễ hội.
+
+**Gameplay**
+- Hiển thị danh sách mục tiêu chụp ảnh.
+- Cho phép chụp ảnh trong game hoặc qua camera điện thoại theo thiết kế.
+- Lưu ảnh hoặc kết quả hoàn thành.
+- Trao huy hiệu, điểm khám phá hoặc mở khóa thử thách mới.
+- Có thể dùng AI nhận diện địa điểm hoặc đối tượng trong ảnh để xác minh.
+
+**Tích hợp AR**
+- Hiển thị khung hình, chỉ dẫn hoặc vật thể ảo tại địa điểm.
+- Cho phép người chơi chụp ảnh cùng nội dung AR nếu thiết bị hỗ trợ.
+
+**Yêu cầu hoàn thành**
+- Có mục tiêu, điều kiện hoàn thành và phần thưởng rõ ràng.
+- Phân biệt ảnh chụp trong game với ảnh từ camera thật.
+- Nếu dùng AI xác minh ảnh, phải ghi nhận kết quả inference thực tế.
+
+### 2.5. Green Campus: Cứu lấy khuôn viên trường
+
+**Mô tả:** Người chơi thu gom rác, phân loại và phục hồi các khu vực bị ô nhiễm.
+
+**Gameplay**
+- Nhận nhiệm vụ dọn dẹp sân trường, công viên hoặc căn tin.
+- Thu gom vật phẩm rác trong môi trường 3D.
+- Dùng AI phân loại rác qua camera.
+- Cộng hoặc trừ điểm xanh tùy theo kết quả phân loại.
+- Mở khóa cây xanh, thùng rác phân loại hoặc khu vực được cải thiện.
+
+**Tích hợp IoT Cloud**
+- Hiển thị dữ liệu môi trường như nhiệt độ, độ ẩm hoặc chỉ số môi trường từ feed Adafruit IO nếu có nguồn dữ liệu tương ứng.
+- Đồng bộ điểm xanh hoặc trạng thái khu vực lên cloud.
+- Nếu chưa có cảm biến vật lý, phải ghi rõ dữ liệu đang mô phỏng.
+
+**Yêu cầu hoàn thành**
+- Có nhiệm vụ dọn dẹp và hệ thống điểm xanh.
+- Có AI phân loại rác chạy thực tế nếu dùng để đáp ứng phần Deep Learning.
+- Có dữ liệu gửi/nhận với Adafruit IO và minh chứng được.
+
+### 2.6. Campus Festival: Tổ chức lễ hội
+
+**Mô tả:** Người chơi chuẩn bị lễ hội cuối game bằng cách thu thập tài nguyên và hoàn thành nhiệm vụ trước giờ khai mạc.
+
+**Gameplay**
+- Thu thập vật liệu, trang trí sân khấu và sắp xếp gian hàng.
+- Quản lý ngân sách, thời gian và điểm xanh.
+- Dùng tiền hoặc vật phẩm kiếm được từ nhiệm vụ trước.
+- Hoàn thành các mục tiêu chuẩn bị trước khi hết giờ.
+- Tạo nhiều kết quả lễ hội dựa trên thành tích.
+
+**Tích hợp Cloud**
+- Đồng bộ điểm số hoặc trạng thái lễ hội lên Adafruit IO hoặc backend.
+- Hiển thị trạng thái tổng quan trong giao diện quản trị/demo nếu cần.
+
+**Yêu cầu hoàn thành**
+- Có tài nguyên, ngân sách, đồng hồ hoặc giới hạn nhiệm vụ.
+- Kết quả lễ hội phụ thuộc tiến trình người chơi.
+- Có màn hình kết quả cuối game.
+
+---
+
+## 3. Liên kết sáu hoạt động thành một game
+
+Không nên để sáu hoạt động là sáu màn chơi không liên quan. Hãy sử dụng một vòng lặp nhiệm vụ xuyên suốt.
+
+1. Người chơi nhận nhiệm vụ giao hàng đến ký túc xá.
+2. Tại ký túc xá, người chơi tìm chìa khóa, né ma và thu thập nhật ký.
+3. Nhật ký dẫn đến nhiệm vụ tìm một vật thể đặc biệt bằng AI Object Hunt.
+4. Khi khám phá campus, người chơi hoàn thành thử thách chụp ảnh địa điểm.
+5. Người chơi tham gia Green Campus, thu gom và phân loại rác để tăng điểm xanh.
+6. Tiền, vật phẩm, điểm xanh và manh mối thu được được dùng để chuẩn bị Campus Festival.
+7. Kết quả lễ hội thay đổi theo thành tích ở các nhiệm vụ trước.
+
+### Trạng thái tiến trình chung
+- Tiền và vật phẩm.
+- Điểm kinh nghiệm hoặc cấp độ.
+- Nhiệm vụ đã hoàn thành.
+- Manh mối và vật phẩm cốt truyện.
+- Bộ sưu tập ảnh/huy hiệu.
+- Điểm xanh.
+- Trạng thái chuẩn bị lễ hội.
+
+**Nguyên tắc thiết kế:** mỗi hoạt động nên mở khóa một phần nội dung khác. Người chơi cần có lý do để tiếp tục khám phá, thay vì chỉ chơi các minigame tách rời.
+
+### 3.1. Menu Chọn Mini-Game Trong Game (In-Game Mini-Game Portal & Teleport)
+
+Để thuận tiện cho người chơi tự do trải nghiệm cũng như phục vụ công tác demo/chấm điểm nhanh của giảng viên, game tích hợp một **Menu Chọn Mini-Game** trực tiếp trong giao diện:
+
+- **Cách kích hoạt:**
+  - **Trên PC:** Nhấn phím tắt `[M]` (hoặc phím `[Tab]` / nút ESC menu).
+  - **Trên Mobile:** Nhấn vào nút biểu tượng cảm ứng nổi `[🎮 Mini-Games]` ở góc trên màn hình HUD.
+- **Tính năng cốt lõi của Menu:**
+  - **Danh sách 6 Mini-game:** Trình bày dạng thẻ bài trực quan với đầy đủ tên, icon, người phụ trách (3 của Bạn / 3 của Minh Nhật), và tóm tắt yêu cầu.
+  - **Chế độ Chọn Tự Do (Quick Play / Instant Teleport):** Người chơi/giảng viên có thể nhấp vào bất kỳ mini-game nào để bấm `[Chơi Ngay]` &rarr; Hệ thống tự động dịch chuyển nhân vật (Fast Travel) đến vị trí bắt đầu nhiệm vụ đó trên campus 3D và nạp bối cảnh tương ứng.
+  - **Hiển thị Tiến trình & Đánh giá:** Ghi nhận trạng thái (Chưa mở khóa, Đang làm, Đã hoàn thành, Điểm số, Đánh giá 1-5 sao).
+  - **Cơ chế Điều khiển:** Khi mở menu, hệ thống tạm khóa di chuyển nhân vật và mở khóa con trỏ chuột (`Cursor.lockState = CursorLockMode.None`) để thao tác thuận tiện; khi đóng menu (`[M]` hoặc nút `[X]`), con trỏ chuột tự động khóa lại góc nhìn camera thứ 3.
+
+---
+
+## 4. Đối chiếu rubric 100 điểm
+
+| Hạng mục Rubric | Điểm | Người phụ trách | Bằng chứng cần có |
+|---|:---:|:---:|---|
+| **Unity 3D Implementation** *(chọn 3D)* | 20 | **Cả hai** | Môi trường 3D IUH, nhân vật, va chạm, leo thang, ngồi ghế, UI HUD |
+| **AR & Deep Learning Model** | 20 | **Bạn** | AI Object Hunt (YOLO inference thật) + AR Foundation chiếu mô hình 3D |
+| **Mobile Deployment** | 20 | **Bạn** | Bản build Android APK, cụm phím điều khiển cảm ứng, tối ưu FPS |
+| **IO Cloud Integration** *(sử dụng)* | 20 | **Minh Nhật** | Kết nối Adafruit IO MQTT/REST: feed Green Score, trạng thái Festival |
+| **Docker Use** | 20 | **Minh Nhật** | Dockerfile, docker-compose.yml đóng gói FastAPI backend + AI Service |
+| **Tổng Base Score** | **100** | | |
+| **Supporting Work Deduction** | **0** | **Cả hai** | Đủ 5 phần: Planning, Testing, Evidence, Documentation, Demo (Trừ 0đ) |
+| **FINAL SCORE** | **100/100** | | |
+
+Đây là kế hoạch đáp ứng các hạng mục dựa trên rubric đã nêu, không phải cam kết điểm số. Cần xác nhận với giảng viên yêu cầu cụ thể về loại thiết bị AR, mức độ sử dụng Docker và việc có cần cảm biến IoT vật lý hay không.
+
+### Chiến lược đáp ứng từng hạng mục
+
+**Unity 3D**
+- Có môi trường campus với các khu vực rõ ràng.
+- Có nhân vật, tương tác, hệ thống nhiệm vụ và tiến trình.
+- Có ít nhất một vòng chơi hoàn chỉnh, không chỉ là cảnh 3D tĩnh.
+
+**AR + Deep Learning**
+- Dùng AR Foundation kết hợp ARCore nếu triển khai Android tương thích.
+- Dùng mô hình nhận diện vật thể hoặc phân loại rác thực tế.
+- Hiển thị nội dung AR sau khi xác nhận đối tượng.
+- Lưu ảnh test, kết quả inference và video chạy thực tế.
+
+**Mobile**
+- Build và kiểm thử trên điện thoại mục tiêu từ sớm.
+- Kiểm tra cảm ứng, camera, AR, tốc độ tải và mức sử dụng bộ nhớ.
+- Có xử lý khi thiếu mạng hoặc không nhận diện được đối tượng.
+
+**IoT Cloud**
+- Tạo feed Adafruit IO cho dữ liệu môi trường, điểm xanh hoặc trạng thái lễ hội.
+- Kiểm thử gửi và đọc dữ liệu qua REST API hoặc MQTT.
+- Lưu bằng chứng feed, log và kết quả hiển thị trong game.
+- Ghi rõ nếu dữ liệu cảm biến đang được mô phỏng.
+
+**Docker**
+- Đóng gói FastAPI và dịch vụ inference nếu dùng backend.
+- Có cấu hình môi trường, health check và hướng dẫn chạy.
+- Kiểm thử container khởi động lại và API phản hồi đúng.
+- Không cần Docker hóa Unity mobile client.
+
+**Tài liệu và demo**
+- Sơ đồ kiến trúc tổng thể.
+- Mô tả các luồng gameplay và tích hợp.
+- Bảng kiểm thử có Pass/Fail và bằng chứng.
+- README hướng dẫn chạy.
+- Video demo dự phòng.
+
+---
+
+## 5. Kiến trúc công nghệ đề xuất
+
+Với MacBook Apple Silicon 16 GB RAM và không có GPU NVIDIA cục bộ, ưu tiên mô hình nhỏ chạy CPU hoặc inference trên điện thoại. Không cần dựa vào GPU NVIDIA để phát triển bản đầu tiên.
+
+### Kiến trúc tổng quan
+
+```text
+┌───────────────────────────────────────────┐
+│             Unity 3D Mobile               │
+│                                           │
+│ Gameplay · UI · Camera · AR Foundation    │
+│ Missions · Player · Ghost AI · Inventory  │
+└─────────────────────┬─────────────────────┘
+                      │ HTTP/HTTPS
+                      ▼
+┌───────────────────────────────────────────┐
+│              FastAPI Backend              │
+│                                           │
+│ Mission API · Score API · AI Inference    │
+│ Progress API · IoT Integration            │
+└───────────┬──────────────────┬────────────┘
+            │                  │
+            ▼                  ▼
+┌────────────────────┐  ┌───────────────────┐
+│ AI Model            │  │ Database          │
+│ YOLO / Classifier   │  │ SQLite/PostgreSQL │
+└────────────────────┘  └───────────────────┘
+            │
+            ▼
+┌───────────────────────────────────────────┐
+│               Adafruit IO                 │
+│ Environment Feeds · Green Score · Status  │
+└───────────────────────────────────────────┘
+
+Docker: đóng gói Backend, AI Service và các dịch vụ phù hợp.
 ```
-IUH_Campus (Scene Root)
-├── Buildings/
-│   ├── IUH_MainBuilding          ← Nhà Hiệu Bộ (5 tầng, kính curtain wall, fins xanh)
-│   ├── IUH_BackCentralTower      ← Tháp trung tâm phía sau
-│   ├── IUH_GreenGlassComplex/
-│   │   ├── IUH_GreenGlassTower   ← Tháp kính xanh ngọc 13 tầng (Nhà B/E)
-│   │   ├── IUH_LeftPaleWing      ← Dãy nhà học thuật hình chữ L bên trái
-│   │   └── IUH_RedRoofBuilding   ← Khối nhà phía sau (mái kim loại đỏ)
-│   └── IUH_RightLargeAcademicBuilding ← Khối học thuật trắng lớn bên phải
-├── CentralCourtyard/             ← Sân trung tâm
-├── Landscaping/
-│   ├── IUH_FrontMonument         ← Tượng đài đá
-│   └── IUH_FlagPoles             ← 3 cột cờ (Việt Nam, IUH, Đoàn Thanh Niên)
-├── IUH_MainEntrance_Zone/
-│   └── IUH_MainEntrance/
-│       ├── Entrance_Road          ← Đường 2 làn + lề đường
-│       ├── Gate_Pillars           ← 2 trụ cổng đá với bảng vàng IUH
-│       ├── Overhead_Welcome_Banner← Băng rôn đỏ treo giữa 2 trụ cổng
-│       ├── University_Monument_Slab← Tấm bia đá trường bên trái
-│       ├── Security_Booth         ← Phòng bảo vệ bên phải
-│       ├── Right/Left_Blue_Railing← Hàng rào kim loại xanh 2 bên
-│       ├── Event_Flag_Line        ← Cờ trang trí nhiều màu 2 bên đường
-│       └── Entrance_Trees         ← Cây xanh dọc lối vào
-├── Parking/                      ← Bãi gửi xe
-├── BackgroundCity/               ← Khối đô thị xung quanh
-└── Lighting/                     ← Ánh sáng + cameras
-```
+
+### Công nghệ cụ thể
+
+| Thành phần | Công nghệ đề xuất |
+|---|---|
+| Game | Unity 3D, C# |
+| Điều khiển nhân vật | Character Controller, Input System |
+| AI ma | NavMesh, finite-state machine |
+| AR | AR Foundation + ARCore cho Android |
+| Deep Learning | Ultralytics YOLO hoặc mô hình phân loại nhỏ |
+| Backend | Python, FastAPI, Pydantic |
+| IoT Cloud | Adafruit IO, REST API hoặc MQTT |
+| Lưu tiến trình | SQLite ban đầu; PostgreSQL nếu cần |
+| Đóng gói | Docker, Docker Compose |
+| Kiểm thử | Unity Test Framework, pytest, kiểm thử trên điện thoại |
+
+### Luồng dữ liệu chính
+1. Unity gửi ảnh đến backend hoặc chạy mô hình AI trực tiếp trên thiết bị.
+2. Mô hình trả về nhãn, độ tin cậy và bounding box nếu dùng object detection.
+3. Unity kiểm tra kết quả và cập nhật nhiệm vụ, điểm số.
+4. Backend gửi hoặc đọc dữ liệu với Adafruit IO.
+5. Unity hiển thị dữ liệu môi trường, điểm xanh hoặc trạng thái lễ hội.
+6. Tiến trình quan trọng được lưu theo thiết kế của game.
+
+**Bảo mật:** không nhúng Adafruit IO key hoặc thông tin đăng nhập database trực tiếp vào ứng dụng Unity đã build. Đặt thông tin bí mật ở backend hoặc cấu hình môi trường phù hợp.
 
 ---
 
-## 🛠️ Công nghệ sử dụng
+## 6. Kế hoạch kiểm thử và minh chứng
 
-| Thành phần | Chi tiết |
-|-----------|--------|
-| **Engine** | Unity 6.0 / 6.5 |
-| **Render Pipeline** | Universal Render Pipeline (URP) |
-| **Ngôn ngữ** | C# (Editor-only scripts) |
-| **Tạo asset** | 100% procedural — không dùng model 3D ngoài |
-| **Tạo texture** | `IUHTextureGenerator` (vẽ pixel bằng C#) |
-| **Materials** | 39+ vật liệu URP Lit tùy chỉnh qua `IUHMaterialGenerator` |
-| **Build scene** | One-click menu `IUH Campus → Build Complete Master Campus` |
-| **Mục tiêu** | Desktop + VR (BoxColliders trên toàn bộ công trình) |
+| Mã | Kịch bản kiểm thử | Kết quả mong đợi |
+|---|---|---|
+| TC01 | Di chuyển trong campus | Nhân vật di chuyển, va chạm và camera ổn định |
+| TC02 | Giao đơn Grab Campus | Điểm đến được xác nhận, điểm thưởng cập nhật đúng |
+| TC03 | Ma phát hiện người chơi | Ma chuyển trạng thái và truy đuổi đúng |
+| TC04 | Tìm đồ vật bằng camera | Mô hình trả kết quả đúng định dạng; nhiệm vụ xử lý đúng/sai |
+| TC05 | Đặt vật thể AR | Vật thể ảo xuất hiện và giữ vị trí hợp lý trong phiên AR |
+| TC06 | Phân loại rác | Điểm xanh thay đổi theo kết quả và luật nhiệm vụ |
+| TC07 | Tổ chức lễ hội | Tài nguyên và kết quả lễ hội phản ánh tiến trình đã chơi |
+| TC08 | Gửi dữ liệu Adafruit IO | Feed nhận dữ liệu; backend đọc được dữ liệu cần thiết |
+| TC09 | Backend mất kết nối | Game báo lỗi hợp lý, không bị treo hoặc mất tiến trình cục bộ |
+| TC10 | Build và chạy mobile | Cài đặt thành công, các tính năng cốt lõi hoạt động |
+| TC11 | Chạy Docker | Container khởi động, health check và API hoạt động |
+| TC12 | Chơi toàn bộ chuỗi nhiệm vụ | Tiến trình và điều kiện mở khóa nhất quán |
 
----
-
-## 📂 Cấu trúc project
-
-```
-IUH_Campus/
-├── Assets/
-│   └── IUH_Campus/
-│       ├── Editor/
-│       │   ├── IUHCampusMasterBuilder.cs   ← Lắp ráp toàn bộ scene
-│       │   ├── IUHMaterialGenerator.cs     ← Tạo 39+ vật liệu URP
-│       │   ├── IUHTextureGenerator.cs      ← Vẽ texture thủ tục
-│       │   └── IUHBuildingBuilder.cs       ← Hàm hỗ trợ tạo tòa nhà
-│       ├── Materials/                      ← File .mat tự động tạo
-│       ├── Prefabs/
-│       │   ├── Architecture/               ← Prefab tòa nhà
-│       │   └── Environment/                ← Prefab cây, cờ, cổng
-│       ├── Scenes/
-│       │   └── IUH_Campus_Main.unity
-│       └── Textures/                       ← Texture PNG tự động tạo
-├── Packages/
-└── README.md
-```
+Với mỗi bài kiểm thử, ghi lại:
+- Kết quả mong đợi.
+- Kết quả thực tế.
+- Trạng thái Pass/Fail.
+- Ảnh chụp màn hình, log hoặc video làm bằng chứng.
 
 ---
 
-## 🚀 Hướng dẫn cài đặt
+## 7. Kịch bản demo cuối kỳ
 
-### Yêu cầu
-- Unity **6.0** hoặc **6.5** (khuyến nghị dùng LTS)
-- Package Universal Render Pipeline đã được cài
-- macOS hoặc Windows
+Đề xuất demo khoảng 7–10 phút:
 
-### Các bước
+1. **Giới thiệu:** môi trường campus 3D và điều khiển nhân vật.
+2. **Grab Campus:** nhận đơn và giao hàng.
+3. **Dorm Horror:** minh họa ma tuần tra, phát hiện và truy đuổi.
+4. **AI Object Hunt:** dùng camera nhận diện vật thể thật và hiển thị kết quả inference.
+5. **AR + Thợ săn khoảnh khắc:** đặt nội dung ảo và hoàn thành thử thách khám phá.
+6. **Green Campus:** phân loại rác bằng AI và cập nhật điểm xanh.
+7. **Campus Festival:** dùng tài nguyên đã thu thập để hoàn thành lễ hội.
+8. **Minh chứng kỹ thuật:** mở Adafruit IO feed, API response và Docker logs.
 
-1. **Clone repository**
-   ```bash
-   git clone https://github.com/GiaThinh110605/IUH_Campus.git
-   ```
-
-2. **Mở trong Unity Hub**
-   - Nhấn **Add** → chọn thư mục vừa clone
-   - Mở với Unity 6.x
-
-3. **Build khuôn viên**
-   - Trong Unity Editor, nhấn vào menu:
-     ```
-     IUH Campus → Build Complete Master Campus
-     ```
-   - Quá trình build sẽ tự động:
-     - Tạo tất cả textures → `Assets/IUH_Campus/Textures/`
-     - Tạo tất cả materials → `Assets/IUH_Campus/Materials/`
-     - Tạo tất cả prefab tòa nhà → `Assets/IUH_Campus/Prefabs/`
-     - Lắp ráp scene hoàn chỉnh → `Assets/IUH_Campus/Scenes/IUH_Campus_Main.unity`
-
-4. **Nhấn Play** hoặc chuyển sang Scene View để khám phá khuôn viên.
+Nếu demo trực tiếp không có Internet ổn định, chuẩn bị video dự phòng; phân biệt rõ video ghi sẵn với tính năng chạy trực tiếp.
 
 ---
 
-## 🏛️ Các công trình chính
+## 8. Ưu tiên phạm vi khi thiếu thời gian
 
-### 🏢 IUH_MainBuilding (Nhà Hiệu Bộ)
-- **5 tầng**, rộng 44m × cao 22m
-- Mặt tiền kính curtain wall toàn bộ 2 tầng dưới
-- Fins kiến trúc xanh dọc 3 tầng trên
-- Biển hiệu trung tâm với logo IUH
-- Cầu thang granit đen và mái che lối vào
-- Cửa kính với tay cầm inox
+### P0 — Nền tảng bắt buộc
+- Campus 3D và điều khiển nhân vật.
+- Hệ thống nhiệm vụ, vật phẩm, điểm số.
+- Một màn Grab Campus hoàn chỉnh.
+- Một màn trốn ma hoàn chỉnh.
+- Bản mobile chạy được.
+- Prototype AR và AI có thể kiểm chứng.
 
-### 🟢 IUH_GreenGlassTower (Nhà B/E)
-- **13 tầng**, cao 56m
-- Kính góc màu xanh ngọc đặc trưng
-- Mái vòm đen đỉnh tòa nhà
-- Ban công quan sát tầng 9–10
+### P1 — Hoàn thiện rubric
+- AI Object Hunt với mô hình inference thực.
+- Phân loại rác bằng mô hình.
+- AR tương tác trên thiết bị mục tiêu.
+- Adafruit IO gửi/nhận dữ liệu thật.
+- Backend được đóng gói Docker.
 
-### 🏫 IUH_RightLargeAcademicBuilding
-- Phức hợp học thuật 3 khối (trước, sau, cánh nối)
-- Lưới cửa sổ, khung turquoise
-- Biển hiệu tên trường trên mái
+### P2 — Nâng cấp gameplay
+- Thợ săn khoảnh khắc với nhiều thử thách.
+- Lễ hội có nhiều kết thúc.
+- Trang trí campus và hiệu ứng nâng cao.
+- Thành tích, bộ sưu tập và phần thưởng bổ sung.
 
-### 🚪 IUH_MainEntrance (Cổng Trường IUH)
-- Kiểu lối đi mở (khớp với ảnh cổng trường thực tế)
-- **Trụ cổng đá** với bảng chữ vàng IUH
-- **Băng rôn đỏ** treo giữa 2 trụ cổng
-- **Bia đá đặt tên trường** bên trái
-- **Phòng bảo vệ** bên phải
-- **Hàng rào kim loại xanh** dọc 2 bên
-- **Cờ trang trí nhiều màu** trên cột nhỏ 2 bên đường
-- **Cây xanh** dọc lối vào
+P2 là các phần mở rộng bên trong gameplay, không phải lý do để bỏ các hạng mục bắt buộc trong rubric.
 
 ---
 
-## 🎨 Materials & Textures
+## 9. Checklist việc cần làm ngay
 
-Tất cả materials được tạo tự động với URP Lit shader và các giá trị PBR được tinh chỉnh kỹ lưỡng:
+- [ ] Chọn nền tảng mobile mục tiêu và xác nhận thiết bị có hỗ trợ ARCore hay không.
+- [ ] Dựng bản đồ campus blockout, phân chia khu vực cho sáu hoạt động.
+- [ ] Tạo một nhiệm vụ hoàn chỉnh để kiểm chứng kiến trúc gameplay.
+- [ ] Chọn dataset, các lớp AI và hướng inference.
+- [ ] Tạo backend skeleton với health check.
+- [ ] Tạo một Adafruit IO feed và kiểm tra gửi/nhận dữ liệu.
+- [ ] Kiểm thử Docker sớm, không đợi đến cuối dự án.
+- [ ] Chuẩn bị bảng kiểm thử và lưu minh chứng trong quá trình phát triển.
 
-| Danh mục | Vật liệu |
-|----------|-----------|
-| Facade | WhiteFacade, BlueFins, BlueFacade, GreenGlass |
-| Kính | Glass_Reflective, Glass_CurtainWall |
-| Kim loại | DarkMetal, LightMetal, RooftopMetal |
-| Mặt đất | Asphalt_Road, Concrete_Ground, Granite_Stairs, Grass |
-| Cờ | Flag_Vietnam 🇻🇳, Flag_IUH, Flag_YouthUnion |
-| Cổng trường | Gate_Stone, Gate_BlueRailing, Gate_WelcomeBanner, Gate_Booth, Gate_GoldText |
-| Biển hiệu | Sign_CurtainWall, Academic_TopSign, Logo_Crest |
+## 10. Tiêu chí nghiệm thu tổng thể
 
----
-
-## 📷 Cameras có sẵn
-
-| Camera | Vị trí | Mô tả |
-|--------|----------|-------------|
-| `Main_Camera` | Góc cao toàn cảnh | Camera mặc định (bật) |
-| `Camera_Courtyard_Ground` | Mặt đất, nhìn vào nhà chính | Góc nhìn sân trường |
-| `Camera_Front_Monument_CloseUp` | Gần mặt đất, nhìn tượng đài | Cận cảnh tượng đài |
-| `Camera_LookAt_GreenTower` | Mặt đất, nhìn trái | Góc nhìn tháp xanh |
-| `Camera_LookAt_RightBuilding` | Mặt đất, nhìn phải | Góc nhìn tòa nhà phải |
-
----
-
-## 🎮 Kế hoạch 6 Minigame Scenes (3 Thành Viên — 2 Scenes/Người)
-
-Dự án được mở rộng thành mô hình **1 Central Campus Hub + 6 Scenes Minigame** độc lập:
-
-| Thành viên | Scene | Tên Minigame & Thể loại | Khuôn viên IUH |
-|---|---|---|---|
-| **Gia Thịnh** | `Scene_Thinh_SprintToClass` | 🏃 **Sprint To Class** (Obstacle Runner / Parkour) | Cổng trường → Nhà Hiệu Bộ |
-| **Gia Thịnh** | `Scene_Thinh_RideHailingRush` | 🛵 **Xe Ôm Công Nghệ (Grab / Be / Xanh SM)** (Crazy Taxi Delivery) | Đại lộ Nguyễn Văn Bảo & KTX |
-| **Huy** | `Scene_Huy_DronePatrol` | 🚁 **Drone Sky Patrol** (FPV Drone 6DOF Simulator) | Tháp Kính Xanh Ngọc 13 Tầng |
-| **Huy** | `Scene_Huy_RoboBattleLab` | 🤖 **Đại Chiến Robot Tự Hành** (Line-tracking & Sumo Arena) | Xưởng Cơ Khí 4.0 & Sân Đấu |
-| **Nhật** | `Scene_Nhat_ParkingMaster` | 🏍️ **Parking Master** (Traffic Jam & Parking Puzzle) | Khu Bãi Đỗ Xe Sinh Viên IUH |
-| **Nhật** | `Scene_Nhat_CanteenRush` | 🍳 **Cơn Lốc Canteen & Trà Đào** (Overcooked Cooking Rush) | Canteen & Hẻm Ăn Vặt 15 Phút |
-
-- 📄 **Tài liệu kế hoạch chi tiết:** Xem [`IUH_TEAM_PLAN.md`](IUH_TEAM_PLAN.md)
-- 🌐 **Dashboard trực quan hóa tương tác:** Mở file [`IUH_Plan_Dashboard.html`](IUH_Plan_Dashboard.html) trên trình duyệt để trải nghiệm demo chọn 6 games, xem checklist và roadmap.
-
----
-
-## 👨‍💻 Nhóm Phát Triển (Team Members)
-
-- **Gia Thịnh** — Core Architecture, Scene 1 (Sprint Runner) & Scene 4 (Xe Ôm Grab/Be/Xanh SM)
-- **Huy** — Physics Simulation, Scene 2 (FPV Drone Tháp Kính) & Scene 5 (Đua Robot Xưởng Cơ Khí)
-- **Nhật** — Puzzle & Management, Scene 3 (Bãi Xe Giờ Cao Điểm) & Scene 6 (Canteen Cooking Rush)
-
----
-
-## 🏫 Về IUH
-
-**Trường Đại học Công nghiệp Thành phố Hồ Chí Minh (IUH)**
-
-- 🌐 Website: [iuh.edu.vn](https://iuh.edu.vn)
-- 📍 Địa chỉ: 12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, TP. HCM
-
----
-
-## 📄 Giấy phép
-
-Dự án này được cấp phép theo **MIT License** — xem file [LICENSE](LICENSE) để biết thêm chi tiết.
-
----
-
-<p align="center">Made with ❤️ for IUH — <i>Đại học Công nghiệp TP. Hồ Chí Minh</i></p>
+Dự án có thể xem là sẵn sàng để demo khi:
+- Người chơi hoàn thành được chuỗi nhiệm vụ liên kết qua sáu hoạt động.
+- Gameplay 3D hoạt động ổn định trên thiết bị mục tiêu.
+- AI có thể chạy inference với đầu vào thực tế và kết quả được dùng trong game.
+- AR hoạt động trên thiết bị tương thích.
+- Ứng dụng/backend trao đổi dữ liệu với Adafruit IO.
+- Backend và dịch vụ liên quan khởi chạy được qua Docker.
+- Có bản build mobile, hướng dẫn chạy, bảng kiểm thử và video demo.
+- Mỗi tiêu chí trong rubric đều có bằng chứng kiểm chứng cụ thể.

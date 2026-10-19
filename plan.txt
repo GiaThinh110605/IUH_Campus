@@ -1,0 +1,21 @@
+Assessment Rubric: New Technology and Application Development in IT
+
+Component Score
+Unity 2D and 3D implementation    ___ / 20
+AR implementation and deep learning model  ___ / 20
+Mobile deployment  ___ / 20
+IO cloud integration  ___ / 20 (sử dụng)
+Docker use  ___ / 20
+Base score  ___ / 100
+Supporting work deduction  0 or −20
+
+Planning	Kế hoạch và phân chia nhiệm vụ
+Testing	Kịch bản kiểm thử, kết quả Pass/Fail
+Integration evidence	Bằng chứng Unity, AI, AR, Mobile, Cloud và Docker tích hợp hoạt động
+Documentation	README, hướng dẫn cài đặt và báo cáo kỹ thuật
+Demo	Bản chạy được và video minh họa
+
+Final score ___ / 100
+
+Required supporting work deduction
+The submission should include planning, testing, evidence of integration, documentation, and a demonstration. If this supporting work is missing, deduct 20 points once from the base score, even if several items are missing
