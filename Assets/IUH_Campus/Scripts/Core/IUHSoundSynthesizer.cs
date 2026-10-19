@@ -276,5 +276,32 @@ namespace IUHCampus.Core
             s_ClickClip.SetData(samples, 0);
             return s_ClickClip;
         }
+
+        private static AudioClip s_HeartbeatClip;
+
+        /// <summary>
+        /// Horror thumping heartbeat sound for ghost pursuit.
+        /// </summary>
+        public static AudioClip GetHeartbeatSound()
+        {
+            if (s_HeartbeatClip != null) return s_HeartbeatClip;
+
+            int sampleRate = 44100;
+            float duration = 0.45f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 18f);
+                float wave = Mathf.Sin(2f * Mathf.PI * 52f * t);
+                samples[i] = wave * env * 0.85f;
+            }
+
+            s_HeartbeatClip = AudioClip.Create("Procedural_Heartbeat", totalSamples, 1, sampleRate, false);
+            s_HeartbeatClip.SetData(samples, 0);
+            return s_HeartbeatClip;
+        }
     }
 }

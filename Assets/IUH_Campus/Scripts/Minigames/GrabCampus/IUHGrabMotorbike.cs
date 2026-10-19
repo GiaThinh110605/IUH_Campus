@@ -58,6 +58,7 @@ namespace IUHCampus.Minigames.GrabCampus
         public float CurrentSpeedKmH => Mathf.Abs(m_CurrentSpeed) * 3.6f;
         public float SpeedRatio => Mathf.Clamp01(Mathf.Abs(m_CurrentSpeed) / m_MaxForwardSpeed);
         public Transform CameraTarget => m_CameraTarget != null ? m_CameraTarget : transform;
+        public float CurrentBankAngle => m_CurrentBankAngle;
 
         private void Awake()
         {
@@ -65,10 +66,12 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_CharController == null)
             {
                 m_CharController = gameObject.AddComponent<CharacterController>();
-                m_CharController.height = 1.3f;
-                m_CharController.radius = 0.45f;
-                m_CharController.center = new Vector3(0f, 0.65f, 0f);
             }
+            m_CharController.height = 1.3f;
+            m_CharController.radius = 0.42f;
+            m_CharController.center = new Vector3(0f, 0.72f, 0f);
+            m_CharController.stepOffset = 0.45f;
+            m_CharController.slopeLimit = 55f;
 
             SetupAudio();
             SetupCameraTarget();
@@ -166,22 +169,15 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void HandleMountInputs()
         {
-            bool mountKey = false;
+            bool mountKey = IUHInputHelper.IsVehicleKeyDown();
             bool hornKey = false;
 
 #if ENABLE_INPUT_SYSTEM
             if (Keyboard.current != null)
             {
-                mountKey = Keyboard.current.eKey.wasPressedThisFrame;
                 hornKey = Keyboard.current.hKey.wasPressedThisFrame;
             }
 #endif
-            try
-            {
-                if (!mountKey) mountKey = Input.GetKeyDown(m_MountKey);
-                if (!hornKey) hornKey = Input.GetKeyDown(m_HornKey);
-            }
-            catch {}
 
             if (!m_IsMounted)
             {
@@ -279,15 +275,27 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void SwitchCinemachineTarget(bool followBike)
         {
-            var vcam = UnityEngine.Object.FindFirstObjectByType<Unity.Cinemachine.CinemachineCamera>();
-            if (vcam != null)
+            var allCams = UnityEngine.Object.FindObjectsByType<Unity.Cinemachine.CinemachineCamera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (var vcam in allCams)
             {
+                if (vcam == null) continue;
+                var tpFollow = vcam.GetComponent<Unity.Cinemachine.CinemachineThirdPersonFollow>();
+
                 if (followBike)
                 {
                     Transform target = CameraTarget;
                     if (target == null) target = transform.Find("CameraTarget");
                     if (target == null) target = transform;
                     vcam.Follow = target;
+                    if (vcam.LookAt != null) vcam.LookAt = target;
+
+                    if (tpFollow != null)
+                    {
+                        tpFollow.CameraDistance = 5.4f;
+                        tpFollow.ShoulderOffset = new Vector3(0f, 0.45f, 0f);
+                        tpFollow.CameraSide = 0.5f;
+                        tpFollow.VerticalArmLength = 0.5f;
+                    }
                 }
                 else
                 {
@@ -295,8 +303,17 @@ namespace IUHCampus.Minigames.GrabCampus
                     if (m_PlayerOriginal != null)
                     {
                         var root = m_PlayerOriginal.transform.Find("PlayerCameraRoot");
-                        if (root != null) vcam.Follow = root;
-                        else vcam.Follow = m_PlayerOriginal.transform;
+                        var t = root != null ? root : m_PlayerOriginal.transform;
+                        vcam.Follow = t;
+                        if (vcam.LookAt != null) vcam.LookAt = t;
+
+                        if (tpFollow != null)
+                        {
+                            tpFollow.CameraDistance = 4.0f;
+                            tpFollow.ShoulderOffset = new Vector3(1f, 0f, 0f);
+                            tpFollow.CameraSide = 0.6f;
+                            tpFollow.VerticalArmLength = 0f;
+                        }
                     }
                 }
             }
@@ -304,32 +321,11 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void ReadDrivingInputs()
         {
-#if ENABLE_INPUT_SYSTEM
-            if (Keyboard.current != null)
-            {
-                float v = 0f;
-                if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) v += 1f;
-                if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) v -= 1f;
-                m_ThrottleInput = v;
-
-                float h = 0f;
-                if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) h += 1f;
-                if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) h -= 1f;
-                m_SteerInput = h;
-
-                m_IsBraking = Keyboard.current.spaceKey.isPressed;
-                m_IsTurbo = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
-                return;
-            }
-#endif
-            try
-            {
-                m_ThrottleInput = Input.GetAxisRaw("Vertical");
-                m_SteerInput = Input.GetAxisRaw("Horizontal");
-                m_IsBraking = Input.GetKey(KeyCode.Space);
-                m_IsTurbo = Input.GetKey(m_TurboKey);
-            }
-            catch {}
+            Vector2 move = IUHInputHelper.GetMovementAxis();
+            m_ThrottleInput = move.y;
+            m_SteerInput = move.x;
+            m_IsBraking = IUHInputHelper.IsBrakeHeld();
+            m_IsTurbo = IUHInputHelper.IsTurboHeld();
         }
 
         private void UpdatePhysicsMovement()
@@ -340,7 +336,8 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, 0f, 15f * Time.deltaTime);
             }
 
-            float targetMaxSpeed = m_IsTurbo ? m_TurboSpeed : m_MaxForwardSpeed;
+            float customMult = (IUHCustomizationManager.Instance != null) ? IUHCustomizationManager.Instance.ActiveConfig.speedMultiplier : 1.0f;
+            float targetMaxSpeed = (m_IsTurbo ? m_TurboSpeed : m_MaxForwardSpeed) * customMult;
 
             // Acceleration / Deceleration
             if (m_IsBraking)

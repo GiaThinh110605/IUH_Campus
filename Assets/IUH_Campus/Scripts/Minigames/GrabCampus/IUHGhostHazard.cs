@@ -63,39 +63,97 @@ namespace IUHCampus.Minigames.GrabCampus
             if (player != null) m_PlayerTransform = player.transform;
         }
 
+        [Header("Pursuit AI")]
+        [SerializeField] private float m_ChaseSpeed = 6.2f;
+        [SerializeField] private float m_TriggerChaseDist = 26.0f;
+        [SerializeField] private float m_LoseChaseDist = 34.0f;
+        private bool m_IsChasing = false;
+
         private void Update()
         {
             // Sinusoidal floating bob
             float hoverY = Mathf.Sin(Time.time * m_HoverSpeed) * m_HoverHeight;
 
-            // Patrol movement
-            m_PatrolTimer += Time.deltaTime * m_PatrolSpeed;
-            float patrolOffset = Mathf.Sin(m_PatrolTimer) * m_PatrolDistance;
-
-            transform.position = m_BasePosition + (m_PatrolAxis.normalized * patrolOffset) + new Vector3(0f, hoverY, 0f);
-
-            // Subtle rotation / swaying
-            transform.Rotate(0f, 25f * Time.deltaTime, 0f);
-
-            // Pulse light intensity
-            if (m_GhostLight != null)
+            // Find active target (motorbike if mounted, otherwise player)
+            Transform target = null;
+            var bike = Object.FindFirstObjectByType<IUHGrabMotorbike>();
+            if (bike != null && bike.IsMounted)
             {
-                m_GhostLight.intensity = 2.0f + Mathf.Sin(Time.time * 4f) * 0.8f;
+                target = bike.transform;
+            }
+            else
+            {
+                if (m_PlayerTransform == null || !m_PlayerTransform.gameObject.activeInHierarchy)
+                {
+                    var p = GameObject.Find("PlayerArmature");
+                    if (p != null) m_PlayerTransform = p.transform;
+                }
+                if (m_PlayerTransform != null && m_PlayerTransform.gameObject.activeInHierarchy)
+                {
+                    target = m_PlayerTransform;
+                }
             }
 
-            // Proximity spook sound check
-            if (m_PlayerTransform != null)
+            float distToTarget = target != null ? Vector3.Distance(transform.position, target.position) : 999f;
+
+            // State Transition: Patrol vs Chasing
+            if (distToTarget <= m_TriggerChaseDist && target != null)
             {
-                float dist = Vector3.Distance(transform.position, m_PlayerTransform.position);
-                if (dist < m_ScreamDistance && !m_HasScreamed)
+                m_IsChasing = true;
+            }
+            else if (distToTarget >= m_LoseChaseDist)
+            {
+                m_IsChasing = false;
+            }
+
+            if (m_IsChasing && target != null)
+            {
+                // Active Pursuit Chase AI
+                Vector3 targetPos = target.position + Vector3.up * 1.0f;
+                Vector3 toTarget = (targetPos - transform.position);
+                Vector3 dir = toTarget.normalized;
+
+                // Move directly toward the player/motorbike
+                transform.position = Vector3.MoveTowards(transform.position, targetPos + Vector3.up * hoverY, m_ChaseSpeed * Time.deltaTime);
+
+                // Face directly at target
+                Vector3 lookDir = toTarget;
+                lookDir.y = 0f;
+                if (lookDir.sqrMagnitude > 0.01f)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * 6f);
+                }
+
+                // Audio scream
+                if (distToTarget < m_ScreamDistance && !m_HasScreamed)
                 {
                     m_HasScreamed = true;
-                    m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetGhostWhooshSound(), 0.9f);
+                    if (m_AudioSource != null)
+                    {
+                        m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetGhostWhooshSound(), 1.0f);
+                    }
                 }
-                else if (dist > m_ScreamDistance * 1.6f)
+                else if (distToTarget > m_ScreamDistance * 1.5f)
                 {
                     m_HasScreamed = false;
                 }
+            }
+            else
+            {
+                // Patrol movement around base position
+                m_PatrolTimer += Time.deltaTime * m_PatrolSpeed;
+                float patrolOffset = Mathf.Sin(m_PatrolTimer) * m_PatrolDistance;
+
+                Vector3 targetPatrolPos = m_BasePosition + (m_PatrolAxis.normalized * patrolOffset) + new Vector3(0f, hoverY, 0f);
+                transform.position = Vector3.Lerp(transform.position, targetPatrolPos, Time.deltaTime * 3f);
+
+                transform.Rotate(0f, 25f * Time.deltaTime, 0f);
+            }
+
+            // Pulse spectral aura light
+            if (m_GhostLight != null)
+            {
+                m_GhostLight.intensity = m_IsChasing ? (3.5f + Mathf.PingPong(Time.time * 6f, 1.5f)) : (2.2f + Mathf.Sin(Time.time * 3f) * 0.8f);
             }
         }
 

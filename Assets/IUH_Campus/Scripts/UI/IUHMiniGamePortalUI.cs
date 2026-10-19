@@ -95,6 +95,32 @@ namespace IUHCampus.UI
                     closeBtn.onClick.AddListener(() => SetMenuOpen(false));
                 }
 
+                var btnResume = m_MenuPanel.transform.Find("Footer/BtnResume")?.GetComponent<Button>();
+                if (btnResume != null)
+                {
+                    btnResume.onClick.RemoveAllListeners();
+                    btnResume.onClick.AddListener(() => SetMenuOpen(false));
+                }
+
+                var btnFreeRoam = m_MenuPanel.transform.Find("Footer/BtnFreeRoam")?.GetComponent<Button>();
+                if (btnFreeRoam != null)
+                {
+                    btnFreeRoam.onClick.RemoveAllListeners();
+                    btnFreeRoam.onClick.AddListener(() => {
+                        var grabMgr = IUHGrabCampusManager.Instance;
+                        if (grabMgr != null && grabMgr.IsMissionActive) grabMgr.CancelMission();
+                        SetMenuOpen(false);
+                    });
+                }
+
+                // Customization Wardrobe Buttons
+                var btnCustPortal = m_MenuPanel.transform.Find("BtnCustomizationPortal")?.GetComponent<Button>();
+                if (btnCustPortal != null)
+                {
+                    btnCustPortal.onClick.RemoveAllListeners();
+                    btnCustPortal.onClick.AddListener(OpenCustomization);
+                }
+
                 // Cards Area Buttons
                 var cardsArea = m_MenuPanel.transform.Find("CardsArea");
                 if (cardsArea != null)
@@ -120,6 +146,18 @@ namespace IUHCampus.UI
                             actionBtn.onClick.AddListener(() => SelectMiniGame(index));
                         }
                     }
+                }
+            }
+
+            // HUD Wardrobe button
+            var hudPanel = transform.Find("DeliveryHUD");
+            if (hudPanel != null)
+            {
+                var btnCustHUD = hudPanel.Find("BtnCustomizationHUD")?.GetComponent<Button>();
+                if (btnCustHUD != null)
+                {
+                    btnCustHUD.onClick.RemoveAllListeners();
+                    btnCustHUD.onClick.AddListener(OpenCustomization);
                 }
             }
 
@@ -197,39 +235,56 @@ namespace IUHCampus.UI
                     SelectMiniGame(5);
                 }
             }
+            else
+            {
+                // When in gameplay, pressing ESC also opens the menu
+                if (IsKeyTriggered(KeyCode.Escape))
+                {
+                    SetMenuOpen(true);
+                    return;
+                }
+            }
+
+            // Press [U] anytime to open Customization Wardrobe
+            if (IsKeyTriggered(KeyCode.U))
+            {
+                OpenCustomization();
+                return;
+            }
+        }
+
+        public void OpenCustomization()
+        {
+            var customUI = IUHCustomizationUI.Instance;
+            if (customUI != null)
+            {
+                bool wasMenuOpen = m_IsOpen;
+                if (m_IsOpen) SetMenuOpen(false);
+                customUI.ReturnToPortalMenuOnClose = wasMenuOpen;
+                customUI.SetOpen(true);
+            }
         }
 
         private bool IsKeyTriggered(KeyCode code)
         {
-#if ENABLE_INPUT_SYSTEM
-            if (Keyboard.current != null)
+            switch (code)
             {
-                switch (code)
-                {
-                    case KeyCode.M: return Keyboard.current.mKey.wasPressedThisFrame;
-                    case KeyCode.Escape: return Keyboard.current.escapeKey.wasPressedThisFrame;
-                    case KeyCode.Alpha1:
-                    case KeyCode.Keypad1: return Keyboard.current.digit1Key.wasPressedThisFrame || Keyboard.current.numpad1Key.wasPressedThisFrame;
-                    case KeyCode.Alpha2:
-                    case KeyCode.Keypad2: return Keyboard.current.digit2Key.wasPressedThisFrame || Keyboard.current.numpad2Key.wasPressedThisFrame;
-                    case KeyCode.Alpha3:
-                    case KeyCode.Keypad3: return Keyboard.current.digit3Key.wasPressedThisFrame || Keyboard.current.numpad3Key.wasPressedThisFrame;
-                    case KeyCode.Alpha4:
-                    case KeyCode.Keypad4: return Keyboard.current.digit4Key.wasPressedThisFrame || Keyboard.current.numpad4Key.wasPressedThisFrame;
-                    case KeyCode.Alpha5:
-                    case KeyCode.Keypad5: return Keyboard.current.digit5Key.wasPressedThisFrame || Keyboard.current.numpad5Key.wasPressedThisFrame;
-                    case KeyCode.Alpha6:
-                    case KeyCode.Keypad6: return Keyboard.current.digit6Key.wasPressedThisFrame || Keyboard.current.numpad6Key.wasPressedThisFrame;
-                }
-            }
-#endif
-            try
-            {
-                return Input.GetKeyDown(code);
-            }
-            catch
-            {
-                return false;
+                case KeyCode.M: return IUHInputHelper.IsMenuKeyDown();
+                case KeyCode.Escape: return IUHInputHelper.IsEscapeKeyDown();
+                case KeyCode.U: return IUHInputHelper.IsCustomizationKeyDown();
+                case KeyCode.Alpha1:
+                case KeyCode.Keypad1: return IUHInputHelper.IsNumberKeyDown(1);
+                case KeyCode.Alpha2:
+                case KeyCode.Keypad2: return IUHInputHelper.IsNumberKeyDown(2);
+                case KeyCode.Alpha3:
+                case KeyCode.Keypad3: return IUHInputHelper.IsNumberKeyDown(3);
+                case KeyCode.Alpha4:
+                case KeyCode.Keypad4: return IUHInputHelper.IsNumberKeyDown(4);
+                case KeyCode.Alpha5:
+                case KeyCode.Keypad5: return IUHInputHelper.IsNumberKeyDown(5);
+                case KeyCode.Alpha6:
+                case KeyCode.Keypad6: return IUHInputHelper.IsNumberKeyDown(6);
+                default: return false;
             }
         }
 
@@ -245,11 +300,21 @@ namespace IUHCampus.UI
             if (m_MenuPanel != null)
             {
                 m_MenuPanel.SetActive(m_IsOpen);
+                if (m_IsOpen) m_MenuPanel.transform.SetAsLastSibling();
             }
 
             if (m_FloatingButton != null)
             {
                 m_FloatingButton.SetActive(!m_IsOpen);
+                if (!m_IsOpen) m_FloatingButton.transform.SetAsLastSibling();
+            }
+
+            // Hide mobile controls on PC or while menu is open
+            var mobile = FindFirstObjectByType<IUHMobileControlsUI>(FindObjectsInactive.Include);
+            if (mobile != null)
+            {
+                mobile.CheckPlatformVisibility();
+                if (m_IsOpen) mobile.gameObject.SetActive(false);
             }
 
             // Mouse Cursor & Camera Control
@@ -262,8 +327,22 @@ namespace IUHCampus.UI
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                // Only lock cursor back if other dialogs are not open
+                bool otherDialogOpen = false;
+                var victory = transform.Find("VictoryDialog");
+                if (victory != null && victory.gameObject.activeSelf) otherDialogOpen = true;
+                var defeat = transform.Find("DefeatDialog");
+                if (defeat != null && defeat.gameObject.activeSelf) otherDialogOpen = true;
+                var delivery = transform.Find("DeliveryDialogueModal");
+                if (delivery != null && delivery.gameObject.activeSelf) otherDialogOpen = true;
+                var custom = transform.Find("CustomizationPanel");
+                if (custom != null && custom.gameObject.activeSelf) otherDialogOpen = true;
+
+                if (!otherDialogOpen)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
                 if (m_PlayerMovementScript != null) m_PlayerMovementScript.enabled = true;
             }
         }
@@ -305,14 +384,22 @@ namespace IUHCampus.UI
         {
             SetMenuOpen(false);
 
-            var grabMgr = IUHGrabCampusManager.Instance;
-            if (grabMgr != null)
+            var customUI = IUHCustomizationUI.Instance;
+            if (customUI != null)
             {
-                grabMgr.StartMission(missionIndex);
+                customUI.SetOpen(true);
             }
             else
             {
-                Debug.LogWarning("[IUH Portal] IUHGrabCampusManager chưa được tìm thấy trong Scene!");
+                var grabMgr = IUHGrabCampusManager.Instance;
+                if (grabMgr != null)
+                {
+                    grabMgr.StartMission(missionIndex);
+                }
+                else
+                {
+                    Debug.LogWarning("[IUH Portal] IUHGrabCampusManager chưa được tìm thấy trong Scene!");
+                }
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using IUHCampus.Core;
+using IUHCampus.UI;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
@@ -62,8 +63,12 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private Light m_MainDirectionalLight;
         private Color m_OriginalLightColor = Color.white;
         private float m_OriginalLightIntensity = 1.0f;
-        private Color m_SpookyNightColor = new Color(0.2f, 0.35f, 0.55f);
-        private float m_SpookyLightIntensity = 0.35f;
+        private Color m_SpookyNightColor = new Color(0.12f, 0.18f, 0.40f);
+        private float m_SpookyLightIntensity = 0.12f;
+        private struct CachedLightInfo { public Light light; public Color color; public float intensity; }
+        private List<CachedLightInfo> m_CachedDirLights = new List<CachedLightInfo>();
+        private CameraClearFlags m_OriginalClearFlags = CameraClearFlags.Skybox;
+        private Color m_OriginalCamBgColor = Color.black;
 
         [Header("HUD Elements")]
         [SerializeField] private GameObject m_MissionHudPanel;
@@ -79,6 +84,7 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private GameObject m_VictoryDialog;
         [SerializeField] private Text m_TxtVictoryReward;
         [SerializeField] private Text m_TxtVictoryRating;
+        [SerializeField] private Text m_TxtVictoryClue;
         [SerializeField] private GameObject m_DefeatDialog;
         [SerializeField] private Text m_TxtDefeatReason;
 
@@ -149,52 +155,56 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void InitializeDefaultOrdersIfEmpty()
         {
-            if (m_Orders != null && m_Orders.Count > 0) return;
+            if (m_Orders != null && m_Orders.Count >= 3 && m_Orders[0].id == "ORDER_01_TOCOTOCO_KTX")
+            {
+                foreach (var o in m_Orders) o.hasGhosts = true;
+                return;
+            }
 
             m_Orders = new List<DeliveryOrder>
             {
                 new DeliveryOrder
                 {
-                    id = "ORDER_01_CANTEEN_KTX",
-                    title = "🛵 Đơn #01: Cơm Sườn Đêm Căn Tin",
-                    description = "Nhận hộp cơm nóng tại Căn Tin Sân Trường và giao gấp tới Ký Túc Xá Cổng 4.",
-                    pickupName = "Căn Tin Trung Tâm",
-                    pickupPosition = new Vector3(375.0f, 0.5f, -50.0f),
-                    dropoffName = "Ký Túc Xá Cổng 4 (Block X)",
-                    dropoffPosition = new Vector3(330.0f, 0.5f, -78.0f),
-                    timeLimitSeconds = 75.0f,
-                    cashReward = 60000,
-                    expReward = 100,
+                    id = "ORDER_01_TOCOTOCO_KTX",
+                    title = "🧋 Đơn #01: Trà Sữa Trân Châu ToCoToCo ➔ KTX",
+                    description = "Nhận 2 ly trà sữa trân châu tại Tiệm Trà Sữa ToCoToCo và giao gấp đến Ký Túc Xá KTX (Cổng 4) trước khi đá tan, cẩn thận hồn ma lượn lờ!",
+                    pickupName = "Tiệm Trà Sữa ToCoToCo IUH",
+                    pickupPosition = new Vector3(382.0f, 0.48f, -34.5f),
+                    dropoffName = "Ký Túc Xá KTX (Cổng 4)",
+                    dropoffPosition = new Vector3(336.0f, 0.48f, -78.0f),
+                    timeLimitSeconds = 90.0f,
+                    cashReward = 85000,
+                    expReward = 150,
                     difficultyStars = 1,
-                    hasGhosts = false
+                    hasGhosts = true
                 },
                 new DeliveryOrder
                 {
-                    id = "ORDER_02_LIBRARY_BLOCK_V",
-                    title = "👻 Đơn #02: Giáo Trình Cổ Giảng Đường",
-                    description = "Vận chuyển tập giáo trình quý từ Thư Viện Tòa A tới Phòng Nghiên Cứu Tòa V. Cẩn thận bóng ma lượn lờ!",
-                    pickupName = "Thư Viện Tòa A",
-                    pickupPosition = new Vector3(410.0f, 0.5f, -28.0f),
+                    id = "ORDER_02_CAVIENCHIEN_BLOCK_V",
+                    title = "🍢 Đơn #02: Cá Viên Chiên Nóng Giòn ➔ Tòa V",
+                    description = "Lấy phần cá viên chiên thập cẩm và xúc xích nướng bơ tại Xe Cá Viên Chiên 79 giao cho sinh viên ôn thi đêm tại Giảng Đường Tòa V!",
+                    pickupName = "Xe Cá Viên Chiên 79",
+                    pickupPosition = new Vector3(368.0f, 0.48f, -52.0f),
                     dropoffName = "Giảng Đường Tòa V",
-                    dropoffPosition = new Vector3(367.0f, 0.5f, -95.0f),
-                    timeLimitSeconds = 60.0f,
-                    cashReward = 85000,
-                    expReward = 150,
+                    dropoffPosition = new Vector3(360.0f, 0.48f, -90.0f),
+                    timeLimitSeconds = 80.0f,
+                    cashReward = 95000,
+                    expReward = 180,
                     difficultyStars = 2,
                     hasGhosts = true
                 },
                 new DeliveryOrder
                 {
-                    id = "ORDER_03_GATE1_BLOCK_E",
-                    title = "⚡ Đơn #03: Linh Kiện Khẩn Cấp Bão Đêm",
-                    description = "Tiếp nhận thùng linh kiện tại Cổng 1 Nguyễn Văn Bảo, vượt màn đêm sương mù và né hồn ma về Tòa Nhà E.",
-                    pickupName = "Cổng 1 Nguyễn Văn Bảo",
-                    pickupPosition = new Vector3(403.8f, 0.5f, -15.0f),
-                    dropoffName = "Sảnh Tòa Nhà E",
-                    dropoffPosition = new Vector3(368.0f, 0.5f, -70.0f),
-                    timeLimitSeconds = 50.0f,
+                    id = "ORDER_03_COMTAM_BLOCK_E",
+                    title = "🍲 Đơn #03: Cơm Tấm Sườn Bì Chả ➔ Tòa E",
+                    description = "Giao suất cơm sườn nướng thơm phức từ Quán Cơm Tấm Đêm Sài Gòn đến các bạn sinh viên tại Sảnh Nghiên Cứu Tòa Nhà E!",
+                    pickupName = "Quán Cơm Tấm Đêm Sài Gòn",
+                    pickupPosition = new Vector3(395.0f, 0.48f, -20.0f),
+                    dropoffName = "Sảnh Nghiên Cứu Tòa Nhà E",
+                    dropoffPosition = new Vector3(368.0f, 0.48f, -70.0f),
+                    timeLimitSeconds = 70.0f,
                     cashReward = 120000,
-                    expReward = 200,
+                    expReward = 220,
                     difficultyStars = 3,
                     hasGhosts = true
                 }
@@ -203,6 +213,15 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void Update()
         {
+            if (m_CurrentPhase == MissionPhase.Defeat)
+            {
+                if (IUHCampus.Core.IUHInputHelper.IsInteractKeyDown() || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.R))
+                {
+                    RetryCurrentMission();
+                    return;
+                }
+            }
+
             if (!IsMissionActive) return;
 
             // Timer countdown
@@ -310,13 +329,14 @@ namespace IUHCampus.Minigames.GrabCampus
             // Mount vehicle automatically or teleport bike near player
             EnsurePlayerOnMotorbike();
 
-            // Spawn/Show Waypoints
-            ShowPickupWaypoint(order.pickupPosition);
+            // Spawn/Show BOTH Waypoints so delivery target is visible immediately from start!
+            ShowPickupWaypoint(order.pickupPosition, $"📦 ĐIỂM LẤY ĐỒ\n[ {order.pickupName} ]");
+            ShowDropoffWaypoint(order.dropoffPosition, $"🏁 MỤC TIÊU GIAO HÀNG\n[ {order.dropoffName} ]");
 
             // Enable HUD
             if (m_MissionHudPanel != null) m_MissionHudPanel.SetActive(true);
             if (m_TxtMissionTitle != null) m_TxtMissionTitle.text = order.title;
-            if (m_TxtObjective != null) m_TxtObjective.text = $"[1/2] Lái xe đến điểm nhận: {order.pickupName}";
+            if (m_TxtObjective != null) m_TxtObjective.text = $"[1/2] Lái xe đến lấy đồ tại: {order.pickupName}";
 
             if (m_VictoryDialog != null) m_VictoryDialog.SetActive(false);
             if (m_DefeatDialog != null) m_DefeatDialog.SetActive(false);
@@ -357,11 +377,20 @@ namespace IUHCampus.Minigames.GrabCampus
 
             if (m_PlayerTransform != null)
             {
+                // Ensure player and motorbike start on the wide asphalt campus boulevard (Gate 1 road)
+                Vector3 roadSpawn = new Vector3(398.0f, 0.55f, -18.0f);
+                Quaternion roadRot = Quaternion.Euler(0f, 180f, 0f);
+
+                var pcc = m_PlayerTransform.GetComponent<CharacterController>();
+                if (pcc != null) pcc.enabled = false;
+                m_PlayerTransform.position = roadSpawn;
+                m_PlayerTransform.rotation = roadRot;
+                if (pcc != null) pcc.enabled = true;
+
                 var cc = m_Motorbike.GetComponent<CharacterController>();
                 if (cc != null) cc.enabled = false;
-                // Position motorbike right at player's location on the ground
-                m_Motorbike.transform.position = m_PlayerTransform.position + Vector3.up * 0.05f;
-                m_Motorbike.transform.rotation = m_PlayerTransform.rotation;
+                m_Motorbike.transform.position = roadSpawn;
+                m_Motorbike.transform.rotation = roadRot;
                 if (cc != null) cc.enabled = true;
 
                 m_Motorbike.MountVehicle(m_PlayerTransform.gameObject);
@@ -372,26 +401,51 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             if (!IsMissionActive) return;
 
-            if (m_CurrentPhase == MissionPhase.PickingUp && waypoint.Type == IUHDeliveryWaypoint.WaypointType.Pickup)
+            if (m_CurrentPhase == MissionPhase.PickingUp)
             {
-                // Picked up successfully!
-                m_CurrentPhase = MissionPhase.Delivering;
-                m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
-
-                if (m_PickupWaypoint != null) m_PickupWaypoint.gameObject.SetActive(false);
-                ShowDropoffWaypoint(CurrentOrder.dropoffPosition);
-
-                if (m_TxtObjective != null)
+                if (waypoint.Type == IUHDeliveryWaypoint.WaypointType.Pickup)
                 {
-                    m_TxtObjective.text = $"[2/2] Vượt chướng ngại vật giao tới: {CurrentOrder.dropoffName}!";
-                }
+                    // Picked up successfully!
+                    m_CurrentPhase = MissionPhase.Delivering;
+                    m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
 
-                Debug.Log($"[IUH Grab Campus] Đã nhận hàng thành công! Đang giao tới {CurrentOrder.dropoffName}...");
+                    if (m_PickupWaypoint != null) m_PickupWaypoint.gameObject.SetActive(false);
+
+                    if (m_TxtObjective != null)
+                    {
+                        m_TxtObjective.text = $"[2/2] ĐÃ LẤY ĐỒ! Vượt ma giao gấp tới: {CurrentOrder.dropoffName}!";
+                    }
+
+                    Debug.Log($"[IUH Grab Campus] Đã lấy đồ thành công từ {CurrentOrder.pickupName}! Đang giao tới {CurrentOrder.dropoffName}...");
+                }
+                else if (waypoint.Type == IUHDeliveryWaypoint.WaypointType.Dropoff)
+                {
+                    // Driver went to destination before picking up!
+                    if (m_TxtObjective != null)
+                    {
+                        m_TxtObjective.text = $"⚠️ CHƯA LẤY ĐỒ! Hãy ghé {CurrentOrder.pickupName} lấy thức ăn trước!";
+                    }
+                    if (m_AudioSource != null) m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetDamageSound(), 0.6f);
+                }
             }
             else if (m_CurrentPhase == MissionPhase.Delivering && waypoint.Type == IUHDeliveryWaypoint.WaypointType.Dropoff)
             {
-                // Completed delivery!
-                TriggerVictory();
+                // Completed delivery route! Open Hand-off Dialog (Image 1 panel 3)
+                var dialog = IUHDeliveryDialogueUI.Instance;
+                if (dialog != null)
+                {
+                    dialog.ShowDeliveryDialog(
+                        CurrentOrder.dropoffName,
+                        $"Bạn có đơn hàng từ {CurrentOrder.pickupName} giao cho bạn sinh viên tại {CurrentOrder.dropoffName}. Cảm ơn bạn đã vượt qua màn đêm và hồn ma để giao đồ an toàn!",
+                        CurrentOrder.cashReward,
+                        CurrentOrder.expReward,
+                        () => TriggerVictory()
+                    );
+                }
+                else
+                {
+                    TriggerVictory();
+                }
             }
         }
 
@@ -443,11 +497,15 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_VictoryDialog.SetActive(true);
                 if (m_TxtVictoryReward != null)
                 {
-                    m_TxtVictoryReward.text = $"+{totalPay:N0} VNĐ  (+{CurrentOrder.expReward} EXP)\nThưởng nguyên vẹn ({m_CargoIntegrity}%): +{cargoBonus:N0} VNĐ";
+                    m_TxtVictoryReward.text = $"💰 +{totalPay:N0} VNĐ   ⭐ +{CurrentOrder.expReward} EXP\n📦 Thưởng nguyên vẹn ({m_CargoIntegrity}%): +{cargoBonus:N0} VNĐ";
                 }
                 if (m_TxtVictoryRating != null)
                 {
                     m_TxtVictoryRating.text = new string('⭐', stars) + $" ({stars}/3 Sao)";
+                }
+                if (m_TxtVictoryClue != null)
+                {
+                    m_TxtVictoryClue.text = $"📜 Manh mối: [Mảnh nhật ký #{m_SelectedOrderIndex + 1} tại Ký Túc Xá Block D]";
                 }
             }
 
@@ -503,26 +561,24 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_NavArrow != null) m_NavArrow.gameObject.SetActive(false);
         }
 
-        private void ShowPickupWaypoint(Vector3 pos)
+        private void ShowPickupWaypoint(Vector3 pos, string label = null)
         {
             if (m_PickupWaypoint != null)
             {
                 m_PickupWaypoint.transform.position = pos;
-                m_PickupWaypoint.Setup(IUHDeliveryWaypoint.WaypointType.Pickup, new Color(0f, 0.9f, 1f, 0.9f));
+                m_PickupWaypoint.Setup(IUHDeliveryWaypoint.WaypointType.Pickup, new Color(0f, 0.9f, 1f, 0.9f), label);
                 m_PickupWaypoint.gameObject.SetActive(true);
             }
-            if (m_DropoffWaypoint != null) m_DropoffWaypoint.gameObject.SetActive(false);
         }
 
-        private void ShowDropoffWaypoint(Vector3 pos)
+        private void ShowDropoffWaypoint(Vector3 pos, string label = null)
         {
             if (m_DropoffWaypoint != null)
             {
                 m_DropoffWaypoint.transform.position = pos;
-                m_DropoffWaypoint.Setup(IUHDeliveryWaypoint.WaypointType.Dropoff, new Color(0f, 1f, 0.35f, 0.9f));
+                m_DropoffWaypoint.Setup(IUHDeliveryWaypoint.WaypointType.Dropoff, new Color(0.1f, 1f, 0.4f, 0.95f), label);
                 m_DropoffWaypoint.gameObject.SetActive(true);
             }
-            if (m_PickupWaypoint != null) m_PickupWaypoint.gameObject.SetActive(false);
         }
 
         private void HideWaypoints()
@@ -542,20 +598,67 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void ApplyNightAmbiance(bool night)
         {
-            if (m_MainDirectionalLight == null) return;
+            // 1. Cache all directional lights once
+            if (m_CachedDirLights.Count == 0)
+            {
+                var dirLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
+                foreach (var l in dirLights)
+                {
+                    if (l != null && l.type == LightType.Directional)
+                    {
+                        m_CachedDirLights.Add(new CachedLightInfo { light = l, color = l.color, intensity = l.intensity });
+                    }
+                }
+            }
+
+            // 2. Set all directional lights
+            foreach (var item in m_CachedDirLights)
+            {
+                if (item.light != null)
+                {
+                    if (night)
+                    {
+                        item.light.color = m_SpookyNightColor;
+                        item.light.intensity = m_SpookyLightIntensity;
+                    }
+                    else
+                    {
+                        item.light.color = item.color;
+                        item.light.intensity = item.intensity;
+                    }
+                }
+            }
+
+            // 3. Spooky Midnight Camera & Fog
+            var mainCam = Camera.main;
+            if (mainCam != null)
+            {
+                if (night)
+                {
+                    m_OriginalClearFlags = mainCam.clearFlags;
+                    m_OriginalCamBgColor = mainCam.backgroundColor;
+                    mainCam.clearFlags = CameraClearFlags.SolidColor;
+                    mainCam.backgroundColor = new Color(0.015f, 0.025f, 0.06f);
+                }
+                else
+                {
+                    mainCam.clearFlags = m_OriginalClearFlags;
+                    mainCam.backgroundColor = m_OriginalCamBgColor;
+                }
+            }
 
             if (night)
             {
-                m_MainDirectionalLight.color = m_SpookyNightColor;
-                m_MainDirectionalLight.intensity = m_SpookyLightIntensity;
+                RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+                RenderSettings.ambientLight = new Color(0.04f, 0.06f, 0.14f);
                 RenderSettings.fog = true;
-                RenderSettings.fogColor = new Color(0.12f, 0.18f, 0.3f);
-                RenderSettings.fogDensity = 0.025f;
+                RenderSettings.fogMode = FogMode.ExponentialSquared;
+                RenderSettings.fogColor = new Color(0.02f, 0.035f, 0.09f);
+                RenderSettings.fogDensity = 0.022f;
             }
             else
             {
-                m_MainDirectionalLight.color = m_OriginalLightColor;
-                m_MainDirectionalLight.intensity = m_OriginalLightIntensity;
+                RenderSettings.ambientLight = new Color(0.45f, 0.45f, 0.45f);
                 RenderSettings.fog = false;
             }
         }

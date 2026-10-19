@@ -21,11 +21,18 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private Transform m_GroundRing;
         [SerializeField] private Transform m_FloatingIcon;
         [SerializeField] private Light m_PointLight;
+        [SerializeField] private UnityEngine.UI.Text m_LabelText;
 
         public WaypointType Type => m_Type;
         public float Radius => m_Radius;
 
-        public void Setup(WaypointType type, Color color)
+        public void SetLabel(string text)
+        {
+            if (m_LabelText == null) m_LabelText = GetComponentInChildren<UnityEngine.UI.Text>(true);
+            if (m_LabelText != null) m_LabelText.text = text;
+        }
+
+        public void Setup(WaypointType type, Color color, string label = null)
         {
             m_Type = type;
             m_BeaconColor = color;
@@ -33,6 +40,11 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_PointLight != null)
             {
                 m_PointLight.color = color;
+            }
+
+            if (!string.IsNullOrEmpty(label))
+            {
+                SetLabel(label);
             }
         }
 
