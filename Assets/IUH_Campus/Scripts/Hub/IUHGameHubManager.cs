@@ -5,7 +5,7 @@ namespace IUHCampus.Hub
 {
     /// <summary>
     /// Trình điều phối chuyển cảnh (Hub Scene Manager) cho IUH Campus.
-    /// Quản lý 6 Minigames độc lập cho 3 thành viên: Gia Thịnh (2), Huy (2), Nhật (2) + 1 Hub Sân Trường.
+    /// Nhóm 2 thành viên: Gia Thịnh (3D + AR + Mobile) & Nhật (2D + Cloud + Docker).
     /// </summary>
     public class IUHGameHubManager : MonoBehaviour
     {
@@ -13,16 +13,13 @@ namespace IUHCampus.Hub
         public string hubSceneName = "IUH_Campus_Main";
 
         [Header("Gia Thinh Scenes")]
-        public string thinhSprintSceneName = "Scene_Thinh_SprintToClass";       // Game 1: Chạy điểm danh
-        public string thinhRideHailingSceneName = "Scene_Thinh_RideHailingRush"; // Game 4: Xe ôm công nghệ Grab/Be/Xanh
-
-        [Header("Huy Scenes")]
-        public string huyDroneSceneName = "Scene_Huy_DronePatrol";              // Game 2: FPV Drone tháp kính 13 tầng
-        public string huyRoboBattleSceneName = "Scene_Huy_RoboBattleLab";       // Game 5: Đua Robot & Sumo xưởng cơ khí
+        public string thinhSprintSceneName = "Scene_Thinh_SprintToClass";       // Game 1: 3D Chạy điểm danh
+        public string thinhRideHailingSceneName = "Scene_Thinh_RideHailingRush"; // Game 2: 3D Xe ôm Grab/Be/Xanh
+        public string thinhARSceneName = "Scene_AR_CampusHologram";             // Chế độ AR Hologram
 
         [Header("Nhat Scenes")]
-        public string nhatParkingSceneName = "Scene_Nhat_ParkingMaster";        // Game 3: Bãi đỗ xe giờ cao điểm
-        public string nhatCanteenSceneName = "Scene_Nhat_CanteenRush";          // Game 6: Canteen & Trà đào Nguyễn Văn Bảo
+        public string nhat2DCanteenSceneName = "Scene_2D_Nhat_CanteenRush";     // Game 3: 2D Canteen Tilemap
+        public string nhatParkingSceneName = "Scene_Nhat_ParkingMaster";        // Game 4: 3D Bãi đỗ xe & Unblock
 
         [Header("Audio")]
         public AudioSource audioSource;
@@ -46,34 +43,28 @@ namespace IUHCampus.Hub
         // ================= GIA THỊNH =================
         public void LoadThinhSprintGame()
         {
-            LoadSceneWithFeedback(thinhSprintSceneName, "Minigame 1: Chay Bo Diem Danh (Gia Thinh)");
+            LoadSceneWithFeedback(thinhSprintSceneName, "Minigame 1: 3D Chay Bo Diem Danh (Gia Thinh)");
         }
 
         public void LoadThinhRideHailingGame()
         {
-            LoadSceneWithFeedback(thinhRideHailingSceneName, "Minigame 4: Xe Om Cong Nghe Grab/Be/Xanh (Gia Thinh)");
+            LoadSceneWithFeedback(thinhRideHailingSceneName, "Minigame 2: 3D Xe Om Cong Nghe Grab/Be/Xanh (Gia Thinh)");
         }
 
-        // ================= HUY =================
-        public void LoadHuyDroneGame()
+        public void LoadThinhARMode()
         {
-            LoadSceneWithFeedback(huyDroneSceneName, "Minigame 2: FPV Drone Thap Kinh 13 Tang (Huy)");
-        }
-
-        public void LoadHuyRoboBattleGame()
-        {
-            LoadSceneWithFeedback(huyRoboBattleSceneName, "Minigame 5: Dua Robot Xuong Co Khi IUH (Huy)");
+            LoadSceneWithFeedback(thinhARSceneName, "Che Do AR Hologram Quan The IUH (Gia Thinh)");
         }
 
         // ================= NHẬT =================
-        public void LoadNhatParkingGame()
+        public void LoadNhat2DCanteenGame()
         {
-            LoadSceneWithFeedback(nhatParkingSceneName, "Minigame 3: Xep Xe & Giai Cuu Xe Ket (Nhat)");
+            LoadSceneWithFeedback(nhat2DCanteenSceneName, "Minigame 3: 2D Tilemap Canteen Overcooked (Nhat)");
         }
 
-        public void LoadNhatCanteenGame()
+        public void LoadNhatParkingGame()
         {
-            LoadSceneWithFeedback(nhatCanteenSceneName, "Minigame 6: Canteen & Tra Dao Nguyen Van Bao (Nhat)");
+            LoadSceneWithFeedback(nhatParkingSceneName, "Minigame 4: 3D Xep Xe & Giai Cuu Xe Ket (Nhat)");
         }
 
         // ================= RETURN HUB =================
