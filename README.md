@@ -403,3 +403,41 @@ Dự án có thể xem là sẵn sàng để demo khi:
 - Backend và dịch vụ liên quan khởi chạy được qua Docker.
 - Có bản build mobile, hướng dẫn chạy, bảng kiểm thử và video demo.
 - Mỗi tiêu chí trong rubric đều có bằng chứng kiểm chứng cụ thể.
+
+---
+
+## 11. Hướng Dẫn Trải Nghiệm Mini-Game 2.1 & In-Game Menu
+
+### 11.1. Menu Chọn Mini-Game (In-Game Portal)
+- **Kích hoạt:**
+  - Nhấn phím **`[M]`** trên bàn phím bất kỳ lúc nào trong quá trình khám phá.
+  - Hoặc click vào nút nổi góc phải màn hình **`[🎮 Mini-Games [Phím M]]`**.
+- **Tính năng:**
+  - Danh sách 6 mini-game (3 game của Gia Thịnh, 3 game của Minh Nhật).
+  - Tự động mở khóa chuột (`Cursor.lockState = CursorLockMode.None`) và tạm khóa chuyển động nhân vật để thao tác mượt mà.
+  - Bấm **`[⚡ Chơi Ngay]`** trên thẻ Mini-game 2.1 để bắt đầu nhiệm vụ ngay lập tức.
+  - Bấm **`[📍 Fast Travel]`** trên các thẻ khác để dịch chuyển tức thời đến trạm nhiệm vụ tương ứng (KTX, Thư viện, Nóc nhà Block F, Sân trường, Sân khấu).
+
+### 11.2. Mini-Game 2.1: Grab Campus — Chuyến Xe Tâm Linh
+- **Vị trí xe máy:** Bãi xe Cổng 1 Nguyễn Văn Bảo (`398.0, 0.55, -18.0`).
+- **Phím điều khiển xe máy:**
+  - **`W` / `↑`**: Tăng tốc tiến lên (lên đến 58 km/h).
+  - **`S` / `↓`**: Lùi xe / Phanh.
+  - **`A` / `D` (hoặc `←` / `→`)**: Đánh lái và nghiêng xe mượt mà (Banking tilt).
+  - **`Space`**: Phanh gấp / Drift.
+  - **`Left Shift`**: Bật Turbo tăng tốc tức thì (lên đến 79 km/h).
+  - **`H`**: Bấm còi xe máy Grab.
+  - **`E`**: Lên / Xuống xe khi đứng gần.
+- **Hệ thống nhiệm vụ:**
+  - **Đơn 1 (Dễ):** Cơm Sườn Đêm Căn Tin &rarr; Ký Túc Xá Cổng 4 (75s, thưởng 60,000 VNĐ).
+  - **Đơn 2 (Trung bình):** Giáo Trình Cổ Thư Viện Tòa A &rarr; Giảng Đường Tòa V (60s, thưởng 85,000 VNĐ, có ma tuần tra).
+  - **Đơn 3 (Khó):** Linh Kiện Điện Tử Khẩn Cấp Cổng 1 &rarr; Sảnh Tòa Nhà E (50s, thưởng 120,000 VNĐ, bão ma đêm + sương mù dày).
+- **Cơ chế tâm linh & Chướng ngại vật:**
+  - Khi bắt đầu nhiệm vụ, môi trường chuyển sang ban đêm (ánh trăng xanh ma mị, đèn pha xe máy chiếu đường).
+  - Hồn ma (`IUHGhostHazard`) bay lượn trên đường: phát ra tiếng rít dọa giật mình khi đến gần; va chạm sẽ làm giật lùi xe và trừ **15% độ bền kiện hàng**.
+- **Điều kiện Thắng / Thua & Đánh giá:**
+  - **Thắng:** Đến điểm giao trước khi hết giờ và kiện hàng còn > 0%. Đánh giá 1 - 3 sao kèm tiền thưởng và điểm kinh nghiệm (EXP).
+  - **Thua:** Hết thời gian hoặc kiện hàng bị vỡ nát (0%). Có nút bấm **[Thử Lại Ngay]** tiện lợi.
+- **Tự động thiết lập trong Editor:**
+  - Menu: `IUH Campus` &rarr; `Setup Grab Campus Minigame & Mini-Game Menu (One-Click)`.
+
