@@ -291,6 +291,10 @@ namespace IUHCampus.Minigames.GrabCampus
 
         public void StartMission(int orderIndex)
         {
+            InitializeDefaultOrdersIfEmpty();
+            FindSceneReferences();
+
+            if (m_Orders == null || m_Orders.Count == 0) return;
             if (orderIndex < 0 || orderIndex >= m_Orders.Count) orderIndex = 0;
             m_SelectedOrderIndex = orderIndex;
             var order = CurrentOrder;
@@ -319,23 +323,48 @@ namespace IUHCampus.Minigames.GrabCampus
 
             if (m_NavArrow != null) m_NavArrow.gameObject.SetActive(true);
 
-            m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
+            if (m_AudioSource == null) m_AudioSource = GetComponent<AudioSource>();
+            if (m_AudioSource == null) m_AudioSource = gameObject.AddComponent<AudioSource>();
+            if (m_AudioSource != null) m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
             Debug.Log($"[IUH Grab Campus] Bắt đầu nhiệm vụ: {order.title}");
         }
 
         private void EnsurePlayerOnMotorbike()
         {
-            if (m_Motorbike == null) return;
-
-            if (!m_Motorbike.IsMounted)
+            if (m_Motorbike == null)
             {
-                // Teleport motorbike near player
-                if (m_PlayerTransform != null)
+                m_Motorbike = FindFirstObjectByType<IUHGrabMotorbike>();
+                if (m_Motorbike == null) return;
+            }
+
+            if (m_PlayerTransform == null)
+            {
+                var p = GameObject.Find("PlayerArmature");
+                if (p == null)
                 {
-                    m_Motorbike.transform.position = m_PlayerTransform.position + m_PlayerTransform.forward * 1.5f + Vector3.up * 0.2f;
-                    m_Motorbike.transform.rotation = m_PlayerTransform.rotation;
+                    var all = Resources.FindObjectsOfTypeAll<GameObject>();
+                    foreach (var go in all)
+                    {
+                        if (go.name == "PlayerArmature" && !go.hideFlags.HasFlag(HideFlags.NotEditable))
+                        {
+                            p = go;
+                            break;
+                        }
+                    }
                 }
-                m_Motorbike.MountVehicle(m_PlayerTransform != null ? m_PlayerTransform.gameObject : null);
+                if (p != null) m_PlayerTransform = p.transform;
+            }
+
+            if (m_PlayerTransform != null)
+            {
+                var cc = m_Motorbike.GetComponent<CharacterController>();
+                if (cc != null) cc.enabled = false;
+                // Position motorbike right at player's location on the ground
+                m_Motorbike.transform.position = m_PlayerTransform.position + Vector3.up * 0.05f;
+                m_Motorbike.transform.rotation = m_PlayerTransform.rotation;
+                if (cc != null) cc.enabled = true;
+
+                m_Motorbike.MountVehicle(m_PlayerTransform.gameObject);
             }
         }
 
@@ -462,6 +491,11 @@ namespace IUHCampus.Minigames.GrabCampus
             HideWaypoints();
             SetGhostsActive(false);
             ApplyNightAmbiance(false);
+
+            if (m_Motorbike != null && m_Motorbike.IsMounted)
+            {
+                m_Motorbike.DismountVehicle();
+            }
 
             if (m_MissionHudPanel != null) m_MissionHudPanel.SetActive(false);
             if (m_VictoryDialog != null) m_VictoryDialog.SetActive(false);

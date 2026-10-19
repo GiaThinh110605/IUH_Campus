@@ -182,6 +182,9 @@ namespace IUHCampus.Editor
             spotLight.color = new Color(1.0f, 0.95f, 0.85f);
             spotLight.intensity = 3.5f;
 
+            // Build Full 3D Human Rider Figure on the bike
+            var riderGO = BuildRiderFigure(bikeGO.transform, grabGreenMat, grabBoxMat);
+
             // Add CharacterController & Controller Script
             var charCtrl = bikeGO.GetComponent<CharacterController>();
             if (charCtrl == null) charCtrl = bikeGO.AddComponent<CharacterController>();
@@ -191,7 +194,127 @@ namespace IUHCampus.Editor
 
             var bikeCtrl = bikeGO.AddComponent<IUHGrabMotorbike>();
 
+            // Wire rider and camera target
+            var soBike = new SerializedObject(bikeCtrl);
+            soBike.FindProperty("m_RiderAvatar").objectReferenceValue = riderGO;
+            var camTarget = bikeGO.transform.Find("CameraTarget");
+            if (camTarget != null) soBike.FindProperty("m_CameraTarget").objectReferenceValue = camTarget;
+            soBike.ApplyModifiedProperties();
+
             return bikeGO;
+        }
+
+        private static GameObject BuildRiderFigure(Transform bikeTransform, Material grabGreenMat, Material grabBoxMat)
+        {
+            var riderGO = new GameObject("Rider_Figure");
+            riderGO.transform.SetParent(bikeTransform, false);
+            riderGO.transform.localPosition = Vector3.zero;
+            riderGO.transform.localRotation = Quaternion.identity;
+
+            var darkMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Motorbike_Dark.mat");
+            var pantsMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Student_DarkPants.mat");
+            if (pantsMat == null) pantsMat = darkMat;
+
+            // 1. Torso (wearing Grab delivery jacket)
+            var torso = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            torso.name = "Rider_Torso";
+            torso.transform.SetParent(riderGO.transform, false);
+            torso.transform.localPosition = new Vector3(0f, 0.96f, -0.05f);
+            torso.transform.localRotation = Quaternion.Euler(18f, 0f, 0f);
+            torso.transform.localScale = new Vector3(0.38f, 0.44f, 0.26f);
+            torso.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
+            UnityEngine.Object.DestroyImmediate(torso.GetComponent<Collider>());
+
+            // 2. Head & Helmet with Visor
+            var head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            head.name = "Rider_Head";
+            head.transform.SetParent(riderGO.transform, false);
+            head.transform.localPosition = new Vector3(0f, 1.32f, 0.08f);
+            head.transform.localScale = new Vector3(0.32f, 0.32f, 0.32f);
+            head.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
+            UnityEngine.Object.DestroyImmediate(head.GetComponent<Collider>());
+
+            var visor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            visor.name = "Rider_Visor";
+            visor.transform.SetParent(head.transform, false);
+            visor.transform.localPosition = new Vector3(0f, 0.02f, 0.42f);
+            visor.transform.localScale = new Vector3(0.72f, 0.28f, 0.22f);
+            visor.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
+            UnityEngine.Object.DestroyImmediate(visor.GetComponent<Collider>());
+
+            // 3. Left Arm (reaching forward to left handlebar)
+            var armL = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            armL.name = "Rider_Arm_L";
+            armL.transform.SetParent(riderGO.transform, false);
+            armL.transform.localPosition = new Vector3(-0.24f, 1.08f, 0.16f);
+            armL.transform.localRotation = Quaternion.Euler(48f, -12f, 0f);
+            armL.transform.localScale = new Vector3(0.10f, 0.26f, 0.10f);
+            armL.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
+            UnityEngine.Object.DestroyImmediate(armL.GetComponent<Collider>());
+
+            // 4. Right Arm (reaching forward to right handlebar)
+            var armR = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            armR.name = "Rider_Arm_R";
+            armR.transform.SetParent(riderGO.transform, false);
+            armR.transform.localPosition = new Vector3(0.24f, 1.08f, 0.16f);
+            armR.transform.localRotation = Quaternion.Euler(48f, 12f, 0f);
+            armR.transform.localScale = new Vector3(0.10f, 0.26f, 0.10f);
+            armR.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
+            UnityEngine.Object.DestroyImmediate(armR.GetComponent<Collider>());
+
+            // 5. Left Leg
+            var thighL = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            thighL.name = "Rider_Thigh_L";
+            thighL.transform.SetParent(riderGO.transform, false);
+            thighL.transform.localPosition = new Vector3(-0.20f, 0.72f, 0.05f);
+            thighL.transform.localRotation = Quaternion.Euler(65f, -15f, 0f);
+            thighL.transform.localScale = new Vector3(0.12f, 0.24f, 0.12f);
+            thighL.GetComponent<MeshRenderer>().sharedMaterial = pantsMat;
+            UnityEngine.Object.DestroyImmediate(thighL.GetComponent<Collider>());
+
+            var shinL = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            shinL.name = "Rider_Shin_L";
+            shinL.transform.SetParent(riderGO.transform, false);
+            shinL.transform.localPosition = new Vector3(-0.22f, 0.45f, 0.18f);
+            shinL.transform.localRotation = Quaternion.Euler(15f, 0f, 0f);
+            shinL.transform.localScale = new Vector3(0.11f, 0.24f, 0.11f);
+            shinL.GetComponent<MeshRenderer>().sharedMaterial = pantsMat;
+            UnityEngine.Object.DestroyImmediate(shinL.GetComponent<Collider>());
+
+            // 6. Right Leg
+            var thighR = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            thighR.name = "Rider_Thigh_R";
+            thighR.transform.SetParent(riderGO.transform, false);
+            thighR.transform.localPosition = new Vector3(0.20f, 0.72f, 0.05f);
+            thighR.transform.localRotation = Quaternion.Euler(65f, 15f, 0f);
+            thighR.transform.localScale = new Vector3(0.12f, 0.24f, 0.12f);
+            thighR.GetComponent<MeshRenderer>().sharedMaterial = pantsMat;
+            UnityEngine.Object.DestroyImmediate(thighR.GetComponent<Collider>());
+
+            var shinR = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            shinR.name = "Rider_Shin_R";
+            shinR.transform.SetParent(riderGO.transform, false);
+            shinR.transform.localPosition = new Vector3(0.22f, 0.45f, 0.18f);
+            shinR.transform.localRotation = Quaternion.Euler(15f, 0f, 0f);
+            shinR.transform.localScale = new Vector3(0.11f, 0.24f, 0.11f);
+            shinR.GetComponent<MeshRenderer>().sharedMaterial = pantsMat;
+            UnityEngine.Object.DestroyImmediate(shinR.GetComponent<Collider>());
+
+            // 7. Thermal Backpack on rider's back
+            var pack = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            pack.name = "Rider_Backpack";
+            pack.transform.SetParent(riderGO.transform, false);
+            pack.transform.localPosition = new Vector3(0f, 1.05f, -0.22f);
+            pack.transform.localScale = new Vector3(0.38f, 0.42f, 0.22f);
+            pack.GetComponent<MeshRenderer>().sharedMaterial = grabBoxMat;
+            UnityEngine.Object.DestroyImmediate(pack.GetComponent<Collider>());
+
+            // 8. CameraTarget for Cinemachine
+            var camTarget = new GameObject("CameraTarget");
+            camTarget.transform.SetParent(bikeTransform, false);
+            camTarget.transform.localPosition = new Vector3(0f, 1.35f, -0.15f);
+
+            return riderGO;
         }
 
         private static List<GameObject> BuildGhostHazards(Transform parent, Material ghostMat)
@@ -346,8 +469,9 @@ namespace IUHCampus.Editor
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = canvasGO.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920, 1080);
-            scaler.matchWidthOrHeight = 0.5f;
+            scaler.referenceResolution = new Vector2(1600, 900);
+            scaler.matchWidthOrHeight = 1.0f; // Match Height to prevent vertical truncation on ultra-wide screens
+            scaler.dynamicPixelsPerUnit = 2.0f;
             canvasGO.AddComponent<GraphicRaycaster>();
 
             // Ensure EventSystem exists
@@ -385,7 +509,7 @@ namespace IUHCampus.Editor
             rect.anchorMax = new Vector2(1f, 1f);
             rect.pivot = new Vector2(1f, 1f);
             rect.anchoredPosition = new Vector2(-25f, -25f);
-            rect.sizeDelta = new Vector2(280f, 60f);
+            rect.sizeDelta = new Vector2(300f, 62f);
 
             var img = btnGO.AddComponent<Image>();
             img.color = new Color(0.06f, 0.10f, 0.20f, 0.96f);
@@ -418,10 +542,10 @@ namespace IUHCampus.Editor
             panelGO.transform.SetParent(canvasTransform, false);
 
             var rect = panelGO.AddComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0.05f, 0.04f);
-            rect.anchorMax = new Vector2(0.95f, 0.96f);
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.sizeDelta = new Vector2(1480f, 820f);
 
             var img = panelGO.AddComponent<Image>();
             img.color = new Color(0.03f, 0.06f, 0.12f, 0.98f);
@@ -434,13 +558,14 @@ namespace IUHCampus.Editor
             var headerGO = new GameObject("Header");
             headerGO.transform.SetParent(panelGO.transform, false);
             var hRect = headerGO.AddComponent<RectTransform>();
-            hRect.anchorMin = new Vector2(0f, 0.88f);
+            hRect.anchorMin = new Vector2(0f, 1f);
             hRect.anchorMax = new Vector2(1f, 1f);
-            hRect.offsetMin = Vector2.zero;
-            hRect.offsetMax = Vector2.zero;
+            hRect.pivot = new Vector2(0.5f, 1f);
+            hRect.anchoredPosition = new Vector2(0f, -10f);
+            hRect.sizeDelta = new Vector2(0f, 85f);
             var hTxt = headerGO.AddComponent<Text>();
             hTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            hTxt.text = "<size=30><color=#FEF08A><b>🏛️ CAMPUS ADVENTURE — CHỌN MINI-GAME</b></color></size>\n<size=17><color=#7DD3FC>⚡ Bấm phím số <b>[ 1 ]</b> đến <b>[ 6 ]</b> hoặc CLICK chuột để chọn trò chơi • Bấm <b>[ M ]</b> hoặc <b>[ ESC ]</b> để đóng</color></size>";
+            hTxt.text = "<size=28><color=#FEF08A><b>🏛️ CAMPUS ADVENTURE — CHỌN MINI-GAME</b></color></size>\n<size=15><color=#7DD3FC>⚡ Bấm phím số <b>[ 1 ]</b> đến <b>[ 6 ]</b> hoặc CLICK chuột để chọn trò chơi • Bấm <b>[ M ]</b> hoặc <b>[ ESC ]</b> để đóng</color></size>";
             hTxt.alignment = TextAnchor.MiddleCenter;
             hTxt.color = Color.white;
 
@@ -451,8 +576,8 @@ namespace IUHCampus.Editor
             cRect.anchorMin = new Vector2(1f, 1f);
             cRect.anchorMax = new Vector2(1f, 1f);
             cRect.pivot = new Vector2(1f, 1f);
-            cRect.anchoredPosition = new Vector2(-18f, -18f);
-            cRect.sizeDelta = new Vector2(50f, 50f);
+            cRect.anchoredPosition = new Vector2(-15f, -15f);
+            cRect.sizeDelta = new Vector2(46f, 46f);
             var cImg = closeBtnGO.AddComponent<Image>();
             cImg.color = new Color(0.9f, 0.2f, 0.2f, 0.95f);
             var cBtn = closeBtnGO.AddComponent<Button>();
@@ -465,7 +590,7 @@ namespace IUHCampus.Editor
             var cTxt = cTxtGO.AddComponent<Text>();
             cTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             cTxt.text = "✕";
-            cTxt.fontSize = 28;
+            cTxt.fontSize = 26;
             cTxt.alignment = TextAnchor.MiddleCenter;
             cTxt.color = Color.white;
             cTxt.fontStyle = FontStyle.Bold;
@@ -477,14 +602,14 @@ namespace IUHCampus.Editor
             var cardsArea = new GameObject("CardsArea");
             cardsArea.transform.SetParent(panelGO.transform, false);
             var caRect = cardsArea.AddComponent<RectTransform>();
-            caRect.anchorMin = new Vector2(0.02f, 0.08f);
-            caRect.anchorMax = new Vector2(0.98f, 0.87f);
-            caRect.offsetMin = Vector2.zero;
-            caRect.offsetMax = Vector2.zero;
+            caRect.anchorMin = new Vector2(0.02f, 0f);
+            caRect.anchorMax = new Vector2(0.98f, 1f);
+            caRect.offsetMin = new Vector2(0f, 65f);
+            caRect.offsetMax = new Vector2(0f, -100f);
 
             var grid = cardsArea.AddComponent<GridLayoutGroup>();
-            grid.cellSize = new Vector2(520f, 310f);
-            grid.spacing = new Vector2(30f, 20f);
+            grid.cellSize = new Vector2(450f, 310f);
+            grid.spacing = new Vector2(20f, 15f);
             grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             grid.constraintCount = 3;
 
@@ -501,9 +626,10 @@ namespace IUHCampus.Editor
             footerGO.transform.SetParent(panelGO.transform, false);
             var fRect = footerGO.AddComponent<RectTransform>();
             fRect.anchorMin = new Vector2(0f, 0f);
-            fRect.anchorMax = new Vector2(1f, 0.07f);
-            fRect.offsetMin = Vector2.zero;
-            fRect.offsetMax = Vector2.zero;
+            fRect.anchorMax = new Vector2(1f, 0f);
+            fRect.pivot = new Vector2(0.5f, 0f);
+            fRect.anchoredPosition = new Vector2(0f, 10f);
+            fRect.sizeDelta = new Vector2(0f, 48f);
             var fImg = footerGO.AddComponent<Image>();
             fImg.color = new Color(0.06f, 0.12f, 0.22f, 0.95f);
 
@@ -515,7 +641,7 @@ namespace IUHCampus.Editor
             var fTxt = fTxtGO.AddComponent<Text>();
             fTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             fTxt.text = "💡 <color=#FDE047><b>MẸO NHANH:</b></color> Bạn có thể bấm phím số <b>[1]</b>, <b>[2]</b>, <b>[3]</b>, <b>[4]</b>, <b>[5]</b>, <b>[6]</b> bất cứ lúc nào để chọn game tức thì!";
-            fTxt.fontSize = 16;
+            fTxt.fontSize = 15;
             fTxt.alignment = TextAnchor.MiddleCenter;
             fTxt.color = Color.white;
             fTxt.fontStyle = FontStyle.Bold;
@@ -537,10 +663,11 @@ namespace IUHCampus.Editor
 
             // Card Content Vertical Layout
             var vlg = cardGO.AddComponent<VerticalLayoutGroup>();
-            vlg.padding = new RectOffset(18, 18, 14, 14);
-            vlg.spacing = 8f;
+            vlg.padding = new RectOffset(16, 16, 12, 12);
+            vlg.spacing = 6f;
             vlg.childControlWidth = true;
-            vlg.childControlHeight = false;
+            vlg.childControlHeight = true;
+            vlg.childForceExpandHeight = false;
 
             // 1. Top Row: Hotkey Badge [PHÍM X] + Author Pill
             var topRow = new GameObject("TopRow");
@@ -549,7 +676,7 @@ namespace IUHCampus.Editor
             topHlg.childControlWidth = false;
             topHlg.childControlHeight = true;
             topHlg.spacing = 10f;
-            topRow.AddComponent<LayoutElement>().preferredHeight = 32f;
+            topRow.AddComponent<LayoutElement>().preferredHeight = 30f;
 
             // Hotkey Badge
             var keyBadge = new GameObject("KeyBadge");
@@ -557,7 +684,7 @@ namespace IUHCampus.Editor
             var kbImg = keyBadge.AddComponent<Image>();
             kbImg.color = isGrabGame ? new Color(1.0f, 0.85f, 0.15f) : new Color(0.2f, 0.85f, 1.0f);
             var kbLe = keyBadge.AddComponent<LayoutElement>();
-            kbLe.preferredWidth = 115f;
+            kbLe.preferredWidth = 105f;
             var kbTxtGO = new GameObject("Txt");
             kbTxtGO.transform.SetParent(keyBadge.transform, false);
             var kbTxtRect = kbTxtGO.AddComponent<RectTransform>();
@@ -566,7 +693,7 @@ namespace IUHCampus.Editor
             var kbTxt = kbTxtGO.AddComponent<Text>();
             kbTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             kbTxt.text = $"[ PHÍM {hotkeyNum} ]";
-            kbTxt.fontSize = 16;
+            kbTxt.fontSize = 15;
             kbTxt.alignment = TextAnchor.MiddleCenter;
             kbTxt.color = Color.black;
             kbTxt.fontStyle = FontStyle.Bold;
@@ -577,7 +704,7 @@ namespace IUHCampus.Editor
             var apImg = authorPill.AddComponent<Image>();
             apImg.color = isGrabGame ? new Color(0.06f, 0.45f, 0.25f, 0.9f) : new Color(0.15f, 0.35f, 0.65f, 0.9f);
             var apLe = authorPill.AddComponent<LayoutElement>();
-            apLe.preferredWidth = 160f;
+            apLe.preferredWidth = 135f;
             var apTxtGO = new GameObject("Txt");
             apTxtGO.transform.SetParent(authorPill.transform, false);
             var apTxtRect = apTxtGO.AddComponent<RectTransform>();
@@ -586,7 +713,7 @@ namespace IUHCampus.Editor
             var apTxt = apTxtGO.AddComponent<Text>();
             apTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             apTxt.text = author;
-            apTxt.fontSize = 14;
+            apTxt.fontSize = 13;
             apTxt.alignment = TextAnchor.MiddleCenter;
             apTxt.color = Color.white;
             apTxt.fontStyle = FontStyle.Bold;
@@ -597,7 +724,7 @@ namespace IUHCampus.Editor
             var titleTxt = titleGO.AddComponent<Text>();
             titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             titleTxt.text = $"<b>{title}</b>";
-            titleTxt.fontSize = 19;
+            titleTxt.fontSize = 17;
             titleTxt.color = isGrabGame ? new Color(0.5f, 1.0f, 0.7f) : Color.white;
             titleTxt.fontStyle = FontStyle.Bold;
             titleGO.AddComponent<LayoutElement>().preferredHeight = 36f;
@@ -608,10 +735,10 @@ namespace IUHCampus.Editor
             var descTxt = descGO.AddComponent<Text>();
             descTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             descTxt.text = desc;
-            descTxt.fontSize = 14;
-            descTxt.lineSpacing = 1.25f;
+            descTxt.fontSize = 13;
+            descTxt.lineSpacing = 1.2f;
             descTxt.color = new Color(0.92f, 0.95f, 0.98f);
-            descGO.AddComponent<LayoutElement>().preferredHeight = 75f;
+            descGO.AddComponent<LayoutElement>().preferredHeight = 78f;
 
             // 4. Location Tag
             var locGO = new GameObject("Location");
@@ -619,7 +746,7 @@ namespace IUHCampus.Editor
             var locTxt = locGO.AddComponent<Text>();
             locTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             locTxt.text = $"📍 <b>Vị trí:</b> <color=#38BDF8>{location}</color>";
-            locTxt.fontSize = 13;
+            locTxt.fontSize = 12;
             locTxt.color = new Color(0.75f, 0.85f, 0.95f);
             locGO.AddComponent<LayoutElement>().preferredHeight = 24f;
 
@@ -629,7 +756,7 @@ namespace IUHCampus.Editor
             var hlg = btnBarGO.AddComponent<HorizontalLayoutGroup>();
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
-            btnBarGO.AddComponent<LayoutElement>().preferredHeight = 46f;
+            btnBarGO.AddComponent<LayoutElement>().preferredHeight = 44f;
 
             var actionBtnGO = new GameObject("ActionBtn");
             actionBtnGO.transform.SetParent(btnBarGO.transform, false);
@@ -664,16 +791,17 @@ namespace IUHCampus.Editor
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
 
-            // Top Mission Card
+            // Top Mission Card (Centered at top)
             var topCard = new GameObject("TopCard");
             topCard.transform.SetParent(hudGO.transform, false);
             var topRect = topCard.AddComponent<RectTransform>();
-            topRect.anchorMin = new Vector2(0.28f, 0.86f);
-            topRect.anchorMax = new Vector2(0.72f, 0.98f);
-            topRect.offsetMin = Vector2.zero;
-            topRect.offsetMax = Vector2.zero;
+            topRect.anchorMin = new Vector2(0.5f, 1f);
+            topRect.anchorMax = new Vector2(0.5f, 1f);
+            topRect.pivot = new Vector2(0.5f, 1f);
+            topRect.anchoredPosition = new Vector2(0f, -20f);
+            topRect.sizeDelta = new Vector2(740f, 95f);
             var topImg = topCard.AddComponent<Image>();
-            topImg.color = new Color(0.04f, 0.1f, 0.18f, 0.92f);
+            topImg.color = new Color(0.04f, 0.1f, 0.18f, 0.94f);
             var topOutline = topCard.AddComponent<Outline>();
             topOutline.effectColor = new Color(0f, 0.85f, 0.45f, 0.9f);
             topOutline.effectDistance = new Vector2(2f, 2f);
@@ -689,7 +817,7 @@ namespace IUHCampus.Editor
             var titleTxt = titleGO.AddComponent<Text>();
             titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             titleTxt.text = "🛵 Grab Campus: Chuyến Xe Tâm Linh";
-            titleTxt.fontSize = 17;
+            titleTxt.fontSize = 18;
             titleTxt.color = Color.white;
             titleTxt.fontStyle = FontStyle.Bold;
 
@@ -704,7 +832,7 @@ namespace IUHCampus.Editor
             var objTxt = objGO.AddComponent<Text>();
             objTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             objTxt.text = "[1/2] Lái xe đến điểm nhận hàng Căn Tin";
-            objTxt.fontSize = 13;
+            objTxt.fontSize = 14;
             objTxt.color = new Color(0.7f, 0.95f, 0.85f);
 
             // Timer
@@ -718,21 +846,22 @@ namespace IUHCampus.Editor
             var timerTxt = timerGO.AddComponent<Text>();
             timerTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             timerTxt.text = "⏱ 01:15";
-            timerTxt.fontSize = 24;
+            timerTxt.fontSize = 28;
             timerTxt.alignment = TextAnchor.MiddleCenter;
             timerTxt.color = Color.yellow;
             timerTxt.fontStyle = FontStyle.Bold;
 
-            // Bottom Gauge Card
+            // Bottom Gauge Card (Centered at bottom)
             var bottomCard = new GameObject("BottomCard");
             bottomCard.transform.SetParent(hudGO.transform, false);
             var bRect = bottomCard.AddComponent<RectTransform>();
-            bRect.anchorMin = new Vector2(0.32f, 0.03f);
-            bRect.anchorMax = new Vector2(0.68f, 0.12f);
-            bRect.offsetMin = Vector2.zero;
-            bRect.offsetMax = Vector2.zero;
+            bRect.anchorMin = new Vector2(0.5f, 0f);
+            bRect.anchorMax = new Vector2(0.5f, 0f);
+            bRect.pivot = new Vector2(0.5f, 0f);
+            bRect.anchoredPosition = new Vector2(0f, 25f);
+            bRect.sizeDelta = new Vector2(640f, 85f);
             var bImg = bottomCard.AddComponent<Image>();
-            bImg.color = new Color(0.04f, 0.08f, 0.15f, 0.92f);
+            bImg.color = new Color(0.04f, 0.08f, 0.15f, 0.94f);
             var bOutline = bottomCard.AddComponent<Outline>();
             bOutline.effectColor = new Color(0f, 0.75f, 1f, 0.8f);
             bOutline.effectDistance = new Vector2(2f, 2f);
@@ -748,7 +877,7 @@ namespace IUHCampus.Editor
             var ct = cargoTxtGO.AddComponent<Text>();
             ct.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             ct.text = "📦 Kiện hàng: 100%";
-            ct.fontSize = 15;
+            ct.fontSize = 16;
             ct.color = Color.green;
             ct.fontStyle = FontStyle.Bold;
 
@@ -801,8 +930,8 @@ namespace IUHCampus.Editor
             spdRect.offsetMax = Vector2.zero;
             var spd = spdTxtGO.AddComponent<Text>();
             spd.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            spd.text = "45\n<size=11>km/h</size>";
-            spd.fontSize = 18;
+            spd.text = "0\n<size=12>km/h</size>";
+            spd.fontSize = 22;
             spd.alignment = TextAnchor.MiddleCenter;
             spd.color = new Color(0f, 0.85f, 1f);
             spd.fontStyle = FontStyle.Bold;

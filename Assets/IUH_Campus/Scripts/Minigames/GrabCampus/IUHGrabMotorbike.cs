@@ -8,8 +8,8 @@ namespace IUHCampus.Minigames.GrabCampus
 {
     /// <summary>
     /// Arcade Motorbike Controller for Grab Campus ("Chuyến xe tâm linh").
-    /// Provides rock-solid, ultra-smooth arcade vehicle handling, bike leaning/banking,
-    /// dynamic engine pitch audio, horn, headlight, and seamless mount/dismount flow.
+    /// Full support for New Input System & Legacy Input.
+    /// Seamlessly interfaces with Cinemachine to follow the motorbike and 3D rider figure.
     /// </summary>
     [RequireComponent(typeof(CharacterController))]
     public class IUHGrabMotorbike : MonoBehaviour
@@ -18,9 +18,9 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private float m_MaxForwardSpeed = 16.0f; // ~58 km/h
         [SerializeField] private float m_TurboSpeed = 22.0f;      // ~79 km/h
         [SerializeField] private float m_ReverseSpeed = 4.5f;
-        [SerializeField] private float m_Acceleration = 12.0f;
-        [SerializeField] private float m_BrakingDeceleration = 20.0f;
-        [SerializeField] private float m_CoastDeceleration = 6.0f;
+        [SerializeField] private float m_Acceleration = 14.0f;
+        [SerializeField] private float m_BrakingDeceleration = 22.0f;
+        [SerializeField] private float m_CoastDeceleration = 7.0f;
         [SerializeField] private float m_TurnSpeed = 85.0f;
         [SerializeField] private float m_MaxBankAngle = 22.0f;
         [SerializeField] private float m_BankSpeed = 8.0f;
@@ -32,12 +32,7 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private Transform m_WheelRear;
         [SerializeField] private GameObject m_RiderAvatar;
         [SerializeField] private Light m_Headlight;
-        [SerializeField] private MeshRenderer m_TailLightRenderer;
-
-        [Header("Camera")]
-        [SerializeField] private Camera m_VehicleCamera;
-        [SerializeField] private Vector3 m_CameraOffset = new Vector3(0f, 2.2f, -4.6f);
-        [SerializeField] private float m_CameraSmooth = 12.0f;
+        [SerializeField] private Transform m_CameraTarget;
 
         [Header("Mount & State")]
         [SerializeField] private bool m_IsMounted = false;
@@ -58,11 +53,11 @@ namespace IUHCampus.Minigames.GrabCampus
         private float m_GhostSlowdownTimer = 0f;
 
         private GameObject m_PlayerOriginal;
-        private Camera m_PreviousMainCamera;
 
         public bool IsMounted => m_IsMounted;
         public float CurrentSpeedKmH => Mathf.Abs(m_CurrentSpeed) * 3.6f;
         public float SpeedRatio => Mathf.Clamp01(Mathf.Abs(m_CurrentSpeed) / m_MaxForwardSpeed);
+        public Transform CameraTarget => m_CameraTarget != null ? m_CameraTarget : transform;
 
         private void Awake()
         {
@@ -76,11 +71,11 @@ namespace IUHCampus.Minigames.GrabCampus
             }
 
             SetupAudio();
-            SetupCamera();
+            SetupCameraTarget();
 
             if (m_RiderAvatar != null)
             {
-                m_RiderAvatar.SetActive(m_IsMounted);
+                m_RiderAvatar.SetActive(true);
             }
         }
 
@@ -91,33 +86,65 @@ namespace IUHCampus.Minigames.GrabCampus
             m_EngineAudio.loop = true;
             m_EngineAudio.playOnAwake = false;
             m_EngineAudio.volume = 0.65f;
-            m_EngineAudio.spatialBlend = 0.6f;
+            m_EngineAudio.spatialBlend = 0.5f;
 
             m_SfxAudio = gameObject.AddComponent<AudioSource>();
             m_SfxAudio.playOnAwake = false;
             m_SfxAudio.spatialBlend = 0.5f;
         }
 
-        private void SetupCamera()
+        private void SetupCameraTarget()
         {
-            if (m_VehicleCamera == null)
+            if (m_CameraTarget == null)
             {
-                var camGo = new GameObject("GrabBike_Camera");
-                camGo.transform.SetParent(null);
-                m_VehicleCamera = camGo.AddComponent<Camera>();
-                m_VehicleCamera.fieldOfView = 65f;
-                m_VehicleCamera.nearClipPlane = 0.1f;
-                camGo.AddComponent<AudioListener>();
-                m_VehicleCamera.gameObject.SetActive(false);
+                var target = transform.Find("CameraTarget");
+                if (target == null)
+                {
+                    var go = new GameObject("CameraTarget");
+                    go.transform.SetParent(transform, false);
+                    go.transform.localPosition = new Vector3(0f, 1.35f, -0.2f);
+                    m_CameraTarget = go.transform;
+                }
+                else
+                {
+                    m_CameraTarget = target;
+                }
             }
         }
 
         private void Start()
         {
-            m_PlayerOriginal = GameObject.FindGameObjectWithTag("Player");
+            FindPlayerReference();
+
+            if (m_RiderAvatar == null)
+            {
+                var r = transform.Find("Rider_Figure");
+                if (r != null) m_RiderAvatar = r.gameObject;
+            }
+
+            if (m_RiderAvatar != null)
+            {
+                m_RiderAvatar.SetActive(m_IsMounted);
+            }
+        }
+
+        private void FindPlayerReference()
+        {
             if (m_PlayerOriginal == null)
             {
-                m_PlayerOriginal = GameObject.Find("PlayerArmature");
+                m_PlayerOriginal = GameObject.FindGameObjectWithTag("Player");
+                if (m_PlayerOriginal == null)
+                {
+                    var all = Resources.FindObjectsOfTypeAll<GameObject>();
+                    foreach (var go in all)
+                    {
+                        if (go.name == "PlayerArmature" && !go.hideFlags.HasFlag(HideFlags.NotEditable))
+                        {
+                            m_PlayerOriginal = go;
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -135,34 +162,47 @@ namespace IUHCampus.Minigames.GrabCampus
             UpdatePhysicsMovement();
             UpdateVisualsAndLeaning();
             UpdateAudioPitch();
-            UpdateVehicleCamera();
         }
 
         private void HandleMountInputs()
         {
-            // If near player, allow mounting
-            if (!m_IsMounted && m_PlayerOriginal != null)
+            bool mountKey = false;
+            bool hornKey = false;
+
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null)
             {
-                float dist = Vector3.Distance(transform.position, m_PlayerOriginal.transform.position);
-                if (dist < 2.8f)
+                mountKey = Keyboard.current.eKey.wasPressedThisFrame;
+                hornKey = Keyboard.current.hKey.wasPressedThisFrame;
+            }
+#endif
+            try
+            {
+                if (!mountKey) mountKey = Input.GetKeyDown(m_MountKey);
+                if (!hornKey) hornKey = Input.GetKeyDown(m_HornKey);
+            }
+            catch {}
+
+            if (!m_IsMounted)
+            {
+                FindPlayerReference();
+                if (m_PlayerOriginal != null && m_PlayerOriginal.activeInHierarchy)
                 {
-                    if (Input.GetKeyDown(m_MountKey))
+                    float dist = Vector3.Distance(transform.position, m_PlayerOriginal.transform.position);
+                    if (dist < 3.2f && mountKey)
                     {
                         MountVehicle(m_PlayerOriginal);
                     }
                 }
             }
-            else if (m_IsMounted)
+            else
             {
-                // Dismount only when vehicle is nearly stopped
-                if (Input.GetKeyDown(m_MountKey) && Mathf.Abs(m_CurrentSpeed) < 1.0f)
+                if (mountKey && Mathf.Abs(m_CurrentSpeed) < 1.5f)
                 {
-                    // Don't dismount if delivery mission is strictly on-bike unless user explicitly presses
                     DismountVehicle();
                 }
 
-                // Horn
-                if (Input.GetKeyDown(m_HornKey))
+                if (hornKey && m_SfxAudio != null)
                 {
                     m_SfxAudio.PlayOneShot(IUHSoundSynthesizer.GetHornSound(), 1.0f);
                 }
@@ -179,6 +219,12 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_PlayerOriginal.SetActive(false);
             }
 
+            if (m_RiderAvatar == null)
+            {
+                var r = transform.Find("Rider_Figure");
+                if (r != null) m_RiderAvatar = r.gameObject;
+            }
+
             if (m_RiderAvatar != null)
             {
                 m_RiderAvatar.SetActive(true);
@@ -189,8 +235,8 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_Headlight.enabled = true;
             }
 
-            // Switch to vehicle camera
-            SwitchToVehicleCamera(true);
+            // Switch Cinemachine to follow this motorbike
+            SwitchCinemachineTarget(true);
 
             // Start engine sound
             if (m_EngineAudio != null && !m_EngineAudio.isPlaying)
@@ -205,80 +251,85 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             m_IsMounted = false;
 
-            if (m_RiderAvatar != null)
-            {
-                m_RiderAvatar.SetActive(false);
-            }
-
             if (m_EngineAudio != null && m_EngineAudio.isPlaying)
             {
                 m_EngineAudio.Stop();
             }
 
-            // Switch camera back
-            SwitchToVehicleCamera(false);
+            if (m_RiderAvatar != null)
+            {
+                m_RiderAvatar.SetActive(false);
+            }
+
+            FindPlayerReference();
 
             if (m_PlayerOriginal != null)
             {
-                // Position player slightly to the left of the bike
-                Vector3 dismountPos = transform.position - transform.right * 1.2f + Vector3.up * 0.1f;
+                Vector3 dismountPos = transform.position - transform.right * 1.5f + Vector3.up * 0.1f;
                 m_PlayerOriginal.transform.position = dismountPos;
                 m_PlayerOriginal.transform.rotation = transform.rotation;
                 m_PlayerOriginal.SetActive(true);
             }
 
+            // Switch Cinemachine back to follow player
+            SwitchCinemachineTarget(false);
+
             Debug.Log("[IUH Grab Motorbike] Người chơi đã xuống xe máy!");
         }
 
-        private void SwitchToVehicleCamera(bool useVehicleCam)
+        private void SwitchCinemachineTarget(bool followBike)
         {
-            if (useVehicleCam)
+            var vcam = UnityEngine.Object.FindFirstObjectByType<Unity.Cinemachine.CinemachineCamera>();
+            if (vcam != null)
             {
-                var mainCam = Camera.main;
-                if (mainCam != null && mainCam != m_VehicleCamera)
+                if (followBike)
                 {
-                    m_PreviousMainCamera = mainCam;
-                    m_PreviousMainCamera.gameObject.SetActive(false);
+                    Transform target = CameraTarget;
+                    if (target == null) target = transform.Find("CameraTarget");
+                    if (target == null) target = transform;
+                    vcam.Follow = target;
                 }
-
-                if (m_VehicleCamera != null)
+                else
                 {
-                    m_VehicleCamera.gameObject.SetActive(true);
-                    m_VehicleCamera.tag = "MainCamera";
-                    // Position immediately behind
-                    m_VehicleCamera.transform.position = transform.position + transform.TransformDirection(m_CameraOffset);
-                    m_VehicleCamera.transform.LookAt(transform.position + Vector3.up * 1.2f);
-                }
-            }
-            else
-            {
-                if (m_VehicleCamera != null)
-                {
-                    m_VehicleCamera.gameObject.SetActive(false);
-                    m_VehicleCamera.tag = "Untagged";
-                }
-
-                if (m_PreviousMainCamera != null)
-                {
-                    m_PreviousMainCamera.gameObject.SetActive(true);
-                    m_PreviousMainCamera.tag = "MainCamera";
+                    FindPlayerReference();
+                    if (m_PlayerOriginal != null)
+                    {
+                        var root = m_PlayerOriginal.transform.Find("PlayerCameraRoot");
+                        if (root != null) vcam.Follow = root;
+                        else vcam.Follow = m_PlayerOriginal.transform;
+                    }
                 }
             }
         }
 
         private void ReadDrivingInputs()
         {
-            // Vertical axis (W/S, Up/Down)
-            m_ThrottleInput = Input.GetAxisRaw("Vertical");
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null)
+            {
+                float v = 0f;
+                if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) v += 1f;
+                if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) v -= 1f;
+                m_ThrottleInput = v;
 
-            // Horizontal axis (A/D, Left/Right)
-            m_SteerInput = Input.GetAxisRaw("Horizontal");
+                float h = 0f;
+                if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) h += 1f;
+                if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) h -= 1f;
+                m_SteerInput = h;
 
-            // Braking (Space)
-            m_IsBraking = Input.GetKey(KeyCode.Space);
-
-            // Turbo (Shift)
-            m_IsTurbo = Input.GetKey(m_TurboKey);
+                m_IsBraking = Keyboard.current.spaceKey.isPressed;
+                m_IsTurbo = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
+                return;
+            }
+#endif
+            try
+            {
+                m_ThrottleInput = Input.GetAxisRaw("Vertical");
+                m_SteerInput = Input.GetAxisRaw("Horizontal");
+                m_IsBraking = Input.GetKey(KeyCode.Space);
+                m_IsTurbo = Input.GetKey(m_TurboKey);
+            }
+            catch {}
         }
 
         private void UpdatePhysicsMovement()
@@ -306,15 +357,13 @@ namespace IUHCampus.Minigames.GrabCampus
             }
             else
             {
-                // Coast to stop
                 m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, 0f, m_CoastDeceleration * Time.deltaTime);
             }
 
-            // Steering: turn rate depends on speed and direction
+            // Steering
             if (Mathf.Abs(m_CurrentSpeed) > 0.1f)
             {
                 float dirMultiplier = Mathf.Sign(m_CurrentSpeed);
-                // Reduce steering sharpness at ultra high speeds for stability
                 float speedFactor = Mathf.Clamp01(Mathf.Abs(m_CurrentSpeed) / 12f);
                 float effectiveTurnRate = Mathf.Lerp(m_TurnSpeed, m_TurnSpeed * 0.65f, speedFactor);
 
@@ -322,11 +371,8 @@ namespace IUHCampus.Minigames.GrabCampus
                 transform.Rotate(0f, yaw, 0f);
             }
 
-            // Forward movement vector
             Vector3 move = transform.forward * m_CurrentSpeed;
-
-            // Simple gravity check to stick to ground
-            move.y = -9.81f;
+            move.y = -9.81f; // Gravity to stick to roads
 
             m_CharController.Move(move * Time.deltaTime);
         }
@@ -341,7 +387,6 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void UpdateVisualsAndLeaning()
         {
-            // Bank/Lean body when turning
             float targetBank = 0f;
             if (Mathf.Abs(m_CurrentSpeed) > 1.0f)
             {
@@ -355,14 +400,12 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_VisualRoot.localRotation = Quaternion.Euler(0f, 0f, m_CurrentBankAngle);
             }
 
-            // Steer front handlebars/fork
             if (m_FrontSteerFork != null)
             {
                 float targetForkAngle = m_SteerInput * 28f;
                 m_FrontSteerFork.localRotation = Quaternion.Euler(0f, targetForkAngle, 0f);
             }
 
-            // Wheel spinning visual
             float wheelCircumference = 2f * Mathf.PI * 0.32f;
             float rotationAmount = (m_CurrentSpeed * Time.deltaTime / wheelCircumference) * 360f;
 
@@ -383,45 +426,18 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        private void UpdateVehicleCamera()
-        {
-            if (m_VehicleCamera == null || !m_VehicleCamera.gameObject.activeSelf) return;
-
-            // Target camera position behind bike
-            Vector3 desiredPos = transform.position + transform.TransformDirection(m_CameraOffset);
-
-            // Add dynamic FOV zoom at turbo speed
-            float targetFov = m_IsTurbo ? 76f : 65f;
-            m_VehicleCamera.fieldOfView = Mathf.Lerp(m_VehicleCamera.fieldOfView, targetFov, Time.deltaTime * 5f);
-
-            // Smooth camera motion
-            m_VehicleCamera.transform.position = Vector3.Lerp(m_VehicleCamera.transform.position, desiredPos, Time.deltaTime * m_CameraSmooth);
-
-            // Look slightly ahead of the bike
-            Vector3 lookTarget = transform.position + transform.forward * 4.0f + Vector3.up * 1.1f;
-            m_VehicleCamera.transform.LookAt(lookTarget);
-        }
-
-        /// <summary>
-        /// Called when colliding with a ghost apparition.
-        /// </summary>
         public void OnGhostImpact(int damage)
         {
-            m_GhostSlowdownTimer = 1.4f; // Shocked slowdown
-            m_SfxAudio.PlayOneShot(IUHSoundSynthesizer.GetDamageSound(), 1.0f);
+            m_GhostSlowdownTimer = 1.4f;
+            if (m_SfxAudio != null)
+            {
+                m_SfxAudio.PlayOneShot(IUHSoundSynthesizer.GetDamageSound(), 1.0f);
+            }
 
             var mgr = IUHGrabCampusManager.Instance;
             if (mgr != null && mgr.IsMissionActive)
             {
                 mgr.ApplyCargoDamage(damage, "Va Chạm Hồn Ma Tâm Linh!");
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (m_VehicleCamera != null)
-            {
-                Destroy(m_VehicleCamera.gameObject);
             }
         }
     }

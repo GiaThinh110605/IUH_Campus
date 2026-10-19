@@ -151,8 +151,9 @@ namespace IUHCampus.Player
 
         private void Update()
         {
-            // If Mini-Game Portal is open, do not intercept keys 1-6 or U
-            if (IUHCampus.UI.IUHMiniGamePortalUI.Instance != null && IUHCampus.UI.IUHMiniGamePortalUI.Instance.IsOpen)
+            // If Mini-Game Portal is open, or Grab Campus is active, do not intercept keys 1-6 or U
+            if ((IUHCampus.UI.IUHMiniGamePortalUI.Instance != null && IUHCampus.UI.IUHMiniGamePortalUI.Instance.IsOpen) ||
+                (IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance != null && IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance.IsMissionActive))
             {
                 return;
             }
@@ -243,8 +244,9 @@ namespace IUHCampus.Player
         private void DrawCurrentOutfitBadge()
         {
             if (m_Outfits == null || m_CurrentOutfitIndex >= m_Outfits.Length) return;
-            // Hide badge if Mini-Game Portal is open
+            // Hide badge if Mini-Game Portal is open or Grab Campus mission is active
             if (IUHCampus.UI.IUHMiniGamePortalUI.Instance != null && IUHCampus.UI.IUHMiniGamePortalUI.Instance.IsOpen) return;
+            if (IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance != null && IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance.IsMissionActive) return;
 
             int bw = 380;
             int bh = 42;
