@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using IUHCampus.Core;
 using IUHCampus.Minigames.GrabCampus;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 namespace IUHCampus.UI
 {
     /// <summary>
     /// In-Game Mini-Game Selection Portal & Teleportation Menu (IUH Campus).
-    /// Allows players & evaluators to press [M] or click the floating HUD button
-    /// to browse 6 minigames (3 Gia Thinh, 3 Minh Nhat), launch Grab Campus instantly,
-    /// or fast-travel across the 3D campus.
+    /// Fully supports both New Input System and Legacy Input.
+    /// Toggle via [M], select game via keys [1] - [6] or mouse clicks.
     /// </summary>
     public class IUHMiniGamePortalUI : MonoBehaviour
     {
@@ -47,6 +49,17 @@ namespace IUHCampus.UI
             m_AudioSource = gameObject.AddComponent<AudioSource>();
             m_AudioSource.playOnAwake = false;
 
+            FindPlayerReferences();
+        }
+
+        private void Start()
+        {
+            AutoWireButtons();
+            SetMenuOpen(false);
+        }
+
+        private void FindPlayerReferences()
+        {
             if (m_PlayerObject == null)
             {
                 m_PlayerObject = GameObject.FindGameObjectWithTag("Player");
@@ -57,12 +70,6 @@ namespace IUHCampus.UI
             {
                 m_PlayerMovementScript = m_PlayerObject.GetComponent("ThirdPersonController") as MonoBehaviour;
             }
-        }
-
-        private void Start()
-        {
-            AutoWireButtons();
-            SetMenuOpen(false);
         }
 
         private void AutoWireButtons()
@@ -95,12 +102,22 @@ namespace IUHCampus.UI
                     for (int i = 0; i < cardsArea.childCount; i++)
                     {
                         var card = cardsArea.GetChild(i);
+                        // Make entire card clickable
+                        var cardBtn = card.GetComponent<Button>();
+                        if (cardBtn != null)
+                        {
+                            int index = i;
+                            cardBtn.onClick.RemoveAllListeners();
+                            cardBtn.onClick.AddListener(() => SelectMiniGame(index));
+                        }
+
+                        // Also action button
                         var actionBtn = card.Find("BtnBar/ActionBtn")?.GetComponent<Button>();
                         if (actionBtn != null)
                         {
                             int index = i;
                             actionBtn.onClick.RemoveAllListeners();
-                            actionBtn.onClick.AddListener(() => OnCardActionClicked(index));
+                            actionBtn.onClick.AddListener(() => SelectMiniGame(index));
                         }
                     }
                 }
@@ -137,36 +154,82 @@ namespace IUHCampus.UI
             }
         }
 
-        private void OnCardActionClicked(int cardIndex)
+        private void Update()
         {
-            switch (cardIndex)
+            // Toggle Menu with M key
+            if (IsKeyTriggered(KeyCode.M))
             {
-                case 0:
-                    LaunchGrabCampusGame(0);
-                    break;
-                case 1:
-                    TeleportToKtxDorm();
-                    break;
-                case 2:
-                    TeleportToLibrary();
-                    break;
-                case 3:
-                    TeleportToBlockFRoof();
-                    break;
-                case 4:
-                    TeleportToGreenTrashStation();
-                    break;
-                case 5:
-                    TeleportToFestivalStage();
-                    break;
+                ToggleMenu();
+                return;
+            }
+
+            // When menu is open, handle keys [1] - [6] and [ESC]
+            if (m_IsOpen)
+            {
+                if (IsKeyTriggered(KeyCode.Escape))
+                {
+                    SetMenuOpen(false);
+                    return;
+                }
+
+                if (IsKeyTriggered(KeyCode.Alpha1) || IsKeyTriggered(KeyCode.Keypad1))
+                {
+                    SelectMiniGame(0);
+                }
+                else if (IsKeyTriggered(KeyCode.Alpha2) || IsKeyTriggered(KeyCode.Keypad2))
+                {
+                    SelectMiniGame(1);
+                }
+                else if (IsKeyTriggered(KeyCode.Alpha3) || IsKeyTriggered(KeyCode.Keypad3))
+                {
+                    SelectMiniGame(2);
+                }
+                else if (IsKeyTriggered(KeyCode.Alpha4) || IsKeyTriggered(KeyCode.Keypad4))
+                {
+                    SelectMiniGame(3);
+                }
+                else if (IsKeyTriggered(KeyCode.Alpha5) || IsKeyTriggered(KeyCode.Keypad5))
+                {
+                    SelectMiniGame(4);
+                }
+                else if (IsKeyTriggered(KeyCode.Alpha6) || IsKeyTriggered(KeyCode.Keypad6))
+                {
+                    SelectMiniGame(5);
+                }
             }
         }
 
-        private void Update()
+        private bool IsKeyTriggered(KeyCode code)
         {
-            if (Input.GetKeyDown(m_ToggleKey))
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null)
             {
-                ToggleMenu();
+                switch (code)
+                {
+                    case KeyCode.M: return Keyboard.current.mKey.wasPressedThisFrame;
+                    case KeyCode.Escape: return Keyboard.current.escapeKey.wasPressedThisFrame;
+                    case KeyCode.Alpha1:
+                    case KeyCode.Keypad1: return Keyboard.current.digit1Key.wasPressedThisFrame || Keyboard.current.numpad1Key.wasPressedThisFrame;
+                    case KeyCode.Alpha2:
+                    case KeyCode.Keypad2: return Keyboard.current.digit2Key.wasPressedThisFrame || Keyboard.current.numpad2Key.wasPressedThisFrame;
+                    case KeyCode.Alpha3:
+                    case KeyCode.Keypad3: return Keyboard.current.digit3Key.wasPressedThisFrame || Keyboard.current.numpad3Key.wasPressedThisFrame;
+                    case KeyCode.Alpha4:
+                    case KeyCode.Keypad4: return Keyboard.current.digit4Key.wasPressedThisFrame || Keyboard.current.numpad4Key.wasPressedThisFrame;
+                    case KeyCode.Alpha5:
+                    case KeyCode.Keypad5: return Keyboard.current.digit5Key.wasPressedThisFrame || Keyboard.current.numpad5Key.wasPressedThisFrame;
+                    case KeyCode.Alpha6:
+                    case KeyCode.Keypad6: return Keyboard.current.digit6Key.wasPressedThisFrame || Keyboard.current.numpad6Key.wasPressedThisFrame;
+                }
+            }
+#endif
+            try
+            {
+                return Input.GetKeyDown(code);
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -195,13 +258,41 @@ namespace IUHCampus.UI
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 if (m_PlayerMovementScript != null) m_PlayerMovementScript.enabled = false;
-                m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetClickSound(), 0.8f);
+                if (m_AudioSource != null) m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetClickSound(), 0.8f);
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 if (m_PlayerMovementScript != null) m_PlayerMovementScript.enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Select a mini-game by index (0 to 5) corresponding to keys [1] to [6].
+        /// </summary>
+        public void SelectMiniGame(int gameIndex)
+        {
+            switch (gameIndex)
+            {
+                case 0:
+                    LaunchGrabCampusGame(0);
+                    break;
+                case 1:
+                    TeleportToKtxDorm();
+                    break;
+                case 2:
+                    TeleportToLibrary();
+                    break;
+                case 3:
+                    TeleportToBlockFRoof();
+                    break;
+                case 4:
+                    TeleportToGreenTrashStation();
+                    break;
+                case 5:
+                    TeleportToFestivalStage();
+                    break;
             }
         }
 
@@ -277,6 +368,8 @@ namespace IUHCampus.UI
         {
             SetMenuOpen(false);
 
+            FindPlayerReferences();
+
             if (m_PlayerObject != null)
             {
                 var charController = m_PlayerObject.GetComponent<CharacterController>();
@@ -286,7 +379,7 @@ namespace IUHCampus.UI
 
                 if (charController != null) charController.enabled = true;
 
-                m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
+                if (m_AudioSource != null) m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
                 Debug.Log($"[IUH Portal Fast Travel] Đã dịch chuyển đến: {locationName} tại {targetPos}");
             }
         }

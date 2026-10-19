@@ -347,6 +347,7 @@ namespace IUHCampus.Editor
             var scaler = canvasGO.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
+            scaler.matchWidthOrHeight = 0.5f;
             canvasGO.AddComponent<GraphicRaycaster>();
 
             // Ensure EventSystem exists
@@ -384,14 +385,14 @@ namespace IUHCampus.Editor
             rect.anchorMax = new Vector2(1f, 1f);
             rect.pivot = new Vector2(1f, 1f);
             rect.anchoredPosition = new Vector2(-25f, -25f);
-            rect.sizeDelta = new Vector2(230f, 52f);
+            rect.sizeDelta = new Vector2(280f, 60f);
 
             var img = btnGO.AddComponent<Image>();
-            img.color = new Color(0.08f, 0.12f, 0.22f, 0.92f);
+            img.color = new Color(0.06f, 0.10f, 0.20f, 0.96f);
 
             var outline = btnGO.AddComponent<Outline>();
-            outline.effectColor = new Color(0f, 0.85f, 1f, 0.85f);
-            outline.effectDistance = new Vector2(2f, 2f);
+            outline.effectColor = new Color(0.0f, 0.90f, 1.0f, 1.0f);
+            outline.effectDistance = new Vector2(2.5f, 2.5f);
 
             var btn = btnGO.AddComponent<Button>();
 
@@ -404,8 +405,8 @@ namespace IUHCampus.Editor
 
             var txt = textGO.AddComponent<Text>();
             txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            txt.text = "🎮 Mini-Games [Phím M]";
-            txt.fontSize = 18;
+            txt.text = "🎮 MENU MINI-GAME  <color=#FACC15><b>[ M ]</b></color>";
+            txt.fontSize = 20;
             txt.alignment = TextAnchor.MiddleCenter;
             txt.color = Color.white;
             txt.fontStyle = FontStyle.Bold;
@@ -417,17 +418,17 @@ namespace IUHCampus.Editor
             panelGO.transform.SetParent(canvasTransform, false);
 
             var rect = panelGO.AddComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0.1f, 0.08f);
-            rect.anchorMax = new Vector2(0.9f, 0.92f);
+            rect.anchorMin = new Vector2(0.05f, 0.04f);
+            rect.anchorMax = new Vector2(0.95f, 0.96f);
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
 
             var img = panelGO.AddComponent<Image>();
-            img.color = new Color(0.04f, 0.07f, 0.14f, 0.96f);
+            img.color = new Color(0.03f, 0.06f, 0.12f, 0.98f);
 
             var outline = panelGO.AddComponent<Outline>();
-            outline.effectColor = new Color(0f, 0.65f, 0.95f, 0.75f);
-            outline.effectDistance = new Vector2(2f, 2f);
+            outline.effectColor = new Color(0.0f, 0.75f, 1.0f, 0.9f);
+            outline.effectDistance = new Vector2(3f, 3f);
 
             // Header Banner
             var headerGO = new GameObject("Header");
@@ -439,11 +440,9 @@ namespace IUHCampus.Editor
             hRect.offsetMax = Vector2.zero;
             var hTxt = headerGO.AddComponent<Text>();
             hTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            hTxt.text = "🏛️ IUH CAMPUS ADVENTURE — MENU CHỌN MINI-GAME\n<size=14><color=#7dd3fc>Nhấp 'Chơi Ngay' để bắt đầu nhiệm vụ hoặc Fast Travel trực tiếp trong khuôn viên 3D</color></size>";
-            hTxt.fontSize = 22;
+            hTxt.text = "<size=30><color=#FEF08A><b>🏛️ CAMPUS ADVENTURE — CHỌN MINI-GAME</b></color></size>\n<size=17><color=#7DD3FC>⚡ Bấm phím số <b>[ 1 ]</b> đến <b>[ 6 ]</b> hoặc CLICK chuột để chọn trò chơi • Bấm <b>[ M ]</b> hoặc <b>[ ESC ]</b> để đóng</color></size>";
             hTxt.alignment = TextAnchor.MiddleCenter;
             hTxt.color = Color.white;
-            hTxt.fontStyle = FontStyle.Bold;
 
             // Close Button [X]
             var closeBtnGO = new GameObject("CloseBtn");
@@ -452,19 +451,24 @@ namespace IUHCampus.Editor
             cRect.anchorMin = new Vector2(1f, 1f);
             cRect.anchorMax = new Vector2(1f, 1f);
             cRect.pivot = new Vector2(1f, 1f);
-            cRect.anchoredPosition = new Vector2(-15f, -15f);
-            cRect.sizeDelta = new Vector2(40f, 40f);
+            cRect.anchoredPosition = new Vector2(-18f, -18f);
+            cRect.sizeDelta = new Vector2(50f, 50f);
             var cImg = closeBtnGO.AddComponent<Image>();
-            cImg.color = new Color(0.85f, 0.2f, 0.2f, 0.9f);
+            cImg.color = new Color(0.9f, 0.2f, 0.2f, 0.95f);
             var cBtn = closeBtnGO.AddComponent<Button>();
+            var cOutline = closeBtnGO.AddComponent<Outline>();
+            cOutline.effectColor = Color.white;
+            cOutline.effectDistance = new Vector2(1.5f, 1.5f);
+
             var cTxtGO = new GameObject("Txt");
             cTxtGO.transform.SetParent(closeBtnGO.transform, false);
             var cTxt = cTxtGO.AddComponent<Text>();
             cTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             cTxt.text = "✕";
-            cTxt.fontSize = 22;
+            cTxt.fontSize = 28;
             cTxt.alignment = TextAnchor.MiddleCenter;
             cTxt.color = Color.white;
+            cTxt.fontStyle = FontStyle.Bold;
             var cTxtRect = cTxtGO.GetComponent<RectTransform>();
             cTxtRect.anchorMin = Vector2.zero;
             cTxtRect.anchorMax = Vector2.one;
@@ -473,80 +477,168 @@ namespace IUHCampus.Editor
             var cardsArea = new GameObject("CardsArea");
             cardsArea.transform.SetParent(panelGO.transform, false);
             var caRect = cardsArea.AddComponent<RectTransform>();
-            caRect.anchorMin = new Vector2(0.03f, 0.05f);
-            caRect.anchorMax = new Vector2(0.97f, 0.86f);
+            caRect.anchorMin = new Vector2(0.02f, 0.08f);
+            caRect.anchorMax = new Vector2(0.98f, 0.87f);
             caRect.offsetMin = Vector2.zero;
             caRect.offsetMax = Vector2.zero;
 
             var grid = cardsArea.AddComponent<GridLayoutGroup>();
-            grid.cellSize = new Vector2(480f, 230f);
-            grid.spacing = new Vector2(25f, 20f);
+            grid.cellSize = new Vector2(520f, 310f);
+            grid.spacing = new Vector2(30f, 20f);
             grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             grid.constraintCount = 3;
 
             // 6 Mini-Game Cards
-            BuildMiniGameCard(cardsArea.transform, "🛵 2.1. Grab Campus: Chuyến Xe Tâm Linh", "Bạn (Gia Thịnh)", "Lái xe máy Grab đêm, tránh ma và chướng ngại vật, giao cơm/sách/linh kiện tới KTX đúng hạn.", "Vị trí: Bãi Xe Cổng 1", true, 0);
-            BuildMiniGameCard(cardsArea.transform, "👻 2.2. Trốn Tìm Với Ma Ở KTX", "Bạn (Gia Thịnh)", "Khám phá phòng tối KTX, né tránh ma tuần tra AI NavMesh 4 trạng thái, lấy cuốn nhật ký.", "Vị trí: Ký Túc Xá Block D", false, 1);
-            BuildMiniGameCard(cardsArea.transform, "🔍 2.3. AI Object Hunt: Tìm Đồ Vật", "Bạn (Gia Thịnh)", "Sử dụng camera quét nhận diện sách cổ/bình chữa cháy qua Deep Learning YOLO & AR Hologram.", "Vị trí: Thư Viện Block A", false, 2);
-            BuildMiniGameCard(cardsArea.transform, "📸 2.4. Thợ Săn Khoảnh Khắc", "Minh Nhật", "Khám phá campus, leo cầu thang lên nóc nhà Block F chụp ảnh check-in và nhận huy hiệu.", "Vị trí: Cầu Thang Nóc Block F", false, 3);
-            BuildMiniGameCard(cardsArea.transform, "🌱 2.5. Green Campus: Cứu Lấy Trường", "Minh Nhật", "Thu gom và phân loại rác tái chế bằng AI, tích lũy điểm xanh đẩy lên Cloud Adafruit IO.", "Vị trí: Sân Trường Trung Tâm", false, 4);
-            BuildMiniGameCard(cardsArea.transform, "🎪 2.6. Campus Festival: Tổ Chức Lễ Hội", "Minh Nhật", "Quản lý ngân sách, trang trí sân khấu đại hội âm nhạc và kết nối Docker backend.", "Vị trí: Sân Khấu Chính", false, 5);
+            BuildMiniGameCard(cardsArea.transform, 1, "🛵 2.1. Grab Campus: Chuyến Xe Tâm Linh", "Bạn (Gia Thịnh)", "Lái xe máy Grab đêm, tránh bóng ma và chướng ngại vật, giao cơm/sách/linh kiện tới KTX đúng hạn.", "Bãi Xe Cổng 1 (Nguyễn Văn Bảo)", "⚡ BẤM [ 1 ] ĐỂ CHƠI NGAY", true, 0);
+            BuildMiniGameCard(cardsArea.transform, 2, "👻 2.2. Trốn Tìm Với Ma Ở Ký Túc Xá", "Bạn (Gia Thịnh)", "Khám phá phòng tối KTX, né tránh ma tuần tra AI NavMesh 4 trạng thái, tìm chìa khóa & nhật ký.", "Sảnh Ký Túc Xá Block D", "📍 BẤM [ 2 ] ĐỂ ĐẾN KTX", false, 1);
+            BuildMiniGameCard(cardsArea.transform, 3, "🔍 2.3. AI Object Hunt: Tìm Đồ Vật", "Bạn (Gia Thịnh)", "Sử dụng camera quét nhận diện sách cổ/bình chữa cháy qua Deep Learning YOLO & AR Hologram.", "Thư Viện Trung Tâm Block A", "📍 BẤM [ 3 ] ĐỂ ĐẾN THƯ VIỆN", false, 2);
+            BuildMiniGameCard(cardsArea.transform, 4, "📸 2.4. Thợ Săn Khoảnh Khắc", "Minh Nhật", "Khám phá khuôn viên, leo thang nóc nhà Block F chụp ảnh check-in và thu thập huy hiệu.", "Cầu Thang Lên Nóc Block F", "📍 BẤM [ 4 ] ĐỂ ĐẾN NÓC NHÀ", false, 3);
+            BuildMiniGameCard(cardsArea.transform, 5, "🌱 2.5. Green Campus: Cứu Lấy Trường", "Minh Nhật", "Thu gom và phân loại rác tái chế bằng AI, tích lũy điểm xanh đẩy lên Cloud Adafruit IO.", "Trạm Phân Loại Rác Sân Trường", "📍 BẤM [ 5 ] ĐỂ ĐẾN TRẠM RÁC", false, 4);
+            BuildMiniGameCard(cardsArea.transform, 6, "🎪 2.6. Campus Festival: Tổ Chức Lễ Hội", "Minh Nhật", "Quản lý ngân sách, trang trí sân khấu đại hội âm nhạc và kết nối đồng bộ Docker backend.", "Sân Khấu Đại Hội Trung Tâm", "📍 BẤM [ 6 ] ĐỂ ĐẾN SÂN KHẤU", false, 5);
+
+            // Footer Instruction Bar
+            var footerGO = new GameObject("Footer");
+            footerGO.transform.SetParent(panelGO.transform, false);
+            var fRect = footerGO.AddComponent<RectTransform>();
+            fRect.anchorMin = new Vector2(0f, 0f);
+            fRect.anchorMax = new Vector2(1f, 0.07f);
+            fRect.offsetMin = Vector2.zero;
+            fRect.offsetMax = Vector2.zero;
+            var fImg = footerGO.AddComponent<Image>();
+            fImg.color = new Color(0.06f, 0.12f, 0.22f, 0.95f);
+
+            var fTxtGO = new GameObject("Txt");
+            fTxtGO.transform.SetParent(footerGO.transform, false);
+            var fTxtRect = fTxtGO.AddComponent<RectTransform>();
+            fTxtRect.anchorMin = Vector2.zero;
+            fTxtRect.anchorMax = Vector2.one;
+            var fTxt = fTxtGO.AddComponent<Text>();
+            fTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            fTxt.text = "💡 <color=#FDE047><b>MẸO NHANH:</b></color> Bạn có thể bấm phím số <b>[1]</b>, <b>[2]</b>, <b>[3]</b>, <b>[4]</b>, <b>[5]</b>, <b>[6]</b> bất cứ lúc nào để chọn game tức thì!";
+            fTxt.fontSize = 16;
+            fTxt.alignment = TextAnchor.MiddleCenter;
+            fTxt.color = Color.white;
+            fTxt.fontStyle = FontStyle.Bold;
         }
 
-        private static void BuildMiniGameCard(Transform parent, string title, string author, string desc, string location, bool isGrabGame, int cardIndex)
+        private static void BuildMiniGameCard(Transform parent, int hotkeyNum, string title, string author, string desc, string location, string btnLabel, bool isGrabGame, int cardIndex)
         {
-            var cardGO = new GameObject($"Card_{cardIndex}_{title.Substring(0, 4)}");
+            var cardGO = new GameObject($"Card_{cardIndex}_Game{hotkeyNum}");
             cardGO.transform.SetParent(parent, false);
 
             var img = cardGO.AddComponent<Image>();
-            img.color = isGrabGame ? new Color(0.03f, 0.16f, 0.12f, 0.92f) : new Color(0.08f, 0.12f, 0.2f, 0.9f);
+            img.color = isGrabGame ? new Color(0.04f, 0.18f, 0.12f, 0.96f) : new Color(0.07f, 0.13f, 0.24f, 0.96f);
 
             var outline = cardGO.AddComponent<Outline>();
-            outline.effectColor = isGrabGame ? new Color(0.0f, 0.85f, 0.45f, 0.9f) : new Color(0.2f, 0.45f, 0.75f, 0.7f);
-            outline.effectDistance = new Vector2(2f, 2f);
+            outline.effectColor = isGrabGame ? new Color(0.0f, 0.95f, 0.5f, 1.0f) : new Color(0.25f, 0.55f, 0.95f, 0.9f);
+            outline.effectDistance = new Vector2(2.5f, 2.5f);
+
+            var cardBtn = cardGO.AddComponent<Button>();
 
             // Card Content Vertical Layout
             var vlg = cardGO.AddComponent<VerticalLayoutGroup>();
-            vlg.padding = new RectOffset(16, 16, 14, 14);
+            vlg.padding = new RectOffset(18, 18, 14, 14);
             vlg.spacing = 8f;
             vlg.childControlWidth = true;
             vlg.childControlHeight = false;
 
-            // Title
+            // 1. Top Row: Hotkey Badge [PHÍM X] + Author Pill
+            var topRow = new GameObject("TopRow");
+            topRow.transform.SetParent(cardGO.transform, false);
+            var topHlg = topRow.AddComponent<HorizontalLayoutGroup>();
+            topHlg.childControlWidth = false;
+            topHlg.childControlHeight = true;
+            topHlg.spacing = 10f;
+            topRow.AddComponent<LayoutElement>().preferredHeight = 32f;
+
+            // Hotkey Badge
+            var keyBadge = new GameObject("KeyBadge");
+            keyBadge.transform.SetParent(topRow.transform, false);
+            var kbImg = keyBadge.AddComponent<Image>();
+            kbImg.color = isGrabGame ? new Color(1.0f, 0.85f, 0.15f) : new Color(0.2f, 0.85f, 1.0f);
+            var kbLe = keyBadge.AddComponent<LayoutElement>();
+            kbLe.preferredWidth = 115f;
+            var kbTxtGO = new GameObject("Txt");
+            kbTxtGO.transform.SetParent(keyBadge.transform, false);
+            var kbTxtRect = kbTxtGO.AddComponent<RectTransform>();
+            kbTxtRect.anchorMin = Vector2.zero;
+            kbTxtRect.anchorMax = Vector2.one;
+            var kbTxt = kbTxtGO.AddComponent<Text>();
+            kbTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            kbTxt.text = $"[ PHÍM {hotkeyNum} ]";
+            kbTxt.fontSize = 16;
+            kbTxt.alignment = TextAnchor.MiddleCenter;
+            kbTxt.color = Color.black;
+            kbTxt.fontStyle = FontStyle.Bold;
+
+            // Author Pill
+            var authorPill = new GameObject("AuthorPill");
+            authorPill.transform.SetParent(topRow.transform, false);
+            var apImg = authorPill.AddComponent<Image>();
+            apImg.color = isGrabGame ? new Color(0.06f, 0.45f, 0.25f, 0.9f) : new Color(0.15f, 0.35f, 0.65f, 0.9f);
+            var apLe = authorPill.AddComponent<LayoutElement>();
+            apLe.preferredWidth = 160f;
+            var apTxtGO = new GameObject("Txt");
+            apTxtGO.transform.SetParent(authorPill.transform, false);
+            var apTxtRect = apTxtGO.AddComponent<RectTransform>();
+            apTxtRect.anchorMin = Vector2.zero;
+            apTxtRect.anchorMax = Vector2.one;
+            var apTxt = apTxtGO.AddComponent<Text>();
+            apTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            apTxt.text = author;
+            apTxt.fontSize = 14;
+            apTxt.alignment = TextAnchor.MiddleCenter;
+            apTxt.color = Color.white;
+            apTxt.fontStyle = FontStyle.Bold;
+
+            // 2. Title
             var titleGO = new GameObject("Title");
             titleGO.transform.SetParent(cardGO.transform, false);
             var titleTxt = titleGO.AddComponent<Text>();
             titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            titleTxt.text = $"<b>{title}</b>\n<size=12><color=#a7f3d0>Phụ trách: {author}</color></size>";
-            titleTxt.fontSize = 17;
-            titleTxt.color = Color.white;
-            titleGO.AddComponent<LayoutElement>().preferredHeight = 44f;
+            titleTxt.text = $"<b>{title}</b>";
+            titleTxt.fontSize = 19;
+            titleTxt.color = isGrabGame ? new Color(0.5f, 1.0f, 0.7f) : Color.white;
+            titleTxt.fontStyle = FontStyle.Bold;
+            titleGO.AddComponent<LayoutElement>().preferredHeight = 36f;
 
-            // Description
+            // 3. Description
             var descGO = new GameObject("Desc");
             descGO.transform.SetParent(cardGO.transform, false);
             var descTxt = descGO.AddComponent<Text>();
             descTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            descTxt.text = $"{desc}\n<color=#38bdf8><i>{location}</i></color>";
-            descTxt.fontSize = 13;
-            descTxt.color = new Color(0.85f, 0.9f, 0.95f);
-            descGO.AddComponent<LayoutElement>().preferredHeight = 85f;
+            descTxt.text = desc;
+            descTxt.fontSize = 14;
+            descTxt.lineSpacing = 1.25f;
+            descTxt.color = new Color(0.92f, 0.95f, 0.98f);
+            descGO.AddComponent<LayoutElement>().preferredHeight = 75f;
 
-            // Buttons Bar (Horizontal)
+            // 4. Location Tag
+            var locGO = new GameObject("Location");
+            locGO.transform.SetParent(cardGO.transform, false);
+            var locTxt = locGO.AddComponent<Text>();
+            locTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            locTxt.text = $"📍 <b>Vị trí:</b> <color=#38BDF8>{location}</color>";
+            locTxt.fontSize = 13;
+            locTxt.color = new Color(0.75f, 0.85f, 0.95f);
+            locGO.AddComponent<LayoutElement>().preferredHeight = 24f;
+
+            // 5. Action Button
             var btnBarGO = new GameObject("BtnBar");
             btnBarGO.transform.SetParent(cardGO.transform, false);
             var hlg = btnBarGO.AddComponent<HorizontalLayoutGroup>();
-            hlg.spacing = 10f;
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
-            btnBarGO.AddComponent<LayoutElement>().preferredHeight = 42f;
+            btnBarGO.AddComponent<LayoutElement>().preferredHeight = 46f;
 
-            // Play / Fast Travel Button
             var actionBtnGO = new GameObject("ActionBtn");
             actionBtnGO.transform.SetParent(btnBarGO.transform, false);
             var aImg = actionBtnGO.AddComponent<Image>();
-            aImg.color = isGrabGame ? new Color(0.0f, 0.65f, 0.32f, 1f) : new Color(0.12f, 0.45f, 0.82f, 1f);
+            aImg.color = isGrabGame ? new Color(0.0f, 0.68f, 0.32f, 1f) : new Color(0.14f, 0.48f, 0.88f, 1f);
             var aBtn = actionBtnGO.AddComponent<Button>();
+            var aOutline = actionBtnGO.AddComponent<Outline>();
+            aOutline.effectColor = isGrabGame ? new Color(0.4f, 1f, 0.7f) : new Color(0.6f, 0.85f, 1f);
+            aOutline.effectDistance = new Vector2(1.5f, 1.5f);
 
             var aTxtGO = new GameObject("Txt");
             aTxtGO.transform.SetParent(actionBtnGO.transform, false);
@@ -555,8 +647,8 @@ namespace IUHCampus.Editor
             aTxtRect.anchorMax = Vector2.one;
             var aTxt = aTxtGO.AddComponent<Text>();
             aTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            aTxt.text = isGrabGame ? "⚡ Chơi Ngay (Bắt đầu)" : "📍 Fast Travel";
-            aTxt.fontSize = 14;
+            aTxt.text = btnLabel;
+            aTxt.fontSize = 15;
             aTxt.alignment = TextAnchor.MiddleCenter;
             aTxt.color = Color.white;
             aTxt.fontStyle = FontStyle.Bold;
