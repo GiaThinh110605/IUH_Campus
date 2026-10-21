@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-21",
+  "unityVersion": "6000.5.8f1",
+  "execution": "Unity Editor through MCP",
+  "editMode": {
+    "assertions": 35,
+    "passed": 35,
+    "failed": 0,
+    "isolatedScene": true,
+    "previousScenesRestored": true
+  },
+  "scene": {
+    "path": "Assets/IUH_Campus/Scenes/IUH_Campus_Main.unity",
+    "setupSaved": true,
+    "setupRepeatedWithoutDuplicates": true,
+    "campusHierarchyCountBefore": 34991,
+    "campusHierarchyCountAfter": 34991,
+    "existingTransformPosesCompared": 337,
+    "changedExistingTransformPoses": 0
+  },
+  "playMode": {
+    "startedThroughPortal": true,
+    "wardrobeClosedWhenLaunching": true,
+    "validPhotos": 3,
+    "score": 300,
+    "jpegFilesVerified": true,
+    "galleryTextures": 3,
+    "duplicatePhotoDidNotIncreaseScore": true,
+    "menuPreservedVictoryCursorAndControllerLock": true,
+    "photoToGrab": true,
+    "grabToPhoto": true,
+    "galleryTexturesAfterClose": 0,
+    "controllerRestoredAfterClose": true,
+    "playerRenderersRestored": true
+  },
+  "persistence": {
+    "freshPlaySessionLoadedSavedScore": 300,
+    "freshPlaySessionLoadedTargets": 3,
+    "freshPlaySessionGalleryTextures": 3,
+    "testStorage": "Docs/Evidence/PhotoHunter/PlayMode",
+    "normalPlayerSaveUnmodified": true
+  },
+  "movementProbe": {
+    "simulatedHeldMoveAndJumpDuringViewfinder": true,
+    "horizontalPositionBefore": [
+      398,
+      -28
+    ],
+    "horizontalPositionAfter": [
+      398,
+      -28
+    ],
+    "movementSpeedRestored": 2,
+    "heldMoveRetained": [
+      0,
+      1
+    ],
+    "note": "Movement resuming after the final unlock was not measured because that tool call was interrupted; the lock and speed/input restoration were measured."
+  },
+  "console": {
+    "errorsAfterVerification": 0
+  },
+  "limitations": [
+    "Desktop Editor verification only; Android and touch controls have not been tested.",
+    "Play Mode actions were automated through real production methods and input fields, rather than a full manual keyboard/mouse session."
+  ]
+}

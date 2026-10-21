@@ -1,0 +1,26 @@
+{
+    "passed": 16,
+    "failed": 0,
+    "sampledFrames": 14646,
+    "running": false,
+    "minY": 0.479999840259552,
+    "maxY": 0.5426850914955139,
+    "checks": [
+        "PASS A-H-B continuous ground hall reached waypoint 1",
+        "PASS A-H-B continuous ground hall reached waypoint 2",
+        "PASS A-H-B continuous ground hall reached waypoint 3",
+        "PASS A-H-B continuous ground hall reached waypoint 4",
+        "PASS A-H-B continuous ground hall reached waypoint 5",
+        "PASS Clinic-A7-A connected hall reached waypoint 1",
+        "PASS Clinic-A7-A connected hall reached waypoint 2",
+        "PASS Clinic-A7-A connected hall reached waypoint 3",
+        "PASS B-V-X transverse hall reached waypoint 1",
+        "PASS B-V-X transverse hall reached waypoint 2",
+        "PASS B-V-X transverse hall reached waypoint 3",
+        "PASS B-V-X transverse hall reached waypoint 4",
+        "PASS Rear-to-front X through passage reached waypoint 1",
+        "PASS Rear-to-front X through passage reached waypoint 2",
+        "PASS Rear-to-front X through passage reached waypoint 3",
+        "PASS Character remains grounded through all connections"
+    ]
+}

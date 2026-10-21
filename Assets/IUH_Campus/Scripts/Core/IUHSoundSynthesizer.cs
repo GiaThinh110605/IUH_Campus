@@ -303,5 +303,89 @@ namespace IUHCampus.Core
             s_HeartbeatClip.SetData(samples, 0);
             return s_HeartbeatClip;
         }
+
+        private static AudioClip s_ShutterClip;
+        private static AudioClip s_PhotoSuccessClip;
+        private static AudioClip s_PhotoWarningClip;
+
+        /// <summary>
+        /// Mechanical DSLR camera shutter click with mirror flip sound.
+        /// </summary>
+        public static AudioClip GetCameraShutterSound()
+        {
+            if (s_ShutterClip != null) return s_ShutterClip;
+
+            int sampleRate = 44100;
+            float duration = 0.22f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env1 = Mathf.Exp(-t * 45f);
+                float env2 = t > 0.08f ? Mathf.Exp(-(t - 0.08f) * 40f) : 0f;
+                float click1 = Mathf.Sin(2f * Mathf.PI * 2200f * t) * env1;
+                float click2 = Mathf.Sin(2f * Mathf.PI * 1400f * t) * env2;
+                float noise = (Random.value * 2f - 1f) * (env1 * 0.5f + env2 * 0.4f);
+                samples[i] = Mathf.Clamp((click1 + click2 + noise) * 0.7f, -1f, 1f);
+            }
+
+            s_ShutterClip = AudioClip.Create("Procedural_Camera_Shutter", totalSamples, 1, sampleRate, false);
+            s_ShutterClip.SetData(samples, 0);
+            return s_ShutterClip;
+        }
+
+        /// <summary>
+        /// Rewarding photo capture harmonic chime (C6 - E6 - G6 chord).
+        /// </summary>
+        public static AudioClip GetPhotoSuccessSound()
+        {
+            if (s_PhotoSuccessClip != null) return s_PhotoSuccessClip;
+
+            int sampleRate = 44100;
+            float duration = 0.55f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 6f);
+                float c6 = Mathf.Sin(2f * Mathf.PI * 1046.5f * t);
+                float e6 = Mathf.Sin(2f * Mathf.PI * 1318.5f * t);
+                float g6 = Mathf.Sin(2f * Mathf.PI * 1567.98f * t);
+                samples[i] = (c6 * 0.4f + e6 * 0.35f + g6 * 0.35f) * env * 0.6f;
+            }
+
+            s_PhotoSuccessClip = AudioClip.Create("Procedural_Photo_Success", totalSamples, 1, sampleRate, false);
+            s_PhotoSuccessClip.SetData(samples, 0);
+            return s_PhotoSuccessClip;
+        }
+
+        /// <summary>
+        /// Soft warning beep for invalid photo angles or out of range.
+        /// </summary>
+        public static AudioClip GetPhotoWarningSound()
+        {
+            if (s_PhotoWarningClip != null) return s_PhotoWarningClip;
+
+            int sampleRate = 44100;
+            float duration = 0.16f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 18f);
+                float tone = Mathf.Sin(2f * Mathf.PI * 330f * t); // Low E4 buzz
+                samples[i] = tone * env * 0.5f;
+            }
+
+            s_PhotoWarningClip = AudioClip.Create("Procedural_Photo_Warning", totalSamples, 1, sampleRate, false);
+            s_PhotoWarningClip.SetData(samples, 0);
+            return s_PhotoWarningClip;
+        }
     }
 }
