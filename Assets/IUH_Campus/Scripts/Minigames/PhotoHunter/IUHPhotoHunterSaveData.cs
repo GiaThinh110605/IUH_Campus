@@ -54,10 +54,10 @@ namespace IUHCampus.Minigames.PhotoHunter
                 gameVersion = this.gameVersion,
                 lastSavedTimestamp = this.lastSavedTimestamp,
                 totalScore = this.totalScore,
-                completedTargetIds = new List<string>(this.completedTargetIds)
+                completedTargetIds = new List<string>(this.completedTargetIds??new List<string>())
             };
 
-            foreach (var rec in this.photoRecords)
+            foreach (var rec in this.photoRecords??new List<PhotoRecord>())
             {
                 if (rec != null) clone.photoRecords.Add(rec.Clone());
             }
@@ -81,7 +81,7 @@ namespace IUHCampus.Minigames.PhotoHunter
                 {
                     if (string.IsNullOrEmpty(id)) continue;
                     if (seen.Contains(id)) continue;
-                    if (validSet != null && validSet.Count > 0 && !validSet.Contains(id)) continue;
+                    if (validSet != null && !validSet.Contains(id)) continue;
 
                     seen.Add(id);
                     cleanIds.Add(id);
@@ -120,10 +120,16 @@ namespace IUHCampus.Minigames.PhotoHunter
         {
             awardedPoints = 0;
             if (string.IsNullOrEmpty(targetId)) return false;
+            if(completedTargetIds==null)completedTargetIds=new List<string>();
+            if(photoRecords==null)photoRecords=new List<PhotoRecord>();
 
             if (completedTargetIds.Contains(targetId))
             {
-                // Already recorded - do not award points again
+                // Refresh the album entry while keeping the original reward idempotent.
+                int originalReward=photoRecords.Find(r=>r!=null&&r.targetId==targetId)?.scoreEarned??rewardScore;
+                photoRecords.RemoveAll(r=>r==null||r.targetId==targetId);
+                photoRecords.Add(new PhotoRecord(targetId,displayName,filePath,originalReward));
+                lastSavedTimestamp=DateTime.UtcNow.ToString("o");
                 return false;
             }
 
@@ -131,7 +137,7 @@ namespace IUHCampus.Minigames.PhotoHunter
             awardedPoints = rewardScore;
             totalScore += rewardScore;
 
-            photoRecords.RemoveAll(r => r.targetId == targetId);
+            photoRecords.RemoveAll(r => r==null||r.targetId == targetId);
             photoRecords.Add(new PhotoRecord(targetId, displayName, filePath, rewardScore));
             lastSavedTimestamp = DateTime.UtcNow.ToString("o");
             return true;
@@ -249,18 +255,22 @@ namespace IUHCampus.Minigames.PhotoHunter
             }
         }
 
-        public static void ResetProgress()
+        public static bool ResetProgress()
         {
+            // Atomic replacement preserves the previous album if the disk cannot be written.
+            return SaveProgress(new PhotoHunterSaveContainer());
+        }
+
+        public static bool IsManagedJpeg(string path)
+        {
+            if(string.IsNullOrEmpty(path))return false;
             try
             {
-                if (File.Exists(SaveFilePath)) File.Delete(SaveFilePath);
-                if (File.Exists(MetadataFilePath)) File.Delete(MetadataFilePath);
-                Debug.Log("[PhotoHunter Storage] Đã đặt lại tiến trình Photo Hunter.");
+                string full=Path.GetFullPath(path);string directory=Path.GetFullPath(BaseDirectory).TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar)+Path.DirectorySeparatorChar;
+                var comparison=Application.platform==RuntimePlatform.WindowsEditor||Application.platform==RuntimePlatform.WindowsPlayer?StringComparison.OrdinalIgnoreCase:StringComparison.Ordinal;
+                return full.StartsWith(directory,comparison)&&(string.Equals(Path.GetExtension(full),".jpg",StringComparison.OrdinalIgnoreCase)||string.Equals(Path.GetExtension(full),".jpeg",StringComparison.OrdinalIgnoreCase));
             }
-            catch (Exception ex)
-            {
-                Debug.LogWarning($"[PhotoHunter Storage] Không thể xóa file save: {ex.Message}");
-            }
+            catch(ArgumentException){return false;}catch(NotSupportedException){return false;}catch(PathTooLongException){return false;}
         }
 
         public static bool HasSaveFile()

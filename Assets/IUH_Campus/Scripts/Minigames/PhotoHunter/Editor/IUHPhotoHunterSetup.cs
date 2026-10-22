@@ -183,7 +183,7 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             UpdatePortalMenuCard();
 
             if (IUHCampus.World.IUHReferenceLayout.IsActive)
-                IUHCampus.Editor.IUHReferenceCampusBuilder.RelinkGames();
+                IUHCampus.Editor.IUHReferenceCampusBuilder.RelinkGames(false);
 
             // Mark Scene Dirty and Save Scene to disk
             EditorSceneManager.MarkSceneDirty(activeScene);

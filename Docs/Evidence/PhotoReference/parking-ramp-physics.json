@@ -1,0 +1,13 @@
+{
+    "passed": 6,
+    "failed": 0,
+    "physicsSteps": 580,
+    "checks": [
+        "PASS Ramp 360 can be ascended without a wall stop",
+        "PASS Ramp 360 reaches the low deck height",
+        "PASS Ramp 360 landing connects to the parking terrace",
+        "PASS Ramp 404 can be ascended without a wall stop",
+        "PASS Ramp 404 reaches the low deck height",
+        "PASS Ramp 404 landing connects to the parking terrace"
+    ]
+}

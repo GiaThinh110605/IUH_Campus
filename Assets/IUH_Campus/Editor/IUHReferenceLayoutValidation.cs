@@ -47,13 +47,14 @@ namespace IUHCampus.Editor
                 var rail=old.transform.Find("Block_D_StairMidRail_Left_Fl"+floor);
                 Check(rail!=null && rail.GetComponent<BoxCollider>()!=null && !rail.GetComponent<BoxCollider>().enabled,"Legacy empty stair rail "+floor+" remains disabled");
             }
-            var oversized=root.GetComponentsInChildren<BoxCollider>().Where(c=>c.bounds.size.y>25).ToArray();
+            // The confirmed 11-storey H is about 41 m; the previous bad empty colliders were 100 m tall.
+            var oversized=root.GetComponentsInChildren<BoxCollider>().Where(c=>c.bounds.size.y>80).ToArray();
             Check(oversized.Length==0,"No oversized vertical collider in exterior");
             // Continuous capsule sweeps, not just endpoint checks, exercise connected pedestrian corridors.
-            Route("Gate 1 to E plaza",new[]{P(409,-3),P(409,-72),P(385,-72),P(385,-84)});
-            Route("Gate 2 to E plaza",new[]{P(357,-3),P(358,-71),P(375,-71),P(375,-83)});
+            Route("Gate 1 to E plaza",new[]{P(409,-3),P(409,-87),P(390,-87),P(390,-84),P(385,-84)});
+            Route("Gate 2 to E plaza",new[]{P(357,-3),P(357,-89),P(375,-89),P(375,-83)});
             Route("Gate 3 to right courtyard",new[]{P(294,-3),P(295,-68),P(357,-68),P(358,-90),P(365,-90)});
-            Route("Gate 4 from rear to E",new[]{P(337,-185),P(337,-178),P(376,-178),P(376,-131),P(362,-131),P(362,-91),P(375,-91),P(375,-86)});
+            Route("Gate 4 from rear to E",new[]{P(337,-185),P(337,-178),P(376,-178),P(376,-131),P(362,-131),P(362,-89),P(375,-89),P(375,-86)});
             Route("Gate 5 from rear to E",new[]{P(385,-185),P(385,-178),P(376,-178),P(376,-131),P(409,-131),P(407,-123),P(407,-111),P(409,-105),P(409,-89),P(399,-89),P(399,-85)});
             Check(Clear(IUHReferenceLayout.Entrance),"Entrance player spawn has full standing clearance");
             Check(Clear(IUHReferenceLayout.GreenSpawn),"Green spawn has full standing clearance");

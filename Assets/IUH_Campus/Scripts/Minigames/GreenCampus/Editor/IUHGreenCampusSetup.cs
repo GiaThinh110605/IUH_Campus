@@ -31,6 +31,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
                     current.spawnPoint = IUHCampus.World.IUHReferenceLayout.IsActive
                         ? IUHCampus.World.IUHReferenceLayout.GreenSpawn : new Vector3(375.8f, 0.65f, -40.5f);
                     TuneLabels(existing);
+                    if(IUHCampus.World.IUHReferenceLayout.IsActive)IUHCampus.Editor.IUHReferenceCampusBuilder.ConfigureGreenForReferenceLayout(current);
                     UpdatePortalCard();
                     EditorSceneManager.MarkSceneDirty(scene);
                     return EditorSceneManager.SaveScene(scene);
@@ -137,6 +138,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
             TuneLabels(root);
             UpdatePortalCard();
             world.SetActive(false);
+            if(IUHCampus.World.IUHReferenceLayout.IsActive)IUHCampus.Editor.IUHReferenceCampusBuilder.ConfigureGreenForReferenceLayout(manager);
             EditorUtility.SetDirty(manager);
             AssetDatabase.SaveAssets();
             EditorSceneManager.MarkSceneDirty(scene);

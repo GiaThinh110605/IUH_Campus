@@ -22,6 +22,7 @@ namespace IUHCampus.Editor
         static Material ivory, stone, blue, teal, roof, glass, dark, paving, asphalt, grass, leaf, leafLight, bark, white, water, gold;
         static Transform root;
         static string meshFolderOverride;
+        static bool photoCourtyard;
         static readonly List<string> built = new List<string>();
         static readonly Dictionary<Material, List<CombineInstance>> pieces = new Dictionary<Material, List<CombineInstance>>();
 
@@ -110,11 +111,17 @@ namespace IUHCampus.Editor
         static void Q(Vector3 p,Vector3 size,Material mat) { Add(mat,cube,p,size,Quaternion.identity); }
         static void S(Vector3 p,Vector3 size,Material mat) { Add(mat,sphere,p,size,Quaternion.identity); }
         static void Cy(Vector3 p,Vector3 size,Material mat) { Add(mat,cylinder,p,size,Quaternion.identity); }
+        static string MeshAssetKey(Transform parent,Material material)
+        {
+            string hierarchy=parent.name;
+            for(var t=parent.parent;t!=null&&t!=root;t=t.parent)hierarchy=t.name+"/"+hierarchy;
+            return parent.name+"_"+material.name+"_"+Hash128.Compute(hierarchy).ToString().Substring(0,12);
+        }
         static void Flush(Transform parent)
         {
             foreach(var pair in pieces)
             {
-                var mesh=new Mesh { name=parent.name+"_"+pair.Key.name,indexFormat=IndexFormat.UInt32 };
+                var mesh=new Mesh { name=MeshAssetKey(parent,pair.Key),indexFormat=IndexFormat.UInt32 };
                 mesh.CombineMeshes(pair.Value.ToArray(),true,true); mesh.RecalculateBounds();
                 string path=(meshFolderOverride??Folder+"/Meshes")+"/"+mesh.name+".asset";
                 var existing=AssetDatabase.LoadAssetAtPath<Mesh>(path);
@@ -303,7 +310,8 @@ namespace IUHCampus.Editor
             foreach(float x in new[]{405f,413f})for(float z=-126;z<-10;z+=12)
                 if(z < -96 || z > -74) Tree(l,x,z,index++,.65f);
             // Green court in front of E is deliberately open for the two mini games.
-            foreach(var pos in new[]{new Vector2(365,-80),new Vector2(399,-82),new Vector2(360,-96),new Vector2(406,-111),new Vector2(360,-118),new Vector2(405,-130),new Vector2(332,-157),new Vector2(338,-139),new Vector2(415,-95)})Tree(l,pos.x,pos.y,index++,.8f);
+            foreach(var pos in new[]{new Vector2(365,-80),new Vector2(399,-82),new Vector2(360,-96),new Vector2(406,-111),new Vector2(360,-118),new Vector2(405,-130),new Vector2(332,-157),new Vector2(338,-139),new Vector2(415,-95)})
+                if(!photoCourtyard || (pos!=new Vector2(365,-80)&&pos!=new Vector2(399,-82)))Tree(l,pos.x,pos.y,index++,.8f);
             foreach(var p in new[]{new Vector2(407,-103),new Vector2(361,-111),new Vector2(413,-79),new Vector2(361,-79),new Vector2(300,-107),new Vector2(335,-161)})
             {
                 Q(new Vector3(p.x,.61f,p.y),new Vector3(3,.24f,6),ivory);
@@ -388,20 +396,24 @@ namespace IUHCampus.Editor
         }
         static void Place(string path,Vector3 position)
         { var go=GameObject.Find(path);if(go!=null){Undo.RecordObject(go.transform,"Relink campus landmark");go.transform.position=position;} }
-        public static void RelinkGames()
+        public static void ConfigureGreenForReferenceLayout(IUHGreenCampusManager green)
         {
-            var green=UnityEngine.Object.FindFirstObjectByType<IUHGreenCampusManager>(FindObjectsInactive.Include);
             if(green!=null)
             {
                 Undo.RecordObject(green,"Move Green Campus to new courtyard");green.spawnPoint=IUHReferenceLayout.GreenSpawn;
                 // Transform the already-authored world only once; keep IDs, references and saves intact.
-                if(green.gameWorld.transform.position==Vector3.zero)
+                if(green.gameWorld!=null&&green.gameWorld.transform.position==Vector3.zero)
                 {
                     foreach(var name in new[]{"Round_Objects","Restored_Green_Corners"})
                     {
                         var t=green.transform.Find(name);if(t==null)continue;
                         var ts=t.GetComponentsInChildren<Transform>(true);var positions=ts.Select(v=>v.position).ToArray();
                         for(int i=0;i<ts.Length;i++){Undo.RecordObject(ts[i],"Move Green Campus props");var v=positions[i];v.z=v.z*.72f-49.34f;ts[i].position=v;}
+                    }
+                    if(IUHReferenceLayout.HasPhotoForecourt)
+                    {
+                        var litter=green.items.FirstOrDefault(i=>i!=null&&i.itemId=="green_item_0_0");
+                        if(litter!=null)litter.transform.position=new Vector3(372.6f,.65f,-81.7f);
                     }
                 }
                 EditorUtility.SetDirty(green);
@@ -414,6 +426,10 @@ namespace IUHCampus.Editor
                     depth.BindShader(Shader.Find("IUH/Depth World Text"));EditorUtility.SetDirty(depth);
                 }
             }
+        }
+        public static void RelinkGames(bool relocateWorld=true)
+        {
+            ConfigureGreenForReferenceLayout(UnityEngine.Object.FindAnyObjectByType<IUHGreenCampusManager>(FindObjectsInactive.Include));
             var targets=UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>(FindObjectsInactive.Include,FindObjectsSortMode.None);
             foreach(var target in targets)
             {
@@ -427,7 +443,8 @@ namespace IUHCampus.Editor
                 else if(target.TargetId.Contains("central_courtyard"))
                 {
                     target.transform.position=new Vector3(385,1.5f,-85);
-                    target.Configure(target.TargetId,target.DisplayName,target.Description,new Vector3(385,.65f,-73),Vector3.back,5,58,GameObject.Find(IUHReferenceLayout.RootName+"/Gardens_Trees_Plaza").transform);
+                    var structure=GameObject.Find(IUHReferenceLayout.RootName+(IUHReferenceLayout.HasPhotoForecourt?"/Block_E":"/Gardens_Trees_Plaza"));
+                    target.Configure(target.TargetId,target.DisplayName,target.Description,new Vector3(385,.65f,-73),Vector3.back,5,58,structure!=null?structure.transform:null);
                     target.SetKeyFeatureOffsets(new List<Vector3>{new Vector3(-6,0,0),new Vector3(6,0,0),new Vector3(0,.5f,2)});
                 }
                 else if(target.TargetId.Contains("block_a"))
@@ -438,13 +455,14 @@ namespace IUHCampus.Editor
                 }
                 target.SetStructureReferences(target.StructureRoot,null);EditorUtility.SetDirty(target);
             }
+            if(!relocateWorld)return;
             Place("PlayerArmature",IUHReferenceLayout.Entrance);
             var player=GameObject.Find("PlayerArmature");if(player!=null)player.transform.rotation=Quaternion.Euler(0,180,0);
             Place("GAMEPLAY_GRAB_CAMPUS/IUH_Grab_Motorbike",new Vector3(412,.6f,-29));
             var pickups=IUHReferenceLayout.Pickups;var drops=IUHReferenceLayout.Dropoffs;
             string gp="GAMEPLAY_GRAB_CAMPUS/";
             var shops=GameObject.Find(gp+"NIGHT_FOOD_SHOPS");
-            if(shops!=null)for(int i=0;i<Mathf.Min(3,shops.transform.childCount);i++)Place(gp+"NIGHT_FOOD_SHOPS/"+shops.transform.GetChild(i).name,pickups[i]+new Vector3(3,0,-2));
+            if(shops!=null)for(int i=0;i<Mathf.Min(3,shops.transform.childCount);i++)Place(gp+"NIGHT_FOOD_SHOPS/"+shops.transform.GetChild(i).name,pickups[i]+(i==1&&IUHReferenceLayout.HasPhotoForecourt?new Vector3(-3,0,1.3f):new Vector3(3,0,-2)));
             var stations=GameObject.Find(gp+"DELIVERY_DROPOFF_STATIONS");
             if(stations!=null)for(int i=0;i<Mathf.Min(3,stations.transform.childCount);i++)Place(gp+"DELIVERY_DROPOFF_STATIONS/"+stations.transform.GetChild(i).name,drops[i]+Vector3.right*2.5f);
             Place(gp+"DELIVERY_WAYPOINTS/PickupWaypoint",pickups[0]);Place(gp+"DELIVERY_WAYPOINTS/DropoffWaypoint",drops[0]);

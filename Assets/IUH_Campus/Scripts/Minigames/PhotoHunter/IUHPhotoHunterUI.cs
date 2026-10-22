@@ -265,6 +265,16 @@ namespace IUHCampus.Minigames.PhotoHunter
             m_ToastCoroutine = StartCoroutine(ToastRoutine(message, duration, isSuccess));
         }
 
+        public void ShowPersistenceError(string message)
+        {
+            // The viewfinder toast is hidden on the briefing/album screens where Restart is clicked.
+            if(m_VictoryDialog!=null&&m_VictoryDialog.activeInHierarchy&&m_TxtVictoryTitle!=null)
+                m_TxtVictoryTitle.text="<color=#ef4444>"+message+"</color>";
+            else if(m_BriefingPanel!=null&&m_BriefingPanel.activeInHierarchy&&m_TxtBriefingStatus!=null)
+                m_TxtBriefingStatus.text=message;
+            else ShowToast(message,3f,false);
+        }
+
         private IEnumerator ToastRoutine(string message, float duration, bool isSuccess)
         {
             m_TxtToastMessage.gameObject.SetActive(true);

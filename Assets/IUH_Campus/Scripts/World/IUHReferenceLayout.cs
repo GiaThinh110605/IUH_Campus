@@ -9,6 +9,10 @@ namespace IUHCampus.World
         public static bool IsActive => GameObject.Find(RootName) != null;
         public static Vector3 Entrance => new Vector3(409f, 0.65f, -28f);
         public static Vector3 GreenSpawn => new Vector3(375.8f, 0.65f, -78.5f);
+        public static bool HasPhotoForecourt => GameObject.Find(RootName + "/PHOTO_REFERENCE_R2") != null;
+        public static Vector3 DormEntrance => new Vector3(295f,.65f,-44f);
+        public static Vector3 LibraryEntrance => new Vector3(425f,.65f,-11f);
+        public static Vector3 FRoof => new Vector3(326f,13.7f,-79f);
         public static Vector3[] Pickups => new[] {
             new Vector3(409f, .49f, -57f), new Vector3(357f, .49f, -67f), new Vector3(409f, .49f, -37f)
         };

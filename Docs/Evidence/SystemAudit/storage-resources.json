@@ -1,0 +1,23 @@
+{
+    "passed": 16,
+    "failed": 0,
+    "running": false,
+    "checks": [
+        "PASS First photo transaction commits 100 points",
+        "PASS Recapture keeps the reward at 100 points",
+        "PASS Recapture replaces the album image path",
+        "PASS Replaced JPEG is removed only after successful save",
+        "PASS Failed transaction removes new JPEG and preserves the committed photo",
+        "PASS Rollback never deletes the already committed image when paths match",
+        "PASS Rollback cannot delete a JPEG outside this game's storage",
+        "PASS Restart failure preserves manager progress and state",
+        "PASS Restart failure preserves save and album on disk",
+        "PASS Successful restart writes a durable empty save",
+        "PASS Null photo lists can be cloned safely",
+        "PASS An empty active target set clears stale completions",
+        "PASS Cleanup rejects progress JSON and files outside the save root",
+        "PASS Restart save errors appear on the visible album rather than a hidden toast",
+        "PASS Camera disappearing after frame wait completes cleanly without rendering",
+        "PASS Identically named parts in different buildings get different mesh asset keys"
+    ]
+}

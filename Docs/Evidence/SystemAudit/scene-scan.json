@@ -1,0 +1,32 @@
+{
+  "missingScripts": 0,
+  "enabledEmptyMeshColliders": [],
+  "oversizedColliders": [],
+  "fastTravel": [
+    {
+      "name": "m_Gate1ParkingPos",
+      "position": "(409.00, 0.65, -28.00)",
+      "blocked": false
+    },
+    {
+      "name": "m_KtxDormPos",
+      "position": "(295.00, 0.65, -44.00)",
+      "blocked": false
+    },
+    {
+      "name": "m_LibraryPos",
+      "position": "(425.00, 0.65, -11.00)",
+      "blocked": false
+    },
+    {
+      "name": "m_BlockFRoofPos",
+      "position": "(326.00, 13.70, -79.00)",
+      "blocked": false
+    },
+    {
+      "name": "m_CentralCourtyardPos",
+      "position": "(375.80, 0.65, -78.50)",
+      "blocked": false
+    }
+  ]
+}

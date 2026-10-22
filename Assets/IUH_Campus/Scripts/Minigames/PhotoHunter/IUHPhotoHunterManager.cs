@@ -593,11 +593,15 @@ namespace IUHCampus.Minigames.PhotoHunter
         /// </summary>
         public void RestartMission()
         {
+            if(!IUHPhotoHunterStorage.ResetProgress())
+            {
+                m_UI?.ShowPersistenceError("Không lưu được lượt mới. Tiến trình trước vẫn được giữ.");
+                return;
+            }
             m_CurrentSessionId++;
             m_IsCapturing = false;
             StopAllCoroutines();
 
-            IUHPhotoHunterStorage.ResetProgress();
             m_CurrentSaveContainer = new PhotoHunterSaveContainer();
             m_CurrentScore = 0;
             m_CompletedCount = 0;
@@ -773,6 +777,7 @@ namespace IUHCampus.Minigames.PhotoHunter
             if (m_CurrentSaveContainer == null) m_CurrentSaveContainer = new PhotoHunterSaveContainer();
 
             PhotoHunterSaveContainer tentativeContainer = m_CurrentSaveContainer.Clone();
+            string replacedPath=tentativeContainer.photoRecords.Find(r=>r!=null&&r.targetId==targetId)?.filePath;
             bool isNewCompletion = tentativeContainer.RecordCompletion(
                 targetId,
                 displayName,
@@ -785,12 +790,14 @@ namespace IUHCampus.Minigames.PhotoHunter
             {
                 awardedPoints = 0;
                 // Rollback: delete photo file and abort transaction without altering memory state
-                try { if (File.Exists(photoPath)) File.Delete(photoPath); } catch { }
+                try { if (!string.Equals(photoPath,replacedPath,StringComparison.Ordinal)&&IUHPhotoHunterStorage.IsManagedJpeg(photoPath)&&File.Exists(photoPath)) File.Delete(photoPath); } catch (IOException) { } catch(UnauthorizedAccessException) { }
                 return false;
             }
 
             // Disk write succeeded: Commit transaction into memory and WorldState
             m_CurrentSaveContainer = tentativeContainer;
+            if(!string.Equals(replacedPath,photoPath,StringComparison.Ordinal)&&IUHPhotoHunterStorage.IsManagedJpeg(replacedPath))
+            {try{if(File.Exists(replacedPath))File.Delete(replacedPath);}catch(IOException){}catch(UnauthorizedAccessException){}}
             if (isNewCompletion)
             {
                 m_CurrentScore = m_CurrentSaveContainer.totalScore;

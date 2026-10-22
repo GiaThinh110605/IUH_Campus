@@ -36,6 +36,16 @@ namespace IUHCampus.Editor
         };
         static bool IsHall(Vector2 p)=>WalkingVoids.Any(r=>r.Contains(p));
 
+        static ConnectedBlock[] ConnectedSpecs()=>new[]{
+            new ConnectedBlock{id="A",title="NHÀ A • THƯ VIỆN",roofTitle="TÒA A\nTHƯ VIỆN",height=15,floors=4,accent=blue,footprint=new[]{Foot(416.5f,433.5f,-66.5f,-13.5f)},label=new Vector2(425,-30)},
+            new ConnectedBlock{id="A7",title="HỘI TRƯỜNG A7",roofTitle="HỘI TRƯỜNG\nA7",height=26.25f,floors=7,accent=blue,footprint=new[]{Foot(433.5f,448,-66.5f,-41.5f)},label=new Vector2(440.75f,-54)},
+            new ConnectedBlock{id="A_Clinic",title="PHÒNG Y TẾ",roofTitle="PHÒNG Y TẾ",height=15,floors=4,accent=blue,footprint=new[]{Foot(433.5f,448,-41.5f,-13.5f)},label=new Vector2(440.75f,-26)},
+            new ConnectedBlock{id="H",title="NHÀ H",roofTitle="TÒA H",height=41.25f,floors=11,accent=teal,footprint=new[]{Foot(417,447,-102,-66.5f)},label=new Vector2(432,-83)},
+            new ConnectedBlock{id="B",title="GIẢNG ĐƯỜNG B",roofTitle="TÒA B",height=15,floors=4,accent=blue,footprint=new[]{Foot(419,445,-156,-102),Foot(407,419,-156,-142)},label=new Vector2(432,-122)},
+            new ConnectedBlock{id="V",title="GIẢNG ĐƯỜNG V",roofTitle="TÒA V",height=20,floors=5,accent=teal,footprint=new[]{Foot(379,407,-172.5f,-143.5f)},label=new Vector2(393,-160)},
+            new ConnectedBlock{id="X",title="GIẢNG ĐƯỜNG X",roofTitle="TÒA X",height=19,floors=5,accent=gold,footprint=new[]{Foot(336.5f,379,-173,-137)},label=new Vector2(355,-158)}
+        };
+
         [MenuItem("IUH Campus/Reference Layout/Connect A-H-B and B-V-X")]
         public static void ConnectReferenceBlocks()
         {
@@ -50,16 +60,7 @@ namespace IUHCampus.Editor
             meshFolderOverride=Folder+"/Connections_R1/Meshes";
             Directory.CreateDirectory(meshFolderOverride);AssetDatabase.Refresh();
             CacheMeshes();Materials();pieces.Clear();
-            var specs=new[]{
-                new ConnectedBlock{id="A",title="NHÀ A • THƯ VIỆN",roofTitle="TÒA A\nTHƯ VIỆN",height=15,floors=4,accent=blue,footprint=new[]{Foot(416.5f,433.5f,-66.5f,-13.5f)},label=new Vector2(425,-30)},
-                new ConnectedBlock{id="A7",title="HỘI TRƯỜNG A7",roofTitle="HỘI TRƯỜNG\nA7",height=15,floors=4,accent=blue,footprint=new[]{Foot(433.5f,448,-66.5f,-41.5f)},label=new Vector2(440.75f,-54)},
-                new ConnectedBlock{id="A_Clinic",title="PHÒNG Y TẾ",roofTitle="PHÒNG Y TẾ",height=15,floors=4,accent=blue,footprint=new[]{Foot(433.5f,448,-41.5f,-13.5f)},label=new Vector2(440.75f,-26)},
-                new ConnectedBlock{id="H",title="NHÀ H",roofTitle="TÒA H",height=12,floors=3,accent=teal,footprint=new[]{Foot(417,447,-102,-66.5f)},label=new Vector2(432,-83)},
-                // A true L: one continuous north-south leg with a rectangular rear arm meeting V.
-                new ConnectedBlock{id="B",title="GIẢNG ĐƯỜNG B",roofTitle="TÒA B",height=18,floors=5,accent=blue,footprint=new[]{Foot(419,445,-156,-102),Foot(407,419,-156,-142)},label=new Vector2(432,-122)},
-                new ConnectedBlock{id="V",title="GIẢNG ĐƯỜNG V",roofTitle="TÒA V",height=20,floors=5,accent=teal,footprint=new[]{Foot(379,407,-172.5f,-143.5f)},label=new Vector2(393,-160)},
-                new ConnectedBlock{id="X",title="GIẢNG ĐƯỜNG X",roofTitle="TÒA X",height=19,floors=5,accent=gold,footprint=new[]{Foot(336.5f,379,-173,-137)},label=new Vector2(355,-158)}
-            };
+            var specs=ConnectedSpecs();
             var archive=Group("ARCHIVE_BEFORE_CONNECTED_BLOCKS",root,Vector3.zero);
             Undo.RegisterCreatedObjectUndo(archive.gameObject,"Preserve previous separate blocks");
             foreach(var name in new[]{"Block_A","Block_A7","Block_A_Link","Block_H","Block_B","Block_B_Wing","Block_V","Block_X"})
@@ -92,6 +93,7 @@ namespace IUHCampus.Editor
             float minZ=b.footprint.Min(r=>r.yMin),maxZ=b.footprint.Max(r=>r.yMax);
             var origin=new Vector2((minX+maxX)/2,(minZ+maxZ)/2);
             var t=Group("Block_"+b.id,root,new Vector3(origin.x,.49f,origin.y));b.transform=t;
+            var info=t.gameObject.AddComponent<IUHBuildingExteriorInfo>();info.floorCount=b.floors;info.roofHeight=b.height;
             const float clearHeight=3.5f;
             foreach(var r in b.footprint)
             {
@@ -127,8 +129,10 @@ namespace IUHCampus.Editor
             void Edge(Vector2 a,Vector2 c,Vector2 normal)
             {
                 var midpoint=(a+c)/2;var outside=midpoint+normal*.01f;
-                if(b.Contains(outside)||all.Any(s=>s!=b&&s.Contains(outside)))return;
-                FacadeSegment(b,origin,a,c,normal);
+                if(b.Contains(outside))return;
+                float neighbourHeight=all.Where(s=>s!=b&&s.Contains(outside)).Select(s=>s.height).DefaultIfEmpty(0).Max();
+                if(neighbourHeight>=b.height)return;
+                FacadeSegment(b,origin,a,c,normal,neighbourHeight);
             }
             // Service housings stay at the rear edge, leaving the roof labels unobstructed.
             foreach(float x in new[]{minX+2.5f,maxX-2.5f})
@@ -153,7 +157,7 @@ namespace IUHCampus.Editor
                 Flush(Group("Medical cross",t,Vector3.zero));
             }
         }
-        static void FacadeSegment(ConnectedBlock b,Vector2 origin,Vector2 a,Vector2 c,Vector2 normal)
+        static void FacadeSegment(ConnectedBlock b,Vector2 origin,Vector2 a,Vector2 c,Vector2 normal,float visibleAbove=0)
         {
             float length=Vector2.Distance(a,c);bool horizontal=Mathf.Abs(a.y-c.y)<.001f;
             Vector2 middle=(a+c)/2-origin;Vector2 tangent=(c-a).normalized;
@@ -164,6 +168,7 @@ namespace IUHCampus.Editor
             {
                 float y0=floor==0?0:3.5f+(floor-1)*(b.height-3.5f)/(b.floors-1);
                 float fh=floor==0?3.5f:(b.height-3.5f)/(b.floors-1);
+                if(y0+fh<=visibleAbove)continue;
                 if(floor>0)Q(new Vector3(middle.x+normal.x*.12f,y0+.1f,middle.y+normal.y*.12f),bandSize,stone);
                 int bays=Mathf.Max(1,Mathf.FloorToInt(length/3.2f));float bay=length/bays;
                 for(int k=0;k<bays;k++)

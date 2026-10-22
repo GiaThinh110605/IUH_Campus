@@ -75,6 +75,9 @@ namespace IUHCampus.Minigames.PhotoHunter
 
             yield return new WaitForEndOfFrame();
 
+            // A scene/camera can disappear while waiting for the render frame.
+            if(cam==null){onComplete?.Invoke(false,string.Empty);yield break;}
+
             // Check cancellation before rendering
             if (isSessionValid != null && !isSessionValid(sessionId))
             {
@@ -155,7 +158,7 @@ namespace IUHCampus.Minigames.PhotoHunter
                 // Immediately destroy the raw capture texture to prevent memory leaks
                 if (capturedTex != null)
                 {
-                    Destroy(capturedTex);
+                    ReleaseTexture(capturedTex);
                     capturedTex = null;
                 }
             }
@@ -178,22 +181,29 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return null;
             }
 
+            Texture2D tex=null;
             try
             {
                 byte[] bytes = File.ReadAllBytes(filePath);
-                Texture2D tex = new Texture2D(2, 2, TextureFormat.RGB24, false);
+                tex = new Texture2D(2, 2, TextureFormat.RGB24, false);
                 if (tex.LoadImage(bytes))
                 {
                     return tex;
                 }
-                Destroy(tex);
+                ReleaseTexture(tex);
                 return null;
             }
             catch (Exception ex)
             {
+                if(tex!=null)ReleaseTexture(tex);
                 Debug.LogWarning($"[PhotoCaptureService] Không thể đọc ảnh từ {filePath}: {ex.Message}");
                 return null;
             }
+        }
+        private static void ReleaseTexture(Texture2D texture)
+        {
+            if(texture==null)return;
+            if(Application.isPlaying)Destroy(texture);else DestroyImmediate(texture);
         }
     }
 }

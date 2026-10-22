@@ -10,6 +10,37 @@ namespace IUHCampus.World
         static readonly Dictionary<Font, Material> Materials = new Dictionary<Font, Material>();
         [SerializeField] Shader depthShader;
         TextMesh label;
+        static IUHDepthLabel()
+        {
+            Application.quitting+=ReleaseMaterials;
+#if UNITY_EDITOR
+            UnityEditor.AssemblyReloadEvents.beforeAssemblyReload+=ReleaseMaterials;
+#endif
+        }
+        static void ReleaseMaterials()
+        {
+            foreach(var material in Materials.Values)
+                if(material!=null){if(Application.isPlaying)Destroy(material);else DestroyImmediate(material);}
+            Materials.Clear();
+        }
+#if UNITY_EDITOR
+        [UnityEditor.InitializeOnLoadMethod]
+        static void QueueOrphanCleanup(){UnityEditor.EditorApplication.delayCall+=()=>CleanupUnusedMaterials();}
+#endif
+        public static int CleanupUnusedMaterials()
+        {
+            var keep=new HashSet<Material>(Materials.Values);
+            foreach(var renderer in Resources.FindObjectsOfTypeAll<MeshRenderer>())
+                if(renderer.gameObject.scene.IsValid()&&renderer.gameObject.activeInHierarchy)
+                    foreach(var material in renderer.sharedMaterials)if(material!=null)keep.Add(material);
+            int count=0;
+            foreach(var material in Resources.FindObjectsOfTypeAll<Material>())
+            {
+                if(material.name!="IUH World Font"||material.shader==null||material.shader.name!="IUH/Depth World Text"||keep.Contains(material)||(material.hideFlags&HideFlags.DontSave)==0)continue;
+                if(Application.isPlaying)Destroy(material);else DestroyImmediate(material);count++;
+            }
+            return count;
+        }
         public void BindShader(Shader shader)
         {
             depthShader=shader;

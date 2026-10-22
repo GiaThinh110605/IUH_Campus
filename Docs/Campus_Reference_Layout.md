@@ -4,6 +4,8 @@
 
 **Bản chỉnh nối khối tiếp theo:** A–A7–phòng y tế, A–H–B và B–V–X đã liền nhau, có hành lang tầng trệt đi xuyên; B được sửa thành chữ L. Xem [Campus_Connections_Revision.md](Campus_Connections_Revision.md) và ảnh mới trong `Evidence/CampusConnections`. Phần dưới ghi lại lượt dựng bố cục đầu tiên.
 
+**Bản chỉnh theo ảnh thực tế:** A/B 4 tầng, A7 7 tầng, H 11 tầng; mặt tiền E, sân cây lớn và bãi xe thấp có ram đôi được cập nhật trong [Campus_Photo_Reference_Revision.md](Campus_Photo_Reference_Revision.md).
+
 ## Bố cục đã dựng
 
 - Mặt trước giáp Nguyễn Văn Bảo: A và hội trường A7 bên trái; khối bãi xe lớn giữa; G bên phải. Có Cổng 1, 2, 3.
