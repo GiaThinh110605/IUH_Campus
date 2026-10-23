@@ -53,8 +53,7 @@ namespace IUHCampus.Minigames.GrabCampus
             else if (Instance != this) { Destroy(gameObject); return; }
 
             InitializeConfigs();
-            int saved = PlayerPrefs.GetInt("IUH_Selected_Theme", (int)BrandTheme.Grab);
-            m_CurrentTheme = (BrandTheme)Mathf.Clamp(saved, 0, 3);
+            m_CurrentTheme = IUHCampus.Core.PlayerLoadout.Current.theme;
         }
 
         private void Start()
@@ -126,8 +125,8 @@ namespace IUHCampus.Minigames.GrabCampus
         public void ApplyTheme(BrandTheme theme)
         {
             m_CurrentTheme = theme;
-            PlayerPrefs.SetInt("IUH_Selected_Theme", (int)theme);
-            PlayerPrefs.Save();
+            IUHCampus.Core.PlayerLoadout.Current.theme = theme;
+            IUHCampus.Core.PlayerLoadout.Current.Save();
 
             var config = GetConfig(theme);
 

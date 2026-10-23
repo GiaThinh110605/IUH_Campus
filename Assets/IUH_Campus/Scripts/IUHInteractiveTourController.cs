@@ -130,6 +130,12 @@ namespace IUHCampus
 
         private void HandleQuickHotkeys()
         {
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null &&
+                IUHCampus.Core.IUHGameFlowManager.Instance.CurrentState != IUHCampus.Core.IUHGameFlowManager.FlowState.Playing)
+            {
+                return;
+            }
+
             // Toggle HUD with H
             if (IsKeyPressed(KeyCode.H))
             {

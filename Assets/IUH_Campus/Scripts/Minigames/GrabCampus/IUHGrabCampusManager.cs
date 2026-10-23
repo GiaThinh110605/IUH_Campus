@@ -322,6 +322,12 @@ namespace IUHCampus.Minigames.GrabCampus
             m_TimeRemaining = order.timeLimitSeconds;
             m_CargoIntegrity = 100;
 
+            // Apply player loadout (Xanh SM, Grab, be, Sinh vien IUH)
+            if (IUHCustomizationManager.Instance != null)
+            {
+                IUHCustomizationManager.Instance.ApplyTheme(IUHCampus.Core.PlayerLoadout.Current.theme);
+            }
+
             // Spooky Night Mode
             ApplyNightAmbiance(order.hasGhosts);
             SetGhostsActive(order.hasGhosts);
@@ -509,6 +515,11 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+            {
+                IUHCampus.Core.IUHGameFlowManager.Instance.ShowResult(true, "🎉 GIAO HÀNG THÀNH CÔNG!", "");
+            }
+
             Debug.Log($"[IUH Grab Campus] THẮNG LỢI! Giao hàng hoàn tất: +{totalPay:N0} VNĐ, {stars} sao.");
         }
 
@@ -531,6 +542,11 @@ namespace IUHCampus.Minigames.GrabCampus
                 {
                     m_TxtDefeatReason.text = $"Lý do: {reason}\nThời gian: {m_TimeRemaining:F0}s | Kiện hàng: {m_CargoIntegrity}%";
                 }
+            }
+
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+            {
+                IUHCampus.Core.IUHGameFlowManager.Instance.ShowResult(false, "", $"Lý do: {reason}\nThời gian: {m_TimeRemaining:F0}s | Kiện hàng: {m_CargoIntegrity}%");
             }
 
             Debug.LogWarning($"[IUH Grab Campus] THẤT BẠI: {reason}");
