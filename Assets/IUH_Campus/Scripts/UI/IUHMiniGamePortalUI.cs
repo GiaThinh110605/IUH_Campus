@@ -49,6 +49,15 @@ namespace IUHCampus.UI
             m_AudioSource = gameObject.AddComponent<AudioSource>();
             m_AudioSource.playOnAwake = false;
 
+            if (IUHCampus.Core.IUHGameFlowManager.Instance == null)
+            {
+                var flowMgr = FindFirstObjectByType<IUHCampus.Core.IUHGameFlowManager>(FindObjectsInactive.Include);
+                if (flowMgr == null)
+                {
+                    gameObject.AddComponent<IUHCampus.Core.IUHGameFlowManager>();
+                }
+            }
+
             FindPlayerReferences();
             ConfigureReferenceDestinations();
         }
@@ -66,7 +75,10 @@ namespace IUHCampus.UI
         private void Start()
         {
             AutoWireButtons();
-            SetMenuOpen(false);
+            if (IUHCampus.Core.IUHGameFlowManager.Instance == null)
+            {
+                SetMenuOpen(false);
+            }
         }
 
         private void FindPlayerReferences()
@@ -103,14 +115,38 @@ namespace IUHCampus.UI
                 if (closeBtn != null)
                 {
                     closeBtn.onClick.RemoveAllListeners();
-                    closeBtn.onClick.AddListener(() => SetMenuOpen(false));
+                    closeBtn.onClick.AddListener(() => {
+                        if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+                        {
+                            if (IUHCampus.Core.IUHGameFlowManager.Instance.ActiveGameIndex >= 0)
+                                IUHCampus.Core.IUHGameFlowManager.Instance.ResumeGame();
+                            else
+                                IUHCampus.Core.IUHGameFlowManager.Instance.GoToMainMenu();
+                        }
+                        else
+                        {
+                            SetMenuOpen(false);
+                        }
+                    });
                 }
 
                 var btnResume = m_MenuPanel.transform.Find("Footer/BtnResume")?.GetComponent<Button>();
                 if (btnResume != null)
                 {
                     btnResume.onClick.RemoveAllListeners();
-                    btnResume.onClick.AddListener(() => SetMenuOpen(false));
+                    btnResume.onClick.AddListener(() => {
+                        if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+                        {
+                            if (IUHCampus.Core.IUHGameFlowManager.Instance.ActiveGameIndex >= 0)
+                                IUHCampus.Core.IUHGameFlowManager.Instance.ResumeGame();
+                            else
+                                IUHCampus.Core.IUHGameFlowManager.Instance.EnterFreeRoam();
+                        }
+                        else
+                        {
+                            SetMenuOpen(false);
+                        }
+                    });
                 }
 
                 var btnFreeRoam = m_MenuPanel.transform.Find("Footer/BtnFreeRoam")?.GetComponent<Button>();
@@ -127,7 +163,14 @@ namespace IUHCampus.UI
                         var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
                         if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
 
-                        SetMenuOpen(false);
+                        if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+                        {
+                            IUHCampus.Core.IUHGameFlowManager.Instance.EnterFreeRoam();
+                        }
+                        else
+                        {
+                            SetMenuOpen(false);
+                        }
                     });
                 }
 
@@ -408,6 +451,12 @@ namespace IUHCampus.UI
         /// </summary>
         public void SelectMiniGame(int gameIndex)
         {
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+            {
+                IUHCampus.Core.IUHGameFlowManager.Instance.StartGameSetup(gameIndex);
+                return;
+            }
+
             switch (gameIndex)
             {
                 case 0:

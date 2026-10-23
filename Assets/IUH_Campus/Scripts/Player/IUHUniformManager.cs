@@ -151,7 +151,14 @@ namespace IUHCampus.Player
 
         private void Update()
         {
-            // If Mini-Game Portal is open, or Grab Campus is active, do not intercept keys 1-6 or U
+            // If not in Playing state (e.g., in menus or setup) or if portal is open, do not intercept keys 1-6 or U
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null &&
+                (IUHCampus.Core.IUHGameFlowManager.Instance.CurrentState != IUHCampus.Core.IUHGameFlowManager.FlowState.Playing ||
+                 IUHCampus.Core.IUHGameFlowManager.Instance.ActiveGameIndex >= 0))
+            {
+                return;
+            }
+
             if ((IUHCampus.UI.IUHMiniGamePortalUI.Instance != null && IUHCampus.UI.IUHMiniGamePortalUI.Instance.IsOpen) ||
                 (IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance != null && IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance.IsMissionActive))
             {

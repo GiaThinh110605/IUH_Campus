@@ -47,6 +47,15 @@ namespace IUHCampus.Core
                 gameObject.AddComponent<SaveSystem>();
             }
 
+            if (IUHGameFlowManager.Instance == null)
+            {
+                var flowMgr = FindFirstObjectByType<IUHGameFlowManager>(FindObjectsInactive.Include);
+                if (flowMgr == null)
+                {
+                    gameObject.AddComponent<IUHGameFlowManager>();
+                }
+            }
+
             // 2. Spawn Player
             if (PlayerSpawnManager.Instance != null)
             {

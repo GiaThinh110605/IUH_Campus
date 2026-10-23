@@ -81,8 +81,8 @@ namespace IUHCampus.UI
 
         private void Start()
         {
-            // Show customization wardrobe before playing as requested!
-            SetOpen(true);
+            // Do NOT auto open wardrobe on boot; game flow manager handles startup menu
+            SetOpen(false);
         }
 
         private void SetupButtons()
@@ -90,7 +90,7 @@ namespace IUHCampus.UI
             if (m_BtnBack != null)
             {
                 m_BtnBack.onClick.RemoveAllListeners();
-                m_BtnBack.onClick.AddListener(() => SetOpen(false));
+                m_BtnBack.onClick.AddListener(OnBackClicked);
             }
 
             if (m_BtnStartGame != null)
@@ -102,11 +102,7 @@ namespace IUHCampus.UI
             if (m_BtnOpenPortal != null)
             {
                 m_BtnOpenPortal.onClick.RemoveAllListeners();
-                m_BtnOpenPortal.onClick.AddListener(() => {
-                    SetOpen(false);
-                    var portal = IUHMiniGamePortalUI.Instance;
-                    if (portal != null) portal.SetMenuOpen(true);
-                });
+                m_BtnOpenPortal.onClick.AddListener(OnBackClicked);
             }
 
             if (m_BtnSelectXanhSM != null)
@@ -134,11 +130,24 @@ namespace IUHCampus.UI
             }
         }
 
+        public void OnBackClicked()
+        {
+            SetOpen(false);
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
+            {
+                IUHCampus.Core.IUHGameFlowManager.Instance.GoToMiniGameSelection();
+            }
+            else
+            {
+                var portal = IUHMiniGamePortalUI.Instance;
+                if (portal != null) portal.SetMenuOpen(true);
+            }
+        }
+
         public void OnStartGameClicked()
         {
             var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
             if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
-            SetOpen(false);
 
             var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
             if (photoMgr != null && photoMgr.HasActiveSessionOrUI)
@@ -146,10 +155,19 @@ namespace IUHCampus.UI
                 photoMgr.CancelMission(restoreCursorAndController: false);
             }
 
-            var grabMgr = IUHGrabCampusManager.Instance;
-            if (grabMgr != null && !grabMgr.IsMissionActive)
+            SetOpen(false);
+
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
             {
-                grabMgr.StartMission(0);
+                IUHCampus.Core.IUHGameFlowManager.Instance.StartPlaying(0);
+            }
+            else
+            {
+                var grabMgr = IUHGrabCampusManager.Instance;
+                if (grabMgr != null && !grabMgr.IsMissionActive)
+                {
+                    grabMgr.StartMission(0);
+                }
             }
         }
 
@@ -168,11 +186,13 @@ namespace IUHCampus.UI
             }
             else
             {
-                if (ReturnToPortalMenuOnClose)
+                if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
                 {
-                    ReturnToPortalMenuOnClose = false;
-                    var portal = IUHMiniGamePortalUI.Instance;
-                    if (portal != null) portal.SetMenuOpen(true);
+                    if (IUHCampus.Core.IUHGameFlowManager.Instance.CurrentState == IUHCampus.Core.IUHGameFlowManager.FlowState.Playing)
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                    }
                 }
                 else
                 {
@@ -199,7 +219,7 @@ namespace IUHCampus.UI
 
             if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown())
             {
-                SetOpen(false);
+                OnBackClicked();
                 return;
             }
 

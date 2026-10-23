@@ -69,10 +69,11 @@ namespace IUHCampus.UI
 
         private void Start()
         {
-            // Initially open title screen or closed depending on preference
-            // Keep closed on boot if game directly loads campus, or show with toggle
             if (m_SettingsDialog != null) m_SettingsDialog.SetActive(false);
-            SetOpen(false);
+            if (IUHCampus.Core.IUHGameFlowManager.Instance == null)
+            {
+                SetOpen(false);
+            }
         }
 
         private void SetupButtons()
@@ -128,11 +129,22 @@ namespace IUHCampus.UI
             }
             else
             {
-                var portal = IUHMiniGamePortalUI.Instance;
-                if (portal == null || !portal.IsOpen)
+                if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
+                    if (IUHCampus.Core.IUHGameFlowManager.Instance.CurrentState == IUHCampus.Core.IUHGameFlowManager.FlowState.Playing)
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                    }
+                }
+                else
+                {
+                    var portal = IUHMiniGamePortalUI.Instance;
+                    if (portal == null || !portal.IsOpen)
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                    }
                 }
             }
         }
@@ -140,17 +152,16 @@ namespace IUHCampus.UI
         private void OnStartClicked()
         {
             SetOpen(false);
-            var customUI = IUHCustomizationUI.Instance;
-            if (customUI != null)
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
             {
-                customUI.SetOpen(true);
+                IUHCampus.Core.IUHGameFlowManager.Instance.GoToMiniGameSelection();
             }
             else
             {
-                var grabMgr = IUHGrabCampusManager.Instance;
-                if (grabMgr != null)
+                var portal = IUHMiniGamePortalUI.Instance;
+                if (portal != null)
                 {
-                    grabMgr.StartMission(0);
+                    portal.SetMenuOpen(true);
                 }
             }
         }
@@ -165,10 +176,18 @@ namespace IUHCampus.UI
 
         private void OnCustomizationClicked()
         {
-            var customUI = IUHCustomizationUI.Instance;
-            if (customUI != null)
+            SetOpen(false);
+            if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
             {
-                customUI.SetOpen(true);
+                IUHCampus.Core.IUHGameFlowManager.Instance.StartGameSetup(0);
+            }
+            else
+            {
+                var customUI = IUHCustomizationUI.Instance;
+                if (customUI != null)
+                {
+                    customUI.SetOpen(true);
+                }
             }
         }
 
