@@ -1,0 +1,51 @@
+{
+  "passed": 11,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Photo briefing",
+      "passed": true
+    },
+    {
+      "name": "Photo native Start",
+      "passed": true
+    },
+    {
+      "name": "Pause Photo",
+      "passed": true
+    },
+    {
+      "name": "Resume Photo",
+      "passed": true
+    },
+    {
+      "name": "Switch Photo to Green",
+      "passed": true
+    },
+    {
+      "name": "Start Green",
+      "passed": true
+    },
+    {
+      "name": "Travel exits Green",
+      "passed": true
+    },
+    {
+      "name": "Unfinished slots",
+      "passed": true
+    },
+    {
+      "name": "Grab wardrobe",
+      "passed": true
+    },
+    {
+      "name": "Confirm Grab",
+      "passed": true
+    },
+    {
+      "name": "Free roam cleans all games",
+      "passed": true
+    }
+  ],
+  "note": "Unity runInBackground enabled so the gameplay clock advances during MCP checks; game save paths isolated."
+}
