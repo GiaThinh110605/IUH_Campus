@@ -1,0 +1,17 @@
+{
+    "passed": 10,
+    "failed": 0,
+    "running": false,
+    "checks": [
+        "PASS Dorm fast travel exits Green and restores ground movement",
+        "PASS Dorm fast travel lands outside F/I solids",
+        "PASS Library travel exits aiming and restores avatar and walking speed",
+        "PASS Library travel lands at the actual A entry",
+        "PASS Gate travel dismounts an idle bike and restores the active player",
+        "PASS Fast travel returns the camera to the player and avoids parking geometry",
+        "PASS Player is airborne before the fast-travel reset check",
+        "PASS Courtyard travel during a jump discards stale vertical velocity",
+        "PASS Roof travel reaches the real F roof height with full standing clearance",
+        "PASS Unimplemented Festival does not teleport into unrelated geometry"
+    ]
+}

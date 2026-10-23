@@ -136,7 +136,16 @@ namespace IUHCampus.UI
 
         public void OnStartGameClicked()
         {
+            var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
             SetOpen(false);
+
+            var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            if (photoMgr != null && photoMgr.HasActiveSessionOrUI)
+            {
+                photoMgr.CancelMission(restoreCursorAndController: false);
+            }
+
             var grabMgr = IUHGrabCampusManager.Instance;
             if (grabMgr != null && !grabMgr.IsMissionActive)
             {
@@ -170,8 +179,15 @@ namespace IUHCampus.UI
                     var portal = IUHMiniGamePortalUI.Instance;
                     if (portal == null || !portal.IsOpen)
                     {
-                        Cursor.lockState = CursorLockMode.Locked;
-                        Cursor.visible = false;
+                        var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+                        bool photoModalOpen = photoMgr != null && photoMgr.HasActiveModal;
+                        var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+                        bool greenModalOpen = greenMgr != null && greenMgr.HasActiveModal;
+                        if (!photoModalOpen && !greenModalOpen)
+                        {
+                            Cursor.lockState = CursorLockMode.Locked;
+                            Cursor.visible = false;
+                        }
                     }
                 }
             }

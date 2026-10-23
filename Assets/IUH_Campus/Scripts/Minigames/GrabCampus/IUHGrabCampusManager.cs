@@ -158,6 +158,7 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_Orders != null && m_Orders.Count >= 3 && m_Orders[0].id == "ORDER_01_TOCOTOCO_KTX")
             {
                 foreach (var o in m_Orders) o.hasGhosts = true;
+                ApplyReferenceLayoutOrders();
                 return;
             }
 
@@ -209,6 +210,19 @@ namespace IUHCampus.Minigames.GrabCampus
                     hasGhosts = true
                 }
             };
+            ApplyReferenceLayoutOrders();
+        }
+
+        private void ApplyReferenceLayoutOrders()
+        {
+            if (!IUHCampus.World.IUHReferenceLayout.IsActive) return;
+            var pickups = IUHCampus.World.IUHReferenceLayout.Pickups;
+            var dropoffs = IUHCampus.World.IUHReferenceLayout.Dropoffs;
+            for (int i = 0; i < Mathf.Min(3, m_Orders.Count); i++)
+            {
+                m_Orders[i].pickupPosition = pickups[i];
+                m_Orders[i].dropoffPosition = dropoffs[i];
+            }
         }
 
         private void Update()
@@ -310,6 +324,8 @@ namespace IUHCampus.Minigames.GrabCampus
 
         public void StartMission(int orderIndex)
         {
+            var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
             InitializeDefaultOrdersIfEmpty();
             FindSceneReferences();
 
@@ -378,7 +394,8 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_PlayerTransform != null)
             {
                 // Ensure player and motorbike start on the wide asphalt campus boulevard (Gate 1 road)
-                Vector3 roadSpawn = new Vector3(398.0f, 0.55f, -18.0f);
+                Vector3 roadSpawn = IUHCampus.World.IUHReferenceLayout.IsActive
+                    ? IUHCampus.World.IUHReferenceLayout.Entrance : new Vector3(398.0f, 0.55f, -18.0f);
                 Quaternion roadRot = Quaternion.Euler(0f, 180f, 0f);
 
                 var pcc = m_PlayerTransform.GetComponent<CharacterController>();

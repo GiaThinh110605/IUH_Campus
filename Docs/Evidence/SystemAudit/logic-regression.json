@@ -1,0 +1,47 @@
+{
+  "green": {
+    "passed": 32,
+    "failed": 0,
+    "details": [
+      "PASS New round has 240 seconds",
+      "PASS Correct sorting is accepted",
+      "PASS First item awards 20 points",
+      "PASS Duplicate sorting does not award points",
+      "PASS Unknown item rejected",
+      "PASS Clearing one zone adds 30 bonus",
+      "PASS Nine items and three zones award 270",
+      "PASS Completed round recorded once",
+      "PASS Replay of final sort cannot duplicate completion",
+      "PASS Restart preserves best result but resets active round",
+      "PASS Wrong sorting penalizes without completing item",
+      "PASS Wrong-attempt penalty persists",
+      "PASS No sorting after timeout",
+      "PASS Corrupt IDs and timer normalized",
+      "PASS Save writes to isolated storage",
+      "PASS Save reload restores completed round",
+      "PASS Failed write preserves previous save",
+      "PASS Briefing owns controller and cursor",
+      "PASS Manager begins a playable round",
+      "PASS Remote pickup rejected",
+      "PASS Nearby pickup succeeds",
+      "PASS Failed sorting save cannot reward or consume carried item",
+      "PASS Successful sorting commits 20 points",
+      "PASS Sorted object cannot be picked again",
+      "PASS Wrong bin retains carried object",
+      "PASS Cancel drops held object without losing saved sorting",
+      "PASS Timer expiry opens defeat and blocks pickup",
+      "PASS Restart resets timer and items",
+      "PASS Production manager reaches victory with 270 points",
+      "PASS All restored green corners are visible",
+      "PASS Portal resume respects Green result modal",
+      "PASS Closing result restores gameplay"
+    ],
+    "Total": 32
+  },
+  "photo": {
+    "totalTests": 35,
+    "passedTests": 35,
+    "failedTests": 0,
+    "logDetails": "[PASS] Test 1.1: Lần chụp đầu tiên phải được ghi nhận và thưởng 100 điểm\r\n[PASS] Test 1.2: Chụp lại/Spam click cùng mục tiêu KHÔNG ĐƯỢC cộng điểm trùng (0 điểm)\r\n[PASS] Test 1.3: Mục tiêu mới khác ID phải được cộng thêm 100 điểm (Tổng 200)\r\n[PASS] Test 2.1: Tiến trình lưu và đọc lại từ file đĩa phải toàn vẹn 100%\r\n[PASS] Test 2.2: Sanitize dữ liệu hỏng/trùng ID/mục tiêu ma và tính lại điểm chuẩn qua production method\r\n[PASS] Test 2.3: Ghi đĩa thất bại kích hoạt rollback tức thì qua production transaction và xóa file rác\r\n[PASS] Test 2.3b: Save cũ vẫn giữ 100 điểm sau giao dịch thất bại\r\n[PASS] Test 2.4: Ghi đĩa thành công commit tiến trình bền vững 200 điểm qua transaction thật\r\n[PASS] Test 3.1: Khoảng cách quá gần (4m < 10m) phải bị từ chối\r\n[PASS] Test 3.2: Khoảng cách quá xa (55m > 40m) phải bị từ chối\r\n[PASS] Test 3.3: Khoảng cách hợp lệ (20m) phải được chấp nhận\r\n[PASS] Test 4.1: Mục tiêu nằm sau máy ảnh (Z < 0) phải bị từ chối\r\n[PASS] Test 4.2: Mục tiêu lệch góc lớn (> 50°) phải bị từ chối\r\n[PASS] Test 4.3: Hướng nhìn thẳng trực diện có góc ngắm nhỏ (< 15°)\r\n[PASS] Test 5.1: Mask do IUHPhotoHunterManager cấu hình bao gồm Layer 8 (Building) và loại Layer 10 (Player)\r\n[PASS] Test 5.2: Raycast xuyên qua tường chắn Layer Building phải phát hiện che khuất\r\n[PASS] Test 5.3: Góc nhìn thông thoáng không có vật cản phải được chấp nhận\r\n[PASS] Test 6.1: Nhận diện structure collider trực tiếp qua reference không đoán chuỗi\r\n[PASS] Test 6.2: Tỷ lệ bao phủ dưới ngưỡng (1/3 < 0.5) phải bị từ chối\r\n[PASS] Test 6.3: Tỷ lệ bao phủ bằng ngưỡng (1/2 = 0.5) được chấp nhận hợp lệ\r\n[PASS] Test 6.4: Tỷ lệ bao phủ trên ngưỡng (3/3 = 1.0) nằm trọn trong khung hình\r\n[PASS] Test 7.1: IUHPhotoHunterUI nạp và theo dõi textures ảnh khi mở gallery\r\n[PASS] Test 7.2: IUHPhotoHunterUI giải phóng triệt để toàn bộ textures khi đóng gallery/dialog\r\n[PASS] Test 8.1: CancelMission tăng SessionId thực tế ngăn coroutine cũ ghi điểm muộn\r\n[PASS] Test 8.2: Trạng thái manager chuyển về Inactive sạch sẽ sau khi hủy\r\n[PASS] Test 9.1: Manager phát hiện chính xác trạng thái 3/3 địa điểm với tổng điểm 300\r\n[PASS] Test 9.2: Mở xem Album/Kết quả từ Briefing không cấp thêm điểm thưởng trùng\r\n[PASS] Test 9.3: Giao diện Album hiển thị đúng 300 điểm, nhãn 3/3 và nạp đủ 3 texture thật từ đĩa\r\n[PASS] Test 9.4: Đóng Album giải phóng toàn bộ 3 texture và đưa manager về Inactive\r\n[PASS] Test 10.1a: Grab Campus mission đang hoạt động trước khi chuyển đổi\r\n[PASS] Test 10.1: Chuyển Grab sang Photo Hunter qua Portal: Hủy nhiệm vụ Grab và mở Briefing Photo Hunter\r\n[PASS] Test 10.2: Đóng menu M khi đang ở Briefing giữ nguyên con trỏ và không mở khóa nhầm controller\r\n[PASS] Test 10.3: Chuyển Photo Hunter sang Grab qua Portal: Hủy sạch modal Photo Hunter\r\n[PASS] Test 10.4: Đóng menu M khi đang ở Victory giữ nguyên con trỏ thao tác xem Album\r\n[PASS] Test 10.5: Đóng sạch Photo Hunter từ Victory trả lại quyền điều khiển và khóa con trỏ\r\n"
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "passed": 7,
+    "failed": 0,
+    "running": false,
+    "checks": [
+        "PASS Repeated setup keeps campus object count and every transform unchanged",
+        "PASS Repeated setup does not teleport the player",
+        "PASS Repeated setup preserves litter moved for the tree planter",
+        "PASS Repeated setup keeps the R2 courtyard bound to the new E facade",
+        "PASS Fresh Green setup uses the current courtyard spawn",
+        "PASS Fresh setup places the first litter outside the R2 planter",
+        "PASS Fresh setup moves all litter and bins out of the parking building"
+    ]
+}

@@ -156,14 +156,56 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
             GroundedCheck();
+            JumpAndGravity();
             Move();
+        }
+
+        private void OnEnable()
+        {
+            ClearPendingInput();
+        }
+
+        private void ClearPendingInput()
+        {
+            if (_input == null) _input = GetComponent<StarterAssetsInputs>();
+            if (_input == null) return;
+            _input.move = Vector2.zero;
+            _input.look = Vector2.zero;
+            _input.jump = false;
+            _input.sprint = false;
+        }
+
+        /// <summary>Discard motion from the previous location after teleporting.</summary>
+        public void ResetMotion()
+        {
+            ClearPendingInput();
+            _speed = 0f;
+            _animationBlend = 0f;
+            _rotationVelocity = 0f;
+            _verticalVelocity = -2f;
+            _jumpTimeoutDelta = JumpTimeout;
+            _fallTimeoutDelta = FallTimeout;
+            Physics.SyncTransforms();
+            GroundedCheck();
         }
 
         private void LateUpdate()
         {
             CameraRotation();
+        }
+
+        /// <summary>Align the orbit camera after a deliberate fast-travel transition.</summary>
+        public void SetCameraOrientation(Vector3 direction)
+        {
+            if (direction.sqrMagnitude < 0.0001f) return;
+            direction.Normalize();
+            _cinemachineTargetYaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            _cinemachineTargetPitch = Mathf.Clamp(-Mathf.Asin(direction.y) * Mathf.Rad2Deg,
+                BottomClamp, TopClamp);
+            if (CinemachineCameraTarget != null)
+                CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+                    _cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0f);
         }
 
         private void AssignAnimationIDs()
@@ -245,6 +287,8 @@ namespace StarterAssets
                 _speed = targetSpeed;
             }
 
+            // Zero movement speeds are an explicit lock (for example, Photo Hunter aiming).
+            if (MoveSpeed <= 0f && SprintSpeed <= 0f) _speed = 0f;
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
@@ -304,6 +348,7 @@ namespace StarterAssets
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    _input.jump = false;
 
                     // update animator if using character
                     if (_hasAnimator)
