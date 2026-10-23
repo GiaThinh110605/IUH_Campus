@@ -75,9 +75,19 @@ namespace IUHCampus.Editor
                 var hud = canvasGO.transform.Find("DeliveryHUD");
                 if (hud != null) hud.gameObject.SetActive(false);
 
-                // Ensure CustomizationPanel is inactive by default
+                // Register Awake/Start once; the component's boot option keeps the panel closed.
                 var customPanel = canvasGO.transform.Find("CustomizationPanel");
-                if (customPanel != null) customPanel.gameObject.SetActive(false);
+                if (customPanel != null)
+                {
+                    customPanel.gameObject.SetActive(true);
+                    var custom = customPanel.GetComponent<IUHCustomizationUI>();
+                    if (custom != null)
+                    {
+                        var customSettings = new SerializedObject(custom);
+                        customSettings.FindProperty("m_OpenOnStart").boolValue = false;
+                        customSettings.ApplyModifiedProperties();
+                    }
+                }
 
                 // Ensure Prep Panel is inactive by default
                 var prepPanel = canvasGO.transform.Find("MiniGameSetupPanel");

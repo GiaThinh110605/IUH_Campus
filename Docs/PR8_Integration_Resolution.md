@@ -7,6 +7,7 @@
 - GameFlow mở hướng dẫn thật của Photo/Green thay vì chỉ dịch chuyển đến một địa điểm. Nút bắt đầu của từng game cập nhật trạng thái GameFlow; đi nhanh/khám phá tự do dừng đủ ba game. Ba game chưa hoàn thiện vẫn khóa ở cả menu và GameFlow.
 - Giữ luồng chọn trang phục → xác nhận → chơi Grab. Hợp nhất việc xử lý M/Esc để portal không xử lý cùng phím lần thứ hai. Đóng/quay lại menu dùng cùng một đường chuyển trạng thái.
 - Chuyển ba builder từ chạy tự động mỗi reload sang lệnh menu chủ động, tránh dựng lại/ghi đè scene khi import code đã tích hợp. Các chức năng builder và đối tượng đã có trong scene vẫn được giữ.
+- Đồng bộ lại waypoint, trạm giao hàng và vị trí xe Grab theo khuôn viên tham chiếu; tắt lại bốn collider thanh cầu thang lỗi cũ. Lượt quét đầu ghi nhận 36/41 do năm điểm này; sau chỉnh scene đạt 41/41.
 
 Kiểm chứng trên bản tích hợp trong Unity 6000.5.8f1:
 
