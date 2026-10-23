@@ -172,5 +172,54 @@ namespace IUHCampus.Core
             catch { }
             return false;
         }
+
+        // ================= PHOTO HUNTER MINIGAME INPUTS =================
+        public static bool VirtualPhotoCapturePressed = false;
+        public static bool VirtualPhotoTogglePressed = false;
+        public static bool VirtualPhotoExitPressed = false;
+
+        public static bool IsPhotoToggleKeyDown()
+        {
+            if (VirtualPhotoTogglePressed)
+            {
+                VirtualPhotoTogglePressed = false;
+                return true;
+            }
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null && (Keyboard.current.cKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame))
+                return true;
+#endif
+            try { return Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.P); } catch { return false; }
+        }
+
+        public static bool IsPhotoCaptureKeyDown(bool pointerOverUI = false)
+        {
+            if (VirtualPhotoCapturePressed)
+            {
+                VirtualPhotoCapturePressed = false;
+                return true;
+            }
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null && (Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.enterKey.wasPressedThisFrame))
+                return true;
+            if (!pointerOverUI && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                return true;
+#endif
+            try { return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || (!pointerOverUI && Input.GetMouseButtonDown(0)); } catch { return false; }
+        }
+
+        public static bool IsPhotoExitKeyDown()
+        {
+            if (VirtualPhotoExitPressed)
+            {
+                VirtualPhotoExitPressed = false;
+                return true;
+            }
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null && (Keyboard.current.qKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame))
+                return true;
+#endif
+            try { return Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape); } catch { return false; }
+        }
     }
 }

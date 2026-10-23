@@ -59,6 +59,17 @@ namespace IUHCampus.UI
             }
 
             FindPlayerReferences();
+            ConfigureReferenceDestinations();
+        }
+
+        public void ConfigureReferenceDestinations()
+        {
+            if(!IUHCampus.World.IUHReferenceLayout.IsActive)return;
+            m_Gate1ParkingPos=IUHCampus.World.IUHReferenceLayout.Entrance;
+            m_KtxDormPos=IUHCampus.World.IUHReferenceLayout.DormEntrance;
+            m_LibraryPos=IUHCampus.World.IUHReferenceLayout.LibraryEntrance;
+            m_BlockFRoofPos=IUHCampus.World.IUHReferenceLayout.FRoof;
+            m_CentralCourtyardPos=IUHCampus.World.IUHReferenceLayout.GreenSpawn;
         }
 
         private void Start()
@@ -143,14 +154,21 @@ namespace IUHCampus.UI
                 {
                     btnFreeRoam.onClick.RemoveAllListeners();
                     btnFreeRoam.onClick.AddListener(() => {
+                        var grabMgr = IUHGrabCampusManager.Instance;
+                        if (grabMgr != null && grabMgr.IsMissionActive) grabMgr.CancelMission();
+
+                        var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+                        if (photoMgr != null && photoMgr.HasActiveSessionOrUI) photoMgr.CancelMission(restoreCursorAndController: false);
+
+                        var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+                        if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
+
                         if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
                         {
                             IUHCampus.Core.IUHGameFlowManager.Instance.EnterFreeRoam();
                         }
                         else
                         {
-                            var grabMgr = IUHGrabCampusManager.Instance;
-                            if (grabMgr != null && grabMgr.IsMissionActive) grabMgr.CancelMission();
                             SetMenuOpen(false);
                         }
                     });
@@ -173,8 +191,10 @@ namespace IUHCampus.UI
                         var card = cardsArea.GetChild(i);
                         // Make entire card clickable
                         var cardBtn = card.GetComponent<Button>();
+                        bool available=i<5;
                         if (cardBtn != null)
                         {
+                            cardBtn.interactable=available;
                             int index = i;
                             cardBtn.onClick.RemoveAllListeners();
                             cardBtn.onClick.AddListener(() => SelectMiniGame(index));
@@ -184,9 +204,17 @@ namespace IUHCampus.UI
                         var actionBtn = card.Find("BtnBar/ActionBtn")?.GetComponent<Button>();
                         if (actionBtn != null)
                         {
+                            actionBtn.interactable=available;
                             int index = i;
                             actionBtn.onClick.RemoveAllListeners();
                             actionBtn.onClick.AddListener(() => SelectMiniGame(index));
+                            if(!available)
+                            {
+                                var label=actionBtn.GetComponentInChildren<Text>();
+                                if(label!=null)label.text="ĐANG PHÁT TRIỂN";
+                                var description=card.Find("Desc")?.GetComponent<Text>();
+                                if(description!=null)description.text="Campus Festival đang phát triển. Chưa có nhiệm vụ để tham gia.";
+                            }
                         }
                     }
                 }
@@ -370,7 +398,7 @@ namespace IUHCampus.UI
             }
             else
             {
-                // Only lock cursor back if other dialogs are not open
+                // Only lock cursor and enable controller back if other dialogs/modals are not open
                 bool otherDialogOpen = false;
                 var victory = transform.Find("VictoryDialog");
                 if (victory != null && victory.gameObject.activeSelf) otherDialogOpen = true;
@@ -381,12 +409,40 @@ namespace IUHCampus.UI
                 var custom = transform.Find("CustomizationPanel");
                 if (custom != null && custom.gameObject.activeSelf) otherDialogOpen = true;
 
+                // Photo Hunter Modal Check (Briefing or Victory gallery dialog)
+                var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+                if (photoMgr != null && photoMgr.HasActiveModal)
+                {
+                    otherDialogOpen = true;
+                }
+
+                // Wardrobe / Customization UI Check
+                var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+                if (greenMgr != null && greenMgr.HasActiveModal) otherDialogOpen = true;
+
+                // Wardrobe / Customization UI Check
+                if (IUHCustomizationUI.Instance != null && IUHCustomizationUI.Instance.IsOpen)
+                {
+                    otherDialogOpen = true;
+                }
+
+                // Delivery Dialogue Check
+                if (IUHDeliveryDialogueUI.Instance != null && IUHDeliveryDialogueUI.Instance.IsOpen)
+                {
+                    otherDialogOpen = true;
+                }
+
                 if (!otherDialogOpen)
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
+
+                    var sittingCtrl = UnityEngine.Object.FindAnyObjectByType<IUHCampus.Player.IUHPlayerSittingController>();
+                    if (sittingCtrl == null || !sittingCtrl.IsSitting)
+                    {
+                        if (m_PlayerMovementScript != null) m_PlayerMovementScript.enabled = true;
+                    }
                 }
-                if (m_PlayerMovementScript != null) m_PlayerMovementScript.enabled = true;
             }
         }
 
@@ -413,10 +469,10 @@ namespace IUHCampus.UI
                     TeleportToLibrary();
                     break;
                 case 3:
-                    TeleportToBlockFRoof();
+                    LaunchPhotoHunterGame();
                     break;
                 case 4:
-                    TeleportToGreenTrashStation();
+                    LaunchGreenCampusGame();
                     break;
                 case 5:
                     TeleportToFestivalStage();
@@ -427,11 +483,47 @@ namespace IUHCampus.UI
         // ================= FAST TRAVEL / QUICK PLAY =================
 
         /// <summary>
+        /// Launch Mini-Game 2.4 "Thợ Săn Khoảnh Khắc — Photo Hunter".
+        /// </summary>
+        public void LaunchPhotoHunterGame()
+        {
+            var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
+            var customUI = IUHCustomizationUI.Instance;
+            if (customUI != null && customUI.IsOpen)
+            {
+                customUI.ReturnToPortalMenuOnClose = false;
+                customUI.SetOpen(false);
+            }
+            if (IUHMainMenuUI.Instance != null && IUHMainMenuUI.Instance.IsOpen)
+                IUHMainMenuUI.Instance.SetOpen(false);
+            SetMenuOpen(false);
+            var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            if (photoMgr != null)
+            {
+                photoMgr.OpenBriefing();
+            }
+            else
+            {
+                Debug.LogWarning("[IUH Portal] IUHPhotoHunterManager chưa được tìm thấy trong Scene, fallback dịch chuyển đến Nóc Block F.");
+                TeleportToBlockFRoof();
+            }
+        }
+
+        /// <summary>
         /// Launch Mini-Game 2.1 "Grab Campus: Chuyến Xe Tâm Linh" directly.
         /// </summary>
         public void LaunchGrabCampusGame(int missionIndex = 0)
         {
+            var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
             SetMenuOpen(false);
+
+            var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            if (photoMgr != null && photoMgr.HasActiveSessionOrUI)
+            {
+                photoMgr.CancelMission(restoreCursorAndController: false);
+            }
 
             var customUI = IUHCustomizationUI.Instance;
             if (customUI != null)
@@ -457,7 +549,7 @@ namespace IUHCampus.UI
         /// </summary>
         public void TeleportToGate1Parking()
         {
-            TeleportPlayer(m_Gate1ParkingPos, "Bãi Xe Cổng 1 (Nguyễn Văn Bảo)");
+            TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.Entrance:m_Gate1ParkingPos, "Bãi Xe Cổng 1 (Nguyễn Văn Bảo)",Vector3.forward);
         }
 
         /// <summary>
@@ -465,7 +557,7 @@ namespace IUHCampus.UI
         /// </summary>
         public void TeleportToKtxDorm()
         {
-            TeleportPlayer(m_KtxDormPos, "Khu Ký Túc Xá Cổng 4 (Block X)");
+            TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.DormEntrance:m_KtxDormPos, "Ký túc xá I/G",Vector3.right);
         }
 
         /// <summary>
@@ -473,7 +565,7 @@ namespace IUHCampus.UI
         /// </summary>
         public void TeleportToLibrary()
         {
-            TeleportPlayer(m_LibraryPos, "Thư Viện Trung Tâm (Tòa A)");
+            TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.LibraryEntrance:m_LibraryPos, "Thư Viện Trung Tâm (Tòa A)",Vector3.back);
         }
 
         /// <summary>
@@ -481,7 +573,7 @@ namespace IUHCampus.UI
         /// </summary>
         public void TeleportToBlockFRoof()
         {
-            TeleportPlayer(m_BlockFRoofPos, "Cầu Thang Lên Nóc Nhà Block F");
+            TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.FRoof:m_BlockFRoofPos, "Nóc nhà F",Vector3.back);
         }
 
         /// <summary>
@@ -489,7 +581,18 @@ namespace IUHCampus.UI
         /// </summary>
         public void TeleportToGreenTrashStation()
         {
-            TeleportPlayer(m_CentralCourtyardPos, "Trạm Phân Loại Rác AI Sân Trường");
+            TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.GreenSpawn:m_CentralCourtyardPos, "Trạm Phân Loại Rác Green Campus",Vector3.forward);
+        }
+
+        public void LaunchGreenCampusGame()
+        {
+            var manager = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (manager == null)
+            {
+                Debug.LogWarning("[IUH Portal] Chưa setup Green Campus trong scene này.");
+                return;
+            }
+            manager.OpenBriefing();
         }
 
         /// <summary>
@@ -497,23 +600,46 @@ namespace IUHCampus.UI
         /// </summary>
         public void TeleportToFestivalStage()
         {
-            TeleportPlayer(m_FestivalStagePos, "Sân Khấu Đại Hội Âm Nhạc IUH");
+            SetMenuOpen(true);
+            Debug.Log("[IUH Portal] Campus Festival đang phát triển, chưa có nhiệm vụ để bắt đầu.");
         }
 
-        private void TeleportPlayer(Vector3 targetPos, string locationName)
+        private void TeleportPlayer(Vector3 targetPos, string locationName, Vector3 lookDirection)
         {
+            var green=IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if(green!=null&&green.HasActiveSessionOrUI)green.CancelMission();
+            var photo=IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            if(photo!=null&&photo.HasActiveSessionOrUI)photo.CancelMission();
+            if(IUHGrabCampusManager.Instance!=null)IUHGrabCampusManager.Instance.CancelMission();
+            if(IUHCustomizationUI.Instance!=null&&IUHCustomizationUI.Instance.IsOpen)
+            {IUHCustomizationUI.Instance.ReturnToPortalMenuOnClose=false;IUHCustomizationUI.Instance.SetOpen(false);}
             SetMenuOpen(false);
 
             FindPlayerReferences();
 
             if (m_PlayerObject != null)
             {
+                var sitting=m_PlayerObject.GetComponent<IUHCampus.Player.IUHPlayerSittingController>();
+                if(sitting!=null&&sitting.IsSitting)sitting.StandUp();
+                Vector3 delta=targetPos-m_PlayerObject.transform.position;
                 var charController = m_PlayerObject.GetComponent<CharacterController>();
                 if (charController != null) charController.enabled = false;
 
                 m_PlayerObject.transform.position = targetPos;
 
                 if (charController != null) charController.enabled = true;
+                var movement=m_PlayerObject.GetComponent<StarterAssets.ThirdPersonController>();
+                if(movement!=null)
+                {
+                    movement.ResetMotion();movement.SetCameraOrientation(lookDirection);movement.enabled=true;
+                    var brain=Camera.main!=null?Camera.main.GetComponent<Unity.Cinemachine.CinemachineBrain>():null;
+                    var camera=brain!=null?brain.ActiveVirtualCamera as Unity.Cinemachine.CinemachineCamera:null;
+                    if(camera!=null&&movement.CinemachineCameraTarget!=null)
+                    {
+                        camera.Follow=movement.CinemachineCameraTarget.transform;
+                        camera.OnTargetObjectWarped(camera.Follow,delta);camera.PreviousStateIsValid=false;
+                    }
+                }
 
                 if (m_AudioSource != null) m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetPickupSound(), 1.0f);
                 Debug.Log($"[IUH Portal Fast Travel] Đã dịch chuyển đến: {locationName} tại {targetPos}");
