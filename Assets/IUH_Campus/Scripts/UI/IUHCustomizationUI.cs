@@ -14,6 +14,7 @@ namespace IUHCampus.UI
         public static IUHCustomizationUI Instance { get; private set; }
 
         [Header("Menu Root")]
+        [SerializeField] private bool m_OpenOnStart = true;
         [SerializeField] private GameObject m_PanelRoot;
         [SerializeField] private Button m_BtnBack;
 
@@ -81,8 +82,7 @@ namespace IUHCampus.UI
 
         private void Start()
         {
-            // Show customization wardrobe before playing as requested!
-            SetOpen(true);
+            SetOpen(m_OpenOnStart);
         }
 
         private void SetupButtons()

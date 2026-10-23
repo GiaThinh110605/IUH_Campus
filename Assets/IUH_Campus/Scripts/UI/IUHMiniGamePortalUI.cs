@@ -20,6 +20,7 @@ namespace IUHCampus.UI
         public static IUHMiniGamePortalUI Instance { get; private set; }
 
         [Header("Menu Activation")]
+        [SerializeField] private bool m_OpenOnStart = false;
         [SerializeField] private KeyCode m_ToggleKey = KeyCode.M;
         [SerializeField] private GameObject m_MenuPanel;
         [SerializeField] private GameObject m_FloatingButton;
@@ -66,7 +67,7 @@ namespace IUHCampus.UI
         private void Start()
         {
             AutoWireButtons();
-            SetMenuOpen(false);
+            SetMenuOpen(m_OpenOnStart);
         }
 
         private void FindPlayerReferences()
@@ -148,11 +149,14 @@ namespace IUHCampus.UI
                         var card = cardsArea.GetChild(i);
                         // Make entire card clickable
                         var cardBtn = card.GetComponent<Button>();
-                        bool available=i<5;
+                        int gameIndex=i;
+                        var nameParts=card.name.Split('_');
+                        if(nameParts.Length>1&&int.TryParse(nameParts[1],out int parsed))gameIndex=parsed;
+                        bool available=gameIndex==0||gameIndex==3||gameIndex==4;
                         if (cardBtn != null)
                         {
                             cardBtn.interactable=available;
-                            int index = i;
+                            int index = gameIndex;
                             cardBtn.onClick.RemoveAllListeners();
                             cardBtn.onClick.AddListener(() => SelectMiniGame(index));
                         }
@@ -162,19 +166,21 @@ namespace IUHCampus.UI
                         if (actionBtn != null)
                         {
                             actionBtn.interactable=available;
-                            int index = i;
+                            int index = gameIndex;
                             actionBtn.onClick.RemoveAllListeners();
                             actionBtn.onClick.AddListener(() => SelectMiniGame(index));
                             if(!available)
                             {
                                 var label=actionBtn.GetComponentInChildren<Text>();
                                 if(label!=null)label.text="ĐANG PHÁT TRIỂN";
-                                var description=card.Find("Desc")?.GetComponent<Text>();
-                                if(description!=null)description.text="Campus Festival đang phát triển. Chưa có nhiệm vụ để tham gia.";
                             }
                         }
                     }
                 }
+                var dorm=m_MenuPanel.transform.Find("Footer/BtnDorm")?.GetComponent<Button>();
+                if(dorm!=null){dorm.onClick.RemoveAllListeners();dorm.onClick.AddListener(TeleportToKtxDorm);}
+                var library=m_MenuPanel.transform.Find("Footer/BtnLibrary")?.GetComponent<Button>();
+                if(library!=null){library.onClick.RemoveAllListeners();library.onClick.AddListener(TeleportToLibrary);}
             }
 
             // HUD Wardrobe button
@@ -408,6 +414,8 @@ namespace IUHCampus.UI
         /// </summary>
         public void SelectMiniGame(int gameIndex)
         {
+            // Keep unfinished game slots visible without treating a teleport as a playable game.
+            if(gameIndex==1||gameIndex==2||gameIndex==5)return;
             switch (gameIndex)
             {
                 case 0:
