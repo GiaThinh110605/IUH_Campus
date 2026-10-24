@@ -1,0 +1,13 @@
+Menu contains all six games=True
+Menu opens on boot=True
+Unfinished slot 1 has disabled action=True
+Unfinished shortcut 1 keeps menu and position=True
+Unfinished slot 2 has disabled action=True
+Unfinished shortcut 2 keeps menu and position=True
+Unfinished slot 5 has disabled action=True
+Unfinished shortcut 5 keeps menu and position=True
+Grab opens wardrobe=True
+Photo opens briefing=True
+Green opens briefing=True
+Green closes Photo=True
+Free roam exits Green and restores walking=True

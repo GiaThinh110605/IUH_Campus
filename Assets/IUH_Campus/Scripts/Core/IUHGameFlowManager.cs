@@ -195,7 +195,10 @@ namespace IUHCampus.Core
         /// </summary>
         public void StartGameSetup(int gameIndex)
         {
+            if (gameIndex != 0 && gameIndex != 3 && gameIndex != 4) return;
             if (!CanTriggerAction()) return;
+
+            DeactivateAllMiniGames();
 
             // Close main portals
             if (m_MainMenuUI != null) m_MainMenuUI.SetOpen(false);
@@ -203,6 +206,7 @@ namespace IUHCampus.Core
             CloseAllOverlays();
 
             m_CurrentState = FlowState.GameSetup;
+            m_ActiveGameIndex = gameIndex;
 
             if (gameIndex == 0)
             {
@@ -211,6 +215,16 @@ namespace IUHCampus.Core
                 {
                     m_CustomizationUI.SetOpen(true);
                 }
+            }
+            else if (gameIndex == 3)
+            {
+                var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+                if (photo != null) photo.OpenBriefing();
+            }
+            else if (gameIndex == 4)
+            {
+                var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+                if (green != null) green.OpenBriefing();
             }
             else
             {
@@ -230,9 +244,10 @@ namespace IUHCampus.Core
         /// Step 3: Start Playing the selected mini-game.
         /// Only initializes gameplay / AI / timers now!
         /// </summary>
-        public void StartPlaying(int gameIndex)
+        public void StartPlaying(int gameIndex, bool force = false)
         {
-            if (!CanTriggerAction()) return;
+            if (gameIndex != 0 && gameIndex != 3 && gameIndex != 4) return;
+            if (!force && !CanTriggerAction()) return;
 
             CloseAllOverlays();
             if (m_MainMenuUI != null) m_MainMenuUI.SetOpen(false);
@@ -254,6 +269,16 @@ namespace IUHCampus.Core
                 {
                     grabMgr.StartMission(0);
                 }
+            }
+            else if (gameIndex == 3)
+            {
+                var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+                if (photo != null) photo.StartMission(true);
+            }
+            else if (gameIndex == 4)
+            {
+                var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+                if (green != null) green.BeginRound(true);
             }
             else
             {
@@ -328,7 +353,7 @@ namespace IUHCampus.Core
         /// </summary>
         public void ResumeGame()
         {
-            if (m_CurrentState != FlowState.Paused) return;
+            if (m_CurrentState != FlowState.Paused && m_CurrentState != FlowState.Playing) return;
 
             if (m_PortalUI != null)
             {
@@ -354,7 +379,8 @@ namespace IUHCampus.Core
             DeactivateAllMiniGames();
             CloseAllOverlays();
 
-            StartPlaying(targetGame);
+            if (targetGame == 3) Minigames.PhotoHunter.IUHPhotoHunterManager.Instance?.RestartMission();
+            StartPlaying(targetGame, true);
             Debug.Log($"[GameFlow] Restarting current mini-game #{targetGame + 1}");
         }
 
@@ -400,6 +426,10 @@ namespace IUHCampus.Core
         /// </summary>
         public void DeactivateAllMiniGames()
         {
+            var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            if (photo != null && photo.HasActiveSessionOrUI) photo.CancelMission(false);
+            var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (green != null && green.HasActiveSessionOrUI) green.CancelMission(false);
             var grabMgr = IUHGrabCampusManager.Instance;
             if (grabMgr != null)
             {
@@ -520,6 +550,12 @@ namespace IUHCampus.Core
 
         private void HandleEscapeKey()
         {
+            var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if ((photo != null && (photo.HasActiveModal || photo.CurrentState == Minigames.PhotoHunter.IUHPhotoHunterManager.PhotoHunterState.ViewfinderMode)) ||
+                (green != null && green.HasActiveModal) ||
+                (m_CustomizationUI != null && m_CustomizationUI.IsOpen) ||
+                (m_MiniGamePrepUI != null && m_MiniGamePrepUI.IsOpen)) return;
             switch (m_CurrentState)
             {
                 case FlowState.Playing:
@@ -534,7 +570,7 @@ namespace IUHCampus.Core
                 case FlowState.MiniGameSelection:
                     // If playing before, resume; otherwise go to main menu
                     if (m_ActiveGameIndex >= 0) ResumeGame();
-                    else GoToMainMenu();
+                    else EnterFreeRoam();
                     break;
                 case FlowState.Result:
                     GoToMiniGameSelection();
@@ -547,14 +583,14 @@ namespace IUHCampus.Core
 
         private void HandleMenuKey()
         {
-            if (m_CurrentState == FlowState.Playing)
-            {
-                PauseGame();
-            }
-            else if (m_CurrentState == FlowState.Paused)
-            {
-                ResumeGame();
-            }
+            m_PortalUI?.ToggleMenu();
+        }
+
+        // Native game briefings own their Start buttons and saved progress.
+        public void NotifyGameStarted(int gameIndex)
+        {
+            m_ActiveGameIndex = gameIndex;
+            m_CurrentState = FlowState.Playing;
         }
     }
 }

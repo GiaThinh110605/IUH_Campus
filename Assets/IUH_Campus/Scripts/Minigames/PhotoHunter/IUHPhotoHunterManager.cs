@@ -404,6 +404,7 @@ namespace IUHCampus.Minigames.PhotoHunter
         /// </summary>
         public void StartMission(bool fastTravelToGate1 = false)
         {
+            IUHCampus.Core.IUHGameFlowManager.Instance?.NotifyGameStarted(3);
             FindSceneReferences();
             RestoreCinemachineFov();
             m_CurrentSessionId++;

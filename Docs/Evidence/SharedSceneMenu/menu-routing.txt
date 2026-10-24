@@ -1,0 +1,10 @@
+Photo card opens briefing=True
+Photo card closes portal=True
+Green card opens briefing=True
+Green closes Photo=True
+Grab opens wardrobe=True
+Grab closes Green=True
+Close button closes menu=True
+Close restores walking=True
+Library button closes menu=True
+Library destination synchronized=True

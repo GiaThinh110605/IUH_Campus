@@ -163,6 +163,7 @@ namespace IUHCampus.Minigames.GreenCampus
             DropCarried();
             state = progress.IsComplete(definitions) ? GameState.Victory :
                 progress.secondsRemaining <= 0 ? GameState.Defeat : GameState.Playing;
+            if (state == GameState.Playing) IUHCampus.Core.IUHGameFlowManager.Instance?.NotifyGameStarted(4);
             if (state == GameState.Playing && roundCameraFollow == null && Camera.main != null)
             {
                 var brain = Camera.main.GetComponent<Unity.Cinemachine.CinemachineBrain>();

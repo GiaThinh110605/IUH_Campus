@@ -1,0 +1,20 @@
+{
+    "passed": 13,
+    "failed": 0,
+    "physicsSteps": 0,
+    "checks": [
+        "PASS A has 4 authored facade storeys",
+        "PASS A collision envelope matches its new height",
+        "PASS B has 4 authored facade storeys",
+        "PASS B collision envelope matches its new height",
+        "PASS A7 has 7 authored facade storeys",
+        "PASS A7 collision envelope matches its new height",
+        "PASS H has 11 authored facade storeys",
+        "PASS H collision envelope matches its new height",
+        "PASS H is taller than A7",
+        "PASS Two broad-canopy shade trees exist",
+        "PASS Parking is a low podium rather than a second tall building",
+        "PASS Both parking access ramps exist",
+        "PASS E has its photographic curtain-wall facade and sign"
+    ]
+}

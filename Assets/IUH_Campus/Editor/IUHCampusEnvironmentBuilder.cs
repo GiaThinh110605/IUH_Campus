@@ -21,17 +21,11 @@ namespace IUHCampus.Editor
     /// - Khu vực G: Sân khấu lễ hội (Campus Festival 2026 concert stage, Truss, Sound, LED lighting)
     /// Plus 6 3D World-Space Floating Location Pins and Campus Hub Master HUD integration.
     /// </summary>
-    [InitializeOnLoad]
     public static class IUHCampusEnvironmentBuilder
     {
         private const string MatDir = "Assets/IUH_Campus/Materials/";
 
-        static IUHCampusEnvironmentBuilder()
-        {
-            EditorApplication.delayCall += EnsureFullCampusRedesign;
-        }
-
-        [MenuItem("IUH Campus/Redesign Shared Campus Hub (Full 7 Zones & HUD)")]
+[MenuItem("IUH Campus/Redesign Shared Campus Hub (Full 7 Zones & HUD)")]
         public static void EnsureFullCampusRedesign()
         {
             var activeScene = EditorSceneManager.GetActiveScene();
