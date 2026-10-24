@@ -1,0 +1,1 @@
+playing=True; pipeline=Campus HQ Pipeline; renderScale=1.2; MSAA=4; sky=Photographic campus sky
