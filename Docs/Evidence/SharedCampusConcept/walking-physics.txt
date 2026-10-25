@@ -1,0 +1,5 @@
+Route 1 clear=True
+Route 2 clear=True
+Route 3 clear=True
+Route 4 clear=True
+Fountain prevents walking through basin=True

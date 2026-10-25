@@ -1,0 +1,1 @@
+scene=Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity; missingScripts=0; emptyMeshes=0; treeLODGroups=18; saved=True

@@ -17,19 +17,13 @@ namespace IUHCampus.Editor
     /// - Cụm E: Công Viên Nhỏ / Góc Nghỉ Xanh (Bồn hoa tròn, Cây bóng mát, Ghế đá, Trạm phân loại rác)
     /// Connects seamlessly with IUH Main Gate at Z = -87.
     /// </summary>
-    [InitializeOnLoad]
     public static class IUHStreetDistrictBuilder
     {
         private const string MatDir = "Assets/IUH_Campus/Materials/";
         private const string TexDir = "Assets/IUH_Campus/Textures/";
         private const string RootName = "IUH_STREET_DISTRICT";
 
-        static IUHStreetDistrictBuilder()
-        {
-            EditorApplication.delayCall += EnsureStreetDistrictBuilt;
-        }
-
-        [MenuItem("IUH Campus/Build Outside-Campus Street District (Full 5 Clusters)")]
+[MenuItem("IUH Campus/Build Outside-Campus Street District (Full 5 Clusters)")]
         public static void EnsureStreetDistrictBuilt()
         {
             var activeScene = EditorSceneManager.GetActiveScene();
