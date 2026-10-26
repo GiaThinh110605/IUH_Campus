@@ -1,0 +1,4 @@
+- Không được thay đổi menu game tùy ý 
+- Không được code ảnh hưởng tới code của mini-game khác
+- Code chỉ ảnh hưởng trong mini-game không được ảnh hưởng tới bên ngoài (khi chưa vào game)
+- code dễ hiểu, refactor code khi cần thiết

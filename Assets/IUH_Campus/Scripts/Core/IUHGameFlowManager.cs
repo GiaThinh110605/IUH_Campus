@@ -195,7 +195,7 @@ namespace IUHCampus.Core
         /// </summary>
         public void StartGameSetup(int gameIndex)
         {
-            if (gameIndex != 0 && gameIndex != 3 && gameIndex != 4) return;
+            if (gameIndex < 0 || gameIndex > 3) return;
             if (!CanTriggerAction()) return;
 
             DeactivateAllMiniGames();
@@ -216,23 +216,27 @@ namespace IUHCampus.Core
                     m_CustomizationUI.SetOpen(true);
                 }
             }
-            else if (gameIndex == 3)
+            else if (gameIndex == 1)
             {
-                var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
-                if (photo != null) photo.OpenBriefing();
-            }
-            else if (gameIndex == 4)
-            {
-                var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
-                if (green != null) green.OpenBriefing();
-            }
-            else
-            {
-                // Mini-games 2-6: Mission preparation dialog
+                // Mini-game 2: AI Object Hunt
                 if (m_MiniGamePrepUI != null)
                 {
-                    m_MiniGamePrepUI.OpenPreparation(gameIndex);
+                    m_MiniGamePrepUI.OpenPreparation(1);
                 }
+            }
+            else if (gameIndex == 2)
+            {
+                // Mini-game 3: Photo Hunter
+                var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+                if (photo != null) photo.OpenBriefing();
+                else if (m_MiniGamePrepUI != null) m_MiniGamePrepUI.OpenPreparation(2);
+            }
+            else if (gameIndex == 3)
+            {
+                // Mini-game 4: Green Campus
+                var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+                if (green != null) green.OpenBriefing();
+                else if (m_MiniGamePrepUI != null) m_MiniGamePrepUI.OpenPreparation(3);
             }
 
             Cursor.lockState = CursorLockMode.None;
@@ -246,7 +250,7 @@ namespace IUHCampus.Core
         /// </summary>
         public void StartPlaying(int gameIndex, bool force = false)
         {
-            if (gameIndex != 0 && gameIndex != 3 && gameIndex != 4) return;
+            if (gameIndex < 0 || gameIndex > 3) return;
             if (!force && !CanTriggerAction()) return;
 
             CloseAllOverlays();
@@ -261,22 +265,31 @@ namespace IUHCampus.Core
             if (gameIndex == 0)
             {
                 // Mini-game 1: Grab Campus
-                // Apply player's chosen loadout
                 PlayerLoadout.Current.SetTheme(PlayerLoadout.Current.theme);
 
                 var grabMgr = IUHGrabCampusManager.Instance;
                 if (grabMgr != null)
                 {
+                    grabMgr.gameObject.SetActive(true);
                     grabMgr.StartMission(0);
                 }
             }
-            else if (gameIndex == 3)
+            else if (gameIndex == 1)
             {
+                // Mini-game 2: AI Object Hunt
+                var grabMgr = IUHGrabCampusManager.Instance;
+                if (grabMgr != null && grabMgr.IsMissionActive) grabMgr.CancelMission();
+                if (m_PortalUI != null) m_PortalUI.TeleportToLibrary();
+            }
+            else if (gameIndex == 2)
+            {
+                // Mini-game 3: Photo Hunter
                 var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
                 if (photo != null) photo.StartMission(true);
             }
-            else if (gameIndex == 4)
+            else if (gameIndex == 3)
             {
+                // Mini-game 4: Green Campus
                 var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
                 if (green != null) green.BeginRound(true);
             }

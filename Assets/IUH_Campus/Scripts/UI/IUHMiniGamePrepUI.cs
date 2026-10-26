@@ -75,59 +75,37 @@ namespace IUHCampus.UI
         {
             switch (gameIndex)
             {
-                case 1: // Mini-game 2
-                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>👻 <b>2.2. TRỐN TÌM VỚI MA Ở KÝ TÚC XÁ</b></size>";
-                    if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Sảnh Ký Túc Xá Block D (Cổng 4)";
-                    if (m_TxtObjective != null) m_TxtObjective.text = "Khám phá phòng tối KTX, né tránh ma tuần tra AI NavMesh 4 trạng thái, tìm chìa khóa & nhật ký để mở lối thoát hiểm.";
+                case 1: // Mini-game 2: AI Object Hunt
+                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🔍 <b>2.2. AI OBJECT HUNT: TÌM ĐỒ VẬT</b></size>";
+                    if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Thư Viện Trung Tâm Tòa A & Giảng Đường";
+                    if (m_TxtObjective != null) m_TxtObjective.text = "Sử dụng camera quét nhận diện giáo trình / bình chữa cháy qua Deep Learning YOLO & hiển thị AR Hologram 3D.";
                     if (m_TxtDetails != null) m_TxtDetails.text =
-                        "• <b>AI Hồn Ma (NavMesh):</b> 4 trạng thái linh hoạt: Tuần tra (Patrol) ➔ Điều tra (Investigate) ➔ Truy đuổi (Chase) ➔ Lùng sục (Search).\n" +
-                        "• <b>Ẩn nấp:</b> Tận dụng các phòng mở, tủ đồ và gầm giường để cắt đuôi khi ma phát hiện.\n" +
-                        "• <b>Mục tiêu:</b> Thu thập chìa khóa cổng KTX và mảnh nhật ký số 2.\n" +
-                        "• <b>Lưu ý:</b> Gameplay và AI chỉ bắt đầu hoạt động sau khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
+                        "• <b>Camera AI:</b> Đưa ống kính đến các vật thể học đường để nhận diện nhãn (books, chair, fire extinguisher, student card).\n" +
+                        "• <b>AR Hologram:</b> Khi nhận diện chính xác, mô hình 3D AR kèm chú thích học thuật sẽ xuất hiện nổi trên sàn/mặt bàn.\n" +
+                        "• <b>Mục tiêu:</b> Hoàn thành quét đủ các vật phẩm chỉ định để hoàn thành nhiệm vụ.\n" +
+                        "• <b>Lưu ý:</b> Hệ thống camera nhận diện AI kích hoạt khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
                     break;
 
-                case 2: // Mini-game 3
-                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🔍 <b>2.3. AI OBJECT HUNT: TÌM ĐỒ VẬT</b></size>";
-                    if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Thư Viện Trung Tâm Tòa A";
-                    if (m_TxtObjective != null) m_TxtObjective.text = "Sử dụng camera quét nhận diện sách cổ / bình chữa cháy qua Deep Learning YOLO & hiển thị AR Hologram.";
+                case 2: // Mini-game 3: Photo Hunter
+                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>📸 <b>2.3. THỢ SĂN KHOẢNH KHẮC</b></size>";
+                    if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Khuôn Viên IUH (Cổng 1, Tượng Đài, Block F)";
+                    if (m_TxtObjective != null) m_TxtObjective.text = "Khám phá các góc đẹp của khuôn viên IUH, bật Photo Mode check-in và lưu trữ album sinh viên.";
                     if (m_TxtDetails != null) m_TxtDetails.text =
-                        "• <b>Camera AI:</b> Đưa ống kính đến các vật thể trong thư viện để nhận diện nhãn (books, chair, fire extinguisher).\n" +
-                        "• <b>AR Hologram:</b> Khi nhận diện chính xác, mô hình 3D AR kèm chú thích học thuật sẽ xuất hiện.\n" +
-                        "• <b>Mục tiêu:</b> Hoàn thành quét đủ 3 vật phẩm chỉ định để nhận thẻ thủ thư danh dự.\n" +
-                        "• <b>Lưu ý:</b> Hệ thống camera nhận diện AI chỉ kích hoạt khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
+                        "• <b>Góc chụp đẹp:</b> Cổng chính Nguyễn Văn Bảo, Quảng trường trung tâm, Thư viện Tòa A, Sân bóng.\n" +
+                        "• <b>Chụp ảnh:</b> Căn góc chụp và nhấn nút để lưu trữ khoảnh khắc vào Album Sinh Viên.\n" +
+                        "• <b>Mục tiêu:</b> Hoàn thành bộ sưu tập ảnh để mở khóa danh hiệu 'Nhiếp Ảnh Gia IUH'.\n" +
+                        "• <b>Lưu ý:</b> Chế độ Photo Mode kích hoạt khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
                     break;
 
-                case 3: // Mini-game 4
-                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>📸 <b>2.4. THỢ SĂN KHOẢNH KHẮC</b></size>";
-                    if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Cầu Thang Lên Nóc Nhà Block F";
-                    if (m_TxtObjective != null) m_TxtObjective.text = "Khám phá khuôn viên trường, leo thang lên nóc nhà Block F chụp ảnh check-in và thu thập huy hiệu.";
-                    if (m_TxtDetails != null) m_TxtDetails.text =
-                        "• <b>Góc chụp đẹp:</b> Nóc nhà Block F nhìn toàn cảnh sân trường, Cổng chính Nguyễn Văn Bảo, Hồ nước trung tâm.\n" +
-                        "• <b>Chụp ảnh:</b> Căn khung hình và nhấn nút chụp để lưu trữ khoảnh khắc vào Album Sinh Viên.\n" +
-                        "• <b>Mục tiêu:</b> Mở khóa danh hiệu 'Nhiếp Ảnh Gia Đại Học Công Nghiệp TP.HCM'.\n" +
-                        "• <b>Lưu ý:</b> Hệ thống chụp ảnh và các điểm check-in chỉ mở khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
-                    break;
-
-                case 4: // Mini-game 5
-                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🌱 <b>2.5. GREEN CAMPUS: CỨU LẤY TRƯỜNG</b></size>";
+                case 3: // Mini-game 4: Green Campus
+                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🌱 <b>2.4. GREEN CAMPUS: CỨU LẤY KHUÔN VIÊN</b></size>";
                     if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Trạm Phân Loại Rác AI Sân Trường";
-                    if (m_TxtObjective != null) m_TxtObjective.text = "Thu gom và phân loại rác tái chế bằng AI, tích lũy điểm xanh đẩy lên Cloud Adafruit IO.";
+                    if (m_TxtObjective != null) m_TxtObjective.text = "Thu gom và phân loại rác 3D bằng AI, tích lũy điểm xanh đẩy lên Cloud Adafruit IO.";
                     if (m_TxtDetails != null) m_TxtDetails.text =
-                        "• <b>Thu gom rác:</b> Tìm chai nhựa, vỏ lon và giấy loại rải rác trong khuôn viên sân trường.\n" +
-                        "• <b>Phân loại AI:</b> Đưa rác vào đúng ngăn cảm biến (Hữu cơ, Vô cơ, Tái chế) để nhận điểm thưởng.\n" +
-                        "• <b>IoT Cloud:</b> Điểm xanh và trạng thái đầy thùng rác được gửi theo thời gian thực tới Adafruit IO.\n" +
-                        "• <b>Lưu ý:</b> Gameplay phân loại rác và kết nối IoT chỉ chạy khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
-                    break;
-
-                case 5: // Mini-game 6
-                    if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🎪 <b>2.6. CAMPUS FESTIVAL: TỔ CHỨC LỄ HỘI</b></size>";
-                    if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Sân Khấu Đại Hội Trung Tâm";
-                    if (m_TxtObjective != null) m_TxtObjective.text = "Quản lý ngân sách, trang trí sân khấu đại hội âm nhạc và kết nối đồng bộ Docker backend.";
-                    if (m_TxtDetails != null) m_TxtDetails.text =
-                        "• <b>Quản lý ngân sách:</b> Cân đối chi phí thuê âm thanh, dàn ánh sáng LED và quà tặng sinh viên.\n" +
-                        "• <b>Bố trí sân khấu:</b> Sắp xếp backdrop, bục biểu diễn và hàng rào an ninh trước giờ khai mạc.\n" +
-                        "• <b>Docker Backend:</b> Đồng bộ dữ liệu vé mời và tiến trình lễ hội với máy chủ backend đóng gói Docker.\n" +
-                        "• <b>Lưu ý:</b> Bộ đếm thời gian và tiến trình lễ hội chỉ bắt đầu khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
+                        "• <b>Thu gom rác:</b> Tìm chai nhựa, vỏ lon và giấy loại trong khuôn viên sân trường.\n" +
+                        "• <b>Phân loại AI:</b> Đưa rác vào đúng thùng phân loại (Hữu cơ, Vô cơ, Tái chế) để nhận điểm thưởng.\n" +
+                        "• <b>IoT Cloud:</b> Điểm xanh Green Score được đồng bộ thời gian thực tới Adafruit IO.\n" +
+                        "• <b>Lưu ý:</b> Gameplay phân loại rác và kết nối IoT chạy khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
                     break;
             }
         }

@@ -387,5 +387,232 @@ namespace IUHCampus.Core
             s_PhotoWarningClip.SetData(samples, 0);
             return s_PhotoWarningClip;
         }
+
+        private static AudioClip s_FlashlightClickClip;
+        private static AudioClip s_BatSwingClip;
+        private static AudioClip s_BatHitClip;
+        private static AudioClip s_FlareHissClip;
+        private static AudioClip s_TalismanChantClip;
+        private static AudioClip s_ItemPickupClip;
+        private static AudioClip s_HealClip;
+        private static AudioClip s_GhostMoanClip;
+
+        /// <summary>
+        /// Mechanical click switch for flashlight toggle.
+        /// </summary>
+        public static AudioClip GetFlashlightClickSound()
+        {
+            if (s_FlashlightClickClip != null) return s_FlashlightClickClip;
+
+            int sampleRate = 44100;
+            float duration = 0.08f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 90f);
+                float tone1 = Mathf.Sin(2f * Mathf.PI * 3200f * t);
+                float tone2 = Mathf.Sin(2f * Mathf.PI * 1800f * t);
+                float noise = (Random.value * 2f - 1f) * 0.4f;
+                samples[i] = (tone1 * 0.5f + tone2 * 0.3f + noise) * env * 0.75f;
+            }
+
+            s_FlashlightClickClip = AudioClip.Create("Procedural_Flashlight_Click", totalSamples, 1, sampleRate, false);
+            s_FlashlightClickClip.SetData(samples, 0);
+            return s_FlashlightClickClip;
+        }
+
+        /// <summary>
+        /// Swoosh sound when swinging the self-defense bat.
+        /// </summary>
+        public static AudioClip GetBatSwingSound()
+        {
+            if (s_BatSwingClip != null) return s_BatSwingClip;
+
+            int sampleRate = 44100;
+            float duration = 0.25f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Sin(Mathf.PI * (t / duration));
+                float freq = Mathf.Lerp(160f, 480f, t / duration);
+                float tone = Mathf.Sin(2f * Mathf.PI * freq * t);
+                float noise = (Random.value * 2f - 1f) * 0.65f;
+                samples[i] = (tone * 0.4f + noise * 0.6f) * env * 0.85f;
+            }
+
+            s_BatSwingClip = AudioClip.Create("Procedural_Bat_Swing", totalSamples, 1, sampleRate, false);
+            s_BatSwingClip.SetData(samples, 0);
+            return s_BatSwingClip;
+        }
+
+        /// <summary>
+        /// Heavy impact thud when hitting a ghost with the bat.
+        /// </summary>
+        public static AudioClip GetBatHitSound()
+        {
+            if (s_BatHitClip != null) return s_BatHitClip;
+
+            int sampleRate = 44100;
+            float duration = 0.35f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 22f);
+                float thud = Mathf.Sin(2f * Mathf.PI * Mathf.Lerp(120f, 40f, t / duration) * t);
+                float crack = Mathf.Sin(2f * Mathf.PI * 1200f * t) * Mathf.Exp(-t * 60f);
+                float noise = (Random.value * 2f - 1f) * Mathf.Exp(-t * 40f);
+                samples[i] = Mathf.Clamp((thud * 0.8f + crack * 0.5f + noise * 0.5f) * env, -1f, 1f);
+            }
+
+            s_BatHitClip = AudioClip.Create("Procedural_Bat_Hit", totalSamples, 1, sampleRate, false);
+            s_BatHitClip.SetData(samples, 0);
+            return s_BatHitClip;
+        }
+
+        /// <summary>
+        /// Sizzling burn hiss of an emergency roadside flare.
+        /// </summary>
+        public static AudioClip GetFlareHissSound()
+        {
+            if (s_FlareHissClip != null) return s_FlareHissClip;
+
+            int sampleRate = 44100;
+            float duration = 1.2f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float sizzle1 = Mathf.Sin(2f * Mathf.PI * 3400f * t);
+                float sizzle2 = Mathf.Sin(2f * Mathf.PI * 4800f * t);
+                float whiteNoise = (Random.value * 2f - 1f);
+                float crackle = (Random.value > 0.96f) ? (Random.value * 2f - 1f) * 1.5f : 0f;
+                samples[i] = ((sizzle1 * 0.2f + sizzle2 * 0.15f + whiteNoise * 0.5f + crackle) * 0.5f);
+            }
+
+            s_FlareHissClip = AudioClip.Create("Procedural_Flare_Hiss", totalSamples, 1, sampleRate, false);
+            s_FlareHissClip.SetData(samples, 0);
+            return s_FlareHissClip;
+        }
+
+        /// <summary>
+        /// Harmonic sacred bell chime when talisman ward activates.
+        /// </summary>
+        public static AudioClip GetTalismanChantSound()
+        {
+            if (s_TalismanChantClip != null) return s_TalismanChantClip;
+
+            int sampleRate = 44100;
+            float duration = 0.95f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 3.8f);
+                float b1 = Mathf.Sin(2f * Mathf.PI * 523.25f * t); // C5
+                float b2 = Mathf.Sin(2f * Mathf.PI * 659.25f * t); // E5
+                float b3 = Mathf.Sin(2f * Mathf.PI * 783.99f * t); // G5
+                float b4 = Mathf.Sin(2f * Mathf.PI * 1046.50f * t); // C6
+                float shimmer = Mathf.Sin(2f * Mathf.PI * 14f * t);
+                samples[i] = (b1 * 0.35f + b2 * 0.25f + b3 * 0.25f + b4 * 0.2f) * env * (0.8f + shimmer * 0.2f) * 0.8f;
+            }
+
+            s_TalismanChantClip = AudioClip.Create("Procedural_Talisman_Chant", totalSamples, 1, sampleRate, false);
+            s_TalismanChantClip.SetData(samples, 0);
+            return s_TalismanChantClip;
+        }
+
+        /// <summary>
+        /// Crisp bright chime when picking up a survival item.
+        /// </summary>
+        public static AudioClip GetItemPickupSound()
+        {
+            if (s_ItemPickupClip != null) return s_ItemPickupClip;
+
+            int sampleRate = 44100;
+            float duration = 0.4f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Exp(-t * 7f);
+                float f = (t < 0.15f) ? 880f : 1318.5f;
+                float tone = Mathf.Sin(2f * Mathf.PI * f * t);
+                float overtone = Mathf.Sin(2f * Mathf.PI * f * 2f * t) * 0.3f;
+                samples[i] = (tone + overtone) * env * 0.65f;
+            }
+
+            s_ItemPickupClip = AudioClip.Create("Procedural_Item_Pickup", totalSamples, 1, sampleRate, false);
+            s_ItemPickupClip.SetData(samples, 0);
+            return s_ItemPickupClip;
+        }
+
+        /// <summary>
+        /// Soothing ascending arpeggio when using first aid kit.
+        /// </summary>
+        public static AudioClip GetHealSound()
+        {
+            if (s_HealClip != null) return s_HealClip;
+
+            int sampleRate = 44100;
+            float duration = 0.6f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Sin(Mathf.PI * (t / duration));
+                float freq = Mathf.Lerp(440f, 880f, t / duration);
+                float tone = Mathf.Sin(2f * Mathf.PI * freq * t);
+                samples[i] = tone * env * 0.6f;
+            }
+
+            s_HealClip = AudioClip.Create("Procedural_Heal", totalSamples, 1, sampleRate, false);
+            s_HealClip.SetData(samples, 0);
+            return s_HealClip;
+        }
+
+        /// <summary>
+        /// Creepy eerie moan of ghost presence.
+        /// </summary>
+        public static AudioClip GetGhostMoanSound()
+        {
+            if (s_GhostMoanClip != null) return s_GhostMoanClip;
+
+            int sampleRate = 44100;
+            float duration = 1.4f;
+            int totalSamples = Mathf.RoundToInt(sampleRate * duration);
+            float[] samples = new float[totalSamples];
+
+            for (int i = 0; i < totalSamples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float env = Mathf.Sin(Mathf.PI * (t / duration));
+                float vibrato = Mathf.Sin(2f * Mathf.PI * 5.5f * t) * 35f;
+                float freq = 210f + vibrato;
+                float tone = Mathf.Sin(2f * Mathf.PI * freq * t);
+                float breath = (Random.value * 2f - 1f) * 0.25f;
+                samples[i] = (tone * 0.75f + breath) * env * 0.55f;
+            }
+
+            s_GhostMoanClip = AudioClip.Create("Procedural_Ghost_Moan", totalSamples, 1, sampleRate, false);
+            s_GhostMoanClip.SetData(samples, 0);
+            return s_GhostMoanClip;
+        }
     }
 }

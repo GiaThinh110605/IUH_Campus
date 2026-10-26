@@ -15,15 +15,15 @@ namespace IUHCampus.Minigames.GrabCampus
     public class IUHGrabMotorbike : MonoBehaviour
     {
         [Header("Movement & Performance")]
-        [SerializeField] private float m_MaxForwardSpeed = 16.0f; // ~58 km/h
+        [SerializeField] private float m_MaxForwardSpeed = 16.5f; // ~60 km/h
         [SerializeField] private float m_TurboSpeed = 22.0f;      // ~79 km/h
-        [SerializeField] private float m_ReverseSpeed = 4.5f;
-        [SerializeField] private float m_Acceleration = 14.0f;
-        [SerializeField] private float m_BrakingDeceleration = 22.0f;
-        [SerializeField] private float m_CoastDeceleration = 7.0f;
-        [SerializeField] private float m_TurnSpeed = 85.0f;
+        [SerializeField] private float m_ReverseSpeed = 5.0f;
+        [SerializeField] private float m_Acceleration = 18.0f;
+        [SerializeField] private float m_BrakingDeceleration = 28.0f;
+        [SerializeField] private float m_CoastDeceleration = 6.0f;
+        [SerializeField] private float m_TurnSpeed = 95.0f;
         [SerializeField] private float m_MaxBankAngle = 22.0f;
-        [SerializeField] private float m_BankSpeed = 8.0f;
+        [SerializeField] private float m_BankSpeed = 9.0f;
 
         [Header("Visual References")]
         [SerializeField] private Transform m_VisualRoot;
@@ -70,8 +70,11 @@ namespace IUHCampus.Minigames.GrabCampus
             m_CharController.height = 1.3f;
             m_CharController.radius = 0.42f;
             m_CharController.center = new Vector3(0f, 0.72f, 0f);
-            m_CharController.stepOffset = 0.45f;
-            m_CharController.slopeLimit = 55f;
+            m_CharController.stepOffset = 0.5f;
+            m_CharController.slopeLimit = 60f;
+
+            // Isolate motorbike to root in world space so no parent container rotation can ever influence it
+            transform.SetParent(null, true);
 
             SetupAudio();
             SetupCameraTarget();
@@ -128,6 +131,12 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_RiderAvatar != null)
             {
                 m_RiderAvatar.SetActive(m_IsMounted);
+            }
+
+            // Ensure 3D Cargo Visual is present on the motorbike
+            if (GetComponent<IUHGrabCargoVisual>() == null)
+            {
+                gameObject.AddComponent<IUHGrabCargoVisual>();
             }
         }
 
@@ -193,9 +202,16 @@ namespace IUHCampus.Minigames.GrabCampus
             }
             else
             {
-                if (mountKey && Mathf.Abs(m_CurrentSpeed) < 1.5f)
+                // CRITICAL FIX: In Grab Campus delivery mission, DO NOT dismount!
+                // Rider must stay on the bike to navigate campus and deliver food.
+                bool inMission = (IUHGrabCampusManager.Instance != null && IUHGrabCampusManager.Instance.IsMissionActive);
+                bool inGrabGame = (IUHGameFlowManager.Instance != null && IUHGameFlowManager.Instance.ActiveGameIndex == 0);
+                if (!inMission && !inGrabGame)
                 {
-                    DismountVehicle();
+                    if (mountKey && Mathf.Abs(m_CurrentSpeed) < 1.5f)
+                    {
+                        DismountVehicle();
+                    }
                 }
 
                 if (hornKey && m_SfxAudio != null)
@@ -291,10 +307,10 @@ namespace IUHCampus.Minigames.GrabCampus
 
                     if (tpFollow != null)
                     {
-                        tpFollow.CameraDistance = 5.4f;
-                        tpFollow.ShoulderOffset = new Vector3(0f, 0.45f, 0f);
-                        tpFollow.CameraSide = 0.5f;
-                        tpFollow.VerticalArmLength = 0.5f;
+                        tpFollow.CameraDistance = 4.2f;
+                        tpFollow.ShoulderOffset = new Vector3(0f, 0.75f, 0f);
+                        tpFollow.CameraSide = 1.0f;
+                        tpFollow.VerticalArmLength = 0.4f;
                     }
                 }
                 else
@@ -330,14 +346,21 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void UpdatePhysicsMovement()
         {
+            // Anti-fall recovery: If bike drops below road elevation or falls into void, snap to safe road immediately
+            if (transform.position.y < -0.2f)
+            {
+                RecoverToSafety();
+            }
+
+            float ghostSpeedMult = 1.0f;
             if (m_GhostSlowdownTimer > 0f)
             {
                 m_GhostSlowdownTimer -= Time.deltaTime;
-                m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, 0f, 15f * Time.deltaTime);
+                ghostSpeedMult = 0.70f; // 30% temporary speed penalty, bike NEVER freezes to 0!
             }
 
             float customMult = (IUHCustomizationManager.Instance != null) ? IUHCustomizationManager.Instance.ActiveConfig.speedMultiplier : 1.0f;
-            float targetMaxSpeed = (m_IsTurbo ? m_TurboSpeed : m_MaxForwardSpeed) * customMult;
+            float targetMaxSpeed = (m_IsTurbo ? m_TurboSpeed : m_MaxForwardSpeed) * customMult * ghostSpeedMult;
 
             // Acceleration / Deceleration
             if (m_IsBraking)
@@ -350,35 +373,58 @@ namespace IUHCampus.Minigames.GrabCampus
             }
             else if (m_ThrottleInput < 0f)
             {
-                m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, -m_ReverseSpeed, m_Acceleration * 0.7f * Time.deltaTime);
+                m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, -m_ReverseSpeed, m_Acceleration * 0.8f * Time.deltaTime);
             }
             else
             {
                 m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, 0f, m_CoastDeceleration * Time.deltaTime);
             }
 
-            // Steering
-            if (Mathf.Abs(m_CurrentSpeed) > 0.1f)
+            // Steering: responsive at speed, and allows smooth pivoting when stationary
+            float steerVal = Mathf.Abs(m_SteerInput) > 0.10f ? m_SteerInput : 0f;
+            if (Mathf.Abs(steerVal) > 0.01f)
             {
-                float dirMultiplier = Mathf.Sign(m_CurrentSpeed);
-                float speedFactor = Mathf.Clamp01(Mathf.Abs(m_CurrentSpeed) / 12f);
-                float effectiveTurnRate = Mathf.Lerp(m_TurnSpeed, m_TurnSpeed * 0.65f, speedFactor);
+                float dirMultiplier = (m_CurrentSpeed < -0.1f) ? -1f : 1f;
+                float speedFactor = Mathf.Clamp01(Mathf.Abs(m_CurrentSpeed) / 10f);
+                float effectiveTurnRate = Mathf.Lerp(m_TurnSpeed * 0.85f, m_TurnSpeed * 0.70f, speedFactor);
 
-                float yaw = m_SteerInput * effectiveTurnRate * dirMultiplier * Time.deltaTime;
+                float yaw = steerVal * effectiveTurnRate * dirMultiplier * Time.deltaTime;
                 transform.Rotate(0f, yaw, 0f);
             }
 
             Vector3 move = transform.forward * m_CurrentSpeed;
-            move.y = -9.81f; // Gravity to stick to roads
+            // Stable grounded gravity: prevents micro-jitter and clipping through meshes
+            move.y = (m_CharController != null && m_CharController.isGrounded) ? -2.5f : -9.81f;
 
-            m_CharController.Move(move * Time.deltaTime);
+            if (m_CharController != null && m_CharController.enabled)
+            {
+                m_CharController.Move(move * Time.deltaTime);
+            }
+        }
+
+        public void RecoverToSafety()
+        {
+            Vector3 safePos = IUHGrabCampusManager.GetGroundPosition(transform.position);
+
+            if (m_CharController != null) m_CharController.enabled = false;
+            transform.position = safePos;
+            if (m_CharController != null) m_CharController.enabled = true;
+            m_CurrentSpeed = 0f;
+            Debug.LogWarning($"[IUH Grab Motorbike] Auto-recovered bike from void to safe ground: {safePos}");
         }
 
         private void ApplyGravityWhenIdle()
         {
+            if (transform.position.y < -0.2f)
+            {
+                RecoverToSafety();
+                return;
+            }
+
             if (m_CharController != null && m_CharController.enabled)
             {
-                m_CharController.Move(new Vector3(0f, -9.81f * Time.deltaTime, 0f));
+                float yVel = m_CharController.isGrounded ? -2.0f : -9.81f;
+                m_CharController.Move(new Vector3(0f, yVel * Time.deltaTime, 0f));
             }
         }
 
@@ -425,7 +471,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         public void OnGhostImpact(int damage)
         {
-            m_GhostSlowdownTimer = 1.4f;
+            m_GhostSlowdownTimer = 0.9f;
             if (m_SfxAudio != null)
             {
                 m_SfxAudio.PlayOneShot(IUHSoundSynthesizer.GetDamageSound(), 1.0f);
