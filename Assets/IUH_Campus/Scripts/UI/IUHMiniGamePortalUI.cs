@@ -169,7 +169,7 @@ namespace IUHCampus.UI
                         int gameIndex=i;
                         var nameParts=card.name.Split('_');
                         if(nameParts.Length>1&&int.TryParse(nameParts[1],out int parsed))gameIndex=parsed;
-                        bool available=gameIndex==0||gameIndex==3||gameIndex==4;
+                        bool available = gameIndex >= 0 && gameIndex < 4;
                         if (cardBtn != null)
                         {
                             cardBtn.interactable=available;
@@ -276,14 +276,6 @@ namespace IUHCampus.UI
                 else if (IsKeyTriggered(KeyCode.Alpha4) || IsKeyTriggered(KeyCode.Keypad4))
                 {
                     SelectMiniGame(3);
-                }
-                else if (IsKeyTriggered(KeyCode.Alpha5) || IsKeyTriggered(KeyCode.Keypad5))
-                {
-                    SelectMiniGame(4);
-                }
-                else if (IsKeyTriggered(KeyCode.Alpha6) || IsKeyTriggered(KeyCode.Keypad6))
-                {
-                    SelectMiniGame(5);
                 }
             }
             else
@@ -439,18 +431,20 @@ namespace IUHCampus.UI
         }
 
         /// <summary>
-        /// Select a mini-game by index (0 to 5) corresponding to keys [1] to [6].
+        /// Select a mini-game by index (0 to 3) corresponding to keys [1] to [4].
+        /// 0: Grab Campus
+        /// 1: AI Object Hunt
+        /// 2: Thợ Săn Khoảnh Khắc (Photo Hunter)
+        /// 3: Green Campus
         /// </summary>
         public void SelectMiniGame(int gameIndex)
         {
-            // Keep unfinished game slots visible without treating a teleport as a playable game.
-            if(gameIndex==1||gameIndex==2||gameIndex==5)return;
+            if (gameIndex < 0 || gameIndex > 3) return;
             if (IUHCampus.Core.IUHGameFlowManager.Instance != null)
             {
                 IUHCampus.Core.IUHGameFlowManager.Instance.StartGameSetup(gameIndex);
                 return;
             }
-
 
             switch (gameIndex)
             {
@@ -458,21 +452,27 @@ namespace IUHCampus.UI
                     LaunchGrabCampusGame(0);
                     break;
                 case 1:
-                    TeleportToKtxDorm();
+                    LaunchAIObjectHuntGame();
                     break;
                 case 2:
-                    TeleportToLibrary();
-                    break;
-                case 3:
                     LaunchPhotoHunterGame();
                     break;
-                case 4:
+                case 3:
                     LaunchGreenCampusGame();
                     break;
-                case 5:
-                    TeleportToFestivalStage();
-                    break;
             }
+        }
+
+        public void LaunchAIObjectHuntGame()
+        {
+            var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
+            if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
+            var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
+            if (photoMgr != null && photoMgr.HasActiveSessionOrUI) photoMgr.CancelMission(false);
+            SetMenuOpen(false);
+            TeleportToLibrary();
+            var prep = IUHMiniGamePrepUI.Instance;
+            if (prep != null) prep.OpenPreparation(1);
         }
 
         // ================= FAST TRAVEL / QUICK PLAY =================
