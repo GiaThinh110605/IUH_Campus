@@ -1,0 +1,5 @@
+Restored exact file=Docs/Backups\Campus_volume_before_ambientcg_20261031_184254.asset
+Current backup=Docs/Backups/Campus_volume_before_ambientcg_hybrid_20261031_204358.asset
+Scene backup=Docs/Backups/IUH_SharedCampus_Concept_before_ambientcg_hybrid_20261031_204358.unity
+Profile=Assets/IUH_Campus/SharedCampusConcept/Campus volume.asset
+Components=Tonemapping,ColorAdjustments,Bloom

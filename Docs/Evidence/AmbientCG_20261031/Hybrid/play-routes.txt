@@ -1,0 +1,5 @@
+Gate entrance PASS=True final=(0.00, -0.01, -32.08)
+Fountain to lobby PASS=True final=(0.00, -0.01, 50.90)
+Gate to canteen PASS=True final=(-28.00, -0.01, -17.09)
+Gate to stage PASS=True final=(34.00, 0.69, -12.10)
+CharacterController.Move solver steps=2582
