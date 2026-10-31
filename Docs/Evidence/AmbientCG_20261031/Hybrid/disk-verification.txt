@@ -1,0 +1,29 @@
+
+Length LastWriteTime
+------ -------------
+648773 10/31/2026 6:45:15 PM
+
+
+Algorithm       Hash                                                                   Path
+---------       ----                                                                   ----
+SHA256          F7B17D047A566FA4368C7B71D358D1DDBF816313CCCC9542260E214E1C53B076       D:\IUH\CongNgheMoi\CK\IUH_Campus…
+
+
+Length LastWriteTime
+------ -------------
+648773 10/31/2026 9:06:07 PM
+
+
+Algorithm       Hash                                                                   Path
+---------       ----                                                                   ----
+SHA256          3160364E56885AC85C1A69FCC35D68D672457C3903C92274319429884161E316       D:\IUH\CongNgheMoi\CK\IUH_Campus…
+
+Courtyard sandstone guid=b993a6ea35d04d64bacb9758693cfc8b sceneReferences=1
+Pale paving slabs guid=59489b97ca1bcc64ca8abb0c074c3d4c sceneReferences=3
+Detailed lawn guid=18541f87332dc98468e67997c5b6edce sceneReferences=3
+{
+  "path": "D:\\IUH\\CongNgheMoi\\CK\\IUH_Campus\\Assets\\IUH_Campus\\Scenes\\IUH_SharedCampus_Concept.unity",
+  "sha256": "3160364E56885AC85C1A69FCC35D68D672457C3903C92274319429884161E316",
+  "mtime": "2026-10-31T21:06:07.7021357+07:00",
+  "bytes": 648773
+}

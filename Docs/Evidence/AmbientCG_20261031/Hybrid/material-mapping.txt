@@ -1,0 +1,11 @@
+Lawn slot 0: ambientCG_Lawn -> Detailed lawn
+Paving pale slot 0: ambientCG_Paving_pale -> Pale paving slabs
+Sandstone paving slot 0: ambientCG_Sandstone_paving -> Courtyard sandstone
+Paving pale slot 0: ambientCG_Paving_pale -> Pale paving slabs
+Paving pale slot 0: ambientCG_Paving_pale -> Pale paving slabs
+Lawn slot 0: ambientCG_Lawn -> Detailed lawn
+Lawn slot 0: ambientCG_Lawn -> Detailed lawn
+ambientCG_Limestone_facade scale=(1.50, 1.00) smoothness=0.16 bump=0.5 color=RGBA(0.880, 0.840, 0.750, 1.000)
+ambientCG_Terracotta_brick scale=(2.00, 1.25) smoothness=0.14 bump=0.75 color=RGBA(0.780, 0.550, 0.420, 1.000)
+ambientCG_Teak_timber scale=(1.50, 1.50) smoothness=0.28 bump=0.6 color=RGBA(0.720, 0.550, 0.380, 1.000)
+Renderers=7 Slots=7

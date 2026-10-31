@@ -1,0 +1,24 @@
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_Park_Bench_01.mat
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_StreetLight_Modern_01.mat
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_StreetLight_Modern_Glass_01 1.mat
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_TrashCan_02.mat
+Assets/Urban_Props_Pack_Rozity/Models/SM_Park_Bench_01.fbx
+Assets/Urban_Props_Pack_Rozity/Models/SM_StreetLight_Modern_02.fbx
+Assets/Urban_Props_Pack_Rozity/Models/SM_TrashCan_02.fbx
+Assets/Urban_Props_Pack_Rozity/Prefabs/URP/SM_Park_Bench_01.prefab
+Assets/Urban_Props_Pack_Rozity/Prefabs/URP/SM_StreetLight_Modern_02.prefab
+Assets/Urban_Props_Pack_Rozity/Prefabs/URP/SM_TrashCan_02.prefab
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_AO.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_Base_color.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_Metallic.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_NormalL.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Base_color.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Height.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Metallic.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Mixed_AO.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Norma.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_AO.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_Height.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_Metallic.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_Norma.png
