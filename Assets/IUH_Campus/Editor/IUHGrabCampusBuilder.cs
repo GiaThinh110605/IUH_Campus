@@ -1235,7 +1235,7 @@ namespace IUHCampus.Editor
 
             BuildDeliveryHUD(canvasGO.transform);
 
-            BuildMobileControls(canvasGO.transform);
+            // BuildMobileControls(canvasGO.transform);
 
             BuildHorrorPursuitOverlay(canvasGO.transform);
 
