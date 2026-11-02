@@ -1,0 +1,98 @@
+[
+  {
+    "size": 640,
+    "fixture": "blank.png",
+    "expected_laptop": false,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 640,
+    "fixture": "laptop-isorepublic.jpg",
+    "expected_laptop": true,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 640,
+    "fixture": "laptop-stocksnap.jpg",
+    "expected_laptop": true,
+    "status": 200,
+    "target_found": true,
+    "best_confidence": 0.7349098920822144
+  },
+  {
+    "size": 640,
+    "fixture": "shapes.png",
+    "expected_laptop": false,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 480,
+    "fixture": "blank.png",
+    "expected_laptop": false,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 480,
+    "fixture": "laptop-isorepublic.jpg",
+    "expected_laptop": true,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 480,
+    "fixture": "laptop-stocksnap.jpg",
+    "expected_laptop": true,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 480,
+    "fixture": "shapes.png",
+    "expected_laptop": false,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 416,
+    "fixture": "blank.png",
+    "expected_laptop": false,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 416,
+    "fixture": "laptop-isorepublic.jpg",
+    "expected_laptop": true,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 416,
+    "fixture": "laptop-stocksnap.jpg",
+    "expected_laptop": true,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  },
+  {
+    "size": 416,
+    "fixture": "shapes.png",
+    "expected_laptop": false,
+    "status": 200,
+    "target_found": false,
+    "best_confidence": null
+  }
+]

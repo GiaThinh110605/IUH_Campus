@@ -12,7 +12,7 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PROMETHEUS_MULTIPROC_DIR=/tmp/iuh-guardian-prometheus \
     PORT=5001 \
-    MODEL_PATH=/app/models/model.onnx
+    MODEL_PATH=/app/models/yolov8n.onnx
 USER guardian
 EXPOSE 5001
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \

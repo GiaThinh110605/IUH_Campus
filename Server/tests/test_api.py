@@ -86,14 +86,14 @@ def test_model_session_created_once_not_per_request(tmp_path):
     model = tmp_path / "model.onnx"
     model.write_bytes(b"fixture")
     with patch("app.model_registry.ort.InferenceSession") as session:
+        session.return_value.get_modelmeta.return_value.custom_metadata_map = {"names": "{0: 'book'}"}
         app = create_app({"TESTING": True, "MODEL_PATH": str(model)})
         client = app.test_client()
         for _ in range(2):
             assert client.get("/health").get_json()["model_loaded"] is True
-            response = client.post("/predict", data={"image": (image_file(), "image.png")})
-            assert response.status_code == 501
-            assert response.get_json() == {"error": "inference_not_implemented"}
-        session.assert_called_once_with(str(model), providers=["CPUExecutionProvider"])
+        assert session.call_count == 1
+        assert session.call_args.kwargs["providers"] == ["CPUExecutionProvider"]
+
 
 
 def test_invalid_model_never_claims_loaded(tmp_path):

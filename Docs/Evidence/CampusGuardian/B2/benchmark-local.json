@@ -1,0 +1,71 @@
+[
+  {
+    "size": 640,
+    "model": "Server/models/yolov8n.onnx",
+    "image": "Server/tests/fixtures/laptop-stocksnap.jpg",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "os": "Windows-10-10.0.26200-SP0",
+    "workers_configured": 1,
+    "benchmark_processes": 1,
+    "ort_threads": 2,
+    "warmup": 5,
+    "iterations": 50,
+    "inference_time_ms": {
+      "p50": 69.93240007432178,
+      "p95": 97.78861998929641,
+      "mean": 73.47738399170339
+    },
+    "total_time_ms": {
+      "p50": 89.67855002265424,
+      "p95": 120.87801501038483,
+      "mean": 94.17570400750265
+    },
+    "fixture_target_found": true
+  },
+  {
+    "size": 480,
+    "model": "Server/models/yolov8n-480.onnx",
+    "image": "Server/tests/fixtures/laptop-stocksnap.jpg",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "os": "Windows-10-10.0.26200-SP0",
+    "workers_configured": 1,
+    "benchmark_processes": 1,
+    "ort_threads": 2,
+    "warmup": 5,
+    "iterations": 50,
+    "inference_time_ms": {
+      "p50": 32.41459996206686,
+      "p95": 36.65194503264502,
+      "mean": 32.941338007804006
+    },
+    "total_time_ms": {
+      "p50": 43.05390000808984,
+      "p95": 49.979160027578466,
+      "mean": 44.009568009059876
+    },
+    "fixture_target_found": false
+  },
+  {
+    "size": 416,
+    "model": "Server/models/yolov8n-416.onnx",
+    "image": "Server/tests/fixtures/laptop-stocksnap.jpg",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "os": "Windows-10-10.0.26200-SP0",
+    "workers_configured": 1,
+    "benchmark_processes": 1,
+    "ort_threads": 2,
+    "warmup": 5,
+    "iterations": 50,
+    "inference_time_ms": {
+      "p50": 24.87449999898672,
+      "p95": 35.42377002304419,
+      "mean": 27.340835998766124
+    },
+    "total_time_ms": {
+      "p50": 33.857549948152155,
+      "p95": 49.74849001737311,
+      "mean": 37.518094005063176
+    },
+    "fixture_target_found": false
+  }
+]

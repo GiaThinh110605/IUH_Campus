@@ -93,3 +93,6 @@ Server/.venv/
 __pycache__/
 *.pyc
 Server/models/*.onnx
+!Server/models/yolov8n.onnx
+Server/.venv-export/
+Server/models/*.pt

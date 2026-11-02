@@ -1,0 +1,17 @@
+B2 Benchmark 2026-11-02 Asia/Bangkok
+Base commit: 40b114f8e815e3ebec2a7d82974642b2ef4f4a8c
+CPU: AMD Ryzen 7 6800H with Radeon Graphics
+5 warm-up + 50 measurements per model, ORT intra-op threads=2.
+Local Windows Python venv: 1 process. Container Linux/WSL2 amd64: Gunicorn configured 2 workers, benchmark via exec in a separate single process. No concurrency/load test.
+
+| Environment | Size | inference p50/p95/mean ms | total p50/p95/mean ms | laptop positives found | synthetic negatives correct |
+|---|---:|---|---|---|---|
+| local | 640 | 69.932 / 97.789 / 73.477 | 89.679 / 120.878 / 94.176 | 1/2 | 2/2 |
+| local | 480 | 32.415 / 36.652 / 32.941 | 43.054 / 49.979 / 44.010 | 0/2 | 2/2 |
+| local | 416 | 24.874 / 35.424 / 27.341 | 33.858 / 49.748 / 37.518 | 0/2 | 2/2 |
+| container | 640 | 75.090 / 89.760 / 75.460 | 89.309 / 105.576 / 89.598 | 1/2 | 2/2 |
+| container | 480 | 37.167 / 46.094 / 38.482 | 46.217 / 55.234 / 47.652 | 0/2 | 2/2 |
+| container | 416 | 27.458 / 34.673 / 28.345 | 35.340 / 43.920 / 36.539 | 0/2 | 2/2 |
+
+640 default does NOT meet inference p50 <45 ms on this machine. 480/416 faster but miss the reference laptop at confidence 0.70; default remains 640. Four fixtures do not establish mAP or real-world accuracy.
+total_time_ms includes multipart/image decode/preprocess/inference/postprocess; does not include network. inference_time_ms measures only session.run.

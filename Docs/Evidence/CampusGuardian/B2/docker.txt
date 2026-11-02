@@ -1,0 +1,260 @@
+B2 Docker final verification, 2026-11-02 Asia/Bangkok; base40b114f; no concurrent benchmark/export
+
+$ docker compose -f Server/docker-compose.yml up -d --build
+exit=0
+#1 [internal] load local bake definitions
+#1 reading from stdin 579B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 828B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 1.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 210B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60
+#5 resolve docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 10.42kB done
+#6 DONE 0.0s
+
+#7 [2/7] WORKDIR /app
+#7 CACHED
+
+#8 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [4/7] COPY requirements.txt .
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 0.1s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus     && chown guardian:guardian /tmp/iuh-guardian-prometheus
+#12 DONE 0.5s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 0.2s done
+#13 exporting manifest sha256:35d895be0c62d7306c64dd5ef89852fe6b1dba144c2e5dfab9d13384a11d379c 0.0s done
+#13 exporting config sha256:23c1f08853dd46393f7053163ef016a1c5dda4d20ab23455ebdb9997c4fcba0e 0.0s done
+#13 exporting attestation manifest sha256:d840b016ff7aab13c3df0cc1ca631d06524f63f9556eae9652f8b2d6df9482c3 0.1s done
+#13 exporting manifest list sha256:901be3e9a5d0e23bfa4cdc8b7170987dab50496f150d7a7ad3be690748d83da4
+#13 exporting manifest list sha256:901be3e9a5d0e23bfa4cdc8b7170987dab50496f150d7a7ad3be690748d83da4 0.0s done
+#13 naming to docker.io/library/server-iuh-guardian-api:latest done
+#13 unpacking to docker.io/library/server-iuh-guardian-api:latest 0.1s done
+#13 DONE 0.6s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image server-iuh-guardian-api Building 
+ Image server-iuh-guardian-api Built 
+ Network server_default Creating 
+ Network server_default Created 
+ Container server-iuh-guardian-api-1 Creating 
+ Container server-iuh-guardian-api-1 Created 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ docker compose -f Server/docker-compose.yml ps
+exit=0
+NAME                        IMAGE                     COMMAND                  SERVICE            CREATED         STATUS                   PORTS
+server-iuh-guardian-api-1   server-iuh-guardian-api   "gunicorn -c gunicor…"   iuh-guardian-api   6 seconds ago   Up 6 seconds (healthy)   0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":5.470517,"version":"0.1.0"}
+
+$ curl.exe -sS -F image=@Server/tests/fixtures/laptop-stocksnap.jpg -F target_class=laptop http://localhost:5001/predict
+exit=0
+{"best_confidence":0.7349098920822144,"detections":[{"bbox":[418.58,348.174,149.348,88.563],"class_id":63,"confidence":0.7349098920822144,"label":"laptop"}],"image_size":[800,533],"inference_time_ms":97.71630399995956,"model":{"name":"yolov8n","sha256_prefix":"4d063228"},"target_class":"laptop","target_found":true,"threshold":0.7,"total_time_ms":147.01402199989388}
+
+$ curl.exe -sS http://localhost:5001/metrics
+exit=0
+# HELP predict_target_found_total Requests matching target class
+# TYPE predict_target_found_total counter
+predict_target_found_total 1.0
+# HELP flask_http_request_total Total number of HTTP requests
+# TYPE flask_http_request_total counter
+flask_http_request_total{method="GET",status="200"} 2.0
+flask_http_request_total{method="POST",status="200"} 1.0
+# HELP inference_seconds ONNX session.run latency
+# TYPE inference_seconds histogram
+inference_seconds_sum 0.09771630399995956
+inference_seconds_bucket{le="0.005"} 0.0
+inference_seconds_bucket{le="0.01"} 0.0
+inference_seconds_bucket{le="0.025"} 0.0
+inference_seconds_bucket{le="0.05"} 0.0
+inference_seconds_bucket{le="0.075"} 0.0
+inference_seconds_bucket{le="0.1"} 1.0
+inference_seconds_bucket{le="0.25"} 1.0
+inference_seconds_bucket{le="0.5"} 1.0
+inference_seconds_bucket{le="0.75"} 1.0
+inference_seconds_bucket{le="1.0"} 1.0
+inference_seconds_bucket{le="2.5"} 1.0
+inference_seconds_bucket{le="5.0"} 1.0
+inference_seconds_bucket{le="7.5"} 1.0
+inference_seconds_bucket{le="10.0"} 1.0
+inference_seconds_bucket{le="+Inf"} 1.0
+inference_seconds_count 1.0
+# HELP flask_http_request_duration_seconds Flask HTTP request duration in seconds
+# TYPE flask_http_request_duration_seconds histogram
+flask_http_request_duration_seconds_sum{method="POST",path="/predict",status="200"} 0.14733504799983166
+flask_http_request_duration_seconds_bucket{le="0.005",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_count{method="POST",path="/predict",status="200"} 1.0
+flask_http_request_duration_seconds_sum{method="GET",path="/health",status="200"} 0.00022541299995282316
+flask_http_request_duration_seconds_bucket{le="0.005",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_count{method="GET",path="/health",status="200"} 2.0
+# HELP flask_exporter_info Information about the Prometheus Flask exporter
+# TYPE flask_exporter_info gauge
+flask_exporter_info{version="0.23.2"} 1.0
+# HELP model_loaded Whether all live API workers loaded their ONNX model
+# TYPE model_loaded gauge
+model_loaded 1.0
+# HELP detections_total Accepted detections
+# TYPE detections_total counter
+detections_total{label="laptop"} 1.0
+
+$ docker compose -f Server/docker-compose.yml cp Server/tests/fixtures/laptop-stocksnap.jpg iuh-guardian-api:/tmp/laptop-reference.jpg
+exit=0
+ server-iuh-guardian-api-1 Copying Server/tests/fixtures/laptop-stocksnap.jpg to server-iuh-guardian-api-1:/tmp/laptop-reference.jpg
+ server-iuh-guardian-api-1 Copied Server/tests/fixtures/laptop-stocksnap.jpg to server-iuh-guardian-api-1:/tmp/laptop-reference.jpg
+
+$ docker compose -f Server/docker-compose.yml exec -T iuh-guardian-api python benchmark.py --model /app/models/yolov8n.onnx --image /tmp/laptop-reference.jpg --workers 2
+exit=0
+{
+  "model": "/app/models/yolov8n.onnx",
+  "image": "/tmp/laptop-reference.jpg",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+  "workers_configured": 2,
+  "benchmark_processes": 1,
+  "ort_threads": 2,
+  "warmup": 5,
+  "iterations": 50,
+  "inference_time_ms": {
+    "p50": 75.08978050009318,
+    "p95": 89.75975929995457,
+    "mean": 75.4595628999823
+  },
+  "total_time_ms": {
+    "p50": 89.30892050000239,
+    "p95": 105.5763310998941,
+    "mean": 89.59826853997583
+  },
+  "fixture_target_found": true
+}
+
+$ docker compose -f Server/docker-compose.yml exec -T iuh-guardian-api python benchmark.py --model /app/models/yolov8n-480.onnx --image /tmp/laptop-reference.jpg --workers 2
+exit=0
+{
+  "model": "/app/models/yolov8n-480.onnx",
+  "image": "/tmp/laptop-reference.jpg",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+  "workers_configured": 2,
+  "benchmark_processes": 1,
+  "ort_threads": 2,
+  "warmup": 5,
+  "iterations": 50,
+  "inference_time_ms": {
+    "p50": 37.167124499887905,
+    "p95": 46.093540150002354,
+    "mean": 38.48214264000035
+  },
+  "total_time_ms": {
+    "p50": 46.2173815000142,
+    "p95": 55.23411025000087,
+    "mean": 47.651721920001364
+  },
+  "fixture_target_found": false
+}
+
+$ docker compose -f Server/docker-compose.yml exec -T iuh-guardian-api python benchmark.py --model /app/models/yolov8n-416.onnx --image /tmp/laptop-reference.jpg --workers 2
+exit=0
+{
+  "model": "/app/models/yolov8n-416.onnx",
+  "image": "/tmp/laptop-reference.jpg",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+  "workers_configured": 2,
+  "benchmark_processes": 1,
+  "ort_threads": 2,
+  "warmup": 5,
+  "iterations": 50,
+  "inference_time_ms": {
+    "p50": 27.457513999934235,
+    "p95": 34.67342180005061,
+    "mean": 28.34505322000041
+  },
+  "total_time_ms": {
+    "p50": 35.33988349988704,
+    "p95": 43.92033479988412,
+    "mean": 36.538967379974565
+  },
+  "fixture_target_found": false
+}
+
+$ docker compose -f Server/docker-compose.yml exec -T iuh-guardian-api python -c import importlib.util; print("torch_in_runtime=",importlib.util.find_spec("torch") is not None)
+exit=0
+torch_in_runtime= False
+
+$ docker compose -f Server/docker-compose.yml logs --tail 50
+exit=0
+iuh-guardian-api-1  | [2026-11-02 10:56:07 +0000] [1] [INFO] Starting gunicorn 23.0.0
+iuh-guardian-api-1  | [2026-11-02 10:56:07 +0000] [1] [INFO] [IUH Guardian API] Multiprocess metrics directory initialized
+iuh-guardian-api-1  | [2026-11-02 10:56:07 +0000] [1] [INFO] Listening at: http://0.0.0.0:5001 (1)
+iuh-guardian-api-1  | [2026-11-02 10:56:07 +0000] [1] [INFO] Using worker: sync
+iuh-guardian-api-1  | [2026-11-02 10:56:07 +0000] [7] [INFO] Booting worker with pid: 7
+iuh-guardian-api-1  | [2026-11-02 10:56:07 +0000] [8] [INFO] Booting worker with pid: 8
+iuh-guardian-api-1  | 127.0.0.1 - - [02/Nov/2026:10:56:12 +0000] "GET /health HTTP/1.1" 200 143 "-" "curl/8.14.1"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:10:56:12 +0000] "GET /health HTTP/1.1" 200 143 "-" "curl/8.21.0"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:10:56:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "curl/8.21.0"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:10:56:13 +0000] "GET /metrics HTTP/1.1" 200 5000 "-" "curl/8.21.0"
+
+$ docker compose -f Server/docker-compose.yml down
+exit=0
+ Container server-iuh-guardian-api-1 Stopping 
+ Container server-iuh-guardian-api-1 Stopped 
+ Container server-iuh-guardian-api-1 Removing 
+ Container server-iuh-guardian-api-1 Removed 
+ Network server_default Removing 
+ Network server_default Removed 

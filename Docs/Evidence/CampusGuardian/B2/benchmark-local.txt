@@ -1,0 +1,27 @@
+2026-11-02 Asia/Bangkok
+$ Server/.venv/Scripts/python.exe Server/benchmark.py --image Server/tests/fixtures/laptop-stocksnap.jpg
+exit=0
+{
+  "model": "D:\\IUH\\CongNgheMoi\\CK\\IUH_Campus\\Server\\models\\yolov8n.onnx",
+  "image": "Server/tests/fixtures/laptop-stocksnap.jpg",
+  "cpu": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+  "os": "Windows-10-10.0.26200-SP0",
+  "workers_configured": 1,
+  "benchmark_processes": 1,
+  "ort_threads": 2,
+  "warmup": 5,
+  "iterations": 50,
+  "inference_time_ms": {
+    "p50": 63.73305001761764,
+    "p95": 78.2141449744813,
+    "mean": 65.88798799319193
+  },
+  "total_time_ms": {
+    "p50": 82.47390005271882,
+    "p95": 99.69097500434144,
+    "mean": 84.38465601298958
+  },
+  "fixture_target_found": true
+}
+
+STDERR:

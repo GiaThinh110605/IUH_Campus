@@ -2,9 +2,10 @@ import logging
 import os
 import time
 from flask import Flask
-from prometheus_client import CollectorRegistry, Gauge
+from prometheus_client import CollectorRegistry, Gauge, Histogram, Counter
 from prometheus_flask_exporter import PrometheusMetrics
 from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMetrics
+from .inference.detector import Detector
 from .config import load_config
 from .model_registry import ModelRegistry
 from .routes.health import health
@@ -18,8 +19,10 @@ def create_app(config=None):
         app.config.update(config)
     app.logger.setLevel(getattr(logging, app.config["LOG_LEVEL"]))
     app.extensions["started_at"] = time.monotonic()
-    model = ModelRegistry(app.config["MODEL_PATH"], app.logger)
+    model = ModelRegistry(app.config["MODEL_PATH"], app.logger, app.config["ORT_INTRA_OP_THREADS"])
     app.extensions["model_registry"] = model
+    app.extensions["detector"] = Detector(model, app.config["ALLOWED_CLASSES"])
+    app.register_error_handler(413, lambda error: ({"error": "upload_too_large"}, 413))
     app.register_blueprint(health)
     app.register_blueprint(predict)
     app.extensions["prometheus_metrics"] = configure_metrics(app)
@@ -36,4 +39,9 @@ def configure_metrics(app):
                   registry=registry, multiprocess_mode="livemin")
     gauge.set(int(app.extensions["model_registry"].loaded))
     app.extensions["model_loaded_gauge"] = gauge
+    app.extensions["inference_metrics"] = {
+        "latency": Histogram("inference_seconds", "ONNX session.run latency", registry=registry),
+        "detections": Counter("detections_total", "Accepted detections", ["label"], registry=registry),
+        "target_found": Counter("predict_target_found_total", "Requests matching target class", registry=registry),
+    }
     return metrics
