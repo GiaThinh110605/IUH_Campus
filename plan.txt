@@ -1,3 +1,47 @@
+IUH CAMPUS GUARDIAN — KẾ HOẠCH NHÓM
+Cập nhật 01/11/2026; thời lượng 3 tuần từ ngày nhóm thống nhất bắt đầu.
+
+THIẾT KẾ CHỐT
+Một game phiêu lưu 3D + chiến đấu match-3 theo lượt trên Windows PC VÀ Android.
+Giữ scene IUH_SharedCampus_Concept; bỏ cấu trúc chọn 6 minigame.
+Khám phá -> đầu mối -> quét -> nguồn nguyền -> match-3 -> Core -> nâng cấp.
+PC: camera game bật quét mới hiện khói tím/khối dữ liệu vỡ trên vật thể.
+Android: camera thật quét vật thể tương ứng (sách/laptop/màn hình theo model),
+xác nhận rồi đóng camera quay về game; không cần bám khói lên đồ vật thật.
+PC raycast không phải AI. Nhận diện camera chưa tự đáp ứng AR.
+
+COMBAT VÀ PHẦN THƯỞNG
+Màn hình ngang: nhân vật trái, bàn cờ giữa, quái phải.
+Đề xuất bàn 6x6, ô kiếm/khiên/năng lượng/hồi máu, một Skill.
+Đổi hai ô kề cạnh; ghép >=3. Đổi sai trả lại không mất lượt.
+Chuỗi rơi cùng lượt, khóa input; quái báo trước và phản công một lần sau chuỗi.
+Hết nước đi xáo không mất lượt. Quái chết không phản công.
+Campus Core nâng Tấn công/Phòng thủ/Sinh lực, mỗi nhánh 2 cấp bản đầu.
+Chỉ mua ngoài trận, lưu nhất quán, khóa khi thiếu Core hoặc đạt tối đa.
+Bỏ EXP. Trang phục/ngoại hình để sau, không cam kết trong 3 tuần.
+Đề xuất mỗi mốc nhiệm vụ/độ khó chỉ thưởng một lần; replay không farm vô hạn.
+
+PHẠM VI VÀ PHÂN CÔNG ĐỀ XUẤT
+Một tuyến, một nhiệm vụ, một loại quái, một trận và thử thách cao hơn sau nâng cấp.
+Gia Thịnh: Unity/scene/flow, match-3, input/camera, tích hợp AI/AR, hai build.
+Minh Nhật: FastAPI, Adafruit IO, Docker, chống trùng; hỗ trợ UI/QA.
+Cả hai: model, tích hợp, test, báo cáo. Nhóm xác nhận và cân đối cuối tuần 1.
+
+LỊCH
+Tuần 1: chốt thiết bị/model/AR/API; flow/quét/bàn cờ; build PC và APK máy thật.
+Tuần 2: combat, thưởng/nâng cấp/lưu, cloud thật, retry/chống trùng; chơi hết tuyến.
+Tuần 3: tối ưu/test, đóng băng tính năng, hai build cuối, báo cáo/video.
+
+NGHIỆM THU
+Không menu 6 game/Missing Script; quét đúng/sai/quyền camera xử lý rõ.
+Bàn cờ không kẹt, không đếm trùng, không input khi rơi; mỗi lượt quái đánh một lần.
+Thưởng/nâng cấp/lưu đúng; retry/restart không thưởng lặp, cloud có bằng chứng thật.
+AI/AR/Docker kiểm thử trên thiết bị/cấu hình thực; không dùng ảnh minigame cũ.
+Hiện backend còn mô phỏng; tài liệu này không xác nhận Guardian đã hoàn thành.
+Chốt thêm thiết bị, chỉ số/giá, lớp/ngưỡng model, luật thua/replay, yêu cầu AR,
+ngày bắt đầu/hạn nộp. Không cảm biến; key chỉ ở backend. Không cloud save liên máy.
+Chi tiết: plan.md. Hướng dẫn: README.md. Rubric gốc giữ nguyên bên dưới.
+
 Assessment Rubric: New Technology and Application Development in IT
 
 Component Score
