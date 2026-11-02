@@ -1767,3 +1767,426 @@ Importing 'GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scen
 Imported 'GUID: 5afa546000e52a0449f697db9f6c1ba1' -> (Import Result ID: 'af252d6e8afe7776b30fd6bd20f229d0') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=992f6e2f0eeacf6e848144ac0bf943e1 DependenciesID=b06853b435475837499e3ebcc766309f StaticDependenciesID=65e45c3c1815152b11984cbe874ea0b6 
 Asset Pipeline Refresh (id=c2ddde3504ebd49509d35c54696a71fa): Total: 0.035 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
 [Licensing::Client] Successfully resolved entitlement details
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+[Licensing::Client] Successfully resolved entitlement details
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping - 200 - application/grpc 0.7991ms
+Starting: /Applications/Unity/Hub/Editor/6000.5.8f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/mac/Unity/IUH_Campus
+[Licensing::Client] Successfully resolved entitlement details
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Current configuration matches the requested one, skipping
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors - 200 - application/grpc 2.4511ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.dll, with 145 defines and 351 references
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running Unity.Jobs.CodeGen.JobsILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - 200 - application/grpc 35.7995ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp-Editor.dll, with 143 defines and 378 references
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running Unity.Jobs.CodeGen.JobsILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - 200 - application/grpc 91.0132ms
+ExitCode: 0 Duration: 3s284ms
+[741/972    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[964/972    1s] Csc Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.dll (+2 others)
+Assets/IUH_Campus/SharedCampusConcept/Scripts/IUHConceptRenderQuality.cs(19,89): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/SharedCampusConcept/Scripts/IUHConceptRenderQuality.cs(19,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Core/GameManager.cs(51,31): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(91,54): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(92,50): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(93,64): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(97,36): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/World/WorldState.cs(15,54): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/World/WorldState.cs(80,101): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/World/WorldState.cs(80,38): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHCustomizationManager.cs(129,52): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHCustomizationManager.cs(141,62): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(497,79): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(497,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(161,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(283,130): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(283,27): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(186,55): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(186,30): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(201,31): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(291,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(291,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(366,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(366,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Player/PlayerSpawnManager.cs(64,34): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(403,93): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(403,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(406,89): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(406,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Player/IUHPlayerSittingController.cs(156,59): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Player/IUHPlayerSittingController.cs(156,27): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(488,31): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(427,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(427,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/SimplePanelUI.cs(14,54): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(617,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(617,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Save/SaveSystem.cs(30,41): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/InteractionUI.cs(13,54): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Save/SaveSystem.cs(75,41): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(842,97): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(842,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs(66,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs(66,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs(93,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(854,92): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(854,29): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(946,58): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(946,33): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs(51,31): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs(228,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs(356,26): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs(368,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs(368,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs(20,42): warning CS0414: The field 'IUHMiniGamePortalUI.m_ToggleKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoHunterManager.cs(37,40): warning CS0414: The field 'IUHPhotoHunterManager.m_ZoomSpeed' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(36,42): warning CS0414: The field 'IUHGrabMotorbike.m_HornKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/IUHThirdPersonCamera.cs(16,40): warning CS0414: The field 'IUHThirdPersonCamera.m_MaxDistance' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(35,42): warning CS0414: The field 'IUHGrabMotorbike.m_MountKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(37,42): warning CS0414: The field 'IUHGrabMotorbike.m_TurboKey' is assigned but its value is never used
+[965/972    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
+Processing assembly Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.dll, with 145 defines and 351 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[966/972    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[967/972    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+[968/972    0s] Csc Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(52,26): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs(64,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(149,22): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(171,79): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(171,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(186,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs(70,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs(70,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs(84,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs(84,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHCampusPhotoRefinement.cs(46,27): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameSystemsAutomation.cs(41,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameSystemsAutomation.cs(144,26): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameSystemsAutomation.cs(145,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs(75,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs(75,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs(65,82): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs(65,37): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(68,69): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(68,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(86,84): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(86,39): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs(84,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs(84,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHPlayerAutomation.cs(59,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHPlayerAutomation.cs(59,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHMultiFloorAutomation.cs(41,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs(41,43): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHRealismAutomation.cs(53,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHRealismAutomation.cs(53,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs(26,24): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHRightClusterInteriorBuilder.cs(64,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHRightClusterInteriorBuilder.cs(64,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs(61,19): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGrabCampusBuilder.cs(1229,17): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs(93,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs(433,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs(433,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHSharedCampusConceptBuilder.cs(440,79): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHSharedCampusConceptBuilder.cs(440,30): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+[969/972    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp-Editor.dll, with 143 defines and 378 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[970/972    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[971/972    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (3.26 seconds), 9 items updated, 972 evaluated
+Assets/IUH_Campus/SharedCampusConcept/Scripts/IUHConceptRenderQuality.cs(19,89): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/SharedCampusConcept/Scripts/IUHConceptRenderQuality.cs(19,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Core/GameManager.cs(51,31): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(91,54): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(92,50): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(93,64): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs(97,36): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/World/WorldState.cs(15,54): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/World/WorldState.cs(80,101): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/World/WorldState.cs(80,38): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHCustomizationManager.cs(129,52): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHCustomizationManager.cs(141,62): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(497,79): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(497,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(161,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(283,130): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(283,27): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(186,55): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(186,30): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(201,31): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(291,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(291,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(366,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(366,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Player/PlayerSpawnManager.cs(64,34): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(403,93): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(403,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(406,89): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(406,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Player/IUHPlayerSittingController.cs(156,59): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Player/IUHPlayerSittingController.cs(156,27): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(488,31): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(427,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs(427,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/SimplePanelUI.cs(14,54): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(617,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(617,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Save/SaveSystem.cs(30,41): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/InteractionUI.cs(13,54): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Save/SaveSystem.cs(75,41): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(842,97): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(842,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs(66,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs(66,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs(93,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(854,92): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(854,29): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(946,58): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs(946,33): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs(51,31): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs(228,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs(356,26): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs(368,60): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs(368,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs(20,42): warning CS0414: The field 'IUHMiniGamePortalUI.m_ToggleKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoHunterManager.cs(37,40): warning CS0414: The field 'IUHPhotoHunterManager.m_ZoomSpeed' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(36,42): warning CS0414: The field 'IUHGrabMotorbike.m_HornKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/IUHThirdPersonCamera.cs(16,40): warning CS0414: The field 'IUHThirdPersonCamera.m_MaxDistance' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(35,42): warning CS0414: The field 'IUHGrabMotorbike.m_MountKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs(37,42): warning CS0414: The field 'IUHGrabMotorbike.m_TurboKey' is assigned but its value is never used
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(52,26): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs(64,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(149,22): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(171,79): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(171,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs(186,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs(70,70): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs(70,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs(84,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs(84,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHCampusPhotoRefinement.cs(46,27): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameSystemsAutomation.cs(41,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameSystemsAutomation.cs(144,26): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameSystemsAutomation.cs(145,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs(75,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHGameReadyMasterBuilder.cs(75,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs(65,82): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs(65,37): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(68,69): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(68,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(86,84): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHCourtyardGraphics.cs(86,39): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs(84,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs(84,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHPlayerAutomation.cs(59,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHPlayerAutomation.cs(59,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHMultiFloorAutomation.cs(41,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs(41,43): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHRealismAutomation.cs(53,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHRealismAutomation.cs(53,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs(26,24): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHRightClusterInteriorBuilder.cs(64,118): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHRightClusterInteriorBuilder.cs(64,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs(61,19): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHGrabCampusBuilder.cs(1229,17): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs(93,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs(433,106): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs(433,25): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets/IUH_Campus/Editor/IUHSharedCampusConceptBuilder.cs(440,79): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets/IUH_Campus/Editor/IUHSharedCampusConceptBuilder.cs(440,30): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Reloading assemblies after forced synchronous recompile.
+Total cache size 265652736
+Total cache size after purge 265652736, took 00:00:00.2446559
+Begin MonoManager ReloadAssembly
+2026-11-02 10:40:16.192 Unity[11451:79591] NSEventModifierFlagFunction specified to -setKeyEquivalentModifierMask: for item <NSMenuItem: 0x74d4667a20 SDF, ke='Command-F12'>, but is only supported for system-provided menu items; will not be used
+2026-11-02 10:40:16.196 Unity[11451:79591] NSEventModifierFlagFunction specified to -setKeyEquivalentModifierMask: for item <NSMenuItem: 0x74d4672760 SDF, ke='Command-F12'>, but is only supported for system-provided menu items; will not be used
+2026-11-02 10:40:16.199 Unity[11451:79591] NSEventModifierFlagFunction specified to -setKeyEquivalentModifierMask: for item <NSMenuItem: 0x74d465e800 SDF, ke='Command-F12'>, but is only supported for system-provided menu items; will not be used
+2026-11-02 10:40:16.201 Unity[11451:79591] NSEventModifierFlagFunction specified to -setKeyEquivalentModifierMask: for item <NSMenuItem: 0x74d4671180 SDF, ke='Command-F12'>, but is only supported for system-provided menu items; will not be used
+Thread 0x17b2ff000 may have been prematurely finalized
+Symbol file LoadedFromMemory is not a mono symbol file
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+Refreshing native plugins compatible for Editor in 2.37 ms, found 2 plugins.
+Native extension for iOS target not found
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+2026-11-02 10:40:17.551 Unity[11451:79591] NSEventModifierFlagFunction specified to -setKeyEquivalentModifierMask: for item <NSMenuItem: 0x74d70a8aa0 SDF, ke='Command-F12'>, but is only supported for system-provided menu items; will not be used
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.975 seconds
+Domain Reload Profiling: 1787ms
+	BeginReloadAssembly (571ms)
+		DisableScriptedObjects (154ms)
+		CreateAndSetChildDomain (239ms)
+	RebuildCommonClasses (6ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (198ms)
+		LoadAssemblies (117ms)
+		AnalyzeDomain (103ms)
+			TypeCache.Refresh (9ms)
+			BuildScriptInfoCaches (82ms)
+			ResolveRequiredComponents (11ms)
+	FinalizeReload (975ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (52ms)
+			BeforeProcessingInitializeOnLoad (157ms)
+			ProcessInitializeOnLoadAttributes (236ms)
+			ProcessInitializeOnLoadMethodAttributes (63ms)
+		AwakeInstancesAfterBackupRestoration (232ms)
+
+Asset Pipeline Refresh (id=fd0038e54e2be44be87252f13f3dc496): Total: 6.132 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=1551 ms
+		Asset DB Callback time: managed=29 ms, native=15 ms
+		Scripting: domain reloads=1, domain reload time=904 ms, compile time=1 ms, other=0 ms
+		Project Asset Count: scripts=1625, non-scripts=3604
+		Asset File Changes: new=0, changed=97, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokePackagesCallback: 0.555ms
+	ApplyChangesToAssetFolders: 0.286ms
+	Scan: 303.709ms
+	Collect global state as custom dependencies: 3.347ms
+	ProcessAssetsWithTransientArtifactChanges: 6.833ms
+	CategorizeAssets: 70.712ms
+	CompileScripts: 0.559ms
+	ImportOutOfDateAssets: 1012.941ms (985.746ms without children)
+		CollectScriptTypesHashes: 2.723ms
+		ReloadNativeAssets: 0.649ms
+		UnloadImportedAssets: 0.190ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.445ms
+		ImportSchedulerStart: 25.885ms
+	PostProcessAllAssets: 32.001ms
+		PostProcessCallbackCreateDeferredMaterials 1.053ms
+		ShaderAssetModifiedCallback 0.226ms
+		PostprocessAssetsUpdateCachedIcon 0.204ms
+		RaytracingShaderImportPostprocess 0.086ms
+		SpeedTreeImporter.PostprocessAllAssets 0.079ms
+		ComputeShaderImportPostprocess 0.076ms
+		XRBuildSystem.XRAssetImported 0.071ms
+		MonoPostProcessAllAssets: 28.884ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 5.359ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 3.099ms
+			AssetChangedListener.OnPostprocessAllAssets 2.904ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 2.539ms
+			AssetPostprocessor.OnPostprocessAllAssets 2.211ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.872ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 0.749ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.591ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.584ms
+			PostProcessor.OnPostprocessAllAssets 0.558ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.457ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.422ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.397ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.365ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.337ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.325ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.318ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.275ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.146ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.138ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.133ms
+			CinemachineSettings.OnPostprocessAllAssets 0.123ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.119ms
+			SampleDependencyImporterPostProcessor.OnPostprocessAllAssets 0.108ms
+			AssetEvents.OnPostprocessAllAssets 0.095ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 0.092ms
+			DomainReloadProcessor.OnPostprocessAllAssets 0.087ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.082ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.072ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.055ms
+			SyncVS.PostprocessSyncProject 0.052ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.051ms
+			PipelineAssetProcessor.OnPostprocessAllAssets 0.050ms
+	PostAssetChangesProfiler: 10.903ms
+	PersistCurrentRevisions: 0.105ms
+	GenerateScriptTypeHashes: 1.649ms
+	GenerateScriptTypeSerializationHashes: 2.390ms
+	Untracked: 937.508ms
+
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+[Worker1] Imported GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity - Importer: PreviewImporter -> (ImportResultId: 'dd79b4186059b672955f1afbc71b9d75') in 0.008355875 seconds
+Asset Pipeline Refresh (id=28a00afbf7e9b4df6a8d8779f24e1f82): Total: 0.128 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+[Grab Campus Setup] Bắt đầu thiết lập hoàn thiện gameplay 2.1 Chuyến Xe Tâm Linh...
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGrabCampusGameplaySetup:SetupCompleteGameplay () (at Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs:29)
+UnityEditor.EditorApplication:Internal_CallDelayFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:418)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs Line: 29)
+
+Importing 'GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity' with importer (DefaultImporter)
+Imported 'GUID: 5afa546000e52a0449f697db9f6c1ba1' -> (Import Result ID: '2ec871d44e274b627d041b0b396b59b4') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=992f6e2f0eeacf6e848144ac0bf943e1 DependenciesID=03fa8a1f26159f80f534909b6cc558df StaticDependenciesID=9cfb94fe56914bad04f98c262d66f2ee 
+Asset Pipeline Refresh (id=31bf6d06a703044478b18c61bd01f969): Total: 0.066 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[Grab Campus Setup] HOÀN TẤT THIẾT LẬP GAMEPLAY 2.1 THÀNH CÔNG RỰC RỠ! Sẵn sàng chơi trong Play Mode.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Editor.IUHGrabCampusGameplaySetup:SetupCompleteGameplay () (at Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs:78)
+UnityEditor.EditorApplication:Internal_CallDelayFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:418)
+
+(Filename: Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs Line: 78)
+
+Importing 'GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity' with importer (DefaultImporter)
+Imported 'GUID: 5afa546000e52a0449f697db9f6c1ba1' -> (Import Result ID: '2ec871d44e274b627d041b0b396b59b4') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=992f6e2f0eeacf6e848144ac0bf943e1 DependenciesID=03fa8a1f26159f80f534909b6cc558df StaticDependenciesID=9cfb94fe56914bad04f98c262d66f2ee 
+Asset Pipeline Refresh (id=0d7ddff0ae4a9484e8cc62983d63b578): Total: 0.039 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[Worker0] Imported GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity - Importer: PreviewImporter -> (ImportResultId: 'cb8000ba773df26132842f1ad83af41a') in 0.015927916 seconds

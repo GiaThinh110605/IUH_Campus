@@ -1252,3 +1252,88 @@ Importing 'GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scen
 Imported 'GUID: 5afa546000e52a0449f697db9f6c1ba1' -> (Import Result ID: '7e1d138ed7456ba2e22a3013408fa1ea') in 0.000 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=66449bd03e53e33fbd98d455bdd36b71 DependenciesID=7bb0100150b856e5f44715f23cc0a8c5 StaticDependenciesID=55499f267a3dee4748e6e88b35074bce 
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Default GameObject Tag: Player already registered
+Default GameObject Tag: MainCamera already registered
+AcceleratorClientConnectionCallback - disconnected - :0
+[Licensing::Client] Successfully resolved entitlement details
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+[Licensing::Client] Successfully resolved entitlement details
+Begin MonoManager ReloadAssembly
+Thread 0x16c9f3000 may have been prematurely finalized
+Symbol file LoadedFromMemory is not a mono symbol file
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+'Packages/com.unity.cinemachine/Editor/Obsolete/CinemachineVirtualCameraBaseEditor.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.cinemachine/Editor/Editors/CinemachineVirtualCameraBaseEditor.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Native extension for iOS target not found
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.422 seconds
+Domain Reload Profiling: 957ms
+	BeginReloadAssembly (132ms)
+		DisableScriptedObjects (8ms)
+		CreateAndSetChildDomain (39ms)
+	RebuildCommonClasses (5ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (362ms)
+		LoadAssemblies (205ms)
+		AnalyzeDomain (126ms)
+			TypeCache.Refresh (12ms)
+			BuildScriptInfoCaches (109ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (423ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (11ms)
+			BeforeProcessingInitializeOnLoad (40ms)
+			ProcessInitializeOnLoadAttributes (171ms)
+			ProcessInitializeOnLoadMethodAttributes (51ms)
+		AwakeInstancesAfterBackupRestoration (9ms)
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Unloading 25 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7465 unused Assets / (5.0 MB). Loaded Objects now: 8500.
+Memory consumption went from 194.7 MB to 189.6 MB.
+Total: 6.637125 ms (FindLiveObjects: 0.397625 ms CreateObjectMapping: 1.113250 ms MarkObjects: 3.922791 ms  DeleteObjects: 1.201959 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Prepare
+Default GameObject Tag: Player already registered
+Default GameObject Tag: MainCamera already registered
+AcceleratorClientConnectionCallback - disconnected - :0
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Unloading 25 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 25 unused Assets / (2.7 MB). Loaded Objects now: 8500.
+Memory consumption went from 178.9 MB to 176.2 MB.
+Total: 5.711167 ms (FindLiveObjects: 0.226083 ms CreateObjectMapping: 0.448500 ms MarkObjects: 4.785125 ms  DeleteObjects: 0.251250 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time of request: 2026-11-02T03:40:26.317932Z
+  Time since last request: 1699.41231979200006 seconds.
+  importAddress: GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity - Importer: PreviewImporter
+Importing 'GUID: 5afa546000e52a0449f697db9f6c1ba1 - Path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity - Importer: PreviewImporter' with importer (PreviewImporter)
+Imported 'GUID: 5afa546000e52a0449f697db9f6c1ba1' -> (Import Result ID: 'cb8000ba773df26132842f1ad83af41a') in 0.007 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=66449bd03e53e33fbd98d455bdd36b71 DependenciesID=e93f73478d3aecadc2d545a2cc334ab8 StaticDependenciesID=047abbbc2e45ea6b5ff0bb0df06ea40a 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
