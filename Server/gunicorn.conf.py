@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent / ".env", override=False)
 os.environ.setdefault("PROMETHEUS_MULTIPROC_DIR", "/tmp/iuh-guardian-prometheus")
 bind = f"0.0.0.0:{int(os.getenv('PORT', '5001'))}"
-workers = 2
+workers = max(1, int(os.getenv("WEB_CONCURRENCY", "2")))
 timeout = 60
 accesslog = "-"
 errorlog = "-"

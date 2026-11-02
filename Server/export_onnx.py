@@ -44,5 +44,5 @@ def export_model(size=640):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--imgsz", type=int, choices=[640, 480, 416], default=640)
+    parser.add_argument("--imgsz", type=int, choices=[640, 512, 480, 416], default=640)
     export_model(parser.parse_args().imgsz)

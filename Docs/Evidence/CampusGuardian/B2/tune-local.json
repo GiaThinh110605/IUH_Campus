@@ -1,0 +1,210 @@
+[
+  {
+    "samples": 50,
+    "elapsed_seconds": 5.917970999958925,
+    "requests_per_second": 8.448841672314217,
+    "inference_time_ms": {
+      "p50": 63.203750003594905,
+      "p95": 73.61046494916081,
+      "mean": 63.929243995808065
+    },
+    "total_time_ms": {
+      "p50": 81.13835006952286,
+      "p95": 92.24109493079595,
+      "mean": 82.47522000456229
+    },
+    "wall_ms": {
+      "p50": 82.09009998245165,
+      "p95": 93.18025495740585,
+      "mean": 83.36845399346203
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 2,
+    "workers": 1,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 50,
+    "elapsed_seconds": 5.129929200047627,
+    "requests_per_second": 9.746723210046602,
+    "inference_time_ms": {
+      "p50": 44.49830006342381,
+      "p95": 58.4665700502228,
+      "mean": 46.00358600495383
+    },
+    "total_time_ms": {
+      "p50": 63.195150054525584,
+      "p95": 81.41465993830934,
+      "mean": 66.31928800139576
+    },
+    "wall_ms": {
+      "p50": 64.2539999098517,
+      "p95": 82.68285001977347,
+      "mean": 67.4113419977948
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 4,
+    "workers": 1,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 50,
+    "elapsed_seconds": 4.332657199935056,
+    "requests_per_second": 11.540262174618723,
+    "inference_time_ms": {
+      "p50": 37.557599949650466,
+      "p95": 44.44156499230303,
+      "mean": 37.7928900020197
+    },
+    "total_time_ms": {
+      "p50": 54.01300004450604,
+      "p95": 62.05999000230804,
+      "mean": 54.111580001190305
+    },
+    "wall_ms": {
+      "p50": 55.147050064988434,
+      "p95": 63.16307496163063,
+      "mean": 55.14513399451971
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 6,
+    "workers": 1,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 50,
+    "elapsed_seconds": 4.247505499981344,
+    "requests_per_second": 11.771615128036824,
+    "inference_time_ms": {
+      "p50": 34.85370002454147,
+      "p95": 37.9760850337334,
+      "mean": 34.937492003664374
+    },
+    "total_time_ms": {
+      "p50": 51.44884996116161,
+      "p95": 55.41295004077256,
+      "mean": 51.358875995501876
+    },
+    "wall_ms": {
+      "p50": 52.48045001644641,
+      "p95": 56.41881501651369,
+      "mean": 52.405282005202025
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 8,
+    "workers": 1,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 7.217762099928223,
+    "requests_per_second": 13.85470989699071,
+    "inference_time_ms": {
+      "p50": 82.51465001376346,
+      "p95": 94.56136504886672,
+      "mean": 83.2895139977336
+    },
+    "total_time_ms": {
+      "p50": 105.7407499756664,
+      "p95": 118.28606499475426,
+      "mean": 106.43244700040668
+    },
+    "wall_ms": {
+      "p50": 106.80959996534511,
+      "p95": 119.45056002587079,
+      "mean": 107.52363899489865
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 2,
+    "workers": 2,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 6.154670500080101,
+    "requests_per_second": 16.247823502281484,
+    "inference_time_ms": {
+      "p50": 60.410100035369396,
+      "p95": 72.4904200178571,
+      "mean": 61.245910993311554
+    },
+    "total_time_ms": {
+      "p50": 85.63669992145151,
+      "p95": 100.88539005373605,
+      "mean": 86.58826899365522
+    },
+    "wall_ms": {
+      "p50": 86.98389999335632,
+      "p95": 102.33810998615809,
+      "mean": 87.94585400610231
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 4,
+    "workers": 2,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 6.136859499965794,
+    "requests_per_second": 16.294979541336637,
+    "inference_time_ms": {
+      "p50": 53.1323499744758,
+      "p95": 60.330284968949854,
+      "mean": 53.302179004531354
+    },
+    "total_time_ms": {
+      "p50": 81.46379998652264,
+      "p95": 92.61834000353701,
+      "mean": 81.98358899564482
+    },
+    "wall_ms": {
+      "p50": 83.0178500036709,
+      "p95": 94.34033995494246,
+      "mean": 83.4270939975977
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 6,
+    "workers": 2,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 7.088393499958329,
+    "requests_per_second": 14.107568943596018,
+    "inference_time_ms": {
+      "p50": 65.65399997634813,
+      "p95": 105.68978004157543,
+      "mean": 72.20860800938681
+    },
+    "total_time_ms": {
+      "p50": 94.38384999521077,
+      "p95": 132.61637996765785,
+      "mean": 99.30897000944242
+    },
+    "wall_ms": {
+      "p50": 95.6331500201486,
+      "p95": 133.81601499277167,
+      "mean": 100.54511500173248
+    },
+    "environment": "local Flask test_client worker processes",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "threads": 8,
+    "workers": 2,
+    "warmup_per_worker": 5,
+    "iterations_per_worker": 50
+  }
+]

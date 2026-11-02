@@ -1,0 +1,30 @@
+$ D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Scripts\python.exe -m tools.benchmark_tuning --mode local --threads 4 --workers 2 --iterations 50
+exit=0
+{
+  "samples": 100,
+  "elapsed_seconds": 6.154670500080101,
+  "requests_per_second": 16.247823502281484,
+  "inference_time_ms": {
+    "p50": 60.410100035369396,
+    "p95": 72.4904200178571,
+    "mean": 61.245910993311554
+  },
+  "total_time_ms": {
+    "p50": 85.63669992145151,
+    "p95": 100.88539005373605,
+    "mean": 86.58826899365522
+  },
+  "wall_ms": {
+    "p50": 86.98389999335632,
+    "p95": 102.33810998615809,
+    "mean": 87.94585400610231
+  },
+  "environment": "local Flask test_client worker processes",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "threads": 4,
+  "workers": 2,
+  "warmup_per_worker": 5,
+  "iterations_per_worker": 50
+}
+
+STDERR:

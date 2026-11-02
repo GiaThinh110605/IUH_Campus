@@ -1,0 +1,28 @@
+$ D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Scripts\python.exe -m tools.benchmark_tuning --mode http --workers 2 --iterations 50
+exit=0
+{
+  "samples": 100,
+  "elapsed_seconds": 6.983626700006425,
+  "requests_per_second": 14.319207525784273,
+  "inference_time_ms": {
+    "p50": 100.25577100032024,
+    "p95": 152.90483039962055,
+    "mean": 100.1169443699564
+  },
+  "total_time_ms": {
+    "p50": 129.3456415005494,
+    "p95": 180.62996939993354,
+    "mean": 127.91257531005613
+  },
+  "wall_ms": {
+    "p50": 140.51220001420006,
+    "p95": 192.30125991161913,
+    "mean": 137.88185800192878
+  },
+  "environment": "HTTP Gunicorn",
+  "clients": 2,
+  "requested_duration_seconds": 0,
+  "errors": []
+}
+
+STDERR:

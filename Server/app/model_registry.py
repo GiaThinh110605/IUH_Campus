@@ -15,6 +15,8 @@ class ModelRegistry:
             return
         try:
             options = ort.SessionOptions()
+            options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+            options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
             options.intra_op_num_threads = threads
             options.inter_op_num_threads = 1
             session = ort.InferenceSession(model_path, sess_options=options, providers=["CPUExecutionProvider"])

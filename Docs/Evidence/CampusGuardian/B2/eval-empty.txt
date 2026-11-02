@@ -1,0 +1,5 @@
+Expected exit2, no user photos.
+exit=2
+Chưa đánh giá độ đúng trên ảnh thật: Real-photo directory unavailable: D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\tests\fixtures\real. Đặt ảnh vào D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\tests\fixtures\real; dùng tiền tố book_, laptop_, chair_, bottle_, backpack_, cellphone_, none_.
+
+STDERR:

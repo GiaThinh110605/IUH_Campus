@@ -1,0 +1,14 @@
+B2.5 experiment
+exit=0
+{
+  "source": "models\\yolov8n.onnx",
+  "destination": "models\\yolov8n-int8.onnx",
+  "weight_type": "QInt8",
+  "bytes": 3504075,
+  "sha256": "0a287dcb2b6b263a3400cdb2c1cd23da23eb71f91cfd5e29d6f2f0801042e2da",
+  "loadable": false,
+  "error": "[ONNXRuntimeError] : 9 : NOT_IMPLEMENTED : Could not find an implementation for ConvInteger(10) node with name '/model.0/conv/Conv_quant'"
+}
+
+STDERR:
+WARNING:root:Please consider to run pre-processing before quantization. Refer to example: https://github.com/microsoft/onnxruntime-inference-examples/blob/main/quantization/image_classification/cpu/ReadMe.md 

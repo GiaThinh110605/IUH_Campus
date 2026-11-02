@@ -39,7 +39,7 @@ def benchmark(model, image, workers):
             measured.append(response.get_json())
     report = {"model": str(model), "image": str(image), "cpu": cpu_name(), "os": platform.platform(),
               "workers_configured": workers, "benchmark_processes": 1,
-              "ort_threads": app.config["ORT_INTRA_OP_THREADS"], "warmup": 5, "iterations": 50}
+              "ort_threads": app.config["ORT_INTRA_THREADS"], "warmup": 5, "iterations": 50}
     for field in ("inference_time_ms", "total_time_ms"):
         values = [item[field] for item in measured]
         report[field] = {"p50": float(np.percentile(values, 50)), "p95": float(np.percentile(values, 95)),

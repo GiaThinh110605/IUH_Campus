@@ -19,7 +19,7 @@ def create_app(config=None):
         app.config.update(config)
     app.logger.setLevel(getattr(logging, app.config["LOG_LEVEL"]))
     app.extensions["started_at"] = time.monotonic()
-    model = ModelRegistry(app.config["MODEL_PATH"], app.logger, app.config["ORT_INTRA_OP_THREADS"])
+    model = ModelRegistry(app.config["MODEL_PATH"], app.logger, app.config["ORT_INTRA_THREADS"])
     app.extensions["model_registry"] = model
     app.extensions["detector"] = Detector(model, app.config["ALLOWED_CLASSES"])
     app.register_error_handler(413, lambda error: ({"error": "upload_too_large"}, 413))

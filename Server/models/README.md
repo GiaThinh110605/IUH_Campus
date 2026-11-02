@@ -16,3 +16,10 @@ Allowed mission IDs/names from metadata: {"24": "backpack", "39": "bottle", "56"
 The default list is configurable through ALLOWED_CLASSES; detector resolves IDs from metadata.
 
 Re-export using requirements-export.txt in Server/.venv-export. Original .pt/cache files and alternative ONNX sizes are ignored; the default yolov8n.onnx is intentionally committed for clean-checkout inference. Models over 50 MB must not be committed. Docker uses the read-only models bind mount.
+
+## B2.5 experiments (not defaults)
+
+-512 FP32:12,790,628bytes. Exported separately with --imgsz512.
+-640 dynamic signed QInt8:3,504,075bytes. ONNX Runtime1.23.2 CPU cannot load ConvInteger(10); latency/accuracy unavailable, not deployed.
+-640/512/480/416 speed tables: Docs/Evidence/CampusGuardian/B2/thread-benchmark.md.
+-No real user photos supplied; real-eval.md intentionally reports N/A. Default640 model bytes/checksum above are unchanged.
