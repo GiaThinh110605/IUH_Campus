@@ -3,25 +3,15 @@ using IUHCampus.Core;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Intelligent Haunted Ghost AI for Mini-Game 2.1 "Grab Campus: Chuyến xe tâm linh".
-    /// Features:
-    /// - Behaviors: Patrol, Observing (spectral figure), PathBlocker (ngáng đường), Chasing (truy đuổi).
-    /// - Reactions:
-    ///   * Flashlight: Slows down by 60%, covers eyes.
-    ///   * Self-Defense Bat: Stunned for 4.5s and knocked back 8m.
-    ///   * Roadside Flare: Scared away, flees for 6s.
-    ///   * Talisman: Blocked by golden shield, warded off 10m with 0 cargo damage.
-    /// - Target Loss: Can lose track of player (>34m) and return smoothly to patrol base.
-    /// </summary>
+
     public class IUHGhostHazard : MonoBehaviour
     {
         public enum GhostBehaviorType
         {
-            Patroller,     // Tuần tra bình thường
-            Observer,      // Đứng nhìn từ xa rồi biến mất khi lại gần
-            PathBlocker,   // Chặn ngã tư/ngõ hẹp, ép dùng đồ hoặc đi đường vòng
-            Chaser         // Truy đuổi người chơi khi phát hiện
+            Patroller,
+            Observer,
+            PathBlocker,
+            Chaser
         }
 
         public enum GhostState
@@ -58,7 +48,6 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private float m_TriggerChaseDist = 26.0f;
         [SerializeField] private float m_LoseChaseDist = 34.0f;
 
-        // Dynamic State Variables
         private Vector3 m_BasePosition;
         private AudioSource m_AudioSource;
         private bool m_HasScreamed = false;
@@ -126,11 +115,10 @@ namespace IUHCampus.Minigames.GrabCampus
 
             float hoverY = Mathf.Sin(Time.time * m_HoverSpeed) * m_HoverHeight;
 
-            // Handle temporary Stun state
             if (m_StunTimer > 0f)
             {
                 m_StunTimer -= Time.deltaTime;
-                transform.Rotate(0f, 140f * Time.deltaTime, 0f); // Dizzy spinning
+                transform.Rotate(0f, 140f * Time.deltaTime, 0f);
                 if (m_GhostLight != null) m_GhostLight.intensity = 1.0f + Mathf.PingPong(Time.time * 8f, 1.5f);
                 if (m_StunTimer <= 0f)
                 {
@@ -139,7 +127,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 return;
             }
 
-            // Handle Fleeing state (caused by Flare or Talisman)
             if (m_FleeTimer > 0f)
             {
                 m_FleeTimer -= Time.deltaTime;
@@ -151,17 +138,14 @@ namespace IUHCampus.Minigames.GrabCampus
                 return;
             }
 
-            // Handle Flashlight slow decay
             if (m_FlashlightSlowTimer > 0f)
             {
                 m_FlashlightSlowTimer -= Time.deltaTime;
             }
 
-            // Find active target (motorbike or player)
             Transform target = GetActiveTarget();
             float distToTarget = target != null ? Vector3.Distance(transform.position, target.position) : 999f;
 
-            // State Machine transitions
             switch (currentState)
             {
                 case GhostState.Observing:
@@ -181,7 +165,6 @@ namespace IUHCampus.Minigames.GrabCampus
                     break;
             }
 
-            // Pulse Aura Light
             if (m_GhostLight != null)
             {
                 if (currentState == GhostState.Chasing)
@@ -220,7 +203,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void UpdateObserving(float distToTarget)
         {
-            // Face target
+
             Transform target = GetActiveTarget();
             if (target != null)
             {
@@ -232,7 +215,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // Vanish into thin air if player comes within 10 meters!
             if (distToTarget < 11.0f)
             {
                 VanishWithSpookySound();
@@ -252,7 +234,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void UpdatePatrolling(float hoverY, Transform target, float distToTarget)
         {
-            // Check trigger pursuit
+
             if (behavior == GhostBehaviorType.Chaser || behavior == GhostBehaviorType.Patroller)
             {
                 if (distToTarget <= m_TriggerChaseDist && target != null)
@@ -266,7 +248,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // Normal patrol movement
             m_PatrolTimer += Time.deltaTime * m_PatrolSpeed;
             float patrolOffset = Mathf.Sin(m_PatrolTimer) * m_PatrolDistance;
 
@@ -277,7 +258,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void UpdateChasing(float hoverY, Transform target, float distToTarget)
         {
-            // Check if player managed to lose the ghost (Mất dấu)
+
             if (distToTarget >= m_LoseChaseDist || target == null)
             {
                 currentState = GhostState.Returning;
@@ -290,20 +271,17 @@ namespace IUHCampus.Minigames.GrabCampus
                 return;
             }
 
-            // Move towards player
             Vector3 targetPos = target.position + Vector3.up * 1.0f;
             Vector3 toTarget = (targetPos - transform.position);
 
-            // Calculate current chase speed (reduced if blinded by flashlight)
             float speed = m_BaseChaseSpeed;
             if (m_FlashlightSlowTimer > 0f)
             {
-                speed *= 0.40f; // 60% slow!
+                speed *= 0.40f;
             }
 
             transform.position = Vector3.MoveTowards(transform.position, targetPos + Vector3.up * hoverY, speed * Time.deltaTime);
 
-            // Face target
             Vector3 lookDir = toTarget;
             lookDir.y = 0f;
             if (lookDir.sqrMagnitude > 0.01f)
@@ -311,7 +289,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * 7f);
             }
 
-            // Audio scream proximity cue
             if (distToTarget < m_ScreamDistance && !m_HasScreamed)
             {
                 m_HasScreamed = true;
@@ -344,30 +321,21 @@ namespace IUHCampus.Minigames.GrabCampus
             }
             else if (distToTarget <= m_TriggerChaseDist * 0.75f && behavior == GhostBehaviorType.Chaser)
             {
-                // Re-triggered if player comes back close
+
                 currentState = GhostState.Chasing;
             }
         }
 
-        // ================= SURVIVAL ITEM REACTIONS =================
-
-        /// <summary>
-        /// Called when player shines flashlight directly at ghost.
-        /// </summary>
         public void OnIlluminatedByFlashlight(float dt)
         {
-            m_FlashlightSlowTimer = 1.0f; // Keep slow active for 1s
+            m_FlashlightSlowTimer = 1.0f;
         }
 
-        /// <summary>
-        /// Called when player hits ghost with self-defense bat.
-        /// </summary>
         public void OnBatHit(Vector3 attackerPosition)
         {
             currentState = GhostState.Stunned;
             m_StunTimer = 4.5f;
 
-            // Knockback 8m
             Vector3 knockbackDir = (transform.position - attackerPosition).normalized;
             knockbackDir.y = 0.2f;
             transform.position += knockbackDir * 8.0f;
@@ -379,9 +347,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        /// <summary>
-        /// Called when roadside flare burns near ghost.
-        /// </summary>
         public void OnScaredByFlare(Vector3 flarePos)
         {
             if (currentState == GhostState.Fleeing) return;
@@ -398,9 +363,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        /// <summary>
-        /// Called when Talisman aura wards off the ghost.
-        /// </summary>
         public void OnWardedByTalisman(Vector3 talismanPos)
         {
             Vector3 wardDir = (transform.position - talismanPos).normalized;
@@ -412,8 +374,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 currentState = GhostState.Returning;
             }
         }
-
-        // ================= COLLISION & DAMAGE =================
 
         private void OnTriggerEnter(Collider other)
         {
@@ -429,18 +389,16 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             if (m_IsVanished || m_StunTimer > 0f || m_FleeTimer > 0f) return;
 
-            // Check if player has active Talisman shield
             var inv = IUHGrabInventoryManager.Instance;
             if (inv != null && inv.IsTalismanActive)
             {
-                // Protected by sacred talisman!
+
                 OnWardedByTalisman(otherGo.transform.position);
                 IUHGrabCampusManager.Instance?.ShowNotification("🛡️ BÙA HỘ MỆNH ĐÃ CHẶN ĐÒN TẤN CÔNG CỦA MA!");
                 AudioSource.PlayClipAtPoint(IUHSoundSynthesizer.GetTalismanChantSound(), transform.position, 1.0f);
                 return;
             }
 
-            // Normal damage
             var bike = otherGo.GetComponentInParent<IUHGrabMotorbike>();
             if (bike != null)
             {
@@ -474,7 +432,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_GhostLight.intensity = 5.0f;
             }
 
-            // Temporarily retreat 4m after attacking so player has breathing room
             currentState = GhostState.Returning;
         }
 
@@ -495,7 +452,7 @@ namespace IUHCampus.Minigames.GrabCampus
             m_BasePosition = position;
             transform.position = position;
             behavior = newBehavior;
-            currentState = (behavior == GhostBehaviorType.Observer) ? GhostState.Observing : 
+            currentState = (behavior == GhostBehaviorType.Observer) ? GhostState.Observing :
                            (behavior == GhostBehaviorType.Chaser) ? GhostState.Chasing : GhostState.Patrolling;
             m_StunTimer = 0f;
             m_FleeTimer = 0f;

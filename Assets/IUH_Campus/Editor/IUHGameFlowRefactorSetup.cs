@@ -29,28 +29,24 @@ namespace IUHCampus.Editor
                 return;
             }
 
-            // 1. Ensure IUHGameFlowManager on Canvas
             var flowMgr = canvasGO.GetComponent<IUHGameFlowManager>();
             if (flowMgr == null)
             {
                 flowMgr = canvasGO.AddComponent<IUHGameFlowManager>();
             }
 
-            // 2. Ensure IUHMiniGamePrepUI on Canvas
             var prepUI = canvasGO.GetComponent<IUHMiniGamePrepUI>();
             if (prepUI == null)
             {
                 prepUI = canvasGO.AddComponent<IUHMiniGamePrepUI>();
             }
 
-            // 3. Find UI components
             var mainMenuUI = canvasGO.GetComponentInChildren<IUHMainMenuUI>(true);
             var portalUI = canvasGO.GetComponentInChildren<IUHMiniGamePortalUI>(true);
             var customUI = canvasGO.GetComponentInChildren<IUHCustomizationUI>(true);
             var vicDialog = canvasGO.transform.Find("VictoryDialog")?.gameObject;
             var defDialog = canvasGO.transform.Find("DefeatDialog")?.gameObject;
 
-            // 4. Wire properties on IUHGameFlowManager
             SerializedObject so = new SerializedObject(flowMgr);
             so.FindProperty("m_MainMenuUI").objectReferenceValue = mainMenuUI;
             so.FindProperty("m_PortalUI").objectReferenceValue = portalUI;
@@ -58,10 +54,9 @@ namespace IUHCampus.Editor
             so.FindProperty("m_MiniGamePrepUI").objectReferenceValue = prepUI;
             so.FindProperty("m_VictoryDialog").objectReferenceValue = vicDialog;
             so.FindProperty("m_DefeatDialog").objectReferenceValue = defDialog;
-            so.FindProperty("m_StartupState").enumValueIndex = (int)IUHGameFlowManager.FlowState.MiniGameSelection;
+            so.FindProperty("m_StartupState").enumValueIndex = (int)IUHGameFlowManager.FlowState.Playing;
             so.ApplyModifiedProperties();
 
-            // 5. Ensure all ghosts under GAMEPLAY_GRAB_CAMPUS are inactive by default in the scene
             var gameplayRoot = GameObject.Find("GAMEPLAY_GRAB_CAMPUS");
             if (gameplayRoot != null)
             {
@@ -71,11 +66,9 @@ namespace IUHCampus.Editor
                     g.gameObject.SetActive(false);
                 }
 
-                // Ensure DeliveryHUD is inactive by default
                 var hud = canvasGO.transform.Find("DeliveryHUD");
                 if (hud != null) hud.gameObject.SetActive(false);
 
-                // Register Awake/Start once; the component's boot option keeps the panel closed.
                 var customPanel = canvasGO.transform.Find("CustomizationPanel");
                 if (customPanel != null)
                 {
@@ -89,13 +82,11 @@ namespace IUHCampus.Editor
                     }
                 }
 
-                // Ensure Prep Panel is inactive by default
                 var prepPanel = canvasGO.transform.Find("MiniGameSetupPanel");
                 if (prepPanel != null) prepPanel.gameObject.SetActive(false);
 
-                // Ensure PortalMenuPanel is active (so player sees 6 mission cards on startup)
                 var portalPanel = canvasGO.transform.Find("PortalMenuPanel");
-                if (portalPanel != null) portalPanel.gameObject.SetActive(true);
+                if (portalPanel != null) portalPanel.gameObject.SetActive(false);
             }
 
             EditorSceneManager.MarkSceneDirty(activeScene);

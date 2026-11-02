@@ -5,13 +5,7 @@ using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// Title / Main Menu Screen (1. Màn hình chính).
-    /// Exactly mirrors Panel 1 of the design specification:
-    /// - Title Banner: "Grab Campus — Chuyến Xe Tâm Linh"
-    /// - Buttons: Bắt đầu, Cài đặt, Trang phục & Xe máy, Thoát.
-    /// - Description: "Khám phá khuôn viên trường và bắt đầu hành trình của bạn!"
-    /// </summary>
+
     public class IUHMainMenuUI : MonoBehaviour
     {
         public static IUHMainMenuUI Instance { get; private set; }

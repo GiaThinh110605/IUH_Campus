@@ -4,11 +4,7 @@ using IUHCampus.Player;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Manages Character Uniform & Motorbike Themes (Xanh SM, Grab, Be, Default).
-    /// Dynamically recolors bike fairings, rider helmet, backpack, and player outfits.
-    /// Exactly mirrors the "Campus Adventure" wardrobe/garage UI from design specifications.
-    /// </summary>
+
     public class IUHCustomizationManager : MonoBehaviour
     {
         public enum BrandTheme
@@ -72,7 +68,7 @@ namespace IUHCampus.Minigames.GrabCampus
                     tagline = "Lịch sự - Thân thiện - Xanh",
                     description = "Trang phục chính thức của hãng xe thuần điện Xanh SM. Tinh thần xanh – sạch – đẹp.",
                     bonusStats = "⚡ +5% Tốc độ  •  🛡️ +5% Sức bền  •  🌟 +10% Nhận diện",
-                    primaryColor = new Color(0.0f, 0.72f, 0.85f), // Cyan Electric
+                    primaryColor = new Color(0.0f, 0.72f, 0.85f),
                     secondaryColor = new Color(0.05f, 0.15f, 0.25f),
                     speedMultiplier = 1.05f
                 },
@@ -83,7 +79,7 @@ namespace IUHCampus.Minigames.GrabCampus
                     tagline = "Nhanh chóng - An toàn - Tiện lợi",
                     description = "Màu xanh lá quen thuộc của đối tác tài xế Grab. Siêu tốc và linh hoạt né ma.",
                     bonusStats = "⚡ +10% Tốc độ  •  👻 +5% Né ma  •  📦 Bền kiện hàng",
-                    primaryColor = new Color(0.0f, 0.70f, 0.32f), // Grab Green
+                    primaryColor = new Color(0.0f, 0.70f, 0.32f),
                     secondaryColor = new Color(0.02f, 0.40f, 0.18f),
                     speedMultiplier = 1.10f
                 },
@@ -94,8 +90,8 @@ namespace IUHCampus.Minigames.GrabCampus
                     tagline = "Đồng hành - Linh hoạt - Dễ dàng",
                     description = "Sắc vàng rực rỡ và thân thiện của tài xế be. Gia tăng tiền thưởng cho mỗi đơn.",
                     bonusStats = "💰 +15% Tiền thưởng  •  🛡️ +10% Sức bền",
-                    primaryColor = new Color(1.0f, 0.76f, 0.03f), // Be Yellow
-                    secondaryColor = new Color(0.08f, 0.12f, 0.28f), // Be Navy
+                    primaryColor = new Color(1.0f, 0.76f, 0.03f),
+                    secondaryColor = new Color(0.08f, 0.12f, 0.28f),
                     speedMultiplier = 1.05f
                 },
                 new ThemeConfig
@@ -105,7 +101,7 @@ namespace IUHCampus.Minigames.GrabCampus
                     tagline = "Năng động - Sáng tạo - Trí tuệ",
                     description = "Đồng phục sinh viên Đại học Công nghiệp TP.HCM (IUH) truyền thống với xe thể thao.",
                     bonusStats = "🎓 Chuẩn sinh viên IUH  •  ⚡ Cân bằng toàn diện",
-                    primaryColor = new Color(0.12f, 0.35f, 0.80f), // IUH Blue
+                    primaryColor = new Color(0.12f, 0.35f, 0.80f),
                     secondaryColor = new Color(0.15f, 0.18f, 0.22f),
                     speedMultiplier = 1.0f
                 }
@@ -130,21 +126,18 @@ namespace IUHCampus.Minigames.GrabCampus
 
             var config = GetConfig(theme);
 
-            // 1. Recolor Motorbike Fairing & Decals
             if (m_Motorbike == null) m_Motorbike = FindFirstObjectByType<IUHGrabMotorbike>();
             if (m_Motorbike != null)
             {
                 RecolorTransformChildren(m_Motorbike.transform, config.primaryColor, config.secondaryColor);
             }
 
-            // 2. Recolor Rider Figure (Helmet & Backpack)
             var rider = GameObject.Find("Rider_Figure");
             if (rider != null)
             {
                 RecolorRiderAccessories(rider.transform, config.primaryColor, config.secondaryColor);
             }
 
-            // 3. Switch Uniform if UniformManager is present
             if (m_UniformManager == null) m_UniformManager = FindFirstObjectByType<IUHUniformManager>();
             if (m_UniformManager != null)
             {

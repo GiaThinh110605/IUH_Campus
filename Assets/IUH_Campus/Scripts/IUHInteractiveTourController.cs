@@ -5,11 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus
 {
-    /// <summary>
-    /// Interactive Fly & Tour Camera Controller for IUH Campus VR Simulation.
-    /// Supports both New Input System and Legacy Input Manager.
-    /// Features smooth free-look, WASD fly/walk, sprint, and quick POI teleportation.
-    /// </summary>
+
     public class IUHInteractiveTourController : MonoBehaviour
     {
         [Header("Movement Settings")]
@@ -56,7 +52,6 @@ namespace IUHCampus
             m_Pitch = euler.x;
             m_Yaw = euler.y;
 
-            // Initialize default iconic POIs based on IUH Campus Master Layout
             if (m_POIs == null || m_POIs.Length == 0)
             {
                 m_POIs = new PointOfInterest[]
@@ -136,13 +131,11 @@ namespace IUHCampus
                 return;
             }
 
-            // Toggle HUD with H
             if (IsKeyPressed(KeyCode.H))
             {
                 m_ShowHUD = !m_ShowHUD;
             }
 
-            // POI selection keys 1 - 6
             for (int i = 0; i < Mathf.Min(6, m_POIs.Length); i++)
             {
                 KeyCode code = KeyCode.Alpha1 + i;
@@ -187,7 +180,7 @@ namespace IUHCampus
                 if (IsKeyHeld(KeyCode.LeftAlt)) speed *= m_SlowMultiplier;
 
                 transform.position += moveInput.normalized * speed * Time.deltaTime;
-                // Minimum height clamp above ground level
+
                 if (transform.position.y < 1.0f)
                 {
                     Vector3 p = transform.position;
@@ -287,7 +280,6 @@ namespace IUHCampus
                 return;
             }
 
-            // Top-Left Banner
             GUI.Box(new Rect(15, 15, 390, 82), "");
             GUI.color = new Color(0.1f, 0.4f, 0.85f, 1f);
             GUI.Label(new Rect(25, 20, 370, 24), "★ ĐẠI HỌC CÔNG NGHIỆP TP. HỒ CHÍ MINH (IUH)");
@@ -296,7 +288,6 @@ namespace IUHCampus
             GUI.color = new Color(0.85f, 0.85f, 0.85f, 0.9f);
             GUI.Label(new Rect(25, 64, 370, 22), "Tham chiếu trực quan: https://vr.iuh.edu.vn/");
 
-            // Current Location Panel
             GUI.color = Color.white;
             GUI.Box(new Rect(15, 105, 390, 80), "");
             if (m_CurrentPOIIndex >= 0 && m_CurrentPOIIndex < m_POIs.Length)
@@ -307,7 +298,6 @@ namespace IUHCampus
                 GUI.Label(new Rect(25, 132, 370, 48), m_POIs[m_CurrentPOIIndex].Description);
             }
 
-            // Quick Viewpoint Buttons Panel
             GUI.Box(new Rect(15, 192, 390, 160), "");
             GUI.color = new Color(0.9f, 0.9f, 0.9f, 1f);
             GUI.Label(new Rect(25, 198, 370, 20), "<b>ĐIỂM THAM QUAN NHANH (Phím số 1 - 6):</b>");
@@ -324,7 +314,6 @@ namespace IUHCampus
                 }
             }
 
-            // Controls Guide (Bottom Left)
             GUI.color = Color.white;
             GUI.Box(new Rect(15, Screen.height - 130, 390, 115), "");
             GUI.color = new Color(1f, 0.9f, 0.5f, 1f);

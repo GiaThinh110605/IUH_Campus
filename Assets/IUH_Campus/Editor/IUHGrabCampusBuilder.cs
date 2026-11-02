@@ -11,19 +11,7 @@ using IUHCampus.UI;
 
 namespace IUHCampus.Editor
 {
-    /// <summary>
-    /// Master Automated Builder for Mini-Game 2.1 "Grab Campus: Chuyến xe tâm linh"
-    /// and the Unified Campus Adventure Menu Systems.
-    /// Implements all 6 Core Screens from the design reference:
-    /// 1. Màn hình chính: Bắt đầu, Cài đặt, Trang phục & Xe, Thoát.
-    /// 2. Gameplay HUD: Góc nhìn thứ ba, Bản đồ nhỏ (Minimap), Thanh trạng thái (Profile Lv.3), Điểm giao hàng & Thời gian.
-    /// 3. Giao hàng: Hộp thoại hoàn tất đơn hàng, hiển thị địa điểm và nút nhận thưởng.
-    /// 4. Ma đuổi: Cảnh báo "⚠️ MA ĐANG ĐUỔI THEO!", thanh truy đuổi đỏ, hiệu ứng kinh dị sương mù & vignette.
-    /// 5. Giao diện Mobile: Virtual touch joystick bên trái, các nút hành động (Xe máy, Tương tác, Tăng tốc) bên phải.
-    /// 6. Màn hình chiến thắng: Điểm kinh nghiệm, tiền thưởng, sao đánh giá và manh mối nhận được.
-    /// 7. Giao diện tùy biến Trang phục & Xe máy (XANH SM, Grab, be, Sinh Viên IUH).
-    /// 8. Menu Mini-game [Phím M]: Phông chữ to, đẹp, dễ nhìn, bỏ hoàn toàn các chữ tên người.
-    /// </summary>
+
     public static class IUHGrabCampusBuilder
     {
         private const string MatDir = "Assets/IUH_Campus/Materials/";
@@ -33,46 +21,35 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Grab Campus Builder] Bắt đầu thiết lập toàn diện Mini-Game 2.1 và Hệ Thống Giao Diện...");
 
-            // 1. Ensure Materials
             var grabGreenMat = GetOrCreateMaterial("M_IUH_Grab_Green", new Color(0.0f, 0.69f, 0.31f), 0.1f, 0.85f);
             var grabBoxMat = GetOrCreateMaterial("M_IUH_Grab_Box", new Color(0.02f, 0.55f, 0.25f), 0.05f, 0.6f);
             var ghostMat = GetOrCreateMaterial("M_IUH_Ghost_Spooky", new Color(0.25f, 0.95f, 1.0f, 0.75f), 0f, 0.9f, true, new Color(0.25f, 0.95f, 1.0f) * 3.5f);
             var waypointMat = GetOrCreateMaterial("M_IUH_Waypoint_Holo", new Color(0.0f, 0.85f, 1.0f, 0.65f), 0f, 0.9f, true, new Color(0.0f, 0.85f, 1.0f) * 3.5f);
             var dropoffMat = GetOrCreateMaterial("M_IUH_Waypoint_Dropoff", new Color(0.1f, 1.0f, 0.4f, 0.65f), 0f, 0.9f, true, new Color(0.1f, 1.0f, 0.4f) * 3.5f);
 
-            // 2. Setup or Find World Root
             var activeScene = EditorSceneManager.GetActiveScene();
             var gameplayRoot = GameObject.Find("GAMEPLAY_GRAB_CAMPUS");
             if (gameplayRoot != null) UnityEngine.Object.DestroyImmediate(gameplayRoot);
             gameplayRoot = new GameObject("GAMEPLAY_GRAB_CAMPUS");
 
-            // 3. Build Grab Motorbike
             var motorbikeGO = BuildGrabMotorbike(gameplayRoot.transform, grabGreenMat, grabBoxMat);
 
-            // 4. Build Ghosts
             var ghosts = BuildGhostHazards(gameplayRoot.transform, ghostMat);
 
-            // 5. Build Waypoints
             var (pickupWp, dropoffWp) = BuildDeliveryWaypoints(gameplayRoot.transform, waypointMat, dropoffMat);
 
-            // 5b. Build 3D Night Food Shops (Boba Tea, Fish Balls, Broken Rice)
             BuildNightStreetShops(gameplayRoot.transform);
 
-            // 5c. Build Delivery Drop-off Receiving Stations (KTX, Block V, Block E)
             BuildDeliveryDropoffStations(gameplayRoot.transform);
 
-            // 6. Build Navigation Arrow
             var navArrow = BuildNavigationArrow(gameplayRoot.transform);
 
-            // 7. Add Customization Manager to root
             var customMgr = gameplayRoot.AddComponent<IUHCustomizationManager>();
 
-            // 8. Build UI Canvas
             var canvasGO = GameObject.Find("IUH_Minigame_Canvas");
             if (canvasGO != null) UnityEngine.Object.DestroyImmediate(canvasGO);
             canvasGO = BuildCanvasWithUI(gameplayRoot.transform);
 
-            // 9. Wire Up Grab Manager
             var grabMgr = gameplayRoot.AddComponent<IUHGrabCampusManager>();
             var portalUI = canvasGO.GetComponent<IUHMiniGamePortalUI>();
 
@@ -90,7 +67,6 @@ namespace IUHCampus.Editor
                 ghostListProp.GetArrayElementAtIndex(i).objectReferenceValue = ghosts[i];
             }
 
-            // Wire HUD
             var hudPanel = canvasGO.transform.Find("DeliveryHUD")?.gameObject;
             so.FindProperty("m_MissionHudPanel").objectReferenceValue = hudPanel;
             if (hudPanel != null)
@@ -104,7 +80,6 @@ namespace IUHCampus.Editor
                 so.FindProperty("m_ImgCargoBar").objectReferenceValue = hudPanel.transform.Find("BottomCard/CargoBarBg/CargoBarFill")?.GetComponent<Image>();
             }
 
-            // Wire Results Dialogs
             var victoryDialog = canvasGO.transform.Find("VictoryDialog")?.gameObject;
             so.FindProperty("m_VictoryDialog").objectReferenceValue = victoryDialog;
             if (victoryDialog != null)
@@ -123,7 +98,6 @@ namespace IUHCampus.Editor
 
             so.ApplyModifiedProperties();
 
-            // Wire Portal UI fields
             SerializedObject soPortal = new SerializedObject(portalUI);
             soPortal.FindProperty("m_MenuPanel").objectReferenceValue = canvasGO.transform.Find("PortalMenuPanel")?.gameObject;
             soPortal.FindProperty("m_FloatingButton").objectReferenceValue = canvasGO.transform.Find("FloatingPortalBtn")?.gameObject;
@@ -160,11 +134,9 @@ namespace IUHCampus.Editor
             var redTailMat = GetOrCreateMaterial("M_IUH_Red_Taillight", new Color(1.0f, 0.1f, 0.1f), 0.1f, 0.9f);
             var glassMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Glass_Reflective.mat");
 
-            // 1. Visual Root
             var visualRoot = new GameObject("Visual_Root");
             visualRoot.transform.SetParent(bikeGO.transform, false);
 
-            // Center Chassis Frame
             var chassis = GameObject.CreatePrimitive(PrimitiveType.Cube);
             chassis.name = "Chassis_Frame";
             chassis.transform.SetParent(visualRoot.transform, false);
@@ -173,7 +145,6 @@ namespace IUHCampus.Editor
             chassis.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(chassis.GetComponent<Collider>());
 
-            // Main Body Fairing
             var bodyFairing = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bodyFairing.name = "Body_Fairing";
             bodyFairing.transform.SetParent(visualRoot.transform, false);
@@ -182,7 +153,6 @@ namespace IUHCampus.Editor
             bodyFairing.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
             UnityEngine.Object.DestroyImmediate(bodyFairing.GetComponent<Collider>());
 
-            // Step-through footboard
             var footboard = GameObject.CreatePrimitive(PrimitiveType.Cube);
             footboard.name = "Footboard";
             footboard.transform.SetParent(visualRoot.transform, false);
@@ -191,7 +161,6 @@ namespace IUHCampus.Editor
             footboard.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(footboard.GetComponent<Collider>());
 
-            // Chrome Engine Block
             var engine = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             engine.name = "Engine_Block";
             engine.transform.SetParent(visualRoot.transform, false);
@@ -201,7 +170,6 @@ namespace IUHCampus.Editor
             engine.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
             UnityEngine.Object.DestroyImmediate(engine.GetComponent<Collider>());
 
-            // Exhaust Pipe
             var exhaust = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             exhaust.name = "Exhaust_Pipe";
             exhaust.transform.SetParent(visualRoot.transform, false);
@@ -211,7 +179,6 @@ namespace IUHCampus.Editor
             exhaust.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
             UnityEngine.Object.DestroyImmediate(exhaust.GetComponent<Collider>());
 
-            // Contoured Leather Dual-Seat
             var seat = GameObject.CreatePrimitive(PrimitiveType.Cube);
             seat.name = "Contoured_Seat";
             seat.transform.SetParent(visualRoot.transform, false);
@@ -220,7 +187,6 @@ namespace IUHCampus.Editor
             seat.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(seat.GetComponent<Collider>());
 
-            // Rear Delivery Box Rack
             var rearRack = GameObject.CreatePrimitive(PrimitiveType.Cube);
             rearRack.name = "Rear_Cargo_Rack";
             rearRack.transform.SetParent(visualRoot.transform, false);
@@ -229,7 +195,6 @@ namespace IUHCampus.Editor
             rearRack.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
             UnityEngine.Object.DestroyImmediate(rearRack.GetComponent<Collider>());
 
-            // Grab Thermal Delivery Box
             var deliveryBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
             deliveryBox.name = "Delivery_Box";
             deliveryBox.transform.SetParent(chassis.transform, false);
@@ -238,7 +203,6 @@ namespace IUHCampus.Editor
             deliveryBox.GetComponent<MeshRenderer>().sharedMaterial = grabBoxMat;
             UnityEngine.Object.DestroyImmediate(deliveryBox.GetComponent<Collider>());
 
-            // Reflective Strip
             var boxReflect = GameObject.CreatePrimitive(PrimitiveType.Cube);
             boxReflect.name = "Reflective_Strip";
             boxReflect.transform.SetParent(deliveryBox.transform, false);
@@ -247,7 +211,6 @@ namespace IUHCampus.Editor
             boxReflect.GetComponent<MeshRenderer>().sharedMaterial = amberMat;
             UnityEngine.Object.DestroyImmediate(boxReflect.GetComponent<Collider>());
 
-            // Red Taillight
             var taillight = GameObject.CreatePrimitive(PrimitiveType.Cube);
             taillight.name = "Rear_Taillight";
             taillight.transform.SetParent(visualRoot.transform, false);
@@ -256,7 +219,6 @@ namespace IUHCampus.Editor
             taillight.GetComponent<MeshRenderer>().sharedMaterial = redTailMat;
             UnityEngine.Object.DestroyImmediate(taillight.GetComponent<Collider>());
 
-            // 2. Steer Fork
             var steerForkGO = new GameObject("Steer_Fork");
             steerForkGO.transform.SetParent(visualRoot.transform, false);
             steerForkGO.transform.localPosition = new Vector3(0f, 0.42f, 0.62f);
@@ -277,7 +239,6 @@ namespace IUHCampus.Editor
             forkR.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
             UnityEngine.Object.DestroyImmediate(forkR.GetComponent<Collider>());
 
-            // Front Mask
             var frontMask = GameObject.CreatePrimitive(PrimitiveType.Cube);
             frontMask.name = "Front_Mask";
             frontMask.transform.SetParent(steerForkGO.transform, false);
@@ -287,7 +248,6 @@ namespace IUHCampus.Editor
             frontMask.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
             UnityEngine.Object.DestroyImmediate(frontMask.GetComponent<Collider>());
 
-            // Curved Mudguard
             var frontFender = GameObject.CreatePrimitive(PrimitiveType.Cube);
             frontFender.name = "Front_Fender";
             frontFender.transform.SetParent(steerForkGO.transform, false);
@@ -297,7 +257,6 @@ namespace IUHCampus.Editor
             frontFender.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
             UnityEngine.Object.DestroyImmediate(frontFender.GetComponent<Collider>());
 
-            // Headlight Crystal Lens
             var headlightLens = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             headlightLens.name = "Headlight_Lens";
             headlightLens.transform.SetParent(frontMask.transform, false);
@@ -307,7 +266,6 @@ namespace IUHCampus.Editor
             headlightLens.GetComponent<MeshRenderer>().sharedMaterial = glassMat;
             UnityEngine.Object.DestroyImmediate(headlightLens.GetComponent<Collider>());
 
-            // Amber Turn Signals
             var signalL = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             signalL.name = "Signal_L";
             signalL.transform.SetParent(frontMask.transform, false);
@@ -324,7 +282,6 @@ namespace IUHCampus.Editor
             signalR.GetComponent<MeshRenderer>().sharedMaterial = amberMat;
             UnityEngine.Object.DestroyImmediate(signalR.GetComponent<Collider>());
 
-            // Handlebars
             var handlebar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             handlebar.name = "Handlebar_Bar";
             handlebar.transform.SetParent(steerForkGO.transform, false);
@@ -334,7 +291,6 @@ namespace IUHCampus.Editor
             handlebar.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
             UnityEngine.Object.DestroyImmediate(handlebar.GetComponent<Collider>());
 
-            // Left Grip
             var gripL = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             gripL.name = "Grip_L";
             gripL.transform.SetParent(handlebar.transform, false);
@@ -343,7 +299,6 @@ namespace IUHCampus.Editor
             gripL.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(gripL.GetComponent<Collider>());
 
-            // Right Grip
             var gripR = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             gripR.name = "Grip_R";
             gripR.transform.SetParent(handlebar.transform, false);
@@ -352,7 +307,6 @@ namespace IUHCampus.Editor
             gripR.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(gripR.GetComponent<Collider>());
 
-            // Dual Rearview Mirrors
             var mirrorL = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             mirrorL.name = "Mirror_L";
             mirrorL.transform.SetParent(steerForkGO.transform, false);
@@ -369,7 +323,6 @@ namespace IUHCampus.Editor
             mirrorR.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(mirrorR.GetComponent<Collider>());
 
-            // Digital Dashboard
             var dash = GameObject.CreatePrimitive(PrimitiveType.Cube);
             dash.name = "Digital_Dashboard";
             dash.transform.SetParent(steerForkGO.transform, false);
@@ -379,11 +332,9 @@ namespace IUHCampus.Editor
             dash.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(dash.GetComponent<Collider>());
 
-            // 3. Spoke Wheels with Chrome Rims
             var wheelFront = BuildDetailedWheel("Wheel_Front", steerForkGO.transform, new Vector3(0f, -0.28f, 0.04f), darkMat, chromeMat);
             var wheelRear = BuildDetailedWheel("Wheel_Rear", visualRoot.transform, new Vector3(0f, 0.14f, -0.58f), darkMat, chromeMat);
 
-            // 4. Headlight Spotlight
             var lightGO = new GameObject("Headlight_Spotlight");
             lightGO.transform.SetParent(steerForkGO.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 0.35f, 0.25f);
@@ -396,15 +347,12 @@ namespace IUHCampus.Editor
             spot.intensity = 2.4f;
             spot.enabled = true;
 
-            // 5. Rider Figure (Attached to visualRoot so rider leans dynamically with the motorbike!)
             var riderGO = BuildRiderFigure(visualRoot.transform, grabGreenMat, grabBoxMat);
 
-            // 6. Camera Target (Height 1.20, slightly forward for clear view over driver's shoulder)
             var camTarget = new GameObject("CameraTarget");
             camTarget.transform.SetParent(bikeGO.transform, false);
             camTarget.transform.localPosition = new Vector3(0f, 1.20f, 0.20f);
 
-            // 7. Attach Component
             var motorbikeScript = bikeGO.AddComponent<IUHGrabMotorbike>();
             SerializedObject so = new SerializedObject(motorbikeScript);
             so.FindProperty("m_VisualRoot").objectReferenceValue = visualRoot.transform;
@@ -461,7 +409,6 @@ namespace IUHCampus.Editor
             riderGO.transform.localPosition = Vector3.zero;
             riderGO.transform.localRotation = Quaternion.identity;
 
-            // 1. Torso / Uniform Jacket (Angled forward slightly in natural riding posture)
             var torso = GameObject.CreatePrimitive(PrimitiveType.Cube);
             torso.name = "Rider_Jacket";
             torso.transform.SetParent(riderGO.transform, false);
@@ -471,7 +418,6 @@ namespace IUHCampus.Editor
             torso.GetComponent<MeshRenderer>().sharedMaterial = grabGreenMat;
             UnityEngine.Object.DestroyImmediate(torso.GetComponent<Collider>());
 
-            // Jacket Brand Stripe
             var stripe = GameObject.CreatePrimitive(PrimitiveType.Cube);
             stripe.name = "Jacket_Stripe";
             stripe.transform.SetParent(torso.transform, false);
@@ -480,7 +426,6 @@ namespace IUHCampus.Editor
             stripe.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(stripe.GetComponent<Collider>());
 
-            // 2. Neck
             var neck = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             neck.name = "Rider_Neck";
             neck.transform.SetParent(riderGO.transform, false);
@@ -490,7 +435,6 @@ namespace IUHCampus.Editor
             neck.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(neck.GetComponent<Collider>());
 
-            // 3. Helmet & Visor
             var helmet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             helmet.name = "Rider_Helmet";
             helmet.transform.SetParent(riderGO.transform, false);
@@ -508,7 +452,6 @@ namespace IUHCampus.Editor
             visor.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(visor.GetComponent<Collider>());
 
-            // 4. Courier Backpack
             var backpack = GameObject.CreatePrimitive(PrimitiveType.Cube);
             backpack.name = "Rider_Backpack";
             backpack.transform.SetParent(torso.transform, false);
@@ -518,7 +461,6 @@ namespace IUHCampus.Editor
             backpack.GetComponent<MeshRenderer>().sharedMaterial = grabBoxMat;
             UnityEngine.Object.DestroyImmediate(backpack.GetComponent<Collider>());
 
-            // 5. Arms & Hands holding Handlebars
             var leftArm = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             leftArm.name = "Rider_Arm_L";
             leftArm.transform.SetParent(riderGO.transform, false);
@@ -553,7 +495,6 @@ namespace IUHCampus.Editor
             rightGlove.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             UnityEngine.Object.DestroyImmediate(rightGlove.GetComponent<Collider>());
 
-            // 6. Seated Legs & Boots
             var leftThigh = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             leftThigh.name = "Rider_Leg_L";
             leftThigh.transform.SetParent(riderGO.transform, false);
@@ -619,15 +560,14 @@ namespace IUHCampus.Editor
             var eyeMat = GetOrCreateMaterial("M_IUH_Ghost_Eyes", Color.red, 0f, 1.0f, false, Color.red * 5.0f);
             var hairMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Motorbike_Dark.mat");
 
-            // Strategic positions along the delivery route from Gate 1 to Canteen to KTX
             Vector3[] ghostPositions = new Vector3[]
             {
-                new Vector3(398.0f, 1.6f, -32.0f), // Ghost 1: Right in front of Gate 1 start on boulevard!
-                new Vector3(380.0f, 1.6f, -48.0f), // Ghost 2: Near Canteen corner
-                new Vector3(365.0f, 1.6f, -62.0f), // Ghost 3: Boulevard near Block E
-                new Vector3(345.0f, 1.6f, -74.0f), // Ghost 4: Boulevard near Library turn
-                new Vector3(328.0f, 1.6f, -82.0f), // Ghost 5: Haunting KTX dropoff gate
-                new Vector3(402.0f, 1.6f, -22.0f)  // Ghost 6: Gate 1 patrol
+                new Vector3(398.0f, 1.6f, -32.0f),
+                new Vector3(380.0f, 1.6f, -48.0f),
+                new Vector3(365.0f, 1.6f, -62.0f),
+                new Vector3(345.0f, 1.6f, -74.0f),
+                new Vector3(328.0f, 1.6f, -82.0f),
+                new Vector3(402.0f, 1.6f, -22.0f)
             };
 
             for (int i = 0; i < ghostPositions.Length; i++)
@@ -636,7 +576,6 @@ namespace IUHCampus.Editor
                 ghostGO.transform.SetParent(ghostsRoot.transform);
                 ghostGO.transform.position = ghostPositions[i];
 
-                // 1. Ghost Body / Flowing Shrouded Robe
                 var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 body.name = "GhostBody";
                 body.transform.SetParent(ghostGO.transform, false);
@@ -653,7 +592,6 @@ namespace IUHCampus.Editor
                 skirt.GetComponent<MeshRenderer>().sharedMaterial = ghostMat;
                 UnityEngine.Object.DestroyImmediate(skirt.GetComponent<Collider>());
 
-                // 2. Head
                 var head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 head.name = "GhostHead";
                 head.transform.SetParent(ghostGO.transform, false);
@@ -662,7 +600,6 @@ namespace IUHCampus.Editor
                 head.GetComponent<MeshRenderer>().sharedMaterial = ghostMat;
                 UnityEngine.Object.DestroyImmediate(head.GetComponent<Collider>());
 
-                // 3. Streaming Black Hair (Vietnamese horror classic)
                 var hairTop = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 hairTop.name = "GhostHairTop";
                 hairTop.transform.SetParent(head.transform, false);
@@ -689,7 +626,6 @@ namespace IUHCampus.Editor
                 hairStrandR.GetComponent<MeshRenderer>().sharedMaterial = hairMat;
                 UnityEngine.Object.DestroyImmediate(hairStrandR.GetComponent<Collider>());
 
-                // 4. Glowing Red Demonic Eyes
                 var eyeL = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 eyeL.name = "Eye_L";
                 eyeL.transform.SetParent(ghostGO.transform, false);
@@ -706,7 +642,6 @@ namespace IUHCampus.Editor
                 eyeR.GetComponent<MeshRenderer>().sharedMaterial = eyeMat;
                 UnityEngine.Object.DestroyImmediate(eyeR.GetComponent<Collider>());
 
-                // 5. Screaming Dark Mouth
                 var mouth = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 mouth.name = "GhostMouth";
                 mouth.transform.SetParent(ghostGO.transform, false);
@@ -715,7 +650,6 @@ namespace IUHCampus.Editor
                 mouth.GetComponent<MeshRenderer>().sharedMaterial = hairMat;
                 UnityEngine.Object.DestroyImmediate(mouth.GetComponent<Collider>());
 
-                // 6. Outstretched Reaching Claws / Arms
                 var armL = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 armL.name = "GhostArmL";
                 armL.transform.SetParent(ghostGO.transform, false);
@@ -734,7 +668,6 @@ namespace IUHCampus.Editor
                 armR.GetComponent<MeshRenderer>().sharedMaterial = ghostMat;
                 UnityEngine.Object.DestroyImmediate(armR.GetComponent<Collider>());
 
-                // 7. Aura Point Light
                 var auraLightGO = new GameObject("AuraLight");
                 auraLightGO.transform.SetParent(ghostGO.transform, false);
                 auraLightGO.transform.localPosition = new Vector3(0f, 1.2f, 0f);
@@ -744,7 +677,6 @@ namespace IUHCampus.Editor
                 pl.range = 14f;
                 pl.intensity = 3.5f;
 
-                // 8. Trigger Collider
                 var col = ghostGO.AddComponent<SphereCollider>();
                 col.isTrigger = true;
                 col.radius = 1.8f;
@@ -783,7 +715,6 @@ namespace IUHCampus.Editor
             go.transform.SetParent(parent);
             go.transform.position = pos;
 
-            // 1. Giant Holographic Sky Beam (70m tall, shoots straight up into the night sky!)
             var skyBeam = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             skyBeam.name = "SkyLightBeam";
             skyBeam.transform.SetParent(go.transform, false);
@@ -793,7 +724,6 @@ namespace IUHCampus.Editor
             var colBeam = skyBeam.GetComponent<Collider>();
             if (colBeam != null) UnityEngine.Object.DestroyImmediate(colBeam);
 
-            // 2. Base Concentric Rings
             var ringOuter = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             ringOuter.name = "RingOuter";
             ringOuter.transform.SetParent(go.transform, false);
@@ -810,7 +740,6 @@ namespace IUHCampus.Editor
             ringInner.GetComponent<MeshRenderer>().sharedMaterial = mat;
             UnityEngine.Object.DestroyImmediate(ringInner.GetComponent<Collider>());
 
-            // 3. Floating 3D Diamond / Pin Marker
             var diamond = GameObject.CreatePrimitive(PrimitiveType.Cube);
             diamond.name = "DiamondMarker";
             diamond.transform.SetParent(go.transform, false);
@@ -820,7 +749,6 @@ namespace IUHCampus.Editor
             diamond.GetComponent<MeshRenderer>().sharedMaterial = mat;
             UnityEngine.Object.DestroyImmediate(diamond.GetComponent<Collider>());
 
-            // 4. In-World Billboard Canvas with Text
             var bbGO = new GameObject("BillboardCanvas");
             bbGO.transform.SetParent(go.transform, false);
             bbGO.transform.localPosition = new Vector3(0f, 6.8f, 0f);
@@ -849,7 +777,6 @@ namespace IUHCampus.Editor
             bbtOutline.effectColor = Color.black;
             bbtOutline.effectDistance = new Vector2(2f, 2f);
 
-            // 5. Point Light Beacon
             var lightGO = new GameObject("BeaconLight");
             lightGO.transform.SetParent(go.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 3.0f, 0f);
@@ -859,7 +786,6 @@ namespace IUHCampus.Editor
             pl.range = 28f;
             pl.intensity = 6.0f;
 
-            // 6. Trigger Sphere Collider
             var trigCol = go.AddComponent<SphereCollider>();
             trigCol.isTrigger = true;
             trigCol.radius = 3.6f;
@@ -900,13 +826,10 @@ namespace IUHCampus.Editor
             var metalMat = GetOrCreateMaterial("M_IUH_Shop_Metal", new Color(0.72f, 0.75f, 0.80f), 0.85f, 0.8f);
             var darkRoofMat = GetOrCreateMaterial("M_IUH_Shop_DarkRoof", new Color(0.15f, 0.18f, 0.22f), 0.1f, 0.3f);
 
-            // 1. Tiệm Trà Sữa ToCoToCo IUH
             BuildBobaTeaShop(shopsRoot.transform, new Vector3(382.0f, 0.48f, -36.0f), woodMat, cyanAwningMat, warmLightMat);
 
-            // 2. Xe Cá Viên Chiên 79 & Ăn Vặt Đêm Sinh Viên
             BuildFishBallCart(shopsRoot.transform, new Vector3(368.0f, 0.48f, -54.0f), metalMat, yellowAwningMat, redLanternMat, warmLightMat);
 
-            // 3. Quán Cơm Tấm Đêm Sài Gòn
             BuildBrokenRiceStall(shopsRoot.transform, new Vector3(395.0f, 0.48f, -22.0f), woodMat, darkRoofMat, warmLightMat);
         }
 
@@ -917,7 +840,6 @@ namespace IUHCampus.Editor
             shopGO.transform.position = pos;
             shopGO.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
-            // Counter
             var counter = GameObject.CreatePrimitive(PrimitiveType.Cube);
             counter.name = "Counter";
             counter.transform.SetParent(shopGO.transform, false);
@@ -925,7 +847,6 @@ namespace IUHCampus.Editor
             counter.transform.localScale = new Vector3(3.2f, 1.1f, 1.2f);
             counter.GetComponent<MeshRenderer>().sharedMaterial = woodMat;
 
-            // Counter Top Trim
             var cTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cTop.name = "CounterTop";
             cTop.transform.SetParent(shopGO.transform, false);
@@ -934,7 +855,6 @@ namespace IUHCampus.Editor
             cTop.GetComponent<MeshRenderer>().sharedMaterial = cyanAwningMat;
             UnityEngine.Object.DestroyImmediate(cTop.GetComponent<Collider>());
 
-            // 4 Corner Pillars
             Vector3[] pOffsets = new Vector3[] {
                 new Vector3(-1.5f, 1.6f, -0.55f),
                 new Vector3(1.5f, 1.6f, -0.55f),
@@ -952,7 +872,6 @@ namespace IUHCampus.Editor
                 UnityEngine.Object.DestroyImmediate(pillar.GetComponent<Collider>());
             }
 
-            // Awning Roof
             var awning = GameObject.CreatePrimitive(PrimitiveType.Cube);
             awning.name = "AwningRoof";
             awning.transform.SetParent(shopGO.transform, false);
@@ -962,7 +881,6 @@ namespace IUHCampus.Editor
             awning.GetComponent<MeshRenderer>().sharedMaterial = cyanAwningMat;
             UnityEngine.Object.DestroyImmediate(awning.GetComponent<Collider>());
 
-            // Hanging Fairy Lanterns (Chong đèn đêm)
             for (int i = -1; i <= 1; i++)
             {
                 var lantern = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -974,7 +892,6 @@ namespace IUHCampus.Editor
                 UnityEngine.Object.DestroyImmediate(lantern.GetComponent<Collider>());
             }
 
-            // High-intensity Point Light illuminating the street and motorbike in front!
             var lightGO = new GameObject("Shop_Illumination_Light");
             lightGO.transform.SetParent(shopGO.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 2.2f, 1.2f);
@@ -984,10 +901,8 @@ namespace IUHCampus.Editor
             pl.range = 22f;
             pl.intensity = 5.2f;
 
-            // 3D Illuminated Billboard Signboard
             BuildShopSignboard(shopGO.transform, new Vector3(0f, 3.1f, 0.1f), "🧋 TIỆM TRÀ SỮA TOCOTOCO IUH", "Trà sữa trân châu hoàng gia • Trà đào cam sả đêm", new Color(0f, 0.75f, 0.85f));
 
-            // Boba Cups on counter
             for (int j = -1; j <= 1; j++)
             {
                 var cup = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -1007,7 +922,6 @@ namespace IUHCampus.Editor
             cartGO.transform.position = pos;
             cartGO.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
 
-            // Stainless Counter Cart
             var counter = GameObject.CreatePrimitive(PrimitiveType.Cube);
             counter.name = "CartBody";
             counter.transform.SetParent(cartGO.transform, false);
@@ -1015,7 +929,6 @@ namespace IUHCampus.Editor
             counter.transform.localScale = new Vector3(2.6f, 1.05f, 1.2f);
             counter.GetComponent<MeshRenderer>().sharedMaterial = metalMat;
 
-            // 2 Spoked Cart Wheels
             for (int w = -1; w <= 1; w += 2)
             {
                 var wheel = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -1028,7 +941,6 @@ namespace IUHCampus.Editor
                 UnityEngine.Object.DestroyImmediate(wheel.GetComponent<Collider>());
             }
 
-            // Cart Awning Canopy
             var canopy = GameObject.CreatePrimitive(PrimitiveType.Cube);
             canopy.name = "Canopy";
             canopy.transform.SetParent(cartGO.transform, false);
@@ -1038,7 +950,6 @@ namespace IUHCampus.Editor
             canopy.GetComponent<MeshRenderer>().sharedMaterial = yellowAwningMat;
             UnityEngine.Object.DestroyImmediate(canopy.GetComponent<Collider>());
 
-            // 4 Corner Metal Rods
             Vector3[] cOffsets = new Vector3[] {
                 new Vector3(-1.25f, 1.55f, -0.55f),
                 new Vector3(1.25f, 1.55f, -0.55f),
@@ -1056,7 +967,6 @@ namespace IUHCampus.Editor
                 UnityEngine.Object.DestroyImmediate(rod.GetComponent<Collider>());
             }
 
-            // Food Display Glass Showcase
             var showcase = GameObject.CreatePrimitive(PrimitiveType.Cube);
             showcase.name = "Showcase";
             showcase.transform.SetParent(cartGO.transform, false);
@@ -1065,7 +975,6 @@ namespace IUHCampus.Editor
             showcase.GetComponent<MeshRenderer>().sharedMaterial = warmLightMat;
             UnityEngine.Object.DestroyImmediate(showcase.GetComponent<Collider>());
 
-            // Steaming Frying Pot
             var pot = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             pot.name = "FryerPot";
             pot.transform.SetParent(cartGO.transform, false);
@@ -1074,7 +983,6 @@ namespace IUHCampus.Editor
             pot.GetComponent<MeshRenderer>().sharedMaterial = metalMat;
             UnityEngine.Object.DestroyImmediate(pot.GetComponent<Collider>());
 
-            // 2 Vietnamese Round Red Lanterns
             for (int l = -1; l <= 1; l += 2)
             {
                 var lantern = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -1086,7 +994,6 @@ namespace IUHCampus.Editor
                 UnityEngine.Object.DestroyImmediate(lantern.GetComponent<Collider>());
             }
 
-            // Warm Amber Point Light
             var lightGO = new GameObject("Cart_Illumination_Light");
             lightGO.transform.SetParent(cartGO.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 2.1f, 1.0f);
@@ -1096,7 +1003,6 @@ namespace IUHCampus.Editor
             pl.range = 20f;
             pl.intensity = 5.5f;
 
-            // Signboard
             BuildShopSignboard(cartGO.transform, new Vector3(0f, 2.95f, 0f), "🍢 XE CÁ VIÊN CHIÊN 79", "Cá viên • Bò viên • Xúc xích chiên giòn • Ăn vặt đêm IUH", new Color(0.95f, 0.75f, 0.05f));
         }
 
@@ -1107,7 +1013,6 @@ namespace IUHCampus.Editor
             stallGO.transform.position = pos;
             stallGO.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
 
-            // Booth Counter
             var counter = GameObject.CreatePrimitive(PrimitiveType.Cube);
             counter.name = "Counter";
             counter.transform.SetParent(stallGO.transform, false);
@@ -1115,7 +1020,6 @@ namespace IUHCampus.Editor
             counter.transform.localScale = new Vector3(3.2f, 1.1f, 1.4f);
             counter.GetComponent<MeshRenderer>().sharedMaterial = woodMat;
 
-            // Pitched Tile Roof
             var roof = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roof.name = "TileRoof";
             roof.transform.SetParent(stallGO.transform, false);
@@ -1125,7 +1029,6 @@ namespace IUHCampus.Editor
             roof.GetComponent<MeshRenderer>().sharedMaterial = darkRoofMat;
             UnityEngine.Object.DestroyImmediate(roof.GetComponent<Collider>());
 
-            // Dining Table & Benches
             var table = GameObject.CreatePrimitive(PrimitiveType.Cube);
             table.name = "DiningTable";
             table.transform.SetParent(stallGO.transform, false);
@@ -1143,7 +1046,6 @@ namespace IUHCampus.Editor
                 bench.GetComponent<MeshRenderer>().sharedMaterial = woodMat;
             }
 
-            // 3 Hanging Bamboo Lanterns
             for (int k = -1; k <= 1; k++)
             {
                 var lantern = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -1155,7 +1057,6 @@ namespace IUHCampus.Editor
                 UnityEngine.Object.DestroyImmediate(lantern.GetComponent<Collider>());
             }
 
-            // Warm Orange Point Light
             var lightGO = new GameObject("Stall_Illumination_Light");
             lightGO.transform.SetParent(stallGO.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 2.2f, 1.4f);
@@ -1165,7 +1066,6 @@ namespace IUHCampus.Editor
             pl.range = 22f;
             pl.intensity = 5.2f;
 
-            // Signboard
             BuildShopSignboard(stallGO.transform, new Vector3(0f, 3.1f, 0.1f), "🍲 CƠM TẤM ĐÊM SÀI GÒN - IUH", "Cơm sườn bì chả • Trứng ốp la • Canh rong biển nóng", new Color(0.1f, 0.75f, 0.45f));
         }
 
@@ -1178,13 +1078,10 @@ namespace IUHCampus.Editor
             var greenLightMat = GetOrCreateMaterial("M_IUH_Station_GreenGlow", new Color(0.1f, 1.0f, 0.4f), 0f, 0.9f, false, new Color(0.1f, 1.0f, 0.4f) * 3.5f);
             var warmLampMat = GetOrCreateMaterial("M_IUH_Station_WarmLamp", new Color(1.0f, 0.90f, 0.55f), 0f, 0.9f, false, new Color(1.0f, 0.90f, 0.55f) * 3.5f);
 
-            // 1. Station KTX Block D (Cổng 4)
             BuildDropoffStation(stationsRoot.transform, "Station_01_KTX_Dorm", new Vector3(336.0f, 0.48f, -78.0f), "🏁 MỤC TIÊU GIAO HÀNG\n[ 🏢 KÝ TÚC XÁ KTX (CỔNG 4) ]", darkWood, greenLightMat, warmLampMat, true);
 
-            // 2. Station Giảng Đường Tòa V
             BuildDropoffStation(stationsRoot.transform, "Station_02_Block_V", new Vector3(360.0f, 0.48f, -90.0f), "🏁 MỤC TIÊU GIAO HÀNG\n[ 🏛️ GIẢNG ĐƯỜNG TÒA V ]", darkWood, greenLightMat, warmLampMat, false);
 
-            // 3. Station Sảnh Nghiên Cứu Tòa Nhà E
             BuildDropoffStation(stationsRoot.transform, "Station_03_Block_E", new Vector3(368.0f, 0.48f, -70.0f), "🏁 MỤC TIÊU GIAO HÀNG\n[ 🔬 SẢNH TÒA NHÀ E ]", darkWood, greenLightMat, warmLampMat, false);
         }
 
@@ -1194,7 +1091,6 @@ namespace IUHCampus.Editor
             stationGO.transform.SetParent(parent, false);
             stationGO.transform.position = pos;
 
-            // Receiving Desk
             var desk = GameObject.CreatePrimitive(PrimitiveType.Cube);
             desk.name = "ReceivingDesk";
             desk.transform.SetParent(stationGO.transform, false);
@@ -1202,7 +1098,6 @@ namespace IUHCampus.Editor
             desk.transform.localScale = new Vector3(2.2f, 0.9f, 1.0f);
             desk.GetComponent<MeshRenderer>().sharedMaterial = deskMat;
 
-            // Parcel Boxes on Desk
             var crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
             crate.name = "ParcelCrate";
             crate.transform.SetParent(stationGO.transform, false);
@@ -1211,7 +1106,6 @@ namespace IUHCampus.Editor
             crate.GetComponent<MeshRenderer>().sharedMaterial = deskMat;
             UnityEngine.Object.DestroyImmediate(crate.GetComponent<Collider>());
 
-            // Desk Study Lamp
             var lamp = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             lamp.name = "DeskLamp";
             lamp.transform.SetParent(stationGO.transform, false);
@@ -1220,7 +1114,6 @@ namespace IUHCampus.Editor
             lamp.GetComponent<MeshRenderer>().sharedMaterial = lampMat;
             UnityEngine.Object.DestroyImmediate(lamp.GetComponent<Collider>());
 
-            // Green Point Light Beacon
             var lightGO = new GameObject("Station_GreenBeacon");
             lightGO.transform.SetParent(stationGO.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 2.0f, 0f);
@@ -1230,7 +1123,6 @@ namespace IUHCampus.Editor
             pl.range = 24f;
             pl.intensity = 4.8f;
 
-            // 3D Billboard Canvas
             var canvasGO = new GameObject("BillboardCanvas");
             canvasGO.transform.SetParent(stationGO.transform, false);
             canvasGO.transform.localPosition = new Vector3(0f, 4.2f, 0f);
@@ -1258,7 +1150,6 @@ namespace IUHCampus.Editor
             outline.effectColor = Color.black;
             outline.effectDistance = new Vector2(2f, 2f);
 
-            // Student waiting figure
             if (addStudentFigure)
             {
                 var student = GameObject.CreatePrimitive(PrimitiveType.Capsule);
@@ -1269,7 +1160,6 @@ namespace IUHCampus.Editor
                 student.GetComponent<MeshRenderer>().sharedMaterial = deskMat;
                 UnityEngine.Object.DestroyImmediate(student.GetComponent<Collider>());
 
-                // Glowing smartphone screen in hands
                 var phone = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 phone.name = "GlowingPhone";
                 phone.transform.SetParent(student.transform, false);
@@ -1336,7 +1226,6 @@ namespace IUHCampus.Editor
             scaler.dynamicPixelsPerUnit = 2.0f;
             canvasGO.AddComponent<GraphicRaycaster>();
 
-            // Ensure EventSystem exists
             if (UnityEngine.Object.FindFirstObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
             {
                 var eventSys = new GameObject("EventSystem");
@@ -1344,31 +1233,22 @@ namespace IUHCampus.Editor
                 eventSys.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
             }
 
-            // 1. Gameplay HUD (Profile Card, Destination Banner, Minimap, Action buttons)
             BuildDeliveryHUD(canvasGO.transform);
 
-            // 2. Mobile Controls (Virtual Joystick & Action buttons - hidden on PC!)
             BuildMobileControls(canvasGO.transform);
 
-            // 3. Horror Pursuit Overlay (Image 1 Panel 4)
             BuildHorrorPursuitOverlay(canvasGO.transform);
 
-            // 4. Floating Portal Button [🎮 MENU TRÒ CHƠI (M / ESC)] (Top-Center, in front of HUD)
             BuildFloatingPortalButton(canvasGO.transform);
 
-            // 5. Delivery Hand-off Modal (Image 1 Panel 3)
             BuildDeliveryDialogueModal(canvasGO.transform);
 
-            // 6. Customization Wardrobe & Garage Modal (Image 2)
             BuildCustomizationPanel(canvasGO.transform);
 
-            // 7. Results Dialogs (Victory & Defeat)
             BuildResultDialogs(canvasGO.transform);
 
-            // 8. Mini-Game Selection Portal Menu [Phím M]
             BuildPortalMenuPanel(canvasGO.transform);
 
-            // 9. Màn hình chính (Main Menu - Image 1 Panel 1)
             BuildMainMenuPanel(canvasGO.transform);
 
             canvasGO.AddComponent<IUHMiniGamePortalUI>();
@@ -1390,7 +1270,6 @@ namespace IUHCampus.Editor
             var bgImg = menuGO.AddComponent<Image>();
             bgImg.color = new Color(0.02f, 0.05f, 0.12f, 0.94f);
 
-            // Card Center
             var cardGO = new GameObject("TitleCard");
             cardGO.transform.SetParent(menuGO.transform, false);
             var cardRect = cardGO.AddComponent<RectTransform>();
@@ -1405,7 +1284,6 @@ namespace IUHCampus.Editor
             cardOutline.effectColor = new Color(0.0f, 0.85f, 0.45f, 0.9f);
             cardOutline.effectDistance = new Vector2(2.5f, 2.5f);
 
-            // Title
             var titleGO = new GameObject("TxtTitle");
             titleGO.transform.SetParent(cardGO.transform, false);
             var tRect = titleGO.AddComponent<RectTransform>();
@@ -1419,7 +1297,6 @@ namespace IUHCampus.Editor
             tTxt.alignment = TextAnchor.MiddleCenter;
             tTxt.color = Color.white;
 
-            // Subtitle
             var subGO = new GameObject("TxtSubtitle");
             subGO.transform.SetParent(cardGO.transform, false);
             var subRect = subGO.AddComponent<RectTransform>();
@@ -1433,7 +1310,6 @@ namespace IUHCampus.Editor
             subTxt.alignment = TextAnchor.MiddleCenter;
             subTxt.color = Color.white;
 
-            // Buttons Container
             var btnBox = new GameObject("ButtonsBox");
             btnBox.transform.SetParent(cardGO.transform, false);
             var bbRect = btnBox.AddComponent<RectTransform>();
@@ -1453,7 +1329,6 @@ namespace IUHCampus.Editor
             var btnCustom = CreateMenuButton(btnBox.transform, "BtnCustomization", "👕  TRANG PHỤC & XE MÁY", new Color(0.02f, 0.52f, 0.78f), 18);
             var btnQuit = CreateMenuButton(btnBox.transform, "BtnQuit", "🚪  THOÁT", new Color(0.65f, 0.15f, 0.15f), 18);
 
-            // Settings Sub-Dialog
             var setDialog = new GameObject("SettingsDialog");
             setDialog.transform.SetParent(menuGO.transform, false);
             var sRect = setDialog.AddComponent<RectTransform>();
@@ -1498,7 +1373,6 @@ namespace IUHCampus.Editor
 
             setDialog.SetActive(false);
 
-            // Attach Main Menu UI Script
             var mmScript = menuGO.AddComponent<IUHMainMenuUI>();
             mmScript.Setup(menuGO, btnStart.GetComponent<Button>(), btnSettings.GetComponent<Button>(), btnCustom.GetComponent<Button>(), btnQuit.GetComponent<Button>(), setDialog, slider, btnCloseSet.GetComponent<Button>());
             menuGO.SetActive(false);
@@ -1595,7 +1469,6 @@ namespace IUHCampus.Editor
             outline.effectColor = new Color(0.0f, 0.75f, 1.0f, 0.9f);
             outline.effectDistance = new Vector2(3f, 3f);
 
-            // Header Banner
             var headerGO = new GameObject("Header");
             headerGO.transform.SetParent(panelGO.transform, false);
             var hRect = headerGO.AddComponent<RectTransform>();
@@ -1610,7 +1483,6 @@ namespace IUHCampus.Editor
             hTxt.alignment = TextAnchor.MiddleCenter;
             hTxt.color = Color.white;
 
-            // Wardrobe & Garage Customization Button [U]
             var btnCustPortal = CreateMenuButton(panelGO.transform, "BtnCustomizationPortal", "👕 CHỌN ĐỒNG PHỤC & XE MÁY (GRAB • BE • XANH SM) [ Phím U ]", new Color(0.0f, 0.65f, 0.45f), 16);
             var bpRect = btnCustPortal.GetComponent<RectTransform>();
             bpRect.anchorMin = new Vector2(0.5f, 1f);
@@ -1619,7 +1491,6 @@ namespace IUHCampus.Editor
             bpRect.anchoredPosition = new Vector2(0f, -86f);
             bpRect.sizeDelta = new Vector2(620f, 42f);
 
-            // Close Button [X]
             var closeBtnGO = new GameObject("CloseBtn");
             closeBtnGO.transform.SetParent(panelGO.transform, false);
             var cRect = closeBtnGO.AddComponent<RectTransform>();
@@ -1648,7 +1519,6 @@ namespace IUHCampus.Editor
             cTxtRect.anchorMin = Vector2.zero;
             cTxtRect.anchorMax = Vector2.one;
 
-            // Cards Grid Area
             var cardsArea = new GameObject("CardsArea");
             cardsArea.transform.SetParent(panelGO.transform, false);
             var caRect = cardsArea.AddComponent<RectTransform>();
@@ -1663,7 +1533,6 @@ namespace IUHCampus.Editor
             grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             grid.constraintCount = 3;
 
-            // 6 Mini-Game Cards (NO author names, large fonts)
             BuildMiniGameCard(cardsArea.transform, 1, "🛵 2.1. Grab Campus: Chuyến Xe Tâm Linh", "Lấy trà sữa/cá viên tại quán chong đèn đêm, né ma và giao tới KTX. Giao thành công nhận điểm thưởng, thất bại phải chơi lại!", "Bãi Xe Cổng 1 (Nguyễn Văn Bảo)", "⚡ BẤM [ 1 ] ĐỂ CHỌN TRANG PHỤC & CHƠI", true, 0);
             BuildMiniGameCard(cardsArea.transform, 2, "👻 2.2. Trốn Tìm Với Ma Ở Ký Túc Xá", "Khám phá phòng tối KTX, né tránh ma tuần tra AI NavMesh 4 trạng thái, tìm chìa khóa & nhật ký.", "Sảnh Ký Túc Xá Block D", "📍 BẤM [ 2 ] ĐỂ ĐẾN KTX", false, 1);
             BuildMiniGameCard(cardsArea.transform, 3, "🔍 2.3. AI Object Hunt: Tìm Đồ Vật", "Sử dụng camera quét nhận diện sách cổ/bình chữa cháy qua Deep Learning YOLO & AR Hologram.", "Thư Viện Trung Tâm Block A", "📍 BẤM [ 3 ] ĐỂ ĐẾN THƯ VIỆN", false, 2);
@@ -1671,7 +1540,6 @@ namespace IUHCampus.Editor
             BuildMiniGameCard(cardsArea.transform, 5, "🌱 2.5. Green Campus: Cứu Lấy Trường", "Thu gom và phân loại rác tái chế bằng AI, tích lũy điểm xanh đẩy lên Cloud Adafruit IO.", "Trạm Phân Loại Rác Sân Trường", "📍 BẤM [ 5 ] ĐỂ ĐẾN TRẠM RÁC", false, 4);
             BuildMiniGameCard(cardsArea.transform, 6, "🎪 2.6. Campus Festival: Tổ Chức Lễ Hội", "Quản lý ngân sách, trang trí sân khấu đại hội âm nhạc và kết nối đồng bộ Docker backend.", "Sân Khấu Đại Hội Trung Tâm", "📍 BẤM [ 6 ] ĐỂ ĐẾN SÂN KHẤU", false, 5);
 
-            // Footer Instruction Bar
             var footerGO = new GameObject("Footer");
             footerGO.transform.SetParent(panelGO.transform, false);
             var fRect = footerGO.AddComponent<RectTransform>();
@@ -1698,7 +1566,6 @@ namespace IUHCampus.Editor
             fTxt.color = Color.white;
             fTxt.fontStyle = FontStyle.Bold;
 
-            // Free Roam Button
             var btnFR = CreateMenuButton(footerGO.transform, "BtnFreeRoam", "🚶 KHÁM PHÁ TỰ DO", new Color(0.18f, 0.32f, 0.50f), 15);
             var frRect = btnFR.GetComponent<RectTransform>();
             frRect.anchorMin = new Vector2(0.62f, 0.12f);
@@ -1706,7 +1573,6 @@ namespace IUHCampus.Editor
             frRect.offsetMin = Vector2.zero;
             frRect.offsetMax = Vector2.zero;
 
-            // Resume Button
             var btnRes = CreateMenuButton(footerGO.transform, "BtnResume", "▶️ TIẾP TỤC CHƠI [ ESC ]", new Color(0.0f, 0.65f, 0.32f), 15);
             var resRect = btnRes.GetComponent<RectTransform>();
             resRect.anchorMin = new Vector2(0.81f, 0.12f);
@@ -1736,7 +1602,6 @@ namespace IUHCampus.Editor
             vlg.childControlHeight = true;
             vlg.childForceExpandHeight = false;
 
-            // 1. Top Row: Hotkey Badge [PHÍM X]
             var topRow = new GameObject("TopRow");
             topRow.transform.SetParent(cardGO.transform, false);
             var topHlg = topRow.AddComponent<HorizontalLayoutGroup>();
@@ -1763,7 +1628,6 @@ namespace IUHCampus.Editor
             kbTxt.color = Color.black;
             kbTxt.fontStyle = FontStyle.Bold;
 
-            // 2. Title
             var titleGO = new GameObject("Title");
             titleGO.transform.SetParent(cardGO.transform, false);
             var titleTxt = titleGO.AddComponent<Text>();
@@ -1774,7 +1638,6 @@ namespace IUHCampus.Editor
             titleTxt.fontStyle = FontStyle.Bold;
             titleGO.AddComponent<LayoutElement>().preferredHeight = 38f;
 
-            // 3. Description
             var descGO = new GameObject("Desc");
             descGO.transform.SetParent(cardGO.transform, false);
             var descTxt = descGO.AddComponent<Text>();
@@ -1785,7 +1648,6 @@ namespace IUHCampus.Editor
             descTxt.color = new Color(0.92f, 0.95f, 0.98f);
             descGO.AddComponent<LayoutElement>().preferredHeight = 80f;
 
-            // 4. Location Tag
             var locGO = new GameObject("Location");
             locGO.transform.SetParent(cardGO.transform, false);
             var locTxt = locGO.AddComponent<Text>();
@@ -1795,7 +1657,6 @@ namespace IUHCampus.Editor
             locTxt.color = new Color(0.75f, 0.85f, 0.95f);
             locGO.AddComponent<LayoutElement>().preferredHeight = 26f;
 
-            // 5. Action Button
             var btnBarGO = new GameObject("BtnBar");
             btnBarGO.transform.SetParent(cardGO.transform, false);
             var hlg = btnBarGO.AddComponent<HorizontalLayoutGroup>();
@@ -1836,7 +1697,6 @@ namespace IUHCampus.Editor
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
 
-            // 1. Top-Left: Player Profile Status Card (Image 1 Panel 2)
             var profileCard = new GameObject("PlayerProfileCard");
             profileCard.transform.SetParent(hudGO.transform, false);
             var pRect = profileCard.AddComponent<RectTransform>();
@@ -1852,7 +1712,6 @@ namespace IUHCampus.Editor
             pOutline.effectColor = new Color(0.0f, 0.75f, 1.0f, 0.8f);
             pOutline.effectDistance = new Vector2(2f, 2f);
 
-            // Avatar Circle
             var avatarGO = new GameObject("AvatarCircle");
             avatarGO.transform.SetParent(profileCard.transform, false);
             var avRect = avatarGO.AddComponent<RectTransform>();
@@ -1872,7 +1731,6 @@ namespace IUHCampus.Editor
             avtRect.anchorMin = Vector2.zero;
             avtRect.anchorMax = Vector2.one;
 
-            // Info (Lv. 3, Money, XP)
             var pInfoGO = new GameObject("Info");
             pInfoGO.transform.SetParent(profileCard.transform, false);
             var piRect = pInfoGO.AddComponent<RectTransform>();
@@ -1886,7 +1744,6 @@ namespace IUHCampus.Editor
             piTxt.color = Color.white;
             piTxt.alignment = TextAnchor.MiddleLeft;
 
-            // Costume / Brand Customization Button on HUD [U]
             var btnCustHUD = CreateMenuButton(hudGO.transform, "BtnCustomizationHUD", "👕 ĐỔI TRANG PHỤC [ U ]", new Color(0.0f, 0.70f, 0.35f), 15);
             var bhRect = btnCustHUD.GetComponent<RectTransform>();
             bhRect.anchorMin = new Vector2(0f, 1f);
@@ -1895,7 +1752,6 @@ namespace IUHCampus.Editor
             bhRect.anchoredPosition = new Vector2(25f, -104f);
             bhRect.sizeDelta = new Vector2(220f, 38f);
 
-            // 2. Top-Right: Destination Target Banner (Image 1 Panel 2)
             var topBanner = new GameObject("TopRightBanner");
             topBanner.transform.SetParent(hudGO.transform, false);
             var tbRect = topBanner.AddComponent<RectTransform>();
@@ -1953,10 +1809,8 @@ namespace IUHCampus.Editor
             timerTxt.color = Color.yellow;
             timerTxt.fontStyle = FontStyle.Bold;
 
-            // 3. Bottom-Left: Radar Minimap (Image 1 Panel 2)
             BuildMinimapRadar(hudGO.transform);
 
-            // 4. Bottom-Center: Cargo Integrity & Speed Card
             var bottomCard = new GameObject("BottomCard");
             bottomCard.transform.SetParent(hudGO.transform, false);
             var bRect = bottomCard.AddComponent<RectTransform>();
@@ -2056,7 +1910,6 @@ namespace IUHCampus.Editor
             diskOutline.effectColor = new Color(0f, 0.85f, 1.0f, 0.9f);
             diskOutline.effectDistance = new Vector2(2f, 2f);
 
-            // Crosshairs Grid
             var gridGO = new GameObject("Crosshairs");
             gridGO.transform.SetParent(radarGO.transform, false);
             var gRect = gridGO.AddComponent<RectTransform>();
@@ -2069,7 +1922,6 @@ namespace IUHCampus.Editor
             gTxt.text = "<size=28><color=#38BDF822>✛</color></size>";
             gTxt.alignment = TextAnchor.MiddleCenter;
 
-            // Player Icon (Yellow Rotating Arrow)
             var pIconGO = new GameObject("PlayerArrow");
             pIconGO.transform.SetParent(radarGO.transform, false);
             var pRect = pIconGO.AddComponent<RectTransform>();
@@ -2082,7 +1934,6 @@ namespace IUHCampus.Editor
             pTxt.fontSize = 18;
             pTxt.alignment = TextAnchor.MiddleCenter;
 
-            // Objective Blip (Destination Flag - Green 🏁)
             var objBlipGO = new GameObject("ObjectiveBlip");
             objBlipGO.transform.SetParent(radarGO.transform, false);
             var obRect = objBlipGO.AddComponent<RectTransform>();
@@ -2094,7 +1945,6 @@ namespace IUHCampus.Editor
             obTxt.alignment = TextAnchor.MiddleCenter;
             objBlipGO.SetActive(false);
 
-            // Pickup Blip (Shop Icon - Cyan/Gold 🧋)
             var pBlipGO = new GameObject("PickupBlip");
             pBlipGO.transform.SetParent(radarGO.transform, false);
             var pbRect = pBlipGO.AddComponent<RectTransform>();
@@ -2106,7 +1956,6 @@ namespace IUHCampus.Editor
             pbTxt.alignment = TextAnchor.MiddleCenter;
             pBlipGO.SetActive(false);
 
-            // Route Info Badge below radar
             var routeBadgeGO = new GameObject("RouteInfoBadge");
             routeBadgeGO.transform.SetParent(radarGO.transform, false);
             var rbRect = routeBadgeGO.AddComponent<RectTransform>();
@@ -2150,7 +1999,6 @@ namespace IUHCampus.Editor
             mrRect.offsetMin = Vector2.zero;
             mrRect.offsetMax = Vector2.zero;
 
-            // Virtual Joystick on Bottom-Left
             var joyBase = new GameObject("JoystickBase");
             joyBase.transform.SetParent(mobileRoot.transform, false);
             var jbRect = joyBase.AddComponent<RectTransform>();
@@ -2173,12 +2021,10 @@ namespace IUHCampus.Editor
             var jhImg = joyHandle.AddComponent<Image>();
             jhImg.color = new Color(0.2f, 0.85f, 1f, 0.95f);
 
-            // Right Action Buttons
-            // 1. Vehicle Mount [🛵]
             var btnVeh = CreateRoundActionButton(mobileRoot.transform, "BtnVehicle", "🛵", new Vector2(-205f, 115f), 68f, new Color(0.0f, 0.72f, 0.35f));
-            // 2. Interaction [💬]
+
             var btnInt = CreateRoundActionButton(mobileRoot.transform, "BtnInteract", "💬", new Vector2(-120f, 185f), 68f, new Color(0.12f, 0.55f, 0.95f));
-            // 3. Action / Turbo [⚡]
+
             var btnAct = CreateRoundActionButton(mobileRoot.transform, "BtnAction", "⚡", new Vector2(-105f, 95f), 78f, new Color(1.0f, 0.45f, 0.1f));
 
             var mcScript = mobileRoot.AddComponent<IUHMobileControlsUI>();
@@ -2233,7 +2079,6 @@ namespace IUHCampus.Editor
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
 
-            // Full screen vignette
             var vignetteGO = new GameObject("Vignette");
             vignetteGO.transform.SetParent(horrorGO.transform, false);
             var vRect = vignetteGO.AddComponent<RectTransform>();
@@ -2244,7 +2089,6 @@ namespace IUHCampus.Editor
             var vImg = vignetteGO.AddComponent<Image>();
             vImg.color = new Color(0.8f, 0f, 0f, 0f);
 
-            // Danger Banner at Top (Image 1 Panel 4)
             var bannerGO = new GameObject("DangerAlertBanner");
             bannerGO.transform.SetParent(horrorGO.transform, false);
             var bRect = bannerGO.AddComponent<RectTransform>();
@@ -2275,7 +2119,6 @@ namespace IUHCampus.Editor
             bTxt.color = Color.white;
             bTxt.fontStyle = FontStyle.Bold;
 
-            // Pursuit Threat Fill Bar
             var fillBg = new GameObject("PursuitBarBg");
             fillBg.transform.SetParent(bannerGO.transform, false);
             var fbRect = fillBg.AddComponent<RectTransform>();
@@ -2328,7 +2171,6 @@ namespace IUHCampus.Editor
             cOutline.effectColor = new Color(0f, 0.85f, 0.45f, 0.95f);
             cOutline.effectDistance = new Vector2(2.5f, 2.5f);
 
-            // Title
             var titleGO = new GameObject("TxtTitle");
             titleGO.transform.SetParent(cardGO.transform, false);
             var tRect = titleGO.AddComponent<RectTransform>();
@@ -2342,7 +2184,6 @@ namespace IUHCampus.Editor
             tTxt.alignment = TextAnchor.MiddleCenter;
             tTxt.color = Color.white;
 
-            // Message
             var msgGO = new GameObject("TxtMessage");
             msgGO.transform.SetParent(cardGO.transform, false);
             var mRect = msgGO.AddComponent<RectTransform>();
@@ -2358,7 +2199,6 @@ namespace IUHCampus.Editor
             mTxt.alignment = TextAnchor.MiddleCenter;
             mTxt.color = new Color(0.9f, 0.95f, 0.98f);
 
-            // Rewards
             var rwdGO = new GameObject("TxtRewards");
             rwdGO.transform.SetParent(cardGO.transform, false);
             var rRect = rwdGO.AddComponent<RectTransform>();
@@ -2371,7 +2211,6 @@ namespace IUHCampus.Editor
             rTxt.text = "<size=17><color=#FDE047><b>Phần thưởng:</b></color>  <color=#34D399>💰 +75,000 VNĐ</color>  •  <color=#60A5FA>⭐ +100 XP</color></size>";
             rTxt.alignment = TextAnchor.MiddleCenter;
 
-            // Deliver Button
             var btnDeliver = CreateMenuButton(cardGO.transform, "BtnDeliver", "GIAO HÀNG  [ E ]", new Color(0.0f, 0.68f, 0.32f), 18);
             var bdRect = btnDeliver.GetComponent<RectTransform>();
             bdRect.anchorMin = new Vector2(0.2f, 0.06f);
@@ -2400,7 +2239,6 @@ namespace IUHCampus.Editor
             outline.effectColor = new Color(0.0f, 0.85f, 1.0f, 0.9f);
             outline.effectDistance = new Vector2(3f, 3f);
 
-            // Header
             var headerGO = new GameObject("Header");
             headerGO.transform.SetParent(customGO.transform, false);
             var hRect = headerGO.AddComponent<RectTransform>();
@@ -2415,7 +2253,6 @@ namespace IUHCampus.Editor
             hTxt.alignment = TextAnchor.MiddleCenter;
             hTxt.color = Color.white;
 
-            // Back Button
             var backBtn = CreateMenuButton(customGO.transform, "BtnBack", "✕  QUAY LẠI", new Color(0.7f, 0.2f, 0.2f), 16);
             var bbRect = backBtn.GetComponent<RectTransform>();
             bbRect.anchorMin = new Vector2(1f, 1f);
@@ -2424,7 +2261,6 @@ namespace IUHCampus.Editor
             bbRect.anchoredPosition = new Vector2(-20f, -20f);
             bbRect.sizeDelta = new Vector2(160f, 48f);
 
-            // Cards Grid (4 Brands: XANH SM, Grab, Be, Sinh Viên IUH)
             var cardsBox = new GameObject("CardsBox");
             cardsBox.transform.SetParent(customGO.transform, false);
             var cbRect = cardsBox.AddComponent<RectTransform>();
@@ -2443,7 +2279,6 @@ namespace IUHCampus.Editor
             var (cardBe, btnBe, txtBe) = BuildBrandCard(cardsBox.transform, "be", "Đồng hành - Linh hoạt - Dễ dàng", "Sắc vàng be năng động mang lại nhiều tiền thưởng.", "💰 +15% Tiền thưởng\n🛡️ +10% Sức bền\n🌟 Tích điểm nhanh", new Color(1.0f, 0.76f, 0.03f));
             var (cardDefault, btnDefault, txtDefault) = BuildBrandCard(cardsBox.transform, "Sinh Viên IUH", "Năng động - Sáng tạo - Trí tuệ", "Đồng phục sinh viên truyền thống IUH & xe thể thao.", "🎓 Chuẩn sinh viên IUH\n⚡ Cân bằng toàn diện\n🛡️ Bền bỉ", new Color(0.12f, 0.35f, 0.80f));
 
-            // Footer Action Bar
             var footerGO = new GameObject("Footer");
             footerGO.transform.SetParent(customGO.transform, false);
             var fRect = footerGO.AddComponent<RectTransform>();
@@ -2486,7 +2321,7 @@ namespace IUHCampus.Editor
 
             var cScript = customGO.AddComponent<IUHCustomizationUI>();
             cScript.Setup(customGO, backBtn.GetComponent<Button>(), btnStart.GetComponent<Button>(), btnPortal.GetComponent<Button>(), btnXanhSM, btnGrab, btnBe, btnDefault, txtXanhSM, txtGrab, txtBe, txtDefault);
-            customGO.SetActive(true); // Open upon entering game so player can choose costume before playing!
+            customGO.SetActive(true);
         }
 
         private static (GameObject, Button, Text) BuildBrandCard(Transform parent, string title, string tagline, string desc, string stats, Color brandCol)
@@ -2507,7 +2342,6 @@ namespace IUHCampus.Editor
             vlg.childControlHeight = true;
             vlg.childForceExpandHeight = false;
 
-            // Brand Banner
             var bannerGO = new GameObject("Banner");
             bannerGO.transform.SetParent(cardGO.transform, false);
             var bImg = bannerGO.AddComponent<Image>();
@@ -2524,7 +2358,6 @@ namespace IUHCampus.Editor
             btRect.anchorMin = Vector2.zero;
             btRect.anchorMax = Vector2.one;
 
-            // Tagline
             var tagGO = new GameObject("Tagline");
             tagGO.transform.SetParent(cardGO.transform, false);
             var tagTxt = tagGO.AddComponent<Text>();
@@ -2535,7 +2368,6 @@ namespace IUHCampus.Editor
             tagTxt.color = new Color(0.85f, 0.9f, 0.98f);
             tagGO.AddComponent<LayoutElement>().preferredHeight = 24f;
 
-            // Description
             var descGO = new GameObject("Desc");
             descGO.transform.SetParent(cardGO.transform, false);
             var descTxt = descGO.AddComponent<Text>();
@@ -2546,7 +2378,6 @@ namespace IUHCampus.Editor
             descTxt.color = Color.white;
             descGO.AddComponent<LayoutElement>().preferredHeight = 65f;
 
-            // Bonus Stats Box
             var statsGO = new GameObject("StatsBox");
             statsGO.transform.SetParent(cardGO.transform, false);
             var sImg = statsGO.AddComponent<Image>();
@@ -2564,7 +2395,6 @@ namespace IUHCampus.Editor
             stRect.anchorMin = Vector2.zero;
             stRect.anchorMax = Vector2.one;
 
-            // Select Button
             var btnGO = CreateMenuButton(cardGO.transform, "BtnSelect", "○  Chọn", brandCol, 16);
             var btn = btnGO.GetComponent<Button>();
             var txt = btnGO.transform.Find("Txt")?.GetComponent<Text>();
@@ -2574,7 +2404,7 @@ namespace IUHCampus.Editor
 
         private static void BuildResultDialogs(Transform canvasTransform)
         {
-            // 1. Victory Dialog
+
             var vicGO = new GameObject("VictoryDialog");
             vicGO.transform.SetParent(canvasTransform, false);
             var vRect = vicGO.AddComponent<RectTransform>();
@@ -2662,7 +2492,6 @@ namespace IUHCampus.Editor
 
             vicGO.SetActive(false);
 
-            // 2. Defeat Dialog
             var defGO = new GameObject("DefeatDialog");
             defGO.transform.SetParent(canvasTransform, false);
             var dRect = defGO.AddComponent<RectTransform>();
@@ -2759,4 +2588,3 @@ namespace IUHCampus.Editor
         }
     }
 }
-

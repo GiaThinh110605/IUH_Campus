@@ -6,14 +6,7 @@ using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// Delivery Hand-off Dialog Modal (3. Giao hàng chân thật cho Sinh Viên).
-    /// - Shows destination NPC location: "Giao hàng - Ký túc xá B"
-    /// - Order description and student greeting
-    /// - Rewards: Cash + EXP + 5-Star Rating
-    /// - Prominent green [ Giao hàng (E) ] button.
-    /// Only when confirmed does the mission officially complete!
-    /// </summary>
+
     public class IUHDeliveryDialogueUI : MonoBehaviour
     {
         private static IUHDeliveryDialogueUI s_Instance;
@@ -142,7 +135,6 @@ namespace IUHCampus.UI
                 m_TxtRewardExp.text = $"+{expReward} XP";
             }
 
-            // Style button label
             if (m_BtnDeliver != null)
             {
                 var btnTxt = m_BtnDeliver.GetComponentInChildren<Text>();
@@ -170,7 +162,6 @@ namespace IUHCampus.UI
             gameObject.SetActive(false);
             m_OnDeliverConfirmed = null;
 
-            // Restore cursor mode if portal is closed
             var portal = IUHMiniGamePortalUI.Instance;
             if (portal == null || !portal.IsOpen)
             {

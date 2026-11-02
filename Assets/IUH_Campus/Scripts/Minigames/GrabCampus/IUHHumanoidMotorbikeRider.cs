@@ -2,12 +2,7 @@ using UnityEngine;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Procedural Humanoid Motorbike Rider Controller.
-    /// Uses the authentic IUH student Humanoid character model (PlayerArmature)
-    /// and poses the 68-bone skeleton procedurally in LateUpdate into a realistic
-    /// motorbike riding posture with helmet, backpack, and dynamic leaning into turns.
-    /// </summary>
+
     public class IUHHumanoidMotorbikeRider : MonoBehaviour
     {
         [Header("Sitting & Posture Tuning")]
@@ -48,7 +43,7 @@ namespace IUHCampus.Minigames.GrabCampus
             m_Animator = GetComponent<Animator>();
             if (m_Animator != null)
             {
-                m_Animator.enabled = false; // Disable default walk/run animations
+                m_Animator.enabled = false;
             }
 
             CacheBones();
@@ -87,7 +82,6 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             if (m_Hips == null) return;
 
-            // 1. Position character root and hips firmly on the motorbike seat
             transform.localPosition = new Vector3(0f, seatHeight - m_DefaultHipLocalPos.y, seatForwardOffset);
             transform.localRotation = Quaternion.identity;
 
@@ -95,14 +89,12 @@ namespace IUHCampus.Minigames.GrabCampus
             Vector3 forward = transform.forward;
             Vector3 up = transform.up;
 
-            // Lean into turns if motorbike is leaning
             float steerLean = 0f;
             if (m_Motorbike != null)
             {
                 steerLean = -m_Motorbike.CurrentBankAngle * 0.4f;
             }
 
-            // 2. Upper body leaning forward in riding posture
             if (m_Spine != null)
             {
                 Quaternion spinePitch = Quaternion.AngleAxis(-spineLean, right);
@@ -116,14 +108,12 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_Chest.rotation = chestPitch * m_Chest.rotation;
             }
 
-            // 3. Head tilted slightly upward to look forward at the road ahead
             if (m_Head != null)
             {
                 Quaternion headPitch = Quaternion.AngleAxis(spineLean + 6f, right);
                 m_Head.rotation = headPitch * m_Head.rotation;
             }
 
-            // 4. Legs straddling the bike
             if (m_LeftUpperLeg != null && m_LeftLowerLeg != null)
             {
                 Quaternion origKnee = m_LeftLowerLeg.rotation;
@@ -142,7 +132,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_RightLowerLeg.rotation = origKnee * Quaternion.AngleAxis(kneeBend, Vector3.right);
             }
 
-            // 5. Arms reaching forward to grasp the left & right handlebars
             if (m_LeftUpperArm != null && m_LeftLowerArm != null)
             {
                 Quaternion armPitch = Quaternion.AngleAxis(-armReach, right);

@@ -14,9 +14,6 @@ namespace IUHCampus
         NPC
     }
 
-    /// <summary>
-    /// Component marking an object as interactable for gameplay, quest triggers, and UI prompts.
-    /// </summary>
     public class IUHInteractable : MonoBehaviour
     {
         [Header("Interaction Configuration")]

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus.World
 {
-    // Local controls for the standalone campus art scene.
+
     public class IUHConceptPreviewController : MonoBehaviour
     {
         public Camera overviewCamera;

@@ -23,17 +23,13 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Game Systems Automation] Bắt đầu quy trình kiểm tra toàn diện và chụp 7 góc nhìn hệ thống...");
 
-            // 1. Rebuild Full World and Game Systems
             IUHGameSystemsMasterBuilder.BuildWorldAndSystems();
 
-            // Ensure directories
             if (!Directory.Exists(ScreenshotDir)) Directory.CreateDirectory(ScreenshotDir);
             if (!Directory.Exists(ArtifactDir)) Directory.CreateDirectory(ArtifactDir);
 
-            // 2. Run Automated Save/Load Round-Trip Test
             RunSaveLoadTest();
 
-            // 3. Create Verification Camera
             GameObject camGO = new GameObject("Systems_VerificationCamera");
             Camera cam = camGO.AddComponent<Camera>();
             cam.fieldOfView = 65f;
@@ -49,7 +45,6 @@ namespace IUHCampus.Editor
                 canvas.planeDistance = 1.0f;
             }
 
-            // ── Shot 1: Player Interaction with InfoBoard ──
             Debug.Log("[IUH Game Systems] Capturing Shot 1: InfoBoard Interaction...");
             var infoBoard = GameObject.Find("INT_InfoBoard_G_01");
             if (infoBoard != null)
@@ -63,11 +58,9 @@ namespace IUHCampus.Editor
             cam.fieldOfView = 65f;
             CaptureView(cam, 1920, 1080, "screenshot_system_01_infoboard.png");
 
-            // Close panel
             SimplePanelUI.Hide();
             InteractionUI.SetPrompt("", false);
 
-            // ── Shot 2: Player Interaction with Computer in Lab ──
             Debug.Log("[IUH Game Systems] Capturing Shot 2: Computer Lab Interaction...");
             var comp = GameObject.Find("INT_Computer_01");
             if (comp != null)
@@ -84,7 +77,6 @@ namespace IUHCampus.Editor
             SimplePanelUI.Hide();
             InteractionUI.SetPrompt("", false);
 
-            // ── Shot 3: Door Interaction (Open State & Clearance) ──
             Debug.Log("[IUH Game Systems] Capturing Shot 3: Door Interaction...");
             var door = GameObject.Find("BLDG_G_Door_Main");
             if (door != null)
@@ -100,21 +92,18 @@ namespace IUHCampus.Editor
 
             InteractionUI.SetPrompt("", false);
 
-            // ── Shot 4: NPC Walking in Courtyard Route ──
             Debug.Log("[IUH Game Systems] Capturing Shot 4: NPC Walking Route...");
             cam.transform.position = new Vector3(7.5f, 1.70f, -1.8f);
             cam.transform.rotation = Quaternion.Euler(5.0f, 38.0f, 0.0f);
             cam.fieldOfView = 65f;
             CaptureView(cam, 1920, 1080, "screenshot_system_04_npc_walking.png");
 
-            // ── Shot 5: NavMesh / Walkable Ground View ──
             Debug.Log("[IUH Game Systems] Capturing Shot 5: Walkable Ground Circulation...");
             cam.transform.position = new Vector3(6.0f, 5.5f, -7.0f);
             cam.transform.rotation = Quaternion.Euler(18.0f, 45.0f, 0.0f);
             cam.fieldOfView = 68f;
             CaptureView(cam, 1920, 1080, "screenshot_system_05_navmesh.png");
 
-            // ── Shot 6: Gameplay Anchors & WorldObject IDs ──
             Debug.Log("[IUH Game Systems] Capturing Shot 6: Gameplay Anchors & IDs...");
             InteractionUI.SetPrompt("[DEBUG] Hiển thị các điểm neo Gameplay (QUEST_G_Reception, OBJ_G_Reception)", true);
             cam.transform.position = new Vector3(16.5f, 2.0f, 4.5f);
@@ -123,7 +112,6 @@ namespace IUHCampus.Editor
             CaptureView(cam, 1920, 1080, "screenshot_system_06_gameplay_anchors.png");
             InteractionUI.SetPrompt("", false);
 
-            // ── Shot 7: Save / Load Validation Screen ──
             Debug.Log("[IUH Game Systems] Capturing Shot 7: Save / Load Validation...");
             SimplePanelUI.ShowPanel("XÁC NHẬN HỆ THỐNG LƯU / TẢI GAME (SAVE/LOAD MVP)",
                 $"FILE LƯU: {SaveSystem.SaveFileName}\n" +
@@ -140,10 +128,8 @@ namespace IUHCampus.Editor
 
             SimplePanelUI.Hide();
 
-            // Cleanup
             UnityEngine.Object.DestroyImmediate(camGO);
 
-            // Re-save scene
             var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
             EditorSceneManager.SaveScene(activeScene);
             AssetDatabase.Refresh();
@@ -164,14 +150,12 @@ namespace IUHCampus.Editor
                 return;
             }
 
-            // Step 1: Set state & position
             Vector3 testPos = new Vector3(24.0f, 0.1f, 1.0f);
             Quaternion testRot = Quaternion.Euler(0, 180f, 0);
             player.Teleport(testPos, testRot);
             door.EnsureInitialized();
             door.SetStateDirectly(true);
 
-            // Step 2: Save
             bool saveResult = SaveSystem.SaveGame();
             if (!saveResult)
             {
@@ -179,11 +163,9 @@ namespace IUHCampus.Editor
                 return;
             }
 
-            // Step 3: Modify state
             player.Teleport(Vector3.zero, Quaternion.identity);
             door.SetStateDirectly(false);
 
-            // Step 4: Load
             bool loadResult = SaveSystem.LoadGame();
             if (!loadResult)
             {
@@ -191,7 +173,6 @@ namespace IUHCampus.Editor
                 return;
             }
 
-            // Step 5: Verify
             float dist = Vector3.Distance(player.transform.position, testPos);
             bool posOk = dist < 0.1f;
             bool doorOk = (door.currentState == DoorState.Open);

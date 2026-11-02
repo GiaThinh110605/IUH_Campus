@@ -74,7 +74,6 @@ namespace IUHCampus.Editor
             int height = 512;
             Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
 
-            // Semi-translucent white/frosted glass backing with dark text/logo
             Color bgColor = new Color(0.95f, 0.97f, 1.0f, 0.88f);
             Color borderBlue = new Color(0.12f, 0.35f, 0.70f, 1.0f);
             Color textDark = new Color(0.08f, 0.15f, 0.30f, 1.0f);
@@ -85,12 +84,11 @@ namespace IUHCampus.Editor
             {
                 for (int x = 0; x < width; x++)
                 {
-                    // Gradient glass reflection
+
                     float grad = 0.92f + 0.08f * Mathf.Sin((float)x / width * Mathf.PI);
                     Color c = bgColor * grad;
                     c.a = 0.90f;
 
-                    // Subtle border
                     if (x < 8 || x >= width - 8 || y < 8 || y >= height - 8)
                     {
                         c = borderBlue;
@@ -100,7 +98,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw central IUH Logo emblem & stylized flame / lotus
             int logoCx = width / 2 - 180;
             int logoCy = height / 2;
             int logoRadius = 90;
@@ -119,7 +116,7 @@ namespace IUHCampus.Editor
                     }
                     else if (dist < logoRadius - 8)
                     {
-                        // Flame petal shape
+
                         float normY = (y - (logoCy - logoRadius)) / (float)(2 * logoRadius);
                         float petalW = Mathf.Sin(normY * Mathf.PI) * (logoRadius - 16);
                         if (Mathf.Abs(dx) < petalW)
@@ -133,12 +130,10 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw clean block text representations for "IUH"
             DrawBlockLetter(tex, width / 2 - 20, height / 2 + 10, 48, 80, 14, 'I', textDark);
             DrawBlockLetter(tex, width / 2 + 50, height / 2 + 10, 56, 80, 14, 'U', textDark);
             DrawBlockLetter(tex, width / 2 + 130, height / 2 + 10, 56, 80, 14, 'H', textDark);
 
-            // Subtitle banner lines for "INDUSTRIAL UNIVERSITY OF HO CHI MINH CITY"
             for (int y = height / 2 - 60; y <= height / 2 - 45; y++)
             {
                 for (int x = width / 2 - 40; x < width / 2 + 320; x++)
@@ -195,7 +190,7 @@ namespace IUHCampus.Editor
                     }
                     else
                     {
-                        // Inner circle
+
                         float normY = (float)y / size;
                         if (normY > 0.5f)
                         {
@@ -209,7 +204,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw center emblem
             DrawBlockLetter(tex, cx - 75, cy - 30, 35, 60, 10, 'I', blue);
             DrawBlockLetter(tex, cx - 25, cy - 30, 45, 60, 10, 'U', red);
             DrawBlockLetter(tex, cx + 35, cy - 30, 45, 60, 10, 'H', blue);
@@ -231,7 +225,6 @@ namespace IUHCampus.Editor
             float outerR = h * 0.32f;
             float innerR = outerR * (Mathf.Sin(18f * Mathf.Deg2Rad) / Mathf.Sin(54f * Mathf.Deg2Rad));
 
-            // Generate 10 star vertices (alternating outer and inner)
             Vector2[] verts = new Vector2[10];
             for (int i = 0; i < 5; i++)
             {
@@ -250,7 +243,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Ray-casting point in polygon test for star
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -295,7 +287,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw white circle in middle with "IUH"
             int r = 100;
             for (int y = cy - r; y <= cy + r; y++)
             {
@@ -338,7 +329,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw central golden star and Youth emblem ring
             int r = 85;
             for (int y = cy - r; y <= cy + r; y++)
             {
@@ -516,8 +506,8 @@ namespace IUHCampus.Editor
             int height = 128;
             Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
 
-            Color bgBlue = new Color(0.02f, 0.18f, 0.48f, 1.0f); // Deep IUH Blue #052E7A
-            Color goldAccent = new Color(0.96f, 0.78f, 0.18f, 1.0f); // Gold #F5C72E
+            Color bgBlue = new Color(0.02f, 0.18f, 0.48f, 1.0f);
+            Color goldAccent = new Color(0.96f, 0.78f, 0.18f, 1.0f);
             Color textWhite = new Color(0.98f, 0.98f, 0.98f, 1.0f);
             Color emblemRed = new Color(0.85f, 0.12f, 0.12f, 1.0f);
 
@@ -525,10 +515,9 @@ namespace IUHCampus.Editor
             {
                 for (int x = 0; x < width; x++)
                 {
-                    // Base deep blue
+
                     Color c = bgBlue;
 
-                    // Gold top and bottom accent stripes
                     if (y < 6 || y >= height - 6)
                     {
                         c = goldAccent;
@@ -538,7 +527,6 @@ namespace IUHCampus.Editor
                         c = new Color(0.7f, 0.55f, 0.1f, 1f);
                     }
 
-                    // Left & right border
                     if (x < 6 || x >= width - 6)
                     {
                         c = goldAccent;
@@ -548,7 +536,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Left side circular emblem
             int emblemCx = 64;
             int emblemCy = height / 2;
             int emblemRadius = 38;
@@ -575,8 +562,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Primary title text banner pattern: "TRƯỜNG ĐẠI HỌC CÔNG NGHIỆP TP. HỒ CHÍ MINH"
-            // Stylized high-contrast bold signage bars and glyphs
             int startX = 125;
             int textW = width - 150;
             int textY = height / 2 - 12;
@@ -586,15 +571,14 @@ namespace IUHCampus.Editor
             {
                 for (int x = startX; x < startX + textW; x++)
                 {
-                    // Alternating rhythmic character glyph patterns representing Vietnamese text
+
                     int glyphIndex = (x - startX) / 16;
                     int glyphOffset = (x - startX) % 16;
 
-                    // Space between words
                     bool isWordSpace = (glyphIndex == 6 || glyphIndex == 13 || glyphIndex == 22 || glyphIndex == 26 || glyphIndex == 30 || glyphIndex == 34);
                     if (!isWordSpace && glyphOffset > 2 && glyphOffset < 14)
                     {
-                        // Crossbar or vertical stems
+
                         bool isStroke = (glyphOffset <= 5 || glyphOffset >= 11 || y <= textY + 4 || y >= textY + textH - 5 || (y >= textY + 11 && y <= textY + 15));
                         if (isStroke)
                         {
@@ -604,7 +588,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // English subtitle bar: "INDUSTRIAL UNIVERSITY OF HO CHI MINH CITY"
             int subY = textY - 20;
             int subH = 10;
             for (int y = subY; y < subY + subH; y++)
@@ -630,28 +613,28 @@ namespace IUHCampus.Editor
             int height = 512;
             Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
 
-            Color baseWall = new Color(0.92f, 0.91f, 0.88f, 1f); // Warm off-white
+            Color baseWall = new Color(0.92f, 0.91f, 0.88f, 1f);
             System.Random rnd = new System.Random(42);
 
             for (int y = 0; y < height; y++)
             {
                 float vNorm = (float)y / height;
-                // Subtle bottom contact grime gradient & top under-eave shade
+
                 float verticalFactor = 1.0f;
                 if (vNorm < 0.15f)
                 {
-                    verticalFactor -= (0.15f - vNorm) * 0.45f; // Slight contact dirt at base
+                    verticalFactor -= (0.15f - vNorm) * 0.45f;
                 }
                 else if (vNorm > 0.85f)
                 {
-                    verticalFactor -= (vNorm - 0.85f) * 0.25f; // Slight shadow under roof eave
+                    verticalFactor -= (vNorm - 0.85f) * 0.25f;
                 }
 
                 for (int x = 0; x < width; x++)
                 {
-                    // Fine plaster noise
+
                     float noise = (float)(rnd.NextDouble() * 0.05f - 0.025f);
-                    // Subtle vertical water streak modulation
+
                     float streak = Mathf.Sin(x * 0.12f) * Mathf.Cos(x * 0.04f + y * 0.01f) * 0.025f;
 
                     float factor = Mathf.Clamp01(verticalFactor + noise + streak);
@@ -712,9 +695,9 @@ namespace IUHCampus.Editor
             {
                 for (int x = 0; x < width; x++)
                 {
-                    // Fine aggregate speckling
+
                     float noise = (float)(rnd.NextDouble() * 0.08f - 0.04f);
-                    // Slight tire wear bands
+
                     float wear = Mathf.Sin(x * 0.03f) * 0.02f;
                     Color c = asphaltBase + new Color(noise + wear, noise + wear, noise + wear, 0f);
                     tex.SetPixel(x, y, c);
@@ -747,7 +730,7 @@ namespace IUHCampus.Editor
 
                     if (inRimX || inRimY)
                     {
-                        // Outer cast frame
+
                         tex.SetPixel(x, y, iron);
                     }
                     else
@@ -755,14 +738,14 @@ namespace IUHCampus.Editor
                         int slotX = (x - rim) % slotPeriod;
                         if (slotX < 7)
                         {
-                            // Iron bar
+
                             float t = (float)slotX / 6f;
                             Color c = Color.Lerp(iron, ironHighlight, Mathf.Sin(t * Mathf.PI));
                             tex.SetPixel(x, y, c);
                         }
                         else
                         {
-                            // Drain slot opening (void)
+
                             tex.SetPixel(x, y, voidBlack);
                         }
                     }
@@ -793,17 +776,17 @@ namespace IUHCampus.Editor
 
                     if (dist > radius + 4f)
                     {
-                        // Surrounding asphalt/concrete rim
+
                         tex.SetPixel(x, y, ironGroove);
                     }
                     else if (dist > radius - 6f)
                     {
-                        // Raised outer rim
+
                         tex.SetPixel(x, y, ironBase);
                     }
                     else
                     {
-                        // Internal tread pattern (radial notches and concentric rings)
+
                         float angle = Mathf.Atan2(pos.y - center.y, pos.x - center.x);
                         bool isRing = Mathf.Abs(dist - radius * 0.65f) < 3f || Mathf.Abs(dist - radius * 0.35f) < 3f;
                         bool isRadialSpoke = Mathf.Abs(Mathf.Sin(angle * 12f)) > 0.85f;
@@ -849,7 +832,6 @@ namespace IUHCampus.Editor
                         tex.SetPixel(x, y, boardWhite);
                     }
 
-                    // Border
                     if (x < 6 || x >= width - 6 || y < 6 || y >= height - 6)
                     {
                         tex.SetPixel(x, y, headerBlue);
@@ -857,12 +839,11 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw directional text bands & arrow icons
             int[] lineYs = { 150, 105, 60, 20 };
             for (int i = 0; i < lineYs.Length; i++)
             {
                 int ly = lineYs[i];
-                // Draw arrow indicator on left
+
                 for (int dy = 0; dy < 20; dy++)
                 {
                     for (int dx = 0; dx < 24; dx++)
@@ -874,7 +855,6 @@ namespace IUHCampus.Editor
                     }
                 }
 
-                // Text line blocks
                 for (int ty = 0; ty < 16; ty++)
                 {
                     for (int tx = 60; tx < width - 40; tx++)
@@ -917,13 +897,12 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw student flyers and notice posters pinned to board
             Color[] flyerColors = {
-                new Color(0.98f, 0.98f, 0.98f, 1f), // White official bulletin
-                new Color(0.95f, 0.88f, 0.25f, 1f), // Yellow student activity flyer
-                new Color(0.25f, 0.65f, 0.92f, 1f), // Blue youth union poster
-                new Color(0.92f, 0.35f, 0.35f, 1f), // Red announcement
-                new Color(0.96f, 0.96f, 0.96f, 1f)  // White timetable
+                new Color(0.98f, 0.98f, 0.98f, 1f),
+                new Color(0.95f, 0.88f, 0.25f, 1f),
+                new Color(0.25f, 0.65f, 0.92f, 1f),
+                new Color(0.92f, 0.35f, 0.35f, 1f),
+                new Color(0.96f, 0.96f, 0.96f, 1f)
             };
 
             int[] flyerXs = { 24, 120, 220, 310, 410 };
@@ -945,14 +924,14 @@ namespace IUHCampus.Editor
                     {
                         if (px < width - 14 && py < height - 14)
                         {
-                            // Header bar on flyer
+
                             if (py > fy + fh - 24)
                             {
                                 tex.SetPixel(px, py, Color.Lerp(fc, Color.blue, 0.3f));
                             }
                             else
                             {
-                                // Text lines on flyer
+
                                 int lineMod = py % 8;
                                 if (lineMod < 3 && px > fx + 6 && px < fx + fw - 6)
                                 {
@@ -987,7 +966,7 @@ namespace IUHCampus.Editor
             {
                 for (int x = 0; x < size; x++)
                 {
-                    // Outer border
+
                     if (x < 10 || x >= size - 10 || y < 10 || y >= size - 10)
                     {
                         tex.SetPixel(x, y, casing);
@@ -997,7 +976,7 @@ namespace IUHCampus.Editor
                         float dist = Vector2.Distance(new Vector2(x, y), fanCenter);
                         if (dist < fanRadius)
                         {
-                            // Circular fan circular grill
+
                             int ring = ((int)dist) % 12;
                             if (ring < 3)
                             {
@@ -1010,7 +989,7 @@ namespace IUHCampus.Editor
                         }
                         else
                         {
-                            // Horizontal side louvers
+
                             int louver = y % 10;
                             if (louver < 3)
                             {
@@ -1044,7 +1023,7 @@ namespace IUHCampus.Editor
 
                 for (int x = 0; x < size; x++)
                 {
-                    // Frame edge
+
                     if (x < 6 || x >= size - 6 || y < 6 || y >= size - 6)
                     {
                         tex.SetPixel(x, y, new Color(0.3f, 0.32f, 0.35f, 1f));
@@ -1113,7 +1092,7 @@ namespace IUHCampus.Editor
                     }
                     else
                     {
-                        // Directional row stripes
+
                         int row = (y - 10) / 45;
                         bool isDivider = (y - 10) % 45 == 0;
                         tex.SetPixel(x, y, isDivider ? border : navyBlue);
@@ -1121,7 +1100,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw procedural directional arrows & icons
             for (int r = 0; r < 3; r++)
             {
                 int cy = 40 + r * 45;
@@ -1158,11 +1136,11 @@ namespace IUHCampus.Editor
                 {
                     if (y >= 190 && y <= 215)
                     {
-                        tex.SetPixel(x, y, yellow); // Warning band
+                        tex.SetPixel(x, y, yellow);
                     }
                     else if (y >= 40 && y <= 180 && x >= 30 && x <= size - 30)
                     {
-                        // Instruction label background
+
                         tex.SetPixel(x, y, white);
                     }
                     else
@@ -1172,7 +1150,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Pictogram icons inside white label
             for (int py = 70; py <= 150; py++)
             {
                 for (int px = 50; px <= 110; px++)
@@ -1210,11 +1187,11 @@ namespace IUHCampus.Editor
                     }
                     else if (y >= size - 24 && x >= size / 2 - 8 && x <= size / 2 + 8 && y <= size - 12)
                     {
-                        tex.SetPixel(x, y, greenLED); // Indicator LED
+                        tex.SetPixel(x, y, greenLED);
                     }
                     else if (y >= 20 && y <= size - 35 && x >= 20 && x <= size - 20)
                     {
-                        // RFID sensing surface with card icon
+
                         bool isCardBorder = (x == 35 || x == size - 35 || y == 40 || y == size - 50);
                         tex.SetPixel(x, y, isCardBorder ? cardIcon : sensorPad);
                     }
@@ -1245,7 +1222,7 @@ namespace IUHCampus.Editor
             {
                 for (int x = 0; x < size; x++)
                 {
-                    // Roof section
+
                     if (y > size - 70)
                     {
                         int rib = (x / 14) % 2;
@@ -1254,14 +1231,14 @@ namespace IUHCampus.Editor
                     else
                     {
                         Color wallCol = (x < size / 2) ? pastelYellow : pastelMint;
-                        // Floor bands
+
                         if (y % 110 < 8)
                         {
                             tex.SetPixel(x, y, concreteSill);
                         }
                         else
                         {
-                            // Window openings
+
                             int wx = x % 128;
                             int wy = y % 110;
                             if (wx >= 35 && wx <= 95 && wy >= 25 && wy <= 90)
@@ -1282,4 +1259,3 @@ namespace IUHCampus.Editor
         }
     }
 }
-

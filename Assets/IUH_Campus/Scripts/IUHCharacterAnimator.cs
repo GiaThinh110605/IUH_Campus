@@ -2,11 +2,7 @@ using UnityEngine;
 
 namespace IUHCampus
 {
-    /// <summary>
-    /// Procedural Humanoid Character Animator.
-    /// Drives realistic procedural walk, run, and idle cycles for student humanoid model:
-    /// alternating arm swings, leg strides, and rhythmic torso bobbing.
-    /// </summary>
+
     public class IUHCharacterAnimator : MonoBehaviour
     {
         [Header("Limb References")]
@@ -68,13 +64,11 @@ namespace IUHCampus
                 float cos = Mathf.Cos(m_Cycle);
                 float bob = Mathf.Abs(sin) * m_BobAmount * speedRatio;
 
-                // Torso vertical bounce
                 if (m_Torso != null)
                 {
                     m_Torso.localPosition = m_TorsoBasePos + Vector3.up * bob;
                 }
 
-                // Arm swings (Arm Left swings opposite to Leg Left)
                 float armAngle = sin * m_ArmSwingAngle * (0.6f + 0.4f * speedRatio);
                 if (m_ArmLeft != null)
                 {
@@ -85,7 +79,6 @@ namespace IUHCampus
                     m_ArmRight.localRotation = m_ArmRightBaseRot * Quaternion.Euler(-armAngle, 0, 0);
                 }
 
-                // Leg strides
                 float legAngle = -sin * m_LegStrideAngle * (0.6f + 0.4f * speedRatio);
                 if (m_LegLeft != null)
                 {
@@ -98,7 +91,7 @@ namespace IUHCampus
             }
             else
             {
-                // Idle breathing posture
+
                 float breath = Mathf.Sin(Time.time * 2.2f) * 0.008f;
                 if (m_Torso != null) m_Torso.localPosition = Vector3.Lerp(m_Torso.localPosition, m_TorsoBasePos + Vector3.up * breath, Time.deltaTime * 6f);
                 if (m_ArmLeft != null) m_ArmLeft.localRotation = Quaternion.Slerp(m_ArmLeft.localRotation, m_ArmLeftBaseRot, Time.deltaTime * 8f);

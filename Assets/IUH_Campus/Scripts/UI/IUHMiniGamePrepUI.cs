@@ -5,13 +5,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// Mission Briefing & Preparation Screen for Mini-Games 2 through 6.
-    /// Fulfills Requirement 2 Step 2:
-    /// - Shows mission introduction, objectives, guidelines, and location.
-    /// - Only initializes gameplay / AI / timers / systems when player clicks 'Bắt đầu nhiệm vụ'.
-    /// - Has 'Quay lại' button that returns to MiniGameSelection without starting gameplay.
-    /// </summary>
+
     public class IUHMiniGamePrepUI : MonoBehaviour
     {
         public static IUHMiniGamePrepUI Instance { get; private set; }
@@ -27,7 +21,7 @@ namespace IUHCampus.UI
         [SerializeField] private Button m_BtnStartMission;
         [SerializeField] private Button m_BtnBack;
 
-        private int m_CurrentGameIndex = 1; // 1 to 5 for minigames 2 to 6
+        private int m_CurrentGameIndex = 1;
         private bool m_IsOpen = false;
         public bool IsOpen => m_IsOpen;
 
@@ -75,7 +69,7 @@ namespace IUHCampus.UI
         {
             switch (gameIndex)
             {
-                case 1: // Mini-game 2: AI Object Hunt
+                case 1:
                     if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🔍 <b>2.2. AI OBJECT HUNT: TÌM ĐỒ VẬT</b></size>";
                     if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Thư Viện Trung Tâm Tòa A & Giảng Đường";
                     if (m_TxtObjective != null) m_TxtObjective.text = "Sử dụng camera quét nhận diện giáo trình / bình chữa cháy qua Deep Learning YOLO & hiển thị AR Hologram 3D.";
@@ -86,7 +80,7 @@ namespace IUHCampus.UI
                         "• <b>Lưu ý:</b> Hệ thống camera nhận diện AI kích hoạt khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
                     break;
 
-                case 2: // Mini-game 3: Photo Hunter
+                case 2:
                     if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>📸 <b>2.3. THỢ SĂN KHOẢNH KHẮC</b></size>";
                     if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Khuôn Viên IUH (Cổng 1, Tượng Đài, Block F)";
                     if (m_TxtObjective != null) m_TxtObjective.text = "Khám phá các góc đẹp của khuôn viên IUH, bật Photo Mode check-in và lưu trữ album sinh viên.";
@@ -97,7 +91,7 @@ namespace IUHCampus.UI
                         "• <b>Lưu ý:</b> Chế độ Photo Mode kích hoạt khi bạn bấm <b>'Bắt Đầu Nhiệm Vụ'</b>.";
                     break;
 
-                case 3: // Mini-game 4: Green Campus
+                case 3:
                     if (m_TxtGameTitle != null) m_TxtGameTitle.text = "<size=32>🌱 <b>2.4. GREEN CAMPUS: CỨU LẤY KHUÔN VIÊN</b></size>";
                     if (m_TxtLocation != null) m_TxtLocation.text = "📍 <color=#67E8F9><b>Vị trí:</b></color> Trạm Phân Loại Rác AI Sân Trường";
                     if (m_TxtObjective != null) m_TxtObjective.text = "Thu gom và phân loại rác 3D bằng AI, tích lũy điểm xanh đẩy lên Cloud Adafruit IO.";
@@ -114,7 +108,6 @@ namespace IUHCampus.UI
         {
             if (m_PanelRoot != null) return;
 
-            // Look for existing panel in Canvas
             var canvas = GameObject.Find("IUH_Minigame_Canvas");
             if (canvas == null) return;
 
@@ -126,7 +119,6 @@ namespace IUHCampus.UI
                 return;
             }
 
-            // Create dynamically
             var panelGO = new GameObject("MiniGameSetupPanel");
             panelGO.transform.SetParent(canvas.transform, false);
             var rect = panelGO.AddComponent<RectTransform>();
@@ -138,7 +130,6 @@ namespace IUHCampus.UI
             var bg = panelGO.AddComponent<Image>();
             bg.color = new Color(0.02f, 0.05f, 0.12f, 0.94f);
 
-            // Dialog Card
             var cardGO = new GameObject("PrepCard");
             cardGO.transform.SetParent(panelGO.transform, false);
             var cardRect = cardGO.AddComponent<RectTransform>();
@@ -159,7 +150,6 @@ namespace IUHCampus.UI
             vlg.childControlWidth = true;
             vlg.childControlHeight = false;
 
-            // Title
             var titleGO = new GameObject("TxtTitle");
             titleGO.transform.SetParent(cardGO.transform, false);
             m_TxtGameTitle = titleGO.AddComponent<Text>();
@@ -168,7 +158,6 @@ namespace IUHCampus.UI
             m_TxtGameTitle.alignment = TextAnchor.MiddleCenter;
             titleGO.AddComponent<LayoutElement>().preferredHeight = 44f;
 
-            // Location
             var locGO = new GameObject("TxtLocation");
             locGO.transform.SetParent(cardGO.transform, false);
             m_TxtLocation = locGO.AddComponent<Text>();
@@ -178,7 +167,6 @@ namespace IUHCampus.UI
             m_TxtLocation.alignment = TextAnchor.MiddleCenter;
             locGO.AddComponent<LayoutElement>().preferredHeight = 30f;
 
-            // Objective
             var objGO = new GameObject("TxtObjective");
             objGO.transform.SetParent(cardGO.transform, false);
             m_TxtObjective = objGO.AddComponent<Text>();
@@ -189,7 +177,6 @@ namespace IUHCampus.UI
             m_TxtObjective.alignment = TextAnchor.MiddleCenter;
             objGO.AddComponent<LayoutElement>().preferredHeight = 44f;
 
-            // Details Container
             var detGO = new GameObject("TxtDetails");
             detGO.transform.SetParent(cardGO.transform, false);
             m_TxtDetails = detGO.AddComponent<Text>();
@@ -200,7 +187,6 @@ namespace IUHCampus.UI
             m_TxtDetails.lineSpacing = 1.35f;
             detGO.AddComponent<LayoutElement>().preferredHeight = 190f;
 
-            // Button Bar
             var btnRow = new GameObject("ButtonBar");
             btnRow.transform.SetParent(cardGO.transform, false);
             var hlg = btnRow.AddComponent<HorizontalLayoutGroup>();
@@ -209,7 +195,6 @@ namespace IUHCampus.UI
             hlg.childControlHeight = true;
             btnRow.AddComponent<LayoutElement>().preferredHeight = 56f;
 
-            // Back Button
             var backGO = new GameObject("BtnBack");
             backGO.transform.SetParent(btnRow.transform, false);
             var backImg = backGO.AddComponent<Image>();
@@ -232,7 +217,6 @@ namespace IUHCampus.UI
             bTxt.alignment = TextAnchor.MiddleCenter;
             bTxt.color = Color.white;
 
-            // Start Button
             var startGO = new GameObject("BtnStartMission");
             startGO.transform.SetParent(btnRow.transform, false);
             var startImg = startGO.AddComponent<Image>();

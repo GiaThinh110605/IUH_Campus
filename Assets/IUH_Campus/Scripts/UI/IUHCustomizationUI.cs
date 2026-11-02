@@ -4,11 +4,7 @@ using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// Wardrobe & Garage Customization Menu (Image 2).
-    /// Allows the player to switch between XANH SM, Grab, Be, and Default IUH outfits & bikes.
-    /// Updates live 3D character accessories and motorcycle fairings.
-    /// </summary>
+
     public class IUHCustomizationUI : MonoBehaviour
     {
         public static IUHCustomizationUI Instance { get; private set; }

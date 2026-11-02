@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace IUHCampus.World
 {
-    // Shared world anchors for the illustrated exterior layout. Legacy scenes keep their own coordinates.
+
     public static class IUHReferenceLayout
     {
         public const string RootName = "IUH_REFERENCE_CAMPUS";

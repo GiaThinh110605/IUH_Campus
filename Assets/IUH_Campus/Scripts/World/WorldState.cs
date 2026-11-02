@@ -77,7 +77,6 @@ namespace IUHCampus.World
             if (states == null) return;
             m_StateDictionary = new Dictionary<string, string>(states);
 
-            // Apply to active scene doors and objects
             DoorController[] doors = FindObjectsByType<DoorController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var door in doors)
             {

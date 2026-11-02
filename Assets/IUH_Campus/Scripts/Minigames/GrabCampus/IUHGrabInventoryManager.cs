@@ -4,17 +4,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Inventory & Survival Action Manager for Grab Campus ("Chuyến xe tâm linh").
-    /// Manages 7 Survival Items according to the concept design:
-    /// 1. Đèn pin [F]: Chiếu sáng, làm chậm ma 60%, tiêu hao pin.
-    /// 2. Pin dự phòng [1]: Nạp 100% pin cho đèn pin.
-    /// 3. Bùa hộ mệnh [2]: Khiên hào quang vàng kim 8s, chặn đòn ma & đẩy lùi ma.
-    /// 4. Pháo sáng [3]: Ném pháo sáng bốc đỏ 8s, làm ma bị mù & hoảng sợ bỏ chạy.
-    /// 5. Gậy tự vệ [Q/Chuột trái]: Đánh cận chiến làm choáng ma 4.5s và đẩy lùi 8m.
-    /// 6. Bộ sơ cứu [4]: Hồi +35% độ bền kiện hàng / máu tài xế.
-    /// 7. Chìa khóa: Mở cổng phụ hoặc rương tiếp tế.
-    /// </summary>
+
     public class IUHGrabInventoryManager : MonoBehaviour
     {
         private static IUHGrabInventoryManager s_Instance;
@@ -33,7 +23,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         [Header("Survival Items Inventory")]
         public bool hasFlashlight = true;
-        public float flashlightBattery = 100f; // 0 to 100%
+        public float flashlightBattery = 100f;
         public bool isFlashlightOn = false;
         public int batteries = 1;
         public int talismans = 1;
@@ -46,7 +36,7 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private Light m_FlashlightLight;
         [SerializeField] private float m_FlashlightRange = 35f;
         [SerializeField] private float m_FlashlightSpotAngle = 55f;
-        [SerializeField] private float m_BatteryDrainRate = 2.0f; // % per second
+        [SerializeField] private float m_BatteryDrainRate = 2.0f;
 
         [Header("Cooldowns & Timers")]
         private float m_BatCooldownTimer = 0f;
@@ -178,7 +168,6 @@ namespace IUHCampus.Minigames.GrabCampus
             Transform target = GetActiveTargetTransform();
             if (target == null || target == transform) return;
 
-            // Follow bike/player directly with flashlight and talisman WITHOUT moving or rotating the root GAMEPLAY_GRAB_CAMPUS!
             if (m_FlashlightLight != null)
             {
                 m_FlashlightLight.transform.position = target.position + target.forward * 0.8f + Vector3.up * 0.9f;
@@ -193,37 +182,32 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void HandleHotkeys()
         {
-            // Flashlight [F]
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 ToggleFlashlight();
             }
 
-            // Battery [1]
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
             {
                 UseBattery();
             }
 
-            // Talisman [2]
             if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
             {
                 UseTalisman();
             }
 
-            // Flare [3]
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
             {
                 UseFlare();
             }
 
-            // Defense Bat [Q] or Left Mouse
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0))
             {
                 UseDefenseBat();
             }
 
-            // First Aid Kit [4]
             if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
             {
                 UseFirstAidKit();
@@ -304,7 +288,6 @@ namespace IUHCampus.Minigames.GrabCampus
             Vector3 targetPos = target.position;
             Vector3 targetFwd = target.forward;
 
-            // Raycast / cone illumination check on active ghosts
             var ghosts = FindObjectsByType<IUHGhostHazard>(FindObjectsSortMode.None);
             foreach (var ghost in ghosts)
             {
@@ -353,7 +336,6 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_AudioSource != null) m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetTalismanChantSound(), 1.0f);
             IUHGrabCampusManager.Instance?.ShowNotification("✨ BÙA HỘ MỆNH KÍCH HOẠT! Lá chắn tâm linh bảo vệ trong 8 giây!");
 
-            // Ward nearby ghosts
             WardNearbyGhosts(12f);
         }
 
@@ -404,14 +386,14 @@ namespace IUHCampus.Minigames.GrabCampus
             flares--;
 
             Transform target = GetActiveTargetTransform();
-            // Spawn flare in front of active target
+
             Vector3 spawnPos = target.position + target.forward * 2.5f + Vector3.up * 0.5f;
             var flareGo = new GameObject("ActiveRoadsideFlare");
             flareGo.transform.position = spawnPos;
 
             var light = flareGo.AddComponent<Light>();
             light.type = LightType.Point;
-            light.color = new Color(1.0f, 0.2f, 0.05f); // Crimson red
+            light.color = new Color(1.0f, 0.2f, 0.05f);
             light.range = 22.0f;
             light.intensity = 5.5f;
 
@@ -421,7 +403,6 @@ namespace IUHCampus.Minigames.GrabCampus
             audio.spatialBlend = 0.8f;
             audio.Play();
 
-            // Flare logic helper
             var fl = flareGo.AddComponent<GrabFlareInstance>();
             fl.Init(8.0f);
 
@@ -443,7 +424,6 @@ namespace IUHCampus.Minigames.GrabCampus
             Vector3 targetPos = target.position;
             Vector3 targetFwd = target.forward;
 
-            // Check if any ghost is within melee combat range (8.0m sweep)
             var ghosts = FindObjectsByType<IUHGhostHazard>(FindObjectsSortMode.None);
             bool hitAny = false;
 
@@ -456,7 +436,7 @@ namespace IUHCampus.Minigames.GrabCampus
                 if (d <= 8.0f)
                 {
                     float angle = Vector3.Angle(targetFwd, toGhost.normalized);
-                    if (angle <= 120f || d <= 4.0f) // Broad combat sweep arc
+                    if (angle <= 120f || d <= 4.0f)
                     {
                         hitAny = true;
                         g.OnBatHit(targetPos);
@@ -495,9 +475,6 @@ namespace IUHCampus.Minigames.GrabCampus
         }
     }
 
-    /// <summary>
-    /// Temporary flare object burning on the road.
-    /// </summary>
     public class GrabFlareInstance : MonoBehaviour
     {
         private float m_LifeTime = 8.0f;
@@ -517,7 +494,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_Light.intensity = 4.5f + Mathf.Sin(Time.time * 25f) * 1.5f;
             }
 
-            // Scare nearby ghosts
             var ghosts = UnityEngine.Object.FindObjectsByType<IUHGhostHazard>(FindObjectsSortMode.None);
             foreach (var g in ghosts)
             {

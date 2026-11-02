@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace IUHCampus.World
 {
-    // The desktop art preview owns its override and restores the previous project pipeline on exit.
+
     public class IUHConceptRenderQuality : MonoBehaviour
     {
         public RenderPipelineAsset desktopPipeline;

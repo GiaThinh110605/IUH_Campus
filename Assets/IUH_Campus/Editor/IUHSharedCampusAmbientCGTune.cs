@@ -42,5 +42,3 @@ public static void TuneAmbientCGSurfaceScale() {
 }
 }
 #endif
-
-

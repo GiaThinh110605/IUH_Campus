@@ -4,15 +4,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// 3D World-Space Floating Location Pin & Holographic Area Marker.
-    /// Hovering gently above key campus zones (Cổng trường, Căn tin, Thư viện, Ký túc xá, Sân trường, Sân lễ hội).
-    /// Features:
-    /// - Camera billboarding (always faces camera).
-    /// - Floating sinusoidal bobbing and gentle pulse.
-    /// - Categorized color theme and glowing icon badge.
-    /// - Proximity interaction: shows '[E] Tương tác' when player is within range.
-    /// </summary>
+
     public class IUHWorldLocationPin : MonoBehaviour
     {
         [Header("Zone Configuration")]
@@ -20,7 +12,7 @@ namespace IUHCampus.UI
         [SerializeField] private string m_ZoneSubtitle = "Bắt đầu hành trình";
         [SerializeField] private string m_IconEmoji = "🏛️";
         [SerializeField] private Color m_ThemeColor = new Color(0.0f, 0.8f, 1.0f);
-        [SerializeField] private int m_MiniGameIndex = -1; // -1 = Landmark, 0-5 = Mini-games 1-6
+        [SerializeField] private int m_MiniGameIndex = -1;
 
         [Header("Animation & Behavior")]
         [SerializeField] private float m_HoverHeight = 3.6f;
@@ -33,7 +25,6 @@ namespace IUHCampus.UI
         private Vector3 m_BasePosition;
         private bool m_IsPlayerNearby = false;
 
-        // UI references
         private Canvas m_Canvas;
         private Text m_TxtTitle;
         private Text m_TxtSubtitle;
@@ -83,7 +74,7 @@ namespace IUHCampus.UI
 
         private void BuildVisuals()
         {
-            // Clear children if already built
+
             for (int i = transform.childCount - 1; i >= 0; i--)
             {
                 Destroy(transform.GetChild(i).gameObject);
@@ -100,7 +91,6 @@ namespace IUHCampus.UI
             rect.sizeDelta = new Vector2(260f, 130f);
             rect.localScale = Vector3.one * 0.015f;
 
-            // Root Card Box
             var cardGO = new GameObject("CardBox");
             cardGO.transform.SetParent(canvasGO.transform, false);
             var cardRect = cardGO.AddComponent<RectTransform>();
@@ -113,7 +103,6 @@ namespace IUHCampus.UI
             cardOutline.effectColor = m_ThemeColor;
             cardOutline.effectDistance = new Vector2(2.5f, 2.5f);
 
-            // Icon Circular Badge (Top-Center)
             var iconGO = new GameObject("IconBadge");
             iconGO.transform.SetParent(cardGO.transform, false);
             var iRect = iconGO.AddComponent<RectTransform>();
@@ -137,7 +126,6 @@ namespace IUHCampus.UI
             m_TxtIcon.fontSize = 24;
             m_TxtIcon.alignment = TextAnchor.MiddleCenter;
 
-            // Title Text
             var titleGO = new GameObject("TxtTitle");
             titleGO.transform.SetParent(cardGO.transform, false);
             var tRect = titleGO.AddComponent<RectTransform>();
@@ -153,7 +141,6 @@ namespace IUHCampus.UI
             m_TxtTitle.alignment = TextAnchor.MiddleCenter;
             m_TxtTitle.color = Color.white;
 
-            // Subtitle Text
             var subGO = new GameObject("TxtSubtitle");
             subGO.transform.SetParent(cardGO.transform, false);
             var sRect = subGO.AddComponent<RectTransform>();
@@ -168,7 +155,6 @@ namespace IUHCampus.UI
             m_TxtSubtitle.alignment = TextAnchor.MiddleCenter;
             m_TxtSubtitle.color = new Color(0.8f, 0.9f, 1.0f);
 
-            // Interaction Prompt Badge '[E] NHẬN NHIỆM VỤ' (Below card)
             m_PromptBox = new GameObject("PromptBox");
             m_PromptBox.transform.SetParent(canvasGO.transform, false);
             var pRect = m_PromptBox.AddComponent<RectTransform>();
@@ -205,14 +191,11 @@ namespace IUHCampus.UI
                 if (m_CameraTransform == null) return;
             }
 
-            // 1. Sinusoidal bobbing
             float bob = Mathf.Sin(Time.time * m_BobFrequency) * m_BobAmplitude;
             transform.position = m_BasePosition + new Vector3(0f, m_HoverHeight + bob, 0f);
 
-            // 2. Billboard to face camera
             transform.rotation = Quaternion.LookRotation(transform.position - m_CameraTransform.position);
 
-            // 3. Proximity check with player
             if (m_PlayerTransform != null)
             {
                 float dist = Vector3.Distance(m_PlayerTransform.position, m_BasePosition);
@@ -224,7 +207,6 @@ namespace IUHCampus.UI
                     if (m_PromptBox != null) m_PromptBox.SetActive(nearby);
                 }
 
-                // Handle E interaction when nearby
                 if (m_IsPlayerNearby && IUHInputHelper.IsInteractKeyDown())
                 {
                     OnPinInteracted();

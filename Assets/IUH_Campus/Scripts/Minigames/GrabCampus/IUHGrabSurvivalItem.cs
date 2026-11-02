@@ -4,22 +4,18 @@ using IUHCampus.Core;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// 3D World Pickup for Grab Campus Survival Items (Vật phẩm sinh tồn).
-    /// Items: Đèn pin, Pin dự phòng, Bùa hộ mệnh, Pháo sáng, Gậy tự vệ, Bộ sơ cứu, Chìa khóa.
-    /// Features floating sinusoidal hovering, rotating aura, proximity prompt, and auto-collection.
-    /// </summary>
+
     public class IUHGrabSurvivalItem : MonoBehaviour
     {
         public enum ItemType
         {
-            Flashlight,   // Đèn pin
-            Battery,      // Pin dự phòng
-            Talisman,     // Bùa hộ mệnh
-            Flare,        // Pháo sáng
-            DefenseBat,   // Gậy tự vệ
-            FirstAidKit,  // Bộ sơ cứu
-            Key           // Chìa khóa
+            Flashlight,
+            Battery,
+            Talisman,
+            Flare,
+            DefenseBat,
+            FirstAidKit,
+            Key
         }
 
         [Header("Item Config")]
@@ -100,13 +96,13 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             switch (type)
             {
-                case ItemType.Flashlight: return new Color(0.2f, 0.8f, 1.0f); // Bright Cyan
-                case ItemType.Battery: return new Color(0.2f, 1.0f, 0.5f);    // Emerald
-                case ItemType.Talisman: return new Color(1.0f, 0.85f, 0.1f);  // Gold
-                case ItemType.Flare: return new Color(1.0f, 0.25f, 0.1f);     // Red-Orange
-                case ItemType.DefenseBat: return new Color(0.7f, 0.4f, 1.0f); // Purple
-                case ItemType.FirstAidKit: return new Color(1.0f, 0.2f, 0.3f);// Red-Pink
-                case ItemType.Key: return new Color(1.0f, 0.95f, 0.4f);       // Pale Gold
+                case ItemType.Flashlight: return new Color(0.2f, 0.8f, 1.0f);
+                case ItemType.Battery: return new Color(0.2f, 1.0f, 0.5f);
+                case ItemType.Talisman: return new Color(1.0f, 0.85f, 0.1f);
+                case ItemType.Flare: return new Color(1.0f, 0.25f, 0.1f);
+                case ItemType.DefenseBat: return new Color(0.7f, 0.4f, 1.0f);
+                case ItemType.FirstAidKit: return new Color(1.0f, 0.2f, 0.3f);
+                case ItemType.Key: return new Color(1.0f, 0.95f, 0.4f);
                 default: return Color.yellow;
             }
         }
@@ -115,18 +111,15 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             if (m_IsCollected) return;
 
-            // Hover and rotate
             float yOffset = Mathf.Sin(Time.time * m_HoverSpeed) * m_HoverHeight;
             transform.position = m_BasePos + new Vector3(0f, yOffset, 0f);
             transform.Rotate(Vector3.up, m_RotateSpeed * Time.deltaTime, Space.World);
 
-            // Billboarding prompt canvas to face camera
             if (m_PromptGo != null && m_PromptGo.activeSelf && Camera.main != null)
             {
                 m_PromptGo.transform.rotation = Camera.main.transform.rotation;
             }
 
-            // Proximity check with player / motorbike
             FindTarget();
             if (m_TargetTransform == null) return;
 
@@ -135,7 +128,6 @@ namespace IUHCampus.Minigames.GrabCampus
             {
                 if (m_PromptGo != null) m_PromptGo.SetActive(true);
 
-                // Auto-collect when very close (< 2.2m) or press E
                 bool interactPressed = IUHInputHelper.IsInteractKeyDown() || Input.GetKeyDown(KeyCode.E);
                 if (dist < 2.4f || interactPressed)
                 {
@@ -175,7 +167,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 inv.AddItem(type, amount, displayName);
             }
 
-            // Play pickup sound
             var audioSource = GetComponent<AudioSource>();
             if (audioSource == null) audioSource = m_AudioSource;
             if (audioSource != null)
@@ -183,7 +174,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 AudioSource.PlayClipAtPoint(IUHSoundSynthesizer.GetItemPickupSound(), transform.position, 1.0f);
             }
 
-            // Show HUD notification
             var mgr = IUHGrabCampusManager.Instance;
             if (mgr != null)
             {

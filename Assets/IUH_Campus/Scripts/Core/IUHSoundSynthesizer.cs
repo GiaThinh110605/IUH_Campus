@@ -2,10 +2,7 @@ using UnityEngine;
 
 namespace IUHCampus.Core
 {
-    /// <summary>
-    /// Procedural Sound Synthesizer for IUH Campus & Minigames.
-    /// Generates high quality procedural audio clips at runtime without any external asset files.
-    /// </summary>
+
     public static class IUHSoundSynthesizer
     {
         private static AudioClip s_EngineClip;
@@ -18,9 +15,6 @@ namespace IUHCampus.Core
         private static AudioClip s_DamageClip;
         private static AudioClip s_ClickClip;
 
-        /// <summary>
-        /// Looped engine audio for motorcycle (2-stroke / 4-stroke thumping rhythm).
-        /// </summary>
         public static AudioClip GetEngineSound()
         {
             if (s_EngineClip != null) return s_EngineClip;
@@ -30,18 +24,17 @@ namespace IUHCampus.Core
             int totalSamples = Mathf.RoundToInt(sampleRate * duration);
             float[] samples = new float[totalSamples];
 
-            float baseFreq = 48.0f; // Low thumping motorcycle idle
+            float baseFreq = 48.0f;
 
             for (int i = 0; i < totalSamples; i++)
             {
                 float t = (float)i / sampleRate;
-                // Harmonic synthesis for motorcycle cylinder combustion sound
+
                 float s1 = Mathf.Sin(2f * Mathf.PI * baseFreq * t);
                 float s2 = Mathf.Sin(2f * Mathf.PI * (baseFreq * 2.05f) * t) * 0.6f;
                 float s3 = Mathf.Sin(2f * Mathf.PI * (baseFreq * 3.01f) * t) * 0.35f;
                 float s4 = Mathf.Sin(2f * Mathf.PI * (baseFreq * 4.02f) * t) * 0.2f;
 
-                // Thumping impulse envelope simulating piston stroke
                 float stroke = Mathf.Pow(Mathf.Sin(2f * Mathf.PI * baseFreq * 0.5f * t), 4f);
                 float noise = (Random.value * 2f - 1f) * 0.08f;
 
@@ -53,9 +46,6 @@ namespace IUHCampus.Core
             return s_EngineClip;
         }
 
-        /// <summary>
-        /// Dual-tone motorbike horn sound (440Hz + 554Hz musical third).
-        /// </summary>
         public static AudioClip GetHornSound()
         {
             if (s_HornClip != null) return s_HornClip;
@@ -84,9 +74,6 @@ namespace IUHCampus.Core
             return s_HornClip;
         }
 
-        /// <summary>
-        /// Crisp 2-tone melodic chime for picking up packages / checkpoints.
-        /// </summary>
         public static AudioClip GetPickupSound()
         {
             if (s_PickupClip != null) return s_PickupClip;
@@ -99,7 +86,7 @@ namespace IUHCampus.Core
             for (int i = 0; i < totalSamples; i++)
             {
                 float t = (float)i / sampleRate;
-                float freq = t < 0.18f ? 587.33f : 880.0f; // D5 -> A5
+                float freq = t < 0.18f ? 587.33f : 880.0f;
                 float noteT = t < 0.18f ? t : (t - 0.18f);
                 float env = Mathf.Exp(-noteT * 9.0f);
 
@@ -112,9 +99,6 @@ namespace IUHCampus.Core
             return s_PickupClip;
         }
 
-        /// <summary>
-        /// Triumphant 4-note victory fanfare for delivery completion.
-        /// </summary>
         public static AudioClip GetVictoryFanfare()
         {
             if (s_VictoryClip != null) return s_VictoryClip;
@@ -124,7 +108,7 @@ namespace IUHCampus.Core
             int totalSamples = Mathf.RoundToInt(sampleRate * duration);
             float[] samples = new float[totalSamples];
 
-            float[] notes = { 523.25f, 659.25f, 783.99f, 1046.50f }; // C5, E5, G5, C6
+            float[] notes = { 523.25f, 659.25f, 783.99f, 1046.50f };
             float noteDuration = 0.25f;
 
             for (int i = 0; i < totalSamples; i++)
@@ -145,9 +129,6 @@ namespace IUHCampus.Core
             return s_VictoryClip;
         }
 
-        /// <summary>
-        /// Descending fail buzz when time runs out or cargo is destroyed.
-        /// </summary>
         public static AudioClip GetDefeatSound()
         {
             if (s_DefeatClip != null) return s_DefeatClip;
@@ -171,9 +152,6 @@ namespace IUHCampus.Core
             return s_DefeatClip;
         }
 
-        /// <summary>
-        /// Spooky ghost wind / screech swell when passing or colliding with ghost spirits.
-        /// </summary>
         public static AudioClip GetGhostWhooshSound()
         {
             if (s_GhostWhooshClip != null) return s_GhostWhooshClip;
@@ -201,9 +179,6 @@ namespace IUHCampus.Core
             return s_GhostWhooshClip;
         }
 
-        /// <summary>
-        /// Metallic coin ding for earnings and score rewards.
-        /// </summary>
         public static AudioClip GetCoinClinkSound()
         {
             if (s_CoinClip != null) return s_CoinClip;
@@ -226,9 +201,6 @@ namespace IUHCampus.Core
             return s_CoinClip;
         }
 
-        /// <summary>
-        /// Impact / crash sound when hitting obstacles.
-        /// </summary>
         public static AudioClip GetDamageSound()
         {
             if (s_DamageClip != null) return s_DamageClip;
@@ -252,9 +224,6 @@ namespace IUHCampus.Core
             return s_DamageClip;
         }
 
-        /// <summary>
-        /// UI click / tap sound.
-        /// </summary>
         public static AudioClip GetClickSound()
         {
             if (s_ClickClip != null) return s_ClickClip;
@@ -279,9 +248,6 @@ namespace IUHCampus.Core
 
         private static AudioClip s_HeartbeatClip;
 
-        /// <summary>
-        /// Horror thumping heartbeat sound for ghost pursuit.
-        /// </summary>
         public static AudioClip GetHeartbeatSound()
         {
             if (s_HeartbeatClip != null) return s_HeartbeatClip;
@@ -308,9 +274,6 @@ namespace IUHCampus.Core
         private static AudioClip s_PhotoSuccessClip;
         private static AudioClip s_PhotoWarningClip;
 
-        /// <summary>
-        /// Mechanical DSLR camera shutter click with mirror flip sound.
-        /// </summary>
         public static AudioClip GetCameraShutterSound()
         {
             if (s_ShutterClip != null) return s_ShutterClip;
@@ -336,9 +299,6 @@ namespace IUHCampus.Core
             return s_ShutterClip;
         }
 
-        /// <summary>
-        /// Rewarding photo capture harmonic chime (C6 - E6 - G6 chord).
-        /// </summary>
         public static AudioClip GetPhotoSuccessSound()
         {
             if (s_PhotoSuccessClip != null) return s_PhotoSuccessClip;
@@ -363,9 +323,6 @@ namespace IUHCampus.Core
             return s_PhotoSuccessClip;
         }
 
-        /// <summary>
-        /// Soft warning beep for invalid photo angles or out of range.
-        /// </summary>
         public static AudioClip GetPhotoWarningSound()
         {
             if (s_PhotoWarningClip != null) return s_PhotoWarningClip;
@@ -379,7 +336,7 @@ namespace IUHCampus.Core
             {
                 float t = (float)i / sampleRate;
                 float env = Mathf.Exp(-t * 18f);
-                float tone = Mathf.Sin(2f * Mathf.PI * 330f * t); // Low E4 buzz
+                float tone = Mathf.Sin(2f * Mathf.PI * 330f * t);
                 samples[i] = tone * env * 0.5f;
             }
 
@@ -397,9 +354,6 @@ namespace IUHCampus.Core
         private static AudioClip s_HealClip;
         private static AudioClip s_GhostMoanClip;
 
-        /// <summary>
-        /// Mechanical click switch for flashlight toggle.
-        /// </summary>
         public static AudioClip GetFlashlightClickSound()
         {
             if (s_FlashlightClickClip != null) return s_FlashlightClickClip;
@@ -424,9 +378,6 @@ namespace IUHCampus.Core
             return s_FlashlightClickClip;
         }
 
-        /// <summary>
-        /// Swoosh sound when swinging the self-defense bat.
-        /// </summary>
         public static AudioClip GetBatSwingSound()
         {
             if (s_BatSwingClip != null) return s_BatSwingClip;
@@ -451,9 +402,6 @@ namespace IUHCampus.Core
             return s_BatSwingClip;
         }
 
-        /// <summary>
-        /// Heavy impact thud when hitting a ghost with the bat.
-        /// </summary>
         public static AudioClip GetBatHitSound()
         {
             if (s_BatHitClip != null) return s_BatHitClip;
@@ -478,9 +426,6 @@ namespace IUHCampus.Core
             return s_BatHitClip;
         }
 
-        /// <summary>
-        /// Sizzling burn hiss of an emergency roadside flare.
-        /// </summary>
         public static AudioClip GetFlareHissSound()
         {
             if (s_FlareHissClip != null) return s_FlareHissClip;
@@ -505,9 +450,6 @@ namespace IUHCampus.Core
             return s_FlareHissClip;
         }
 
-        /// <summary>
-        /// Harmonic sacred bell chime when talisman ward activates.
-        /// </summary>
         public static AudioClip GetTalismanChantSound()
         {
             if (s_TalismanChantClip != null) return s_TalismanChantClip;
@@ -521,10 +463,10 @@ namespace IUHCampus.Core
             {
                 float t = (float)i / sampleRate;
                 float env = Mathf.Exp(-t * 3.8f);
-                float b1 = Mathf.Sin(2f * Mathf.PI * 523.25f * t); // C5
-                float b2 = Mathf.Sin(2f * Mathf.PI * 659.25f * t); // E5
-                float b3 = Mathf.Sin(2f * Mathf.PI * 783.99f * t); // G5
-                float b4 = Mathf.Sin(2f * Mathf.PI * 1046.50f * t); // C6
+                float b1 = Mathf.Sin(2f * Mathf.PI * 523.25f * t);
+                float b2 = Mathf.Sin(2f * Mathf.PI * 659.25f * t);
+                float b3 = Mathf.Sin(2f * Mathf.PI * 783.99f * t);
+                float b4 = Mathf.Sin(2f * Mathf.PI * 1046.50f * t);
                 float shimmer = Mathf.Sin(2f * Mathf.PI * 14f * t);
                 samples[i] = (b1 * 0.35f + b2 * 0.25f + b3 * 0.25f + b4 * 0.2f) * env * (0.8f + shimmer * 0.2f) * 0.8f;
             }
@@ -534,9 +476,6 @@ namespace IUHCampus.Core
             return s_TalismanChantClip;
         }
 
-        /// <summary>
-        /// Crisp bright chime when picking up a survival item.
-        /// </summary>
         public static AudioClip GetItemPickupSound()
         {
             if (s_ItemPickupClip != null) return s_ItemPickupClip;
@@ -561,9 +500,6 @@ namespace IUHCampus.Core
             return s_ItemPickupClip;
         }
 
-        /// <summary>
-        /// Soothing ascending arpeggio when using first aid kit.
-        /// </summary>
         public static AudioClip GetHealSound()
         {
             if (s_HealClip != null) return s_HealClip;
@@ -587,9 +523,6 @@ namespace IUHCampus.Core
             return s_HealClip;
         }
 
-        /// <summary>
-        /// Creepy eerie moan of ghost presence.
-        /// </summary>
         public static AudioClip GetGhostMoanSound()
         {
             if (s_GhostMoanClip != null) return s_GhostMoanClip;

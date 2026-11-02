@@ -2,11 +2,7 @@ using UnityEngine;
 
 namespace IUHCampus
 {
-    /// <summary>
-    /// Automatic Sliding Glass Door Controller.
-    /// Detects player proximity via Trigger Collider, smoothly slides door panels open,
-    /// and auto-closes after player passes through.
-    /// </summary>
+
     [RequireComponent(typeof(BoxCollider))]
     public class IUHAutomaticDoor : MonoBehaviour
     {
@@ -78,7 +74,6 @@ namespace IUHCampus
                 }
             }
 
-            // Smooth sliding movement
             Vector3 targetLeft = m_IsOpen ? m_LeftOpenPos : m_LeftClosedPos;
             Vector3 targetRight = m_IsOpen ? m_RightOpenPos : m_RightClosedPos;
 

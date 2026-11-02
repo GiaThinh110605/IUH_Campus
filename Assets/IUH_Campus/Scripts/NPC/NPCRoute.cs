@@ -60,7 +60,7 @@ namespace IUHCampus.NPC
                     return currentIndex - 1;
                 }
             }
-            else // OneWay
+            else
             {
                 return Mathf.Min(currentIndex + 1, waypoints.Count - 1);
             }

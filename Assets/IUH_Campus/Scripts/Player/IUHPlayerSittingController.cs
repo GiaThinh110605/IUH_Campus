@@ -7,11 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus.Player
 {
-    /// <summary>
-    /// Controls realistic humanoid sitting on benches/chairs and standing up.
-    /// Handles camera-free look while seated, procedural bone posing in LateUpdate,
-    /// and smooth positional transitions.
-    /// </summary>
+
     public class IUHPlayerSittingController : MonoBehaviour
     {
         [Header("Detection")]
@@ -37,13 +33,11 @@ namespace IUHCampus.Player
         public bool IsSitting => m_IsSitting;
         public IUHBenchSeat CurrentBench => m_TargetBench;
 
-        // References
         private CharacterController m_CharacterController;
         private StarterAssets.ThirdPersonController m_ThirdPersonController;
         private StarterAssets.StarterAssetsInputs m_StarterInputs;
         private Animator m_Animator;
 
-        // Humanoid Bones
         private Transform m_Hips;
         private Transform m_LeftUpperLeg;
         private Transform m_RightUpperLeg;
@@ -55,7 +49,6 @@ namespace IUHCampus.Player
         private Transform m_RightLowerArm;
         private Vector3 m_StandingHipLocalPos = new Vector3(0f, 0.98f, 0f);
 
-        // Interpolation
         private float m_SitBlend = 0f;
         private Coroutine m_TransitionRoutine;
         private Vector3 m_StandPosition;
@@ -107,7 +100,7 @@ namespace IUHCampus.Player
             }
             else
             {
-                // Sitting: check for stand up trigger
+
                 if (m_TransitionRoutine == null && (IsStandUpPressed() || HasMovementInput()))
                 {
                     StandUp();
@@ -169,7 +162,7 @@ namespace IUHCampus.Player
             {
                 if (b == null || b.IsOccupied) continue;
                 float dist = Vector3.Distance(pos, b.transform.position);
-                // Also check distance to seat surface
+
                 Vector3 seatPos;
                 Quaternion seatRot;
                 b.GetSeatTransform(pos, out seatPos, out seatRot);
@@ -193,7 +186,6 @@ namespace IUHCampus.Player
             m_TargetBench = bench;
             m_TargetBench.SetOccupant(gameObject);
 
-            // Compute target seat transform
             m_StandPosition = transform.position;
             m_StandRotation = transform.rotation;
             bench.GetSeatTransform(m_StandPosition, out m_SeatPosition, out m_SeatRotation);
@@ -206,12 +198,11 @@ namespace IUHCampus.Player
         {
             if (!m_IsSitting || m_TransitionRoutine != null) return;
 
-            // Stand position: slightly in front of the bench in the seat's facing direction
             Vector3 forward = m_SeatRotation * Vector3.forward;
             forward.y = 0;
             forward.Normalize();
             m_StandPosition = m_SeatPosition + forward * 0.75f;
-            m_StandPosition.y = transform.position.y; // Keep current ground plane Y
+            m_StandPosition.y = transform.position.y;
             m_StandRotation = m_SeatRotation;
 
             if (m_TransitionRoutine != null) StopCoroutine(m_TransitionRoutine);
@@ -286,7 +277,6 @@ namespace IUHCampus.Player
             Vector3 right = transform.right;
             Vector3 forward = transform.forward;
 
-            // Hip sink down to bench seat cushion level
             if (m_Hips != null)
             {
                 float standingHipY = m_StandingHipLocalPos.y;
@@ -294,7 +284,6 @@ namespace IUHCampus.Player
                 m_Hips.localPosition = new Vector3(m_StandingHipLocalPos.x, standingHipY - actualSink, m_StandingHipLocalPos.z);
             }
 
-            // Left leg
             if (m_LeftUpperLeg != null && m_LeftLowerLeg != null)
             {
                 Quaternion origKnee = m_LeftLowerLeg.rotation;
@@ -305,7 +294,6 @@ namespace IUHCampus.Player
                 m_LeftLowerLeg.rotation = origKnee;
             }
 
-            // Right leg
             if (m_RightUpperLeg != null && m_RightLowerLeg != null)
             {
                 Quaternion origKnee = m_RightLowerLeg.rotation;
@@ -316,7 +304,6 @@ namespace IUHCampus.Player
                 m_RightLowerLeg.rotation = origKnee;
             }
 
-            // Arms rested naturally
             if (m_LeftUpperArm != null && m_LeftLowerArm != null)
             {
                 m_LeftUpperArm.rotation = Quaternion.AngleAxis(-armRestAngle * m_SitBlend, right) * m_LeftUpperArm.rotation;
@@ -357,16 +344,13 @@ namespace IUHCampus.Player
             };
             boxStyle.normal.textColor = Color.white;
 
-            // Background glassmorphism badge
             Color prevColor = GUI.color;
             GUI.color = new Color(0.08f, 0.12f, 0.18f, 0.88f);
             GUI.Box(new Rect(x, y, width, height), GUIContent.none);
 
-            // Border outline
             GUI.color = new Color(0.2f, 0.65f, 1.0f, 0.9f);
             GUI.Box(new Rect(x, y, width, 2), GUIContent.none);
 
-            // Text
             GUI.color = Color.white;
             GUI.Label(new Rect(x, y, width, height), text, boxStyle);
 

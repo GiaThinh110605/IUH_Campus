@@ -2,10 +2,7 @@ using UnityEngine;
 
 namespace IUHCampus.Interaction
 {
-    /// <summary>
-    /// Component placed on campus benches/chairs allowing player to sit realistically.
-    /// Prevents walking through the bench via solid collider and provides seat alignment.
-    /// </summary>
+
     [SelectionBase]
     public class IUHBenchSeat : MonoBehaviour, IInteractable
     {
@@ -63,25 +60,18 @@ namespace IUHCampus.Interaction
             }
         }
 
-        /// <summary>
-        /// Calculates the best seat position and forward facing direction for a player approaching from playerPos.
-        /// Keeps the character's root at ground level so feet rest on the floor!
-        /// </summary>
         public void GetSeatTransform(Vector3 playerPos, out Vector3 seatPosition, out Quaternion seatRotation)
         {
             Bounds b = m_Renderer != null ? m_Renderer.bounds : (m_Collider != null ? m_Collider.bounds : new Bounds(transform.position, Vector3.one));
 
-            // Ground level where player stands (keep character root on the floor!)
             float groundY = playerPos.y;
             if (groundY < b.min.y - 0.5f || groundY > b.max.y + 0.5f)
             {
                 groundY = b.min.y;
             }
 
-            // Determine bench primary axes
             Vector3 center = b.center;
 
-            // Calculate facing direction
             Vector3 forwardDir;
             if (facingDirection != Vector3.zero)
             {
@@ -89,19 +79,16 @@ namespace IUHCampus.Interaction
             }
             else
             {
-                // Align perpendicular to longest bench horizontal dimension
+
                 Vector3 size = b.size;
                 Vector3 candidate1 = (size.x >= size.z) ? Vector3.forward : Vector3.right;
                 Vector3 candidate2 = -candidate1;
 
-                // Face the direction player is approaching from (sitting facing outwards towards player approach)
                 Vector3 approachDir = (playerPos - center).normalized;
                 approachDir.y = 0;
                 forwardDir = (Vector3.Dot(candidate1, approachDir) >= Vector3.Dot(candidate2, approachDir)) ? candidate1 : candidate2;
             }
 
-            // Place character root on the GROUND at the front edge of the bench seat
-            // Hips will settle down onto the cushion, and feet stay on the floor in front of the bench!
             Vector3 rootPos = new Vector3(center.x, groundY, center.z);
             rootPos += forwardDir * (seatForwardOffset + 0.12f);
 

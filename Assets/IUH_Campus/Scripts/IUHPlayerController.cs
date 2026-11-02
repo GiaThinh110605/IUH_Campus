@@ -5,11 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus
 {
-    /// <summary>
-    /// Robust Third-Person & First-Person Character Controller for IUH Campus exploration.
-    /// Handles camera-relative WASD movement, sprint, jump, gravity, and view mode toggling.
-    /// Supports both New Input System and Legacy Input Manager.
-    /// </summary>
+
     [RequireComponent(typeof(CharacterController))]
     public class IUHPlayerController : MonoBehaviour
     {
@@ -65,7 +61,7 @@ namespace IUHCampus
 
             if (m_IsGrounded && m_Velocity.y < 0)
             {
-                m_Velocity.y = -2.0f; // Small grounding downward bias
+                m_Velocity.y = -2.0f;
             }
         }
 
@@ -79,7 +75,7 @@ namespace IUHCampus
 
             if (input.sqrMagnitude > 0.01f)
             {
-                // Calculate camera-relative movement direction
+
                 float inputAngle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
                 float camAngle = (m_CameraTransform != null) ? m_CameraTransform.eulerAngles.y : 0.0f;
                 m_TargetRotation = inputAngle + camAngle;
@@ -91,7 +87,6 @@ namespace IUHCampus
                 m_Controller.Move(moveDir.normalized * (m_CurrentSpeed * Time.deltaTime));
             }
 
-            // Update procedural animator
             if (m_Animator != null)
             {
                 m_Animator.UpdateAnimation(m_CurrentSpeed, m_WalkSpeed, m_RunSpeed, m_IsGrounded);

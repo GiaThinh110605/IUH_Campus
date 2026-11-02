@@ -52,4 +52,3 @@ public static void ApplyAmbientCG() {
 }
 }
 #endif
-

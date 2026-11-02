@@ -11,7 +11,7 @@ using Unity.Cinemachine;
 
 namespace IUHCampus.Editor
 {
-    // A separate, walkable art scene based on the campus composition supplied by the user.
+
     public static partial class IUHSharedCampusConceptBuilder
     {
         public const string ScenePath="Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity";
@@ -120,7 +120,7 @@ namespace IUHCampus.Editor
                 Q(new Vector3(side*20,.025f,26),new Vector3(30,.04f,6),pavingLight);
                 Q(new Vector3(side*8.25f,.045f,-11),new Vector3(.25f,.08f,88),stone);
             }
-            // Broad repeating stone bands establish the axial perspective.
+
             for(float z=-51;z<54;z+=5)Q(new Vector3(0,.04f,z),new Vector3(15.8f,.025f,.32f),stone);
             Flush(t);
         }
@@ -194,7 +194,7 @@ namespace IUHCampus.Editor
                 }
                 var ribbon=new Mesh();ribbon.SetVertices(vertices);ribbon.SetTriangles(triangles,0);ribbon.RecalculateNormals();Add(arm==2?gold:white,ribbon,Vector3.zero,Vector3.one);
             }
-            // Thin curved streams and droplets animate visually through the rippling water surface.
+
             for(int jet=0;jet<12;jet++)for(int step=0;step<18;step++)
             {
                 float a=jet*Mathf.PI/6,f=step/18f,r=4.6f-f*2.5f;
@@ -269,7 +269,7 @@ namespace IUHCampus.Editor
             Flush(t);
             foreach(int side in new[]{-1,1})foreach(float z in new[]{-34f,-4f,29f,52f})Tree(new Vector3(side>0&&z< -30?31:side*23,.32f,z),1.0f+(z>30?.15f:0));
             foreach(int side in new[]{-1,1})foreach(float z in new[]{-42f,-18f,10f,40f})Tree(new Vector3(side*59,0,z),1.25f);
-            // Entrance foreground trees frame the composition without blocking the central path.
+
             Tree(new Vector3(-20,0,-48),1.35f);Tree(new Vector3(32,0,-47),1.3f);
         }
         static void Bench(Vector3 p,float yaw)

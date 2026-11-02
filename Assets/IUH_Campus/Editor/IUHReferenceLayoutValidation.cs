@@ -47,10 +47,10 @@ namespace IUHCampus.Editor
                 var rail=old.transform.Find("Block_D_StairMidRail_Left_Fl"+floor);
                 Check(rail!=null && rail.GetComponent<BoxCollider>()!=null && !rail.GetComponent<BoxCollider>().enabled,"Legacy empty stair rail "+floor+" remains disabled");
             }
-            // The confirmed 11-storey H is about 41 m; the previous bad empty colliders were 100 m tall.
+
             var oversized=root.GetComponentsInChildren<BoxCollider>().Where(c=>c.bounds.size.y>80).ToArray();
             Check(oversized.Length==0,"No oversized vertical collider in exterior");
-            // Continuous capsule sweeps, not just endpoint checks, exercise connected pedestrian corridors.
+
             Route("Gate 1 to E plaza",new[]{P(409,-3),P(409,-87),P(390,-87),P(390,-84),P(385,-84)});
             Route("Gate 2 to E plaza",new[]{P(357,-3),P(357,-89),P(375,-89),P(375,-83)});
             Route("Gate 3 to right courtyard",new[]{P(294,-3),P(295,-68),P(357,-68),P(358,-90),P(365,-90)});
@@ -94,7 +94,7 @@ namespace IUHCampus.Editor
             oldBackground=Application.runInBackground;Application.runInBackground=true;
             oldGreenPath=GreenCampusStorage.DirectoryOverride;
             isolated=Path.GetFullPath(Evidence+"/FullRound");Directory.CreateDirectory(isolated);
-            // A unique subfolder per invocation avoids touching existing evidence or player saves.
+
             isolated=Path.Combine(isolated,Guid.NewGuid().ToString("N"));Directory.CreateDirectory(isolated);
             GreenCampusStorage.DirectoryOverride=Path.Combine(isolated,"Green");
             IUHPhotoHunterStorage.SetCustomStorageDirectoryForTest(Path.Combine(isolated,"Photo"));

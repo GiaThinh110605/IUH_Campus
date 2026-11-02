@@ -5,12 +5,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// Virtual On-Screen Mobile Controls (Giao diện mobile) as shown in Design Image 1.
-    /// Provides smooth touch/mouse Virtual Joystick on the bottom-left,
-    /// and action buttons (Vehicle Mount, Interaction, Turbo/Action) on the bottom-right.
-    /// Feeds directly into IUHInputHelper for seamless player & motorbike control.
-    /// </summary>
+
     public class IUHMobileControlsUI : MonoBehaviour
     {
         [Header("Joystick References")]
@@ -65,15 +60,14 @@ namespace IUHCampus.UI
 
         public void CheckPlatformVisibility()
         {
-            // On PC (Windows, Mac, Linux, Unity Editor), mobile touch controls should NOT be displayed!
-            // Only show when running on genuine mobile devices (Android / iOS) or if specifically force-enabled.
+
             bool shouldShow = m_ForceShowOnPC || Application.isMobilePlatform;
             gameObject.SetActive(shouldShow);
         }
 
         private void Update()
         {
-            // Allow developers to toggle mobile touch controls on PC using F8 for quick testing
+
             if (Input.GetKeyDown(KeyCode.F8))
             {
                 m_ForceShowOnPC = !m_ForceShowOnPC;
@@ -102,19 +96,16 @@ namespace IUHCampus.UI
                 });
             }
 
-            // Turbo / Action Button holding
             if (m_BtnAction != null)
             {
                 var trigger = m_BtnAction.gameObject.GetComponent<EventTrigger>();
                 if (trigger == null) trigger = m_BtnAction.gameObject.AddComponent<EventTrigger>();
                 trigger.triggers.Clear();
 
-                // PointerDown
                 var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
                 down.callback.AddListener((e) => { IUHInputHelper.VirtualTurboHeld = true; });
                 trigger.triggers.Add(down);
 
-                // PointerUp
                 var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
                 up.callback.AddListener((e) => { IUHInputHelper.VirtualTurboHeld = false; });
                 trigger.triggers.Add(up);
@@ -129,17 +120,14 @@ namespace IUHCampus.UI
             if (trigger == null) trigger = m_JoystickBase.gameObject.AddComponent<EventTrigger>();
             trigger.triggers.Clear();
 
-            // PointerDown
             var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
             down.callback.AddListener((data) => OnJoystickDown((PointerEventData)data));
             trigger.triggers.Add(down);
 
-            // Drag
             var drag = new EventTrigger.Entry { eventID = EventTriggerType.Drag };
             drag.callback.AddListener((data) => OnJoystickDrag((PointerEventData)data));
             trigger.triggers.Add(drag);
 
-            // PointerUp
             var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
             up.callback.AddListener((data) => OnJoystickUp((PointerEventData)data));
             trigger.triggers.Add(up);

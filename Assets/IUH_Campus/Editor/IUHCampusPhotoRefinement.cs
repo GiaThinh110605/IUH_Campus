@@ -81,7 +81,7 @@ namespace IUHCampus.Editor
             new GameObject("02_BUILDINGS").transform.SetParent(temporary.transform,false);
             try
             {
-                // Reuse the project's existing E facade authoring: curtain glass, vertical fins and shallow lobby.
+
                 IUHBuildingEBuilder.BuildBuildingE();
                 var e=temporary.transform.Find("02_BUILDINGS/Building_E_Admin");
                 if(e==null)throw new InvalidOperationException("E facade generation failed.");
@@ -106,7 +106,7 @@ namespace IUHCampus.Editor
                 for(float x=-7.6f;x<=7.6f;x+=1.3f)Q(new Vector3(x,3.79f,1.6f),new Vector3(.05f,.05f,3.3f),stone);
                 foreach(float x in new[]{-7.5f,7.5f})Cy(new Vector3(x,1.9f,.3f),new Vector3(.10f,1.9f,.10f),dark);
                 Flush(newCanopy);
-                // Ground-level planting bowls flank the entry, leaving the photo/circulation axis open.
+
                 var pots=Group("Entrance flower bowls",e,Vector3.zero);
                 foreach(float x in new[]{-10f,-8f,-6f,6f,8f,10f})
                 {
@@ -115,7 +115,7 @@ namespace IUHCampus.Editor
                     for(int i=0;i<5;i++)S(new Vector3(x+Mathf.Sin(i*1.26f)*.25f,.72f,.3f+Mathf.Cos(i*1.26f)*.25f),new Vector3(.18f,.13f,.18f),gold);
                 }
                 Flush(pots);
-                // Dynamic combined meshes from the older builder need persistent asset references in the saved scene.
+
                 int index=0;
                 foreach(var filter in e.GetComponentsInChildren<MeshFilter>(true))
                 {
@@ -123,7 +123,7 @@ namespace IUHCampus.Editor
                     mesh.name="PhotoE_"+(index++)+"_"+filter.name;
                     AssetDatabase.CreateAsset(mesh,meshFolderOverride+"/"+mesh.name+".asset");
                 }
-                // Keep a compact roof identifier for the overview; storeys here follow the facade image, not a survey.
+
                 Text(e,"Roof ID","TÒA E",new Vector3(0,20,11),2,Quaternion.Euler(90,0,0),blue.color);
             }
             finally{UnityEngine.Object.DestroyImmediate(temporary);}
@@ -150,13 +150,13 @@ namespace IUHCampus.Editor
                 Q(new Vector3(x,2.23f,z),new Vector3(.08f,.02f,4.8f),gold);
                 Q(new Vector3(x,.75f,z),new Vector3(.45f,.85f,1.65f),dark);
             }
-            // The forecourt sees the low deck's long rear face, a ventilation riser and benches below it.
+
             Q(new Vector3(0,1.0f,-28.15f),new Vector3(38,1.8f,.18f),stone);
             Q(new Vector3(0,1.1f,-28.26f),new Vector3(35,.65f,.07f),dark);
             Q(new Vector3(0,2.0f,-28.45f),new Vector3(1.2f,3.6f,.8f),roof);
             Flush(p);
             Solid(p,"Low bicycle terrace",new Vector3(0,2.05f,0),new Vector3(40,.26f,57));
-            // Paired ramps sit outside the court; their lower ends face E and meet short top landings.
+
             for(int side=-1;side<=1;side+=2)
             {
                 float x=side*22;
@@ -186,7 +186,7 @@ namespace IUHCampus.Editor
             var grey=Mat("Forecourt_Asphalt",new Color(.37f,.39f,.37f));
             Q(new Vector3(382,.54f,-80),new Vector3(42,.04f,19),grey);Flush(court);
             Solid(court,"Forecourt walking surface",new Vector3(382,.54f,-80),new Vector3(42,.04f,19));
-            // Real imported broadleaf meshes supply branching silhouettes, rather than spherical stand-ins.
+
             var old=Resources.FindObjectsOfTypeAll<GameObject>().First(g=>g.name=="campus_P0_progress"&&g.scene.IsValid());
             var source=old.transform.Find("CayBang_Courtyard_NE");
             foreach(var point in new[]{new Vector2(370,-78),new Vector2(396,-80)})
@@ -203,7 +203,7 @@ namespace IUHCampus.Editor
                 Cy(new Vector3(point.x,.79f,point.y),new Vector3(4.3f,.025f,4.3f),grass);
                 Solid(court,"Low circular planter "+point.x,new Vector3(point.x,.64f,point.y),new Vector3(4.6f,.2f,4.6f));
             }
-            // Long seating row against the rear face of the parking deck.
+
             for(float x=370;x<=395;x+=5)
             {
                 Q(new Vector3(x,.98f,-69.3f),new Vector3(3.5f,.13f,.65f),stone);

@@ -20,7 +20,6 @@ namespace IUHCampus.Editor
         private const string ScenePath = "Assets/IUH_Campus/Scenes/IUH_RightCluster.unity";
         private const string MatPath = "Assets/IUH_Campus/Materials/";
 
-        // Material Cache
         private static Material m_WallWeathered, m_ConcreteGround, m_ConcreteCurb, m_AsphaltRoad;
         private static Material m_DrainGrate, m_ManholeCover, m_SignWayfinding, m_SignNotice;
         private static Material m_ACLouvers, m_WindowBlinds, m_TreeBark, m_MatureFoliage;
@@ -43,15 +42,12 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Game Systems Builder] Khởi tạo toàn bộ thế giới IUH_World...");
 
-            // 1. Ensure assets exist
             IUHTextureGenerator.GenerateAllTextures();
             IUHMaterialGenerator.GenerateAllMaterials();
             LoadMaterials();
 
-            // 2. Open Scene
             var activeScene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
 
-            // 3. Clean old scene roots
             string[] oldRoots = { "IUH_World", "Campus_RightCluster", "IUH_RightCluster", "IUH_RightCluster_Interior", "RightBuildingsCluster" };
             foreach (string rootName in oldRoots)
             {
@@ -59,10 +55,8 @@ namespace IUHCampus.Editor
                 if (oldGo != null) Object.DestroyImmediate(oldGo);
             }
 
-            // 4. Create Root
             GameObject worldRoot = new GameObject("IUH_World");
 
-            // 5. Build Sub-branches
             GameObject goSystems = CreateChild(worldRoot, "_SYSTEMS");
             GameObject goPlayer = CreateChild(worldRoot, "PLAYER");
             GameObject goWorld = CreateChild(worldRoot, "WORLD");
@@ -73,28 +67,20 @@ namespace IUHCampus.Editor
             GameObject goLighting = CreateChild(worldRoot, "LIGHTING");
             GameObject goDebug = CreateChild(worldRoot, "DEBUG");
 
-            // --- BUILD SYSTEMS ---
             BuildSystems(goSystems);
 
-            // --- BUILD WORLD (LOCKED ARCHITECTURE & ENVIRONMENT) ---
             BuildWorldContent(goWorld);
 
-            // --- BUILD GAMEPLAY ANCHORS & INTERACTABLES ---
             BuildGameplayContent(goGameplay, goWorld);
 
-            // --- BUILD PLAYER & SPAWNS ---
             BuildPlayerContent(goPlayer, goSystems);
 
-            // --- BUILD NPC ROUTES & RUNTIME ---
             BuildNPCContent(goNPC);
 
-            // --- BUILD LIGHTING & AUDIO ---
             BuildLightingAndAudio(goLighting, goAudio);
 
-            // --- BUILD DEBUG ---
             BuildDebugContent(goDebug);
 
-            // Disable unbaked reflection probes
             foreach (var probe in Object.FindObjectsByType<ReflectionProbe>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
                 probe.enabled = false;
@@ -190,7 +176,6 @@ namespace IUHCampus.Editor
             m_StudentHair = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Student_Hair.mat");
         }
 
-        // ================= 1. SYSTEMS =================
         private static void BuildSystems(GameObject parent)
         {
             GameObject gm = CreateChild(parent, "GameManager");
@@ -222,7 +207,6 @@ namespace IUHCampus.Editor
             canvasGO.AddComponent<CanvasScaler>();
             canvasGO.AddComponent<GraphicRaycaster>();
 
-            // Interaction Prompt Root
             GameObject promptRoot = new GameObject("InteractionPrompt");
             promptRoot.transform.SetParent(canvasGO.transform, false);
             RectTransform pRT = promptRoot.AddComponent<RectTransform>();
@@ -247,7 +231,6 @@ namespace IUHCampus.Editor
             intUI.promptRoot = promptRoot;
             intUI.promptText = pText;
 
-            // Simple Modal Panel
             GameObject panelRoot = new GameObject("SimpleInteractionPanel");
             panelRoot.transform.SetParent(canvasGO.transform, false);
             RectTransform panelRT = panelRoot.AddComponent<RectTransform>();
@@ -258,7 +241,6 @@ namespace IUHCampus.Editor
             Image bg = panelRoot.AddComponent<Image>();
             bg.color = new Color(0.08f, 0.12f, 0.18f, 0.92f);
 
-            // Title
             GameObject titleGO = new GameObject("PanelTitle");
             titleGO.transform.SetParent(panelRoot.transform, false);
             Text titleTxt = titleGO.AddComponent<Text>();
@@ -272,7 +254,6 @@ namespace IUHCampus.Editor
             tRT.anchorMax = new Vector2(1f, 1f);
             tRT.sizeDelta = Vector2.zero;
 
-            // Content
             GameObject bodyGO = new GameObject("PanelBody");
             bodyGO.transform.SetParent(panelRoot.transform, false);
             Text bodyTxt = bodyGO.AddComponent<Text>();
@@ -285,7 +266,6 @@ namespace IUHCampus.Editor
             bRT.anchorMax = new Vector2(0.95f, 0.82f);
             bRT.sizeDelta = Vector2.zero;
 
-            // Close Button
             GameObject btnGO = new GameObject("CloseButton");
             btnGO.transform.SetParent(panelRoot.transform, false);
             Image btnImg = btnGO.AddComponent<Image>();
@@ -317,45 +297,37 @@ namespace IUHCampus.Editor
             panelRoot.SetActive(false);
         }
 
-        // ================= 2. WORLD (ARCHITECTURE & ENVIRONMENT) =================
         private static void BuildWorldContent(GameObject parent)
         {
-            // Architecture
+
             GameObject goArch = CreateChild(parent, "Architecture");
             BuildArchitecture(goArch);
 
-            // Interiors
             GameObject goInt = CreateChild(parent, "Interiors");
             BuildInteriors(goInt);
 
-            // Ground
             GameObject goGround = CreateChild(parent, "Ground");
             BuildGround(goGround);
 
-            // Vegetation
             GameObject goVeg = CreateChild(parent, "Vegetation");
             BuildVegetation(goVeg);
 
-            // Parking
             GameObject goPark = CreateChild(parent, "Parking");
             BuildParking(goPark);
 
-            // Infrastructure
             GameObject goInfra = CreateChild(parent, "Infrastructure");
             BuildInfrastructure(goInfra);
 
-            // Props
             GameObject goProps = CreateChild(parent, "Props");
             BuildProps(goProps);
 
-            // Background City
             GameObject goCity = CreateChild(parent, "BackgroundCity");
             BuildBackgroundCity(goCity);
         }
 
         private static void BuildArchitecture(GameObject parent)
         {
-            // BLDG_G_Main (X: 24, Y: 0, Z: 10)
+
             GameObject bldgG = CreateChild(parent, "BLDG_G_Main");
             bldgG.transform.localPosition = new Vector3(24.0f, 0.0f, 10.0f);
 
@@ -391,7 +363,6 @@ namespace IUHCampus.Editor
                 tank.GetComponent<MeshRenderer>().sharedMaterial = (t == 1) ? m_WaterTankBlack : m_WaterTankStainless;
             }
 
-            // BLDG_I_Main (X: 18, Y: 0, Z: 48)
             GameObject bldgI = CreateChild(parent, "BLDG_I_Main");
             bldgI.transform.localPosition = new Vector3(18.0f, 0.0f, 48.0f);
 
@@ -410,7 +381,6 @@ namespace IUHCampus.Editor
             tumI.transform.localScale = new Vector3(8.0f, 4.0f, 6.0f);
             tumI.GetComponent<MeshRenderer>().sharedMaterial = m_I_Wall;
 
-            // BLDG_C_Main (X: 0, Y: 0, Z: 18)
             GameObject bldgC = CreateChild(parent, "BLDG_C_Main");
             bldgC.transform.localPosition = new Vector3(0.0f, 0.0f, 18.0f);
 
@@ -432,7 +402,6 @@ namespace IUHCampus.Editor
                 fin.GetComponent<MeshRenderer>().sharedMaterial = m_C_Mint;
             }
 
-            // BLDG_LowPodium (X: 18, Y: 0, Z: -6)
             GameObject podium = CreateChild(parent, "BLDG_LowPodium");
             podium.transform.localPosition = new Vector3(18.0f, 0.0f, -6.0f);
 
@@ -492,7 +461,6 @@ namespace IUHCampus.Editor
             GameObject intRoot = CreateChild(parent, "INT_GroundFloor_G");
             intRoot.transform.localPosition = new Vector3(24.0f, 0.0f, 6.0f);
 
-            // Lobby (Zone A)
             GameObject zoneA = CreateChild(intRoot, "INT_Lobby_G");
             GameObject floorA = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floorA.name = "Floor_Lobby";
@@ -513,7 +481,6 @@ namespace IUHCampus.Editor
                 slat.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
             }
 
-            // Waiting Lounge (Zone B)
             GameObject zoneB = CreateChild(intRoot, "INT_Lounge_G");
             GameObject floorB = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floorB.name = "Floor_Lounge";
@@ -540,7 +507,6 @@ namespace IUHCampus.Editor
                 sofa.GetComponent<MeshRenderer>().sharedMaterial = m_CyanSofa;
             }
 
-            // Training Lab (Zone C)
             GameObject zoneC = CreateChild(intRoot, "INT_ComputerLab_G");
             GameObject floorC = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floorC.name = "Floor_Lab_BlackMarble";
@@ -557,7 +523,6 @@ namespace IUHCampus.Editor
             ceilC.transform.localScale = new Vector3(14.0f, 0.10f, 11.0f);
             ceilC.GetComponent<MeshRenderer>().sharedMaterial = m_CeilingGrid;
 
-            // Enclosure walls
             GameObject labBackWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             labBackWall.name = "Lab_BackWall";
             labBackWall.transform.SetParent(zoneC.transform, false);
@@ -593,7 +558,6 @@ namespace IUHCampus.Editor
             labNorthR.transform.localScale = new Vector3(5.0f, 3.6f, 0.25f);
             labNorthR.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
 
-            // Whiteboard
             GameObject board = GameObject.CreatePrimitive(PrimitiveType.Cube);
             board.name = "Teaching_Whiteboard";
             board.transform.SetParent(zoneC.transform, false);
@@ -604,7 +568,6 @@ namespace IUHCampus.Editor
             wIdBoard.objectId = "G_WHITEBOARD_001";
             wIdBoard.displayName = "Bảng Giảng Dạy CNTT";
 
-            // Teacher Desk
             GameObject teacherDesk = GameObject.CreatePrimitive(PrimitiveType.Cube);
             teacherDesk.name = "Teacher_Desk";
             teacherDesk.transform.SetParent(zoneC.transform, false);
@@ -619,7 +582,6 @@ namespace IUHCampus.Editor
             tMon.transform.localScale = new Vector3(0.85f, 0.50f, 0.08f);
             tMon.GetComponent<MeshRenderer>().sharedMaterial = m_ScreenPC;
 
-            // Student PC Workstations
             for (int row = 0; row < 2; row++)
             {
                 float z = -6.0f - row * 3.5f;
@@ -647,7 +609,6 @@ namespace IUHCampus.Editor
                     chair.transform.localScale = new Vector3(0.55f, 0.44f, 0.55f);
                     chair.GetComponent<MeshRenderer>().sharedMaterial = m_NavyChair;
 
-                    // Workstation 0 is the primary interactable computer
                     if (row == 0 && col == -1)
                     {
                         deskPC.name = "INT_Computer_01";
@@ -660,7 +621,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Corridor Circulation Spine
             GameObject corridor = CreateChild(intRoot, "INT_Corridor_Spine");
             GameObject corrSign = GameObject.CreatePrimitive(PrimitiveType.Cube);
             corrSign.name = "Corridor_Wayfinding_Sign";
@@ -710,7 +670,6 @@ namespace IUHCampus.Editor
             roadCourt.GetComponent<MeshRenderer>().sharedMaterial = m_AsphaltRoad;
             roadCourt.AddComponent<SurfaceIdentifier>().surfaceType = SurfaceType.Asphalt;
 
-            // Zebra
             GameObject zebra = CreateChild(parent, "PedestrianZebraCrossing");
             for (int zc = 0; zc < 6; zc++)
             {
@@ -722,7 +681,6 @@ namespace IUHCampus.Editor
                 bar.GetComponent<MeshRenderer>().sharedMaterial = m_ParkingLine;
             }
 
-            // Curbs
             for (int c = -1; c <= 1; c += 2)
             {
                 GameObject curb = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -814,7 +772,6 @@ namespace IUHCampus.Editor
                 line.GetComponent<MeshRenderer>().sharedMaterial = m_ParkingLine;
             }
 
-            // Motorbikes
             GameObject bikesGroup = CreateChild(parent, "Motorbike_Rows");
             System.Random rnd = new System.Random(42);
             for (int r = 0; r < 2; r++)
@@ -873,7 +830,7 @@ namespace IUHCampus.Editor
 
         private static void BuildInfrastructure(GameObject parent)
         {
-            // AC outdoor units
+
             for (int f = 0; f < 6; f++)
             {
                 float y = 5.5f + f * 5.2f;
@@ -885,7 +842,6 @@ namespace IUHCampus.Editor
                 ac.GetComponent<MeshRenderer>().sharedMaterial = m_ACLouvers;
             }
 
-            // Downspouts
             GameObject pipe = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             pipe.name = "Rainwater_Downspout_G";
             pipe.transform.SetParent(parent.transform, false);
@@ -896,7 +852,7 @@ namespace IUHCampus.Editor
 
         private static void BuildProps(GameObject parent)
         {
-            // Granite benches
+
             for (int b = 0; b < 3; b++)
             {
                 GameObject bench = CreateChild(parent, "PROP_Bench_" + b);
@@ -920,7 +876,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Campus Notice Board (The primary interactable InfoBoard!)
             GameObject infoBoard = CreateChild(parent, "INT_InfoBoard_G_01");
             infoBoard.transform.localPosition = new Vector3(15.2f, 0, -1.0f);
             infoBoard.transform.localRotation = Quaternion.Euler(0, 180f, 0);
@@ -977,18 +932,15 @@ namespace IUHCampus.Editor
             }
         }
 
-        // ================= 3. GAMEPLAY (DOORS, TRIGGERS, ANCHORS) =================
         private static void BuildGameplayContent(GameObject parent, GameObject worldParent)
         {
-            // Doors Group
+
             GameObject goDoors = CreateChild(parent, "Doors");
 
-            // BLDG_G_Door_Main (World position: X: 16.0, Y: 0, Z: 8.0)
             GameObject doorMain = CreateChild(goDoors, "BLDG_G_Door_Main");
             doorMain.transform.localPosition = new Vector3(16.0f, 0f, 8.0f);
             doorMain.layer = LayerMask.NameToLayer("Interactable");
 
-            // Hollow Frame (Top Lintel, Left Post, Right Post)
             GameObject frameTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
             frameTop.name = "DoorFrame_Top";
             frameTop.transform.SetParent(doorMain.transform, false);
@@ -1010,7 +962,6 @@ namespace IUHCampus.Editor
             frameRight.transform.localScale = new Vector3(0.20f, 2.7f, 0.10f);
             frameRight.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Sliding Leaves
             GameObject leafLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
             leafLeft.name = "DoorLeaf_Left";
             leafLeft.transform.SetParent(doorMain.transform, false);
@@ -1025,7 +976,6 @@ namespace IUHCampus.Editor
             leafRight.transform.localScale = new Vector3(0.10f, 2.6f, 1.9f);
             leafRight.GetComponent<MeshRenderer>().sharedMaterial = m_GlassClear;
 
-            // Canopy Signboard
             GameObject canopy = GameObject.CreatePrimitive(PrimitiveType.Cube);
             canopy.name = "BLDG_G_Entrance_Canopy";
             canopy.transform.SetParent(doorMain.transform, false);
@@ -1040,7 +990,6 @@ namespace IUHCampus.Editor
             fascia.transform.localScale = new Vector3(0.08f, 0.65f, 6.2f);
             fascia.GetComponent<MeshRenderer>().sharedMaterial = m_G_Sign;
 
-            // RFID reader
             GameObject rfid = GameObject.CreatePrimitive(PrimitiveType.Cube);
             rfid.name = "Access_Control_Reader";
             rfid.transform.SetParent(doorMain.transform, false);
@@ -1048,7 +997,6 @@ namespace IUHCampus.Editor
             rfid.transform.localScale = new Vector3(0.06f, 0.28f, 0.16f);
             rfid.GetComponent<MeshRenderer>().sharedMaterial = m_AccessControl;
 
-            // Trigger box for auto open
             BoxCollider doorTrigger = doorMain.AddComponent<BoxCollider>();
             doorTrigger.isTrigger = true;
             doorTrigger.center = new Vector3(0, 1.5f, 0);
@@ -1062,13 +1010,11 @@ namespace IUHCampus.Editor
             doorCtrl.doorName = "Cửa Chính Nhà G";
             doorCtrl.doorLeafLeft = leafLeft.transform;
             doorCtrl.doorLeafRight = leafRight.transform;
-            doorCtrl.autoOpen = false; // Interact to open for MVP validation!
+            doorCtrl.autoOpen = false;
             doorCtrl.openOffset = new Vector3(0, 0, 1.8f);
 
-            // Triggers Group
             GameObject goTriggers = CreateChild(parent, "Triggers");
 
-            // TRG_EnterBuildingG
             GameObject trgEntrance = CreateChild(goTriggers, "TRG_EnterBuildingG");
             trgEntrance.transform.localPosition = new Vector3(16.0f, 1.5f, 8.0f);
             BoxCollider boxEnt = trgEntrance.AddComponent<BoxCollider>();
@@ -1078,7 +1024,6 @@ namespace IUHCampus.Editor
             gTrgEnt.triggerId = "TRG_ENTRANCE_G_001";
             gTrgEnt.displayName = "Khu Vực Sảnh Nhà G";
 
-            // TRG_EnterComputerLab
             GameObject trgLab = CreateChild(goTriggers, "TRG_EnterComputerLab");
             trgLab.transform.localPosition = new Vector3(24.0f, 1.5f, 3.0f);
             BoxCollider boxLab = trgLab.AddComponent<BoxCollider>();
@@ -1088,14 +1033,12 @@ namespace IUHCampus.Editor
             gTrgLab.triggerId = "TRG_LAB_G_001";
             gTrgLab.displayName = "Khu Vực Phòng Máy CNTT";
 
-            // Objective Anchors
             GameObject goObj = CreateChild(parent, "ObjectiveAnchors");
             CreateAnchor(goObj, "OBJ_G_Reception", new Vector3(22.0f, 0, 10.5f));
             CreateAnchor(goObj, "OBJ_G_Lab_PC01", new Vector3(20.8f, 0, 0.0f));
             CreateAnchor(goObj, "OBJ_Courtyard_Tree", new Vector3(6.0f, 0, -4.0f));
             CreateAnchor(goObj, "OBJ_Parking_01", new Vector3(9.0f, 0, 10.0f));
 
-            // Quest Anchors
             GameObject goQuest = CreateChild(parent, "QuestAnchors");
             CreateAnchor(goQuest, "QUEST_G_Entrance", new Vector3(14.0f, 0, 8.0f));
             CreateAnchor(goQuest, "QUEST_G_Reception", new Vector3(22.0f, 0, 10.5f));
@@ -1108,7 +1051,6 @@ namespace IUHCampus.Editor
             GameObject anchor = CreateChild(parent, name);
             anchor.transform.localPosition = pos;
 
-            // Add visible debug pin / diamond for developer visualization
             GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             marker.name = "DebugMarker";
             marker.transform.SetParent(anchor.transform, false);
@@ -1128,10 +1070,9 @@ namespace IUHCampus.Editor
             return anchor;
         }
 
-        // ================= 4. PLAYER & SPAWNS =================
         private static void BuildPlayerContent(GameObject parent, GameObject systemsParent)
         {
-            // Spawn Points
+
             GameObject goSpawns = CreateChild(parent, "PlayerSpawnPoints");
             var sm = systemsParent.transform.Find("GameManager")?.GetComponent<PlayerSpawnManager>();
             if (sm == null)
@@ -1146,7 +1087,6 @@ namespace IUHCampus.Editor
             AddSpawn(goSpawns, sm, "SPAWN_BuildingG_Lobby", new Vector3(18.0f, 0.1f, 6.0f), Quaternion.Euler(0, 45f, 0));
             AddSpawn(goSpawns, sm, "SPAWN_ComputerLab", new Vector3(24.0f, 0.1f, 2.0f), Quaternion.Euler(0, 180f, 0));
 
-            // Player GameObject
             GameObject player = CreateChild(parent, "Player");
             player.tag = "Player";
             player.transform.localPosition = new Vector3(10.0f, 0.1f, -8.0f);
@@ -1161,7 +1101,6 @@ namespace IUHCampus.Editor
             PlayerMovement pm = player.AddComponent<PlayerMovement>();
             sm.playerMovement = pm;
 
-            // Visual Humanoid Model
             GameObject visual = CreateChild(player, "VisualModel");
             visual.transform.localPosition = Vector3.zero;
 
@@ -1189,7 +1128,6 @@ namespace IUHCampus.Editor
             hair.GetComponent<MeshRenderer>().sharedMaterial = m_StudentHair;
             Object.DestroyImmediate(hair.GetComponent<Collider>());
 
-            // Camera Target & PlayerCamera
             GameObject camTarget = CreateChild(player, "CameraTarget");
             camTarget.transform.localPosition = new Vector3(0, 1.55f, 0);
 
@@ -1208,7 +1146,6 @@ namespace IUHCampus.Editor
 
             pm.cameraTransform = camGO.transform;
 
-            // Player Interaction
             PlayerInteraction pi = player.AddComponent<PlayerInteraction>();
             pi.raycastOrigin = camGO.transform;
         }
@@ -1227,12 +1164,10 @@ namespace IUHCampus.Editor
             sm.spawnPoints.Add(entry);
         }
 
-        // ================= 5. NPC ROUTES & RUNTIME =================
         private static void BuildNPCContent(GameObject parent)
         {
             GameObject goRoutes = CreateChild(parent, "NPC_Routes");
 
-            // Route 1: Courtyard to Lobby
             GameObject r1 = CreateChild(goRoutes, "NPC_Route_G_Courtyard");
             NPCRoute route1 = r1.AddComponent<NPCRoute>();
             route1.routeId = "ROUTE_Courtyard_Lobby";
@@ -1255,7 +1190,6 @@ namespace IUHCampus.Editor
                 route1.waypoints.Add(wComp);
             }
 
-            // NPC Runtime
             GameObject goRuntime = CreateChild(parent, "NPC_Runtime");
             GameObject npc1 = CreateChild(goRuntime, "NPC_Student_01");
             npc1.transform.localPosition = new Vector3(10.0f, 0f, 2.0f);
@@ -1270,7 +1204,6 @@ namespace IUHCampus.Editor
             move.assignedRoute = route1;
             move.moveSpeed = 1.8f;
 
-            // Visual NPC
             GameObject torso = GameObject.CreatePrimitive(PrimitiveType.Cube);
             torso.name = "Torso";
             torso.transform.SetParent(npc1.transform, false);
@@ -1296,10 +1229,9 @@ namespace IUHCampus.Editor
             Object.DestroyImmediate(pants.GetComponent<Collider>());
         }
 
-        // ================= 6. LIGHTING & AUDIO =================
         private static void BuildLightingAndAudio(GameObject goLighting, GameObject goAudio)
         {
-            // Directional Sun
+
             GameObject sunGO = CreateChild(goLighting, "Directional_Sun");
             Light sun = sunGO.AddComponent<Light>();
             sun.type = LightType.Directional;
@@ -1308,7 +1240,6 @@ namespace IUHCampus.Editor
             sun.shadows = LightShadows.Soft;
             sunGO.transform.rotation = Quaternion.Euler(45f, -30f, 0f);
 
-            // Interior downlights in Lobby and Lab
             GameObject lightLobby = CreateChild(goLighting, "PointLight_Lobby");
             lightLobby.transform.localPosition = new Vector3(20.0f, 3.4f, 6.0f);
             Light p1 = lightLobby.AddComponent<Light>();
@@ -1325,7 +1256,6 @@ namespace IUHCampus.Editor
             p2.intensity = 2.8f;
             p2.color = new Color(0.9f, 0.95f, 1.0f);
 
-            // Audio Zones
             GameObject azCourt = CreateChild(goAudio, "AUDIO_CourtyardZone");
             azCourt.transform.localPosition = new Vector3(12f, 1f, 0f);
             BoxCollider acBox = azCourt.AddComponent<BoxCollider>();
@@ -1343,7 +1273,6 @@ namespace IUHCampus.Editor
             az2.zoneId = "AUDIO_Lobby";
         }
 
-        // ================= 7. DEBUG =================
         private static void BuildDebugContent(GameObject parent)
         {
             GameObject gizmos = CreateChild(parent, "Debug_GizmoVisualizer");
