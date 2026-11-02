@@ -83,9 +83,34 @@ Lỗi JSON: thiếu/ảnh không đọc được, target/threshold sai → 400; 
 
 B1 đã nghiệm thu Docker; B2 chạy inference và ghi benchmark thật tại `Docs/Evidence/CampusGuardian/B2/`. Không suy ra đạt <45 ms từ việc model đã chạy; xem số liệu và tradeoff 640/480/416 trong evidence. Adafruit IO chưa tích hợp ở B2. Điện thoại cần IP LAN/URL backend, không dùng localhost của PC.
 
+### Gameplay events và Adafruit IO (B3)
+
+B3 bổ sung `POST /gameplay/events` và `GET /gameplay/events/{event_id}`, lưu SQLite bền vững và sync service riêng. Không gửi Adafruit trong request handler. Tạo `.env` từ `Server/.env.example`, điền username/key trên máy; không đưa key vào Unity/Git/log. Local cần DATABASE_PATH trong Server/data; Docker mount `./data:/app/data`. File DB/WAL được ignore, giữ `.gitkeep`.
+
+```powershell
+docker compose -f Server/docker-compose.yml up -d --build
+docker compose -f Server/docker-compose.yml exec -T iuh-guardian-api python setup_feeds.py
+```
+
+| API / trường | Quy tắc |
+|---|---|
+| POST /gameplay/events | JSON ≤16 KiB; event_id/session_id UUID; quest_id/milestone_id ASCII `[A-Za-z0-9_-]` ≤64; event_type; occurred_at ISO8601 có timezone, không quá tương lai 5 phút |
+| scan_confirmed | payload chỉ có label thuộc lớp cho phép và confidence từ ngưỡng cấu hình đến 1 |
+| combat_won / combat_lost | Không payload hoặc `{}`; không nhận Core/thưởng từ client |
+| upgrade_purchased | payload chỉ có branch attack/defense/vitality, level nguyên 1..2 |
+| 201 recorded | core_awarded do server tính; cloud pending hoặc disabled |
+| 200 duplicate | Giữ thưởng lần đầu, trả cloud hiện tại; cùng ID/nội dung khác →409 event_id_conflict |
+| GET /gameplay/events/{UUID} | Trạng thái hiện tại;404 nếu chưa ghi nhận; lỗi validate trả JSON error/field |
+
+`Server/config/rewards.json` hiện tạm `library_intro: 10 Core`, **chờ nhóm chốt**. Chỉ thắng lần đầu mỗi `(session_id,milestone_id)` có thưởng; event + mốc thưởng + aggregate + outbox ghi nguyên tử. `campus_core_total` là tổng Core đã trao, chưa phải số dư mua nâng cấp; B3 ghi telemetry nâng cấp, chưa triển khai giá/trừ Core hay xác thực người chơi.
+
+Cloud: pending → synced chỉ sau khi tất cả outbox liên quan đã được Adafruit chấp nhận (hoặc gộp vào tổng mới hơn đã ACK); tối đa8 lần retry rồi failed. Thiếu một trong hai credential → disabled, event vẫn ghi; không tự backfill các event disabled cũ. Sync service gộp giá trị tổng theo feed, gửi cách nhau ít nhất3,1 giây, không quá20 điểm/phút; backoff5s tăng mũ đến5 phút,429 tôn trọng Retry-After. Free tier có hạn30 điểm/phút cho cả tài khoản, kể cả publisher khác.
+
+Bốn feed: `guardian-quests-completed`, `guardian-campus-core`, `guardian-upgrades`, `lost-found-count` (=scans_confirmed). `/health` có db_ok/cloud_configured/outbox_pending/outbox_failed; `/metrics` có gameplay_events_total/cloud_sync_total/outbox_pending. Chi tiết schema/giới hạn tại `Server/README.md`. Bằng chứng backend/cloud thật: `Docs/Evidence/CampusGuardian/B3/`; event mẫu là telemetry kiểm thử thủ công, chưa chứng minh Unity đã tích hợp. Người dùng chụp dashboard Adafruit riêng cho hồ sơ.
+
 ## Cloud và rubric
 
-Mục tiêu: Unity → FastAPI kiểm tra/chống trùng sự kiện → Adafruit IO/dashboard. Key chỉ ở biến môi trường backend, không trong Unity/Git/log. Mất mạng vẫn chơi, lưu pending và retry có kiểm soát. Không cảm biến vật lý, không EXP/feed EXP.
+Mục tiêu: Unity → Flask kiểm tra/chống trùng sự kiện → Adafruit IO/dashboard. Key chỉ ở biến môi trường backend, không trong Unity/Git/log. Mất mạng vẫn chơi, lưu pending và retry có kiểm soát. Không cảm biến vật lý, không EXP/feed EXP.
 
 Raycast PC không phải Deep Learning; nhận diện Android/overlay tím chưa tự đáp ứng AR. Nhóm cần chốt minh họa AR trên thiết bị tương thích và xác nhận yêu cầu AR/IO Cloud với giảng viên. Chỉ báo hoàn thành khi có bằng chứng thật.
 

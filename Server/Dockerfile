@@ -6,11 +6,12 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN useradd --create-home --uid 10001 guardian \
-    && mkdir -p /tmp/iuh-guardian-prometheus \
-    && chown guardian:guardian /tmp/iuh-guardian-prometheus
+    && mkdir -p /tmp/iuh-guardian-prometheus /app/data \
+    && chown guardian:guardian /tmp/iuh-guardian-prometheus /app/data
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PROMETHEUS_MULTIPROC_DIR=/tmp/iuh-guardian-prometheus \
+    DATABASE_PATH=/app/data/guardian.db \
     PORT=5001 \
     MODEL_PATH=/app/models/yolov8n.onnx
 USER guardian

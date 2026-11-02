@@ -69,13 +69,13 @@ ExportedObj/
 # ========================
 # Visual Studio Code
 # ========================
-# Giữ lại .vscode/ nếu muốn chia sẻ settings
+# Giá»¯ láº¡i .vscode/ náº¿u muá»‘n chia sáº» settings
 # .vscode/
 
 # ========================
-# Git LFS (nếu không dùng)
+# Git LFS (náº¿u khÃ´ng dÃ¹ng)
 # ========================
-# Uncomment nếu không dùng Git LFS:
+# Uncomment náº¿u khÃ´ng dÃ¹ng Git LFS:
 # *.dll
 # *.exe
 Library/
@@ -96,3 +96,6 @@ Server/models/*.onnx
 !Server/models/yolov8n.onnx
 Server/.venv-export/
 Server/models/*.pt
+
+Server/data/*
+!Server/data/.gitkeep

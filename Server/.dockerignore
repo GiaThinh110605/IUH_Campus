@@ -12,3 +12,4 @@ models/*.onnx
 models/*.pt
 tests/
 .git/
+data/

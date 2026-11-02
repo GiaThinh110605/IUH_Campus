@@ -42,3 +42,46 @@ Expected directory: `Server/tests/fixtures/real/`. Filename prefix before `_` is
 Output: `Docs/Evidence/CampusGuardian/B2/real-eval.md` and a JSON detail file. Missing/empty/unlabelled directories print instructions and exit 2 without a traceback. A report with N/A rows is written instead of fabricated measurements. No photos are created or modified by evaluation.
 
 Before any future photo commit, manually inspect people and personal information; exclude such photos, resize approved copies to a maximum 1280px edge, and strip EXIF/GPS. This tooling does not certify privacy automatically. B2's stock/synthetic fixtures are only speed inputs for this turn, not a replacement for user-shot accuracy evaluation.
+
+
+## Gameplay events and durable cloud outbox (B3)
+
+Create `Server/.env` from `.env.example`, fill credentials locally, and never commit/print them. Local development should set DATABASE_PATH to an absolute path under Server/data; Docker uses /app/data/guardian.db with ./data:/app/data. On Linux the bind directory must be writable by container UID10001 (prepare ownership before startup). Back up the database together with its WAL using SQLite backup tooling; do not delete a live database to reset telemetry.
+
+```powershell
+docker compose -f Server/docker-compose.yml up -d --build
+docker compose -f Server/docker-compose.yml exec -T iuh-guardian-api python setup_feeds.py
+```
+
+`setup_feeds.py` GETs each of the four named feeds and creates only missing feeds. It prints fixed feed names/statuses and credentials=****, never credentials or raw HTTP error bodies. API/sync share the image and SQLite data volume; sync is a separate process/container (`python -m app.sync_worker`), with no sender thread in Gunicorn.
+
+### API contract
+
+| Endpoint | Result |
+|---|---|
+| POST /gameplay/events | 201 recorded; 200 identical duplicate; 409 event_id_conflict; 400 validation error with error/field |
+| GET /gameplay/events/{UUID} | Current event_id/core_awarded/cloud; 404 when missing |
+
+Required fields: event_id UUID, session_id UUID, quest_id and milestone_id matching [A-Za-z0-9_-] (1..64 chars), event_type, occurred_at ISO8601 with timezone. UUIDs/timezones are canonicalized for payload hashing. Future time over5min is rejected, old timestamps are accepted, body limit16KiB. No client Core/price/reward field is accepted, including inside payload.
+
+| event_type | payload whitelist |
+|---|---|
+| scan_confirmed | label from ALLOWED_CLASSES; finite confidence from configured minimum0.70 through1 |
+| combat_won / combat_lost | Omit payload or use empty object |
+| upgrade_purchased | branch attack/defense/vitality, integer level1..2 |
+
+Temporary reward: config/rewards.json contains library_intro=10 Core, awaiting team approval. Unknown combat-win milestones return400. Only the first win for each (session_id,milestone_id) grants Core/increments quests_completed. Other distinct events award0. A duplicate event_id returns the original award and current cloud status, even after restart. An identical event with a new ID is a new telemetry event; scan/upgrade aggregates count recorded events. B3 does not debit a purchase balance or authorize purchases; campus_core_total is lifetime awarded Core. Authentication, stable session identity and purchase authorization remain integration work; a client-supplied UUID is not an account identity.
+
+Cloud status: pending while any linked outbox row is pending/inflight; synced only when all linked rows succeeded; failed if any is terminally failed; disabled for events recorded without both credential fields. Disabled historical events are not backfilled automatically. Request handlers only commit locally and never call Adafruit.
+
+### Transaction and retry semantics
+
+SQLite WAL, busy_timeout10s, BEGIN IMMEDIATE and primary/unique constraints serialize concurrent writers. Event, first-milestone marker, aggregate and outbox links commit atomically. Every cloud-enabled event links all four aggregate feeds: guardian-quests-completed, guardian-campus-core, guardian-upgrades, lost-found-count (=scans_confirmed). Pending unclaimed values coalesce to the latest total; links of affected events are retained/remapped before deleting superseded queue rows.
+
+The separate sync process atomically claims with a random token and30s lease; a persistent global send gate serializes senders. Requests use HTTPS header X-AIO-Key, timeout5s and no redirects. No raw exception/response body is logged or stored. Backoff5/10/20/... <=300s, max8 attempts including crash recovery;429 respects Retry-After (seconds/date), even when longer than the normal backoff. Terminal rows remain failed. Send spacing is at least3.1s after completion: at most20 data points/minute, under the free-tier30 limit. Other account publishers still share Adafruit's account quota.
+
+SQLite reward/event dedupe is exactly once for the specified keys. External HTTP delivery is at least once: a crash after Adafruit accepts a point but before local ACK can repeat the same total. Totals do not increment reward again. This implementation does not claim an impossible cross-service exactly-once transaction.
+
+/health adds db_ok, cloud_configured, outbox_pending, outbox_failed; DB failure returns503 with unavailable counts null. /metrics adds gameplay_events_total{type,result}, cloud_sync_total{result} and outbox_pending. Cloud metrics are collected from durable SQLite stats rather than an unshared metrics directory in the sync container, so API metrics reflect the sync service and survive restarts. SQLite data and Prometheus multiprocess mmap files must stay in separate directories.
+
+Tests isolate credentials/databases and deny live network. Live acceptance is explicitly opt-in: live_cloud_check.py sends manual sample telemetry, not claims of actual camera/gameplay integration. Evidence: Docs/Evidence/CampusGuardian/B3/. Capture Adafruit dashboard screenshots separately for the report.

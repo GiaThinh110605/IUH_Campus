@@ -11,7 +11,9 @@ SERVER = Path(__file__).resolve().parents[1]
 
 def test_metrics_aggregate_two_processes(tmp_path):
     environment = os.environ.copy()
-    environment["PROMETHEUS_MULTIPROC_DIR"] = str(tmp_path)
+    metrics_directory = tmp_path / "prometheus"
+    metrics_directory.mkdir()
+    environment["PROMETHEUS_MULTIPROC_DIR"] = str(metrics_directory)
     environment["MODEL_PATH"] = ""
     worker = "from app import create_app; a=create_app({'TESTING':True}); a.test_client().get('/health')"
     for _ in range(2):

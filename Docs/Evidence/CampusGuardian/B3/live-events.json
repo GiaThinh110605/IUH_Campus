@@ -1,0 +1,91 @@
+{
+  "credentials": "****",
+  "phase": "before",
+  "date": "2026-11-02 Asia/Bangkok",
+  "requests": [
+    {
+      "session_id": "aaeed23a-b8af-44a7-823c-d842957f0f00",
+      "quest_id": "B3_acceptance",
+      "milestone_id": "library_intro",
+      "occurred_at": "2026-11-02T13:39:35.952225+00:00",
+      "event_id": "66e86bdd-c1ab-4ffe-a37b-d1fcba54951c",
+      "event_type": "scan_confirmed",
+      "payload": {
+        "label": "book",
+        "confidence": 0.9
+      }
+    },
+    {
+      "session_id": "aaeed23a-b8af-44a7-823c-d842957f0f00",
+      "quest_id": "B3_acceptance",
+      "milestone_id": "library_intro",
+      "occurred_at": "2026-11-02T13:39:35.952225+00:00",
+      "event_id": "4ad3d7f4-f850-4e1e-8afc-b01a016ebc3d",
+      "event_type": "combat_won"
+    }
+  ],
+  "responses": [
+    {
+      "http_status": 201,
+      "body": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "66e86bdd-c1ab-4ffe-a37b-d1fcba54951c",
+        "status": "recorded"
+      }
+    },
+    {
+      "http_status": 201,
+      "body": {
+        "cloud": "pending",
+        "core_awarded": 10,
+        "event_id": "4ad3d7f4-f850-4e1e-8afc-b01a016ebc3d",
+        "status": "recorded"
+      }
+    },
+    {
+      "http_status": 200,
+      "body": {
+        "cloud": "pending",
+        "core_awarded": 10,
+        "event_id": "4ad3d7f4-f850-4e1e-8afc-b01a016ebc3d",
+        "status": "duplicate"
+      }
+    }
+  ],
+  "states": [
+    {
+      "cloud": "synced",
+      "core_awarded": 0,
+      "event_id": "66e86bdd-c1ab-4ffe-a37b-d1fcba54951c",
+      "status": "recorded"
+    },
+    {
+      "cloud": "synced",
+      "core_awarded": 10,
+      "event_id": "4ad3d7f4-f850-4e1e-8afc-b01a016ebc3d",
+      "status": "recorded"
+    }
+  ],
+  "feed_values": [
+    {
+      "feed": "guardian-quests-completed",
+      "value": "1"
+    },
+    {
+      "feed": "guardian-campus-core",
+      "value": "10"
+    },
+    {
+      "feed": "guardian-upgrades",
+      "value": "0"
+    },
+    {
+      "feed": "lost-found-count",
+      "value": "1"
+    }
+  ],
+  "all_synced": true,
+  "feeds_readable": true,
+  "api_contract_ok": true
+}

@@ -1,0 +1,27 @@
+credentials=****
+exit=0
+{
+  "credentials": "****",
+  "feeds": [
+    {
+      "feed": "guardian-quests-completed",
+      "status": "created",
+      "error": null
+    },
+    {
+      "feed": "guardian-campus-core",
+      "status": "created",
+      "error": null
+    },
+    {
+      "feed": "guardian-upgrades",
+      "status": "created",
+      "error": null
+    },
+    {
+      "feed": "lost-found-count",
+      "status": "created",
+      "error": null
+    }
+  ]
+}

@@ -21,6 +21,8 @@ def load_config():
     workers = max(1, int(os.getenv("WEB_CONCURRENCY", "2")))
     return {
         "ALLOWED_CLASSES": tuple(item.strip() for item in os.getenv("ALLOWED_CLASSES", "book,laptop,chair,bottle,backpack,cell phone").split(",") if item.strip()),
+        "DATABASE_PATH": os.getenv("DATABASE_PATH", str(Path(__file__).resolve().parents[1] / "data/guardian.db")),
+        "REWARDS_PATH": os.getenv("REWARDS_PATH", str(Path(__file__).resolve().parents[1] / "config/rewards.json")),
         "WEB_CONCURRENCY": workers,
         "ORT_INTRA_THREADS": runtime_threads(os.getenv("ORT_INTRA_THREADS", ""), available_cpus(), workers),
         "PORT": int(os.getenv("PORT", "5001")),

@@ -1,5 +1,6 @@
 services:
   iuh-guardian-api:
+    image: iuh-guardian-api:b3
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,14 +10,32 @@ services:
       - path: .env
         required: false
     environment:
+      DATABASE_PATH: /app/data/guardian.db
       PORT: "5001"
       PROMETHEUS_MULTIPROC_DIR: /tmp/iuh-guardian-prometheus
     volumes:
       - ./models:/app/models:ro
+      - ./data:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
       retries: 3
+    restart: unless-stopped
+  iuh-guardian-sync:
+    image: iuh-guardian-api:b3
+    command: ["python", "-m", "app.sync_worker"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_PATH: /app/data/guardian.db
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      disable: true
+    depends_on:
+      iuh-guardian-api:
+        condition: service_healthy
     restart: unless-stopped
