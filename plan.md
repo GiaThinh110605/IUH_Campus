@@ -4,25 +4,34 @@ Cập nhật 01/11/2026. Phạm vi phát triển: 3 tuần kể từ ngày nhóm
 
 ## 1. Thiết kế đã thống nhất
 
-Một game phiêu lưu 3D kết hợp chiến đấu giải đố match-3 theo lượt, chạy trên **Windows PC và Android**. Giữ bản đồ `Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity`; loại bỏ luồng chọn 6 minigame. Những hoạt động cũ không còn là các chế độ độc lập trong phạm vi mới.
+Một game phiêu lưu 3D kết hợp chiến đấu giải đố match-3 theo lượt, chạy trên **Desktop (Windows PC, macOS) và Mobile (Android, iOS)**. Giữ bản đồ `Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity`; loại bỏ luồng chọn 6 minigame. Những hoạt động cũ không còn là các chế độ độc lập trong phạm vi mới.
 
 Vòng chơi: khám phá campus → nhận đầu mối → quét vật thể → xác nhận nguồn nguyền → thanh tẩy bằng match-3 → nhận Campus Core → nâng cấp → thử thách tiếp theo.
 
 Bản tối thiểu trong 3 tuần: một tuyến nhiệm vụ hoàn chỉnh, một loại Data Monster, một bàn cờ và một trận có thể chơi lại ở mức thử thách cao hơn. Các khu vực/nhiệm vụ tiếp theo là mở rộng sau khi bản tối thiểu đạt nghiệm thu.
 
-## 2. Vì sao quét vật thể
+## 2. Vì sao quét vật thể và Quy trình Deep Learning (Tuân thủ chuẩn W9-En.pdf)
 
 Data Monster làm nhiễm các nút dữ liệu campus. Nhiệm vụ cho biết vật thể cần tìm và lý do, ví dụ: “Dữ liệu thư viện bị nhiễu. Quét một quyển sách để truy vết nguồn nguyền.” Vật thể tương ứng đóng vai trò điểm cộng hưởng mở kết nối đến nguồn nguyền.
 
-Trên PC, vật thể trong scene bình thường không hiện lời nguyền. Khi bật chế độ quét của camera game mới thấy khói tím và các khối dữ liệu vỡ; giữ tâm ngắm vào mục tiêu hợp lệ để xác nhận. Âm thanh/HUD và đầu mối nhiệm vụ gợi ý khu vực cần quét.
+Trên Desktop (Windows PC và macOS), vật thể trong scene bình thường không hiện lời nguyền. Khi bật chế độ quét của camera game mới thấy khói tím và các khối dữ liệu vỡ; giữ tâm ngắm vào mục tiêu hợp lệ để xác nhận. Âm thanh/HUD và đầu mối nhiệm vụ gợi ý khu vực cần quét.
 
-Trên Android, mở camera thật và nhận diện vật thể tương ứng ngoài đời, chẳng hạn sách, laptop hoặc màn hình. Danh sách cuối chỉ gồm lớp mà model thực sự hỗ trợ và đã kiểm thử; “máy tính” phải xác định cụ thể. Đúng lớp, đạt ngưỡng và ổn định mới xác nhận; đóng camera, trở về campus và bấm Thanh tẩy để chiến đấu. Không cần hiệu ứng bám lên vật thể thật. Model nhận diện loại đồ vật, không phát hiện lời nguyền thật.
+Trên Mobile (Android và iOS), quy trình nhận diện tuân thủ đầy đủ **5 bước chuẩn triển khai Deep Learning Production theo tài liệu W9-En.pdf**:
+1. **Xuất mô hình sang định dạng ONNX (`export_onnx.py`)**: Mô hình Deep Learning nhận diện vật thể (YOLOv8 / MobileNet) được xuất sang file `.onnx` tối ưu hóa, lưu trữ tại thư mục `Server/models/lost_found_yolo.onnx`. Định dạng ONNX chuẩn hóa đồ thị suy luận, giảm dung lượng và tương thích cao khi chạy đa nền tảng.
+2. **Xây dựng REST API suy luận với Flask & Gunicorn**: Xây dựng ứng dụng REST API nhẹ bằng Flask (theo khuyến nghị W9) chạy qua WSGI HTTP server chuẩn production (Gunicorn). Sử dụng thư viện **ONNX Runtime** để thực thi suy luận với độ trễ thấp (< 45ms). Endpoint chính: `POST /predict` tiếp nhận khung hình từ camera điện thoại, nhận diện các lớp vật thể học tập thực tế trong khuôn viên IUH (`book` - sách giáo trình, `laptop` - máy tính xách tay, `chair` - ghế phòng lab, `bottle` - bình nước, `backpack` - ba lô sinh viên, `cell phone` - điện thoại). API trả về nhãn đối tượng, hộp bao `[x, y, w, h]` và confidence score.
+3. **Đóng gói ứng dụng ML vào Docker container**: Cung cấp `Dockerfile` (Python slim, ONNX Runtime, Flask, Gunicorn, Prometheus exporter) và `docker-compose.yml` để đóng gói toàn bộ backend ML, khởi chạy dễ dàng với lệnh duy nhất `docker compose up -d`, kèm cấu hình Healthcheck tự động tại `/health`.
+4. **Sẵn sàng mở rộng với Kubernetes (Optional)**: Thiết kế API dạng stateless, sẵn sàng cho việc nhân rộng (scale pod) và phân tải thông qua manifest Kubernetes khi cần mở rộng dịch vụ.
+5. **Giám sát hệ thống với Prometheus Exporter**: Tích hợp `prometheus_flask_exporter` theo đúng yêu cầu W9, cung cấp endpoint `/metrics` công khai để thu thập số liệu giám sát: tổng số lượt gọi API, thời gian suy luận (latency histogram), mã phản hồi HTTP 200/400/500, trạng thái model loaded.
 
-Hai nền tảng cùng sinh một kết quả xác nhận mục tiêu cho nhiệm vụ. PC dùng raycast, không phải Deep Learning; webcam PC chưa thuộc phạm vi mặc định. Android dùng model inference thật, có xử lý sai lớp, thiếu sáng, từ chối quyền và không tìm thấy vật thể.
+Quy tắc nghiệm thu quét vật thể: Chỉ xác nhận hoàn thành khi đối tượng nhận diện đúng lớp yêu cầu nhiệm vụ, độ tin cậy đạt ngưỡng (confidence > 70%) và ổn định khung hình. Khi xác nhận thành công, màn hình đóng camera, kích hoạt hiệu ứng thanh tẩy, đưa người chơi trở về campus và mở trận chiến match-3. Không cần hiệu ứng bám phức tạp lên vật thể thật ngoài đời. Model nhận diện loại đồ vật thực tế, không phát hiện lời nguyền ảo.
+
+Các nền tảng cùng sinh một kết quả xác nhận mục tiêu cho nhiệm vụ:
+- Desktop (PC/Mac) dùng raycast camera nội bộ trong scene, không cần gọi Deep Learning; webcam PC/Mac không thuộc phạm vi bắt buộc.
+- Mobile (Android/iOS) bắt buộc gửi ảnh qua REST API để Docker Backend chạy ONNX Runtime suy luận thật, có xử lý các tình huống ngoại lệ: sai lớp, độ tin cậy thấp (< 70%), thiếu sáng, người dùng từ chối cấp quyền camera và không tìm thấy vật thể.
 
 ## 3. Combat match-3
 
-Bố cục màn hình ngang: **nhân vật chính bên trái – bàn cờ ở giữa – Data Monster bên phải**. Hai model quay mặt vào nhau; campus làm nền. Dành diện tích lớn nhất cho bàn cờ, kiểm thử độ lớn ô trên điện thoại thật. PC thao tác chuột, Android thao tác chạm/kéo; dùng chung logic bàn cờ.
+Bố cục màn hình ngang: **nhân vật chính bên trái – bàn cờ ở giữa – Data Monster bên phải**. Hai model quay mặt vào nhau; campus làm nền. Dành diện tích lớn nhất cho bàn cờ, kiểm thử độ lớn ô trên thiết bị thật. Desktop (PC/Mac) thao tác chuột/trackpad, Mobile (Android/iOS) thao tác chạm/kéo hoặc nút ảo; dùng chung logic bàn cờ.
 
 Thiết kế khởi đầu để thử nghiệm: bàn 6×6, bốn loại ô, một Skill; không combo hành động, hitbox cận chiến, nhiều vũ khí hoặc nhiều quái trong bản đầu.
 
@@ -62,40 +71,49 @@ Lưu Core, cấp nâng cấp, khu vực đã thanh tẩy và sự kiện chờ g
 
 ## 5. Kiến trúc và hiện trạng
 
-Unity PC/Android → nhiệm vụ/quét → match-3 → thưởng/nâng cấp và lưu cục bộ → FastAPI → Adafruit IO feeds/dashboard. Android camera/model trả kết quả chuẩn hóa cho nhiệm vụ; UI không tự cộng Core. Hỗ trợ hai nền tảng không đồng nghĩa có tài khoản hoặc cloud save giữa hai thiết bị.
+Kiến trúc luồng xử lý toàn diện theo chuẩn W9-En.pdf:
+`Unity Client (Desktop PC/Mac & Mobile Android/iOS) ➔ Quét vật thể (Camera Mobile / Raycast Desktop) ➔ [Nếu Mobile: Gọi REST API Flask POST /predict] ➔ [Docker Container: Gunicorn WSGI + ONNX Runtime nạp models/lost_found_yolo.onnx] ➔ Trả về JSON nhãn, bounding box [x,y,w,h], confidence score (>70%) ➔ Unity Client xác nhận và chuyển vào Match-3 Combat ➔ Kết thúc trận: Thưởng/Nâng cấp lưu cục bộ ➔ Gửi sự kiện POST /gameplay/events ➔ Đồng bộ Adafruit IO feeds & Thu thập số liệu Prometheus (/metrics)`.
 
-Theo rà soát checkout làm việc ngày 01/11/2026, Build Settings đã có thay đổi local để chỉ giữ SharedCampus, scene/menu cũ có backup và thay đổi dọn. Đây chưa phải bằng chứng bản Guardian hoàn chỉnh; PR tài liệu không triển khai các thay đổi runtime đó. Flow/UI cũ vẫn cần rà soát và thay thế.
+Hồ sơ mã nguồn Backend & AI:
+- `Server/export_onnx.py`: Script xuất mô hình tiền huấn luyện (YOLOv8 / MobileNet) sang định dạng `.onnx` chuẩn hóa.
+- `Server/models/lost_found_yolo.onnx`: File trọng số ONNX tối ưu cho môi trường suy luận Production.
+- `Server/app_flask.py`: Ứng dụng REST API Flask, tích hợp Gunicorn WSGI, ONNX Runtime (`/predict`), Prometheus exporter (`/metrics`), Healthcheck (`/health`) và kết nối Adafruit IO REST API.
+- `Server/Dockerfile` & `Server/docker-compose.yml`: Cấu hình containerization triển khai với 1 câu lệnh `docker compose up -d`.
 
-`Server/main.py` có `/health`, `/predict/student-card`, `/iot/parking-status`; hai endpoint nghiệp vụ đang mô phỏng. Docker và biến MODEL_PATH chưa chứng minh inference/Adafruit IO đã hoạt động. Chưa xác nhận Guardian đầu-cuối trên PC hoặc Android.
+Theo rà soát checkout làm việc ngày 01/11/2026, Build Settings đã có thay đổi local để chỉ giữ SharedCampus, scene/menu cũ có backup và thay đổi dọn. Cần triển khai hoàn chỉnh luồng runtime kết nối giữa Unity Client và Docker AI Backend để xác nhận hoạt động đầu-cuối trên Desktop và Mobile.
 
 ## 6. Gói triển khai và phân công đề xuất
 
 | Gói | Phạm vi và bàn giao | Phụ trách đề xuất |
 |---|---|---|
-| Scene/flow/input | SharedCampus, Build Settings, `Scripts/Core/IUHGameFlowManager.cs`, UI/Hub; Menu → Playing → Paused → Result; bỏ callback minigame cũ | Gia Thịnh |
+| Scene/flow/input | SharedCampus, Build Settings, `Scripts/Core/IUHGameFlowManager.cs`, UI/Hub; Menu → Playing → Paused → Result; bỏ callback minigame cũ; hỗ trợ cả Desktop (Windows, macOS) & Mobile (Android, iOS) | Gia Thịnh |
 | Match-3/combat | Module dự kiến `Assets/IUH_Campus/Scripts/Guardian/`; logic bàn cờ tách hoạt ảnh/UI, lượt quái/Skill, bố cục ngang | Gia Thịnh |
 | Tiến trình/UI nâng cấp | Lưu Core/cấp/khu vực, mua nguyên tử, chống thưởng lặp, thử thách sau nâng cấp | Gia Thịnh; Minh Nhật hỗ trợ UI/QA |
-| Camera/AI/AR và build | PC raycast, Android camera/model, input, tối ưu, hai build | Gia Thịnh tích hợp; cả hai chọn/test model |
-| Backend/cloud/Docker | `Server/main.py`, requirements, Dockerfile, Compose; API kiểm tra sự kiện, chống trùng bền vững, feed thật | Minh Nhật |
-| Kiểm thử/báo cáo/demo | Test hai nền tảng, ảnh/video đúng build, hướng dẫn và giới hạn | Cả hai |
+| Camera/AI/AR và build | PC/Mac raycast, Mobile camera capture gửi REST API `/predict`, vẽ bounding box UI, AR Foundation demo, tối ưu, các bản build (Windows, macOS, Android/iOS) | Gia Thịnh tích hợp; cả hai chọn/test model |
+| Backend/cloud/Docker (Chuẩn W9) | Script `export_onnx.py`, Flask REST API `/predict`, Gunicorn WSGI, ONNX Runtime inference, Prometheus Exporter `/metrics`, Dockerfile, docker-compose.yml, feeds Adafruit IO | Minh Nhật |
+| Kiểm thử/báo cáo/demo | Test trên các nền tảng (PC Windows, macOS, Mobile), test 5 bước W9-En.pdf, ảnh/video đúng build, hướng dẫn và giới hạn | Cả hai |
 
 Nhóm xác nhận phân công, cân đối tải Unity vào cuối tuần 1. Một người tích hợp scene tại một thời điểm; người còn lại giao code/prefab qua PR. Chỉ xóa scene/script/asset sau audit dependency; giữ `.meta` và cảnh quan đã duyệt. Không commit toàn bộ pack chỉ để dùng một prefab.
 
-API dự kiến `POST /gameplay/events` dùng `event_id`, `session_id`, `quest_id`, `milestone_id`, `event_type`, `occurred_at`; backend kiểm tra sự kiện và quy tắc thưởng, không tin giá trị thưởng tùy ý từ client. Chống trùng lưu bền vững qua restart; phân biệt đã ghi nhận và đã đồng bộ cloud.
+API dự kiến:
+- `POST /predict`: Nhận file ảnh multipart/form-data từ camera, ONNX Runtime suy luận phát hiện đồ vật, trả về JSON nhãn, bounding box `[x, y, w, h]`, confidence score và `inference_time_ms`.
+- `GET /metrics`: Prometheus exporter cung cấp metrics giám sát (request count, latency histogram, HTTP status codes) phục vụ nghiệm thu W9.
+- `GET /health`: Kiểm tra trạng thái hoạt động của service và cờ `model_loaded`.
+- `POST /gameplay/events`: Nhận `event_id`, `session_id`, `quest_id`, `milestone_id`, `event_type`, `occurred_at`; backend kiểm tra sự kiện và quy tắc thưởng, không tin giá trị thưởng tùy ý từ client. Chống trùng lưu bền vững qua restart; phân biệt đã ghi nhận và đã đồng bộ cloud.
 
-Feeds dự kiến: `guardian-quests-completed`, `guardian-campus-core`, `guardian-upgrades`; chốt namespace và ý nghĩa trước tích hợp. Không có feed EXP trong thiết kế mới. Dashboard không thay kho tiến trình. Key chỉ ở biến môi trường backend, không trong Unity/Git/log. Mất mạng vẫn chơi được; lưu pending và retry có giới hạn, báo lỗi đúng. Không dùng cảm biến vật lý.
+Feeds dự kiến trên Adafruit IO: `guardian-quests-completed`, `guardian-campus-core`, `guardian-upgrades` (và feed giám sát AI `lost-found-count`); chốt namespace và ý nghĩa trước tích hợp. Không có feed EXP trong thiết kế mới. Dashboard không thay kho tiến trình. Key chỉ ở biến môi trường backend, không trong Unity/Git/log. Mất mạng vẫn chơi được; lưu pending và retry có giới hạn, báo lỗi đúng. Không dùng cảm biến vật lý.
 
 ## 7. Lịch 3 tuần
 
 | Mốc | Công việc | Điều kiện qua mốc |
 |---|---|---|
-| Tuần 1, ngày 1–2 | Chốt thiết bị, lớp/model, AR, bảng chỉ số bàn cờ, API và phân công | Có phạm vi và hợp đồng tích hợp |
-| Tuần 1, ngày 3–7 | Flow mới; PC quét, Android camera; bàn cờ đổi/ghép/rơi; thử feed; build hai nền tảng | Windows chạy, APK cài máy thật, một mục tiêu mở trận; có bằng chứng inference và trạng thái AR |
-| Tuần 2, ngày 8–14 | Quái, bốn ô/Skill, thưởng/nâng cấp/lưu, thử thách cao hơn, cloud/retry | Chơi hết tuyến trên cả hai, nâng cấp có tác dụng, feed cập nhật, không thưởng lặp |
-| Tuần 3, ngày 15–18 | Sửa lỗi, tối ưu Android, thử AI/AR, backend/Docker và checkout sạch | Ca bắt buộc đạt, lỗi còn lại có người xử lý |
-| Tuần 3, ngày 19–21 | Đóng băng tính năng, hai build cuối, báo cáo/video và diễn tập | Cài mới/chơi lại được, tài liệu khớp build |
+| Tuần 1, ngày 1–2 | Chốt thiết bị, lớp/model, AR, bảng chỉ số bàn cờ, API W9 và phân công | Có phạm vi và hợp đồng tích hợp |
+| Tuần 1, ngày 3–7 | Flow mới; chạy `export_onnx.py` xuất mô hình `.onnx`, dựng Flask API `/predict` và Prometheus `/metrics`, đóng gói Docker `docker compose up -d`; PC/Mac quét, Mobile camera; bàn cờ đổi/ghép/rơi; thử feed; build các nền tảng | Desktop (Windows/macOS) chạy, Mobile cài máy thật, một mục tiêu mở trận; có bằng chứng ONNX inference trong Docker và Prometheus `/metrics` |
+| Tuần 2, ngày 8–14 | Quái, bốn ô/Skill, thưởng/nâng cấp/lưu, thử thách cao hơn; client Mobile kết nối suy luận ONNX API đạt ngưỡng > 70%, đồng bộ feed Adafruit IO, cloud/retry | Chơi hết tuyến trên cả Desktop (PC/Mac) và Mobile, nâng cấp có tác dụng, feed cập nhật, không thưởng lặp |
+| Tuần 3, ngày 15–18 | Sửa lỗi, tối ưu Mobile & macOS/PC, benchmark độ trễ suy luận ONNX (< 45ms), thử AI/AR, backend/Docker/Prometheus và checkout sạch | Ca bắt buộc đạt, lỗi còn lại có người xử lý |
+| Tuần 3, ngày 19–21 | Đóng băng tính năng, các bản build cuối (PC/Mac, Mobile), video minh chứng 5 bước W9-En.pdf (export ONNX, containerize Docker, suy luận Flask/Gunicorn, Prometheus monitoring, Adafruit IO), báo cáo và diễn tập | Cài mới/chơi lại được, tài liệu khớp build |
 
-Nếu tiến độ chậm, giảm lớp nhận diện, hiệu ứng và nội dung phụ; không âm thầm bỏ Android hoặc gọi mô phỏng là AI/cloud thật. Giữ trang phục ngoài phạm vi.
+Nếu tiến độ chậm, giảm lớp nhận diện, hiệu ứng và nội dung phụ; không âm thầm bỏ Mobile hoặc gọi mô phỏng là AI/cloud thật. Giữ trang phục ngoài phạm vi.
 
 ## 8. Kiểm thử và hồ sơ nghiệm thu
 
@@ -103,19 +121,19 @@ Mỗi ca ghi thiết bị, nền tảng, commit/build, bước thử, mong đợ
 
 | ID | Ca kiểm thử | Kết quả bắt buộc |
 |---|---|---|
-| G01 | Cài mới/Start PC và Android | Đúng Guardian/SharedCampus, không menu 6 game, không Missing Script |
-| G02 | PC quét/Android đúng sai lớp, quyền camera và quay lại | Chỉ mục tiêu hợp lệ mở trận; hiệu ứng đúng chế độ; không kẹt input |
+| G01 | Cài mới/Start Desktop (PC/Mac) và Mobile | Đúng Guardian/SharedCampus, không menu 6 game, không Missing Script |
+| G02 | PC/Mac quét / Mobile đúng sai lớp, quyền camera và quay lại | Chỉ mục tiêu hợp lệ mở trận; hiệu ứng đúng chế độ; không kẹt input |
 | G03 | Đổi sai, ghép giao nhau, ghép 4/5, chuỗi rơi | Trả đổi sai không mất lượt; không đếm trùng; khóa input; quái phản công một lần |
 | G04 | Bàn khởi đầu/hết nước đi | Có nước hợp lệ, xáo không mất lượt, không vòng lặp treo |
 | G05 | Khiên, hồi máu, năng lượng, Skill, chết/thắng | Giới hạn đúng; quái chết không phản công; không thao tác sau kết quả |
 | G06 | Nhận thưởng, replay, callback/gửi lặp | Mỗi mốc thưởng một lần; mất mạng/restart không cộng lặp |
 | G07 | Mua thiếu Core/đạt tối đa/bấm nhanh; đóng mở app | Trừ Core và tăng cấp nhất quán, không âm Core, tiến trình được lưu |
 | G08 | Mất mạng, backend restart, cloud lỗi, payload sai | Pending/failed/synced đúng; chống trùng bền vững, không báo thành công giả |
-| G09 | AI/AR trên thiết bị và Docker/feed thật | Có bằng chứng inference, AR đúng yêu cầu, health/feed hoạt động |
-| G10 | Profile Android/checkout sạch/hai build | Ô dễ chạm, không soft-lock; ghi FPS/RAM/thời gian tải; dependency đầy đủ |
+| G09 | AI/AR chuẩn W9-En.pdf (ONNX, Flask/Gunicorn, Docker, Prometheus, Adafruit IO) | Xuất mô hình `.onnx` thành công; container chạy ổn định qua `docker compose up -d`; `POST /predict` suy luận ONNX độ trễ < 45ms và conf > 70%; Prometheus `/metrics` hiển thị đầy đủ thông số; Adafruit IO đồng bộ feed thật |
+| G10 | Profile Mobile & Mac/PC / checkout sạch / các bản build | Ô dễ chạm, không soft-lock; ghi FPS/RAM/thời gian tải; dependency đầy đủ |
 
 Giữ rubric gốc trong `plan.txt`: Unity 20, AR + Deep Learning 20, Mobile 20, IO Cloud 20, Docker 20; phần hỗ trợ thiếu bị trừ 20 điểm một lần theo rubric gốc, không cam kết điểm số.
 
 Thiết kế quét hiện tại chưa tự đáp ứng AR: nhóm cần xác nhận yêu cầu giảng viên và thử một minh họa AR gọn riêng trên điện thoại tương thích. Không gọi raycast/overlay khói tím là AR, không tuyên bố hoàn thành AR nếu chưa có kiểm chứng. Cũng cần xác nhận Adafruit IO dữ liệu gameplay không cảm biến phù hợp yêu cầu môn.
 
-Bàn giao hai build, nguồn, báo cáo, README, test và ảnh/video AI/AR/cloud/Docker. Vị trí bằng chứng mới dự kiến `Docs/Evidence/CampusGuardian/`; ảnh minigame cũ chỉ là lịch sử. Nhóm còn chốt thiết bị, model/ngưỡng, số Core/giá nâng cấp, chỉ số combat, luật thua/replay và hạn nộp.
+Bàn giao các bản build (Desktop Windows/macOS, Mobile Android/iOS), nguồn, báo cáo, README, test và ảnh/video đầy đủ 5 thành phần (Unity, AI ONNX, AR, Mobile, Adafruit IO Cloud, Docker + Prometheus theo W9-En.pdf). Vị trí bằng chứng mới dự kiến `Docs/Evidence/CampusGuardian/`; ảnh minigame cũ chỉ là lịch sử. Nhóm còn chốt thiết bị, model/ngưỡng, số Core/giá nâng cấp, chỉ số combat, luật thua/replay và hạn nộp.
