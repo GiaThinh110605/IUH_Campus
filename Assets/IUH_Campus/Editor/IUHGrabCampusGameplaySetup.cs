@@ -11,16 +11,10 @@ using IUHCampus.UI;
 namespace IUHCampus.Editor
 {
 
-    [InitializeOnLoad]
     public static class IUHGrabCampusGameplaySetup
     {
         private const string RootName = "GAMEPLAY_GRAB_CAMPUS";
         private const string ItemContainerName = "GRAB_SURVIVAL_ITEMS";
-
-        static IUHGrabCampusGameplaySetup()
-        {
-            EditorApplication.delayCall += SetupCompleteGameplay;
-        }
 
         [MenuItem("IUH Campus/Minigames/Setup Grab Campus 2.1 Complete Gameplay")]
         public static void SetupCompleteGameplay()
