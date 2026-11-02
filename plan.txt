@@ -2,13 +2,15 @@ IUH CAMPUS GUARDIAN — KẾ HOẠCH NHÓM
 Cập nhật 01/11/2026; thời lượng 3 tuần từ ngày nhóm thống nhất bắt đầu.
 
 THIẾT KẾ CHỐT
-Một game phiêu lưu 3D + chiến đấu match-3 theo lượt trên Windows PC VÀ Android.
+Một game phiêu lưu 3D + chiến đấu match-3 theo lượt trên Desktop (Windows PC, macOS) VÀ Mobile (Android, iOS).
 Giữ scene IUH_SharedCampus_Concept; bỏ cấu trúc chọn 6 minigame.
 Khám phá -> đầu mối -> quét -> nguồn nguyền -> match-3 -> Core -> nâng cấp.
-PC: camera game bật quét mới hiện khói tím/khối dữ liệu vỡ trên vật thể.
-Android: camera thật quét vật thể tương ứng (sách/laptop/màn hình theo model),
-xác nhận rồi đóng camera quay về game; không cần bám khói lên đồ vật thật.
-PC raycast không phải AI. Nhận diện camera chưa tự đáp ứng AR.
+Desktop (PC/Mac): camera game bật quét mới hiện khói tím/khối dữ liệu vỡ trên vật thể.
+Mobile (Android/iOS): camera thật quét vật thể tương ứng (sách/laptop/màn hình theo model),
+tuân thủ chuẩn W9-En.pdf (export_onnx.py -> model .onnx -> Flask/Gunicorn REST API ->
+Docker container -> Prometheus /metrics -> độ trễ < 45ms, confidence > 70%).
+Xác nhận xong đóng camera quay về game mở trận đấu; không cần bám khói lên đồ vật thật.
+PC/Mac raycast không phải AI. Nhận diện camera chưa tự đáp ứng AR.
 
 COMBAT VÀ PHẦN THƯỞNG
 Màn hình ngang: nhân vật trái, bàn cờ giữa, quái phải.
@@ -23,21 +25,21 @@ Bỏ EXP. Trang phục/ngoại hình để sau, không cam kết trong 3 tuần.
 
 PHẠM VI VÀ PHÂN CÔNG ĐỀ XUẤT
 Một tuyến, một nhiệm vụ, một loại quái, một trận và thử thách cao hơn sau nâng cấp.
-Gia Thịnh: Unity/scene/flow, match-3, input/camera, tích hợp AI/AR, hai build.
-Minh Nhật: FastAPI, Adafruit IO, Docker, chống trùng; hỗ trợ UI/QA.
+Gia Thịnh: Unity/scene/flow, match-3, input/camera, tích hợp AI/AR, các bản build (PC/Mac, Mobile).
+Minh Nhật: Flask/Gunicorn, export .onnx, Docker, Prometheus, Adafruit IO, chống trùng; hỗ trợ UI/QA.
 Cả hai: model, tích hợp, test, báo cáo. Nhóm xác nhận và cân đối cuối tuần 1.
 
 LỊCH
-Tuần 1: chốt thiết bị/model/AR/API; flow/quét/bàn cờ; build PC và APK máy thật.
-Tuần 2: combat, thưởng/nâng cấp/lưu, cloud thật, retry/chống trùng; chơi hết tuyến.
-Tuần 3: tối ưu/test, đóng băng tính năng, hai build cuối, báo cáo/video.
+Tuần 1: chốt thiết bị/model/AR/API; flow/quét/bàn cờ; export .onnx, Docker, Prometheus /metrics; build Desktop (PC/Mac) và Mobile máy thật.
+Tuần 2: combat, thưởng/nâng cấp/lưu, cloud thật, retry/chống trùng; chơi hết tuyến trên cả hai.
+Tuần 3: tối ưu/test, đóng băng tính năng, các bản build cuối (PC/Mac, Mobile), video 5 bước W9-En.pdf, báo cáo/video.
 
 NGHIỆM THU
 Không menu 6 game/Missing Script; quét đúng/sai/quyền camera xử lý rõ.
 Bàn cờ không kẹt, không đếm trùng, không input khi rơi; mỗi lượt quái đánh một lần.
 Thưởng/nâng cấp/lưu đúng; retry/restart không thưởng lặp, cloud có bằng chứng thật.
-AI/AR/Docker kiểm thử trên thiết bị/cấu hình thực; không dùng ảnh minigame cũ.
-Hiện backend còn mô phỏng; tài liệu này không xác nhận Guardian đã hoàn thành.
+AI/AR/Docker kiểm thử trên thiết bị/cấu hình thực theo chuẩn W9-En.pdf (export .onnx,
+POST /predict < 45ms & conf > 70%, container Docker chạy ổn định, Prometheus /metrics hoạt động).
 Chốt thêm thiết bị, chỉ số/giá, lớp/ngưỡng model, luật thua/replay, yêu cầu AR,
 ngày bắt đầu/hạn nộp. Không cảm biến; key chỉ ở backend. Không cloud save liên máy.
 Chi tiết: plan.md. Hướng dẫn: README.md. Rubric gốc giữ nguyên bên dưới.
