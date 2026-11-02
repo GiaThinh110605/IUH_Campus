@@ -26,24 +26,41 @@ Cập nhật 01/11/2026: đang chuyển hướng thiết kế. PR tài liệu n�
 
 Mở repository bằng Unity Hub với **Unity 6000.5.8f1** theo `ProjectSettings/ProjectVersion.txt`. Android cần Android Build Support/SDK/NDK/OpenJDK phù hợp. Mở scene SharedCampus ở trên, chờ import và kiểm tra Console trước Play. Không chạy builder cũ để tái tạo campus. Giữ `.meta` với asset; audit dependency trước khi xóa scene/script/pack.
 
-Từ thư mục gốc, với Docker hỗ trợ Compose:
+### Chạy backend W9 B1 — Flask/Gunicorn
 
-```powershell
-docker compose -f Server/docker-compose.yml up --build -d
-curl.exe http://localhost:8000/health
-docker compose -f Server/docker-compose.yml logs --tail 100
-docker compose -f Server/docker-compose.yml down
-```
-
-API docs: `http://localhost:8000/docs`. Hoặc dùng môi trường Python riêng:
+Backend dùng Python 3.11, cổng **5001**. Từ thư mục gốc:
 
 ```powershell
 python -m venv Server/.venv
-.\Server\.venv\Scripts\python.exe -m pip install -r Server/requirements.txt
-.\Server\.venv\Scripts\python.exe -m uvicorn main:app --app-dir Server --host 0.0.0.0 --port 8000
+.\Server\.venv\Scripts\python.exe -m pip install -r Server/requirements-dev.txt
+Copy-Item Server/.env.example Server/.env
+.\Server\.venv\Scripts\python.exe -m flask --app Server/wsgi.py run --host 127.0.0.1 --port 5001
 ```
 
-Đây là hướng dẫn cấu hình hiện có, chưa chạy lại trong lượt sửa tài liệu. `/predict/student-card` và `/iot/parking-status` hiện mô phỏng; không phải AI Guardian/cloud thật. Android cần URL backend truy cập được từ điện thoại (ví dụ IP LAN), không dùng `localhost` của PC; kiểm tra firewall và chính sách HTTPS/HTTP của build.
+Local Windows dùng Flask development server để thử; production dùng Gunicorn trong Linux/Docker (Gunicorn không chạy native Windows). Sửa `MODEL_PATH` trong `Server/.env` thành đường dẫn model local nếu có; B1 chưa yêu cầu model. Không điền key thật vào `.env.example`, không commit `.env`.
+
+```powershell
+.\Server\.venv\Scripts\python.exe -m pytest Server/tests -q
+docker compose -f Server/docker-compose.yml up -d --build
+curl.exe http://localhost:5001/health
+curl.exe http://localhost:5001/metrics
+curl.exe -X POST http://localhost:5001/predict
+docker compose -f Server/docker-compose.yml ps
+docker compose -f Server/docker-compose.yml logs --tail 50
+docker compose -f Server/docker-compose.yml down
+```
+
+Compose >= 2.24.0 hỗ trợ `.env` tùy chọn qua `required: false`; với Compose cũ, nâng cấp hoặc copy `.env.example` và đổi `env_file` thành `- .env`. Container mount `Server/models` chỉ đọc tại `/app/models`; `.onnx` không đưa vào Git hoặc Docker image. Dockerfile dựa trên Python 3.11 slim, không khóa kiến trúc; cần kiểm chứng build riêng trên amd64/arm64.
+
+| Endpoint | Hành vi B1 |
+|---|---|
+| `GET /health` | 200; uptime theo giây từ lúc worker tạo app, cờ model loaded thật. 200 xác nhận service sống, không cam kết inference sẵn sàng |
+| `GET /metrics` | Request count theo status, histogram latency và gauge `model_loaded` |
+| `POST /predict` | Multipart field `image`; thiếu/ảnh lỗi: 400; ảnh hợp lệ nhưng chưa model: 503 `model_not_loaded`; model đã nạp nhưng chưa triển khai inference B2: 501 |
+
+Không còn `/predict/student-card`, `/iot/parking-status` hoặc trang `/docs` FastAPI. B1 không trả kết quả nhận diện mô phỏng và chưa gửi Adafruit IO. Hai worker Gunicorn mỗi worker nạp một session khi tạo app, không nạp lại theo request. `/metrics` gom dữ liệu bằng Gunicorn multiprocess exporter; dọn file metrics cũ trong thư mục tạm khi master khởi động, đánh dấu worker chết qua hook `child_exit`. Gauge dùng giá trị nhỏ nhất của các worker còn sống.
+
+Adafruit username/key chỉ đọc từ env ở B1, chưa sử dụng. Điện thoại cần IP LAN/URL backend truy cập được, không dùng `localhost` của PC; kiểm tra firewall và chính sách HTTP/HTTPS khi tích hợp. Bằng chứng và giới hạn kiểm thử: `Docs/Evidence/CampusGuardian/B1/`.
 
 ## Cloud và rubric
 

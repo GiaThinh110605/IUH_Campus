@@ -1,0 +1,24 @@
+Date: 2026-11-02 (Asia/Bangkok)
+OS: Windows-10-10.0.26200-SP0
+Python: 3.11.9
+Base commit: c034442c4427a7c02f21cac9b56ee35f3873a81c
+Branch: minhnhat/backend-w9-b1
+Command: Server/.venv/Scripts/python.exe -m pytest Server/tests -q -v -p no:cacheprovider
+Exit code: 0
+
+STDOUT:
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0
+rootdir: D:\IUH\CongNgheMoi\CK\IUH_Campus
+collected 14 items
+
+Server\tests\test_api.py ............                                    [ 85%]
+Server\tests\test_multiprocess.py ..                                     [100%]
+
+============================= 14 passed in 4.01s ==============================
+
+STDERR:
+Exception ignored in: <function Console.__del__ at 0x000001FD5869B420>
+Traceback (most recent call last):
+  File "D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Lib\site-packages\pyreadline3\console\console.py", line 256, in __del__
+OSError: [WinError -1073741816] Windows Error 0xc0000008

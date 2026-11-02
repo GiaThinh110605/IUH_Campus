@@ -1,0 +1,13 @@
+{
+  "Server/gunicorn.conf.py": "14c97cca545ebbd2011b58b6b2ea4d154ddd2d6e8d64be049cdc82f0cf45b2a7",
+  "Server/wsgi.py": "bd71922f64022463485ef05234809b5ce8de5756ef18c4f26a594f4c148b0fbc",
+  "Server/app/config.py": "ef34dfd0a34b8e4497bf645c4a79ed2393b6c2cf86fa8baf1101acdc3eb606a3",
+  "Server/app/model_registry.py": "54b5e5cc0d1212336e10c5a1350443a177a10aad708f9377c968b8e872c79d66",
+  "Server/app/__init__.py": "56f56e7a6def656e3278967d97ccf52b055dca7e01cb160c4c8acc8fd9716902",
+  "Server/app/routes/health.py": "a6e5614d73fc0ad3e34ae337c5ddfa1a197082977a68f8266afc9c878daf776e",
+  "Server/app/routes/predict.py": "7dc1d46f6cc5160cf73105c7f8584a73f5ca02de9bd49b9eca4a889e159a98e5",
+  "Server/app/routes/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "Server/tests/conftest.py": "5304ee5bfdb9cac1d7288cf7ecfc7534e844cea22a8d4f3e2e41c78029a5d860",
+  "Server/tests/test_api.py": "8e0fa8e4f99b359e1f36504a5d6be0258f35559c57ee32517140fa713cd96367",
+  "Server/tests/test_multiprocess.py": "432692f100bdc5844be0ef4d8738f76c8ac06c6a8be806aecceebcf72fc8aa92"
+}

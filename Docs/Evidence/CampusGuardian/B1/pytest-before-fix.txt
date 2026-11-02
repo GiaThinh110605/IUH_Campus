@@ -1,0 +1,47 @@
+Date: 2026-11-02 (Asia/Bangkok)
+OS: Windows-10-10.0.26200-SP0
+Python: 3.11.9
+Base commit: c034442c4427a7c02f21cac9b56ee35f3873a81c
+Branch: minhnhat/backend-w9-b1
+Command: Server/.venv/Scripts/python.exe -m pytest Server/tests -q -v -p no:cacheprovider
+Exit code: 1
+
+STDOUT:
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0
+rootdir: D:\IUH\CongNgheMoi\CK\IUH_Campus
+collected 14 items
+
+Server\tests\test_api.py F...........                                    [ 85%]
+Server\tests\test_multiprocess.py ..                                     [100%]
+
+================================== FAILURES ===================================
+_________ test_health_reports_real_unloaded_state_and_elapsed_seconds _________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_health_reports_real_unloaded_state_and_elapsed_seconds(client):
+        first = client.get("/health")
+        assert first.status_code == 200
+        body = first.get_json()
+        assert body["model_loaded"] is False
+        assert body["model_path_configured"] is True
+        assert body["service"] == "IUH Guardian API"
+        assert body["version"] == "0.1.0"
+        assert 0 <= body["uptime_seconds"] < 60
+        time.sleep(0.01)
+>       assert client.get("/health").get_json()["uptime_seconds"] > body["uptime_seconds"]
+E       assert 0.016 > 0.016
+
+Server\tests\test_api.py:39: AssertionError
+----------------------------- Captured log setup ------------------------------
+WARNING  app:model_registry.py:10 [IUH Guardian API] Model file unavailable; inference disabled
+=========================== short test summary info ===========================
+FAILED Server/tests/test_api.py::test_health_reports_real_unloaded_state_and_elapsed_seconds
+======================== 1 failed, 13 passed in 4.55s =========================
+
+STDERR:
+Exception ignored in: <function Console.__del__ at 0x000002D7F11DB420>
+Traceback (most recent call last):
+  File "D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Lib\site-packages\pyreadline3\console\console.py", line 256, in __del__
+OSError: [WinError -1073741816] Windows Error 0xc0000008

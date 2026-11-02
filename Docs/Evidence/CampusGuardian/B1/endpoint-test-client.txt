@@ -1,0 +1,43 @@
+Local Flask test_client, NOT Docker/curl.
+Exit code: 0
+GET /health HTTP 200
+{"model_loaded": false, "model_path_configured": false, "service": "IUH Guardian API", "status": "healthy", "uptime_seconds": 0.015, "version": "0.1.0"}
+GET /metrics HTTP 200
+# HELP flask_http_request_duration_seconds Flask HTTP request duration in seconds
+# TYPE flask_http_request_duration_seconds histogram
+flask_http_request_duration_seconds_bucket{le="0.005",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_count{method="GET",path="/health",status="200"} 1.0
+flask_http_request_duration_seconds_sum{method="GET",path="/health",status="200"} 9.390001650899649e-05
+# HELP flask_http_request_duration_seconds_created Flask HTTP request duration in seconds
+# TYPE flask_http_request_duration_seconds_created gauge
+flask_http_request_duration_seconds_created{method="GET",path="/health",status="200"} 1.7936145275667708e+09
+# HELP flask_http_request_total Total number of HTTP requests
+# TYPE flask_http_request_total counter
+flask_http_request_total{method="GET",status="200"} 1.0
+# HELP flask_http_request_created Total number of HTTP requests
+# TYPE flask_http_request_created gauge
+flask_http_request_created{method="GET",status="200"} 1.7936145275667708e+09
+# HELP flask_http_request_exceptions_total Total number of HTTP requests which resulted in an exception
+# TYPE flask_http_request_exceptions_total counter
+# HELP model_loaded Whether all live API workers loaded their ONNX model
+# TYPE model_loaded gauge
+model_loaded 0.0
+POST /predict missing image 400 {'error': 'image_required'}
+POST /predict valid image, no model 503 {'error': 'model_not_loaded'}
+
+STDERR:
+[2026-11-02 17:15:27,542] WARNING in model_registry: [IUH Guardian API] Model file unavailable; inference disabled

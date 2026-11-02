@@ -79,6 +79,17 @@ ExportedObj/
 # *.dll
 # *.exe
 Library/
-"/Library/`n/Temp/`n/Logs/`n/obj/`n/Build/`n/Builds/`n/UserSettings/" 
-"/Library/`n/Temp/`n/Logs/`n/UserSettings/`n/Build/`n/Builds/`n*.log" 
 .env
+/Library/
+/Temp/
+/Logs/
+/obj/
+/Build/
+/Builds/
+/UserSettings/
+*.log
+Server/.env
+Server/.venv/
+__pycache__/
+*.pyc
+Server/models/*.onnx

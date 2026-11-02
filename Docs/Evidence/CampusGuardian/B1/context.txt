@@ -1,0 +1,10 @@
+Date: 2026-11-02 (Asia/Bangkok)
+OS: Windows-10-10.0.26200-SP0
+Python: 3.11.9
+Base commit: c034442c4427a7c02f21cac9b56ee35f3873a81c
+Branch: minhnhat/backend-w9-b1
+
+B1 implementation commit: the commit containing this evidence; resolve with git log -1 --format=%H -- Server/app/__init__.py
+Docker runtime verification skipped: Docker Desktop Linux engine unavailable.
+Initial main.py ast.parse failure: SyntaxError: unterminated string literal (detected at line 51).
+Pip sandbox DNS failed; elevated install succeeded.
