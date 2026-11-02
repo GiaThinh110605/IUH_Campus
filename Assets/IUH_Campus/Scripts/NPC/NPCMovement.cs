@@ -63,7 +63,7 @@ namespace IUHCampus.NPC
             }
             else
             {
-                // Fallback direct movement
+
                 Vector3 dir = (targetWp.transform.position - transform.position);
                 dir.y = 0;
                 if (dir.magnitude > arrivalThreshold)

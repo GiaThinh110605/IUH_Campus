@@ -32,14 +32,12 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Remove previous version if exists
             var existing = buildingsParent.transform.Find(BUILDING_NAME);
             if (existing != null)
             {
                 Undo.DestroyObjectImmediate(existing.gameObject);
             }
 
-            // Load Materials
             Material matFacade = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_E_Facade_White.mat");
             Material matGlass = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_E_Glass.mat");
             Material matFrame = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_E_Frame_Dark.mat");
@@ -52,39 +50,30 @@ namespace IUHCampus.Editor
             Material matLawn = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_E_Lawn_Island.mat");
             Material matRoof = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_E_Roof_Dark.mat");
 
-            // Root GameObject
             GameObject root = new GameObject(BUILDING_NAME);
             Undo.RegisterCreatedObjectUndo(root, "Create Building E Admin");
             root.transform.SetParent(buildingsParent.transform, false);
             root.transform.localPosition = Vector3.zero;
             root.transform.localRotation = Quaternion.identity;
 
-            // --- PARAMETERS ---
-            // Building envelope: X in [-14, 14], Y in [0, 20.6], Z in [2.5, 19.0]
             float width = 28f;
             float halfWidth = 14f;
-            float rearZ = 19.0f; // strictly <= 19.0 to ensure 1.0m gap to E4 (Z=20.0) -> ZERO overlap across X, Y, Z
+            float rearZ = 19.0f;
             float frontCenterZ = 3.0f;
             float frontCornerZ = 6.0f;
             float totalHeight = 20.6f;
 
-            // 5 readable architectural stories + roof parapet
             float[] floorY = new float[] { 0.0f, 4.5f, 8.3f, 12.1f, 15.9f, 19.4f, 20.6f };
 
-            // Helper function for front facade curved profile Z at X
             System.Func<float, float> getFrontZ = (x) =>
             {
                 float t = Mathf.Clamp01(Mathf.Abs(x) / halfWidth);
                 return Mathf.Lerp(frontCenterZ, frontCornerZ, t * t);
             };
 
-            // -------------------------------------------------------------
-            // 1. STRUCTURE CORE
-            // -------------------------------------------------------------
             GameObject goCore = new GameObject("01_Structure_Core");
             goCore.transform.SetParent(root.transform, false);
 
-            // Floor Slabs (Ground, L2, L3, L4, L5, Roof)
             List<CombineInstance> slabCombines = new List<CombineInstance>();
             for (int f = 0; f < floorY.Length - 1; f++)
             {
@@ -112,7 +101,6 @@ namespace IUHCampus.Editor
             mfSlabs.sharedMesh = combinedSlabs;
             mrSlabs.sharedMaterial = matFacade;
 
-            // Rear Wall (North facade facing E4 / walkway): strictly Z = 18.75 to 19.0
             GameObject goRear = GameObject.CreatePrimitive(PrimitiveType.Cube);
             goRear.name = "Rear_Wall_North";
             goRear.transform.SetParent(goCore.transform, false);
@@ -121,12 +109,10 @@ namespace IUHCampus.Editor
             goRear.GetComponent<MeshRenderer>().sharedMaterial = matFacade;
             Object.DestroyImmediate(goRear.GetComponent<Collider>());
 
-            // Side Walls (West and East)
             List<CombineInstance> sideCombines = new List<CombineInstance>();
             float sideWallDepth = rearZ - frontCornerZ;
             float sideWallCenterZ = (rearZ + frontCornerZ) * 0.5f;
 
-            // West Wall
             var westCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             westCube.transform.position = new Vector3(-halfWidth + 0.25f, totalHeight * 0.5f, sideWallCenterZ);
             westCube.transform.localScale = new Vector3(0.5f, totalHeight, sideWallDepth);
@@ -136,7 +122,6 @@ namespace IUHCampus.Editor
             sideCombines.Add(ciWest);
             Object.DestroyImmediate(westCube);
 
-            // East Wall
             var eastCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             eastCube.transform.position = new Vector3(halfWidth - 0.25f, totalHeight * 0.5f, sideWallCenterZ);
             eastCube.transform.localScale = new Vector3(0.5f, totalHeight, sideWallDepth);
@@ -156,7 +141,6 @@ namespace IUHCampus.Editor
             mfSides.sharedMesh = combinedSides;
             mrSides.sharedMaterial = matFacade;
 
-            // Structural Interior Columns
             List<CombineInstance> colCombines = new List<CombineInstance>();
             float[] colX = new float[] { -10f, -5f, 0f, 5f, 10f };
             float[] colZ = new float[] { 8f, 14f };
@@ -184,20 +168,16 @@ namespace IUHCampus.Editor
             mfCols.sharedMesh = combinedCols;
             mrCols.sharedMaterial = matFacade;
 
-            // -------------------------------------------------------------
-            // 2. FACADE SOUTH CURVED (Center Atrium + Louver Wings)
-            // -------------------------------------------------------------
             GameObject goFacade = new GameObject("02_Facade_South_Curved");
             goFacade.transform.SetParent(root.transform, false);
 
             int numSegments = 14;
-            float segWidth = width / numSegments; // 2.0m
+            float segWidth = width / numSegments;
 
             List<CombineInstance> glassCombines = new List<CombineInstance>();
             List<CombineInstance> frameCombines = new List<CombineInstance>();
             List<CombineInstance> louverCombines = new List<CombineInstance>();
 
-            // Spandrel horizontal bands across the curved facade
             for (int f = 1; f < floorY.Length - 1; f++)
             {
                 float y = floorY[f];
@@ -230,7 +210,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Glass panels and vertical louvers for all floors
             for (int f = 0; f < floorY.Length - 2; f++)
             {
                 float yBot = floorY[f] + ((f == 0) ? 0f : 0.25f);
@@ -252,7 +231,6 @@ namespace IUHCampus.Editor
                     float segLen = dir.magnitude;
                     Quaternion rot = Quaternion.LookRotation(new Vector3(-dir.z, 0f, dir.x));
 
-                    // At level 0 (Ground), leave center opening at x in [-1.5, 1.5] for entrance doorway
                     bool isDoorOpening = (f == 0 && Mathf.Abs(xMid) < 1.6f);
 
                     if (!isDoorOpening)
@@ -270,7 +248,7 @@ namespace IUHCampus.Editor
                     }
                     else
                     {
-                        // Doorway frame posts
+
                         var doorFrameL = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         doorFrameL.transform.position = new Vector3(x1, panelYMid, z1);
                         doorFrameL.transform.rotation = rot;
@@ -282,7 +260,6 @@ namespace IUHCampus.Editor
                         Object.DestroyImmediate(doorFrameL);
                     }
 
-                    // Vertical Mullions
                     var mullion = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     mullion.transform.position = new Vector3(x1, panelYMid, z1);
                     mullion.transform.rotation = rot;
@@ -294,7 +271,6 @@ namespace IUHCampus.Editor
                     frameCombines.Add(ciM);
                     Object.DestroyImmediate(mullion);
 
-                    // Vertical louvers (fins) on wings (Floors 2, 3, 4, 5, outside center bay |x| > 4.5)
                     if (f >= 1 && Mathf.Abs(xMid) > 4.5f)
                     {
                         for (int k = 0; k < 2; k++)
@@ -317,7 +293,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Combine into single GameObject per category
             GameObject goGlass = new GameObject("Curved_Glass_Curtain");
             goGlass.transform.SetParent(goFacade.transform, false);
             var mfGlass = goGlass.AddComponent<MeshFilter>();
@@ -348,18 +323,15 @@ namespace IUHCampus.Editor
             mfLouvers.sharedMesh = combinedLouvers;
             mrLouvers.sharedMaterial = matLouvers;
 
-            // 4. Center Signage Panel (Dedicated IUH Wordmark panel)
-            // Exact 2:1 aspect ratio: 6.0m wide x 3.0m high, facing South (rotation = 0, 0, 0)
             GameObject goSign = GameObject.CreatePrimitive(PrimitiveType.Quad);
             goSign.name = "Signage_Panel_IUH";
             goSign.transform.SetParent(goFacade.transform, false);
             goSign.transform.position = new Vector3(0f, 10.0f, frontCenterZ - 0.12f);
-            goSign.transform.rotation = Quaternion.Euler(0f, 0f, 0f); // South-facing (normal = 0, 0, -1)
+            goSign.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             goSign.transform.localScale = new Vector3(6.0f, 3.0f, 1.0f);
             goSign.GetComponent<MeshRenderer>().sharedMaterial = matSign;
             Object.DestroyImmediate(goSign.GetComponent<Collider>());
 
-            // Slim dark frame around sign
             var signBacking = GameObject.CreatePrimitive(PrimitiveType.Cube);
             signBacking.name = "Signage_Backing_Frame";
             signBacking.transform.SetParent(goSign.transform, false);
@@ -368,7 +340,6 @@ namespace IUHCampus.Editor
             signBacking.GetComponent<MeshRenderer>().sharedMaterial = matFrame;
             Object.DestroyImmediate(signBacking.GetComponent<Collider>());
 
-            // 5. Entrance Canopy (Mái đón cong vươn ra sảnh)
             GameObject goCanopy = GameObject.CreatePrimitive(PrimitiveType.Cube);
             goCanopy.name = "Entrance_Canopy";
             goCanopy.transform.SetParent(goFacade.transform, false);
@@ -393,9 +364,6 @@ namespace IUHCampus.Editor
             postR.GetComponent<MeshRenderer>().sharedMaterial = matFrame;
             Object.DestroyImmediate(postR.GetComponent<Collider>());
 
-            // -------------------------------------------------------------
-            // 3. GROUND LOBBY SHALLOW INTERIOR
-            // -------------------------------------------------------------
             GameObject goLobby = new GameObject("03_Ground_Lobby_Shallow");
             goLobby.transform.SetParent(root.transform, false);
 
@@ -449,13 +417,9 @@ namespace IUHCampus.Editor
             stairR.GetComponent<MeshRenderer>().sharedMaterial = matFrame;
             Object.DestroyImmediate(stairR.GetComponent<Collider>());
 
-            // -------------------------------------------------------------
-            // 4. ENTRANCE PLAZA & MONUMENT ISLAND
-            // -------------------------------------------------------------
             GameObject goPlaza = new GameObject("04_Entrance_Plaza");
             goPlaza.transform.SetParent(root.transform, false);
 
-            // Granite Steps (3 steps of 0.12m rise, width 10m): Z from 1.6m to 2.8m
             for (int st = 0; st < 3; st++)
             {
                 float sy = (st + 0.5f) * 0.12f;
@@ -466,10 +430,9 @@ namespace IUHCampus.Editor
                 stepCube.transform.position = new Vector3(0f, sy, sz);
                 stepCube.transform.localScale = new Vector3(10.0f, 0.12f, 0.45f);
                 stepCube.GetComponent<MeshRenderer>().sharedMaterial = matGranite;
-                // Leave clean BoxCollider on step: 0.12m rise is well within stepOffset (0.28m)
+
             }
 
-            // Accessible Ramp on West side of steps
             var ramp = GameObject.CreatePrimitive(PrimitiveType.Cube);
             ramp.name = "Entrance_Ramp_West";
             ramp.transform.SetParent(goPlaza.transform, false);
@@ -478,7 +441,6 @@ namespace IUHCampus.Editor
             ramp.transform.localScale = new Vector3(2.2f, 0.12f, 3.0f);
             ramp.GetComponent<MeshRenderer>().sharedMaterial = matGranite;
 
-            // Entrance Landing: Z from 2.9m to 3.8m
             var landing = GameObject.CreatePrimitive(PrimitiveType.Cube);
             landing.name = "Entrance_Landing";
             landing.transform.SetParent(goPlaza.transform, false);
@@ -486,13 +448,10 @@ namespace IUHCampus.Editor
             landing.transform.localScale = new Vector3(12.0f, 0.36f, 1.2f);
             landing.GetComponent<MeshRenderer>().sharedMaterial = matGranite;
 
-            // Island Monument in Courtyard (Oval grass island + white rock monument)
-            // Position: X = 0, Z = -1.2m
             GameObject goIsland = new GameObject("IUH_Monument_Island");
             goIsland.transform.SetParent(goPlaza.transform, false);
             goIsland.transform.position = new Vector3(0f, 0f, -1.2f);
 
-            // Island Curb (White beveled ring, low 0.10m curb so player can step or walk around)
             var curb = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             curb.name = "Island_Curb";
             curb.transform.SetParent(goIsland.transform, false);
@@ -501,7 +460,6 @@ namespace IUHCampus.Editor
             curb.GetComponent<MeshRenderer>().sharedMaterial = matFacade;
             Object.DestroyImmediate(curb.GetComponent<Collider>());
 
-            // Island Lawn (Green grass surface)
             var lawn = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             lawn.name = "Island_Lawn";
             lawn.transform.SetParent(goIsland.transform, false);
@@ -510,17 +468,13 @@ namespace IUHCampus.Editor
             lawn.GetComponent<MeshRenderer>().sharedMaterial = matLawn;
             Object.DestroyImmediate(lawn.GetComponent<Collider>());
 
-            // Sculpted Stone Pedestal for "IUH"
             var stoneBase = GameObject.CreatePrimitive(PrimitiveType.Cube);
             stoneBase.name = "Monument_WhiteStone";
             stoneBase.transform.SetParent(goIsland.transform, false);
             stoneBase.transform.localPosition = new Vector3(0f, 0.55f, 0f);
             stoneBase.transform.localScale = new Vector3(3.6f, 0.8f, 1.2f);
             stoneBase.GetComponent<MeshRenderer>().sharedMaterial = matMonument;
-            // Stone has BoxCollider so player doesn't walk through the rock
 
-            // 3D "IUH" letters on stone
-            // Letter 'I'
             var letI = GameObject.CreatePrimitive(PrimitiveType.Cube);
             letI.name = "Letter_I";
             letI.transform.SetParent(stoneBase.transform, false);
@@ -529,7 +483,6 @@ namespace IUHCampus.Editor
             letI.GetComponent<MeshRenderer>().sharedMaterial = matLouvers;
             Object.DestroyImmediate(letI.GetComponent<Collider>());
 
-            // Letter 'U'
             var letUL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             letUL.name = "Letter_U_Left";
             letUL.transform.SetParent(stoneBase.transform, false);
@@ -554,7 +507,6 @@ namespace IUHCampus.Editor
             letUB.GetComponent<MeshRenderer>().sharedMaterial = matLouvers;
             Object.DestroyImmediate(letUB.GetComponent<Collider>());
 
-            // Letter 'H'
             var letHL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             letHL.name = "Letter_H_Left";
             letHL.transform.SetParent(stoneBase.transform, false);
@@ -579,13 +531,9 @@ namespace IUHCampus.Editor
             letHM.GetComponent<MeshRenderer>().sharedMaterial = matLouvers;
             Object.DestroyImmediate(letHM.GetComponent<Collider>());
 
-            // -------------------------------------------------------------
-            // 5. ROOF & MECHANICAL
-            // -------------------------------------------------------------
             GameObject goRoof = new GameObject("05_Roof_Mechanical");
             goRoof.transform.SetParent(root.transform, false);
 
-            // Roof Parapet Cornice (Curved top cap)
             List<CombineInstance> parapetCombines = new List<CombineInstance>();
             for (int s = 0; s < numSegments; s++)
             {
@@ -621,7 +569,6 @@ namespace IUHCampus.Editor
             mfPar.sharedMesh = combinedPar;
             mrPar.sharedMaterial = matFrame;
 
-            // Stair/Elevator Headhouse
             var headhouse = GameObject.CreatePrimitive(PrimitiveType.Cube);
             headhouse.name = "Elevator_Headhouse";
             headhouse.transform.SetParent(goRoof.transform, false);
@@ -630,7 +577,6 @@ namespace IUHCampus.Editor
             headhouse.GetComponent<MeshRenderer>().sharedMaterial = matFacade;
             Object.DestroyImmediate(headhouse.GetComponent<Collider>());
 
-            // 3 Industrial HVAC Chillers
             for (int h = 0; h < 3; h++)
             {
                 float hx = -6f + h * 6f;
@@ -643,9 +589,6 @@ namespace IUHCampus.Editor
                 Object.DestroyImmediate(chiller.GetComponent<Collider>());
             }
 
-            // -------------------------------------------------------------
-            // 6. COLLIDERS (Clean Compound BoxColliders)
-            // -------------------------------------------------------------
             GameObject goColl = new GameObject("06_Colliders");
             goColl.transform.SetParent(root.transform, false);
 
@@ -665,9 +608,6 @@ namespace IUHCampus.Editor
             colFloor.center = new Vector3(0f, 0.225f, 6.0f);
             colFloor.size = new Vector3(width, 0.45f, 8.0f);
 
-            // -------------------------------------------------------------
-            // 7. DISABLE OLD BLOCKOUT (BLK_E_Admin) to prevent Z-Fighting
-            // -------------------------------------------------------------
             var blkE = GameObject.Find("BLK_E_Admin");
             if (blkE != null)
             {

@@ -11,7 +11,7 @@ namespace IUHCampus.Player
         [Header("Detection Settings")]
         public float interactionDistance = 2.8f;
         public float sphereRadius = 0.25f;
-        public LayerMask interactableLayer = ~0; // Will be set to LayerMask.GetMask("Interactable") if available
+        public LayerMask interactableLayer = ~0;
 
         [Header("References")]
         public Transform raycastOrigin;
@@ -53,7 +53,7 @@ namespace IUHCampus.Player
                 if (m_CurrentTarget.CanInteract())
                 {
                     m_CurrentTarget.Interact(gameObject);
-                    // Refresh prompt
+
                     if (m_CurrentTarget != null && m_CurrentTarget.CanInteract())
                     {
                         InteractionUI.SetPrompt(m_CurrentTarget.GetInteractionText(), true);

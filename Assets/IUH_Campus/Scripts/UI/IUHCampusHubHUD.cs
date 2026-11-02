@@ -5,16 +5,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// Master Shared Campus Hub HUD (Mirrors the target design specification).
-    /// Features:
-    /// - Top-Left: "Campus Adventure — Khuôn viên chung" title & student description badge.
-    /// - Top-Right: Profile card (Avatar, Lv.3, EXP bar, 5,620 Gold, 120 Gems).
-    /// - Right Sidebar: "6 Mini-game" quick cards (Grab, KTX Ghost, AI Object, Photo, Green, Festival).
-    /// - Bottom-Left: Minimap radar & "Nhiệm vụ hiện tại" objective card.
-    /// - Bottom-Right: 3 Quick Action buttons: Túi đồ [U], Bản đồ [M], Cài đặt.
-    /// - Center-Bottom: Floating interaction prompt [E].
-    /// </summary>
+
     public class IUHCampusHubHUD : MonoBehaviour
     {
         public static IUHCampusHubHUD Instance { get; private set; }
@@ -108,7 +99,7 @@ namespace IUHCampus.UI
 
         private void WireButtons()
         {
-            // Inventory / Wardrobe
+
             if (m_BtnInventory != null)
             {
                 m_BtnInventory.onClick.RemoveAllListeners();
@@ -118,7 +109,6 @@ namespace IUHCampus.UI
                 });
             }
 
-            // Map / Portal Menu
             if (m_BtnMap != null)
             {
                 m_BtnMap.onClick.RemoveAllListeners();
@@ -128,7 +118,6 @@ namespace IUHCampus.UI
                 });
             }
 
-            // Settings
             if (m_BtnSettings != null)
             {
                 m_BtnSettings.onClick.RemoveAllListeners();
@@ -142,7 +131,6 @@ namespace IUHCampus.UI
                 });
             }
 
-            // 6 Mini-Game Sidebar Buttons
             if (m_SidebarGameButtons != null)
             {
                 for (int i = 0; i < m_SidebarGameButtons.Length; i++)
@@ -175,7 +163,6 @@ namespace IUHCampus.UI
                 return;
             }
 
-            // 1. Root Container
             var rootGO = new GameObject("CampusHubHUD");
             rootGO.transform.SetParent(canvas.transform, false);
             var rRect = rootGO.AddComponent<RectTransform>();
@@ -185,22 +172,16 @@ namespace IUHCampus.UI
             rRect.offsetMax = Vector2.zero;
             m_HubHudRoot = rootGO;
 
-            // 2. Top-Left Title Card
             BuildTopLeftBanner(rootGO.transform);
 
-            // 3. Top-Right Profile Widget
             BuildTopRightProfile(rootGO.transform);
 
-            // 4. Right Sidebar: 6 Mini-games
             BuildSidebar6MiniGames(rootGO.transform);
 
-            // 5. Bottom-Left Active Objective
             BuildBottomLeftObjective(rootGO.transform);
 
-            // 6. Bottom-Right 3 Quick Action Buttons
             BuildBottomRightActionButtons(rootGO.transform);
 
-            // 7. Center-Bottom Interaction Prompt
             BuildInteractionPrompt(rootGO.transform);
 
             AutoWireComponents();
@@ -229,7 +210,6 @@ namespace IUHCampus.UI
             vlg.childControlWidth = true;
             vlg.childControlHeight = false;
 
-            // Title
             var titleGO = new GameObject("TxtTitle");
             titleGO.transform.SetParent(bannerGO.transform, false);
             m_TxtCampusTitle = titleGO.AddComponent<Text>();
@@ -239,7 +219,6 @@ namespace IUHCampus.UI
             m_TxtCampusTitle.color = Color.white;
             titleGO.AddComponent<LayoutElement>().preferredHeight = 44f;
 
-            // Description
             var descGO = new GameObject("TxtDesc");
             descGO.transform.SetParent(bannerGO.transform, false);
             m_TxtCampusDesc = descGO.AddComponent<Text>();
@@ -276,7 +255,6 @@ namespace IUHCampus.UI
             hlg.childControlWidth = false;
             hlg.childControlHeight = true;
 
-            // Avatar circle
             var avGO = new GameObject("Avatar");
             avGO.transform.SetParent(profGO.transform, false);
             var avImg = avGO.AddComponent<Image>();
@@ -296,7 +274,6 @@ namespace IUHCampus.UI
             avt.fontSize = 24;
             avt.alignment = TextAnchor.MiddleCenter;
 
-            // Level & EXP Column
             var lvlCol = new GameObject("LevelCol");
             lvlCol.transform.SetParent(profGO.transform, false);
             var lcLe = lvlCol.AddComponent<LayoutElement>();
@@ -316,7 +293,6 @@ namespace IUHCampus.UI
             m_TxtPlayerLevel.color = new Color(0.4f, 0.95f, 1.0f);
             lvlTxtGO.AddComponent<LayoutElement>().preferredHeight = 18f;
 
-            // Slider EXP
             var sldGO = new GameObject("ExpBar");
             sldGO.transform.SetParent(lvlCol.transform, false);
             m_SliderExp = sldGO.AddComponent<Slider>();
@@ -338,7 +314,6 @@ namespace IUHCampus.UI
             fImg.color = new Color(0.0f, 0.85f, 0.45f);
             m_SliderExp.fillRect = fRect;
 
-            // Currency Box (Gold & Gems)
             var curBox = new GameObject("CurrencyBox");
             curBox.transform.SetParent(profGO.transform, false);
             var cbLe = curBox.AddComponent<LayoutElement>();
@@ -348,7 +323,6 @@ namespace IUHCampus.UI
             cbH.childControlWidth = true;
             cbH.childControlHeight = true;
 
-            // Gold
             var gGO = new GameObject("Gold");
             gGO.transform.SetParent(curBox.transform, false);
             m_TxtGold = gGO.AddComponent<Text>();
@@ -359,7 +333,6 @@ namespace IUHCampus.UI
             m_TxtGold.alignment = TextAnchor.MiddleCenter;
             m_TxtGold.color = new Color(1.0f, 0.85f, 0.2f);
 
-            // Gems
             var gemGO = new GameObject("Gems");
             gemGO.transform.SetParent(curBox.transform, false);
             m_TxtGems = gemGO.AddComponent<Text>();
@@ -396,7 +369,6 @@ namespace IUHCampus.UI
             vlg.childControlWidth = true;
             vlg.childControlHeight = false;
 
-            // Sidebar Header
             var hdrGO = new GameObject("TxtHeader");
             hdrGO.transform.SetParent(sideGO.transform, false);
             var hTxt = hdrGO.AddComponent<Text>();
@@ -420,12 +392,12 @@ namespace IUHCampus.UI
 
             string[] icons = new string[] { "🛵", "👻", "🔍", "📸", "🌱", "🎪" };
             Color[] colors = new Color[] {
-                new Color(0.0f, 0.65f, 0.95f),   // Blue
-                new Color(0.65f, 0.35f, 0.95f),  // Purple
-                new Color(0.95f, 0.65f, 0.10f),  // Orange
-                new Color(0.10f, 0.85f, 0.95f),  // Cyan
-                new Color(0.15f, 0.80f, 0.40f),  // Green
-                new Color(0.95f, 0.30f, 0.65f)   // Pink
+                new Color(0.0f, 0.65f, 0.95f),
+                new Color(0.65f, 0.35f, 0.95f),
+                new Color(0.95f, 0.65f, 0.10f),
+                new Color(0.10f, 0.85f, 0.95f),
+                new Color(0.15f, 0.80f, 0.40f),
+                new Color(0.95f, 0.30f, 0.65f)
             };
 
             for (int i = 0; i < 6; i++)
@@ -446,7 +418,6 @@ namespace IUHCampus.UI
                 h.childControlWidth = false;
                 h.childControlHeight = true;
 
-                // Emoji Icon Box
                 var iconBox = new GameObject("Icon");
                 iconBox.transform.SetParent(btnGO.transform, false);
                 var ibLe = iconBox.AddComponent<LayoutElement>();
@@ -457,7 +428,6 @@ namespace IUHCampus.UI
                 ibTxt.fontSize = 20;
                 ibTxt.alignment = TextAnchor.MiddleCenter;
 
-                // Title Label
                 var lblBox = new GameObject("Label");
                 lblBox.transform.SetParent(btnGO.transform, false);
                 var lbLe = lblBox.AddComponent<LayoutElement>();
@@ -537,13 +507,10 @@ namespace IUHCampus.UI
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
 
-            // 1. Túi đồ (Inventory)
             m_BtnInventory = CreateRoundActionBtn(rowGO.transform, "BtnInventory", "🎒\nTúi đồ", new Color(0.15f, 0.55f, 0.90f));
 
-            // 2. Bản đồ (Map)
             m_BtnMap = CreateRoundActionBtn(rowGO.transform, "BtnMap", "🗺️\nBản đồ", new Color(0.0f, 0.72f, 0.40f));
 
-            // 3. Cài đặt (Settings)
             m_BtnSettings = CreateRoundActionBtn(rowGO.transform, "BtnSettings", "⚙️\nCài đặt", new Color(0.35f, 0.40f, 0.50f));
         }
 
@@ -614,7 +581,7 @@ namespace IUHCampus.UI
 
         private void Update()
         {
-            // Toggle sidebar or quick HUD elements if in free roam
+
             if (IUHGameFlowManager.Instance != null && IUHGameFlowManager.Instance.CurrentState == IUHGameFlowManager.FlowState.Playing)
             {
                 if (m_HubHudRoot != null && !m_HubHudRoot.activeSelf)
@@ -626,7 +593,7 @@ namespace IUHCampus.UI
             {
                 if (m_HubHudRoot != null && m_HubHudRoot.activeSelf)
                 {
-                    // Hide hub hud when modal menus or result dialogs are up
+
                     m_HubHudRoot.SetActive(false);
                 }
             }

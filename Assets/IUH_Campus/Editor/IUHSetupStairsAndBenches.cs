@@ -34,16 +34,14 @@ namespace IUHCampus.Editor
                 "trashbin", "sign", "bike", "motorbike", "motorcycle", "planter", "treegrate", "hedge"
             };
 
-            // 1. Process all objects in campus_P0_progress
             foreach (Transform t in campus.transform)
             {
                 string name = t.name;
                 string lower = name.ToLower();
 
-                // Benches
                 if (lower.StartsWith("bench_") || lower.StartsWith("stonebench_"))
                 {
-                    // Ensure MeshCollider
+
                     if (t.GetComponent<Collider>() == null)
                     {
                         var mf = t.GetComponent<MeshFilter>();
@@ -55,7 +53,6 @@ namespace IUHCampus.Editor
                         }
                     }
 
-                    // Attach IUHBenchSeat only to actual seats, not legs or backs
                     if (lower.Contains("seat") || (lower.StartsWith("bench_") && !lower.Contains("leg") && !lower.Contains("back")))
                     {
                         if (t.GetComponent<IUHBenchSeat>() == null)
@@ -67,17 +64,16 @@ namespace IUHCampus.Editor
                     }
                     else
                     {
-                        // Clean up inadvertent bench seats from non-seat parts
+
                         var oldSeat = t.GetComponent<IUHBenchSeat>();
                         if (oldSeat != null) Object.DestroyImmediate(oldSeat);
                     }
                     continue;
                 }
 
-                // Stairs
                 if (lower.Contains("stair"))
                 {
-                    // If it is an individual step, we will handle it with smooth ramps in SetupOutdoorStairs
+
                     if (lower.Contains("step")) continue;
 
                     if (t.GetComponent<Collider>() == null)
@@ -93,7 +89,6 @@ namespace IUHCampus.Editor
                     continue;
                 }
 
-                // Architectural elements (floors, walkways, walls, etc.)
                 bool isArch = false;
                 foreach (var k in archKeywords)
                 {
@@ -119,7 +114,6 @@ namespace IUHCampus.Editor
                     continue;
                 }
 
-                // Obstacles
                 bool isObstacle = false;
                 foreach (var k in obstacleKeywords)
                 {
@@ -145,27 +139,23 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Clean up any rogue colliders on root campus container
             foreach (var c in campus.GetComponents<Collider>())
             {
                 Object.DestroyImmediate(c);
             }
 
-            // 2. Setup Outdoor Metal Stairs (Block F & Block D) with Smooth Walkable Ramps
             int rampsCreated = SetupOutdoorStairs(campus);
 
-            // 3. Clear Entrance Obstacles at Block F Stair
             ClearStairEntrances();
 
-            // 4. Setup PlayerArmature
             var player = GameObject.Find("PlayerArmature");
             if (player != null)
             {
                 var cc = player.GetComponent<CharacterController>();
                 if (cc != null)
                 {
-                    cc.stepOffset = 0.50f; // Allows smooth step climbing over any curb/step
-                    cc.slopeLimit = 60.0f; // Allows comfortable stair incline climbing
+                    cc.stepOffset = 0.50f;
+                    cc.slopeLimit = 60.0f;
                     cc.skinWidth = 0.02f;
                     cc.detectCollisions = true;
                     cc.enableOverlapRecovery = true;
@@ -175,7 +165,7 @@ namespace IUHCampus.Editor
                 var tpc = player.GetComponent<StarterAssets.ThirdPersonController>();
                 if (tpc != null)
                 {
-                    // Ensure GroundLayers includes Default layer (Layer 0)
+
                     tpc.GroundLayers = tpc.GroundLayers | (1 << 0);
                     EditorUtility.SetDirty(tpc);
                 }
@@ -189,7 +179,6 @@ namespace IUHCampus.Editor
                 EditorUtility.SetDirty(player);
             }
 
-            // 5. Mark Scene Dirty and Save
             var activeScene = EditorSceneManager.GetActiveScene();
             EditorSceneManager.MarkSceneDirty(activeScene);
             EditorSceneManager.SaveScene(activeScene);
@@ -222,7 +211,6 @@ namespace IUHCampus.Editor
                 float mX = midCenterX[p];
                 float zOff = zOffsets[p];
 
-                // Setup Ground Floor Landing Box (Fl1)
                 string gBoxName = $"{prefix}_FloorBox_Fl1";
                 var gBox = GameObject.Find(gBoxName);
                 if (gBox == null)
@@ -251,13 +239,12 @@ namespace IUHCampus.Editor
                     float nextFloorY = 4.94f + (fl - 1) * 4.40f;
                     float railY = 3.38f + (fl - 1) * 4.40f;
 
-                    // 1. Widen visual steps & remove jagged colliders on Flight 1 & Flight 2
                     for (int s = 1; s <= 9; s++)
                     {
                         var s1 = GameObject.Find($"{prefix}_F1_Fl{fl}_S{s}");
                         if (s1 != null)
                         {
-                            s1.transform.localScale = new Vector3(140f, 100f, 100f); // +40% wider
+                            s1.transform.localScale = new Vector3(140f, 100f, 100f);
                             var c = s1.GetComponent<Collider>();
                             if (c != null)
                             {
@@ -270,7 +257,7 @@ namespace IUHCampus.Editor
                         var s2 = GameObject.Find($"{prefix}_F2_Fl{fl}_S{s}");
                         if (s2 != null)
                         {
-                            s2.transform.localScale = new Vector3(140f, 100f, 100f); // +40% wider
+                            s2.transform.localScale = new Vector3(140f, 100f, 100f);
                             var c = s2.GetComponent<Collider>();
                             if (c != null)
                             {
@@ -281,14 +268,13 @@ namespace IUHCampus.Editor
                         }
                     }
 
-                    // 2. Visual MidLanding & Railings (Aligned strictly to OUTER EDGES)
                     var midLanding = GameObject.Find($"{prefix}MidLanding_Fl{fl}");
                     if (midLanding != null)
                     {
                         midLanding.transform.position = new Vector3(mX, midY, -55.80f + zOff);
                         midLanding.transform.localScale = new Vector3(140f, 150f, 100f);
                         var mc = midLanding.GetComponent<Collider>();
-                        if (mc != null) mc.enabled = false; // Disabled to eliminate jagged lip overhang
+                        if (mc != null) mc.enabled = false;
                         EditorUtility.SetDirty(midLanding);
                     }
 
@@ -314,7 +300,6 @@ namespace IUHCampus.Editor
                         EditorUtility.SetDirty(leftRail);
                     }
 
-                    // Align Flight 1 outer railing to true outer right edge (f1X + 0.94f)
                     var f1Rail = GameObject.Find($"{prefix}_F1_Rail_Fl{fl}");
                     if (f1Rail != null)
                     {
@@ -327,7 +312,6 @@ namespace IUHCampus.Editor
                         EditorUtility.SetDirty(f1Rail);
                     }
 
-                    // Align Flight 2 outer railing to true outer left edge (f2X - 0.94f)
                     var f2Rail = GameObject.Find($"{prefix}_F2_Rail_Fl{fl}");
                     if (f2Rail != null)
                     {
@@ -340,7 +324,6 @@ namespace IUHCampus.Editor
                         EditorUtility.SetDirty(f2Rail);
                     }
 
-                    // Visual floor landing & bridge (disabled collider to eliminate lip snags)
                     var floorLand = GameObject.Find($"{prefix}Landing_Fl{fl + 1}");
                     if (floorLand != null)
                     {
@@ -357,7 +340,6 @@ namespace IUHCampus.Editor
                         EditorUtility.SetDirty(bridge);
                     }
 
-                    // 3. Flight 1 Smooth Wide Ramp (Climbs South, +X rot)
                     string ramp1Name = $"{prefix}_Ramp_Fl{fl}_F1";
                     GameObject ramp1 = GameObject.Find(ramp1Name);
                     if (ramp1 == null)
@@ -383,7 +365,6 @@ namespace IUHCampus.Editor
                     EditorUtility.SetDirty(ramp1);
                     ramps++;
 
-                    // 4. Dedicated MidLanding Walkable Platform Box
                     string midBoxName = $"{prefix}_MidBox_Fl{fl}";
                     GameObject midBox = GameObject.Find(midBoxName);
                     if (midBox == null)
@@ -398,7 +379,6 @@ namespace IUHCampus.Editor
                     bmb.size = new Vector3(4.00f, 0.10f, 2.00f);
                     EditorUtility.SetDirty(midBox);
 
-                    // 5. Flight 2 Smooth Wide Ramp (Climbs North, -X rot, exact 45 deg incline)
                     string ramp2Name = $"{prefix}_Ramp_Fl{fl}_F2";
                     GameObject ramp2 = GameObject.Find(ramp2Name);
                     if (ramp2 == null)
@@ -415,7 +395,6 @@ namespace IUHCampus.Editor
                     EditorUtility.SetDirty(ramp2);
                     ramps++;
 
-                    // 6. Dedicated Floor Landing Walkable Platform Box
                     string floorBoxName = $"{prefix}_FloorBox_Fl{fl + 1}";
                     GameObject floorBox = GameObject.Find(floorBoxName);
                     if (floorBox == null)
@@ -430,7 +409,6 @@ namespace IUHCampus.Editor
                     bfb.size = new Vector3(4.00f, 0.10f, 1.80f);
                     EditorUtility.SetDirty(floorBox);
 
-                    // 7. Completely remove rogue Bridge_RailL that blocks the walkway
                     var railL = GameObject.Find($"{prefix}Bridge_RailL_Fl{fl}");
                     if (railL != null)
                     {
@@ -438,7 +416,6 @@ namespace IUHCampus.Editor
                     }
                 }
 
-                // 8. Build Rooftop Access Scaffold & Bridge onto Building Roof
                 BuildRoofAccess(campus, prefix, mX, zOff, (p == 0 ? 358.84f : 360.84f));
             }
 
@@ -462,7 +439,6 @@ namespace IUHCampus.Editor
             float roofY = 22.50f;
             float zCenter = -51.70f + zOff;
 
-            // 1. Up Ramp from stair landing (X=mX) to parapet top (X=parapetX)
             float dx1 = mX - parapetX;
             float dy1 = parapetTopY - landY;
             float ang1 = Mathf.Atan2(dy1, dx1) * Mathf.Rad2Deg;
@@ -476,7 +452,6 @@ namespace IUHCampus.Editor
             upRamp.transform.localScale = new Vector3(len1 + 0.1f, 0.12f, 1.80f);
             if (matSteel != null) upRamp.GetComponent<Renderer>().sharedMaterial = matSteel;
 
-            // 2. Parapet Overpass Bridge
             var bridge = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bridge.name = $"{prefix}_RoofAccess_Overpass";
             bridge.transform.SetParent(root.transform, false);
@@ -484,7 +459,6 @@ namespace IUHCampus.Editor
             bridge.transform.localScale = new Vector3(1.3f, 0.12f, 1.80f);
             if (matConc != null) bridge.GetComponent<Renderer>().sharedMaterial = matConc;
 
-            // 3. Down Ramp from parapet to roof deck
             float roofX = parapetX - 3.2f;
             float dx2 = 2.0f;
             float dy2 = parapetTopY - roofY;
@@ -499,7 +473,6 @@ namespace IUHCampus.Editor
             downRamp.transform.localScale = new Vector3(len2 + 0.1f, 0.12f, 1.80f);
             if (matSteel != null) downRamp.GetComponent<Renderer>().sharedMaterial = matSteel;
 
-            // 4. Roof Landing Deck
             var pad = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pad.name = $"{prefix}_RoofAccess_Deck";
             pad.transform.SetParent(root.transform, false);
@@ -507,7 +480,6 @@ namespace IUHCampus.Editor
             pad.transform.localScale = new Vector3(1.8f, 0.10f, 2.20f);
             if (matConc != null) pad.GetComponent<Renderer>().sharedMaterial = matConc;
 
-            // 5. Giá đỡ (Support Columns & Trusses)
             float[] colXs = new float[] { parapetX + 0.3f, parapetX - 0.6f };
             for (int i = 0; i < colXs.Length; i++)
             {
@@ -542,7 +514,6 @@ namespace IUHCampus.Editor
                 if (matSteel != null) diag.GetComponent<Renderer>().sharedMaterial = matSteel;
             }
 
-            // 6. Protective Blue Edge Railings with Solid Colliders
             for (int side = 0; side < 2; side++)
             {
                 float sZ = (side == 0) ? (zCenter - 0.95f) : (zCenter + 0.95f);
@@ -562,8 +533,7 @@ namespace IUHCampus.Editor
 
         private static void ClearStairEntrances()
         {
-            // Clear the entrance to Block_F_Stair by repositioning Courtyard R planter & hedge
-            // from X=361.84 (which blocked the stair landing X=359..362) to X=365.0 (nestled with trees/benches)
+
             string[] entranceObstacles = new string[] {
                 "ShrubBed_Courtyard_R_Wall",
                 "ShrubBed_Courtyard_R_Soil",

@@ -14,7 +14,6 @@ namespace IUHCampus.Editor
         private const string PrefabEnvPath = "Assets/IUH_Campus/Prefabs/Environment/";
         private const string MatPath = "Assets/IUH_Campus/Materials/";
 
-        // Building G Materials
         private static Material m_G_Wall;
         private static Material m_G_WindowGlass;
         private static Material m_G_Railings;
@@ -22,24 +21,20 @@ namespace IUHCampus.Editor
         private static Material m_G_RoofEdge;
         private static Material m_G_Sign;
 
-        // Building I Materials
         private static Material m_I_Wall;
         private static Material m_I_Roof;
         private static Material m_I_Glass;
         private static Material m_I_Railings;
 
-        // Building C Materials
         private static Material m_C_Wall;
         private static Material m_C_AccentMint;
         private static Material m_C_GreenGlass;
         private static Material m_C_Roof;
 
-        // Low Podium Materials
         private static Material m_Podium_Roof;
         private static Material m_Podium_Glazing;
         private static Material m_Podium_Turquoise;
 
-        // Common & Ground Surfaces
         private static Material m_ConcreteGround;
         private static Material m_ConcreteCurb;
         private static Material m_AsphaltRoad;
@@ -50,35 +45,28 @@ namespace IUHCampus.Editor
         private static Material m_DarkMetal;
         private static Material m_LightMetal;
 
-        // Drainage & Utility
         private static Material m_DrainGrate;
         private static Material m_ManholeCover;
         private static Material m_PVCPipe;
         private static Material m_FireCabinet;
 
-        // Facade Variation & MEP
         private static Material m_ACLouvers;
         private static Material m_ACUnit;
         private static Material m_WindowBlinds;
         private static Material m_WindowDark;
 
-        // Signs & Boards
         private static Material m_SignDirectional;
         private static Material m_SignNoticeBoard;
 
-        // Vegetation & Soil
         private static Material m_TreeBark;
         private static Material m_PlanterSoil;
 
-        // Campus Props
         private static Material m_BenchGranite;
         private static Material m_BenchWood;
 
-        // Motorbike & Helmets
         private static Material[] m_MotorbikeMats;
         private static Material[] m_HelmetMats;
 
-        // Student NPCs
         private static Material m_StudentWhiteShirt;
         private static Material m_StudentBluePolo;
         private static Material m_StudentJeans;
@@ -86,7 +74,6 @@ namespace IUHCampus.Editor
         private static Material m_StudentSkin;
         private static Material m_StudentHair;
 
-        // Rooftop & Laundry
         private static Material m_WaterTankBlack;
         private static Material m_WaterTankStainless;
         private static Material[] m_LaundryMats;
@@ -99,20 +86,15 @@ namespace IUHCampus.Editor
             LoadMaterials();
             EnsureDirectories();
 
-            // 1. Create or open dedicated Scene
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
-            // 2. Build the Complete Right Cluster Hierarchy
             GameObject clusterGO = CreateRightClusterHierarchy();
 
-            // 3. Setup Cameras & Lighting
             SetupLightingAndCameras(clusterGO);
 
-            // 4. Save Prefab
             string prefabPath = PrefabArchPath + "IUH_RightCluster.prefab";
             PrefabUtility.SaveAsPrefabAssetAndConnect(clusterGO, prefabPath, InteractionMode.AutomatedAction);
 
-            // 5. Save Scene
             EditorSceneManager.SaveScene(scene, ScenePath);
             Debug.Log("[IUH] Successfully built IUH Right Buildings Cluster Scene and Prefab: " + ScenePath);
         }
@@ -225,51 +207,39 @@ namespace IUHCampus.Editor
             };
         }
 
-        // ================= ROOT HIERARCHY BUILDER =================
         public static GameObject CreateRightClusterHierarchy()
         {
             GameObject root = new GameObject("IUH_RightCluster");
 
-            // 1. Environment (Ground, Roads, Curbs, Drainage, Background)
             GameObject goEnv = new GameObject("Environment");
             goEnv.transform.SetParent(root.transform);
             BuildEnvironment(goEnv);
 
-            // 2. Buildings (G, I, C, Podium, Connections, Footings, Facades, MEP)
             GameObject goBuildings = new GameObject("Buildings");
             goBuildings.transform.SetParent(root.transform);
 
-            // BLDG_G: Hero Building (Nha G - KTX Nu, 9 floors)
             BuildBuildingG(goBuildings);
 
-            // BLDG_I: Major Background Building (Nha I - KTX Nam, 13 floors)
             BuildBuildingI(goBuildings);
 
-            // BLDG_C: Secondary Mid-Rise (Nha C, 5 floors)
             BuildBuildingC(goBuildings);
 
-            // LOW_PODIUM_FRONT_G: Podium/Auxiliary in front of G
             BuildLowPodium(goBuildings);
 
-            // Covered Walkways / Connections
             BuildCoveredConnections(goBuildings);
 
-            // 3. Vegetation (Tropical Trees, Palms, Shrubs, Tree Pits)
             GameObject goVeg = new GameObject("Vegetation");
             goVeg.transform.SetParent(root.transform);
             BuildVegetation(goVeg);
 
-            // 4. Props (Motorbikes, Canopies, Signs, Benches, Bins, Lighting)
             GameObject goProps = new GameObject("Props");
             goProps.transform.SetParent(root.transform);
             BuildProps(goProps);
 
-            // 5. Campus Life / Student NPCs
             GameObject goLife = new GameObject("CampusLife");
             goLife.transform.SetParent(root.transform);
             BuildCampusLife(goLife);
 
-            // 6. Lighting
             GameObject goLight = new GameObject("Lighting");
             goLight.transform.SetParent(root.transform);
             BuildLighting(goLight);
@@ -277,10 +247,9 @@ namespace IUHCampus.Editor
             return root;
         }
 
-        // ================= 1. ENVIRONMENT (GROUND, ROADS, CURBS, DRAINAGE) =================
         private static void BuildEnvironment(GameObject parent)
         {
-            // Base Substrate Concrete Ground (Sân khuôn viên tổng thể)
+
             GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
             ground.name = "Ground_ConcretePlaza";
             ground.transform.SetParent(parent.transform);
@@ -288,11 +257,9 @@ namespace IUHCampus.Editor
             ground.transform.localScale = new Vector3(72.0f, 0.2f, 82.0f);
             ground.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
 
-            // InternalRoads (Đường nội bộ & Lòng sân trong chữ U)
             GameObject roads = new GameObject("InternalRoads");
             roads.transform.SetParent(parent.transform);
 
-            // Đường trước mặt cụm chữ U (Front Lane)
             GameObject roadFront = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roadFront.name = "Road_FrontLane";
             roadFront.transform.SetParent(roads.transform);
@@ -300,7 +267,6 @@ namespace IUHCampus.Editor
             roadFront.transform.localScale = new Vector3(66.0f, 0.04f, 6.5f);
             roadFront.GetComponent<MeshRenderer>().sharedMaterial = m_AsphaltRoad;
 
-            // Vạch qua đường cho người đi bộ (Pedestrian Zebra Crossing)
             GameObject zebra = new GameObject("PedestrianZebraCrossing");
             zebra.transform.SetParent(roads.transform);
             for (int zc = 0; zc < 6; zc++)
@@ -313,7 +279,6 @@ namespace IUHCampus.Editor
                 bar.GetComponent<MeshRenderer>().sharedMaterial = m_ParkingLine;
             }
 
-            // Lòng sân trong chữ U trải nhựa asphalt cho bãi đỗ xe máy
             GameObject roadCourt = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roadCourt.name = "Road_CourtyardAsphalt";
             roadCourt.transform.SetParent(roads.transform);
@@ -321,11 +286,9 @@ namespace IUHCampus.Editor
             roadCourt.transform.localScale = new Vector3(18.0f, 0.04f, 32.0f);
             roadCourt.GetComponent<MeshRenderer>().sharedMaterial = m_AsphaltRoad;
 
-            // Concrete Sidewalks & Curbs (Bó vỉa bê tông phân cách giao thông)
             GameObject curbs = new GameObject("CurbsAndSidewalks");
             curbs.transform.SetParent(parent.transform);
 
-            // Bó vỉa mép bắc đường mặt tiền (Z = -10.75m)
             GameObject curbFrontNorth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             curbFrontNorth.name = "Curb_Front_North";
             curbFrontNorth.transform.SetParent(curbs.transform);
@@ -333,7 +296,6 @@ namespace IUHCampus.Editor
             curbFrontNorth.transform.localScale = new Vector3(66.0f, 0.16f, 0.22f);
             curbFrontNorth.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // Bó vỉa mép nam đường mặt tiền (Z = -17.25m)
             GameObject curbFrontSouth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             curbFrontSouth.name = "Curb_Front_South";
             curbFrontSouth.transform.SetParent(curbs.transform);
@@ -341,7 +303,6 @@ namespace IUHCampus.Editor
             curbFrontSouth.transform.localScale = new Vector3(66.0f, 0.16f, 0.22f);
             curbFrontSouth.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // Bó vỉa bo viền khu sân trong chữ U
             GameObject curbCourtW = GameObject.CreatePrimitive(PrimitiveType.Cube);
             curbCourtW.name = "Curb_Courtyard_West";
             curbCourtW.transform.SetParent(curbs.transform);
@@ -356,11 +317,9 @@ namespace IUHCampus.Editor
             curbCourtE.transform.localScale = new Vector3(0.22f, 0.16f, 32.0f);
             curbCourtE.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // Drainage System (Hệ thống rãnh thoát nước có nắp gang & hố ga)
             GameObject drainage = new GameObject("DrainageSystem");
             drainage.transform.SetParent(parent.transform);
 
-            // Rãnh thoát nước dọc bó vỉa đường mặt tiền
             for (int dg = 0; dg < 8; dg++)
             {
                 float dgX = -10.0f + dg * 7.5f;
@@ -372,7 +331,6 @@ namespace IUHCampus.Editor
                 grate.GetComponent<MeshRenderer>().sharedMaterial = m_DrainGrate;
             }
 
-            // Nắp cống tròn (Manholes)
             Vector3[] manholePos = {
                 new Vector3(3.0f, 0.045f, -14.0f),
                 new Vector3(22.0f, 0.045f, -14.0f),
@@ -390,7 +348,6 @@ namespace IUHCampus.Editor
                 manhole.GetComponent<MeshRenderer>().sharedMaterial = m_ManholeCover;
             }
 
-            // ParkingArea (Vạch sơn vàng phân ô bãi đỗ xe máy)
             GameObject parkingArea = new GameObject("ParkingArea");
             parkingArea.transform.SetParent(parent.transform);
 
@@ -405,11 +362,9 @@ namespace IUHCampus.Editor
                 pLine.GetComponent<MeshRenderer>().sharedMaterial = m_ParkingLine;
             }
 
-            // BackgroundCity (Nhà phố đô thị TP.HCM bao bọc cụm chữ U)
             GameObject bgCity = new GameObject("BackgroundCity");
             bgCity.transform.SetParent(parent.transform);
 
-            // Phố phụ cận phía Đông (ngoài cánh phải Nhà G)
             float[] cityHeights = { 9.5f, 14.5f, 8.5f, 12.0f, 16.5f, 10.5f, 13.5f };
             for (int i = 0; i < 7; i++)
             {
@@ -422,7 +377,6 @@ namespace IUHCampus.Editor
                 house.transform.localScale = new Vector3(12.0f, h, 8.5f);
                 house.GetComponent<MeshRenderer>().sharedMaterial = m_BgBuilding;
 
-                // Mái tôn & Bồn nước mái nhà dân
                 GameObject hRoof = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 hRoof.name = "Roof";
                 hRoof.transform.SetParent(house.transform);
@@ -438,7 +392,6 @@ namespace IUHCampus.Editor
                 tank.GetComponent<MeshRenderer>().sharedMaterial = m_WaterTankStainless;
             }
 
-            // Phố phụ cận phía Bắc (phía sau Nhà I)
             for (int j = 0; j < 6; j++)
             {
                 float x = -2.0f + j * 9.0f;
@@ -459,9 +412,6 @@ namespace IUHCampus.Editor
             }
         }
 
-        // ================= 2. BUILDINGS (G, I, C, PODIUM, FOOTINGS & MEP) =================
-
-        // ── BLDG_G: KTX Nữ (9 Floors, Hero Building) ──
         private static void BuildBuildingG(GameObject parent)
         {
             GameObject bldgG = new GameObject("Building_G");
@@ -473,9 +423,8 @@ namespace IUHCampus.Editor
             float depth = 16.0f;
             float wallH = 31.0f;
             int floorCount = 9;
-            float floorH = wallH / floorCount; // ~3.44m
+            float floorH = wallH / floorCount;
 
-            // 1. G_Structure: Core body
             GameObject gStruct = new GameObject("G_Structure");
             gStruct.transform.SetParent(bldgG.transform, false);
 
@@ -486,7 +435,6 @@ namespace IUHCampus.Editor
             coreBox.transform.localScale = new Vector3(width, wallH, depth);
             coreBox.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
 
-            // Solid Base Skirting / Plinth (0.4m foot trim to ground building firmly)
             GameObject baseSkirting = GameObject.CreatePrimitive(PrimitiveType.Cube);
             baseSkirting.name = "Perimeter_Base_Skirting";
             baseSkirting.transform.SetParent(gStruct.transform, false);
@@ -494,7 +442,6 @@ namespace IUHCampus.Editor
             baseSkirting.transform.localScale = new Vector3(width + 0.35f, 0.44f, depth + 0.35f);
             baseSkirting.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // Ground service base band
             GameObject basePlinth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             basePlinth.name = "Ground_Service_Band";
             basePlinth.transform.SetParent(gStruct.transform, false);
@@ -502,7 +449,6 @@ namespace IUHCampus.Editor
             basePlinth.transform.localScale = new Vector3(width + 0.2f, 3.2f, depth + 0.2f);
             basePlinth.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
 
-            // 2. G_FacadeModules & Balconies
             GameObject gFacades = new GameObject("G_FacadeModules");
             gFacades.transform.SetParent(bldgG.transform, false);
 
@@ -510,16 +456,15 @@ namespace IUHCampus.Editor
             gBalconies.transform.SetParent(bldgG.transform, false);
 
             int bayCount = 9;
-            float bayW = (width - 4.0f) / bayCount; // ~4.77m
+            float bayW = (width - 4.0f) / bayCount;
             float startX = -width * 0.5f + 2.0f + bayW * 0.5f;
             float frontZ = -depth * 0.5f;
             System.Random rnd = new System.Random(42);
 
-            for (int f = 1; f < floorCount; f++) // Floors 2 to 9
+            for (int f = 1; f < floorCount; f++)
             {
                 float floorY = f * floorH;
 
-                // Horizontal lintel slab edge between floors
                 GameObject slabEdge = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 slabEdge.name = "SlabEdge_F" + f;
                 slabEdge.transform.SetParent(gFacades.transform, false);
@@ -531,7 +476,6 @@ namespace IUHCampus.Editor
                 {
                     float bayX = startX + b * bayW;
 
-                    // Recessed Balcony Alcove Box
                     GameObject balconyAlcove = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     balconyAlcove.name = $"Balcony_F{f}_B{b}";
                     balconyAlcove.transform.SetParent(gBalconies.transform, false);
@@ -539,7 +483,6 @@ namespace IUHCampus.Editor
                     balconyAlcove.transform.localScale = new Vector3(bayW - 0.45f, floorH - 0.55f, 1.2f);
                     balconyAlcove.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
 
-                    // Window glass with controlled variation (blinds, dark interior, normal)
                     GameObject glassPane = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     glassPane.name = $"Glass_F{f}_B{b}";
                     glassPane.transform.SetParent(balconyAlcove.transform, false);
@@ -554,7 +497,6 @@ namespace IUHCampus.Editor
                     else
                         glassPane.GetComponent<MeshRenderer>().sharedMaterial = m_G_WindowGlass;
 
-                    // Balcony metal railing
                     GameObject railing = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     railing.name = $"Railing_F{f}_B{b}";
                     railing.transform.SetParent(gBalconies.transform, false);
@@ -569,7 +511,6 @@ namespace IUHCampus.Editor
                     railTop.transform.localScale = new Vector3(1.02f, 0.08f, 1.4f);
                     railTop.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-                    // Occupancy Detail: Clothes & personal laundry on ~20% of residential balconies
                     if (rnd.NextDouble() < 0.22)
                     {
                         GameObject clothes = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -583,7 +524,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Vertical Structural Columns Grid
             for (int b = 0; b <= bayCount; b++)
             {
                 float colX = -width * 0.5f + 2.0f + b * bayW - bayW * 0.5f;
@@ -598,7 +538,6 @@ namespace IUHCampus.Editor
                 col.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
             }
 
-            // MEP System: AC outdoor units on brackets + Drain lines
             GameObject gMEP = new GameObject("G_MEP_Systems");
             gMEP.transform.SetParent(bldgG.transform, false);
 
@@ -613,14 +552,12 @@ namespace IUHCampus.Editor
                     acUnit.transform.SetParent(gMEP.transform, false);
                     acUnit.transform.localPosition = new Vector3(x, y, frontZ - 0.35f);
 
-                    // Body
                     GameObject acBody = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     acBody.name = "Casing";
                     acBody.transform.SetParent(acUnit.transform, false);
                     acBody.transform.localScale = new Vector3(0.85f, 0.65f, 0.45f);
                     acBody.GetComponent<MeshRenderer>().sharedMaterial = m_ACLouvers;
 
-                    // Metal Bracket
                     GameObject bracket = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     bracket.name = "Bracket";
                     bracket.transform.SetParent(acUnit.transform, false);
@@ -628,7 +565,6 @@ namespace IUHCampus.Editor
                     bracket.transform.localScale = new Vector3(0.75f, 0.08f, 0.35f);
                     bracket.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                    // Condensate Drain Tube
                     GameObject drainTube = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     drainTube.name = "DrainTube";
                     drainTube.transform.SetParent(acUnit.transform, false);
@@ -638,7 +574,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Vertical Rainwater Downspouts (Ống xả nước mưa góc tòa nhà)
             float[] downspoutXs = { -width * 0.5f + 0.45f, width * 0.5f - 0.45f };
             for (int ds = 0; ds < downspoutXs.Length; ds++)
             {
@@ -649,7 +584,6 @@ namespace IUHCampus.Editor
                 downspout.transform.localScale = new Vector3(0.14f, wallH * 0.5f, 0.14f);
                 downspout.GetComponent<MeshRenderer>().sharedMaterial = m_PVCPipe;
 
-                // Ground Drain Grate at downspout base
                 GameObject grate = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 grate.name = "DownspoutGrate_" + ds;
                 grate.transform.SetParent(gMEP.transform, false);
@@ -658,7 +592,6 @@ namespace IUHCampus.Editor
                 grate.GetComponent<MeshRenderer>().sharedMaterial = m_DrainGrate;
             }
 
-            // Exterior Fire Hose Cabinet (Tủ PCCC)
             GameObject fireCab = GameObject.CreatePrimitive(PrimitiveType.Cube);
             fireCab.name = "FireCabinet_Exterior";
             fireCab.transform.SetParent(gMEP.transform, false);
@@ -666,7 +599,6 @@ namespace IUHCampus.Editor
             fireCab.transform.localScale = new Vector3(0.85f, 1.15f, 0.35f);
             fireCab.GetComponent<MeshRenderer>().sharedMaterial = m_FireCabinet;
 
-            // 3. G_Roof: Shallow pitched roof + Parapet + Rooftop objects
             GameObject gRoof = new GameObject("G_Roof");
             gRoof.transform.SetParent(bldgG.transform, false);
 
@@ -684,7 +616,6 @@ namespace IUHCampus.Editor
             mainRoof.transform.localScale = new Vector3(width + 1.2f, 1.2f, depth + 1.0f);
             mainRoof.GetComponent<MeshRenderer>().sharedMaterial = m_G_Roof;
 
-            // Roof orange-red edge trims
             GameObject roofEdgeFront = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roofEdgeFront.name = "Roof_Edge_Trim_Front";
             roofEdgeFront.transform.SetParent(gRoof.transform, false);
@@ -699,7 +630,6 @@ namespace IUHCampus.Editor
             roofEdgeRear.transform.localScale = new Vector3(width + 1.6f, 0.35f, 0.45f);
             roofEdgeRear.GetComponent<MeshRenderer>().sharedMaterial = m_G_RoofEdge;
 
-            // Elevator Penthouse
             GameObject penthouse = GameObject.CreatePrimitive(PrimitiveType.Cube);
             penthouse.name = "Stairwell_Elevator_Penthouse";
             penthouse.transform.SetParent(gRoof.transform, false);
@@ -707,7 +637,6 @@ namespace IUHCampus.Editor
             penthouse.transform.localScale = new Vector3(8.0f, 3.2f, 7.0f);
             penthouse.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
 
-            // Water Tanks (Black & Stainless Steel)
             for (int t = 0; t < 3; t++)
             {
                 GameObject tank = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -728,7 +657,6 @@ namespace IUHCampus.Editor
                 sTank.GetComponent<MeshRenderer>().sharedMaterial = m_WaterTankStainless;
             }
 
-            // Mechanical Service Box
             GameObject mechBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
             mechBox.name = "Mechanical_Service_Box";
             mechBox.transform.SetParent(gRoof.transform, false);
@@ -736,7 +664,6 @@ namespace IUHCampus.Editor
             mechBox.transform.localScale = new Vector3(5.5f, 2.0f, 4.0f);
             mechBox.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-            // 4. G_Signage: Blue Billboard "TRUONG DAI HOC CONG NGHIEP TP. HO CHI MINH"
             GameObject gSignage = new GameObject("G_Signage");
             gSignage.transform.SetParent(bldgG.transform, false);
 
@@ -754,13 +681,11 @@ namespace IUHCampus.Editor
             signBorder.transform.localScale = new Vector3(1.02f, 1.08f, 0.4f);
             signBorder.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-            // Compound Collider
             BoxCollider colG = bldgG.AddComponent<BoxCollider>();
             colG.center = new Vector3(0, wallH * 0.5f, 0);
             colG.size = new Vector3(width, wallH, depth);
         }
 
-        // ── BLDG_I: KTX Nam (13 Floors, Major Background Building) ──
         private static void BuildBuildingI(GameObject parent)
         {
             GameObject bldgI = new GameObject("Building_I");
@@ -772,9 +697,8 @@ namespace IUHCampus.Editor
             float depth = 16.0f;
             float wallH = 42.0f;
             int floorCount = 13;
-            float floorH = wallH / floorCount; // ~3.23m
+            float floorH = wallH / floorCount;
 
-            // 1. I_Structure
             GameObject iStruct = new GameObject("I_Structure");
             iStruct.transform.SetParent(bldgI.transform, false);
 
@@ -785,7 +709,6 @@ namespace IUHCampus.Editor
             slab.transform.localScale = new Vector3(width, wallH, depth);
             slab.GetComponent<MeshRenderer>().sharedMaterial = m_I_Wall;
 
-            // Perimeter Base Skirting
             GameObject baseSkirting = GameObject.CreatePrimitive(PrimitiveType.Cube);
             baseSkirting.name = "Perimeter_Base_Skirting";
             baseSkirting.transform.SetParent(iStruct.transform, false);
@@ -793,7 +716,6 @@ namespace IUHCampus.Editor
             baseSkirting.transform.localScale = new Vector3(width + 0.35f, 0.44f, depth + 0.35f);
             baseSkirting.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // 2. I_FacadeModules: Windows with blinds & AC variations
             GameObject iFacades = new GameObject("I_FacadeModules");
             iFacades.transform.SetParent(bldgI.transform, false);
 
@@ -840,7 +762,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // MEP & AC units on Building I
             GameObject iMEP = new GameObject("I_MEP_Systems");
             iMEP.transform.SetParent(bldgI.transform, false);
 
@@ -859,7 +780,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Rainwater downspouts on Building I corners
             for (int ds = 0; ds < 2; ds++)
             {
                 float dx = (ds == 0) ? -width * 0.5f + 0.35f : width * 0.5f - 0.35f;
@@ -871,7 +791,6 @@ namespace IUHCampus.Editor
                 downspout.GetComponent<MeshRenderer>().sharedMaterial = m_PVCPipe;
             }
 
-            // 3. I_Roof: Long shallow pitched roof with dominant orange-red corrugated metal
             GameObject iRoof = new GameObject("I_Roof");
             iRoof.transform.SetParent(bldgI.transform, false);
 
@@ -882,7 +801,6 @@ namespace IUHCampus.Editor
             pitchedRoof.transform.localScale = new Vector3(width + 1.6f, 3.0f, depth + 1.2f);
             pitchedRoof.GetComponent<MeshRenderer>().sharedMaterial = m_I_Roof;
 
-            // Rooftop water tank farm
             for (int t = 0; t < 4; t++)
             {
                 GameObject tank = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -898,7 +816,6 @@ namespace IUHCampus.Editor
             colI.size = new Vector3(width, wallH, depth);
         }
 
-        // ── BLDG_C: Nhà C (5 Floors, Mid-Rise Institutional) ──
         private static void BuildBuildingC(GameObject parent)
         {
             GameObject bldgC = new GameObject("Building_C");
@@ -910,9 +827,8 @@ namespace IUHCampus.Editor
             float depth = 16.0f;
             float height = 18.0f;
             int floors = 5;
-            float floorH = height / floors; // 3.6m
+            float floorH = height / floors;
 
-            // 1. C_Structure
             GameObject cStruct = new GameObject("C_Structure");
             cStruct.transform.SetParent(bldgC.transform, false);
 
@@ -923,7 +839,6 @@ namespace IUHCampus.Editor
             core.transform.localScale = new Vector3(width, height, depth);
             core.GetComponent<MeshRenderer>().sharedMaterial = m_C_Wall;
 
-            // Perimeter Base Skirting
             GameObject baseSkirting = GameObject.CreatePrimitive(PrimitiveType.Cube);
             baseSkirting.name = "Perimeter_Base_Skirting";
             baseSkirting.transform.SetParent(cStruct.transform, false);
@@ -931,7 +846,6 @@ namespace IUHCampus.Editor
             baseSkirting.transform.localScale = new Vector3(width + 0.35f, 0.44f, depth + 0.35f);
             baseSkirting.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // Mint Green Horizontal Accent Spandrel Bands
             for (int f = 1; f < floors; f++)
             {
                 float y = f * floorH;
@@ -943,7 +857,6 @@ namespace IUHCampus.Editor
                 mintBand.GetComponent<MeshRenderer>().sharedMaterial = m_C_AccentMint;
             }
 
-            // 2. C_Glass: Vertical stairwell glass strip & horizontal classroom ribbons
             GameObject cGlass = new GameObject("C_Glass");
             cGlass.transform.SetParent(bldgC.transform, false);
 
@@ -965,7 +878,6 @@ namespace IUHCampus.Editor
                 winStrip.GetComponent<MeshRenderer>().sharedMaterial = m_C_GreenGlass;
             }
 
-            // Downspouts on Building C
             for (int ds = 0; ds < 2; ds++)
             {
                 float dx = (ds == 0) ? -width * 0.5f + 0.35f : width * 0.5f - 0.35f;
@@ -977,7 +889,6 @@ namespace IUHCampus.Editor
                 downspout.GetComponent<MeshRenderer>().sharedMaterial = m_PVCPipe;
             }
 
-            // 3. C_Roof: Flat/low-slope green roof
             GameObject cRoof = new GameObject("C_Roof");
             cRoof.transform.SetParent(bldgC.transform, false);
 
@@ -1000,7 +911,6 @@ namespace IUHCampus.Editor
             colC.size = new Vector3(width, height, depth);
         }
 
-        // ── LOW_PODIUM_FRONT_G: Khối Đế / Phụ Trợ Trước Cụm G ──
         private static void BuildLowPodium(GameObject parent)
         {
             GameObject podium = new GameObject("Low_Podium");
@@ -1012,7 +922,6 @@ namespace IUHCampus.Editor
             float depth = 12.0f;
             float height = 9.8f;
 
-            // 1. Podium_Structure
             GameObject podStruct = new GameObject("Podium_Structure");
             podStruct.transform.SetParent(podium.transform, false);
 
@@ -1023,7 +932,6 @@ namespace IUHCampus.Editor
             core.transform.localScale = new Vector3(width, height, depth);
             core.GetComponent<MeshRenderer>().sharedMaterial = m_G_Wall;
 
-            // Base Skirting
             GameObject baseSkirting = GameObject.CreatePrimitive(PrimitiveType.Cube);
             baseSkirting.name = "Perimeter_Base_Skirting";
             baseSkirting.transform.SetParent(podStruct.transform, false);
@@ -1031,7 +939,6 @@ namespace IUHCampus.Editor
             baseSkirting.transform.localScale = new Vector3(width + 0.35f, 0.44f, depth + 0.35f);
             baseSkirting.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-            // Turquoise Corner Cladding Accents
             GameObject cornerLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cornerLeft.name = "Turquoise_Corner_Left";
             cornerLeft.transform.SetParent(podStruct.transform, false);
@@ -1046,7 +953,6 @@ namespace IUHCampus.Editor
             cornerRight.transform.localScale = new Vector3(3.2f, height + 0.2f, 0.5f);
             cornerRight.GetComponent<MeshRenderer>().sharedMaterial = m_Podium_Turquoise;
 
-            // 2. Podium_Glass
             GameObject podGlass = new GameObject("Podium_Glass");
             podGlass.transform.SetParent(podium.transform, false);
 
@@ -1062,7 +968,6 @@ namespace IUHCampus.Editor
                 glassRibbon.GetComponent<MeshRenderer>().sharedMaterial = m_Podium_Glazing;
             }
 
-            // 3. Podium_Roof
             GameObject podRoof = new GameObject("Podium_Roof");
             podRoof.transform.SetParent(podium.transform, false);
 
@@ -1078,13 +983,11 @@ namespace IUHCampus.Editor
             colPod.size = new Vector3(width, height, depth);
         }
 
-        // ── Covered Connections Between Buildings ──
         private static void BuildCoveredConnections(GameObject parent)
         {
             GameObject conn = new GameObject("Covered_Connections");
             conn.transform.SetParent(parent.transform, false);
 
-            // Skybridge between C and G
             GameObject bridgeCG = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bridgeCG.name = "Bridge_C_to_G";
             bridgeCG.transform.SetParent(conn.transform, false);
@@ -1099,7 +1002,6 @@ namespace IUHCampus.Editor
             bridgeWin.transform.localScale = new Vector3(0.95f, 0.65f, 0.1f);
             bridgeWin.GetComponent<MeshRenderer>().sharedMaterial = m_G_WindowGlass;
 
-            // Ground Walkway Canopy
             GameObject groundCanopy = GameObject.CreatePrimitive(PrimitiveType.Cube);
             groundCanopy.name = "Ground_Walkway_Canopy";
             groundCanopy.transform.SetParent(conn.transform, false);
@@ -1120,18 +1022,17 @@ namespace IUHCampus.Editor
             }
         }
 
-        // ================= 3. VEGETATION (TREES, TREE PITS, PALMS, SHRUBS) =================
         private static void BuildVegetation(GameObject parent)
         {
-            // Large Canopy Tropical Shade Trees with Concrete Tree Pits (Bồn cây bê tông)
+
             GameObject largeTrees = new GameObject("LargeTropicalTrees");
             largeTrees.transform.SetParent(parent.transform);
 
             Vector3[] treePositions = {
-                new Vector3(6.0f, 0, -4.0f),    // Bên hông lối đi sân trong cạnh C/Podium
-                new Vector3(14.0f, 0, 26.0f),   // Góc sân trong phía sau gần Nhà I
-                new Vector3(32.0f, 0, -6.0f),   // Phía trước cánh phải Nhà G
-                new Vector3(2.0f, 0, 8.0f)      // Phía trước cánh trái Nhà C
+                new Vector3(6.0f, 0, -4.0f),
+                new Vector3(14.0f, 0, 26.0f),
+                new Vector3(32.0f, 0, -6.0f),
+                new Vector3(2.0f, 0, 8.0f)
             };
             float[] treeHeights = { 13.5f, 15.0f, 13.0f, 12.5f };
             float[] canopyRadii = { 5.2f, 6.0f, 5.0f, 4.8f };
@@ -1142,7 +1043,6 @@ namespace IUHCampus.Editor
                 tree.transform.SetParent(largeTrees.transform, false);
                 tree.transform.localPosition = treePositions[i];
 
-                // Raised Concrete Tree Pit Curb (Bồn cây bê tông bo viền)
                 GameObject pitCurb = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 pitCurb.name = "TreePit_Curb";
                 pitCurb.transform.SetParent(tree.transform, false);
@@ -1150,7 +1050,6 @@ namespace IUHCampus.Editor
                 pitCurb.transform.localScale = new Vector3(3.2f, 0.24f, 3.2f);
                 pitCurb.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteCurb;
 
-                // Dark Soil inside pit
                 GameObject soil = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 soil.name = "Soil";
                 soil.transform.SetParent(pitCurb.transform, false);
@@ -1158,7 +1057,6 @@ namespace IUHCampus.Editor
                 soil.transform.localScale = new Vector3(0.85f, 0.4f, 0.85f);
                 soil.GetComponent<MeshRenderer>().sharedMaterial = m_PlanterSoil;
 
-                // Natural Curved Trunk with Bark Texture
                 GameObject trunk = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 trunk.name = "Trunk";
                 trunk.transform.SetParent(tree.transform, false);
@@ -1166,7 +1064,6 @@ namespace IUHCampus.Editor
                 trunk.transform.localScale = new Vector3(1.2f, treeHeights[i] * 0.35f, 1.2f);
                 trunk.GetComponent<MeshRenderer>().sharedMaterial = m_TreeBark;
 
-                // Massive Broadleaf Canopy (multi-tiered organic clusters)
                 int clusters = 4;
                 for (int c = 0; c < clusters; c++)
                 {
@@ -1183,7 +1080,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Palms (Cau cảnh sân trường dọc lối đi)
             GameObject palms = new GameObject("CampusPalms");
             palms.transform.SetParent(parent.transform);
 
@@ -1201,7 +1097,6 @@ namespace IUHCampus.Editor
                 palm.transform.SetParent(palms.transform, false);
                 palm.transform.localPosition = palmPositions[p];
 
-                // Planter box for each palm
                 GameObject palmPit = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 palmPit.name = "PalmPit";
                 palmPit.transform.SetParent(palm.transform, false);
@@ -1225,7 +1120,6 @@ namespace IUHCampus.Editor
                 fronds.GetComponent<MeshRenderer>().sharedMaterial = m_FoliageTree;
             }
 
-            // Trimmed Ornamental Shrubs (Hàng cây bụi trang trí)
             GameObject shrubs = new GameObject("TrimmedShrubs");
             shrubs.transform.SetParent(parent.transform);
 
@@ -1249,10 +1143,9 @@ namespace IUHCampus.Editor
             }
         }
 
-        // ================= 4. PROPS (MOTORBIKES, CANOPIES, BENCHES, SIGNS) =================
         private static void BuildProps(GameObject parent)
         {
-            // Motorcycles in courtyard parking: ~120 bikes in realistic dense rows with helmet details
+
             GameObject goBikes = new GameObject("Motorcycles");
             goBikes.transform.SetParent(parent.transform);
 
@@ -1268,17 +1161,16 @@ namespace IUHCampus.Editor
                 float z = 3.5f + r * 3.6f;
                 for (int b = 0; b < bikesPerRow && (r * bikesPerRow + b) < totalBikes; b++)
                 {
-                    // Irregular natural placement offset
+
                     float x = rowStartX + b * bikeSpacing + (float)(rnd.NextDouble() * 0.08f - 0.04f);
-                    float rotY = 90.0f + (float)(rnd.NextDouble() * 14.0f - 7.0f); // ±7° natural variation
-                    float sideStandTilt = (float)(rnd.NextDouble() * 4.0f + 2.0f); // Slight lean on kickstand
+                    float rotY = 90.0f + (float)(rnd.NextDouble() * 14.0f - 7.0f);
+                    float sideStandTilt = (float)(rnd.NextDouble() * 4.0f + 2.0f);
 
                     GameObject bike = new GameObject($"Bike_R{r}_{b}");
                     bike.transform.SetParent(goBikes.transform, false);
                     bike.transform.localPosition = new Vector3(x, 0, z);
                     bike.transform.localRotation = Quaternion.Euler(0, rotY, sideStandTilt);
 
-                    // Body
                     GameObject body = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     body.name = "Body";
                     body.transform.SetParent(bike.transform, false);
@@ -1286,7 +1178,6 @@ namespace IUHCampus.Editor
                     body.transform.localScale = new Vector3(1.72f, 0.44f, 0.38f);
                     body.GetComponent<MeshRenderer>().sharedMaterial = m_MotorbikeMats[rnd.Next(m_MotorbikeMats.Length)];
 
-                    // Seat
                     GameObject seat = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     seat.name = "Seat";
                     seat.transform.SetParent(bike.transform, false);
@@ -1294,7 +1185,6 @@ namespace IUHCampus.Editor
                     seat.transform.localScale = new Vector3(0.9f, 0.14f, 0.34f);
                     seat.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                    // Handlebars
                     GameObject handlebar = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     handlebar.name = "Handlebar";
                     handlebar.transform.SetParent(bike.transform, false);
@@ -1302,7 +1192,6 @@ namespace IUHCampus.Editor
                     handlebar.transform.localScale = new Vector3(0.12f, 0.06f, 0.62f);
                     handlebar.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-                    // Wheels
                     for (int w = 0; w < 2; w++)
                     {
                         GameObject wheel = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -1314,7 +1203,6 @@ namespace IUHCampus.Editor
                         wheel.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
                     }
 
-                    // Helmet on seat or handlebar for ~35% of motorbikes
                     if (rnd.NextDouble() < 0.35)
                     {
                         GameObject helmet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -1331,7 +1219,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Motorbike Shelter Canopy (Mái che nhà xe khung thép mái tôn lượn sóng)
             GameObject bikeShelter = new GameObject("MotorbikeParkingShelter");
             bikeShelter.transform.SetParent(parent.transform, false);
 
@@ -1345,7 +1232,6 @@ namespace IUHCampus.Editor
                 shelterRoof.transform.localScale = new Vector3(16.5f, 0.12f, 5.5f);
                 shelterRoof.GetComponent<MeshRenderer>().sharedMaterial = m_Podium_Roof;
 
-                // Support Columns
                 for (int sc = 0; sc < 5; sc++)
                 {
                     float scX = 10.5f + sc * 3.75f;
@@ -1358,7 +1244,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Campus Stone Benches (Ghế đá trường học đặt dưới tán cây bóng mát)
             GameObject benches = new GameObject("CampusBenches");
             benches.transform.SetParent(parent.transform, false);
 
@@ -1376,7 +1261,6 @@ namespace IUHCampus.Editor
                 bench.transform.SetParent(benches.transform, false);
                 bench.transform.localPosition = benchPositions[bi];
 
-                // Seat slab
                 GameObject bSeat = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 bSeat.name = "Seat";
                 bSeat.transform.SetParent(bench.transform, false);
@@ -1384,7 +1268,6 @@ namespace IUHCampus.Editor
                 bSeat.transform.localScale = new Vector3(1.5f, 0.08f, 0.45f);
                 bSeat.GetComponent<MeshRenderer>().sharedMaterial = m_BenchGranite;
 
-                // Backrest
                 GameObject bBack = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 bBack.name = "Backrest";
                 bBack.transform.SetParent(bench.transform, false);
@@ -1392,7 +1275,6 @@ namespace IUHCampus.Editor
                 bBack.transform.localScale = new Vector3(1.5f, 0.42f, 0.06f);
                 bBack.GetComponent<MeshRenderer>().sharedMaterial = m_BenchGranite;
 
-                // Legs
                 for (int bl = 0; bl < 2; bl++)
                 {
                     GameObject bLeg = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1404,7 +1286,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Dual Waste / Recycling Bins (Thùng rác phân loại 2 ngăn)
             GameObject bins = new GameObject("CampusTrashBins");
             bins.transform.SetParent(parent.transform, false);
 
@@ -1419,7 +1300,6 @@ namespace IUHCampus.Editor
                 binUnit.transform.SetParent(bins.transform, false);
                 binUnit.transform.localPosition = binPos[b];
 
-                // Green bin (Organic)
                 GameObject binGreen = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 binGreen.name = "Bin_Organic";
                 binGreen.transform.SetParent(binUnit.transform, false);
@@ -1427,7 +1307,6 @@ namespace IUHCampus.Editor
                 binGreen.transform.localScale = new Vector3(0.42f, 0.9f, 0.42f);
                 binGreen.GetComponent<MeshRenderer>().sharedMaterial = m_MatureFoliage;
 
-                // Blue/Orange bin (Inorganic)
                 GameObject binBlue = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 binBlue.name = "Bin_Inorganic";
                 binBlue.transform.SetParent(binUnit.transform, false);
@@ -1436,11 +1315,9 @@ namespace IUHCampus.Editor
                 binBlue.GetComponent<MeshRenderer>().sharedMaterial = m_MotorbikeMats[2];
             }
 
-            // Wayfinding & Notice Signage (Biển chỉ dẫn & Bảng tin thông báo Đoàn Hội)
             GameObject signs = new GameObject("CampusSigns");
             signs.transform.SetParent(parent.transform, false);
 
-            // Directional Signpost
             GameObject dirPost = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             dirPost.name = "Directional_Post";
             dirPost.transform.SetParent(signs.transform, false);
@@ -1455,7 +1332,6 @@ namespace IUHCampus.Editor
             dirBoard.transform.localScale = new Vector3(8.0f, 0.55f, 0.4f);
             dirBoard.GetComponent<MeshRenderer>().sharedMaterial = m_SignDirectional;
 
-            // Campus Bulletin Notice Board
             GameObject noticeBoard = new GameObject("Notice_Bulletin_Board");
             noticeBoard.transform.SetParent(signs.transform, false);
             noticeBoard.transform.localPosition = new Vector3(25.5f, 0, -9.0f);
@@ -1481,7 +1357,6 @@ namespace IUHCampus.Editor
             nbBoard.transform.localScale = new Vector3(2.4f, 1.2f, 0.08f);
             nbBoard.GetComponent<MeshRenderer>().sharedMaterial = m_SignNoticeBoard;
 
-            // Campus Outdoor Lighting Lampposts (Cột đèn chiếu sáng khuôn viên)
             GameObject lampposts = new GameObject("Lampposts");
             lampposts.transform.SetParent(parent.transform, false);
 
@@ -1498,7 +1373,6 @@ namespace IUHCampus.Editor
                 lamp.transform.SetParent(lampposts.transform, false);
                 lamp.transform.localPosition = lampPos[l];
 
-                // Pole
                 GameObject pole = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 pole.name = "Pole";
                 pole.transform.SetParent(lamp.transform, false);
@@ -1506,7 +1380,6 @@ namespace IUHCampus.Editor
                 pole.transform.localScale = new Vector3(0.12f, 2.25f, 0.12f);
                 pole.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                // Lamp Luminaire Head
                 GameObject head = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 head.name = "LuminaireHead";
                 head.transform.SetParent(lamp.transform, false);
@@ -1515,7 +1388,6 @@ namespace IUHCampus.Editor
                 head.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
             }
 
-            // Security Guard Booth
             GameObject booth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             booth.name = "Security_Guard_Booth";
             booth.transform.SetParent(parent.transform, false);
@@ -1530,7 +1402,6 @@ namespace IUHCampus.Editor
             boothRoof.transform.localScale = new Vector3(1.2f, 0.15f, 1.2f);
             boothRoof.GetComponent<MeshRenderer>().sharedMaterial = m_Podium_Roof;
 
-            // Power transformer box
             GameObject transformer = GameObject.CreatePrimitive(PrimitiveType.Cube);
             transformer.name = "Electrical_Transformer_Box";
             transformer.transform.SetParent(parent.transform, false);
@@ -1547,47 +1418,37 @@ namespace IUHCampus.Editor
             public bool isBlueShirt;
         }
 
-        // ================= 5. CAMPUS LIFE / STUDENT NPCS =================
         private static void BuildCampusLife(GameObject parent)
         {
-            // 20 Student NPCs placed in natural groupings (studying on benches, chatting, walking)
-            // Keeping clear circulation path (>2.5m) for player exploration
+
             List<NPCDef> npcList = new List<NPCDef>
             {
-                // Group 1: Chatting near entrance plaza
+
                 new NPCDef { pos = new Vector3(10.5f, 0, -6.5f), rotY = 45.0f, isSitting = false, isBlueShirt = false },
                 new NPCDef { pos = new Vector3(11.4f, 0, -5.8f), rotY = -135.0f, isSitting = false, isBlueShirt = true },
 
-                // Group 2: Sitting on stone bench 1
                 new NPCDef { pos = new Vector3(10.2f, 0.45f, -4.8f), rotY = 0.0f, isSitting = true, isBlueShirt = false },
                 new NPCDef { pos = new Vector3(10.8f, 0.45f, -4.8f), rotY = 0.0f, isSitting = true, isBlueShirt = true },
 
-                // Group 3: Sitting on stone bench 2
                 new NPCDef { pos = new Vector3(13.8f, 0.45f, -4.8f), rotY = 0.0f, isSitting = true, isBlueShirt = false },
 
-                // Group 4: Walking along front sidewalk
                 new NPCDef { pos = new Vector3(18.5f, 0, -8.2f), rotY = 90.0f, isSitting = false, isBlueShirt = false },
                 new NPCDef { pos = new Vector3(22.0f, 0, -8.0f), rotY = 85.0f, isSitting = false, isBlueShirt = true },
                 new NPCDef { pos = new Vector3(28.0f, 0, -8.4f), rotY = -90.0f, isSitting = false, isBlueShirt = false },
 
-                // Group 5: Chatting by notice board
                 new NPCDef { pos = new Vector3(24.5f, 0, -7.8f), rotY = 30.0f, isSitting = false, isBlueShirt = false },
                 new NPCDef { pos = new Vector3(25.3f, 0, -7.5f), rotY = -150.0f, isSitting = false, isBlueShirt = true },
 
-                // Group 6: Courtyard walking path
                 new NPCDef { pos = new Vector3(8.2f, 0, 4.0f), rotY = 0.0f, isSitting = false, isBlueShirt = true },
                 new NPCDef { pos = new Vector3(8.2f, 0, 12.0f), rotY = 0.0f, isSitting = false, isBlueShirt = false },
                 new NPCDef { pos = new Vector3(8.5f, 0, 20.0f), rotY = 180.0f, isSitting = false, isBlueShirt = false },
 
-                // Group 7: Near motorbike parking row
                 new NPCDef { pos = new Vector3(12.0f, 0, 1.8f), rotY = -45.0f, isSitting = false, isBlueShirt = true },
                 new NPCDef { pos = new Vector3(15.5f, 0, 1.6f), rotY = 40.0f, isSitting = false, isBlueShirt = false },
 
-                // Group 8: Rear courtyard bench
                 new NPCDef { pos = new Vector3(16.5f, 0.45f, 25.2f), rotY = 180.0f, isSitting = true, isBlueShirt = false },
                 new NPCDef { pos = new Vector3(13.5f, 0.45f, 25.2f), rotY = 180.0f, isSitting = true, isBlueShirt = true },
 
-                // Group 9: Near security booth
                 new NPCDef { pos = new Vector3(6.5f, 0, -11.5f), rotY = -90.0f, isSitting = false, isBlueShirt = true },
                 new NPCDef { pos = new Vector3(5.5f, 0, -9.8f), rotY = 10.0f, isSitting = false, isBlueShirt = false }
             };
@@ -1604,8 +1465,7 @@ namespace IUHCampus.Editor
 
                 if (!def.isSitting)
                 {
-                    // Standing human figure (~1.72m tall)
-                    // Torso & Shirt
+
                     GameObject torso = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     torso.name = "Torso";
                     torso.transform.SetParent(student.transform, false);
@@ -1613,7 +1473,6 @@ namespace IUHCampus.Editor
                     torso.transform.localScale = new Vector3(0.42f, 0.58f, 0.24f);
                     torso.GetComponent<MeshRenderer>().sharedMaterial = shirtMat;
 
-                    // Head & Hair
                     GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     head.name = "Head";
                     head.transform.SetParent(student.transform, false);
@@ -1628,7 +1487,6 @@ namespace IUHCampus.Editor
                     hair.transform.localScale = new Vector3(0.24f, 0.16f, 0.24f);
                     hair.GetComponent<MeshRenderer>().sharedMaterial = m_StudentHair;
 
-                    // Backpack
                     GameObject pack = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     pack.name = "Backpack";
                     pack.transform.SetParent(student.transform, false);
@@ -1636,7 +1494,6 @@ namespace IUHCampus.Editor
                     pack.transform.localScale = new Vector3(0.32f, 0.44f, 0.16f);
                     pack.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                    // Legs
                     for (int l = 0; l < 2; l++)
                     {
                         GameObject leg = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1649,8 +1506,7 @@ namespace IUHCampus.Editor
                 }
                 else
                 {
-                    // Sitting human figure
-                    // Torso
+
                     GameObject torso = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     torso.name = "Torso";
                     torso.transform.SetParent(student.transform, false);
@@ -1658,7 +1514,6 @@ namespace IUHCampus.Editor
                     torso.transform.localScale = new Vector3(0.40f, 0.55f, 0.24f);
                     torso.GetComponent<MeshRenderer>().sharedMaterial = shirtMat;
 
-                    // Head & Hair
                     GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     head.name = "Head";
                     head.transform.SetParent(student.transform, false);
@@ -1673,7 +1528,6 @@ namespace IUHCampus.Editor
                     hair.transform.localScale = new Vector3(0.24f, 0.16f, 0.24f);
                     hair.GetComponent<MeshRenderer>().sharedMaterial = m_StudentHair;
 
-                    // Lap & Thighs
                     GameObject lap = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     lap.name = "Lap";
                     lap.transform.SetParent(student.transform, false);
@@ -1681,7 +1535,6 @@ namespace IUHCampus.Editor
                     lap.transform.localScale = new Vector3(0.38f, 0.18f, 0.44f);
                     lap.GetComponent<MeshRenderer>().sharedMaterial = m_StudentJeans;
 
-                    // Lower legs
                     for (int l = 0; l < 2; l++)
                     {
                         GameObject lowerLeg = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1695,10 +1548,9 @@ namespace IUHCampus.Editor
             }
         }
 
-        // ================= 6. LIGHTING & CAMERAS =================
         private static void BuildLighting(GameObject parent)
         {
-            // Directional Daylight: Warm tropical sunlight (~5800K, soft shadows)
+
             GameObject sunGO = new GameObject("DirectionalLight");
             sunGO.transform.SetParent(parent.transform);
             sunGO.transform.localPosition = new Vector3(0, 50.0f, 0);
@@ -1707,11 +1559,10 @@ namespace IUHCampus.Editor
             Light sun = sunGO.AddComponent<Light>();
             sun.type = LightType.Directional;
             sun.intensity = 1.15f;
-            sun.color = new Color(1.0f, 0.97f, 0.93f); // Warm natural daylight
+            sun.color = new Color(1.0f, 0.97f, 0.93f);
             sun.shadows = LightShadows.Soft;
             sun.shadowStrength = 0.72f;
 
-            // Ambient bounce & Sky
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
             RenderSettings.ambientSkyColor = new Color(0.72f, 0.82f, 0.94f);
             RenderSettings.ambientEquatorColor = new Color(0.85f, 0.86f, 0.88f);
@@ -1720,13 +1571,12 @@ namespace IUHCampus.Editor
 
         private static void SetupLightingAndCameras(GameObject clusterGO)
         {
-            // Setup Cameras container
+
             GameObject camRoot = new GameObject("Cameras");
             camRoot.transform.SetParent(clusterGO.transform);
 
             Color tropicalSkyColor = new Color(0.68f, 0.82f, 0.96f);
 
-            // 1. Camera_Aerial: Balanced campus flycam oblique view showing U-shape, courtyard, and background city
             GameObject camAerial = new GameObject("Camera_Aerial");
             camAerial.transform.SetParent(camRoot.transform);
             camAerial.transform.position = new Vector3(-4.0f, 42.0f, -28.0f);
@@ -1737,7 +1587,6 @@ namespace IUHCampus.Editor
             cAer.clearFlags = CameraClearFlags.SolidColor;
             cAer.backgroundColor = tropicalSkyColor;
 
-            // 2. Camera_Courtyard: Courtyard environmental density view showing motorbikes, trees, benches, students
             GameObject camCourt = new GameObject("Camera_Courtyard");
             camCourt.transform.SetParent(camRoot.transform);
             camCourt.transform.position = new Vector3(7.0f, 3.2f, 0.5f);
@@ -1748,7 +1597,6 @@ namespace IUHCampus.Editor
             cCrt.clearFlags = CameraClearFlags.SolidColor;
             cCrt.backgroundColor = tropicalSkyColor;
 
-            // 3. Camera_Entrance: Grounding, curbs, drainage & entrance walkway canopy view
             GameObject camEnt = new GameObject("Camera_Entrance");
             camEnt.transform.SetParent(camRoot.transform);
             camEnt.transform.position = new Vector3(14.5f, 1.75f, -10.5f);
@@ -1759,7 +1607,6 @@ namespace IUHCampus.Editor
             cEnt.clearFlags = CameraClearFlags.SolidColor;
             cEnt.backgroundColor = tropicalSkyColor;
 
-            // 4. Camera_PlayerHeight: Human eye-level 1.70m perspective looking across courtyard towards Building G
             GameObject camEye = new GameObject("Camera_PlayerHeight");
             camEye.transform.SetParent(camRoot.transform);
             camEye.transform.position = new Vector3(9.2f, 1.70f, -6.0f);

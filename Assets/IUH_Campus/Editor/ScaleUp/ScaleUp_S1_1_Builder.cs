@@ -46,13 +46,10 @@ namespace IUHCampus.EditorScripts
                 Undo.RegisterCreatedObjectUndo(interiorRoot, "Create Interior Root");
             }
 
-            // 1. BUILD NHÀ A - TẦNG 2 (Y = 4.53m)
             BuildNhaA_Floor02(interiorRoot.transform);
 
-            // 2. BUILD NHÀ H - TẦNG 2 (Y = 4.53m)
             BuildNhaH_Floor02(interiorRoot.transform);
 
-            // 3. BUILD NHÀ B - TẦNG 2 (Y = 4.86m)
             BuildNhaB_Floor02(interiorRoot.transform);
 
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
@@ -82,7 +79,7 @@ namespace IUHCampus.EditorScripts
 
             float yFloor = 4.53f;
             float slabThick = 0.12f;
-            float ySlabCenter = yFloor - slabThick * 0.5f; // 4.47m
+            float ySlabCenter = yFloor - slabThick * 0.5f;
             float wallH = 3.92f;
             float yWallCenter = yFloor + wallH * 0.5f;
 
@@ -95,7 +92,6 @@ namespace IUHCampus.EditorScripts
             var matTrim = GetMat("Mat_Concrete_Trim");
             var matPlaque = GetMat("Mat_Sign_Plaque_Blue");
 
-            // Slabs
             var slabRoot = new GameObject("Slabs").transform;
             slabRoot.SetParent(fl2.transform, false);
 
@@ -103,19 +99,16 @@ namespace IUHCampus.EditorScripts
             CreateBox("A_Fl2_Slab_Corridor", slabRoot, new Vector3(407.20f, ySlabCenter, -26.15f), new Vector3(4.10f, slabThick, 14.70f), matFloor, true);
             CreateBox("A_Fl2_Slab_StairLink", slabRoot, new Vector3(404.20f, ySlabCenter, -24.25f), new Vector3(1.90f, slabThick, 1.40f), matFloor, true);
 
-            // Ceilings
             var ceilRoot = new GameObject("Ceilings").transform;
             ceilRoot.SetParent(fl2.transform, false);
             CreateBox("A_Fl2_Ceil_RoomA201", ceilRoot, new Vector3(414.75f, yFloor + wallH, -26.15f), new Vector3(11.00f, slabThick, 14.70f), matTrim, true);
             CreateBox("A_Fl2_Ceil_Corridor", ceilRoot, new Vector3(407.20f, yFloor + wallH, -26.15f), new Vector3(4.10f, slabThick, 14.70f), matTrim, true);
 
-            // Guardrails around stairwell void
             var guardRoot = new GameObject("Guardrails").transform;
             guardRoot.SetParent(fl2.transform, false);
             CreateBox("Rail_StairVoid_East", guardRoot, new Vector3(405.15f, yFloor + 0.50f, -26.70f), new Vector3(0.06f, 1.00f, 3.50f), matRail, true);
             CreateBox("Rail_StairVoid_South", guardRoot, new Vector3(403.48f, yFloor + 0.50f, -28.45f), new Vector3(3.40f, 1.00f, 0.06f), matRail, true);
 
-            // Corridor & Room Walls
             var wallRoot = new GameObject("Walls").transform;
             wallRoot.SetParent(fl2.transform, false);
 
@@ -126,7 +119,6 @@ namespace IUHCampus.EditorScripts
             CreateBox("Wall_A201_North", wallRoot, new Vector3(414.62f, yWallCenter, -18.80f), new Vector3(11.25f, wallH, 0.20f), matWall, true);
             CreateBox("Wall_A201_South", wallRoot, new Vector3(414.62f, yWallCenter, -33.50f), new Vector3(11.25f, wallH, 0.20f), matWall, true);
 
-            // Room A201 Setup
             var roomA201 = new GameObject("Room_A201").transform;
             roomA201.SetParent(fl2.transform, false);
 
@@ -212,7 +204,7 @@ namespace IUHCampus.EditorScripts
 
             float yFloor = 4.53f;
             float slabThick = 0.12f;
-            float ySlabCenter = yFloor - slabThick * 0.5f; // 4.47m
+            float ySlabCenter = yFloor - slabThick * 0.5f;
             float wallH = 3.92f;
             float yWallCenter = yFloor + wallH * 0.5f;
 
@@ -225,7 +217,6 @@ namespace IUHCampus.EditorScripts
             var matTrim = GetMat("Mat_Concrete_Trim");
             var matPlaque = GetMat("Mat_Sign_Plaque_Blue");
 
-            // Slabs around central elevator core
             var slabRoot = new GameObject("Slabs").transform;
             slabRoot.SetParent(fl2.transform, false);
 
@@ -237,26 +228,23 @@ namespace IUHCampus.EditorScripts
             CreateBox("H_Fl2_Slab_South", slabRoot, new Vector3(414.50f, ySlabCenter, -69.50f), new Vector3(11.00f, slabThick, 5.00f), matFloor, true);
             CreateBox("H_Fl2_Slab_East", slabRoot, new Vector3(417.80f, ySlabCenter, -64.10f), new Vector3(6.60f, slabThick, 6.30f), matFloor, true);
 
-            // Ceilings for North & South corridors and Room H2.1
             var ceilRoot = new GameObject("Ceilings").transform;
             ceilRoot.SetParent(fl2.transform, false);
             CreateBox("H_Fl2_Ceil_North", ceilRoot, new Vector3(414.50f, yFloor + wallH, -58.50f), new Vector3(11.00f, slabThick, 5.00f), matTrim, true);
             CreateBox("H_Fl2_Ceil_South", ceilRoot, new Vector3(414.50f, yFloor + wallH, -69.50f), new Vector3(11.00f, slabThick, 5.00f), matTrim, true);
             CreateBox("H_Fl2_Ceil_East", ceilRoot, new Vector3(417.80f, yFloor + wallH, -64.10f), new Vector3(6.60f, slabThick, 6.30f), matTrim, true);
 
-            // Guardrails around central elevator core opening and stairwell
             var guardRoot = new GameObject("Guardrails").transform;
             guardRoot.SetParent(fl2.transform, false);
 
             CreateBox("Rail_Core_North", guardRoot, new Vector3(411.84f, yFloor + 0.50f, -60.95f), new Vector3(5.40f, 1.00f, 0.06f), matRail, true);
             CreateBox("Rail_Core_South", guardRoot, new Vector3(411.84f, yFloor + 0.50f, -67.25f), new Vector3(5.40f, 1.00f, 0.06f), matRail, true);
-            // Stair void guardrails (Flight 1 at X=405.61 is open down to Fl1; Flight 2 at X=404.06 must be completely open to Fl2 landing!)
+
             CreateBox("Rail_Core_West", guardRoot, new Vector3(409.14f, yFloor + 0.50f, -64.10f), new Vector3(0.06f, 1.00f, 6.30f), matRail, true);
             CreateBox("Rail_H_StairVoid_North", guardRoot, new Vector3(405.61f, yFloor + 0.50f, -62.25f), new Vector3(1.40f, 1.00f, 0.06f), matRail, true);
             CreateBox("Rail_H_StairVoid_East", guardRoot, new Vector3(406.31f, yFloor + 0.50f, -64.10f), new Vector3(0.06f, 1.00f, 3.70f), matRail, true);
             CreateBox("Rail_H_StairVoid_Center", guardRoot, new Vector3(404.84f, yFloor + 0.50f, -64.10f), new Vector3(0.06f, 1.00f, 3.70f), matRail, true);
 
-            // Room H2.1 (Phòng hội thảo / chuyên đề mẫu Tầng 2)
             var roomH21 = new GameObject("Room_H201").transform;
             roomH21.SetParent(fl2.transform, false);
 
@@ -268,7 +256,6 @@ namespace IUHCampus.EditorScripts
             var doorLeaf = CreateBox("Door_H21_Leaf", roomH21, new Vector3(414.85f, yFloor + 1.05f, -62.45f), new Vector3(0.06f, 2.10f, 1.00f), matDoor, true);
             doorLeaf.transform.localRotation = Quaternion.Euler(0, 35f, 0);
 
-            // Plaque facing west into corridor
             CreateBox("Sign_Plaque_H21", roomH21, new Vector3(414.40f, yFloor + 1.70f, -61.20f), new Vector3(0.03f, 0.25f, 0.45f), matPlaque, true);
             CreateTextMesh("Text_H21", roomH21, new Vector3(414.37f, yFloor + 1.70f, -61.20f), "H2.1\nPHONG HOI THAO", 24, 0.032f, Quaternion.Euler(0, 90f, 0));
 
@@ -338,7 +325,6 @@ namespace IUHCampus.EditorScripts
                 bldB.SetParent(root, false);
             }
 
-            // Disable solid BoxCollider on NhaB_Head_Main_Body so interior is completely walkable
             var headBody = GameObject.Find("A_H_B_Additive_Architecture/NhaB_Head_Additive/NhaB_Head_Main_Body");
             if (headBody != null)
             {
@@ -358,9 +344,9 @@ namespace IUHCampus.EditorScripts
             fl2.transform.SetParent(bldB, false);
             Undo.RegisterCreatedObjectUndo(fl2, "Create Nha B Floor 02");
 
-            float yFloor = 4.86f; // EXACT finish floor level for Nha B!
+            float yFloor = 4.86f;
             float slabThick = 0.12f;
-            float ySlabCenter = yFloor - slabThick * 0.5f; // 4.80m
+            float ySlabCenter = yFloor - slabThick * 0.5f;
             float wallH = 4.25f;
             float yWallCenter = yFloor + wallH * 0.5f;
 
@@ -373,7 +359,6 @@ namespace IUHCampus.EditorScripts
             var matTrim = GetMat("Mat_Concrete_Trim");
             var matPlaque = GetMat("Mat_Sign_Plaque_Blue");
 
-            // Slabs
             var slabRoot = new GameObject("Slabs").transform;
             slabRoot.SetParent(fl2.transform, false);
 
@@ -381,19 +366,16 @@ namespace IUHCampus.EditorScripts
             CreateBox("B_Fl2_Slab_StairLanding_Link", slabRoot, new Vector3(408.57f, ySlabCenter, -76.50f), new Vector3(6.14f, slabThick, 6.40f), matFloor, true);
             CreateBox("B_Fl2_Slab_RoomB201", slabRoot, new Vector3(412.75f, ySlabCenter, -93.00f), new Vector3(10.50f, slabThick, 12.00f), matFloor, true);
 
-            // Ceilings
             var ceilRoot = new GameObject("Ceilings").transform;
             ceilRoot.SetParent(fl2.transform, false);
             CreateBox("B_Fl2_Ceil_Corridor", ceilRoot, new Vector3(405.50f, yFloor + wallH, -89.90f), new Vector3(4.00f, slabThick, 33.20f), matTrim, true);
             CreateBox("B_Fl2_Ceil_RoomB201", ceilRoot, new Vector3(412.75f, yFloor + wallH, -93.00f), new Vector3(10.50f, slabThick, 12.00f), matTrim, true);
 
-            // Guardrail along stairwell opening
             var guardRoot = new GameObject("Guardrails").transform;
             guardRoot.SetParent(fl2.transform, false);
             CreateBox("Rail_B_StairVoid_West", guardRoot, new Vector3(407.50f, yFloor + 0.50f, -81.70f), new Vector3(0.06f, 1.00f, 3.60f), matRail, true);
             CreateBox("Rail_B_StairVoid_South", guardRoot, new Vector3(409.75f, yFloor + 0.50f, -83.50f), new Vector3(4.50f, 1.00f, 0.06f), matRail, true);
 
-            // Room B201 Setup
             var roomB201 = new GameObject("Room_B201").transform;
             roomB201.SetParent(fl2.transform, false);
 

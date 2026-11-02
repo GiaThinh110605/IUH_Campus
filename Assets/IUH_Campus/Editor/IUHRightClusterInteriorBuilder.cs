@@ -13,7 +13,6 @@ namespace IUHCampus.Editor
         private const string ScreenshotDir = "Assets/IUH_Campus/Screenshots/";
         private const string ArtifactDir = @"C:\Users\Admin\.gemini\antigravity-ide\brain\90eb314c-5d87-4a56-9144-aab594d4439c\";
 
-        // Interior Materials
         private static Material m_BlackMarble;
         private static Material m_LightTile;
         private static Material m_LightWood;
@@ -40,40 +39,33 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Interior] Starting Full Interior Construction & Capture...");
 
-            // 1. Generate Textures and Materials
             IUHInteriorAssetGenerator.GenerateAllInteriorAssets();
             LoadInteriorMaterials();
 
-            // 2. Open Right Cluster Scene if not already active
             var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
             if (activeScene.path != "Assets/IUH_Campus/Scenes/IUH_RightCluster.unity")
             {
                 activeScene = EditorSceneManager.OpenScene("Assets/IUH_Campus/Scenes/IUH_RightCluster.unity", OpenSceneMode.Single);
             }
 
-            // 3. Remove old interior if present
             GameObject existingInterior = GameObject.Find("IUH_RightCluster_Interior");
             if (existingInterior != null)
             {
                 GameObject.DestroyImmediate(existingInterior);
             }
 
-            // 4. Construct Complete Interior Complex
             GameObject interiorRoot = BuildInteriorHierarchy();
 
-            // 5. Save Prefab
             if (!Directory.Exists(PrefabPath)) Directory.CreateDirectory(PrefabPath);
             string prefabFilePath = PrefabPath + "IUH_RightCluster_Interior.prefab";
             PrefabUtility.SaveAsPrefabAssetAndConnect(interiorRoot, prefabFilePath, InteractionMode.AutomatedAction);
             Debug.Log("[IUH Interior] Saved prefab to " + prefabFilePath);
 
-            // 6. Disable unbaked ReflectionProbes in the scene to prevent URP ReflectionProbeManager NullReferenceException
             foreach (var probe in UnityEngine.Object.FindObjectsByType<ReflectionProbe>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
                 probe.enabled = false;
             }
 
-            // 7. Capture Screenshots from all 4 Interior Cameras
             CaptureAllInteriorCameras(interiorRoot);
 
             EditorSceneManager.SaveScene(activeScene);
@@ -107,51 +99,42 @@ namespace IUHCampus.Editor
 
         public static GameObject BuildInteriorHierarchy()
         {
-            // Dedicated clean interior coordinate space at X: 100, Y: 0, Z: 0
+
             GameObject root = new GameObject("IUH_RightCluster_Interior");
             root.transform.position = new Vector3(100.0f, 0.0f, 0.0f);
             root.transform.rotation = Quaternion.identity;
 
-            // Structure Envelope
             GameObject structure = new GameObject("Interior_Structure");
             structure.transform.SetParent(root.transform, false);
 
-            // Zone A: Front Desk & Reception Lobby
             GameObject zoneA = new GameObject("Zone_A_FrontDesk_Lobby");
             zoneA.transform.SetParent(structure.transform, false);
             BuildZoneA(zoneA);
 
-            // Zone B: Waiting Lounge & Media Screen
             GameObject zoneB = new GameObject("Zone_B_WaitingLounge_Media");
             zoneB.transform.SetParent(structure.transform, false);
             BuildZoneB(zoneB);
 
-            // Zone C: Training & Computer Lab
             GameObject zoneC = new GameObject("Zone_C_Training_ComputerLab");
             zoneC.transform.SetParent(structure.transform, false);
             BuildZoneC(zoneC);
 
-            // Circulation & Corridor Spine
             GameObject corridor = new GameObject("Zone_Circulation_Corridor");
             corridor.transform.SetParent(structure.transform, false);
             BuildCorridor(corridor);
 
-            // Exterior Entrance Plaza & Sliding Doors
             GameObject entrance = new GameObject("Zone_Exterior_Entrance");
             entrance.transform.SetParent(structure.transform, false);
             BuildExteriorEntrancePlaza(entrance);
 
-            // Lighting & Reflection Probes
             GameObject lighting = new GameObject("Interior_Lighting");
             lighting.transform.SetParent(root.transform, false);
             BuildInteriorLighting(lighting);
 
-            // Cameras
             GameObject cameras = new GameObject("Interior_Cameras");
             cameras.transform.SetParent(root.transform, false);
             BuildInteriorCameras(cameras);
 
-            // Player Exploration System (Character Controller, Spawns, Camera System)
             GameObject playerSystem = new GameObject("PlayerSystem");
             playerSystem.transform.SetParent(root.transform, false);
             BuildPlayerSystem(playerSystem);
@@ -159,11 +142,9 @@ namespace IUHCampus.Editor
             return root;
         }
 
-        // ================= ZONE A: FRONT DESK & RECEPTION =================
-        // Positioned around X: [-12, -2], Z: [2, 12], Y: [0, 3.6]
         private static void BuildZoneA(GameObject parent)
         {
-            // Floor
+
             GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floor.name = "Floor_LightTile_A";
             floor.transform.SetParent(parent.transform, false);
@@ -171,7 +152,6 @@ namespace IUHCampus.Editor
             floor.transform.localScale = new Vector3(10.0f, 0.1f, 10.0f);
             floor.GetComponent<MeshRenderer>().sharedMaterial = m_LightTile;
 
-            // Ceiling (Slatted Timber Baffle Ceiling)
             GameObject ceiling = new GameObject("Ceiling_Baffle_A");
             ceiling.transform.SetParent(parent.transform, false);
             for (int i = 0; i < 20; i++)
@@ -185,7 +165,6 @@ namespace IUHCampus.Editor
                 slat.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
             }
 
-            // Suspended Linear LED Strip Fixture & Soft Ambient Light
             GameObject lightBar = GameObject.CreatePrimitive(PrimitiveType.Cube);
             lightBar.name = "LinearLight_Center";
             lightBar.transform.SetParent(ceiling.transform, false);
@@ -199,8 +178,6 @@ namespace IUHCampus.Editor
             ptA.range = 12.0f;
             ptA.intensity = 1.4f;
 
-            // Walls:
-            // Rear North Wall (behind desk): Z = 12
             GameObject rearWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             rearWall.name = "Wall_North_A";
             rearWall.transform.SetParent(parent.transform, false);
@@ -208,7 +185,6 @@ namespace IUHCampus.Editor
             rearWall.transform.localScale = new Vector3(10.0f, 3.5f, 0.1f);
             rearWall.GetComponent<MeshRenderer>().sharedMaterial = m_SageGreen;
 
-            // West Wall (Left side with sofa): X = -12
             GameObject westWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             westWall.name = "Wall_West_A";
             westWall.transform.SetParent(parent.transform, false);
@@ -216,7 +192,6 @@ namespace IUHCampus.Editor
             westWall.transform.localScale = new Vector3(0.1f, 3.5f, 10.0f);
             westWall.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Timber feature slats on West wall
             for (int s = 0; s < 12; s++)
             {
                 float z = 3.5f + s * 0.4f;
@@ -228,7 +203,6 @@ namespace IUHCampus.Editor
                 slat.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
             }
 
-            // East Partition towards Lounge: X = -2 (Partial Wall & Glass Vision Panel)
             GameObject glassEast = GameObject.CreatePrimitive(PrimitiveType.Cube);
             glassEast.name = "GlassPartition_East_A";
             glassEast.transform.SetParent(parent.transform, false);
@@ -236,13 +210,10 @@ namespace IUHCampus.Editor
             glassEast.transform.localScale = new Vector3(0.08f, 3.5f, 7.0f);
             glassEast.GetComponent<MeshRenderer>().sharedMaterial = m_GlassClear;
 
-            // ── Curved Front Desk Reception Counter ──
-            // Positioned at X: -5.5, Z: 8.5
             GameObject desk = new GameObject("Curved_FrontDesk");
             desk.transform.SetParent(parent.transform, false);
             desk.transform.localPosition = new Vector3(-5.5f, 0.0f, 8.5f);
 
-            // Curved Main Body (5 angled faceted segments forming smooth curve)
             int deskSegments = 6;
             float arcRadius = 2.8f;
             float startAngle = 100.0f;
@@ -266,7 +237,6 @@ namespace IUHCampus.Editor
                 seg.transform.localScale = new Vector3(segLen + 0.02f, 1.1f, 0.55f);
                 seg.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-                // Glass sneeze guard on top of desk
                 GameObject guard = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 guard.name = "GlassShield_" + i;
                 guard.transform.SetParent(desk.transform, false);
@@ -276,7 +246,6 @@ namespace IUHCampus.Editor
                 guard.GetComponent<MeshRenderer>().sharedMaterial = m_GlassClear;
             }
 
-            // Desktop Counter Surface (Top Ledger)
             GameObject counterTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
             counterTop.name = "CounterTop";
             counterTop.transform.SetParent(desk.transform, false);
@@ -285,7 +254,6 @@ namespace IUHCampus.Editor
             counterTop.transform.localScale = new Vector3(3.6f, 0.05f, 0.75f);
             counterTop.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // 2 Desktop PC Stations on reception desk
             for (int pc = 0; pc < 2; pc++)
             {
                 float px = -1.2f - pc * 1.3f;
@@ -293,7 +261,6 @@ namespace IUHCampus.Editor
                 BuildCompactPCStation(desk, new Vector3(px, 1.15f, pz), Quaternion.Euler(0, 145f, 0));
             }
 
-            // Receptionist Desk Nameplate
             GameObject nameplate = GameObject.CreatePrimitive(PrimitiveType.Cube);
             nameplate.name = "Desk_Nameplate";
             nameplate.transform.SetParent(desk.transform, false);
@@ -302,10 +269,8 @@ namespace IUHCampus.Editor
             nameplate.transform.localScale = new Vector3(0.35f, 0.08f, 0.06f);
             nameplate.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // Receptionist Chair
             BuildOfficeChair(desk, new Vector3(-2.0f, 0.0f, 2.5f), Quaternion.Euler(0, -35f, 0));
 
-            // ── Tall Storage Credenza / Cabinetry Behind Desk ──
             GameObject storageWall = new GameObject("StorageWall_Credenza");
             storageWall.transform.SetParent(parent.transform, false);
             storageWall.transform.localPosition = new Vector3(-6.5f, 1.4f, 11.6f);
@@ -316,7 +281,6 @@ namespace IUHCampus.Editor
             cabBody.transform.localScale = new Vector3(5.2f, 2.8f, 0.6f);
             cabBody.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-            // Cabinet Shelves & Folders
             for (int b = 0; b < 4; b++)
             {
                 float bx = -1.8f + b * 1.2f;
@@ -332,13 +296,11 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // ── Left Cyan Lounge Sofa ──
             GameObject sofa = new GameObject("Reception_CyanSofa");
             sofa.transform.SetParent(parent.transform, false);
             sofa.transform.localPosition = new Vector3(-11.2f, 0.0f, 6.5f);
             sofa.transform.localRotation = Quaternion.Euler(0, 90f, 0);
 
-            // Sofa Base & Seat
             GameObject sofaSeat = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sofaSeat.name = "Sofa_Seat";
             sofaSeat.transform.SetParent(sofa.transform, false);
@@ -346,7 +308,6 @@ namespace IUHCampus.Editor
             sofaSeat.transform.localScale = new Vector3(3.4f, 0.42f, 0.95f);
             sofaSeat.GetComponent<MeshRenderer>().sharedMaterial = m_CyanSofa;
 
-            // Sofa Backrest
             GameObject sofaBack = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sofaBack.name = "Sofa_Backrest";
             sofaBack.transform.SetParent(sofa.transform, false);
@@ -354,7 +315,6 @@ namespace IUHCampus.Editor
             sofaBack.transform.localScale = new Vector3(3.4f, 0.55f, 0.22f);
             sofaBack.GetComponent<MeshRenderer>().sharedMaterial = m_CyanSofa;
 
-            // Sofa Plinth
             GameObject sofaPlinth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sofaPlinth.name = "Sofa_Plinth";
             sofaPlinth.transform.SetParent(sofa.transform, false);
@@ -362,7 +322,6 @@ namespace IUHCampus.Editor
             sofaPlinth.transform.localScale = new Vector3(3.45f, 0.22f, 0.98f);
             sofaPlinth.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-            // Coffee Table
             GameObject coffeeTable = GameObject.CreatePrimitive(PrimitiveType.Cube);
             coffeeTable.name = "CoffeeTable";
             coffeeTable.transform.SetParent(parent.transform, false);
@@ -370,7 +329,6 @@ namespace IUHCampus.Editor
             coffeeTable.transform.localScale = new Vector3(0.7f, 0.42f, 1.6f);
             coffeeTable.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-            // Standing Poster Rollup Banner
             GameObject banner = GameObject.CreatePrimitive(PrimitiveType.Cube);
             banner.name = "RollupBanner_Standee";
             banner.transform.SetParent(parent.transform, false);
@@ -380,11 +338,9 @@ namespace IUHCampus.Editor
             banner.GetComponent<MeshRenderer>().sharedMaterial = m_Poster1;
         }
 
-        // ================= ZONE B: WAITING LOUNGE & MEDIA SCREEN =================
-        // Positioned around X: [2, 14], Z: [2, 12], Y: [0, 3.6]
         private static void BuildZoneB(GameObject parent)
         {
-            // Floor
+
             GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floor.name = "Floor_LightTile_B";
             floor.transform.SetParent(parent.transform, false);
@@ -392,7 +348,6 @@ namespace IUHCampus.Editor
             floor.transform.localScale = new Vector3(12.0f, 0.1f, 10.0f);
             floor.GetComponent<MeshRenderer>().sharedMaterial = m_LightTile;
 
-            // Ceiling (Modern White Metal Slats)
             GameObject ceiling = new GameObject("Ceiling_Lounge_B");
             ceiling.transform.SetParent(parent.transform, false);
             for (int i = 0; i < 24; i++)
@@ -406,7 +361,6 @@ namespace IUHCampus.Editor
                 slat.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
             }
 
-            // Central Ambient Downlight in Lounge
             GameObject spot = new GameObject("Downlight_Lounge_Center");
             spot.transform.SetParent(ceiling.transform, false);
             spot.transform.localPosition = new Vector3(8.0f, 3.4f, 7.0f);
@@ -416,7 +370,6 @@ namespace IUHCampus.Editor
             lB.range = 14.0f;
             lB.intensity = 1.4f;
 
-            // North Focal Wall (Behind LED Display): Z = 12
             GameObject focalWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             focalWall.name = "FocalWall_North_B";
             focalWall.transform.SetParent(parent.transform, false);
@@ -424,11 +377,10 @@ namespace IUHCampus.Editor
             focalWall.transform.localScale = new Vector3(12.0f, 3.5f, 0.1f);
             focalWall.GetComponent<MeshRenderer>().sharedMaterial = m_SageGreen;
 
-            // Alternating Timber Slats Cladding on North Wall
             for (int s = 0; s < 18; s++)
             {
                 float x = 2.6f + s * 0.6f;
-                if (x > 5.2f && x < 10.8f) continue; // Leave central recess for LED wall
+                if (x > 5.2f && x < 10.8f) continue;
                 GameObject slat = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 slat.name = "WallWoodSlat_" + s;
                 slat.transform.SetParent(parent.transform, false);
@@ -437,7 +389,6 @@ namespace IUHCampus.Editor
                 slat.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
             }
 
-            // East Outer Wall: X = 14
             GameObject eastWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             eastWall.name = "Wall_East_B";
             eastWall.transform.SetParent(parent.transform, false);
@@ -445,19 +396,16 @@ namespace IUHCampus.Editor
             eastWall.transform.localScale = new Vector3(0.1f, 3.5f, 10.0f);
             eastWall.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // ── Large LED Display Video Wall ──
             GameObject ledDisplay = new GameObject("Large_LED_Display");
             ledDisplay.transform.SetParent(parent.transform, false);
             ledDisplay.transform.localPosition = new Vector3(8.0f, 2.1f, 11.92f);
 
-            // Screen Frame Bezel
             GameObject bezel = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bezel.name = "LED_Bezel";
             bezel.transform.SetParent(ledDisplay.transform, false);
             bezel.transform.localScale = new Vector3(4.9f, 2.78f, 0.08f);
             bezel.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Active Emissive Screen Surface (16:9 aspect)
             GameObject screen = GameObject.CreatePrimitive(PrimitiveType.Cube);
             screen.name = "LED_Screen_Active";
             screen.transform.SetParent(ledDisplay.transform, false);
@@ -465,7 +413,6 @@ namespace IUHCampus.Editor
             screen.transform.localScale = new Vector3(4.8f, 2.7f, 0.02f);
             screen.GetComponent<MeshRenderer>().sharedMaterial = m_LEDDisplay;
 
-            // Glow Light from LED Screen onto Floor
             GameObject screenLightGO = new GameObject("LED_Ambient_Glow");
             screenLightGO.transform.SetParent(ledDisplay.transform, false);
             screenLightGO.transform.localPosition = new Vector3(0, -0.2f, -0.8f);
@@ -476,14 +423,12 @@ namespace IUHCampus.Editor
             scrLight.spotAngle = 110f;
             scrLight.intensity = 2.0f;
 
-            // ── 4 Clusters of Perforated Metal Waiting Benches ──
-            // 2 clusters on West side, 2 clusters on East side, facing North towards the screen
             Vector3[] benchPositions = new Vector3[]
             {
-                new Vector3(4.8f, 0.0f, 6.0f),  // Front-Left Cluster
-                new Vector3(11.2f, 0.0f, 6.0f), // Front-Right Cluster
-                new Vector3(4.8f, 0.0f, 3.6f),  // Rear-Left Cluster
-                new Vector3(11.2f, 0.0f, 3.6f)  // Rear-Right Cluster
+                new Vector3(4.8f, 0.0f, 6.0f),
+                new Vector3(11.2f, 0.0f, 6.0f),
+                new Vector3(4.8f, 0.0f, 3.6f),
+                new Vector3(11.2f, 0.0f, 3.6f)
             };
 
             for (int i = 0; i < benchPositions.Length; i++)
@@ -491,16 +436,13 @@ namespace IUHCampus.Editor
                 BuildAirportWaitingBench(parent, benchPositions[i], Quaternion.identity);
             }
 
-            // Decorative Architectural Planters
             BuildIndoorPlanter(parent, new Vector3(2.8f, 0.0f, 11.2f));
             BuildIndoorPlanter(parent, new Vector3(13.2f, 0.0f, 11.2f));
         }
 
-        // ================= ZONE C: TRAINING & COMPUTER LAB =================
-        // Positioned around X: [-12, 4], Z: [-16, -2], Y: [0, 3.6]
         private static void BuildZoneC(GameObject parent)
         {
-            // Floor (Glossy Black Marble Tile!)
+
             GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floor.name = "Floor_BlackMarble_C";
             floor.transform.SetParent(parent.transform, false);
@@ -508,7 +450,6 @@ namespace IUHCampus.Editor
             floor.transform.localScale = new Vector3(16.0f, 0.1f, 14.0f);
             floor.GetComponent<MeshRenderer>().sharedMaterial = m_BlackMarble;
 
-            // Ceiling (600x600 Acoustic Grid Tile with Bright LED Panels)
             GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Cube);
             ceiling.name = "Ceiling_AcousticGrid_C";
             ceiling.transform.SetParent(parent.transform, false);
@@ -516,7 +457,6 @@ namespace IUHCampus.Editor
             ceiling.transform.localScale = new Vector3(16.0f, 0.1f, 14.0f);
             ceiling.GetComponent<MeshRenderer>().sharedMaterial = m_CeilingGrid;
 
-            // Recessed 600x600 LED Daylight Panels (5500K bright educational illumination)
             for (int px = 0; px < 2; px++)
             {
                 float x = -7.0f + px * 6.0f;
@@ -534,7 +474,6 @@ namespace IUHCampus.Editor
                 pl.intensity = 1.5f;
             }
 
-            // South Front Wall (Teaching Front / Whiteboard): Z = -16
             GameObject southWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             southWall.name = "Wall_South_C";
             southWall.transform.SetParent(parent.transform, false);
@@ -542,7 +481,6 @@ namespace IUHCampus.Editor
             southWall.transform.localScale = new Vector3(16.0f, 3.5f, 0.1f);
             southWall.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Front Teaching Whiteboard / Projector Screen
             GameObject whiteBoard = new GameObject("Whiteboard_Teaching");
             whiteBoard.transform.SetParent(parent.transform, false);
             whiteBoard.transform.localPosition = new Vector3(-4.0f, 1.85f, -15.95f);
@@ -568,7 +506,6 @@ namespace IUHCampus.Editor
             tray.transform.localScale = new Vector3(6.0f, 0.05f, 0.10f);
             tray.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // West Wall: X = -12
             GameObject westWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             westWall.name = "Wall_West_C";
             westWall.transform.SetParent(parent.transform, false);
@@ -576,7 +513,6 @@ namespace IUHCampus.Editor
             westWall.transform.localScale = new Vector3(0.1f, 3.5f, 14.0f);
             westWall.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Academic Posters on West Wall (parented directly to room with crisp scale)
             GameObject poster1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
             poster1.name = "Poster_NetworkArch";
             poster1.transform.SetParent(parent.transform, false);
@@ -591,14 +527,12 @@ namespace IUHCampus.Editor
             poster2.transform.localScale = new Vector3(0.04f, 1.6f, 1.1f);
             poster2.GetComponent<MeshRenderer>().sharedMaterial = m_Poster2;
 
-            // Wall-mounted Oscillating Electric Fans near ceiling
             for (int f = 0; f < 3; f++)
             {
                 float fz = -14.0f + f * 5.0f;
                 BuildWallFan(westWall, new Vector3(0.2f, 1.1f, (fz - (-9.0f)) / 14.0f));
             }
 
-            // East Wall: X = 4
             GameObject eastWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             eastWall.name = "Wall_East_C";
             eastWall.transform.SetParent(parent.transform, false);
@@ -606,12 +540,10 @@ namespace IUHCampus.Editor
             eastWall.transform.localScale = new Vector3(0.1f, 3.5f, 14.0f);
             eastWall.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // ── Rear Glass Wall & Entrance (Z = -2, looking into corridor) ──
             GameObject rearGlassWall = new GameObject("Rear_Glass_Curtain_C");
             rearGlassWall.transform.SetParent(parent.transform, false);
             rearGlassWall.transform.localPosition = new Vector3(-4.0f, 1.75f, -2.0f);
 
-            // Mullion Structure
             int glassPanels = 8;
             float totalW = 16.0f;
             float panelW = totalW / glassPanels;
@@ -620,7 +552,6 @@ namespace IUHCampus.Editor
             {
                 float gx = -totalW * 0.5f + (g + 0.5f) * panelW;
 
-                // Clear Glass Panel
                 GameObject glass = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 glass.name = "GlassPane_" + g;
                 glass.transform.SetParent(rearGlassWall.transform, false);
@@ -628,7 +559,6 @@ namespace IUHCampus.Editor
                 glass.transform.localScale = new Vector3(panelW - 0.06f, 3.48f, 0.04f);
                 glass.GetComponent<MeshRenderer>().sharedMaterial = m_GlassClear;
 
-                // Frosted Horizontal Decal Stripe at eye level (1.0m to 1.8m)
                 GameObject decal = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 decal.name = "FrostedDecal_" + g;
                 decal.transform.SetParent(rearGlassWall.transform, false);
@@ -636,7 +566,6 @@ namespace IUHCampus.Editor
                 decal.transform.localScale = new Vector3(panelW - 0.06f, 0.8f, 0.045f);
                 decal.GetComponent<MeshRenderer>().sharedMaterial = m_GlassFrosted;
 
-                // Vertical Dark Mullion Frame
                 GameObject mullion = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 mullion.name = "Mullion_" + g;
                 mullion.transform.SetParent(rearGlassWall.transform, false);
@@ -645,11 +574,9 @@ namespace IUHCampus.Editor
                 mullion.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             }
 
-            // Double Glass Doors in center of rear wall (gx = 0)
             GameObject doorFrame = new GameObject("DoorFrame_Central");
             doorFrame.transform.SetParent(rearGlassWall.transform, false);
 
-            // Left Post
             GameObject postL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             postL.name = "Post_L";
             postL.transform.SetParent(doorFrame.transform, false);
@@ -657,7 +584,6 @@ namespace IUHCampus.Editor
             postL.transform.localScale = new Vector3(0.08f, 3.5f, 0.12f);
             postL.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Right Post
             GameObject postR = GameObject.CreatePrimitive(PrimitiveType.Cube);
             postR.name = "Post_R";
             postR.transform.SetParent(doorFrame.transform, false);
@@ -665,7 +591,6 @@ namespace IUHCampus.Editor
             postR.transform.localScale = new Vector3(0.08f, 3.5f, 0.12f);
             postR.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Top Lintel
             GameObject lintel = GameObject.CreatePrimitive(PrimitiveType.Cube);
             lintel.name = "Lintel";
             lintel.transform.SetParent(doorFrame.transform, false);
@@ -673,7 +598,6 @@ namespace IUHCampus.Editor
             lintel.transform.localScale = new Vector3(2.2f, 0.12f, 0.12f);
             lintel.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Left Leaf sliding group
             GameObject leafL = new GameObject("DoorLeaf_Left");
             leafL.transform.SetParent(doorFrame.transform, false);
             leafL.transform.localPosition = new Vector3(-0.52f, 0, 0);
@@ -699,7 +623,6 @@ namespace IUHCampus.Editor
             handleL.transform.localScale = new Vector3(0.04f, 0.9f, 0.06f);
             handleL.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // Right Leaf sliding group
             GameObject leafR = new GameObject("DoorLeaf_Right");
             leafR.transform.SetParent(doorFrame.transform, false);
             leafR.transform.localPosition = new Vector3(0.52f, 0, 0);
@@ -725,7 +648,6 @@ namespace IUHCampus.Editor
             handleR.transform.localScale = new Vector3(0.04f, 0.9f, 0.06f);
             handleR.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // Trigger & Automatic Door Component
             BoxCollider doorTrigger = doorFrame.AddComponent<BoxCollider>();
             doorTrigger.isTrigger = true;
             doorTrigger.center = Vector3.zero;
@@ -733,22 +655,16 @@ namespace IUHCampus.Editor
             IUHAutomaticDoor autoDoor = doorFrame.AddComponent<IUHAutomaticDoor>();
             autoDoor.BindDoors(leafL.transform, leafR.transform, 1.0f);
 
-            // ── Two Main Center Double Rows of Desks (8 workstations) ──
-            // Row 1 (Left center): X = -6.5
             BuildDoubleDeskRow(parent, new Vector3(-6.5f, 0.0f, -9.0f), 4);
 
-            // Row 2 (Right center): X = -1.5
             BuildDoubleDeskRow(parent, new Vector3(-1.5f, 0.0f, -9.0f), 4);
 
-            // ── Peripheral Side Desk Row (4 workstations along West wall) ──
             BuildSingleDeskRow(parent, new Vector3(-11.2f, 0.0f, -9.0f), 4);
         }
 
-        // ================= ZONE CIRCULATION / CORRIDOR =================
-        // Positioned around X: [-14, 14], Z: [-2, 2], Y: [0, 3.6]
         private static void BuildCorridor(GameObject parent)
         {
-            // Floor
+
             GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
             floor.name = "Floor_Corridor";
             floor.transform.SetParent(parent.transform, false);
@@ -756,7 +672,6 @@ namespace IUHCampus.Editor
             floor.transform.localScale = new Vector3(28.0f, 0.1f, 4.0f);
             floor.GetComponent<MeshRenderer>().sharedMaterial = m_LightTile;
 
-            // Ceiling
             GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Cube);
             ceiling.name = "Ceiling_Corridor";
             ceiling.transform.SetParent(parent.transform, false);
@@ -764,7 +679,6 @@ namespace IUHCampus.Editor
             ceiling.transform.localScale = new Vector3(28.0f, 0.1f, 4.0f);
             ceiling.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Recessed Downlights along corridor
             for (int i = 0; i < 2; i++)
             {
                 float x = -6.0f + i * 12.0f;
@@ -778,18 +692,15 @@ namespace IUHCampus.Editor
                 l.intensity = 1.2f;
             }
 
-            // Directional & Room Nameplate Signage Above Doors
             BuildSignboard(parent, new Vector3(-5.5f, 2.7f, 1.95f), "PHÒNG TIẾP ĐÓN & TƯ VẤN HỌC THUẬT");
             BuildSignboard(parent, new Vector3(8.0f, 2.7f, 1.95f), "SẢNH CHỜ TRUYỀN THÔNG & DỮ LIỆU");
             BuildSignboard(parent, new Vector3(-4.0f, 2.7f, -1.95f), "PHÒNG THỰC HÀNH CÔNG NGHỆ CHUYÊN SÂU");
             BuildSignboard(parent, new Vector3(9.0f, 2.7f, -1.95f), "LỐI RA KHUÔN VIÊN & CỔNG CHÍNH IUH");
         }
 
-        // ================= ZONE EXTERIOR ENTRANCE & PLAZA =================
-        // Positioned around X: [4, 14], Z: [-14, -2], Y: [0, 3.6]
         private static void BuildExteriorEntrancePlaza(GameObject parent)
         {
-            // 1. Exterior Plaza Ground Pavement
+
             GameObject plazaFloor = GameObject.CreatePrimitive(PrimitiveType.Cube);
             plazaFloor.name = "Floor_Exterior_Plaza";
             plazaFloor.transform.SetParent(parent.transform, false);
@@ -797,7 +708,6 @@ namespace IUHCampus.Editor
             plazaFloor.transform.localScale = new Vector3(14.0f, 0.1f, 12.0f);
             plazaFloor.GetComponent<MeshRenderer>().sharedMaterial = m_LightTile;
 
-            // Outer curb pavers
             GameObject curb = GameObject.CreatePrimitive(PrimitiveType.Cube);
             curb.name = "Plaza_Curb";
             curb.transform.SetParent(parent.transform, false);
@@ -805,8 +715,6 @@ namespace IUHCampus.Editor
             curb.transform.localScale = new Vector3(14.4f, 0.15f, 0.3f);
             curb.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // 2. Entrance Facade Wall (Z = -2.0)
-            // Left Wall (X = 4 to 7)
             GameObject wallL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wallL.name = "Entrance_Wall_Left";
             wallL.transform.SetParent(parent.transform, false);
@@ -814,7 +722,6 @@ namespace IUHCampus.Editor
             wallL.transform.localScale = new Vector3(3.0f, 3.5f, 0.2f);
             wallL.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Right Wall (X = 11 to 14)
             GameObject wallR = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wallR.name = "Entrance_Wall_Right";
             wallR.transform.SetParent(parent.transform, false);
@@ -822,7 +729,6 @@ namespace IUHCampus.Editor
             wallR.transform.localScale = new Vector3(3.0f, 3.5f, 0.2f);
             wallR.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Transom Glass above entrance opening (Y = 2.6 to 3.5)
             GameObject transom = GameObject.CreatePrimitive(PrimitiveType.Cube);
             transom.name = "Entrance_Transom_Glass";
             transom.transform.SetParent(parent.transform, false);
@@ -830,7 +736,6 @@ namespace IUHCampus.Editor
             transom.transform.localScale = new Vector3(4.0f, 0.9f, 0.06f);
             transom.GetComponent<MeshRenderer>().sharedMaterial = m_GlassClear;
 
-            // Mullion Frame around opening
             for (int p = -1; p <= 1; p += 2)
             {
                 GameObject post = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -841,12 +746,10 @@ namespace IUHCampus.Editor
                 post.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             }
 
-            // 3. Modern Cantilever Canopy & IUH Signboard
             GameObject canopy = new GameObject("Entrance_Canopy");
             canopy.transform.SetParent(parent.transform, false);
             canopy.transform.localPosition = new Vector3(9.0f, 3.55f, -4.5f);
 
-            // Canopy Roof Slab
             GameObject canopySlab = GameObject.CreatePrimitive(PrimitiveType.Cube);
             canopySlab.name = "Canopy_RoofSlab";
             canopySlab.transform.SetParent(canopy.transform, false);
@@ -854,7 +757,6 @@ namespace IUHCampus.Editor
             canopySlab.transform.localScale = new Vector3(6.4f, 0.22f, 5.0f);
             canopySlab.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Front Fascia Signboard Banner
             GameObject fascia = GameObject.CreatePrimitive(PrimitiveType.Cube);
             fascia.name = "Canopy_FrontFascia";
             fascia.transform.SetParent(canopy.transform, false);
@@ -862,7 +764,6 @@ namespace IUHCampus.Editor
             fascia.transform.localScale = new Vector3(6.4f, 0.55f, 0.1f);
             fascia.GetComponent<MeshRenderer>().sharedMaterial = (m_AvatarJacket != null) ? m_AvatarJacket : m_NavyChair;
 
-            // White illuminated lettering banner
             GameObject fasciaSign = GameObject.CreatePrimitive(PrimitiveType.Cube);
             fasciaSign.name = "Canopy_SignPlate";
             fasciaSign.transform.SetParent(canopy.transform, false);
@@ -870,7 +771,6 @@ namespace IUHCampus.Editor
             fasciaSign.transform.localScale = new Vector3(5.2f, 0.32f, 0.04f);
             fasciaSign.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Accent Line along canopy
             GameObject accentLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
             accentLine.name = "Canopy_AccentLine";
             accentLine.transform.SetParent(canopy.transform, false);
@@ -878,7 +778,6 @@ namespace IUHCampus.Editor
             accentLine.transform.localScale = new Vector3(6.4f, 0.06f, 0.05f);
             accentLine.GetComponent<MeshRenderer>().sharedMaterial = m_LEDDisplay;
 
-            // Canopy Downlights
             for (int l = -1; l <= 1; l += 2)
             {
                 GameObject cLight = new GameObject("Canopy_Light_" + l);
@@ -891,12 +790,10 @@ namespace IUHCampus.Editor
                 cl.intensity = 1.6f;
             }
 
-            // 4. Automatic Sliding Glass Doors at Main Entrance
             GameObject entranceDoorFrame = new GameObject("Entrance_SlidingDoors");
             entranceDoorFrame.transform.SetParent(parent.transform, false);
             entranceDoorFrame.transform.localPosition = new Vector3(9.0f, 1.3f, -2.0f);
 
-            // Left sliding leaf
             GameObject eLeafL = new GameObject("DoorLeaf_L");
             eLeafL.transform.SetParent(entranceDoorFrame.transform, false);
             eLeafL.transform.localPosition = new Vector3(-0.95f, 0, 0);
@@ -922,7 +819,6 @@ namespace IUHCampus.Editor
             eHandleL.transform.localScale = new Vector3(0.04f, 1.1f, 0.06f);
             eHandleL.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // Right sliding leaf
             GameObject eLeafR = new GameObject("DoorLeaf_R");
             eLeafR.transform.SetParent(entranceDoorFrame.transform, false);
             eLeafR.transform.localPosition = new Vector3(0.95f, 0, 0);
@@ -948,7 +844,6 @@ namespace IUHCampus.Editor
             eHandleR.transform.localScale = new Vector3(0.04f, 1.1f, 0.06f);
             eHandleR.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // Automatic Door Trigger
             BoxCollider entranceTrigger = entranceDoorFrame.AddComponent<BoxCollider>();
             entranceTrigger.isTrigger = true;
             entranceTrigger.center = Vector3.zero;
@@ -956,35 +851,30 @@ namespace IUHCampus.Editor
             IUHAutomaticDoor eAutoDoor = entranceDoorFrame.AddComponent<IUHAutomaticDoor>();
             eAutoDoor.BindDoors(eLeafL.transform, eLeafR.transform, 1.4f);
 
-            // 5. Planters flanking entrance
             BuildIndoorPlanter(parent, new Vector3(6.2f, 0, -4.5f));
             BuildIndoorPlanter(parent, new Vector3(11.8f, 0, -4.5f));
         }
 
-        // ================= PLAYER SYSTEM & SPAWN POINTS =================
         public static void BuildPlayerSystem(GameObject parent)
         {
-            // 1. Spawn Point Exterior (local pos: 9.0, 0.05, -8.0; facing North)
+
             GameObject spawnExt = new GameObject("PlayerSpawn_Exterior");
             spawnExt.transform.SetParent(parent.transform, false);
             spawnExt.transform.localPosition = new Vector3(9.0f, 0.05f, -8.0f);
             spawnExt.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-            // 2. Spawn Point Interior (local pos: -7.0, 0.05, 6.0; facing West at Reception)
             GameObject spawnInt = new GameObject("PlayerSpawn_Interior");
             spawnInt.transform.SetParent(parent.transform, false);
             spawnInt.transform.localPosition = new Vector3(-7.0f, 0.05f, 6.0f);
             spawnInt.transform.localRotation = Quaternion.Euler(0, -90.0f, 0);
 
-            // 3. Player Character
             GameObject player = new GameObject("Player");
             player.transform.SetParent(parent.transform, false);
             player.transform.localPosition = spawnExt.transform.localPosition;
             player.transform.localRotation = spawnExt.transform.localRotation;
             player.tag = "Player";
-            player.layer = 2; // Ignore Raycast layer for camera collision
+            player.layer = 2;
 
-            // Character Controller
             CharacterController cc = player.AddComponent<CharacterController>();
             cc.height = 1.75f;
             cc.radius = 0.32f;
@@ -993,22 +883,18 @@ namespace IUHCampus.Editor
             cc.slopeLimit = 45f;
             cc.minMoveDistance = 0.001f;
 
-            // Camera Target
             GameObject camTarget = new GameObject("CameraTarget");
             camTarget.transform.SetParent(player.transform, false);
             camTarget.transform.localPosition = new Vector3(0, 1.55f, 0);
 
-            // Ground Check
             GameObject groundCheck = new GameObject("GroundCheck");
             groundCheck.transform.SetParent(player.transform, false);
             groundCheck.transform.localPosition = new Vector3(0, 0.05f, 0);
 
-            // Humanoid Student Model
             GameObject model = new GameObject("Model");
             model.transform.SetParent(player.transform, false);
             model.layer = 2;
 
-            // Torso (Navy IUH Student Polo / Jacket)
             GameObject torso = GameObject.CreatePrimitive(PrimitiveType.Cube);
             torso.name = "Torso";
             torso.transform.SetParent(model.transform, false);
@@ -1018,7 +904,6 @@ namespace IUHCampus.Editor
             torso.GetComponent<MeshRenderer>().sharedMaterial = (m_AvatarJacket != null) ? m_AvatarJacket : m_NavyChair;
             UnityEngine.Object.DestroyImmediate(torso.GetComponent<Collider>());
 
-            // Collar / Shirt Trim
             GameObject collar = GameObject.CreatePrimitive(PrimitiveType.Cube);
             collar.name = "Collar";
             collar.transform.SetParent(torso.transform, false);
@@ -1028,7 +913,6 @@ namespace IUHCampus.Editor
             collar.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
             UnityEngine.Object.DestroyImmediate(collar.GetComponent<Collider>());
 
-            // Student Backpack
             GameObject backpack = GameObject.CreatePrimitive(PrimitiveType.Cube);
             backpack.name = "Backpack";
             backpack.transform.SetParent(torso.transform, false);
@@ -1038,7 +922,6 @@ namespace IUHCampus.Editor
             backpack.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             UnityEngine.Object.DestroyImmediate(backpack.GetComponent<Collider>());
 
-            // Head
             GameObject head = GameObject.CreatePrimitive(PrimitiveType.Cube);
             head.name = "Head";
             head.transform.SetParent(model.transform, false);
@@ -1048,7 +931,6 @@ namespace IUHCampus.Editor
             head.GetComponent<MeshRenderer>().sharedMaterial = (m_AvatarSkin != null) ? m_AvatarSkin : m_LightWood;
             UnityEngine.Object.DestroyImmediate(head.GetComponent<Collider>());
 
-            // Hair
             GameObject hair = GameObject.CreatePrimitive(PrimitiveType.Cube);
             hair.name = "Hair";
             hair.transform.SetParent(head.transform, false);
@@ -1058,7 +940,6 @@ namespace IUHCampus.Editor
             hair.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             UnityEngine.Object.DestroyImmediate(hair.GetComponent<Collider>());
 
-            // Left Arm Pivot
             GameObject armLPivot = new GameObject("Arm_L_Pivot");
             armLPivot.transform.SetParent(model.transform, false);
             armLPivot.transform.localPosition = new Vector3(-0.27f, 1.25f, 0);
@@ -1082,7 +963,6 @@ namespace IUHCampus.Editor
             handL.GetComponent<MeshRenderer>().sharedMaterial = (m_AvatarSkin != null) ? m_AvatarSkin : m_LightWood;
             UnityEngine.Object.DestroyImmediate(handL.GetComponent<Collider>());
 
-            // Right Arm Pivot
             GameObject armRPivot = new GameObject("Arm_R_Pivot");
             armRPivot.transform.SetParent(model.transform, false);
             armRPivot.transform.localPosition = new Vector3(0.27f, 1.25f, 0);
@@ -1106,7 +986,6 @@ namespace IUHCampus.Editor
             handR.GetComponent<MeshRenderer>().sharedMaterial = (m_AvatarSkin != null) ? m_AvatarSkin : m_LightWood;
             UnityEngine.Object.DestroyImmediate(handR.GetComponent<Collider>());
 
-            // Left Leg Pivot
             GameObject legLPivot = new GameObject("Leg_L_Pivot");
             legLPivot.transform.SetParent(model.transform, false);
             legLPivot.transform.localPosition = new Vector3(-0.12f, 0.72f, 0);
@@ -1130,7 +1009,6 @@ namespace IUHCampus.Editor
             shoeL.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
             UnityEngine.Object.DestroyImmediate(shoeL.GetComponent<Collider>());
 
-            // Right Leg Pivot
             GameObject legRPivot = new GameObject("Leg_R_Pivot");
             legRPivot.transform.SetParent(model.transform, false);
             legRPivot.transform.localPosition = new Vector3(0.12f, 0.72f, 0);
@@ -1154,14 +1032,11 @@ namespace IUHCampus.Editor
             shoeR.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
             UnityEngine.Object.DestroyImmediate(shoeR.GetComponent<Collider>());
 
-            // Bind Animator
             IUHCharacterAnimator animator = model.AddComponent<IUHCharacterAnimator>();
             animator.BindLimbs(torso.transform, armLPivot.transform, armRPivot.transform, legLPivot.transform, legRPivot.transform);
 
-            // Bind Controller
             player.AddComponent<IUHPlayerController>();
 
-            // Setup Camera System
             SetupMainCamera(player.transform);
         }
 
@@ -1179,14 +1054,10 @@ namespace IUHCampus.Editor
             if (tpCam == null) tpCam = mainCam.gameObject.AddComponent<IUHThirdPersonCamera>();
             tpCam.SetTarget(playerTransform);
 
-            // Position initially behind player at exterior spawn
             mainCam.transform.position = playerTransform.position + new Vector3(0, 1.8f, -2.6f);
             mainCam.transform.rotation = Quaternion.Euler(12.0f, playerTransform.eulerAngles.y, 0);
         }
 
-        // ================= PROCEDURAL FURNITURE & PROPS =================
-
-        // Double-sided Computer Desk Row (with central low white divider screen)
         private static void BuildDoubleDeskRow(GameObject parent, Vector3 centerPos, int totalStations)
         {
             GameObject rowGO = new GameObject("DoubleDeskRow");
@@ -1198,7 +1069,6 @@ namespace IUHCampus.Editor
             float deskDepth = 0.7f;
             float totalLen = stationsPerSide * stationLen;
 
-            // Table Top North Side
             GameObject topN = GameObject.CreatePrimitive(PrimitiveType.Cube);
             topN.name = "TableTop_North";
             topN.transform.SetParent(rowGO.transform, false);
@@ -1206,7 +1076,6 @@ namespace IUHCampus.Editor
             topN.transform.localScale = new Vector3(totalLen, 0.05f, deskDepth);
             topN.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-            // Table Top South Side
             GameObject topS = GameObject.CreatePrimitive(PrimitiveType.Cube);
             topS.name = "TableTop_South";
             topS.transform.SetParent(rowGO.transform, false);
@@ -1214,7 +1083,6 @@ namespace IUHCampus.Editor
             topS.transform.localScale = new Vector3(totalLen, 0.05f, deskDepth);
             topS.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-            // Central White Matte Divider Screen (Low privacy screen ~0.35m high)
             GameObject divider = GameObject.CreatePrimitive(PrimitiveType.Cube);
             divider.name = "White_Divider_Screen";
             divider.transform.SetParent(rowGO.transform, false);
@@ -1222,7 +1090,6 @@ namespace IUHCampus.Editor
             divider.transform.localScale = new Vector3(totalLen + 0.05f, 0.38f, 0.04f);
             divider.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Dark Metal Desk Frame & Legs
             for (int leg = 0; leg <= stationsPerSide; leg++)
             {
                 float lx = -totalLen * 0.5f + leg * stationLen;
@@ -1234,22 +1101,18 @@ namespace IUHCampus.Editor
                 legBar.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             }
 
-            // Workstations & Chairs on North & South
             for (int s = 0; s < stationsPerSide; s++)
             {
                 float sx = -totalLen * 0.5f + (s + 0.5f) * stationLen;
 
-                // North Station (Looking South towards divider)
                 BuildPCWorkstation(rowGO, new Vector3(sx, 0.75f, deskDepth * 0.5f), Quaternion.Euler(0, 180f, 0));
                 BuildOfficeChair(rowGO, new Vector3(sx, 0.0f, deskDepth + 0.45f), Quaternion.Euler(0, 180f, 0));
 
-                // South Station (Looking North towards divider)
                 BuildPCWorkstation(rowGO, new Vector3(sx, 0.75f, -deskDepth * 0.5f), Quaternion.identity);
                 BuildOfficeChair(rowGO, new Vector3(sx, 0.0f, -deskDepth - 0.45f), Quaternion.identity);
             }
         }
 
-        // Single Peripheral Desk Row along Wall
         private static void BuildSingleDeskRow(GameObject parent, Vector3 centerPos, int stationCount)
         {
             GameObject rowGO = new GameObject("SingleDeskRow_Wall");
@@ -1260,7 +1123,6 @@ namespace IUHCampus.Editor
             float deskDepth = 0.65f;
             float totalLen = stationCount * stationLen;
 
-            // Table Top
             GameObject top = GameObject.CreatePrimitive(PrimitiveType.Cube);
             top.name = "TableTop_Wall";
             top.transform.SetParent(rowGO.transform, false);
@@ -1268,7 +1130,6 @@ namespace IUHCampus.Editor
             top.transform.localScale = new Vector3(totalLen, 0.05f, deskDepth);
             top.GetComponent<MeshRenderer>().sharedMaterial = m_LightWood;
 
-            // Legs
             for (int leg = 0; leg <= stationCount; leg++)
             {
                 float lx = -totalLen * 0.5f + leg * stationLen;
@@ -1280,7 +1141,6 @@ namespace IUHCampus.Editor
                 legBar.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             }
 
-            // Workstations & Chairs (Looking West towards wall)
             for (int s = 0; s < stationCount; s++)
             {
                 float sx = -totalLen * 0.5f + (s + 0.5f) * stationLen;
@@ -1289,7 +1149,6 @@ namespace IUHCampus.Editor
             }
         }
 
-        // Complete PC Workstation (Case, Screen, Keyboard, Mouse)
         private static void BuildPCWorkstation(GameObject parent, Vector3 localPos, Quaternion localRot)
         {
             GameObject pc = new GameObject("Workstation");
@@ -1297,19 +1156,16 @@ namespace IUHCampus.Editor
             pc.transform.localPosition = localPos;
             pc.transform.localRotation = localRot;
 
-            // 1. 24" Widescreen Monitor with glowing code editor screen
             GameObject monitor = new GameObject("Monitor_24in");
             monitor.transform.SetParent(pc.transform, false);
             monitor.transform.localPosition = new Vector3(0, 0.28f, 0.18f);
 
-            // Bezel
             GameObject bez = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bez.name = "Bezel";
             bez.transform.SetParent(monitor.transform, false);
             bez.transform.localScale = new Vector3(0.56f, 0.34f, 0.03f);
             bez.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Emissive Screen
             GameObject scr = GameObject.CreatePrimitive(PrimitiveType.Cube);
             scr.name = "Screen";
             scr.transform.SetParent(monitor.transform, false);
@@ -1317,7 +1173,6 @@ namespace IUHCampus.Editor
             scr.transform.localScale = new Vector3(0.53f, 0.31f, 0.01f);
             scr.GetComponent<MeshRenderer>().sharedMaterial = m_ScreenPC;
 
-            // Stand & Base
             GameObject stand = GameObject.CreatePrimitive(PrimitiveType.Cube);
             stand.name = "Stand";
             stand.transform.SetParent(monitor.transform, false);
@@ -1332,7 +1187,6 @@ namespace IUHCampus.Editor
             basePl.transform.localScale = new Vector3(0.22f, 0.02f, 0.18f);
             basePl.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // 2. Tower PC Case
             GameObject pcCase = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pcCase.name = "PC_TowerCase";
             pcCase.transform.SetParent(pc.transform, false);
@@ -1340,7 +1194,6 @@ namespace IUHCampus.Editor
             pcCase.transform.localScale = new Vector3(0.18f, 0.44f, 0.42f);
             pcCase.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // 3. Keyboard
             GameObject kb = GameObject.CreatePrimitive(PrimitiveType.Cube);
             kb.name = "Keyboard";
             kb.transform.SetParent(pc.transform, false);
@@ -1348,7 +1201,6 @@ namespace IUHCampus.Editor
             kb.transform.localScale = new Vector3(0.44f, 0.018f, 0.14f);
             kb.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // 4. Mouse & Mousepad
             GameObject pad = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pad.name = "Mousepad";
             pad.transform.SetParent(pc.transform, false);
@@ -1364,7 +1216,6 @@ namespace IUHCampus.Editor
             mouse.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
         }
 
-        // Compact PC Station for Reception Desk
         private static void BuildCompactPCStation(GameObject parent, Vector3 localPos, Quaternion localRot)
         {
             GameObject pc = new GameObject("Reception_PC");
@@ -1372,7 +1223,6 @@ namespace IUHCampus.Editor
             pc.transform.localPosition = localPos;
             pc.transform.localRotation = localRot;
 
-            // Monitor
             GameObject bez = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bez.name = "Monitor";
             bez.transform.SetParent(pc.transform, false);
@@ -1387,7 +1237,6 @@ namespace IUHCampus.Editor
             scr.transform.localScale = new Vector3(0.49f, 0.29f, 0.01f);
             scr.GetComponent<MeshRenderer>().sharedMaterial = m_ScreenPC;
 
-            // Keyboard & Mouse
             GameObject kb = GameObject.CreatePrimitive(PrimitiveType.Cube);
             kb.name = "Keyboard";
             kb.transform.SetParent(pc.transform, false);
@@ -1396,7 +1245,6 @@ namespace IUHCampus.Editor
             kb.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
         }
 
-        // Ergonomic Swivel Office Chair
         private static void BuildOfficeChair(GameObject parent, Vector3 localPos, Quaternion localRot)
         {
             GameObject chair = new GameObject("OfficeChair");
@@ -1404,7 +1252,6 @@ namespace IUHCampus.Editor
             chair.transform.localPosition = localPos;
             chair.transform.localRotation = localRot;
 
-            // Seat Cushion
             GameObject seat = GameObject.CreatePrimitive(PrimitiveType.Cube);
             seat.name = "SeatCushion";
             seat.transform.SetParent(chair.transform, false);
@@ -1412,7 +1259,6 @@ namespace IUHCampus.Editor
             seat.transform.localScale = new Vector3(0.48f, 0.08f, 0.46f);
             seat.GetComponent<MeshRenderer>().sharedMaterial = m_NavyChair;
 
-            // Ergonomic Curved Backrest
             GameObject back = GameObject.CreatePrimitive(PrimitiveType.Cube);
             back.name = "Backrest";
             back.transform.SetParent(chair.transform, false);
@@ -1420,7 +1266,6 @@ namespace IUHCampus.Editor
             back.transform.localScale = new Vector3(0.44f, 0.52f, 0.06f);
             back.GetComponent<MeshRenderer>().sharedMaterial = m_NavyChair;
 
-            // Armrests
             for (int a = -1; a <= 1; a += 2)
             {
                 GameObject arm = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1431,7 +1276,6 @@ namespace IUHCampus.Editor
                 arm.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
             }
 
-            // Central Piston & 5-Star Base
             GameObject piston = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             piston.name = "Piston";
             piston.transform.SetParent(chair.transform, false);
@@ -1447,7 +1291,6 @@ namespace IUHCampus.Editor
             starBase.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
         }
 
-        // Airport / Station 3-Seater Waiting Bench
         private static void BuildAirportWaitingBench(GameObject parent, Vector3 localPos, Quaternion localRot)
         {
             GameObject bench = new GameObject("PerforatedMetal_Bench");
@@ -1458,7 +1301,6 @@ namespace IUHCampus.Editor
             float seatWidth = 0.55f;
             float spacing = 0.62f;
 
-            // Main Chrome Crossbeam Beam
             GameObject beam = GameObject.CreatePrimitive(PrimitiveType.Cube);
             beam.name = "Chrome_Beam";
             beam.transform.SetParent(bench.transform, false);
@@ -1466,7 +1308,6 @@ namespace IUHCampus.Editor
             beam.transform.localScale = new Vector3(1.95f, 0.06f, 0.06f);
             beam.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
 
-            // 2 Chrome Legs with curved feet
             for (int l = -1; l <= 1; l += 2)
             {
                 GameObject leg = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1477,14 +1318,12 @@ namespace IUHCampus.Editor
                 leg.GetComponent<MeshRenderer>().sharedMaterial = m_Chrome;
             }
 
-            // 3 Perforated Metal Seats
             for (int s = -1; s <= 1; s++)
             {
                 GameObject seatGO = new GameObject("Seat_" + s);
                 seatGO.transform.SetParent(bench.transform, false);
                 seatGO.transform.localPosition = new Vector3(s * spacing, 0, 0);
 
-                // Curved Seat Pan
                 GameObject pan = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 pan.name = "Pan";
                 pan.transform.SetParent(seatGO.transform, false);
@@ -1492,7 +1331,6 @@ namespace IUHCampus.Editor
                 pan.transform.localScale = new Vector3(seatWidth, 0.04f, 0.48f);
                 pan.GetComponent<MeshRenderer>().sharedMaterial = m_PerforatedMetal;
 
-                // Backrest
                 GameObject back = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 back.name = "Back";
                 back.transform.SetParent(seatGO.transform, false);
@@ -1500,7 +1338,6 @@ namespace IUHCampus.Editor
                 back.transform.localScale = new Vector3(seatWidth, 0.46f, 0.04f);
                 back.GetComponent<MeshRenderer>().sharedMaterial = m_PerforatedMetal;
 
-                // Chrome Trim Edges
                 GameObject trim = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 trim.name = "Trim";
                 trim.transform.SetParent(seatGO.transform, false);
@@ -1510,14 +1347,12 @@ namespace IUHCampus.Editor
             }
         }
 
-        // Indoor Architectural Planter
         private static void BuildIndoorPlanter(GameObject parent, Vector3 localPos)
         {
             GameObject planter = new GameObject("IndoorPlanter");
             planter.transform.SetParent(parent.transform, false);
             planter.transform.localPosition = localPos;
 
-            // White ceramic square box
             GameObject pot = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pot.name = "Pot";
             pot.transform.SetParent(planter.transform, false);
@@ -1525,7 +1360,6 @@ namespace IUHCampus.Editor
             pot.transform.localScale = new Vector3(0.65f, 0.7f, 0.65f);
             pot.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
 
-            // Soil
             GameObject soil = GameObject.CreatePrimitive(PrimitiveType.Cube);
             soil.name = "Soil";
             soil.transform.SetParent(planter.transform, false);
@@ -1533,7 +1367,6 @@ namespace IUHCampus.Editor
             soil.transform.localScale = new Vector3(0.60f, 0.06f, 0.60f);
             soil.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Lush green plant cluster
             for (int p = 0; p < 4; p++)
             {
                 float ang = p * 90.0f;
@@ -1546,21 +1379,18 @@ namespace IUHCampus.Editor
             }
         }
 
-        // Wall Fan
         private static void BuildWallFan(GameObject wall, Vector3 localPos)
         {
             GameObject fan = new GameObject("WallFan");
             fan.transform.SetParent(wall.transform, false);
             fan.transform.localPosition = localPos;
 
-            // Base mount
             GameObject b = GameObject.CreatePrimitive(PrimitiveType.Cube);
             b.name = "Mount";
             b.transform.SetParent(fan.transform, false);
             b.transform.localScale = new Vector3(0.06f, 0.18f, 0.12f);
             b.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMullion;
 
-            // Fan Cage & Blade
             GameObject cage = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             cage.name = "Cage";
             cage.transform.SetParent(fan.transform, false);
@@ -1570,7 +1400,6 @@ namespace IUHCampus.Editor
             cage.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
         }
 
-        // Signboard
         private static void BuildSignboard(GameObject parent, Vector3 localPos, string text)
         {
             GameObject sign = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1581,10 +1410,9 @@ namespace IUHCampus.Editor
             sign.GetComponent<MeshRenderer>().sharedMaterial = m_MatteWhite;
         }
 
-        // ================= LIGHTING SETUP =================
         private static void BuildInteriorLighting(GameObject parent)
         {
-            // Soft global fill light for the interior complex
+
             GameObject fillLightGO = new GameObject("Interior_Global_FillLight");
             fillLightGO.transform.SetParent(parent.transform, false);
             fillLightGO.transform.localPosition = new Vector3(0.0f, 3.4f, 0.0f);
@@ -1595,11 +1423,9 @@ namespace IUHCampus.Editor
             fillLight.intensity = 0.8f;
         }
 
-        // ================= CAMERAS SETUP =================
         private static void BuildInteriorCameras(GameObject parent)
         {
-            // Camera 1: Front Desk Area (Zone A)
-            // Positioned to capture both cyan sofa on the left and curved desk on the right
+
             GameObject camA = new GameObject("Camera_Int_FrontDesk");
             camA.transform.SetParent(parent.transform, false);
             camA.transform.localPosition = new Vector3(-3.4f, 1.55f, 3.2f);
@@ -1608,8 +1434,6 @@ namespace IUHCampus.Editor
             cA.fieldOfView = 72.0f;
             cA.farClipPlane = 100.0f;
 
-            // Camera 2: Waiting Lounge (Zone B)
-            // Looking at the grand LED display wall and all 4 waiting bench clusters
             GameObject camB = new GameObject("Camera_Int_WaitingLounge");
             camB.transform.SetParent(parent.transform, false);
             camB.transform.localPosition = new Vector3(8.0f, 1.65f, 2.2f);
@@ -1618,8 +1442,6 @@ namespace IUHCampus.Editor
             cB.fieldOfView = 74.0f;
             cB.farClipPlane = 100.0f;
 
-            // Camera 3: Training & Computer Lab (Zone C)
-            // Dramatic deep aisle perspective showing glossy black marble, 12 workstations, white dividers, and transparent glass doors
             GameObject camC = new GameObject("Camera_Int_TrainingLab");
             camC.transform.SetParent(parent.transform, false);
             camC.transform.localPosition = new Vector3(-4.0f, 1.55f, -14.8f);
@@ -1628,8 +1450,6 @@ namespace IUHCampus.Editor
             cC.fieldOfView = 66.0f;
             cC.farClipPlane = 100.0f;
 
-            // Camera 4: Connecting Corridor
-            // Looking down circulation hallway showing doors, wayfinding, and view through glass walls
             GameObject camD = new GameObject("Camera_Int_Corridor");
             camD.transform.SetParent(parent.transform, false);
             camD.transform.localPosition = new Vector3(4.5f, 1.6f, 0.0f);
@@ -1639,7 +1459,6 @@ namespace IUHCampus.Editor
             cD.farClipPlane = 100.0f;
         }
 
-        // ================= SCREENSHOT CAPTURE AUTOMATION =================
         private static void CaptureAllInteriorCameras(GameObject interiorRoot)
         {
             if (!Directory.Exists(ScreenshotDir)) Directory.CreateDirectory(ScreenshotDir);
@@ -1689,11 +1508,9 @@ namespace IUHCampus.Editor
             rt.Release();
             UnityEngine.Object.DestroyImmediate(rt);
 
-            // Save to project screenshots folder
             string projectPath = Path.Combine(ScreenshotDir, fileName);
             File.WriteAllBytes(projectPath, bytes);
 
-            // Save to assistant artifact directory
             string artifactPath = Path.Combine(ArtifactDir, fileName);
             try
             {

@@ -43,13 +43,10 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Automation] Starting Full Campus Restructure & Capture...");
 
-            // 1. Rebuild Right Cluster Scene & Prefab
             IUHRightClusterBuilder.BuildRightClusterScene();
 
-            // 2. Rebuild Master Campus Scene
             IUHCampusMasterBuilder.BuildMasterCampus();
 
-            // 3. Open Right Cluster Scene for Camera Captures
             var scene = EditorSceneManager.OpenScene("Assets/IUH_Campus/Scenes/IUH_RightCluster.unity", OpenSceneMode.Single);
 
             if (!Directory.Exists(ScreenshotDir))
@@ -80,7 +77,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Configure camera transforms to frame the U-shaped cluster accurately
             if (aerialCam == null)
             {
                 GameObject camGO = new GameObject("Camera_AerialReference");
@@ -117,17 +113,14 @@ namespace IUHCampus.Editor
                 topDownCam.farClipPlane = 200.0f;
             }
 
-            // 4. Capture Aerial Reference Camera
             aerialCam.enabled = true;
             CaptureCameraToFiles(aerialCam, 1920, 1080, "aerial_oblique_reference.png");
             Debug.Log("[IUH Automation] Successfully captured aerial_oblique_reference.png");
 
-            // 5. Capture Top-Down Orthographic Camera
             topDownCam.enabled = true;
             CaptureCameraToFiles(topDownCam, 1600, 1200, "topdown_orthographic.png");
             Debug.Log("[IUH Automation] Successfully captured topdown_orthographic.png");
 
-            // 6. Log Building Transforms Table
             PrintBuildingTransformTable();
 
             AssetDatabase.Refresh();
@@ -157,11 +150,9 @@ namespace IUHCampus.Editor
             rt.Release();
             UnityEngine.Object.DestroyImmediate(rt);
 
-            // Save to project screenshots folder
             string projectPath = Path.Combine(ScreenshotDir, fileName);
             File.WriteAllBytes(projectPath, bytes);
 
-            // Save to assistant artifact directory
             string artifactPath = Path.Combine(ArtifactDir, fileName);
             try
             {

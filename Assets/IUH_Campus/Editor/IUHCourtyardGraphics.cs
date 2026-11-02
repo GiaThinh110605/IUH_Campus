@@ -42,7 +42,7 @@ namespace IUHCampus.Editor
                     Undo.RecordObject(r,"Courtyard material detail");
                     r.sharedMaterials=r.sharedMaterials.Select(m=>m!=null&&m.name=="Forecourt_Asphalt"?road:m).ToArray();
                 }
-                // Visual dressing stays within existing planters and seating, with no added blockers.
+
                 foreach(float x in new[]{370f,396f})
                 {
                     Cy(new Vector3(x,.82f,x==370?-78:-80),new Vector3(4.1f,.015f,4.1f),soil);
@@ -60,7 +60,7 @@ namespace IUHCampus.Editor
                     for(int slat=0;slat<5;slat++)Q(new Vector3(x,1.057f,-69.55f+slat*.125f),new Vector3(3.38f,.035f,.105f),timber);
                     for(int slat=0;slat<4;slat++)Q(new Vector3(x,1.12f+slat*.16f,-69.075f),new Vector3(3.38f,.115f,.035f),timber);
                 }
-                // Thin stone gutters mark the parking edge; center circulation stays asphalt.
+
                 Q(new Vector3(382,.566f,-70.25f),new Vector3(38,.012f,.38f),granite);
                 for(float x=364;x<401;x+=1.2f)Q(new Vector3(x,.574f,-70.25f),new Vector3(.035f,.004f,.38f),soil);
                 Flush(art);
@@ -123,7 +123,7 @@ namespace IUHCampus.Editor
                 if(!renderer.name.StartsWith("Large shade tree")||renderer.transform.Find("Detailed leaf canopy")!=null)continue;
                 var bounds=renderer.bounds;var filter=renderer.GetComponent<MeshFilter>();
                 var trunk=UnityEngine.Object.Instantiate(filter.sharedMesh);trunk.name=renderer.name+" branches";
-                // Preserve the source's bark submesh; replace its polygonal foliage with individual leaves.
+
                 trunk.SetTriangles(Array.Empty<int>(),1);AssetDatabase.CreateAsset(trunk,ArtFolder+"/Meshes/"+trunk.name+".asset");
                 Undo.RecordObject(filter,"Refine tree canopy");filter.sharedMesh=trunk;
                 var vertices=new List<Vector3>();var normals=new List<Vector3>();var triangles=new List<int>();
@@ -143,7 +143,7 @@ namespace IUHCampus.Editor
                 var g=new GameObject("Detailed leaf canopy");Undo.RegisterCreatedObjectUndo(g,"Detailed canopy");
                 g.transform.SetParent(court.transform,false);g.AddComponent<MeshFilter>().sharedMesh=mesh;
                 var leaves=g.AddComponent<MeshRenderer>();leaves.sharedMaterial=renderer.sharedMaterials[1];g.isStatic=true;
-                // Marker under source prevents duplicate generation while retaining world-space mesh coordinates.
+
                 new GameObject("Detailed leaf canopy").transform.SetParent(renderer.transform,false);
             }
             AssetDatabase.SaveAssets();EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());

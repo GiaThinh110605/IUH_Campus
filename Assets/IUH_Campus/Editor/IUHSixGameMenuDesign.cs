@@ -39,17 +39,14 @@ namespace IUHCampus.Editor
             var close = MenuButton("CloseBtn", panel, "ĐÓNG  [M]", new Color(.86f, .9f, .92f), Navy);
             TopRight(close, new Vector2(-40, -42), new Vector2(155, 45));
 
-            // Cards Area - 2x2 Grid for 4 games
             var cards = Box("CardsArea", panel, Vector2.zero, Vector2.one, new Vector2(320, 105), new Vector2(-40, -158), Color.clear);
             cards.GetComponent<Image>().raycastTarget = false;
 
-            // 4 Core Minigames
             GameCard(cards, 0, "Grab Campus", "Lấy hàng trà sữa, né & đánh đuổi ma quỷ, giao hàng đến KTX.", "Chuyến xe tâm linh", new Color(.07f, .55f, .38f), true);
             GameCard(cards, 1, "AI Object Hunt", "Quét camera nhận diện đồ vật bằng AI YOLO và chiếu mô hình 3D AR.", "Deep Learning & AR", new Color(.85f, .45f, .12f), true);
             GameCard(cards, 2, "Thợ săn khoảnh khắc", "Tìm góc đẹp, Photo Mode check-in và lưu trữ album sinh viên.", "Photo Hunter", new Color(.08f, .48f, .72f), true);
             GameCard(cards, 3, "Green Campus", "Thu gom rác 3D, trạm phân loại rác AI và đồng bộ điểm lên Adafruit IO.", "Vì một khuôn viên xanh", new Color(.36f, .58f, .12f), true);
 
-            // Direct child names preserve the portal's existing button bindings.
             var footer = Box("Footer", panel, new Vector2(0, 0), new Vector2(0, 0), new Vector2(24, 186), new Vector2(252, 434), Color.clear);
             footer.GetComponent<Image>().raycastTarget = false;
             string[] names = { "BtnFreeRoam", "BtnDorm", "BtnLibrary", "BtnResume" };
@@ -84,13 +81,13 @@ namespace IUHCampus.Editor
 
         static void GameCard(Transform parent, int index, string title, string description, string subtitle, Color accent, bool ready)
         {
-            // 2 Columns x 2 Rows Layout
+
             int column = index % 2, row = index / 2;
-            var c = Box("Card_" + index + "_Game" + (index + 1), parent, 
-                new Vector2(column * 0.5f, (1 - row) * 0.5f), 
-                new Vector2((column + 1) * 0.5f, (2 - row) * 0.5f), 
-                new Vector2(column == 0 ? 0 : 10, row == 0 ? 10 : 0), 
-                new Vector2(column == 1 ? 0 : -10, row == 0 ? 0 : -10), 
+            var c = Box("Card_" + index + "_Game" + (index + 1), parent,
+                new Vector2(column * 0.5f, (1 - row) * 0.5f),
+                new Vector2((column + 1) * 0.5f, (2 - row) * 0.5f),
+                new Vector2(column == 0 ? 0 : 10, row == 0 ? 10 : 0),
+                new Vector2(column == 1 ? 0 : -10, row == 0 ? 0 : -10),
                 Color.white);
             Round(c);
 
@@ -195,7 +192,7 @@ namespace IUHCampus.Editor
             Round(icon);
             icon.GetComponent<Image>().raycastTarget = false;
 
-            if (game == 0) // Grab Campus Motorbike
+            if (game == 0)
             {
                 icon.GetComponent<Image>().color = Color.clear;
                 foreach (float x in new[] { .2f, .8f })
@@ -207,7 +204,7 @@ namespace IUHCampus.Editor
                 Round(frame);
                 Box("Fork", icon, new Vector2(.78f, .3f), new Vector2(.78f, .3f), new Vector2(-3, 0), new Vector2(3, 40), color).localRotation = Quaternion.Euler(0, 0, 18);
             }
-            else if (game == 1) // AI Object Hunt & AR
+            else if (game == 1)
             {
                 var text = Label("Symbol", icon, "AI • AR", 22, Color.white, Vector2.zero, Vector2.zero);
                 text.fontStyle = FontStyle.Bold;
@@ -217,7 +214,7 @@ namespace IUHCampus.Editor
                 text.rectTransform.offsetMin = Vector2.zero;
                 text.rectTransform.offsetMax = Vector2.zero;
             }
-            else if (game == 2) // Photo Hunter (Camera lens)
+            else if (game == 2)
             {
                 var lens = Box("Lens", icon, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(-21, -21), new Vector2(21, 21), Color.white);
                 lens.GetComponent<Image>().sprite = circle;
@@ -225,7 +222,7 @@ namespace IUHCampus.Editor
                 inner.GetComponent<Image>().sprite = circle;
                 Box("Flash", icon, Vector2.one, Vector2.one, new Vector2(-18, -14), new Vector2(-8, -7), Color.white);
             }
-            else if (game == 3) // Green Campus (Leaf & recycle)
+            else if (game == 3)
             {
                 icon.GetComponent<Image>().color = Color.clear;
                 var leaf = Box("Leaf", icon, new Vector2(.5f, .5f), new Vector2(.5f, .5f), new Vector2(-23, -27), new Vector2(23, 27), color);

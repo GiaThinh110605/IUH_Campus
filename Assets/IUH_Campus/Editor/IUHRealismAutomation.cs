@@ -43,22 +43,18 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Realism Automation] Starting Realism Pass & 4-Camera Verification Capture...");
 
-            // 1. Rebuild Right Cluster Scene
             IUHRightClusterBuilder.BuildRightClusterScene();
 
-            // 2. Open Right Cluster Scene
             var scene = EditorSceneManager.OpenScene("Assets/IUH_Campus/Scenes/IUH_RightCluster.unity", OpenSceneMode.Single);
 
             if (!Directory.Exists(ScreenshotDir)) Directory.CreateDirectory(ScreenshotDir);
             if (!Directory.Exists(ArtifactDir)) Directory.CreateDirectory(ArtifactDir);
 
-            // Disable unbaked runtime reflection probes if any
             foreach (var probe in UnityEngine.Object.FindObjectsByType<ReflectionProbe>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
                 probe.enabled = false;
             }
 
-            // Find or setup the 4 verification cameras
             Camera camAerial = null;
             Camera camCourtyard = null;
             Camera camEntrance = null;
@@ -78,7 +74,6 @@ namespace IUHCampus.Editor
 
             Color tropicalSky = new Color(0.68f, 0.82f, 0.96f);
 
-            // 1. Camera_Aerial: Balanced campus flycam oblique view showing U-shape, courtyard, and background city
             if (camAerial == null)
             {
                 GameObject go = new GameObject("Camera_Aerial");
@@ -91,7 +86,6 @@ namespace IUHCampus.Editor
             camAerial.clearFlags = CameraClearFlags.SolidColor;
             camAerial.backgroundColor = tropicalSky;
 
-            // 2. Camera_Courtyard: Diagonal perspective inside courtyard showing motorbikes, trees, benches, students
             if (camCourtyard == null)
             {
                 GameObject go = new GameObject("Camera_Courtyard");
@@ -104,7 +98,6 @@ namespace IUHCampus.Editor
             camCourtyard.clearFlags = CameraClearFlags.SolidColor;
             camCourtyard.backgroundColor = tropicalSky;
 
-            // 3. Camera_Entrance: Grounding, curbs, drainage, zebra crossing & main campus entrance view
             if (camEntrance == null)
             {
                 GameObject go = new GameObject("Camera_Entrance");
@@ -117,7 +110,6 @@ namespace IUHCampus.Editor
             camEntrance.clearFlags = CameraClearFlags.SolidColor;
             camEntrance.backgroundColor = tropicalSky;
 
-            // 4. Camera_PlayerHeight: Human eye-level 1.70m perspective looking across courtyard towards Building G
             if (camPlayerHeight == null)
             {
                 GameObject go = new GameObject("Camera_PlayerHeight");
@@ -130,7 +122,6 @@ namespace IUHCampus.Editor
             camPlayerHeight.clearFlags = CameraClearFlags.SolidColor;
             camPlayerHeight.backgroundColor = tropicalSky;
 
-            // Capture all 4 Camera Views (1920x1080)
             Debug.Log("[IUH Realism Automation] Capturing Camera_Aerial...");
             CaptureCamera(camAerial, 1920, 1080, "camera_aerial.png");
 

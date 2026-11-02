@@ -13,11 +13,7 @@ using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.Minigames.PhotoHunter
 {
-    /// <summary>
-    /// Master Manager for Mini-Game 2.4 "Thợ Săn Khoảnh Khắc — Photo Hunter".
-    /// Orchestrates landmark targets, camera aiming, geometric photo validation,
-    /// atomic transaction persistence, and safe bi-directional state transitions.
-    /// </summary>
+
     public class IUHPhotoHunterManager : MonoBehaviour
     {
         public enum PhotoHunterState
@@ -48,13 +44,11 @@ namespace IUHCampus.Minigames.PhotoHunter
         [Header("Audio")]
         [SerializeField] private AudioSource m_AudioSource;
 
-        // Player & Controller Reference
         private GameObject m_PlayerObject;
         private ThirdPersonController m_ThirdPersonController;
         private StarterAssetsInputs m_StarterAssetsInputs;
         private CharacterController m_CharacterController;
 
-        // Runtime Gameplay State
         private PhotoHunterState m_CurrentState = PhotoHunterState.Inactive;
         private int m_CurrentScore = 0;
         private int m_CompletedCount = 0;
@@ -62,7 +56,6 @@ namespace IUHCampus.Minigames.PhotoHunter
         private float m_TargetCameraFov;
         private PhotoHunterSaveContainer m_CurrentSaveContainer;
 
-        // Cinemachine integration
         private Unity.Cinemachine.CinemachineCamera m_CinemachineCamera;
         private float m_OriginalCinemachineFov = 60.0f;
         private bool m_HasSavedCinemachineFov = false;
@@ -74,16 +67,13 @@ namespace IUHCampus.Minigames.PhotoHunter
         private Renderer[] m_HiddenPlayerRenderers;
         private bool[] m_PlayerRendererStates;
 
-        // Player movement locking state
         private bool m_HasSavedSpeeds = false;
         private float m_OriginalMoveSpeed = 2.0f;
         private float m_OriginalSprintSpeed = 5.335f;
         private float m_OriginalJumpHeight = 1.2f;
 
-        // Controller lock ownership tracking
         private bool m_HoldsControllerLock = false;
 
-        // Session cancellation token to safely discard obsolete async callbacks upon cancel/restart
         private int m_CurrentSessionId = 0;
 
         public PhotoHunterState CurrentState => m_CurrentState;
@@ -146,9 +136,7 @@ namespace IUHCampus.Minigames.PhotoHunter
 
         public void ConfigureObstacleLayerMask()
         {
-            // Explicitly build mask from actual project layers:
-            // Include: Building (8), Environment (6), Ground (7), Default (0)
-            // Exclude: Player (10), UI (5), Ignore Raycast (2), Trigger (13)
+
             int buildingLayer = LayerMask.NameToLayer("Building");
             int envLayer = LayerMask.NameToLayer("Environment");
             int groundLayer = LayerMask.NameToLayer("Ground");
@@ -160,7 +148,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             if (groundLayer >= 0) mask |= (1 << groundLayer);
             if (defaultLayer >= 0) mask |= (1 << defaultLayer);
 
-            // If project tags were not loaded, fallback to safe inversion excluding Player and UI
             if (mask == 0)
             {
                 int playerLayer = LayerMask.NameToLayer("Player");
@@ -282,12 +269,12 @@ namespace IUHCampus.Minigames.PhotoHunter
 
         private void Update()
         {
-            // Do not process photo inputs if external menu or dialog is open
+
             if (IsExternalUIOpen()) return;
 
             if (m_CurrentState == PhotoHunterState.Exploring)
             {
-                // Press [C] or [P] to open Viewfinder mode
+
                 if (IUHInputHelper.IsPhotoToggleKeyDown())
                 {
                     EnterViewfinderMode();
@@ -296,14 +283,13 @@ namespace IUHCampus.Minigames.PhotoHunter
             }
             else if (m_CurrentState == PhotoHunterState.ViewfinderMode)
             {
-                // Press [Q] or [ESC] to exit Viewfinder back to exploration
+
                 if (IUHInputHelper.IsPhotoExitKeyDown())
                 {
                     ExitViewfinderMode();
                     return;
                 }
 
-                // Press [Space], [Enter], or Left Click to capture photo (only if not clicking a UI element)
                 if (IUHInputHelper.IsPhotoCaptureKeyDown(
                     EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()))
                 {
@@ -343,18 +329,12 @@ namespace IUHCampus.Minigames.PhotoHunter
             return false;
         }
 
-        // ================= MISSION WORKFLOW =================
-
-        /// <summary>
-        /// Opens the Briefing Modal (invoked when player picks Game #4 from Portal Menu).
-        /// Blocks movement, jump and look for safe UI interaction.
-        /// </summary>
         public void OpenBriefing()
         {
             var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
             if (greenMgr != null && greenMgr.HasActiveSessionOrUI) greenMgr.CancelMission(false);
             if (HasActiveSessionOrUI) CancelMission(restoreCursorAndController: false);
-            // Bi-directional check: If Grab Campus mission is already in progress, stop it cleanly first
+
             var grabMgr = IUHGrabCampusManager.Instance;
             if (grabMgr != null)
             {
@@ -366,13 +346,11 @@ namespace IUHCampus.Minigames.PhotoHunter
             m_CurrentSessionId++;
             m_CurrentState = PhotoHunterState.Briefing;
 
-            // Close Portal UI if open
             if (IUHMiniGamePortalUI.Instance != null && IUHMiniGamePortalUI.Instance.IsOpen)
             {
                 IUHMiniGamePortalUI.Instance.SetMenuOpen(false);
             }
 
-            // Lock movement and look while interacting with Briefing modal
             if (m_ThirdPersonController != null)
             {
                 m_ThirdPersonController.enabled = false;
@@ -391,17 +369,11 @@ namespace IUHCampus.Minigames.PhotoHunter
             PlaySound(IUHSoundSynthesizer.GetClickSound(), 0.8f);
         }
 
-        /// <summary>
-        /// Directly opens the completed album / victory gallery from briefing without re-rewarding score.
-        /// </summary>
         public void OpenAlbumFromBriefing()
         {
             ShowVictoryDialog();
         }
 
-        /// <summary>
-        /// Begins the photo hunting quest loop. Restores controls for exploration safely.
-        /// </summary>
         public void StartMission(bool fastTravelToGate1 = false)
         {
             IUHCampus.Core.IUHGameFlowManager.Instance?.NotifyGameStarted(3);
@@ -410,7 +382,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             m_CurrentSessionId++;
             m_CurrentState = PhotoHunterState.Exploring;
 
-            // Restore controller and speed safely
             RestoreMovementSpeed();
             SafeEnablePlayerController();
 
@@ -450,10 +421,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             Debug.Log("[Photo Hunter] Bắt đầu nhiệm vụ Thợ Săn Khoảnh Khắc!");
         }
 
-        /// <summary>
-        /// Switches to Camera Viewfinder Mode.
-        /// Zooms in lens (including Cinemachine), blocks move/jump via zero speed, keeps mouse look rotation.
-        /// </summary>
         public void EnterViewfinderMode()
         {
             if (m_CurrentState != PhotoHunterState.Exploring) return;
@@ -461,7 +428,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             FindSceneReferences();
             m_CurrentState = PhotoHunterState.ViewfinderMode;
 
-            // Block move & jump without disabling controller, preserving mouse look rotation!
             SaveAndZeroMovementSpeed();
             if (CanEnablePlayerController())
             {
@@ -473,7 +439,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 Cursor.visible = false;
             }
 
-            // Adjust Lens on CinemachineCamera directly to avoid battling CinemachineBrain
             if (m_CinemachineCamera != null)
             {
                 if (!m_HasSavedCinemachineFov)
@@ -482,7 +447,7 @@ namespace IUHCampus.Minigames.PhotoHunter
                     m_HasSavedCinemachineFov = true;
                 }
                 m_CinemachineCamera.Lens.FieldOfView = m_ViewfinderFov;
-                // Shoot from the player's eye rather than a collision-displaced orbit camera.
+
                 m_PhotoFollow = m_CinemachineCamera.GetComponent<Unity.Cinemachine.CinemachineThirdPersonFollow>();
                 if (m_PhotoFollow != null)
                 {
@@ -520,20 +485,15 @@ namespace IUHCampus.Minigames.PhotoHunter
             PlaySound(IUHSoundSynthesizer.GetClickSound(), 0.9f);
         }
 
-        /// <summary>
-        /// Exits Viewfinder Mode back to free exploration, restoring movement speed and FOV seamlessly.
-        /// </summary>
         public void ExitViewfinderMode()
         {
             if (m_CurrentState != PhotoHunterState.ViewfinderMode) return;
 
             m_CurrentState = PhotoHunterState.Exploring;
 
-            // Restore movement speed seamlessly (holding W continues walking immediately without input stuck)
             RestoreMovementSpeed();
             SafeEnablePlayerController();
 
-            // Restore Cinemachine and camera FOV
             RestoreCinemachineFov();
 
             if (CanEnablePlayerController())
@@ -550,10 +510,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             PlaySound(IUHSoundSynthesizer.GetClickSound(), 0.7f);
         }
 
-        /// <summary>
-        /// Cancels or closes the Photo Hunter mission cleanly, restoring cursor and controls safely.
-        /// Can close Briefing, Victory, Viewfinder or Exploring completely.
-        /// </summary>
         public void CancelMission(bool restoreCursorAndController = true)
         {
             m_CurrentSessionId++;
@@ -589,9 +545,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             CancelMission(true);
         }
 
-        /// <summary>
-        /// Restarts the quest from 0/3, wiping progress for replayability.
-        /// </summary>
         public void RestartMission()
         {
             if(!IUHPhotoHunterStorage.ResetProgress())
@@ -616,14 +569,9 @@ namespace IUHCampus.Minigames.PhotoHunter
             StartMission(false);
         }
 
-        // ================= GEOMETRIC CAPTURE EXECUTION =================
-
-        /// <summary>
-        /// Triggers photo validation and capture from active camera.
-        /// </summary>
         public void TriggerCapturePhoto()
         {
-            if (m_IsCapturing) return; // Prevent double trigger / spam clicks
+            if (m_IsCapturing) return;
             if (m_CurrentState != PhotoHunterState.ViewfinderMode) return;
             if (IsExternalUIOpen()) return;
 
@@ -636,7 +584,6 @@ namespace IUHCampus.Minigames.PhotoHunter
 
             Transform playerTrans = m_PlayerObject != null ? m_PlayerObject.transform : null;
 
-            // Find the landmark that the player is MOST directly aiming towards
             IUHPhotoTarget aimedTarget = null;
             float smallestAngle = float.MaxValue;
 
@@ -658,16 +605,14 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return;
             }
 
-            // Validate specifically against the aimed target
             if (!aimedTarget.ValidatePhoto(m_ShootingCamera, playerTrans, m_ObstacleLayerMask, out string reason))
             {
-                // Validation failed: Report the precise reason for the aimed target
+
                 PlaySound(IUHSoundSynthesizer.GetPhotoWarningSound(), 0.9f);
                 m_UI?.ShowToast(reason, 3.0f, false);
                 return;
             }
 
-            // Valid capture! Proceed with atomic capture routine
             StartCoroutine(CaptureTargetRoutine(m_CurrentSessionId, aimedTarget));
         }
 
@@ -675,7 +620,6 @@ namespace IUHCampus.Minigames.PhotoHunter
         {
             m_IsCapturing = true;
 
-            // 1. Play camera shutter click and white flash overlay
             PlaySound(IUHSoundSynthesizer.GetCameraShutterSound(), 1.0f);
             m_UI?.TriggerFlashShutter();
 
@@ -718,7 +662,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 yield break;
             }
 
-            // 2. ATOMIC TRANSACTION: Execute transaction via persistent storage
             bool txSuccess = ExecutePhotoTransaction(
                 target.TargetId,
                 target.DisplayName,
@@ -747,13 +690,11 @@ namespace IUHCampus.Minigames.PhotoHunter
 
             UpdateUIProgress();
 
-            // 4. Cooldown before next capture
             yield return new WaitForSeconds(0.6f);
             m_IsCapturing = false;
 
             if (sessionId != m_CurrentSessionId || !IsMissionActive) yield break;
 
-            // 5. Check if all 3 objectives completed -> Victory Dialog
             if (m_CompletedCount >= m_Targets.Count && m_Targets.Count > 0)
             {
                 yield return new WaitForSeconds(1.0f);
@@ -764,10 +705,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             }
         }
 
-        /// <summary>
-        /// Executes atomic photo completion transaction: updates container tentatively,
-        /// writes to persistent storage, and commits in-memory state only upon successful disk write.
-        /// </summary>
         public bool ExecutePhotoTransaction(
             string targetId,
             string displayName,
@@ -790,12 +727,11 @@ namespace IUHCampus.Minigames.PhotoHunter
             if (!saveDiskSuccess)
             {
                 awardedPoints = 0;
-                // Rollback: delete photo file and abort transaction without altering memory state
+
                 try { if (!string.Equals(photoPath,replacedPath,StringComparison.Ordinal)&&IUHPhotoHunterStorage.IsManagedJpeg(photoPath)&&File.Exists(photoPath)) File.Delete(photoPath); } catch (IOException) { } catch(UnauthorizedAccessException) { }
                 return false;
             }
 
-            // Disk write succeeded: Commit transaction into memory and WorldState
             m_CurrentSaveContainer = tentativeContainer;
             if(!string.Equals(replacedPath,photoPath,StringComparison.Ordinal)&&IUHPhotoHunterStorage.IsManagedJpeg(replacedPath))
             {try{if(File.Exists(replacedPath))File.Delete(replacedPath);}catch(IOException){}catch(UnauthorizedAccessException){}}
@@ -814,7 +750,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             RestoreMovementSpeed();
             RestoreCinemachineFov();
 
-            // Lock movement, jump and look for safe UI album interaction
             if (m_ThirdPersonController != null)
             {
                 m_ThirdPersonController.enabled = false;
@@ -868,13 +803,10 @@ namespace IUHCampus.Minigames.PhotoHunter
             UpdateUIProgress();
         }
 
-        // ================= HELPERS & PERSISTENCE =================
-
         private void LoadProgress()
         {
             m_CurrentSaveContainer = IUHPhotoHunterStorage.LoadProgress();
 
-            // Sanitize against currently registered targets
             var validTargetIds = new HashSet<string>();
             if (m_Targets != null)
             {

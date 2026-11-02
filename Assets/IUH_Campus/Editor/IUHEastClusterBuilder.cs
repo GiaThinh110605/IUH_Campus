@@ -35,7 +35,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Load Materials (exact 9 shared materials)
             Material matFacade = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_CIG_Facade_White.mat");
             Material matBlue = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_CIG_Accent_IUH_Blue.mat");
             Material matMint = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_CIG_Accent_Mint.mat");
@@ -46,16 +45,12 @@ namespace IUHCampus.Editor
             Material matBase = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_CIG_Concrete_Base.mat");
             Material matRoof = AssetDatabase.LoadAssetAtPath<Material>(MAT_DIR + "MAT_CIG_Roof_Dark.mat");
 
-            // 1. Build Building C (Academic)
             BuildBuildingC(buildingsParent, matFacade, matBlue, matWinOpaque, matWinTrans, matFrame, matRailing, matBase, matRoof);
 
-            // 2. Build Building I (Dorm Men)
             BuildBuildingI(buildingsParent, matFacade, matMint, matWinOpaque, matWinTrans, matFrame, matRailing, matBase, matRoof);
 
-            // 3. Build Building G (Dorm Women)
             BuildBuildingG(buildingsParent, matFacade, matBlue, matWinOpaque, matWinTrans, matFrame, matRailing, matBase, matRoof);
 
-            // 4. Disable Renderers and Colliders of old blockouts
             DisableBlockout(OLD_C_PATH);
             DisableBlockout(OLD_I_PATH);
             DisableBlockout(OLD_G_PATH);
@@ -131,19 +126,15 @@ namespace IUHCampus.Editor
             GameObject.DestroyImmediate(cube);
         }
 
-        // =========================================================================
-        // 1. BUILDING C — ACADEMIC BUILDING (5 FLOORS, 21.0m)
-        // Footprint: X in [20.5, 32.4], Z in [-32.0, -15.0], Y in [0.0, 21.0]
-        // =========================================================================
-        private static void BuildBuildingC(GameObject parent, Material matFacade, Material matBlue, 
+        private static void BuildBuildingC(GameObject parent, Material matFacade, Material matBlue,
             Material matWinOpaque, Material matWinTrans, Material matFrame, Material matRailing, Material matBase, Material matRoof)
         {
             GameObject root = GetOrCreateBuildingRoot(parent, "Building_C_Academic");
 
-            float minX = 20.5f, maxX = 32.4f; // Width = 11.9m
-            float minZ = -32.0f, maxZ = -15.0f; // Length = 17.0m
-            float centerX = (minX + maxX) * 0.5f; // 26.45m
-            float centerZ = (minZ + maxZ) * 0.5f; // -23.50m
+            float minX = 20.5f, maxX = 32.4f;
+            float minZ = -32.0f, maxZ = -15.0f;
+            float centerX = (minX + maxX) * 0.5f;
+            float centerZ = (minZ + maxZ) * 0.5f;
             float width = maxX - minX;
             float length = maxZ - minZ;
 
@@ -159,7 +150,6 @@ namespace IUHCampus.Editor
             List<CombineInstance> cBase = new List<CombineInstance>();
             List<CombineInstance> cRoof = new List<CombineInstance>();
 
-            // --- Floor Slabs ---
             for (int f = 0; f < floorHeights.Length; f++)
             {
                 float y = floorHeights[f];
@@ -167,33 +157,29 @@ namespace IUHCampus.Editor
                 AddBoxToCombines(cStructure, new Vector3(centerX, y + thick * 0.5f, centerZ), new Vector3(width, thick, length));
             }
 
-            // --- Base Plinth & Steps ---
             AddBoxToCombines(cBase, new Vector3(centerX, 0.12f, centerZ), new Vector3(width + 0.1f, 0.24f, length + 0.1f));
             AddBoxToCombines(cBase, new Vector3(minX - 0.15f, 0.08f, centerZ), new Vector3(0.3f, 0.16f, 9.0f));
 
-            // --- Ground Floor Arcade & Lobby (West Facing towards campus avenue) ---
-            float arcadeX = minX + 2.0f; // 22.5m
+            float arcadeX = minX + 2.0f;
             int colCountZ = 6;
             for (int i = 0; i < colCountZ; i++)
             {
                 float z = Mathf.Lerp(minZ + 1.5f, maxZ - 1.5f, (float)i / (colCountZ - 1));
                 AddBoxToCombines(cStructure, new Vector3(minX + 0.25f, 2.1f, z), new Vector3(0.5f, 4.2f, 0.5f));
             }
-            // Ground floor solid side/rear walls:
-            AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, 2.1f, centerZ), new Vector3(0.3f, 4.2f, length)); // East wall
-            AddBoxToCombines(cStructure, new Vector3(centerX, 2.1f, maxZ - 0.15f), new Vector3(width, 4.2f, 0.3f)); // North wall
-            AddBoxToCombines(cStructure, new Vector3(centerX, 2.1f, minZ + 0.15f), new Vector3(width, 4.2f, 0.3f)); // South wall
-            // Ground floor recessed transparent glass lobby wall at arcadeX:
+
+            AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, 2.1f, centerZ), new Vector3(0.3f, 4.2f, length));
+            AddBoxToCombines(cStructure, new Vector3(centerX, 2.1f, maxZ - 0.15f), new Vector3(width, 4.2f, 0.3f));
+            AddBoxToCombines(cStructure, new Vector3(centerX, 2.1f, minZ + 0.15f), new Vector3(width, 4.2f, 0.3f));
+
             AddBoxToCombines(cWinTrans, new Vector3(arcadeX, 2.1f, centerZ), new Vector3(0.06f, 3.8f, length - 3.0f));
             for (float z = minZ + 3.0f; z <= maxZ - 3.0f; z += 2.5f)
             {
                 AddBoxToCombines(cFrames, new Vector3(arcadeX, 2.1f, z), new Vector3(0.12f, 3.8f, 0.12f));
             }
-            // Entrance Canopy on West side:
+
             AddBoxToCombines(cFrames, new Vector3(minX + 1.0f, 3.9f, centerZ), new Vector3(2.0f, 0.15f, 4.8f));
 
-            // --- Upper Floors (Levels 2 to 5) ---
-            // Full-height solid end shear walls on East and North:
             AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, (parapetHeight + 4.2f) * 0.5f, centerZ), new Vector3(0.3f, parapetHeight - 4.2f, length));
             AddBoxToCombines(cStructure, new Vector3(centerX, (parapetHeight + 4.2f) * 0.5f, maxZ - 0.15f), new Vector3(width, parapetHeight - 4.2f, 0.3f));
 
@@ -203,13 +189,11 @@ namespace IUHCampus.Editor
                 float nextY = (f < floorHeights.Length - 1) ? floorHeights[f + 1] : 18.6f;
                 float storyH = nextY - floorY;
 
-                // West Facade Classroom Window Band & Columns:
-                AddBoxToCombines(cStructure, new Vector3(minX + 0.2f, floorY + 0.5f, centerZ), new Vector3(0.4f, 1.0f, length)); // Spandrel
+                AddBoxToCombines(cStructure, new Vector3(minX + 0.2f, floorY + 0.5f, centerZ), new Vector3(0.4f, 1.0f, length));
                 float winY = floorY + 1.0f + (storyH - 1.0f) * 0.5f;
                 float winH = storyH - 1.2f;
                 AddBoxToCombines(cWinOpaque, new Vector3(minX + 0.05f, winY, centerZ), new Vector3(0.1f, winH, length - 0.8f));
 
-                // Vertical column mullions on West facade:
                 for (int b = 0; b <= 6; b++)
                 {
                     float z = Mathf.Lerp(minZ + 0.5f, maxZ - 0.5f, (float)b / 6);
@@ -218,27 +202,23 @@ namespace IUHCampus.Editor
                 }
                 AddBoxToCombines(cBlue, new Vector3(minX - 0.04f, floorY + storyH - 0.08f, centerZ), new Vector3(0.16f, 0.12f, length));
 
-                // South Facade Classroom Windows:
                 AddBoxToCombines(cStructure, new Vector3(centerX, floorY + 0.5f, minZ + 0.15f), new Vector3(width, 1.0f, 0.3f));
                 AddBoxToCombines(cWinOpaque, new Vector3(centerX, winY, minZ + 0.05f), new Vector3(width - 2.0f, winH, 0.1f));
                 AddBoxToCombines(cBlue, new Vector3(centerX, floorY + storyH - 0.08f, minZ - 0.04f), new Vector3(width, 0.12f, 0.16f));
             }
 
-            // --- Roof & Parapet ---
             AddBoxToCombines(cStructure, new Vector3(centerX, 19.8f, maxZ - 0.15f), new Vector3(width, 2.4f, 0.3f));
             AddBoxToCombines(cStructure, new Vector3(centerX, 19.8f, minZ + 0.15f), new Vector3(width, 2.4f, 0.3f));
             AddBoxToCombines(cStructure, new Vector3(minX + 0.15f, 19.8f, centerZ), new Vector3(0.3f, 2.4f, length));
             AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, 19.8f, centerZ), new Vector3(0.3f, 2.4f, length));
             AddBoxToCombines(cRoof, new Vector3(centerX, 18.7f, centerZ), new Vector3(width - 0.6f, 0.1f, length - 0.6f));
 
-            // Penthouse tum:
             AddBoxToCombines(cStructure, new Vector3(maxX - 2.0f, 20.2f, maxZ - 2.0f), new Vector3(3.4f, 3.2f, 3.4f));
             AddBoxToCombines(cRoof, new Vector3(maxX - 2.0f, 21.85f, maxZ - 2.0f), new Vector3(3.6f, 0.2f, 3.6f));
-            // HVAC units:
+
             AddBoxToCombines(cRoof, new Vector3(centerX - 1.6f, 19.4f, centerZ), new Vector3(2.0f, 1.4f, 1.6f));
             AddBoxToCombines(cRoof, new Vector3(centerX + 1.6f, 19.4f, centerZ), new Vector3(2.0f, 1.4f, 1.6f));
 
-            // Attach all combined meshes
             AttachCombinedMesh(root, "01_Structure", cStructure, matFacade);
             AttachCombinedMesh(root, "02_Windows_Opaque", cWinOpaque, matWinOpaque);
             AttachCombinedMesh(root, "03_Lobby_Glazing", cWinTrans, matWinTrans);
@@ -248,7 +228,6 @@ namespace IUHCampus.Editor
             AttachCombinedMesh(root, "07_Plinth_Steps", cBase, matBase);
             AttachCombinedMesh(root, "08_Roof_MEP", cRoof, matRoof);
 
-            // Colliders
             GameObject goCols = new GameObject("Colliders");
             goCols.transform.SetParent(root.transform, false);
 
@@ -269,19 +248,15 @@ namespace IUHCampus.Editor
             colNorth.size = new Vector3(arcadeX - minX, 4.2f, 1.6f);
         }
 
-        // =========================================================================
-        // 2. BUILDING I — DORMITORY MEN (9 FLOORS, 35.5m)
-        // Footprint: X in [37.2, 51.0], Z in [-34.0, -14.5], Y in [0.0, 35.5]
-        // =========================================================================
-        private static void BuildBuildingI(GameObject parent, Material matFacade, Material matMint, 
+        private static void BuildBuildingI(GameObject parent, Material matFacade, Material matMint,
             Material matWinOpaque, Material matWinTrans, Material matFrame, Material matRailing, Material matBase, Material matRoof)
         {
             GameObject root = GetOrCreateBuildingRoot(parent, "Building_I_Dorm_Men");
 
-            float minX = 37.2f, maxX = 51.0f; // Width = 13.8m
-            float minZ = -34.0f, maxZ = -14.5f; // Length = 19.5m
-            float centerX = (minX + maxX) * 0.5f; // 44.1m
-            float centerZ = (minZ + maxZ) * 0.5f; // -24.25m
+            float minX = 37.2f, maxX = 51.0f;
+            float minZ = -34.0f, maxZ = -14.5f;
+            float centerX = (minX + maxX) * 0.5f;
+            float centerZ = (minZ + maxZ) * 0.5f;
             float width = maxX - minX;
             float length = maxZ - minZ;
 
@@ -304,7 +279,6 @@ namespace IUHCampus.Editor
             floorHeights[1] = groundH;
             for (int i = 2; i <= storyCount; i++) floorHeights[i] = floorHeights[i - 1] + upperStoryH;
 
-            // --- Floor Slabs ---
             for (int f = 0; f <= storyCount; f++)
             {
                 float y = floorHeights[f];
@@ -312,15 +286,12 @@ namespace IUHCampus.Editor
                 AddBoxToCombines(cStructure, new Vector3(centerX, y + thick * 0.5f, centerZ), new Vector3(width, thick, length));
             }
 
-            // --- Base Plinth & Steps ---
             AddBoxToCombines(cBase, new Vector3(centerX, 0.12f, centerZ), new Vector3(width + 0.1f, 0.24f, length + 0.1f));
             AddBoxToCombines(cBase, new Vector3(minX - 0.1f, 0.08f, centerZ), new Vector3(0.2f, 0.16f, 7.0f));
 
-            // --- Solid Gable Walls on North and South ends ---
             AddBoxToCombines(cStructure, new Vector3(centerX, (totalH + groundH) * 0.5f, minZ + 0.15f), new Vector3(width, totalH - groundH, 0.3f));
             AddBoxToCombines(cStructure, new Vector3(centerX, (totalH + groundH) * 0.5f, maxZ - 0.15f), new Vector3(width, totalH - groundH, 0.3f));
 
-            // --- Ground Floor Entrance (West Facing towards C-I Pathway) ---
             AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, 2.0f, centerZ), new Vector3(0.3f, 4.0f, length));
             AddBoxToCombines(cStructure, new Vector3(centerX, 2.0f, maxZ - 0.15f), new Vector3(width, 4.0f, 0.3f));
             AddBoxToCombines(cStructure, new Vector3(centerX, 2.0f, minZ + 0.15f), new Vector3(width, 4.0f, 0.3f));
@@ -331,7 +302,6 @@ namespace IUHCampus.Editor
             AddBoxToCombines(cStructure, new Vector3(minX + 0.2f, 2.0f, minZ + 3.5f), new Vector3(0.4f, 4.0f, 7.0f));
             AddBoxToCombines(cStructure, new Vector3(minX + 0.2f, 2.0f, maxZ - 3.5f), new Vector3(0.4f, 4.0f, 7.0f));
 
-            // --- Upper Floors: Repetitive Dormitory Room Grid ---
             int roomBaysZ = 5;
             float roomDepth = 1.4f;
 
@@ -342,7 +312,6 @@ namespace IUHCampus.Editor
                 float winY = floorY + 1.1f + (storyH - 1.1f) * 0.5f;
                 float winH = storyH - 1.3f;
 
-                // West Facade Loggias:
                 for (int b = 0; b < roomBaysZ; b++)
                 {
                     float zStart = Mathf.Lerp(minZ + 0.6f, maxZ - 0.6f, (float)b / roomBaysZ);
@@ -356,7 +325,6 @@ namespace IUHCampus.Editor
                     AddBoxToCombines(cMint, new Vector3(minX + 0.02f, floorY + storyH - 0.08f, bCenterZ), new Vector3(0.14f, 0.12f, bWidthZ));
                 }
 
-                // East Facade: Dorm room window grid:
                 for (int b = 0; b < roomBaysZ; b++)
                 {
                     float zStart = Mathf.Lerp(minZ + 0.6f, maxZ - 0.6f, (float)b / roomBaysZ);
@@ -369,12 +337,10 @@ namespace IUHCampus.Editor
                     AddBoxToCombines(cFrames, new Vector3(maxX - 0.05f, winY, bCenterZ), new Vector3(0.12f, winH, 0.1f));
                 }
 
-                // North & South End Window Bays:
                 AddBoxToCombines(cWinOpaque, new Vector3(centerX, winY, minZ + 0.05f), new Vector3(width - 5.0f, winH, 0.1f));
                 AddBoxToCombines(cWinOpaque, new Vector3(centerX, winY, maxZ - 0.05f), new Vector3(width - 5.0f, winH, 0.1f));
             }
 
-            // --- Roof & Elevator Penthouse (Height 32.0m to 35.5m) ---
             float roofY = floorHeights[storyCount];
             AddBoxToCombines(cStructure, new Vector3(centerX, roofY + 0.75f, maxZ - 0.15f), new Vector3(width, 1.5f, 0.3f));
             AddBoxToCombines(cStructure, new Vector3(centerX, roofY + 0.75f, minZ + 0.15f), new Vector3(width, 1.5f, 0.3f));
@@ -382,19 +348,15 @@ namespace IUHCampus.Editor
             AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, roofY + 0.75f, centerZ), new Vector3(0.3f, 1.5f, length));
             AddBoxToCombines(cRoof, new Vector3(centerX, roofY + 0.1f, centerZ), new Vector3(width - 0.6f, 0.1f, length - 0.6f));
 
-            // Elevator Penthouse:
             AddBoxToCombines(cStructure, new Vector3(centerX, roofY + 1.6f, centerZ), new Vector3(5.0f, 3.2f, 5.0f));
             AddBoxToCombines(cRoof, new Vector3(centerX, roofY + 3.25f, centerZ), new Vector3(5.3f, 0.2f, 5.3f));
 
-            // Rooftop Signage Panel "KÝ TÚC XÁ NAM (NHÀ I)" on South face:
             AddBoxToCombines(cFrames, new Vector3(centerX, roofY + 2.2f, minZ + 0.6f), new Vector3(8.5f, 1.6f, 0.2f));
             AddBoxToCombines(cMint, new Vector3(centerX, roofY + 2.2f, minZ + 0.48f), new Vector3(8.1f, 1.3f, 0.08f));
 
-            // Water Tanks / MEP:
             AddBoxToCombines(cRoof, new Vector3(centerX + 2.6f, roofY + 1.2f, maxZ - 2.6f), new Vector3(2.0f, 2.0f, 2.0f));
             AddBoxToCombines(cRoof, new Vector3(centerX - 2.6f, roofY + 1.2f, maxZ - 2.6f), new Vector3(2.0f, 2.0f, 2.0f));
 
-            // Attach Meshes
             AttachCombinedMesh(root, "01_Structure", cStructure, matFacade);
             AttachCombinedMesh(root, "02_Windows_Opaque", cWinOpaque, matWinOpaque);
             AttachCombinedMesh(root, "03_Lobby_Glazing", cWinTrans, matWinTrans);
@@ -404,7 +366,6 @@ namespace IUHCampus.Editor
             AttachCombinedMesh(root, "07_Plinth_Steps", cBase, matBase);
             AttachCombinedMesh(root, "08_Roof_MEP", cRoof, matRoof);
 
-            // Colliders
             GameObject goCols = new GameObject("Colliders");
             goCols.transform.SetParent(root.transform, false);
 
@@ -425,19 +386,15 @@ namespace IUHCampus.Editor
             colGroundSouth.size = new Vector3(2.0f, groundH, 7.0f);
         }
 
-        // =========================================================================
-        // 3. BUILDING G — DORMITORY WOMEN (7 FLOORS, 25.5m)
-        // Footprint: X in [17.5, 48.0], Z in [-50.5, -37.2], Y in [0.0, 25.5]
-        // =========================================================================
-        private static void BuildBuildingG(GameObject parent, Material matFacade, Material matBlue, 
+        private static void BuildBuildingG(GameObject parent, Material matFacade, Material matBlue,
             Material matWinOpaque, Material matWinTrans, Material matFrame, Material matRailing, Material matBase, Material matRoof)
         {
             GameObject root = GetOrCreateBuildingRoot(parent, "Building_G_Dorm_Women");
 
-            float minX = 17.5f, maxX = 48.0f; // Width = 30.5m along East-West
-            float minZ = -50.5f, maxZ = -37.2f; // Depth = 13.3m
-            float centerX = (minX + maxX) * 0.5f; // 32.75m
-            float centerZ = (minZ + maxZ) * 0.5f; // -43.85m
+            float minX = 17.5f, maxX = 48.0f;
+            float minZ = -50.5f, maxZ = -37.2f;
+            float centerX = (minX + maxX) * 0.5f;
+            float centerZ = (minZ + maxZ) * 0.5f;
             float width = maxX - minX;
             float length = maxZ - minZ;
 
@@ -460,7 +417,6 @@ namespace IUHCampus.Editor
             floorHeights[1] = groundH;
             for (int i = 2; i <= storyCount; i++) floorHeights[i] = floorHeights[i - 1] + upperStoryH;
 
-            // --- Floor Slabs ---
             for (int f = 0; f <= storyCount; f++)
             {
                 float y = floorHeights[f];
@@ -468,16 +424,13 @@ namespace IUHCampus.Editor
                 AddBoxToCombines(cStructure, new Vector3(centerX, y + thick * 0.5f, centerZ), new Vector3(width, thick, length));
             }
 
-            // --- Base Plinth & Steps ---
             AddBoxToCombines(cBase, new Vector3(centerX, 0.12f, centerZ), new Vector3(width + 0.1f, 0.24f, length + 0.1f));
             AddBoxToCombines(cBase, new Vector3(centerX, 0.08f, maxZ + 0.1f), new Vector3(7.0f, 0.16f, 0.2f));
 
-            // --- Full-Height Solid End Shear Walls on West and East Ends ---
             AddBoxToCombines(cStructure, new Vector3(minX + 0.15f, totalH * 0.5f, centerZ), new Vector3(0.3f, totalH, length));
             AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, totalH * 0.5f, centerZ), new Vector3(0.3f, totalH, length));
 
-            // --- Ground Floor Entrance (North Facing into Campus towards C-G Pathway) ---
-            AddBoxToCombines(cStructure, new Vector3(centerX, groundH * 0.5f, minZ + 0.2f), new Vector3(width, groundH, 0.4f)); // South wall
+            AddBoxToCombines(cStructure, new Vector3(centerX, groundH * 0.5f, minZ + 0.2f), new Vector3(width, groundH, 0.4f));
             AddBoxToCombines(cWinTrans, new Vector3(centerX, groundH * 0.5f, maxZ - 0.05f), new Vector3(6.5f, 3.5f, 0.1f));
             AddBoxToCombines(cFrames, new Vector3(centerX - 1.6f, groundH * 0.5f, maxZ - 0.05f), new Vector3(0.12f, 3.5f, 0.12f));
             AddBoxToCombines(cFrames, new Vector3(centerX + 1.6f, groundH * 0.5f, maxZ - 0.05f), new Vector3(0.12f, 3.5f, 0.12f));
@@ -485,7 +438,6 @@ namespace IUHCampus.Editor
             AddBoxToCombines(cStructure, new Vector3(minX + (centerX - 3.8f - minX) * 0.5f, groundH * 0.5f, maxZ - 0.2f), new Vector3(centerX - 3.8f - minX, groundH, 0.4f));
             AddBoxToCombines(cStructure, new Vector3(centerX + 3.8f + (maxX - (centerX + 3.8f)) * 0.5f, groundH * 0.5f, maxZ - 0.2f), new Vector3(maxX - (centerX + 3.8f), groundH, 0.4f));
 
-            // --- Upper Floors: 30.5m Long Facade with 8 Room Bays ---
             int baysX = 8;
             float bayW = (width - 0.6f) / baysX;
             float loggiaDepth = 1.3f;
@@ -497,7 +449,6 @@ namespace IUHCampus.Editor
                 float winY = floorY + 1.0f + (storyH - 1.0f) * 0.5f;
                 float winH = storyH - 1.2f;
 
-                // North Facade: Continuous Loggias with Metal Railings & Doors/Windows:
                 for (int b = 0; b < baysX; b++)
                 {
                     float xStart = (minX + 0.3f) + b * bayW;
@@ -510,7 +461,6 @@ namespace IUHCampus.Editor
                     AddBoxToCombines(cBlue, new Vector3(bCenterX, floorY + storyH - 0.08f, maxZ + 0.02f), new Vector3(bayW, 0.12f, 0.14f));
                 }
 
-                // South Facade (Street-facing): Structured room window bands:
                 for (int b = 0; b < baysX; b++)
                 {
                     float xStart = (minX + 0.3f) + b * bayW;
@@ -522,12 +472,10 @@ namespace IUHCampus.Editor
                     AddBoxToCombines(cFrames, new Vector3(bCenterX, winY, minZ + 0.05f), new Vector3(0.12f, winH, 0.1f));
                 }
 
-                // Central Vertical Circulation Accent (Blue Band on both faces):
                 AddBoxToCombines(cBlue, new Vector3(centerX, floorY + storyH * 0.5f, maxZ + 0.04f), new Vector3(1.2f, storyH, 0.08f));
                 AddBoxToCombines(cBlue, new Vector3(centerX, floorY + storyH * 0.5f, minZ - 0.04f), new Vector3(1.2f, storyH, 0.08f));
             }
 
-            // --- Roof & Elevator Penthouse (Height 23.7m to 25.5m) ---
             float roofY = floorHeights[storyCount];
             AddBoxToCombines(cStructure, new Vector3(centerX, roofY + 0.75f, maxZ - 0.15f), new Vector3(width, 1.5f, 0.3f));
             AddBoxToCombines(cStructure, new Vector3(centerX, roofY + 0.75f, minZ + 0.15f), new Vector3(width, 1.5f, 0.3f));
@@ -535,15 +483,12 @@ namespace IUHCampus.Editor
             AddBoxToCombines(cStructure, new Vector3(maxX - 0.15f, roofY + 0.75f, centerZ), new Vector3(0.3f, 1.5f, length));
             AddBoxToCombines(cRoof, new Vector3(centerX, roofY + 0.1f, centerZ), new Vector3(width - 0.6f, 0.1f, length - 0.6f));
 
-            // Central Elevator Penthouse Tum:
             AddBoxToCombines(cStructure, new Vector3(centerX, roofY + 1.25f, centerZ), new Vector3(6.0f, 2.5f, 4.5f));
             AddBoxToCombines(cRoof, new Vector3(centerX, roofY + 2.55f, centerZ), new Vector3(6.3f, 0.2f, 4.7f));
 
-            // Rooftop Signage Panel "KÝ TÚC XÁ NỮ (NHÀ G)" on South face towards street:
             AddBoxToCombines(cFrames, new Vector3(centerX, roofY + 1.8f, minZ + 0.6f), new Vector3(10.5f, 1.6f, 0.2f));
             AddBoxToCombines(cBlue, new Vector3(centerX, roofY + 1.8f, minZ + 0.48f), new Vector3(10.1f, 1.3f, 0.08f));
 
-            // Attach Meshes
             AttachCombinedMesh(root, "01_Structure", cStructure, matFacade);
             AttachCombinedMesh(root, "02_Windows_Opaque", cWinOpaque, matWinOpaque);
             AttachCombinedMesh(root, "03_Lobby_Glazing", cWinTrans, matWinTrans);
@@ -553,7 +498,6 @@ namespace IUHCampus.Editor
             AttachCombinedMesh(root, "07_Plinth_Steps", cBase, matBase);
             AttachCombinedMesh(root, "08_Roof_MEP", cRoof, matRoof);
 
-            // Colliders
             GameObject goCols = new GameObject("Colliders");
             goCols.transform.SetParent(root.transform, false);
 

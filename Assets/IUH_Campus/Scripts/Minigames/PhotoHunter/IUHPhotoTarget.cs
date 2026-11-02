@@ -4,11 +4,7 @@ using UnityEngine;
 
 namespace IUHCampus.Minigames.PhotoHunter
 {
-    /// <summary>
-    /// Represents a photographic landmark objective in the campus.
-    /// Evaluates realistic geometric criteria: distance, view frustum, viewport framing,
-    /// architectural landmark coverage, and physical occlusion (e.g. Building layer walls).
-    /// </summary>
+
     [SelectionBase]
     public class IUHPhotoTarget : MonoBehaviour
     {
@@ -53,7 +49,6 @@ namespace IUHCampus.Minigames.PhotoHunter
         [SerializeField] private Vector3 m_ScoutLookDirection = Vector3.forward;
         [SerializeField] private int m_RewardScore = 100;
 
-        // Runtime State
         private bool m_IsCompleted = false;
 
         public string TargetId => m_TargetId;
@@ -123,9 +118,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             m_KeyFeatureOffsets = offsets != null ? new List<Vector3>(offsets) : new List<Vector3>();
         }
 
-        /// <summary>
-        /// Computes world space target center.
-        /// </summary>
         public Vector3 GetWorldCenter()
         {
             if (m_TargetCenter != null)
@@ -133,9 +125,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             return transform.TransformPoint(m_CenterOffset);
         }
 
-        /// <summary>
-        /// Gets all world space key feature points including center.
-        /// </summary>
         public List<Vector3> GetWorldFeaturePoints()
         {
             var list = new List<Vector3>();
@@ -152,10 +141,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             return list;
         }
 
-        /// <summary>
-        /// Calculates the angle between the camera's forward axis and the direction to this target.
-        /// Used to detect which target the player is aiming at.
-        /// </summary>
         public float GetFacingAngle(Camera camera)
         {
             if (camera == null) return 180f;
@@ -164,15 +149,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             return Vector3.Angle(camera.transform.forward, dirToTarget);
         }
 
-        /// <summary>
-        /// Validates whether the active game camera captures this landmark legitimately.
-        /// Performs strictly physical and geometric checks without artificial confidence mockups.
-        /// </summary>
-        /// <param name="shootingCamera">The actual camera used to render the game world.</param>
-        /// <param name="playerTransform">Player transform to ignore player's own colliders during raycast.</param>
-        /// <param name="obstacleMask">LayerMask for occluders (Building, Environment, Default, etc.).</param>
-        /// <param name="failureReason">Vietnamese descriptive explanation if validation fails.</param>
-        /// <returns>True if the photo qualifies as a valid capture.</returns>
         public bool ValidatePhoto(Camera shootingCamera, Transform playerTransform, LayerMask obstacleMask, out string failureReason)
         {
             if (m_IsCompleted)
@@ -191,7 +167,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             Vector3 camForward = shootingCamera.transform.forward;
             Vector3 targetCenter = GetWorldCenter();
 
-            // 1. Distance Range Check
             float distance = Vector3.Distance(camPos, targetCenter);
             if (distance < m_MinDistance)
             {
@@ -205,7 +180,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return false;
             }
 
-            // 2. Camera Facing Angle Check (Target in front of camera)
             Vector3 dirToTarget = (targetCenter - camPos).normalized;
             float angle = Vector3.Angle(camForward, dirToTarget);
             if (angle > m_MaxAngleDegrees)
@@ -214,7 +188,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return false;
             }
 
-            // 3. Viewport Boundary & Framing Coverage Check
             Vector3 vpCenter = shootingCamera.WorldToViewportPoint(targetCenter);
             if (vpCenter.z <= 0f)
             {
@@ -230,7 +203,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return false;
             }
 
-            // Check multi-point landmark coverage (to ensure building is substantially in frame)
             var featurePoints = GetWorldFeaturePoints();
             int visibleFeatureCount = 0;
             for (int i = 0; i < featurePoints.Count; i++)
@@ -249,8 +221,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return false;
             }
 
-            // 4. Physical Occlusion Check (Raycast through Building, Environment, etc.)
-            // Determines if foreign solid obstacles (such as walls of other buildings) block the view.
             int playerLayer = LayerMask.NameToLayer("Player");
             int uiLayer = LayerMask.NameToLayer("UI");
             int ignoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
@@ -259,7 +229,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             bool hasClearLineOfSight = false;
             string occluderName = "";
 
-            // Check center and key features for clear lines of sight
             for (int pIdx = 0; pIdx < featurePoints.Count; pIdx++)
             {
                 Vector3 testPoint = featurePoints[pIdx];
@@ -277,23 +246,19 @@ namespace IUHCampus.Minigames.PhotoHunter
                     var hitCol = hits[i].collider;
                     if (hitCol == null) continue;
 
-                    // Skip triggers
                     if (hitCol.isTrigger) continue;
 
-                    // Skip player character
                     int colLayer = hitCol.gameObject.layer;
                     if (colLayer == playerLayer || colLayer == uiLayer || colLayer == ignoreRaycast || colLayer == triggerLayer)
                         continue;
                     if (playerTransform != null && (hitCol.transform.root == playerTransform.root || hitCol.CompareTag("Player")))
                         continue;
 
-                    // If ray reached this target's own physical structure or children, line of sight reached!
                     if (IsPartOfTarget(hitCol))
                     {
                         break;
                     }
 
-                    // Solid obstacle in front of the target
                     if (hits[i].distance < rayDist - 1.2f)
                     {
                         pointOccluded = true;
@@ -316,23 +281,17 @@ namespace IUHCampus.Minigames.PhotoHunter
                 return false;
             }
 
-            // All physical, geometric and coverage criteria satisfied!
             failureReason = string.Empty;
             return true;
         }
 
-        /// <summary>
-        /// Explicitly verifies whether the hit collider belongs to this landmark structure without string guessing.
-        /// </summary>
         public bool IsPartOfTarget(Collider hitCollider)
         {
             if (hitCollider == null) return false;
 
-            // Direct match
             if (hitCollider == m_StructureCollider) return true;
             if (hitCollider.transform == transform || hitCollider.transform.IsChildOf(transform)) return true;
 
-            // Physical structure root reference
             if (m_StructureRoot != null && (hitCollider.transform == m_StructureRoot || hitCollider.transform.IsChildOf(m_StructureRoot)))
                 return true;
 
@@ -345,13 +304,11 @@ namespace IUHCampus.Minigames.PhotoHunter
             Gizmos.color = m_IsCompleted ? Color.green : Color.yellow;
             Gizmos.DrawWireSphere(center, 1.5f);
 
-            // Draw minimum and maximum range rings
             Gizmos.color = new Color(1f, 0.5f, 0f, 0.35f);
             Gizmos.DrawWireSphere(center, m_MinDistance);
             Gizmos.color = new Color(0f, 0.8f, 1f, 0.35f);
             Gizmos.DrawWireSphere(center, m_MaxDistance);
 
-            // Draw feature points
             if (m_KeyFeatureOffsets != null)
             {
                 Gizmos.color = Color.cyan;
@@ -361,7 +318,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 }
             }
 
-            // Draw vantage scout position
             if (m_ScoutVantagePoint != Vector3.zero)
             {
                 Gizmos.color = Color.magenta;

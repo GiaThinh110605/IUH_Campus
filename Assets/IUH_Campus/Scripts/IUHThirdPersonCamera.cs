@@ -5,10 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus
 {
-    /// <summary>
-    /// Smooth Third-Person Orbit Camera with SphereCast collision detection against walls, ceilings, and furniture.
-    /// Supports pitch/yaw mouse orbiting, collision avoidance, and seamless first-person toggle.
-    /// </summary>
+
     public class IUHThirdPersonCamera : MonoBehaviour
     {
         [Header("Target & Distances")]
@@ -97,20 +94,18 @@ namespace IUHCampus
 
             if (m_IsFirstPerson)
             {
-                // First person eye placement
+
                 transform.position = targetCenter;
                 return;
             }
 
-            // Direction from target center pointing backwards towards camera
             Vector3 backDir = -transform.forward;
             float desiredDist = m_DefaultDistance;
 
-            // SphereCast from TargetCenter backwards to detect walls, ceilings, and furniture
             RaycastHit hit;
             if (Physics.SphereCast(targetCenter, m_CollisionRadius, backDir, out hit, m_DefaultDistance, m_CollisionLayers, QueryTriggerInteraction.Ignore))
             {
-                // Pull camera forward in front of obstacle
+
                 desiredDist = Mathf.Clamp(hit.distance - m_CollisionBuffer, m_MinDistance, m_DefaultDistance);
             }
 
@@ -154,7 +149,6 @@ namespace IUHCampus
         {
             if (!m_ShowHUD) return;
 
-            // Simple clean Campus HUD
             GUI.Box(new Rect(15, 15, 340, 85), "");
             GUI.color = new Color(0.12f, 0.45f, 0.90f, 1f);
             GUI.Label(new Rect(25, 20, 320, 24), "★ IUH CAMPUS - THAM QUAN NỘI THẤT");
@@ -163,7 +157,6 @@ namespace IUHCampus
             GUI.color = new Color(0.85f, 0.85f, 0.85f);
             GUI.Label(new Rect(25, 64, 320, 22), "[W,A,S,D] Đi lại | [Shift] Chạy | [V] Đổi góc nhìn");
 
-            // Small bottom control bar
             GUI.Box(new Rect(15, Screen.height - 40, 420, 28), "");
             GUI.color = Color.yellow;
             GUI.Label(new Rect(25, Screen.height - 36, 400, 22), "Chuột: Quay camera 360° | Space: Nhảy | ESC: Thoát chuột | H: Ẩn HUD");

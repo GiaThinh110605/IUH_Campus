@@ -89,7 +89,7 @@ namespace IUHCampus.Editor
                     return;
                 }
                 float dt=Mathf.Min(Time.deltaTime,.04f);var before=player.transform.position;
-                // Move the actual player's CharacterController through its collision solver, without per-frame warps.
+
                 cc.Move(delta.normalized*Mathf.Min(5.3f*dt,delta.magnitude)+Vector3.down*2*dt);
                 player.transform.rotation=Quaternion.LookRotation(delta);player.SetCameraOrientation(delta);
                 float y=player.transform.position.y;Result.minY=Mathf.Min(Result.minY,y);Result.maxY=Mathf.Max(Result.maxY,y);

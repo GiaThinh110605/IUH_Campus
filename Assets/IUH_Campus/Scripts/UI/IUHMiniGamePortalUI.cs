@@ -10,11 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// In-Game Mini-Game Selection Portal & Teleportation Menu (IUH Campus).
-    /// Fully supports both New Input System and Legacy Input.
-    /// Toggle via [M], select game via keys [1] - [6] or mouse clicks.
-    /// </summary>
+
     public class IUHMiniGamePortalUI : MonoBehaviour
     {
         public static IUHMiniGamePortalUI Instance { get; private set; }
@@ -96,7 +92,7 @@ namespace IUHCampus.UI
 
         private void AutoWireButtons()
         {
-            // Floating Button
+
             if (m_FloatingButton != null)
             {
                 var btn = m_FloatingButton.GetComponent<Button>();
@@ -109,7 +105,7 @@ namespace IUHCampus.UI
 
             if (m_MenuPanel != null)
             {
-                // Close Button
+
                 var closeBtn = m_MenuPanel.transform.Find("CloseBtn")?.GetComponent<Button>();
                 if (closeBtn != null)
                 {
@@ -149,7 +145,6 @@ namespace IUHCampus.UI
                     });
                 }
 
-                // Customization Wardrobe Buttons
                 var btnCustPortal = m_MenuPanel.transform.Find("BtnCustomizationPortal")?.GetComponent<Button>();
                 if (btnCustPortal != null)
                 {
@@ -157,14 +152,13 @@ namespace IUHCampus.UI
                     btnCustPortal.onClick.AddListener(OpenCustomization);
                 }
 
-                // Cards Area Buttons
                 var cardsArea = m_MenuPanel.transform.Find("CardsArea");
                 if (cardsArea != null)
                 {
                     for (int i = 0; i < cardsArea.childCount; i++)
                     {
                         var card = cardsArea.GetChild(i);
-                        // Make entire card clickable
+
                         var cardBtn = card.GetComponent<Button>();
                         int gameIndex=i;
                         var nameParts=card.name.Split('_');
@@ -178,7 +172,6 @@ namespace IUHCampus.UI
                             cardBtn.onClick.AddListener(() => SelectMiniGame(index));
                         }
 
-                        // Also action button
                         var actionBtn = card.Find("BtnBar/ActionBtn")?.GetComponent<Button>();
                         if (actionBtn != null)
                         {
@@ -200,7 +193,6 @@ namespace IUHCampus.UI
                 if(library!=null){library.onClick.RemoveAllListeners();library.onClick.AddListener(TeleportToLibrary);}
             }
 
-            // HUD Wardrobe button
             var hudPanel = transform.Find("DeliveryHUD");
             if (hudPanel != null)
             {
@@ -212,7 +204,6 @@ namespace IUHCampus.UI
                 }
             }
 
-            // Results Dialogs buttons
             var victoryDialog = transform.Find("VictoryDialog");
             if (victoryDialog != null)
             {
@@ -245,14 +236,13 @@ namespace IUHCampus.UI
 
         private void Update()
         {
-            // Toggle Menu with M key
+
             if (IUHGameFlowManager.Instance == null && IsKeyTriggered(KeyCode.M))
             {
                 ToggleMenu();
                 return;
             }
 
-            // When menu is open, handle keys [1] - [6] and [ESC]
             if (m_IsOpen)
             {
                 if (IUHGameFlowManager.Instance == null && IsKeyTriggered(KeyCode.Escape))
@@ -280,7 +270,7 @@ namespace IUHCampus.UI
             }
             else
             {
-                // When in gameplay, pressing ESC also opens the menu
+
                 if (IUHGameFlowManager.Instance == null && IsKeyTriggered(KeyCode.Escape))
                 {
                     SetMenuOpen(true);
@@ -288,7 +278,6 @@ namespace IUHCampus.UI
                 }
             }
 
-            // Press [U] anytime to open Customization Wardrobe
             if (IsKeyTriggered(KeyCode.U))
             {
                 OpenCustomization();
@@ -364,7 +353,6 @@ namespace IUHCampus.UI
                 if (!m_IsOpen) m_FloatingButton.transform.SetAsLastSibling();
             }
 
-            // Hide mobile controls on PC or while menu is open
             var mobile = FindFirstObjectByType<IUHMobileControlsUI>(FindObjectsInactive.Include);
             if (mobile != null)
             {
@@ -372,7 +360,6 @@ namespace IUHCampus.UI
                 if (m_IsOpen) mobile.gameObject.SetActive(false);
             }
 
-            // Mouse Cursor & Camera Control
             if (m_IsOpen)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -382,7 +369,7 @@ namespace IUHCampus.UI
             }
             else
             {
-                // Only lock cursor and enable controller back if other dialogs/modals are not open
+
                 bool otherDialogOpen = false;
                 var victory = transform.Find("VictoryDialog");
                 if (victory != null && victory.gameObject.activeSelf) otherDialogOpen = true;
@@ -393,24 +380,20 @@ namespace IUHCampus.UI
                 var custom = transform.Find("CustomizationPanel");
                 if (custom != null && custom.gameObject.activeSelf) otherDialogOpen = true;
 
-                // Photo Hunter Modal Check (Briefing or Victory gallery dialog)
                 var photoMgr = IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
                 if (photoMgr != null && photoMgr.HasActiveModal)
                 {
                     otherDialogOpen = true;
                 }
 
-                // Wardrobe / Customization UI Check
                 var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
                 if (greenMgr != null && greenMgr.HasActiveModal) otherDialogOpen = true;
 
-                // Wardrobe / Customization UI Check
                 if (IUHCustomizationUI.Instance != null && IUHCustomizationUI.Instance.IsOpen)
                 {
                     otherDialogOpen = true;
                 }
 
-                // Delivery Dialogue Check
                 if (IUHDeliveryDialogueUI.Instance != null && IUHDeliveryDialogueUI.Instance.IsOpen)
                 {
                     otherDialogOpen = true;
@@ -430,13 +413,6 @@ namespace IUHCampus.UI
             }
         }
 
-        /// <summary>
-        /// Select a mini-game by index (0 to 3) corresponding to keys [1] to [4].
-        /// 0: Grab Campus
-        /// 1: AI Object Hunt
-        /// 2: Thợ Săn Khoảnh Khắc (Photo Hunter)
-        /// 3: Green Campus
-        /// </summary>
         public void SelectMiniGame(int gameIndex)
         {
             if (gameIndex < 0 || gameIndex > 3) return;
@@ -475,11 +451,6 @@ namespace IUHCampus.UI
             if (prep != null) prep.OpenPreparation(1);
         }
 
-        // ================= FAST TRAVEL / QUICK PLAY =================
-
-        /// <summary>
-        /// Launch Mini-Game 2.4 "Thợ Săn Khoảnh Khắc — Photo Hunter".
-        /// </summary>
         public void LaunchPhotoHunterGame()
         {
             var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
@@ -505,9 +476,6 @@ namespace IUHCampus.UI
             }
         }
 
-        /// <summary>
-        /// Launch Mini-Game 2.1 "Grab Campus: Chuyến Xe Tâm Linh" directly.
-        /// </summary>
         public void LaunchGrabCampusGame(int missionIndex = 0)
         {
             var greenMgr = IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance;
@@ -539,41 +507,26 @@ namespace IUHCampus.UI
             }
         }
 
-        /// <summary>
-        /// Fast travel to Gate 1 Grab Parking.
-        /// </summary>
         public void TeleportToGate1Parking()
         {
             TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.Entrance:m_Gate1ParkingPos, "Bãi Xe Cổng 1 (Nguyễn Văn Bảo)",Vector3.forward);
         }
 
-        /// <summary>
-        /// Fast travel to KTX Dormitory.
-        /// </summary>
         public void TeleportToKtxDorm()
         {
             TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.DormEntrance:m_KtxDormPos, "Ký túc xá I/G",Vector3.right);
         }
 
-        /// <summary>
-        /// Fast travel to Library Block A.
-        /// </summary>
         public void TeleportToLibrary()
         {
             TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.LibraryEntrance:m_LibraryPos, "Thư Viện Trung Tâm (Tòa A)",Vector3.back);
         }
 
-        /// <summary>
-        /// Fast travel to Block F Rooftop Staircase.
-        /// </summary>
         public void TeleportToBlockFRoof()
         {
             TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.FRoof:m_BlockFRoofPos, "Nóc nhà F",Vector3.back);
         }
 
-        /// <summary>
-        /// Fast travel to Central Courtyard Trash AI Station.
-        /// </summary>
         public void TeleportToGreenTrashStation()
         {
             TeleportPlayer(IUHCampus.World.IUHReferenceLayout.IsActive?IUHCampus.World.IUHReferenceLayout.GreenSpawn:m_CentralCourtyardPos, "Trạm Phân Loại Rác Green Campus",Vector3.forward);
@@ -590,9 +543,6 @@ namespace IUHCampus.UI
             manager.OpenBriefing();
         }
 
-        /// <summary>
-        /// Fast travel to Festival Stage.
-        /// </summary>
         public void TeleportToFestivalStage()
         {
             SetMenuOpen(true);

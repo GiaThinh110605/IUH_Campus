@@ -5,13 +5,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Spawns and orchestrates 3D physical objectives for Grab Campus deliveries:
-    /// 1. Physical 3D Food Stall / Kiosk with illuminated sign, shopkeeper NPC, and 3D drinks at Pickup.
-    /// 2. Physical 3D Customer NPC (IUH Student) waiting by the sidewalk with waving greeting animation at Dropoff.
-    /// 3. Realistic interaction: Driver stops, presses [E] to collect items into motorbike cargo, then stops at student to deliver.
-    /// 4. Delivery completes ONLY when handing over to the student customer with the appreciation dialogue!
-    /// </summary>
+
     public class IUHGrabDeliveryObjectives : MonoBehaviour
     {
         private static IUHGrabDeliveryObjectives s_Instance;
@@ -32,7 +26,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        // 3D Pickup Stall References
         private GameObject m_StallRoot;
         private Transform m_StallFoodItemsRoot;
         private GameObject m_StallPromptCanvas;
@@ -40,7 +33,6 @@ namespace IUHCampus.Minigames.GrabCampus
         private Light m_StallLantern;
         private Transform m_ShopkeeperRoot;
 
-        // 3D Dropoff Customer References
         private GameObject m_CustomerRoot;
         private Transform m_CustomerBody;
         private Transform m_CustomerRightArm;
@@ -66,7 +58,6 @@ namespace IUHCampus.Minigames.GrabCampus
 
             var cam = Camera.main;
 
-            // Billboards face camera
             if (m_StallPromptCanvas != null && m_StallPromptCanvas.activeSelf && cam != null)
             {
                 m_StallPromptCanvas.transform.rotation = cam.transform.rotation;
@@ -77,7 +68,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_CustomerPromptCanvas.transform.rotation = cam.transform.rotation;
             }
 
-            // Customer idle breathing & waving animation
             if (m_CustomerBody != null)
             {
                 float breathe = Mathf.Sin(Time.time * 2.2f) * 0.03f;
@@ -86,12 +76,11 @@ namespace IUHCampus.Minigames.GrabCampus
 
             if (m_CustomerRightArm != null)
             {
-                // Enthusiastic waving arm to catch driver's attention
+
                 float wave = Mathf.Sin(Time.time * 6.5f) * 32f;
                 m_CustomerRightArm.localRotation = Quaternion.Euler(-135f + wave, 0f, 25f);
             }
 
-            // Proximity interaction checks with [E] key
             CheckProximityInteractions();
         }
 
@@ -106,7 +95,6 @@ namespace IUHCampus.Minigames.GrabCampus
             bool interactPressed = IUHInputHelper.IsInteractKeyDown() || Input.GetKeyDown(KeyCode.E);
             float bikeSpeed = (mgr.Motorbike != null) ? mgr.Motorbike.CurrentSpeedKmH : 0f;
 
-            // 1. Pickup Interaction at Stall
             if (mgr.CurrentPhase == IUHGrabCampusManager.MissionPhase.PickingUp && !m_IsCargoCollected && m_StallRoot != null)
             {
                 float distToStall = Vector3.Distance(target.position, m_StallRoot.transform.position);
@@ -123,7 +111,7 @@ namespace IUHCampus.Minigames.GrabCampus
                     }
                 }
             }
-            // 2. Dropoff Interaction with Student Customer
+
             else if (mgr.CurrentPhase == IUHGrabCampusManager.MissionPhase.Delivering && m_CustomerRoot != null)
             {
                 float distToCustomer = Vector3.Distance(target.position, m_CustomerRoot.transform.position);
@@ -142,9 +130,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        /// <summary>
-        /// Configures physical stall and customer NPC for the active order.
-        /// </summary>
         public void SetupForOrder(IUHGrabCampusManager.DeliveryOrder order)
         {
             m_CurrentOrder = order;
@@ -155,7 +140,6 @@ namespace IUHCampus.Minigames.GrabCampus
             BuildOrPositionStall(order.pickupPosition, order.pickupName);
             BuildOrPositionCustomer(order.dropoffPosition, order.dropoffName);
 
-            // Reset bike cargo to empty
             var bikeCargo = IUHGrabCargoVisual.Instance;
             if (bikeCargo != null) bikeCargo.SetEmpty();
         }
@@ -167,7 +151,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_StallRoot = new GameObject("Physical_Food_Stall_Pickup");
                 m_StallRoot.transform.SetParent(transform, false);
 
-                // Counter Table
                 var table = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 table.name = "Counter_Table";
                 table.transform.SetParent(m_StallRoot.transform, false);
@@ -178,7 +161,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 tableMat.color = new Color(0.38f, 0.24f, 0.12f);
                 table.GetComponent<Renderer>().material = tableMat;
 
-                // Awning canopy roof
                 var canopy = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 canopy.name = "Stall_Canopy_Awning";
                 canopy.transform.SetParent(m_StallRoot.transform, false);
@@ -187,10 +169,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 canopy.transform.localScale = new Vector3(2.8f, 0.14f, 1.6f);
                 if (canopy.GetComponent<Collider>() != null) Destroy(canopy.GetComponent<Collider>());
                 var canopyMat = new Material(Shader.Find("Standard"));
-                canopyMat.color = new Color(0.92f, 0.22f, 0.18f); // Red & White stall awning
+                canopyMat.color = new Color(0.92f, 0.22f, 0.18f);
                 canopy.GetComponent<Renderer>().material = canopyMat;
 
-                // Illuminated store sign banner
                 var sign = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 sign.name = "Stall_Sign_ToCoToCo";
                 sign.transform.SetParent(m_StallRoot.transform, false);
@@ -203,16 +184,13 @@ namespace IUHCampus.Minigames.GrabCampus
                 signMat.SetColor("_EmissionColor", new Color(0.98f, 0.85f, 0.25f) * 1.5f);
                 sign.GetComponent<Renderer>().material = signMat;
 
-                // Support poles
                 CreateStallPole(m_StallRoot.transform, new Vector3(-1.25f, 1.4f, -0.55f));
                 CreateStallPole(m_StallRoot.transform, new Vector3(1.25f, 1.4f, -0.55f));
                 CreateStallPole(m_StallRoot.transform, new Vector3(-1.25f, 1.6f, 0.55f));
                 CreateStallPole(m_StallRoot.transform, new Vector3(1.25f, 1.6f, 0.55f));
 
-                // 3D Shopkeeper NPC behind counter
                 BuildShopkeeperNPC(m_StallRoot.transform, new Vector3(0f, 0f, 0.65f));
 
-                // Warm lantern light
                 var lightGo = new GameObject("LanternLight");
                 lightGo.transform.SetParent(m_StallRoot.transform, false);
                 lightGo.transform.localPosition = new Vector3(0f, 2.1f, 0f);
@@ -222,16 +200,13 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_StallLantern.range = 8.5f;
                 m_StallLantern.intensity = 3.5f;
 
-                // 3D Food Items Root (on counter)
                 var foodGo = new GameObject("Stall_Food_Items");
                 foodGo.transform.SetParent(m_StallRoot.transform, false);
                 foodGo.transform.localPosition = new Vector3(0f, 1.15f, -0.1f);
                 m_StallFoodItemsRoot = foodGo.transform;
 
-                // 2 Bubble tea cups on tray
                 BuildBubbleTeaStallItem(m_StallFoodItemsRoot);
 
-                // Billboard prompt
                 BuildStallPromptCanvas();
             }
 
@@ -253,9 +228,8 @@ namespace IUHCampus.Minigames.GrabCampus
             var sk = new GameObject("Shopkeeper_NPC");
             sk.transform.SetParent(parent, false);
             sk.transform.localPosition = localPos;
-            sk.transform.localRotation = Quaternion.Euler(0f, 180f, 0f); // Facing forward towards customer
+            sk.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
 
-            // Body
             var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             body.name = "Body";
             body.transform.SetParent(sk.transform, false);
@@ -263,10 +237,9 @@ namespace IUHCampus.Minigames.GrabCampus
             body.transform.localScale = new Vector3(0.42f, 0.55f, 0.28f);
             if (body.GetComponent<Collider>() != null) Destroy(body.GetComponent<Collider>());
             var bMat = new Material(Shader.Find("Standard"));
-            bMat.color = new Color(0.95f, 0.95f, 0.95f); // White apron
+            bMat.color = new Color(0.95f, 0.95f, 0.95f);
             body.GetComponent<Renderer>().material = bMat;
 
-            // Head
             var head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             head.name = "Head";
             head.transform.SetParent(sk.transform, false);
@@ -277,7 +250,6 @@ namespace IUHCampus.Minigames.GrabCampus
             hMat.color = new Color(0.96f, 0.82f, 0.72f);
             head.GetComponent<Renderer>().material = hMat;
 
-            // Cap
             var cap = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             cap.name = "Cap";
             cap.transform.SetParent(sk.transform, false);
@@ -285,7 +257,7 @@ namespace IUHCampus.Minigames.GrabCampus
             cap.transform.localScale = new Vector3(0.28f, 0.08f, 0.28f);
             if (cap.GetComponent<Collider>() != null) Destroy(cap.GetComponent<Collider>());
             var cMat = new Material(Shader.Find("Standard"));
-            cMat.color = new Color(0.92f, 0.22f, 0.18f); // Red cap
+            cMat.color = new Color(0.92f, 0.22f, 0.18f);
             cap.GetComponent<Renderer>().material = cMat;
 
             m_ShopkeeperRoot = sk.transform;
@@ -306,7 +278,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void BuildBubbleTeaStallItem(Transform parent)
         {
-            // Tray
+
             var tray = GameObject.CreatePrimitive(PrimitiveType.Cube);
             tray.name = "Pickup_Tray";
             tray.transform.SetParent(parent, false);
@@ -317,9 +289,8 @@ namespace IUHCampus.Minigames.GrabCampus
             trayMat.color = new Color(0.2f, 0.16f, 0.12f);
             tray.GetComponent<Renderer>().material = trayMat;
 
-            // Cup 1
             CreateDetailedCup(parent, new Vector3(-0.16f, 0.18f, 0f), new Color(0.92f, 0.72f, 0.45f), "ToCoToCo Brown Sugar");
-            // Cup 2
+
             CreateDetailedCup(parent, new Vector3(0.16f, 0.18f, 0f), new Color(0.45f, 0.75f, 0.45f), "ToCoToCo Matcha Cream");
         }
 
@@ -379,7 +350,7 @@ namespace IUHCampus.Minigames.GrabCampus
             bgRt.sizeDelta = Vector2.zero;
 
             var outline = bgGo.AddComponent<Outline>();
-            outline.effectColor = new Color(0.98f, 0.85f, 0.25f, 0.95f); // Gold outline
+            outline.effectColor = new Color(0.98f, 0.85f, 0.25f, 0.95f);
             outline.effectDistance = new Vector2(2f, -2f);
 
             var txtGo = new GameObject("TxtPrompt");
@@ -403,13 +374,11 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_CustomerRoot = new GameObject("Physical_Customer_Dropoff");
                 m_CustomerRoot.transform.SetParent(transform, false);
 
-                // Body Root
                 var bodyGo = new GameObject("StudentBody");
                 bodyGo.transform.SetParent(m_CustomerRoot.transform, false);
                 bodyGo.transform.localPosition = new Vector3(0f, 0.95f, 0f);
                 m_CustomerBody = bodyGo.transform;
 
-                // Torso (IUH Student Jacket)
                 var torso = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 torso.name = "Student_Torso";
                 torso.transform.SetParent(m_CustomerBody, false);
@@ -417,10 +386,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 torso.transform.localScale = new Vector3(0.42f, 0.48f, 0.28f);
                 if (torso.GetComponent<Collider>() != null) Destroy(torso.GetComponent<Collider>());
                 var torsoMat = new Material(Shader.Find("Standard"));
-                torsoMat.color = new Color(0.12f, 0.38f, 0.72f); // IUH Blue
+                torsoMat.color = new Color(0.12f, 0.38f, 0.72f);
                 torso.GetComponent<Renderer>().material = torsoMat;
 
-                // Backpack
                 var bag = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 bag.name = "Student_Backpack";
                 bag.transform.SetParent(m_CustomerBody, false);
@@ -428,10 +396,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 bag.transform.localScale = new Vector3(0.32f, 0.40f, 0.18f);
                 if (bag.GetComponent<Collider>() != null) Destroy(bag.GetComponent<Collider>());
                 var bagMat = new Material(Shader.Find("Standard"));
-                bagMat.color = new Color(0.85f, 0.35f, 0.15f); // Orange backpack
+                bagMat.color = new Color(0.85f, 0.35f, 0.15f);
                 bag.GetComponent<Renderer>().material = bagMat;
 
-                // Head
                 var head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 head.name = "Student_Head";
                 head.transform.SetParent(m_CustomerBody, false);
@@ -439,10 +406,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 head.transform.localScale = new Vector3(0.26f, 0.28f, 0.26f);
                 if (head.GetComponent<Collider>() != null) Destroy(head.GetComponent<Collider>());
                 var headMat = new Material(Shader.Find("Standard"));
-                headMat.color = new Color(0.96f, 0.82f, 0.72f); // Skin tone
+                headMat.color = new Color(0.96f, 0.82f, 0.72f);
                 head.GetComponent<Renderer>().material = headMat;
 
-                // Hair / Cap
                 var hair = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 hair.name = "Student_Hair";
                 hair.transform.SetParent(m_CustomerBody, false);
@@ -450,10 +416,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 hair.transform.localScale = new Vector3(0.28f, 0.16f, 0.28f);
                 if (hair.GetComponent<Collider>() != null) Destroy(hair.GetComponent<Collider>());
                 var hairMat = new Material(Shader.Find("Standard"));
-                hairMat.color = new Color(0.1f, 0.08f, 0.06f); // Black hair
+                hairMat.color = new Color(0.1f, 0.08f, 0.06f);
                 hair.GetComponent<Renderer>().material = hairMat;
 
-                // Right Arm (Animated Waving)
                 var rArm = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 rArm.name = "Student_RightArm";
                 rArm.transform.SetParent(m_CustomerBody, false);
@@ -466,7 +431,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 rArm.GetComponent<Renderer>().material = armMat;
                 m_CustomerRightArm = rArm.transform;
 
-                // Left Arm
                 var lArm = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 lArm.name = "Student_LeftArm";
                 lArm.transform.SetParent(m_CustomerBody, false);
@@ -475,11 +439,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 if (lArm.GetComponent<Collider>() != null) Destroy(lArm.GetComponent<Collider>());
                 lArm.GetComponent<Renderer>().material = armMat;
 
-                // Legs
                 CreateCustomerLeg(m_CustomerBody, new Vector3(-0.11f, -0.42f, 0f));
                 CreateCustomerLeg(m_CustomerBody, new Vector3(0.11f, -0.42f, 0f));
 
-                // Spotlight
                 var lightGo = new GameObject("CustomerLight");
                 lightGo.transform.SetParent(m_CustomerRoot.transform, false);
                 lightGo.transform.localPosition = new Vector3(0f, 2.8f, 0f);
@@ -490,7 +452,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_CustomerSpotlight.intensity = 4.0f;
                 m_CustomerSpotlight.color = new Color(0.4f, 0.95f, 1.0f);
 
-                // Prompt Canvas
                 BuildCustomerPromptCanvas();
             }
 
@@ -514,7 +475,7 @@ namespace IUHCampus.Minigames.GrabCampus
             leg.transform.localScale = new Vector3(0.12f, 0.42f, 0.12f);
             if (leg.GetComponent<Collider>() != null) Destroy(leg.GetComponent<Collider>());
             var legMat = new Material(Shader.Find("Standard"));
-            legMat.color = new Color(0.15f, 0.20f, 0.28f); // Blue jeans
+            legMat.color = new Color(0.15f, 0.20f, 0.28f);
             leg.GetComponent<Renderer>().material = legMat;
         }
 
@@ -557,15 +518,11 @@ namespace IUHCampus.Minigames.GrabCampus
             txtRt.sizeDelta = Vector2.zero;
         }
 
-        /// <summary>
-        /// Action: Collect cargo at stall and load onto motorbike.
-        /// </summary>
         public void CollectCargoAtStall()
         {
             if (m_IsCargoCollected) return;
             m_IsCargoCollected = true;
 
-            // Hide food items from stall
             if (m_StallFoodItemsRoot != null) m_StallFoodItemsRoot.gameObject.SetActive(false);
 
             if (m_TxtStallPrompt != null)
@@ -573,7 +530,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_TxtStallPrompt.text = "<size=20><color=#4ADE80><b>✅ ĐÃ LẤY HÀNG THÀNH CÔNG!</b></color></size>";
             }
 
-            // Load onto motorbike cargo box with visual items inside and lid closed
             string cargoName = m_CurrentOrder != null ? m_CurrentOrder.pickupName : "Trà Sữa ToCoToCo";
             var bikeCargo = IUHGrabCargoVisual.Instance;
             if (bikeCargo != null)
@@ -582,13 +538,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 bikeCargo.SetCargoLoaded(cargoName, integrity);
             }
 
-            // Advance manager phase
             IUHGrabCampusManager.Instance?.OnCargoCollectedFromStall();
         }
 
-        /// <summary>
-        /// Action: Deliver cargo to customer.
-        /// </summary>
         public void DeliverCargoToCustomer()
         {
             if (m_TxtCustomerPrompt != null)
@@ -602,13 +554,9 @@ namespace IUHCampus.Minigames.GrabCampus
                 bikeCargo.SetCargoDelivered();
             }
 
-            // Trigger authentic customer handoff dialog
             IUHGrabCampusManager.Instance?.OnCargoDeliveredToCustomer();
         }
 
-        /// <summary>
-        /// Hides all physical objectives when minigame is canceled or ended.
-        /// </summary>
         public void HideObjectives()
         {
             if (m_StallRoot != null) m_StallRoot.SetActive(false);

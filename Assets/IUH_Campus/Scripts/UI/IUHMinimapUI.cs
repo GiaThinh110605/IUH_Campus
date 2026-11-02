@@ -5,24 +5,15 @@ using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.UI
 {
-    /// <summary>
-    /// High-Visibility Circular Radar Mini-Map for Grab Campus ("Chuyến xe tâm linh").
-    /// Displays:
-    /// 1. Rotating player vehicle heading arrow.
-    /// 2. High-contrast Shop Pickup Badge (Cyan/Gold with bold label "QUÁN" + distance).
-    /// 3. High-contrast Customer Dropoff Badge (Neon Green/Emerald with bold label "KTX" + distance).
-    /// 4. Edge-clamping with directional pointer arrows when targets are outside the radar radius.
-    /// 5. Ghost Threat Blips (Crimson pulsing hazard diamonds).
-    /// 6. Realtime route guide text at the bottom.
-    /// </summary>
+
     public class IUHMinimapUI : MonoBehaviour
     {
         [Header("Radar Settings")]
         [SerializeField] private float m_RadarWorldRadius = 140f;
         [SerializeField] private RectTransform m_RadarDisk;
         [SerializeField] private RectTransform m_PlayerIcon;
-        [SerializeField] private RectTransform m_ObjectiveBlip; // Dropoff Destination (Green KTX)
-        [SerializeField] private RectTransform m_PickupBlip;    // Shop Pickup (Cyan QUÁN)
+        [SerializeField] private RectTransform m_ObjectiveBlip;
+        [SerializeField] private RectTransform m_PickupBlip;
         [SerializeField] private RectTransform m_BlipContainer;
         [SerializeField] private Text m_TxtRouteInfo;
 
@@ -32,7 +23,6 @@ namespace IUHCampus.UI
 
         private Transform m_TargetTransform;
 
-        // Cached Blip sub-elements
         private Text m_TxtPickupLabel;
         private Text m_TxtPickupDist;
         private Image m_ImgPickupBg;
@@ -71,7 +61,6 @@ namespace IUHCampus.UI
             if (m_PlayerIcon == null) m_PlayerIcon = transform.Find("PlayerArrow")?.GetComponent<RectTransform>();
             if (m_BlipContainer == null) m_BlipContainer = m_RadarDisk;
 
-            // Route info label
             if (m_TxtRouteInfo == null) m_TxtRouteInfo = transform.Find("RouteInfoBadge/TxtRouteInfo")?.GetComponent<Text>();
             if (m_TxtRouteInfo == null) m_TxtRouteInfo = transform.Find("TxtRouteInfo")?.GetComponent<Text>();
             if (m_TxtRouteInfo == null && m_RadarDisk != null)
@@ -105,10 +94,8 @@ namespace IUHCampus.UI
                 txtRt.offsetMax = new Vector2(-8f, -2f);
             }
 
-            // High-Visibility Pickup Blip (Cyan / Gold)
             BuildOrStylePickupBlip();
 
-            // High-Visibility Dropoff Blip (Neon Green / Emerald)
             BuildOrStyleDropoffBlip();
         }
 
@@ -128,14 +115,13 @@ namespace IUHCampus.UI
 
             m_ImgPickupBg = blipGO.GetComponent<Image>();
             if (m_ImgPickupBg == null) m_ImgPickupBg = blipGO.AddComponent<Image>();
-            m_ImgPickupBg.color = new Color(0.06f, 0.75f, 0.95f, 0.95f); // Vibrant cyan
+            m_ImgPickupBg.color = new Color(0.06f, 0.75f, 0.95f, 0.95f);
 
             var outline = blipGO.GetComponent<Outline>();
             if (outline == null) outline = blipGO.AddComponent<Outline>();
-            outline.effectColor = new Color(1.0f, 0.85f, 0.1f, 1.0f); // Gold border
+            outline.effectColor = new Color(1.0f, 0.85f, 0.1f, 1.0f);
             outline.effectDistance = new Vector2(2f, -2f);
 
-            // Centered Text Label ("QUÁN")
             var lblTrans = blipGO.transform.Find("LblText");
             GameObject lblGO = lblTrans != null ? lblTrans.gameObject : new GameObject("LblText");
             lblGO.transform.SetParent(blipGO.transform, false);
@@ -152,7 +138,6 @@ namespace IUHCampus.UI
             lRt.anchorMax = Vector2.one;
             lRt.sizeDelta = Vector2.zero;
 
-            // Distance Tag underneath
             var distTrans = blipGO.transform.Find("DistTag");
             GameObject distGO = distTrans != null ? distTrans.gameObject : new GameObject("DistTag");
             distGO.transform.SetParent(blipGO.transform, false);
@@ -189,14 +174,13 @@ namespace IUHCampus.UI
 
             m_ImgDropoffBg = blipGO.GetComponent<Image>();
             if (m_ImgDropoffBg == null) m_ImgDropoffBg = blipGO.AddComponent<Image>();
-            m_ImgDropoffBg.color = new Color(0.12f, 0.85f, 0.35f, 0.95f); // Vibrant neon green
+            m_ImgDropoffBg.color = new Color(0.12f, 0.85f, 0.35f, 0.95f);
 
             var outline = blipGO.GetComponent<Outline>();
             if (outline == null) outline = blipGO.AddComponent<Outline>();
-            outline.effectColor = new Color(0.02f, 0.40f, 0.15f, 1.0f); // Dark emerald border
+            outline.effectColor = new Color(0.02f, 0.40f, 0.15f, 1.0f);
             outline.effectDistance = new Vector2(2f, -2f);
 
-            // Centered Text Label ("KTX")
             var lblTrans = blipGO.transform.Find("LblText");
             GameObject lblGO = lblTrans != null ? lblTrans.gameObject : new GameObject("LblText");
             lblGO.transform.SetParent(blipGO.transform, false);
@@ -213,7 +197,6 @@ namespace IUHCampus.UI
             lRt.anchorMax = Vector2.one;
             lRt.sizeDelta = Vector2.zero;
 
-            // Distance Tag underneath
             var distTrans = blipGO.transform.Find("DistTag");
             GameObject distGO = distTrans != null ? distTrans.gameObject : new GameObject("DistTag");
             distGO.transform.SetParent(blipGO.transform, false);
@@ -270,7 +253,7 @@ namespace IUHCampus.UI
                 blipGO.transform.SetParent(m_BlipContainer, false);
                 var rect = blipGO.AddComponent<RectTransform>();
                 rect.sizeDelta = new Vector2(14f, 14f);
-                rect.localRotation = Quaternion.Euler(0f, 0f, 45f); // Diamond shape
+                rect.localRotation = Quaternion.Euler(0f, 0f, 45f);
 
                 var img = blipGO.AddComponent<Image>();
                 img.color = new Color(0.95f, 0.15f, 0.25f, 0.95f);
@@ -291,17 +274,14 @@ namespace IUHCampus.UI
 
             float radarUiRadius = m_RadarDisk.rect.width * 0.44f;
 
-            // 1. Rotate Player Arrow
             if (m_PlayerIcon != null)
             {
                 float heading = m_TargetTransform.eulerAngles.y;
                 m_PlayerIcon.localRotation = Quaternion.Euler(0f, 0f, -heading);
             }
 
-            // 2. Position Objective Blips (Pickup & Dropoff)
             UpdateObjectiveBlip(radarUiRadius);
 
-            // 3. Position Ghost Threat Blips
             UpdateGhostBlips(radarUiRadius);
         }
 
@@ -322,11 +302,9 @@ namespace IUHCampus.UI
             float distPickup = Vector3.Distance(new Vector3(playerPos.x, 0f, playerPos.z), new Vector3(order.pickupPosition.x, 0f, order.pickupPosition.z));
             float distDropoff = Vector3.Distance(new Vector3(playerPos.x, 0f, playerPos.z), new Vector3(order.dropoffPosition.x, 0f, order.dropoffPosition.z));
 
-            // Update Distance text
             if (m_TxtPickupDist != null) m_TxtPickupDist.text = $"{distPickup:F0}m";
             if (m_TxtDropoffDist != null) m_TxtDropoffDist.text = $"{distDropoff:F0}m";
 
-            // 1. Position Pickup Blip (Tiệm Trà Sữa)
             if (m_PickupBlip != null)
             {
                 if (grabMgr.CurrentPhase == IUHGrabCampusManager.MissionPhase.PickingUp)
@@ -342,7 +320,6 @@ namespace IUHCampus.UI
                 }
             }
 
-            // 2. Position Dropoff Blip (Bạn Sinh Viên KTX)
             if (m_ObjectiveBlip != null)
             {
                 PositionBlip(m_ObjectiveBlip, order.dropoffPosition, radarUiRadius);
@@ -355,12 +332,11 @@ namespace IUHCampus.UI
                 }
                 else
                 {
-                    // While picking up, keep dropoff slightly smaller so pickup is primary
+
                     m_ObjectiveBlip.localScale = Vector3.one * 0.85f;
                 }
             }
 
-            // 3. Dynamic Route Info Strip
             if (m_TxtRouteInfo != null)
             {
                 m_TxtRouteInfo.gameObject.SetActive(true);
@@ -383,7 +359,6 @@ namespace IUHCampus.UI
             float ratio = worldDist / m_RadarWorldRadius;
             Vector2 clampedDir = mapOffset.sqrMagnitude > 0.001f ? mapOffset.normalized : Vector2.zero;
 
-            // Clamp smoothly to radar radius
             float displayDist = Mathf.Clamp(ratio, 0f, 1f) * radarUiRadius;
             blip.anchoredPosition = clampedDir * displayDist;
         }
@@ -409,7 +384,6 @@ namespace IUHCampus.UI
                     blip.anchoredPosition = mapOffset.normalized * (ratio * radarUiRadius);
                     blip.gameObject.SetActive(true);
 
-                    // Pulse threat color
                     var img = blip.GetComponent<Image>();
                     if (img != null)
                     {
@@ -421,7 +395,6 @@ namespace IUHCampus.UI
                 }
             }
 
-            // Hide unused blips
             for (int j = blipIndex; j < m_SpawnedGhostBlips.Count; j++)
             {
                 m_SpawnedGhostBlips[j].gameObject.SetActive(false);

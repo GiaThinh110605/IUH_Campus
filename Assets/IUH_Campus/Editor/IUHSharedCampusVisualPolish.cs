@@ -115,7 +115,7 @@ namespace IUHCampus.Editor
                 for(float x=-8;x<=8;x+=.75f)Q(new Vector3(x,y+.35f,57.25f),new Vector3(.045f,.65f,.045f),metal);
             }
             Q(new Vector3(0,21.6f,58.3f),new Vector3(19,1.1f,.35f),white);Flush(atrium);
-            // Repeated recessed panels, balcony frames and stone joints break up the plain side walls.
+
             var specs=new[]{new{p=new Vector3(-47,0,43),w=48f,d=13f,h=21f,yaw=-72f},new{p=new Vector3(49,0,39),w=52f,d=14f,h=25f,yaw=74f}};
             foreach(var spec in specs)
             {
@@ -179,7 +179,7 @@ namespace IUHCampus.Editor
                     S(p,new Vector3(.17f,.11f,.17f),petal%3==0?flowerWhite:flowerOrange);
                 }
             }
-            // Dense flower drifts sit inside lawns, leaving the tested central paths clear.
+
             var random=new System.Random(74);
             foreach(int side in new[]{-1,1})foreach(float z in new[]{-29f,-1f,29f})for(int i=0;i<95;i++)
             {

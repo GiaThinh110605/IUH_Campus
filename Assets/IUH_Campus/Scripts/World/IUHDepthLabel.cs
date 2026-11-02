@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace IUHCampus.World
 {
-    // Legacy TextMesh's default font shader draws through walls. These world labels obey scene depth.
+
     [ExecuteAlways, RequireComponent(typeof(TextMesh))]
     public class IUHDepthLabel : MonoBehaviour
     {

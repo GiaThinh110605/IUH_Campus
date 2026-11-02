@@ -6,14 +6,10 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus.Core
 {
-    /// <summary>
-    /// Safe, crash-free input utility for IUH Campus.
-    /// Unifies Unity New Input System, Gamepad, and Virtual Mobile Controls.
-    /// Never throws InvalidOperationException when Input System Package is active.
-    /// </summary>
+
     public static class IUHInputHelper
     {
-        // Virtual Mobile Inputs (set by IUHMobileControlsUI)
+
         public static Vector2 VirtualMoveAxis = Vector2.zero;
         public static bool VirtualVehiclePressed = false;
         public static bool VirtualInteractPressed = false;
@@ -24,13 +20,11 @@ namespace IUHCampus.Core
         {
             Vector2 axis = Vector2.zero;
 
-            // 1. Virtual Mobile Joystick
             if (VirtualMoveAxis.sqrMagnitude > 0.01f)
             {
                 axis += VirtualMoveAxis;
             }
 
-            // 2. New Input System Keyboard
 #if ENABLE_INPUT_SYSTEM
             if (Keyboard.current != null)
             {
@@ -47,7 +41,6 @@ namespace IUHCampus.Core
             }
 #endif
 
-            // 3. Legacy Input Fallback
             if (axis.sqrMagnitude < 0.01f)
             {
                 try
@@ -173,7 +166,6 @@ namespace IUHCampus.Core
             return false;
         }
 
-        // ================= PHOTO HUNTER MINIGAME INPUTS =================
         public static bool VirtualPhotoCapturePressed = false;
         public static bool VirtualPhotoTogglePressed = false;
         public static bool VirtualPhotoExitPressed = false;

@@ -8,11 +8,7 @@ using IUHCampus.UI;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Master Manager for Mini-Game 2.1 "Grab Campus: Chuyến xe tâm linh".
-    /// Orchestrates delivery orders, night spooky ambiance, waypoint beacons,
-    /// dynamic HUD, ghost hazards, scoring, and persistence.
-    /// </summary>
+
     public class IUHGrabCampusManager : MonoBehaviour
     {
         [System.Serializable]
@@ -28,7 +24,7 @@ namespace IUHCampus.Minigames.GrabCampus
             public float timeLimitSeconds;
             public int cashReward;
             public int expReward;
-            public int difficultyStars; // 1 to 3
+            public int difficultyStars;
             public bool hasGhosts;
         }
 
@@ -76,9 +72,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        /// <summary>
-        /// Snaps a position cleanly to the campus road mesh, ignoring ghosts, vehicles, and items.
-        /// </summary>
         public static Vector3 GetGroundPosition(Vector3 desiredPos)
         {
             RaycastHit[] hits = Physics.RaycastAll(new Vector3(desiredPos.x, 25f, desiredPos.z), Vector3.down, 50f, ~0, QueryTriggerInteraction.Ignore);
@@ -94,7 +87,6 @@ namespace IUHCampus.Minigames.GrabCampus
                     continue;
                 }
 
-                // Campus road/paving elevation is between 0.2m and 1.8m
                 if (hit.point.y < 2.0f && hit.point.y > -1.0f)
                 {
                     return new Vector3(desiredPos.x, hit.point.y + 0.12f, desiredPos.z);
@@ -140,14 +132,12 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private GameObject m_DefeatDialog;
         [SerializeField] private Text m_TxtDefeatReason;
 
-        // Runtime Mission State
         private MissionPhase m_CurrentPhase = MissionPhase.Inactive;
         private float m_TimeRemaining = 0f;
         private int m_CargoIntegrity = 100;
         private AudioSource m_AudioSource;
         private float m_GhostSpawnTimer = 7.0f;
 
-        // Player Career Stats (Saved)
         public int TotalEarnings { get; private set; } = 0;
         public int CompletedMissions { get; private set; } = 0;
         public float DriverRating { get; private set; } = 5.0f;
@@ -303,7 +293,6 @@ namespace IUHCampus.Minigames.GrabCampus
 
             if (!IsMissionActive) return;
 
-            // Timer countdown
             m_TimeRemaining -= Time.deltaTime;
             if (m_TimeRemaining <= 0f)
             {
@@ -322,13 +311,12 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             if (m_MissionHudPanel == null) return;
 
-            // Format Timer
             int minutes = Mathf.FloorToInt(m_TimeRemaining / 60f);
             int seconds = Mathf.FloorToInt(m_TimeRemaining % 60f);
             if (m_TxtTimer != null)
             {
                 m_TxtTimer.text = $"⏱ {minutes:00}:{seconds:00}";
-                // Flash red when under 15 seconds
+
                 if (m_TimeRemaining < 15f)
                 {
                     m_TxtTimer.color = (Mathf.Sin(Time.time * 8f) > 0f) ? Color.red : Color.yellow;
@@ -339,7 +327,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // Cargo Integrity
             if (m_TxtCargoIntegrity != null)
             {
                 m_TxtCargoIntegrity.text = $"📦 Kiện hàng: {m_CargoIntegrity}%";
@@ -353,13 +340,11 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_ImgCargoBar.fillAmount = m_CargoIntegrity / 100.0f;
             }
 
-            // Speed
             if (m_TxtSpeed != null && m_Motorbike != null)
             {
                 m_TxtSpeed.text = $"{m_Motorbike.CurrentSpeedKmH:F0} km/h";
             }
 
-            // Distance to active target
             Vector3 targetPos = (m_CurrentPhase == MissionPhase.PickingUp) ? CurrentOrder.pickupPosition : CurrentOrder.dropoffPosition;
             Vector3 sourcePos = (m_Motorbike != null && m_Motorbike.IsMounted) ? m_Motorbike.transform.position : (m_PlayerTransform != null ? m_PlayerTransform.position : Vector3.zero);
             float dist = Vector3.Distance(new Vector3(sourcePos.x, 0f, sourcePos.z), new Vector3(targetPos.x, 0f, targetPos.z));
@@ -414,7 +399,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_TimeRemaining = order.timeLimitSeconds;
             m_CargoIntegrity = 100;
 
-            // Reset survival items & inventory
             IUHGrabInventoryManager.Instance?.ResetInventoryForNewGame();
             var items = FindObjectsByType<IUHGrabSurvivalItem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var itm in items) itm.ResetItem();
@@ -422,16 +406,13 @@ namespace IUHCampus.Minigames.GrabCampus
             var ghosts = FindObjectsByType<IUHGhostHazard>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var g in ghosts) g.ResetGhost();
 
-            // Apply player loadout (Xanh SM, Grab, be, Sinh vien IUH)
             if (IUHCustomizationManager.Instance != null)
             {
                 IUHCustomizationManager.Instance.ApplyTheme(IUHCampus.Core.PlayerLoadout.Current.theme);
             }
 
-            // Mount vehicle automatically or teleport bike near player
             EnsurePlayerOnMotorbike();
 
-            // Keep in-game HUD and night off until order is accepted
             if (m_MissionHudPanel != null) m_MissionHudPanel.SetActive(false);
             if (m_VictoryDialog != null) m_VictoryDialog.SetActive(false);
             if (m_DefeatDialog != null) m_DefeatDialog.SetActive(false);
@@ -440,7 +421,6 @@ namespace IUHCampus.Minigames.GrabCampus
             SetGhostsActive(false);
             ApplyNightAmbiance(false);
 
-            // Show Order Board (Infographic Panel 1)
             if (IUHGrabCampusHUD.Instance != null)
             {
                 IUHGrabCampusHUD.Instance.ShowOrderBoard(order);
@@ -458,33 +438,27 @@ namespace IUHCampus.Minigames.GrabCampus
             var order = CurrentOrder;
             if (order == null) return;
 
-            // Guarantee player is mounted and motorbike is unparented and safely positioned on the road
             EnsurePlayerOnMotorbike();
 
             m_CurrentPhase = MissionPhase.PickingUp;
             m_TimeRemaining = order.timeLimitSeconds;
             m_CargoIntegrity = 100;
 
-            // Spooky Night Mode
             ApplyNightAmbiance(order.hasGhosts);
-            // Dynamic Spawning: All static ghosts start inactive and spawn organically along the travel path!
-            SetGhostsActive(false);
-            m_GhostSpawnTimer = 7.0f; // Safe zone of 7s before first random ghost appears
 
-            // Setup Physical 3D Objectives (Stall with bubble tea cups & Student Customer NPC)
+            SetGhostsActive(false);
+            m_GhostSpawnTimer = 7.0f;
+
             IUHGrabDeliveryObjectives.Instance.SetupForOrder(order);
 
-            // Spawn/Show BOTH Waypoints so delivery target is visible immediately from start!
             ShowPickupWaypoint(order.pickupPosition, $"📦 ĐIỂM LẤY ĐỒ\n[ {order.pickupName} ]");
             ShowDropoffWaypoint(order.dropoffPosition, $"🏁 MỤC TIÊU GIAO HÀNG\n[ {order.dropoffName} ]");
 
-            // Enable HUD and close Order Board modal
             if (IUHGrabCampusHUD.Instance != null) IUHGrabCampusHUD.Instance.HideOrderBoard();
             if (m_MissionHudPanel != null) m_MissionHudPanel.SetActive(true);
             if (m_TxtMissionTitle != null) m_TxtMissionTitle.text = order.title;
             if (m_TxtObjective != null) m_TxtObjective.text = $"[1/2] Lái xe đến lấy đồ tại: {order.pickupName}";
 
-            // Clean UI: Hide 6-game menu panel and hub banners during active delivery
             if (IUHCampus.UI.IUHMiniGamePortalUI.Instance != null)
             {
                 IUHCampus.UI.IUHMiniGamePortalUI.Instance.SetMenuOpen(false);
@@ -538,7 +512,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 if (p != null) m_PlayerTransform = p.transform;
             }
 
-            // Safe road spawn on wide, open Eastern Boulevard (410, 0.55, -18) facing south down the avenue
             Vector3 roadSpawn = GetGroundPosition(new Vector3(410.0f, 0.55f, -18.0f));
             Quaternion roadRot = Quaternion.Euler(0f, 180f, 0f);
 
@@ -551,7 +524,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 if (pcc != null) pcc.enabled = true;
             }
 
-            // Keep GAMEPLAY_GRAB_CAMPUS root stationary at origin with zero rotation
             transform.position = Vector3.zero;
             transform.rotation = Quaternion.identity;
 
@@ -563,7 +535,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_Motorbike.transform.rotation = roadRot;
             if (cc != null) cc.enabled = true;
 
-            // Strip any rogue colliders attached to child parts so CharacterController never gets trapped
             IUHGrabCargoVisual.StripAllColliders(m_Motorbike.transform);
 
             if (m_PlayerTransform != null)
@@ -580,7 +551,7 @@ namespace IUHCampus.Minigames.GrabCampus
             {
                 if (waypoint.Type == IUHDeliveryWaypoint.WaypointType.Pickup)
                 {
-                    // Trigger physical stall collection
+
                     IUHGrabDeliveryObjectives.Instance.CollectCargoAtStall();
                 }
                 else if (waypoint.Type == IUHDeliveryWaypoint.WaypointType.Dropoff)
@@ -595,7 +566,7 @@ namespace IUHCampus.Minigames.GrabCampus
             }
             else if (m_CurrentPhase == MissionPhase.Delivering && waypoint.Type == IUHDeliveryWaypoint.WaypointType.Dropoff)
             {
-                // Trigger physical customer handoff
+
                 IUHGrabDeliveryObjectives.Instance.DeliverCargoToCustomer();
             }
         }
@@ -661,18 +632,15 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // 1. Ghost approaching closely (< 24m) -> Show Tactical Choice Banner
             if (nearestChasingGhost != null && nearestDist < 24.0f && m_TacticalAlertCooldown <= 0f)
             {
                 m_TacticalAlertCooldown = 4.5f;
                 ShowNotification("⚠️ MA ĐANG ĐUỔI THEO! [GIỮ SHIFT]: BỨT TỐC BỎ CHẠY | [BẤM Q]: VUNG GẬY ĐÁNH ĐUỔI | [F]: BẬT ĐÈN PIN");
             }
 
-            // 2. Tactical Choice: Fast Escape (Chạy Nhanh)
-            // If the driver is driving with turbo or speed > 36 km/h and pulls away > 25m:
             if (nearestChasingGhost != null && bikeSpeed > 36.0f && nearestDist > 25.0f)
             {
-                nearestChasingGhost.OnScaredByFlare(bikePos); // Causes ghost to give up and flee/return
+                nearestChasingGhost.OnScaredByFlare(bikePos);
                 ShowNotification("💨 ĐÃ BỨT TỐC CẮT ĐUÔI HỒN MA THÀNH CÔNG!");
             }
         }
@@ -737,7 +705,6 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_NavArrow != null) m_NavArrow.gameObject.SetActive(false);
             if (IUHGrabCampusHUD.Instance != null) IUHGrabCampusHUD.Instance.HideOrderBoard();
 
-            // Calculate Reward & Rating
             int stars = 3;
             if (m_CargoIntegrity < 60 || m_TimeRemaining < 10f || AttacksSuffered >= 2) stars = 2;
             if (m_CargoIntegrity < 30 || m_TimeRemaining < 5f || AttacksSuffered >= 4) stars = 1;
@@ -750,11 +717,9 @@ namespace IUHCampus.Minigames.GrabCampus
             DriverRating = Mathf.Clamp(DriverRating + 0.1f, 1.0f, 5.0f);
             SaveCareerStats();
 
-            // Play Fanfare
             m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetVictoryFanfare(), 1.0f);
             m_AudioSource.PlayOneShot(IUHSoundSynthesizer.GetCoinClinkSound(), 0.9f);
 
-            // Show Victory Dialog
             if (m_VictoryDialog != null)
             {
                 m_VictoryDialog.SetActive(true);
@@ -886,7 +851,6 @@ namespace IUHCampus.Minigames.GrabCampus
             var order = CurrentOrder;
             if (order == null || !order.hasGhosts || m_Motorbike == null) return;
 
-            // 1. Recycle any ghosts that have fallen far behind (>35m) or player has outrun
             var allGhosts = FindObjectsByType<IUHGhostHazard>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             int activeGhostCount = 0;
             foreach (var g in allGhosts)
@@ -896,7 +860,7 @@ namespace IUHCampus.Minigames.GrabCampus
                 {
                     activeGhostCount++;
                     float dist = Vector3.Distance(g.transform.position, m_Motorbike.transform.position);
-                    // If motorbike speeds past ghost (>35m away), ghost fades out and returns to pool
+
                     if (dist > 35.0f)
                     {
                         g.gameObject.SetActive(false);
@@ -905,18 +869,15 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // 2. Countdown spawn interval
             m_GhostSpawnTimer -= Time.deltaTime;
             if (m_GhostSpawnTimer > 0f) return;
 
-            // Balanced encounter pacing: max 2 active ghosts at any given moment
             if (activeGhostCount >= 2)
             {
                 m_GhostSpawnTimer = UnityEngine.Random.Range(4.0f, 7.0f);
                 return;
             }
 
-            // Check distance to destination: safe arrival zone within 18m of pickup/dropoff
             Vector3 currentDest = (m_CurrentPhase == MissionPhase.PickingUp) ? order.pickupPosition : order.dropoffPosition;
             if (Vector3.Distance(m_Motorbike.transform.position, currentDest) < 18.0f)
             {
@@ -924,7 +885,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 return;
             }
 
-            // Find an inactive ghost from the pool
             IUHGhostHazard ghostToSpawn = null;
             foreach (var g in allGhosts)
             {
@@ -941,16 +901,11 @@ namespace IUHCampus.Minigames.GrabCampus
                 return;
             }
 
-            // Calculate forward spawn position 22 - 32 meters ahead on the road
             float distAhead = UnityEngine.Random.Range(22.0f, 32.0f);
             float lateralOffset = UnityEngine.Random.Range(-3.2f, 3.2f);
             Vector3 spawnCandidate = m_Motorbike.transform.position + (m_Motorbike.transform.forward * distAhead) + (m_Motorbike.transform.right * lateralOffset);
             Vector3 spawnGround = GetGroundPosition(spawnCandidate);
 
-            // Roll random ghost behavior:
-            // 35% Observer (Spectral apparition by roadside that vanishes when approached)
-            // 35% PathBlocker (Floating across the street, requires steering or honk/flare)
-            // 30% Chaser (Emerges from darkness to pursue the bike, can be outpaced with speed)
             float roll = UnityEngine.Random.value;
             IUHGhostHazard.GhostBehaviorType beh;
             string encounterMsg;
@@ -980,13 +935,12 @@ namespace IUHCampus.Minigames.GrabCampus
             ShowNotification(encounterMsg);
             Debug.Log($"[IUH Grab Campus] Hồn ma ngẫu nhiên xuất hiện tại {spawnGround} dạng {beh}!");
 
-            // Schedule next random spawn (between 11 and 17 seconds)
             m_GhostSpawnTimer = UnityEngine.Random.Range(11.0f, 17.0f);
         }
 
         private void ApplyNightAmbiance(bool night)
         {
-            // 1. Cache all directional lights once
+
             if (m_CachedDirLights.Count == 0)
             {
                 var dirLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
@@ -999,7 +953,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // 2. Set all directional lights
             foreach (var item in m_CachedDirLights)
             {
                 if (item.light != null)
@@ -1017,7 +970,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // 3. Spooky Midnight Camera & Fog
             var mainCam = Camera.main;
             if (mainCam != null)
             {

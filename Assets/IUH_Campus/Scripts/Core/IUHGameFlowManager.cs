@@ -8,19 +8,7 @@ using IUHCampus.UI;
 
 namespace IUHCampus.Core
 {
-    /// <summary>
-    /// Master State Machine & Game Flow Controller for Campus Adventure.
-    /// Manages the full lifecycle:
-    /// MainMenu ➔ MiniGameSelection ➔ (Game-specific setup) ➔ Playing ➔ Result ➔ MiniGameSelection
-    ///
-    /// Ensures:
-    /// 1. On startup: No mini-game is auto-started, no ghosts, no timers.
-    /// 2. Mini-game 1: Opens wardrobe/garage setup first; only starts when confirmed.
-    /// 3. Mini-games 2-6: Shows dedicated briefing & objectives; only starts when confirmed.
-    /// 4. During play: Only the selected mini-game runs; others are completely inactive.
-    /// 5. Result: Provides Replay (same game), Select Other Game, and Main Menu buttons.
-    /// 6. Anti-spam click guard against rapid multiple triggers.
-    /// </summary>
+
     public class IUHGameFlowManager : MonoBehaviour
     {
         public enum FlowState
@@ -36,9 +24,9 @@ namespace IUHCampus.Core
         public static IUHGameFlowManager Instance { get; private set; }
 
         [Header("Runtime State")]
-        [SerializeField] private FlowState m_CurrentState = FlowState.MiniGameSelection;
-        [SerializeField] private int m_ActiveGameIndex = -1; // -1 = Free Roam, 0 = Grab Campus, 1-5 = Games 2-6
-        [SerializeField] private FlowState m_StartupState = FlowState.MiniGameSelection;
+        [SerializeField] private FlowState m_CurrentState = FlowState.Playing;
+        [SerializeField] private int m_ActiveGameIndex = -1;
+        [SerializeField] private FlowState m_StartupState = FlowState.Playing;
 
         [Header("UI Managers")]
         [SerializeField] private IUHMainMenuUI m_MainMenuUI;
@@ -50,7 +38,6 @@ namespace IUHCampus.Core
         [SerializeField] private GameObject m_VictoryDialog;
         [SerializeField] private GameObject m_DefeatDialog;
 
-        // Anti-spam click guard
         private float m_LastStateChangeTime = 0f;
         private const float CLICK_COOLDOWN = 0.25f;
 
@@ -78,24 +65,24 @@ namespace IUHCampus.Core
         {
             FindReferences();
 
-            // 1. Ensure all minigames are strictly inactive on startup!
             DeactivateAllMiniGames();
 
-            // 2. Hide result dialogs
             if (m_VictoryDialog != null) m_VictoryDialog.SetActive(false);
             if (m_DefeatDialog != null) m_DefeatDialog.SetActive(false);
 
-            // 3. Configure Result Dialog buttons for Replay, Other Game, Main Menu
             ConfigureResultDialogButtons();
 
-            // 4. Default to startup state (MiniGameSelection or MainMenu)
             if (m_StartupState == FlowState.MainMenu)
             {
                 GoToMainMenu(true);
             }
-            else
+            else if (m_StartupState == FlowState.MiniGameSelection)
             {
                 GoToMiniGameSelection(true);
+            }
+            else
+            {
+                EnterFreeRoam();
             }
         }
 
@@ -144,11 +131,6 @@ namespace IUHCampus.Core
             return true;
         }
 
-        // ================= FLOW TRANSITIONS =================
-
-        /// <summary>
-        /// Transition to MainMenu.
-        /// </summary>
         public void GoToMainMenu(bool force = false)
         {
             if (!force && !CanTriggerAction()) return;
@@ -167,9 +149,6 @@ namespace IUHCampus.Core
             Debug.Log("[GameFlow] State changed to: MainMenu");
         }
 
-        /// <summary>
-        /// Transition to MiniGameSelection (6 portal cards).
-        /// </summary>
         public void GoToMiniGameSelection(bool force = false)
         {
             if (!force && !CanTriggerAction()) return;
@@ -188,11 +167,6 @@ namespace IUHCampus.Core
             Debug.Log("[GameFlow] State changed to: MiniGameSelection");
         }
 
-        /// <summary>
-        /// Step 2: Open game-specific setup screen.
-        /// Game 0 -> Customization Wardrobe (Outfit & Motorbike).
-        /// Games 1-5 -> Mission Briefing / Preparation Modal.
-        /// </summary>
         public void StartGameSetup(int gameIndex)
         {
             if (gameIndex < 0 || gameIndex > 3) return;
@@ -200,7 +174,6 @@ namespace IUHCampus.Core
 
             DeactivateAllMiniGames();
 
-            // Close main portals
             if (m_MainMenuUI != null) m_MainMenuUI.SetOpen(false);
             if (m_PortalUI != null) m_PortalUI.SetMenuOpen(false);
             CloseAllOverlays();
@@ -210,7 +183,7 @@ namespace IUHCampus.Core
 
             if (gameIndex == 0)
             {
-                // Mini-game 1: Outfit & Bike selection
+
                 if (m_CustomizationUI != null)
                 {
                     m_CustomizationUI.SetOpen(true);
@@ -218,7 +191,7 @@ namespace IUHCampus.Core
             }
             else if (gameIndex == 1)
             {
-                // Mini-game 2: AI Object Hunt
+
                 if (m_MiniGamePrepUI != null)
                 {
                     m_MiniGamePrepUI.OpenPreparation(1);
@@ -226,14 +199,14 @@ namespace IUHCampus.Core
             }
             else if (gameIndex == 2)
             {
-                // Mini-game 3: Photo Hunter
+
                 var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
                 if (photo != null) photo.OpenBriefing();
                 else if (m_MiniGamePrepUI != null) m_MiniGamePrepUI.OpenPreparation(2);
             }
             else if (gameIndex == 3)
             {
-                // Mini-game 4: Green Campus
+
                 var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
                 if (green != null) green.OpenBriefing();
                 else if (m_MiniGamePrepUI != null) m_MiniGamePrepUI.OpenPreparation(3);
@@ -244,10 +217,6 @@ namespace IUHCampus.Core
             Debug.Log($"[GameFlow] State changed to: GameSetup for Game #{gameIndex + 1}");
         }
 
-        /// <summary>
-        /// Step 3: Start Playing the selected mini-game.
-        /// Only initializes gameplay / AI / timers now!
-        /// </summary>
         public void StartPlaying(int gameIndex, bool force = false)
         {
             if (gameIndex < 0 || gameIndex > 3) return;
@@ -264,7 +233,7 @@ namespace IUHCampus.Core
 
             if (gameIndex == 0)
             {
-                // Mini-game 1: Grab Campus
+
                 PlayerLoadout.Current.SetTheme(PlayerLoadout.Current.theme);
 
                 var grabMgr = IUHGrabCampusManager.Instance;
@@ -276,34 +245,32 @@ namespace IUHCampus.Core
             }
             else if (gameIndex == 1)
             {
-                // Mini-game 2: AI Object Hunt
+
                 var grabMgr = IUHGrabCampusManager.Instance;
                 if (grabMgr != null && grabMgr.IsMissionActive) grabMgr.CancelMission();
                 if (m_PortalUI != null) m_PortalUI.TeleportToLibrary();
             }
             else if (gameIndex == 2)
             {
-                // Mini-game 3: Photo Hunter
+
                 var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
                 if (photo != null) photo.StartMission(true);
             }
             else if (gameIndex == 3)
             {
-                // Mini-game 4: Green Campus
+
                 var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
                 if (green != null) green.BeginRound(true);
             }
             else
             {
-                // Mini-games 2 to 6
-                // Ensure Grab Campus is stopped completely
+
                 var grabMgr = IUHGrabCampusManager.Instance;
                 if (grabMgr != null && grabMgr.IsMissionActive)
                 {
                     grabMgr.CancelMission();
                 }
 
-                // Teleport player to destination
                 if (m_PortalUI != null)
                 {
                     switch (gameIndex)
@@ -322,9 +289,6 @@ namespace IUHCampus.Core
             Debug.Log($"[GameFlow] State changed to: Playing Game #{gameIndex + 1}");
         }
 
-        /// <summary>
-        /// Enter Free Roam exploration without active missions.
-        /// </summary>
         public void EnterFreeRoam()
         {
             if (!CanTriggerAction()) return;
@@ -343,9 +307,6 @@ namespace IUHCampus.Core
             Debug.Log("[GameFlow] Entered Free Roam mode.");
         }
 
-        /// <summary>
-        /// Pause gameplay.
-        /// </summary>
         public void PauseGame()
         {
             if (m_CurrentState != FlowState.Playing) return;
@@ -361,9 +322,6 @@ namespace IUHCampus.Core
             Debug.Log("[GameFlow] Game Paused.");
         }
 
-        /// <summary>
-        /// Resume gameplay from pause.
-        /// </summary>
         public void ResumeGame()
         {
             if (m_CurrentState != FlowState.Paused && m_CurrentState != FlowState.Playing) return;
@@ -379,9 +337,6 @@ namespace IUHCampus.Core
             Debug.Log("[GameFlow] Game Resumed.");
         }
 
-        /// <summary>
-        /// Step 4: Restart the current mini-game directly (keeps same loadout).
-        /// </summary>
         public void RestartCurrentGame()
         {
             if (!CanTriggerAction()) return;
@@ -397,9 +352,6 @@ namespace IUHCampus.Core
             Debug.Log($"[GameFlow] Restarting current mini-game #{targetGame + 1}");
         }
 
-        /// <summary>
-        /// Step 4: Show Result Screen (Victory or Defeat).
-        /// </summary>
         public void ShowResult(bool isVictory, string title, string detail)
         {
             m_CurrentState = FlowState.Result;
@@ -431,12 +383,6 @@ namespace IUHCampus.Core
             Debug.Log($"[GameFlow] Showing result: {(isVictory ? "VICTORY" : "DEFEAT")}");
         }
 
-        /// <summary>
-        /// Ensures all mini-games are completely stopped:
-        /// - Stops Grab Campus orders, timers, night lighting, waypoints.
-        /// - Deactivates ghosts.
-        /// - Dismounts motorbike.
-        /// </summary>
         public void DeactivateAllMiniGames()
         {
             var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
@@ -460,7 +406,7 @@ namespace IUHCampus.Core
 
         private void ConfigureResultDialogButtons()
         {
-            // Wire Victory Dialog buttons
+
             if (m_VictoryDialog != null)
             {
                 var card = m_VictoryDialog.transform.Find("DialogCard");
@@ -470,7 +416,6 @@ namespace IUHCampus.Core
                 }
             }
 
-            // Wire Defeat Dialog buttons
             if (m_DefeatDialog != null)
             {
                 var card = m_DefeatDialog.transform.Find("DialogCard");
@@ -483,11 +428,11 @@ namespace IUHCampus.Core
 
         private void EnsureResultButtons(Transform card, bool isVictory)
         {
-            // Find or modify button row
+
             var btnRow = card.Find("ButtonRow");
             if (btnRow == null)
             {
-                // Convert existing single button or add row
+
                 var rowGO = new GameObject("ButtonRow");
                 rowGO.transform.SetParent(card, false);
                 var rect = rowGO.AddComponent<RectTransform>();
@@ -503,17 +448,13 @@ namespace IUHCampus.Core
 
                 btnRow = rowGO.transform;
 
-                // Hide original legacy button
                 var oldBtn = card.Find(isVictory ? "BtnContinue" : "BtnRetry");
                 if (oldBtn != null) oldBtn.gameObject.SetActive(false);
 
-                // Create Replay button
                 CreateResultBtn(btnRow, "BtnReplay", "🔄 CHƠI LẠI", new Color(0.2f, 0.65f, 0.35f), () => RestartCurrentGame());
 
-                // Create Select Other Game button
                 CreateResultBtn(btnRow, "BtnSelectOther", "📋 CHỌN TRÒ KHÁC", new Color(0.18f, 0.45f, 0.85f), () => GoToMiniGameSelection());
 
-                // Create Main Menu button
                 CreateResultBtn(btnRow, "BtnMainMenu", "🏠 VỀ MENU CHÍNH", new Color(0.35f, 0.38f, 0.45f), () => GoToMainMenu());
             }
         }
@@ -547,7 +488,7 @@ namespace IUHCampus.Core
 
         private void Update()
         {
-            // Global key handling depending on state
+
             if (IUHInputHelper.IsEscapeKeyDown())
             {
                 HandleEscapeKey();
@@ -581,7 +522,7 @@ namespace IUHCampus.Core
                     GoToMiniGameSelection();
                     break;
                 case FlowState.MiniGameSelection:
-                    // If playing before, resume; otherwise go to main menu
+
                     if (m_ActiveGameIndex >= 0) ResumeGame();
                     else EnterFreeRoam();
                     break;
@@ -589,7 +530,7 @@ namespace IUHCampus.Core
                     GoToMiniGameSelection();
                     break;
                 case FlowState.MainMenu:
-                    // Stay in main menu
+
                     break;
             }
         }
@@ -599,7 +540,6 @@ namespace IUHCampus.Core
             m_PortalUI?.ToggleMenu();
         }
 
-        // Native game briefings own their Start buttons and saved progress.
         public void NotifyGameStarted(int gameIndex)
         {
             m_ActiveGameIndex = gameIndex;

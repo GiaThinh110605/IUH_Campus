@@ -13,7 +13,7 @@ using IUHCampus.Minigames.PhotoHunter;
 
 namespace IUHCampus.Editor
 {
-    /// <summary>Exterior interpretation of the supplied illustrated plan, not a measured survey.</summary>
+
     public static partial class IUHReferenceCampusBuilder
     {
         const string Folder = "Assets/IUH_Campus/ReferenceLayout";
@@ -48,7 +48,7 @@ namespace IUHCampus.Editor
             Undo.RegisterCreatedObjectUndo(root.gameObject, "Build reference campus exterior");
             GroundAndStreets();
             var a = Building("A", 425, -40, 17, 53, 15, 4, blue, "THƯ VIỆN  •  NHÀ A");
-            // Two long wings and recessed central roof court distinguish A/A7.
+
             Box(a, "Roof court", new Vector3(0,15.72f,0), new Vector3(4,.12f,39), dark);
             Building("A7", 443, -40, 10, 43, 12.4f, 3, teal, "HỘI TRƯỜNG A7");
             Building("A_Link", 436, -61, 12, 8, 12.4f, 3, blue, "", false);
@@ -128,7 +128,7 @@ namespace IUHCampus.Editor
                 if(existing==null) AssetDatabase.CreateAsset(mesh,path); else
                 {
                     EditorUtility.CopySerialized(mesh,existing); UnityEngine.Object.DestroyImmediate(mesh); mesh=existing;
-                    // Refresh native vertex/index buffers after an in-place mesh asset update.
+
                     mesh.UploadMeshData(false);EditorUtility.SetDirty(mesh);
                 }
                 var go=new GameObject(pair.Key.name);go.transform.SetParent(parent,false);
@@ -158,7 +158,7 @@ namespace IUHCampus.Editor
             Q(new Vector3(0,.18f,0),new Vector3(w+.8f,.36f,d+.8f),stone);
             Q(new Vector3(0,h/2,0),new Vector3(w,h,d),ivory);
             Q(new Vector3(0,h+.16f,0),new Vector3(w+.7f,.32f,d+.7f),roof);
-            // Roof parapets and cornices keep every silhouette legible in the overview.
+
             foreach(int sign in new[]{-1,1})
             {
                 Q(new Vector3(0,h+.65f,sign*d/2),new Vector3(w+.6f,1.0f,.32f),accent);
@@ -187,11 +187,11 @@ namespace IUHCampus.Editor
             }
             for(float u=-w/2+.3f;u<=w/2;u+=w/4)
                 foreach(int sign in new[]{-1,1})Q(new Vector3(u,h/2,sign*(d/2+.18f)),new Vector3(.34f,h,.38f),ivory);
-            // Recessed glass entry under a light canopy, with paired columns.
+
             Q(new Vector3(0,1.8f,d/2+.09f),new Vector3(Mathf.Min(6,w*.45f),3.5f,.2f),glass);
             Q(new Vector3(0,3.5f,d/2+1.4f),new Vector3(Mathf.Min(9,w*.65f),.28f,3),accent);
             foreach(int sign in new[]{-1,1})Q(new Vector3(sign*Mathf.Min(3.5f,w*.25f),1.7f,d/2+2.2f),new Vector3(.24f,3.4f,.24f),stone);
-            // Rooftop service boxes, separated from the clean central roof panel.
+
             foreach(int sign in new[]{-1,1})
             {
                 Q(new Vector3(sign*(w/2-3),h+.65f,-d/2+3),new Vector3(3.2f,1,2.5f),stone);
@@ -210,7 +210,7 @@ namespace IUHCampus.Editor
         }
         static void EntranceCanopy(Transform b,float w,float d,bool curved)
         {
-            // A shallow fan-shaped porch, a distinctive cue from the reference's E entrance.
+
             for(int i=0;i<9;i++)
             {
                 float angle=(-65+i*16.25f)*Mathf.Deg2Rad;
@@ -221,7 +221,7 @@ namespace IUHCampus.Editor
         static void Parking()
         {
             var p=Group("Central_Parking",root,new Vector3(382,.49f,-40));
-            // Open ground floor, wide low podium and long raised bicycle terrace.
+
             Q(new Vector3(0,.12f,0),new Vector3(39,.24f,56),stone);
             Q(new Vector3(0,3.5f,0),new Vector3(40,.42f,57),roof);
             Q(new Vector3(0,6.7f,-12),new Vector3(40,.42f,33),roof);
@@ -249,7 +249,7 @@ namespace IUHCampus.Editor
             Text(p,"Roof parking label","SÂN XE ĐẠP\nBÃI XE TRUNG TÂM",new Vector3(0,7.04f,-12),1.9f,Quaternion.Euler(90,180,0),Color.white);
             Box(p,"Front parking plaque",new Vector3(0,2.1f,28.05f),new Vector3(25,1.2f,.18f),blue);
             Text(p,"Parking entry label","BÃI XE TRUNG TÂM",new Vector3(0,2.1f,28.17f),1f,Quaternion.Euler(0,180,0),Color.white);
-            // Separate accessible ramp on the rear edge. Ground routes remain unobstructed.
+
             var ramp=Group("Bicycle terrace ramp",p,new Vector3(13,1.8f,-34));
             ramp.localRotation=Quaternion.Euler(-12,0,0);Q(Vector3.zero,new Vector3(4,.25f,16),stone);Flush(ramp);
             Solid(ramp,"Ramp collision",Vector3.zero,new Vector3(4,.25f,16));
@@ -262,7 +262,7 @@ namespace IUHCampus.Editor
             for(float z=-11;z<12;z+=3)Q(new Vector3(3.05f,1.9f,z),new Vector3(.1f,2.1f,2),glass);
             Flush(c);Solid(c,"Exterior volume",new Vector3(0,1.8f,0),new Vector3(6,3.6f,25));
             Text(c,"Roof label","CĂN TIN • GYM",new Vector3(0,4,0),.95f,Quaternion.Euler(90,90,0),Color.white);
-            // Covered passage alongside I, visible in the illustrated plan.
+
             var hall=Group("Dorm covered walkway",root,new Vector3(295,.49f,-49));
             Q(new Vector3(0,4,0),new Vector3(4,.25f,29),teal);
             for(float z=-13;z<=13;z+=4.3f)foreach(int s in new[]{-1,1})Q(new Vector3(s*1.7f,2,z),new Vector3(.15f,4,.15f),stone);
@@ -277,14 +277,14 @@ namespace IUHCampus.Editor
             foreach(float x in new[]{280f,465f})Q(new Vector3(x,.465f,-95),new Vector3(12,.03f,190),asphalt);
             foreach(float z in new[]{-2f,-187f})Q(new Vector3(373,.485f,z),new Vector3(180,.04f,4),white);
             foreach(float x in new[]{288f,457f})Q(new Vector3(x,.485f,-94),new Vector3(4,.04f,182),white);
-            // Broad campus circulation loops and two clear front-to-back paths.
+
             foreach(float x in new[]{295f,357f,409f,450f})Q(new Vector3(x,.50f,-96),new Vector3(5,.02f,178),stone);
             foreach(float z in new[]{-71f,-90f,-132f,-180f})Q(new Vector3(373,.51f,z),new Vector3(158,.02f,4.8f),stone);
             for(float x=284;x<465;x+=9)foreach(float z in new[]{6f,-195f})Q(new Vector3(x,.492f,z),new Vector3(4,.02f,.15f),white);
             for(float z=-185;z<0;z+=9)foreach(float x in new[]{280f,465f})Q(new Vector3(x,.492f,z),new Vector3(.15f,.02f,4),white);
             foreach(float x in new[]{409f,357f,294f})for(int i=0;i<8;i++)Q(new Vector3(x,.5f,1.6f+i*1.1f),new Vector3(4,.025f,.55f),white);
             Flush(g);Solid(g,"Continuous walkable ground",new Vector3(373,.24f,-96),new Vector3(230,.42f,250));
-            // The ground collision surface is at .49 throughout the campus.
+
             Solid(g,"Campus paving collision",new Vector3(373,.47f,-96),new Vector3(166,.04f,184));
             Text(g,"Nguyen Van Bao","ĐƯỜNG NGUYỄN VĂN BẢO",new Vector3(378,.53f,9.5f),2.1f,Quaternion.Euler(90,180,0),Color.white);
             Text(g,"Nguyen Van Nghi","ĐƯỜNG NGUYỄN VĂN NGHI",new Vector3(375,.53f,-196),2.1f,Quaternion.Euler(90,180,0),Color.white);
@@ -309,7 +309,7 @@ namespace IUHCampus.Editor
                     && !(z>-10 && Mathf.Abs(x-425)<5))Tree(l,x,z,index++,.85f);
             foreach(float x in new[]{405f,413f})for(float z=-126;z<-10;z+=12)
                 if(z < -96 || z > -74) Tree(l,x,z,index++,.65f);
-            // Green court in front of E is deliberately open for the two mini games.
+
             foreach(var pos in new[]{new Vector2(365,-80),new Vector2(399,-82),new Vector2(360,-96),new Vector2(406,-111),new Vector2(360,-118),new Vector2(405,-130),new Vector2(332,-157),new Vector2(338,-139),new Vector2(415,-95)})
                 if(!photoCourtyard || (pos!=new Vector2(365,-80)&&pos!=new Vector2(399,-82)))Tree(l,pos.x,pos.y,index++,.8f);
             foreach(var p in new[]{new Vector2(407,-103),new Vector2(361,-111),new Vector2(413,-79),new Vector2(361,-79),new Vector2(300,-107),new Vector2(335,-161)})
@@ -318,14 +318,14 @@ namespace IUHCampus.Editor
                 Q(new Vector3(p.x,.76f,p.y),new Vector3(2.6f,.08f,5.6f),grass);
                 for(int k=-1;k<=1;k++)S(new Vector3(p.x,1.05f,p.y+k*1.5f),new Vector3(1.8f,.9f,1.7f),leafLight);
             }
-            // Fountain beside B/E, matching the reference's courtyard landmark.
+
             Cy(new Vector3(411,.67f,-116),new Vector3(6,.18f,6),ivory);
             Cy(new Vector3(411,.88f,-116),new Vector3(5.1f,.08f,5.1f),water);
             Cy(new Vector3(411,1.5f,-116),new Vector3(.55f,.7f,.55f),stone);
             Cy(new Vector3(411,2.1f,-116),new Vector3(2.8f,.12f,2.8f),ivory);
             S(new Vector3(411,2.7f,-116),new Vector3(.3f,1.2f,.3f),water);
             Solid(l,"Fountain base",new Vector3(411,.68f,-116),new Vector3(5.7f,.4f,5.7f));
-            // Paving inlays provide human scale without expensive individual tile objects.
+
             for(float x=367;x<=398;x+=3)for(float z=-88;z<=-74;z+=3)Q(new Vector3(x,.535f,z),new Vector3(.045f,.015f,2.9f),white);
             for(float z=-88;z<=-74;z+=3)Q(new Vector3(383,.537f,z),new Vector3(34,.015f,.045f),white);
             foreach(float x in new[]{362f,402f,413f})foreach(float z in new[]{-73f,-91f,-129f})
@@ -333,7 +333,7 @@ namespace IUHCampus.Editor
                 Cy(new Vector3(x,2.5f,z),new Vector3(.13f,2,.13f),dark);
                 Q(new Vector3(x,4.55f,z),new Vector3(.7f,.14f,.7f),gold);
             }
-            // Benches flank circulation instead of occupying it.
+
             foreach(var p in new[]{new Vector2(400,-73),new Vector2(365,-73),new Vector2(414,-114),new Vector2(359,-128)})
             {
                 Q(new Vector3(p.x,1,p.y),new Vector3(2.6f,.15f,.7f),stone);
@@ -401,7 +401,7 @@ namespace IUHCampus.Editor
             if(green!=null)
             {
                 Undo.RecordObject(green,"Move Green Campus to new courtyard");green.spawnPoint=IUHReferenceLayout.GreenSpawn;
-                // Transform the already-authored world only once; keep IDs, references and saves intact.
+
                 if(green.gameWorld!=null&&green.gameWorld.transform.position==Vector3.zero)
                 {
                     foreach(var name in new[]{"Round_Objects","Restored_Green_Corners"})

@@ -55,7 +55,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
                 GreenCampusStorage.SimulateWriteFailure = previousFailure;
                 EditorSceneManager.RestoreSceneManagerSetup(scenes);
                 Cursor.lockState = cursor; Cursor.visible = visible;
-                // This path is generated above beneath temporaryCachePath, never a player save.
+
                 if (Path.GetFullPath(testDirectory).StartsWith(Path.GetFullPath(Application.temporaryCachePath) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
                 { try { Directory.Delete(testDirectory, true); } catch (IOException) { } }
             }

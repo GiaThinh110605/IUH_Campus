@@ -26,13 +26,13 @@ namespace IUHCampus.Editor
         }
         static Rect Foot(float minX,float maxX,float minZ,float maxZ)=>Rect.MinMaxRect(minX,minZ,maxX,maxZ);
         static readonly Rect[] WalkingVoids={
-            Foot(423,427,-160,-10), // A-H-B spine
-            Foot(441,445,-66.6f,-10), // A7/medical wing
-            Foot(414,450,-42,-38), // A to A7 and clinic
-            Foot(374,378,-176,-134), // Rear street through X
+            Foot(423,427,-160,-10),
+            Foot(441,445,-66.6f,-10),
+            Foot(414,450,-42,-38),
+            Foot(374,378,-176,-134),
             Foot(391,395,-176,-139),
             Foot(353,357,-176,-134),
-            Foot(333,448,-151,-147) // X-V-B transverse hall
+            Foot(333,448,-151,-147)
         };
         static bool IsHall(Vector2 p)=>WalkingVoids.Any(r=>r.Contains(p));
 
@@ -74,7 +74,7 @@ namespace IUHCampus.Editor
                 foreach(var spec in specs)BuildConnectedBlock(spec,specs);
                 var marker=Group(ConnectionMarker,root,Vector3.zero);
                 AddRouteMarkers(marker);
-                // Keep the original photo ID and viewpoint, changing only its structure reference.
+
                 foreach(var target in UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>(FindObjectsInactive.Include))
                     if(target.TargetId.Contains("block_a"))
                     {Undo.RecordObject(target,"Bind Photo Hunter to connected A");target.SetStructureReferences(root.Find("Block_A"),null);EditorUtility.SetDirty(target);}
@@ -103,7 +103,7 @@ namespace IUHCampus.Editor
                 Q(new Vector3(r.center.x-origin.x,b.height+.12f,r.center.y-origin.y),new Vector3(r.width,.24f,r.height),roof);
                 Q(new Vector3(r.center.x-origin.x,-.035f,r.center.y-origin.y),new Vector3(r.width,.06f,r.height),stone);
             }
-            // Carve the ground floor into solid room cells around genuinely empty hallways.
+
             var xs=b.footprint.SelectMany(r=>new[]{r.xMin,r.xMax}).Concat(WalkingVoids.SelectMany(r=>new[]{r.xMin,r.xMax})).Where(x=>x>=minX&&x<=maxX).Distinct().OrderBy(x=>x).ToArray();
             var zs=b.footprint.SelectMany(r=>new[]{r.yMin,r.yMax}).Concat(WalkingVoids.SelectMany(r=>new[]{r.yMin,r.yMax})).Where(z=>z>=minZ&&z<=maxZ).Distinct().OrderBy(z=>z).ToArray();
             for(int i=1;i<xs.Length;i++)for(int j=1;j<zs.Length;j++)
@@ -114,7 +114,7 @@ namespace IUHCampus.Editor
                 var size=new Vector3(xs[i]-xs[i-1],clearHeight,zs[j]-zs[j-1]);
                 Q(center,size,ivory);Solid(t,"Ground rooms",center,size);
             }
-            // Split the outline at neighbours' edges so shared walls have no external windows or parapets.
+
             var edgeXs=all.SelectMany(s=>s.footprint).SelectMany(r=>new[]{r.xMin,r.xMax}).Distinct().OrderBy(x=>x).ToArray();
             var edgeZs=all.SelectMany(s=>s.footprint).SelectMany(r=>new[]{r.yMin,r.yMax}).Distinct().OrderBy(x=>x).ToArray();
             for(int i=1;i<edgeXs.Length;i++)for(int j=1;j<edgeZs.Length;j++)
@@ -134,7 +134,7 @@ namespace IUHCampus.Editor
                 if(neighbourHeight>=b.height)return;
                 FacadeSegment(b,origin,a,c,normal,neighbourHeight);
             }
-            // Service housings stay at the rear edge, leaving the roof labels unobstructed.
+
             foreach(float x in new[]{minX+2.5f,maxX-2.5f})
                 Q(new Vector3(x-origin.x,b.height+.65f,minZ+2.5f-origin.y),new Vector3(2.6f,1,2.3f),stone);
             var lp=b.label-origin;
@@ -195,7 +195,7 @@ namespace IUHCampus.Editor
         }
         static void RemoveHallObstacles()
         {
-            // The old V receiving desk stood immediately outside its entrance. Keep it beside the hall.
+
             var station=GameObject.Find("GAMEPLAY_GRAB_CAMPUS/DELIVERY_DROPOFF_STATIONS/Station_02_Block_V");
             if(station!=null){Undo.RecordObject(station.transform,"Keep V doorway clear");station.transform.position=new Vector3(399,.49f,-134.5f);}
         }

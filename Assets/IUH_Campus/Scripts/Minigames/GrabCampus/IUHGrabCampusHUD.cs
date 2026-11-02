@@ -5,14 +5,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Dedicated Gameplay & Survival HUD for Grab Campus ("Chuyến xe tâm linh").
-    /// Matches the concept design specification:
-    /// - Panel 1: Order Acceptance Card (Thẻ nhận đơn) with [Nhận đơn (E)]
-    /// - Panel 2: In-Game Delivery Status (Pickup/Dropoff, timer, cargo integrity, speed)
-    /// - Panel 4: Survival Items Hotbar (Đèn pin [F], Pin [1], Bùa [2], Pháo sáng [3], Gậy [Q], Sơ cứu [4])
-    /// - Floating Notifications & Status Banner
-    /// </summary>
+
     public class IUHGrabCampusHUD : MonoBehaviour
     {
         private static IUHGrabCampusHUD s_Instance;
@@ -82,7 +75,6 @@ namespace IUHCampus.Minigames.GrabCampus
             var mgr = IUHGrabCampusManager.Instance;
             if (mgr == null) return;
 
-            // Update Notification Timer
             if (m_NotificationTimer > 0f)
             {
                 m_NotificationTimer -= Time.deltaTime;
@@ -92,7 +84,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 }
             }
 
-            // Order Board Input [E]
             if (m_OrderBoardPanel != null && m_OrderBoardPanel.activeSelf)
             {
                 if (IUHInputHelper.IsInteractKeyDown() || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
@@ -102,7 +93,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 return;
             }
 
-            // Hotbar Visibility & Data Update
             if (mgr.IsMissionActive)
             {
                 if (m_HotbarPanel != null && !m_HotbarPanel.activeSelf)
@@ -216,39 +206,33 @@ namespace IUHCampus.Minigames.GrabCampus
             var inv = IUHGrabInventoryManager.Instance;
             if (inv == null) return;
 
-            // Flashlight
             if (m_TxtSlotFlashlight != null)
             {
                 string state = inv.isFlashlightOn ? "<color=#FACC15>ON</color>" : "<color=#94A3B8>OFF</color>";
                 m_TxtSlotFlashlight.text = $"🔦 <b>[F] ĐÈN PIN</b>\n{state} ({inv.flashlightBattery:F0}%)";
             }
 
-            // Battery
             if (m_TxtSlotBattery != null)
             {
                 m_TxtSlotBattery.text = $"🔋 <b>[1] PIN</b>\nx{inv.batteries}";
             }
 
-            // Talisman
             if (m_TxtSlotTalisman != null)
             {
                 string state = inv.IsTalismanActive ? "<color=#FACC15>KHIÊN ON</color>" : $"x{inv.talismans}";
                 m_TxtSlotTalisman.text = $"✨ <b>[2] BÙA</b>\n{state}";
             }
 
-            // Flare
             if (m_TxtSlotFlare != null)
             {
                 m_TxtSlotFlare.text = $"💥 <b>[3] PHÁO</b>\nx{inv.flares}";
             }
 
-            // Bat
             if (m_TxtSlotBat != null)
             {
                 m_TxtSlotBat.text = $"🏏 <b>[Q] GẬY</b>\n<color=#A78BFA>Sẵn sàng</color>";
             }
 
-            // First Aid
             if (m_TxtSlotFirstAid != null)
             {
                 m_TxtSlotFirstAid.text = $"🩹 <b>[4] SƠ CỨU</b>\nx{inv.firstAidKits}";
@@ -294,8 +278,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        // ================= PROCEDURAL UI BUILDERS =================
-
         private void EnsureOrderBoardBuilt()
         {
             if (m_OrderBoardPanel != null) return;
@@ -317,7 +299,6 @@ namespace IUHCampus.Minigames.GrabCampus
             outline.effectColor = new Color(0.0f, 0.85f, 0.45f, 1.0f);
             outline.effectDistance = new Vector2(3f, 3f);
 
-            // Title
             var titleGO = new GameObject("TxtTitle");
             titleGO.transform.SetParent(boardGO.transform, false);
             var tRect = titleGO.AddComponent<RectTransform>();
@@ -333,7 +314,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_TxtOrderBoardTitle.verticalOverflow = VerticalWrapMode.Overflow;
             m_TxtOrderBoardTitle.horizontalOverflow = HorizontalWrapMode.Wrap;
 
-            // Details Container
             var detailsGO = new GameObject("Details");
             detailsGO.transform.SetParent(boardGO.transform, false);
             var dRect = detailsGO.AddComponent<RectTransform>();
@@ -355,7 +335,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_TxtOrderBoardReward = CreateDetailText(detailsGO.transform, "TxtReward");
             m_TxtOrderBoardDanger = CreateDetailText(detailsGO.transform, "TxtDanger");
 
-            // Accept Button [E]
             var btnGO = new GameObject("BtnAcceptOrder");
             btnGO.transform.SetParent(boardGO.transform, false);
             var bRect = btnGO.AddComponent<RectTransform>();
@@ -433,7 +412,6 @@ namespace IUHCampus.Minigames.GrabCampus
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
 
-            // 6 Item Slots
             (m_BtnSlotFlashlight, m_TxtSlotFlashlight) = CreateHotbarSlot(barGO.transform, "Slot_Flashlight", new Color(0.0f, 0.65f, 0.85f));
             (m_BtnSlotBattery, m_TxtSlotBattery) = CreateHotbarSlot(barGO.transform, "Slot_Battery", new Color(0.0f, 0.75f, 0.45f));
             (m_BtnSlotTalisman, m_TxtSlotTalisman) = CreateHotbarSlot(barGO.transform, "Slot_Talisman", new Color(0.85f, 0.70f, 0.05f));

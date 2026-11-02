@@ -49,7 +49,6 @@ namespace IUHCampus.Editor
             Material helmetMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Helmet_Red.mat");
             Material chromeMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Int_Chrome.mat");
 
-            // Main Body chassis
             GameObject body = GameObject.CreatePrimitive(PrimitiveType.Cube);
             body.name = "Body";
             body.transform.SetParent(root.transform, false);
@@ -57,7 +56,6 @@ namespace IUHCampus.Editor
             body.transform.localScale = new Vector3(0.42f, 0.45f, 1.25f);
             if (bodyMat != null) body.GetComponent<MeshRenderer>().sharedMaterial = bodyMat;
 
-            // Front cowl / headlight shield
             GameObject cowl = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cowl.name = "FrontCowl";
             cowl.transform.SetParent(root.transform, false);
@@ -65,7 +63,6 @@ namespace IUHCampus.Editor
             cowl.transform.localScale = new Vector3(0.38f, 0.38f, 0.35f);
             if (bodyMat != null) cowl.GetComponent<MeshRenderer>().sharedMaterial = bodyMat;
 
-            // Seat
             GameObject seat = GameObject.CreatePrimitive(PrimitiveType.Cube);
             seat.name = "Seat";
             seat.transform.SetParent(root.transform, false);
@@ -73,7 +70,6 @@ namespace IUHCampus.Editor
             seat.transform.localScale = new Vector3(0.36f, 0.12f, 0.75f);
             if (darkMat != null) seat.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
 
-            // Wheels (Front & Rear)
             for (int w = 0; w < 2; w++)
             {
                 float z = (w == 0) ? 0.65f : -0.65f;
@@ -86,7 +82,6 @@ namespace IUHCampus.Editor
                 if (darkMat != null) wheel.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
             }
 
-            // Handlebar
             GameObject hBar = GameObject.CreatePrimitive(PrimitiveType.Cube);
             hBar.name = "Handlebar";
             hBar.transform.SetParent(root.transform, false);
@@ -94,7 +89,6 @@ namespace IUHCampus.Editor
             hBar.transform.localScale = new Vector3(0.68f, 0.04f, 0.05f);
             if (chromeMat != null) hBar.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
 
-            // Helmet on Seat
             GameObject helmet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             helmet.name = "Helmet";
             helmet.transform.SetParent(root.transform, false);
@@ -102,12 +96,10 @@ namespace IUHCampus.Editor
             helmet.transform.localScale = new Vector3(0.24f, 0.22f, 0.26f);
             if (helmetMat != null) helmet.GetComponent<MeshRenderer>().sharedMaterial = helmetMat;
 
-            // Simple Box Collider for entire motorcycle
             BoxCollider col = root.AddComponent<BoxCollider>();
             col.center = new Vector3(0, 0.55f, 0);
             col.size = new Vector3(0.7f, 1.1f, 1.8f);
 
-            // NavMesh Obstacle
             var nmo = root.AddComponent<UnityEngine.AI.NavMeshObstacle>();
             nmo.carving = true;
             nmo.size = new Vector3(0.8f, 1.2f, 1.9f);
@@ -122,14 +114,12 @@ namespace IUHCampus.Editor
             Material metalMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Main_DarkMetal.mat");
             Material pvcMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_PVC_Pipe.mat");
 
-            // Condenser Casing
             GameObject casing = GameObject.CreatePrimitive(PrimitiveType.Cube);
             casing.name = "Casing";
             casing.transform.SetParent(root.transform, false);
             casing.transform.localScale = new Vector3(0.85f, 0.65f, 0.45f);
             if (louversMat != null) casing.GetComponent<MeshRenderer>().sharedMaterial = louversMat;
 
-            // Mounting Bracket
             GameObject bracket = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bracket.name = "Bracket";
             bracket.transform.SetParent(root.transform, false);
@@ -137,7 +127,6 @@ namespace IUHCampus.Editor
             bracket.transform.localScale = new Vector3(0.75f, 0.08f, 0.35f);
             if (metalMat != null) bracket.GetComponent<MeshRenderer>().sharedMaterial = metalMat;
 
-            // Condensate Drain Tube
             GameObject drain = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             drain.name = "DrainTube";
             drain.transform.SetParent(root.transform, false);
@@ -157,7 +146,6 @@ namespace IUHCampus.Editor
             GameObject root = new GameObject("Bench");
             Material graniteMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Bench_Granite.mat");
 
-            // Seat Slab
             GameObject seat = GameObject.CreatePrimitive(PrimitiveType.Cube);
             seat.name = "SeatSlab";
             seat.transform.SetParent(root.transform, false);
@@ -165,7 +153,6 @@ namespace IUHCampus.Editor
             seat.transform.localScale = new Vector3(1.8f, 0.08f, 0.55f);
             if (graniteMat != null) seat.GetComponent<MeshRenderer>().sharedMaterial = graniteMat;
 
-            // Backrest Slab
             GameObject back = GameObject.CreatePrimitive(PrimitiveType.Cube);
             back.name = "Backrest";
             back.transform.SetParent(root.transform, false);
@@ -173,7 +160,6 @@ namespace IUHCampus.Editor
             back.transform.localScale = new Vector3(1.8f, 0.38f, 0.08f);
             if (graniteMat != null) back.GetComponent<MeshRenderer>().sharedMaterial = graniteMat;
 
-            // Concrete Legs
             for (int l = -1; l <= 1; l += 2)
             {
                 GameObject leg = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -188,7 +174,6 @@ namespace IUHCampus.Editor
             col.center = new Vector3(0, 0.45f, 0);
             col.size = new Vector3(1.9f, 0.9f, 0.65f);
 
-            // Add IUHInteractable component
             var inter = root.AddComponent<IUHInteractable>();
             inter.interactionType = InteractionType.Chair;
             inter.promptText = "Nhấn E để ngồi nghỉ";
@@ -205,7 +190,6 @@ namespace IUHCampus.Editor
             Material orangeMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Flower_Orange.mat");
             Material darkMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Main_DarkMetal.mat");
 
-            // Base plinth
             GameObject plinth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             plinth.name = "BasePlinth";
             plinth.transform.SetParent(root.transform, false);
@@ -213,7 +197,6 @@ namespace IUHCampus.Editor
             plinth.transform.localScale = new Vector3(0.95f, 0.10f, 0.50f);
             if (curbMat != null) plinth.GetComponent<MeshRenderer>().sharedMaterial = curbMat;
 
-            // Bin Left (Green - Organic Waste)
             GameObject binL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             binL.name = "Bin_Organic";
             binL.transform.SetParent(root.transform, false);
@@ -221,7 +204,6 @@ namespace IUHCampus.Editor
             binL.transform.localScale = new Vector3(0.40f, 0.85f, 0.40f);
             if (greenMat != null) binL.GetComponent<MeshRenderer>().sharedMaterial = greenMat;
 
-            // Bin Right (Orange - Inorganic / Recyclable)
             GameObject binR = GameObject.CreatePrimitive(PrimitiveType.Cube);
             binR.name = "Bin_Recyclable";
             binR.transform.SetParent(root.transform, false);
@@ -229,7 +211,6 @@ namespace IUHCampus.Editor
             binR.transform.localScale = new Vector3(0.40f, 0.85f, 0.40f);
             if (orangeMat != null) binR.GetComponent<MeshRenderer>().sharedMaterial = orangeMat;
 
-            // Rain Hood Top
             GameObject hood = GameObject.CreatePrimitive(PrimitiveType.Cube);
             hood.name = "RainHood";
             hood.transform.SetParent(root.transform, false);
@@ -257,7 +238,6 @@ namespace IUHCampus.Editor
             Material barkMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Tree_Bark.mat");
             Material foliageMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_MatureFoliage.mat");
 
-            // Raised Curb Tree Pit
             GameObject pit = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pit.name = "TreePit_Curb";
             pit.transform.SetParent(root.transform, false);
@@ -265,7 +245,6 @@ namespace IUHCampus.Editor
             pit.transform.localScale = new Vector3(3.2f, 0.24f, 3.2f);
             if (curbMat != null) pit.GetComponent<MeshRenderer>().sharedMaterial = curbMat;
 
-            // Soil
             GameObject soil = GameObject.CreatePrimitive(PrimitiveType.Cube);
             soil.name = "Soil";
             soil.transform.SetParent(pit.transform, false);
@@ -273,7 +252,6 @@ namespace IUHCampus.Editor
             soil.transform.localScale = new Vector3(0.85f, 0.40f, 0.85f);
             if (soilMat != null) soil.GetComponent<MeshRenderer>().sharedMaterial = soilMat;
 
-            // Trunk
             GameObject trunk = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             trunk.name = "Trunk";
             trunk.transform.SetParent(root.transform, false);
@@ -281,7 +259,6 @@ namespace IUHCampus.Editor
             trunk.transform.localScale = new Vector3(1.2f, 4.5f, 1.2f);
             if (barkMat != null) trunk.GetComponent<MeshRenderer>().sharedMaterial = barkMat;
 
-            // Canopy Clusters (3 organic overlapping tiers)
             for (int c = 0; c < 3; c++)
             {
                 GameObject crown = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -296,7 +273,6 @@ namespace IUHCampus.Editor
                 if (foliageMat != null) crown.GetComponent<MeshRenderer>().sharedMaterial = foliageMat;
             }
 
-            // Trunk Box Collider (keeps player from walking into trunk)
             BoxCollider col = root.AddComponent<BoxCollider>();
             col.center = new Vector3(0, 2.5f, 0);
             col.size = new Vector3(1.4f, 5.0f, 1.4f);
@@ -314,7 +290,6 @@ namespace IUHCampus.Editor
             Material wayfindingMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Sign_Wayfinding.mat");
             Material metalMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Main_DarkMetal.mat");
 
-            // Dual support poles
             for (int p = -1; p <= 1; p += 2)
             {
                 GameObject pole = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -325,7 +300,6 @@ namespace IUHCampus.Editor
                 if (metalMat != null) pole.GetComponent<MeshRenderer>().sharedMaterial = metalMat;
             }
 
-            // Signboard frame
             GameObject frame = GameObject.CreatePrimitive(PrimitiveType.Cube);
             frame.name = "SignFrame";
             frame.transform.SetParent(root.transform, false);
@@ -333,7 +307,6 @@ namespace IUHCampus.Editor
             frame.transform.localScale = new Vector3(1.75f, 0.95f, 0.08f);
             if (metalMat != null) frame.GetComponent<MeshRenderer>().sharedMaterial = metalMat;
 
-            // Sign face plate with wayfinding texture
             GameObject plate = GameObject.CreatePrimitive(PrimitiveType.Cube);
             plate.name = "SignPlate";
             plate.transform.SetParent(frame.transform, false);
@@ -361,7 +334,6 @@ namespace IUHCampus.Editor
             Material mullionMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Int_DarkMullion.mat");
             Material chromeMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Int_Chrome.mat");
 
-            // Outer Door Portal Frame
             GameObject frame = GameObject.CreatePrimitive(PrimitiveType.Cube);
             frame.name = "Frame_Top";
             frame.transform.SetParent(root.transform, false);
@@ -379,7 +351,6 @@ namespace IUHCampus.Editor
                 if (mullionMat != null) post.GetComponent<MeshRenderer>().sharedMaterial = mullionMat;
             }
 
-            // Glass door leaf
             GameObject glass = GameObject.CreatePrimitive(PrimitiveType.Cube);
             glass.name = "DoorGlass";
             glass.transform.SetParent(root.transform, false);
@@ -387,7 +358,6 @@ namespace IUHCampus.Editor
             glass.transform.localScale = new Vector3(2.15f, 2.25f, 0.04f);
             if (glassMat != null) glass.GetComponent<MeshRenderer>().sharedMaterial = glassMat;
 
-            // Frosted Decal Band
             GameObject decal = GameObject.CreatePrimitive(PrimitiveType.Cube);
             decal.name = "DecalBand";
             decal.transform.SetParent(glass.transform, false);
@@ -395,7 +365,6 @@ namespace IUHCampus.Editor
             decal.transform.localScale = new Vector3(1.0f, 0.45f, 0.15f);
             if (decalMat != null) decal.GetComponent<MeshRenderer>().sharedMaterial = decalMat;
 
-            // Chrome Handle
             GameObject handle = GameObject.CreatePrimitive(PrimitiveType.Cube);
             handle.name = "Handle";
             handle.transform.SetParent(glass.transform, false);
@@ -422,14 +391,12 @@ namespace IUHCampus.Editor
             Material blindsMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Window_Blinds.mat");
             Material mullionMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Main_DarkMetal.mat");
 
-            // Mullion Frame
             GameObject frame = GameObject.CreatePrimitive(PrimitiveType.Cube);
             frame.name = "WindowFrame";
             frame.transform.SetParent(root.transform, false);
             frame.transform.localScale = new Vector3(1.85f, 2.15f, 0.08f);
             if (mullionMat != null) frame.GetComponent<MeshRenderer>().sharedMaterial = mullionMat;
 
-            // Glass Pane
             GameObject glass = GameObject.CreatePrimitive(PrimitiveType.Cube);
             glass.name = "Glass";
             glass.transform.SetParent(frame.transform, false);
@@ -437,7 +404,6 @@ namespace IUHCampus.Editor
             glass.transform.localScale = new Vector3(0.92f, 0.92f, 0.25f);
             if (glassMat != null) glass.GetComponent<MeshRenderer>().sharedMaterial = glassMat;
 
-            // Internal Blinds
             GameObject blinds = GameObject.CreatePrimitive(PrimitiveType.Cube);
             blinds.name = "Blinds";
             blinds.transform.SetParent(frame.transform, false);
@@ -454,7 +420,6 @@ namespace IUHCampus.Editor
             Material poleMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Main_DarkMetal.mat");
             Material whiteMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Int_MatteWhite.mat");
 
-            // Vertical Pole
             GameObject pole = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             pole.name = "Pole";
             pole.transform.SetParent(root.transform, false);
@@ -462,7 +427,6 @@ namespace IUHCampus.Editor
             pole.transform.localScale = new Vector3(0.12f, 2.4f, 0.12f);
             if (poleMat != null) pole.GetComponent<MeshRenderer>().sharedMaterial = poleMat;
 
-            // Horizontal Overhang Arm
             GameObject arm = GameObject.CreatePrimitive(PrimitiveType.Cube);
             arm.name = "OverhangArm";
             arm.transform.SetParent(root.transform, false);
@@ -470,7 +434,6 @@ namespace IUHCampus.Editor
             arm.transform.localScale = new Vector3(1.1f, 0.08f, 0.10f);
             if (poleMat != null) arm.GetComponent<MeshRenderer>().sharedMaterial = poleMat;
 
-            // Downward Luminaire Lamp Head
             GameObject head = GameObject.CreatePrimitive(PrimitiveType.Cube);
             head.name = "LampHead";
             head.transform.SetParent(arm.transform, false);
@@ -478,7 +441,6 @@ namespace IUHCampus.Editor
             head.transform.localScale = new Vector3(0.45f, 0.06f, 0.22f);
             if (whiteMat != null) head.GetComponent<MeshRenderer>().sharedMaterial = whiteMat;
 
-            // Light component
             Light light = head.AddComponent<Light>();
             light.type = LightType.Spot;
             light.color = new Color(1.0f, 0.95f, 0.88f);
@@ -501,7 +463,6 @@ namespace IUHCampus.Editor
             Material chromeMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Int_Chrome.mat");
             Material darkMat = AssetDatabase.LoadAssetAtPath<Material>(MatPath + "M_IUH_Main_DarkMetal.mat");
 
-            // Wall mounting plate
             GameObject backPlate = GameObject.CreatePrimitive(PrimitiveType.Cube);
             backPlate.name = "BackPlate";
             backPlate.transform.SetParent(root.transform, false);
@@ -509,7 +470,6 @@ namespace IUHCampus.Editor
             backPlate.transform.localScale = new Vector3(0.32f, 0.65f, 0.02f);
             if (darkMat != null) backPlate.GetComponent<MeshRenderer>().sharedMaterial = darkMat;
 
-            // Cylinder Tank
             GameObject cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             cylinder.name = "Cylinder";
             cylinder.transform.SetParent(root.transform, false);
@@ -517,7 +477,6 @@ namespace IUHCampus.Editor
             cylinder.transform.localScale = new Vector3(0.18f, 0.25f, 0.18f);
             if (redMat != null) cylinder.GetComponent<MeshRenderer>().sharedMaterial = redMat;
 
-            // Discharge Valve & Handle
             GameObject valve = GameObject.CreatePrimitive(PrimitiveType.Cube);
             valve.name = "Valve";
             valve.transform.SetParent(cylinder.transform, false);
@@ -525,7 +484,6 @@ namespace IUHCampus.Editor
             valve.transform.localScale = new Vector3(0.25f, 0.15f, 0.15f);
             if (chromeMat != null) valve.GetComponent<MeshRenderer>().sharedMaterial = chromeMat;
 
-            // Discharge Hose
             GameObject hose = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             hose.name = "Hose";
             hose.transform.SetParent(cylinder.transform, false);

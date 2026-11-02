@@ -13,8 +13,7 @@ using IUHCampus.Minigames.PhotoHunter;
 
 namespace IUHCampus.Minigames.GreenCampus.Editor
 {
-    // Runs the real PlayerInput -> Update -> CharacterController -> Cinemachine loop.
-    // Requires the main campus scene in Play Mode and uses isolated save directories.
+
     public static class MinigameMovementPlayTests
     {
         [Serializable]
@@ -68,10 +67,10 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
             previousBackground = InputSystem.settings.backgroundBehavior;
             previousEditorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
             Application.runInBackground = true;
-            // MCP can run with Codex in front. Route synthetic input to the Game View for this test only.
+
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
             InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
-            // Changing IgnoreFocus does not reactivate devices already disabled on focus loss.
+
             if (!Keyboard.current.enabled) InputSystem.EnableDevice(Keyboard.current);
             if (Mouse.current != null && !Mouse.current.enabled) InputSystem.EnableDevice(Mouse.current);
             EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView")).Focus();
@@ -89,7 +88,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
 
         private static void FeedKeyboard()
         {
-            // Editor input updates have a separate state buffer and must not consume test events.
+
             if (InputState.currentUpdateType == InputUpdateType.Dynamic && Keyboard.current != null)
             {
                 InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(heldKeys));
@@ -143,7 +142,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
             }
             Check(Result.greenMaxY < 3f && Result.greenMinY > 0f, "Green stays near ground throughout walking and jumping");
             trackGreen = false;
-            green.ToggleHudCursor(); // Switching away while a previous game owns a modal lock.
+            green.ToggleHudCursor();
             portal.LaunchPhotoHunterGame();
             photo.RestartMission();
             photo.OpenBriefing();
@@ -164,7 +163,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
             Keys(Key.C); yield return 0.15f; Keys(); yield return 0.5f;
             Check(photo.CurrentState == IUHPhotoHunterManager.PhotoHunterState.ViewfinderMode, "C opens the viewfinder through keyboard input");
             float yaw = controller.CinemachineCameraTarget.transform.eulerAngles.y;
-            // The project's Look binding scales mouse pixels by 0.05 (100 px => 5 degrees).
+
             mouseDelta = new Vector2(100f, 0f); yield return 0.3f;
             Check(Mathf.Abs(Mathf.DeltaAngle(yaw, controller.CinemachineCameraTarget.transform.eulerAngles.y)) > 1f,
                 "Mouse input rotates the photo viewfinder");
@@ -186,7 +185,7 @@ namespace IUHCampus.Minigames.GreenCampus.Editor
             trackPhoto = false;
             var bike = UnityEngine.Object.FindFirstObjectByType<IUHCampus.Minigames.GrabCampus.IUHGrabMotorbike>();
             photo.CancelMission();
-            bike.MountVehicle(controller.gameObject); // Bike may be mounted even with no active Grab mission.
+            bike.MountVehicle(controller.gameObject);
             portal.LaunchGreenCampusGame(); Button(green.ui, "Begin");
             yield return 1f;
             Check(!bike.IsMounted && controller.gameObject.activeInHierarchy && controller.enabled,

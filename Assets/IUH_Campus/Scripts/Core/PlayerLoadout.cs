@@ -4,11 +4,7 @@ using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.Core
 {
-    /// <summary>
-    /// Holds the player's selected uniform and vehicle loadout for Mini-Game 1 (Grab Campus) and campus exploration.
-    /// Persists across sessions via PlayerPrefs.
-    /// Default selection is 'Sinh viên IUH' (DefaultIUH) if not previously set by player.
-    /// </summary>
+
     [System.Serializable]
     public class PlayerLoadout
     {
@@ -34,7 +30,7 @@ namespace IUHCampus.Core
 
         public void Load()
         {
-            // Default to Sinh viên IUH (DefaultIUH = 3) if no key saved
+
             int savedVal = PlayerPrefs.GetInt(PREF_KEY_THEME, (int)IUHCustomizationManager.BrandTheme.DefaultIUH);
             theme = (IUHCustomizationManager.BrandTheme)Mathf.Clamp(savedVal, 0, 3);
             UpdateNames();
@@ -43,7 +39,7 @@ namespace IUHCampus.Core
         public void Save()
         {
             PlayerPrefs.SetInt(PREF_KEY_THEME, (int)theme);
-            PlayerPrefs.SetInt("IUH_Selected_Theme", (int)theme); // Backwards compatibility
+            PlayerPrefs.SetInt("IUH_Selected_Theme", (int)theme);
             PlayerPrefs.Save();
             UpdateNames();
         }

@@ -27,7 +27,6 @@ namespace IUHCampus.Save
                 SaveContainer container = new SaveContainer();
                 container.timestamp = DateTime.UtcNow.ToString("o");
 
-                // 1. Capture Player Data
                 PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
                 if (player != null)
                 {
@@ -39,7 +38,6 @@ namespace IUHCampus.Save
                     }
                 }
 
-                // 2. Capture World Objects
                 if (WorldState.Instance != null)
                 {
                     var allStates = WorldState.Instance.GetAllStates();
@@ -74,7 +72,6 @@ namespace IUHCampus.Save
                 string json = File.ReadAllText(SaveFilePath);
                 SaveContainer container = JsonUtility.FromJson<SaveContainer>(json);
 
-                // 1. Restore Player Pose
                 PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
                 if (player != null && container.player != null)
                 {
@@ -86,7 +83,6 @@ namespace IUHCampus.Save
                     }
                 }
 
-                // 2. Restore World Object States
                 if (WorldState.Instance != null && container.worldObjects != null)
                 {
                     Dictionary<string, string> dict = new Dictionary<string, string>();

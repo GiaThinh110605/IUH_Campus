@@ -181,7 +181,7 @@ namespace IUHCampus.Minigames.GreenCampus
             }
             hudCursor = false;
             UpdateControl();
-            // Starting a walking game explicitly releases the previous game's movement lock.
+
             if (state == GameState.Playing && !ExternalUIOpen() && controller != null)
                 controller.enabled = true;
             if (state == GameState.Playing && player != null)

@@ -14,7 +14,6 @@ namespace IUHCampus.Editor
             if (!Directory.Exists(TexPath)) Directory.CreateDirectory(TexPath);
             if (!Directory.Exists(MatPath)) Directory.CreateDirectory(MatPath);
 
-            // 1. Generate Textures
             GenerateBlackMarbleTexture();
             GenerateLightPorcelainTexture();
             GenerateWoodSlatTexture();
@@ -28,7 +27,6 @@ namespace IUHCampus.Editor
 
             AssetDatabase.Refresh();
 
-            // 2. Generate Materials
             GenerateInteriorMaterials();
 
             AssetDatabase.SaveAssets();
@@ -53,7 +51,6 @@ namespace IUHCampus.Editor
             }
         }
 
-        // 1. Black Marble Tile (Phòng máy)
         private static void GenerateBlackMarbleTexture()
         {
             int size = 512;
@@ -79,7 +76,6 @@ namespace IUHCampus.Editor
                         c = Color.Lerp(c, lightVein, intensity * 0.65f);
                     }
 
-                    // Tile grout border line
                     if (x < 3 || x >= size - 3 || y < 3 || y >= size - 3)
                     {
                         c = new Color(0.04f, 0.04f, 0.05f, 1f);
@@ -92,7 +88,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_BlackMarbleTile.png");
         }
 
-        // 2. Light Porcelain Tile (Sảnh lễ tân & phòng chờ)
         private static void GenerateLightPorcelainTexture()
         {
             int size = 512;
@@ -108,7 +103,6 @@ namespace IUHCampus.Editor
                     float n = Mathf.PerlinNoise((float)x / size * 8f, (float)y / size * 8f);
                     Color c = Color.Lerp(baseCream, tintBeige, n * 0.35f);
 
-                    // Tile border
                     if (x < 3 || x >= size - 3 || y < 3 || y >= size - 3)
                     {
                         c = groutColor;
@@ -121,7 +115,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_LightPorcelainTile.png");
         }
 
-        // 3. Wood Slat / Oak Planks (Quầy lễ tân, nan ốp tường)
         private static void GenerateWoodSlatTexture()
         {
             int width = 512;
@@ -144,11 +137,9 @@ namespace IUHCampus.Editor
                     float woodNoise = Mathf.PerlinNoise((float)slatIndex * 1.5f, (float)y / height * 12f);
                     Color c = Color.Lerp(woodBase, woodDark, woodNoise * 0.7f);
 
-                    // Fine grain vertical lines
                     float grain = Mathf.Sin((float)y * 0.8f + woodNoise * 5f);
                     if (grain > 0.6f) c = Color.Lerp(c, woodHighlight, 0.25f);
 
-                    // Slat bevel / groove shadow
                     if (xInSlat < 2 || xInSlat >= slatWidth - 2)
                     {
                         c = slatGroove;
@@ -161,7 +152,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_WoodSlat.png");
         }
 
-        // 4. Large LED Wall Dashboard (Khu sảnh chờ B)
         private static void GenerateDashboardTexture()
         {
             int w = 1024;
@@ -174,7 +164,6 @@ namespace IUHCampus.Editor
             Color greenAccent = new Color(0.15f, 0.85f, 0.45f, 1f);
             Color orangeAccent = new Color(0.98f, 0.60f, 0.15f, 1f);
 
-            // Fill background
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -183,7 +172,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw Top Header Banner
             for (int y = h - 45; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -191,14 +179,13 @@ namespace IUHCampus.Editor
                     tex.SetPixel(x, y, new Color(0.06f, 0.10f, 0.20f, 1f));
                 }
             }
-            // Header accent line
+
             for (int x = 0; x < w; x++)
             {
                 tex.SetPixel(x, h - 46, cyanAccent);
                 tex.SetPixel(x, h - 47, cyanAccent);
             }
 
-            // Draw 4 Metric Cards across the top
             for (int card = 0; card < 4; card++)
             {
                 int cx0 = 20 + card * 245;
@@ -218,8 +205,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Draw Main Charts:
-            // Left Chart: Big Financial / Network Area Chart
             int lx0 = 20, lx1 = 580, ly0 = 25, ly1 = h - 165;
             for (int y = ly0; y < ly1; y++)
             {
@@ -232,7 +217,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Graph Wave Line inside Left Chart
             for (int x = lx0 + 10; x < lx1 - 10; x++)
             {
                 float t = (float)(x - lx0) / (lx1 - lx0);
@@ -247,7 +231,6 @@ namespace IUHCampus.Editor
                 tex.SetPixel(x, gy + 1, Color.white);
             }
 
-            // Right Upper Chart: Bar Chart
             int rx0 = 605, rx1 = w - 20, ry0 = 190, ry1 = h - 165;
             for (int y = ry0; y < ry1; y++)
             {
@@ -259,7 +242,7 @@ namespace IUHCampus.Editor
                         tex.SetPixel(x, y, cardBg);
                 }
             }
-            // Bars
+
             for (int b = 0; b < 8; b++)
             {
                 int bx0 = rx0 + 20 + b * 45;
@@ -274,7 +257,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Right Lower Chart: Donut / Circular Metrics
             int dx0 = 605, dx1 = w - 20, dy0 = 25, dy1 = 175;
             for (int y = dy0; y < dy1; y++)
             {
@@ -286,7 +268,7 @@ namespace IUHCampus.Editor
                         tex.SetPixel(x, y, cardBg);
                 }
             }
-            // Circular ring in donut chart
+
             int circleX = (dx0 + dx1) / 2;
             int circleY = (dy0 + dy1) / 2;
             for (int y = dy0 + 10; y < dy1 - 10; y++)
@@ -306,11 +288,10 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_DashboardScreen.png");
         }
 
-        // 5. PC Screen Texture (Phòng máy thực hành)
         private static void GeneratePCScreenTexture()
         {
             int w = 512;
-            int h = 288; // 16:9
+            int h = 288;
             Texture2D tex = new Texture2D(w, h, TextureFormat.RGBA32, false);
             Color editorBg = new Color(0.11f, 0.12f, 0.14f, 1f);
             Color sidebarBg = new Color(0.18f, 0.19f, 0.21f, 1f);
@@ -321,7 +302,6 @@ namespace IUHCampus.Editor
             Color funcYellow = new Color(0.92f, 0.85f, 0.40f, 1f);
             Color termBg = new Color(0.07f, 0.08f, 0.09f, 1f);
 
-            // Fill editor
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -330,7 +310,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Left Activity bar & explorer sidebar
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < 90; x++)
@@ -339,7 +318,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Bottom terminal panel
             for (int y = 0; y < 65; y++)
             {
                 for (int x = 90; x < w; x++)
@@ -348,19 +326,16 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Code lines simulation
             for (int line = 0; line < 12; line++)
             {
                 int ly = h - 35 - line * 14;
                 if (ly < 70) break;
 
-                // Line number
                 for (int x = 95; x < 110; x++)
                 {
                     tex.SetPixel(x, ly, lineNum);
                 }
 
-                // Code tokens
                 int curX = 120 + ((line % 3 == 0) ? 0 : 20);
                 Color tokenCol = (line % 4 == 0) ? kwBlue : (line % 3 == 0) ? funcYellow : (line % 2 == 0) ? strOrange : textCode;
                 int tokenLen = 30 + (line * 17) % 180;
@@ -371,10 +346,9 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Terminal status text
             for (int x = 100; x < 350; x++)
             {
-                tex.SetPixel(x, 40, new Color(0.2f, 0.85f, 0.35f, 1f)); // Green build success
+                tex.SetPixel(x, 40, new Color(0.2f, 0.85f, 0.35f, 1f));
                 tex.SetPixel(x, 25, new Color(0.6f, 0.7f, 0.8f, 1f));
             }
 
@@ -382,11 +356,10 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_ScreenPC.png");
         }
 
-        // 6. Academic Poster 1 (Phòng máy & sảnh)
         private static void GenerateAcademicPoster1()
         {
             int w = 512;
-            int h = 768; // Vertical 2:3
+            int h = 768;
             Texture2D tex = new Texture2D(w, h, TextureFormat.RGBA32, false);
             Color bg = new Color(0.96f, 0.97f, 0.98f, 1f);
             Color headerBlue = new Color(0.08f, 0.32f, 0.65f, 1f);
@@ -400,7 +373,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Poster Top Header
             for (int y = h - 90; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -409,14 +381,12 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Header line
             for (int x = 0; x < w; x++)
             {
                 tex.SetPixel(x, h - 91, cyanHighlight);
                 tex.SetPixel(x, h - 92, cyanHighlight);
             }
 
-            // Section Boxes (Architecture Diagram)
             for (int s = 0; s < 3; s++)
             {
                 int sy0 = 80 + s * 190;
@@ -430,7 +400,6 @@ namespace IUHCampus.Editor
                     }
                 }
 
-                // Decorative schematic diagram nodes inside box
                 int cy = (sy0 + sy1) / 2;
                 for (int node = 0; node < 3; node++)
                 {
@@ -448,7 +417,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Border
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -462,7 +430,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_AcademicPoster1.png");
         }
 
-        // 7. Academic Poster 2 (AI & Cloud Lab)
         private static void GenerateAcademicPoster2()
         {
             int w = 512;
@@ -480,7 +447,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Grid lines
             for (int y = 20; y < h - 20; y += 40)
             {
                 for (int x = 20; x < w - 20; x++)
@@ -496,19 +462,18 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Central neural net / graph network
             Vector2 center = new Vector2(w * 0.5f, h * 0.5f);
             for (int i = 0; i < 12; i++)
             {
                 float ang = i * Mathf.PI * 2f / 12f;
                 Vector2 nodePos = center + new Vector2(Mathf.Cos(ang), Mathf.Sin(ang)) * 140f;
-                // Line from center to node
+
                 for (float t = 0; t <= 1f; t += 0.01f)
                 {
                     Vector2 p = Vector2.Lerp(center, nodePos, t);
                     tex.SetPixel((int)p.x, (int)p.y, blueCyber * 0.6f);
                 }
-                // Node circle
+
                 for (int dy = -12; dy <= 12; dy++)
                 {
                     for (int dx = -12; dx <= 12; dx++)
@@ -519,7 +484,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Outer frame
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -533,7 +497,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_AcademicPoster2.png");
         }
 
-        // 8. Cyan Fabric Texture (Sofa tiếp đón)
         private static void GenerateCyanFabricTexture()
         {
             int size = 256;
@@ -557,7 +520,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_CyanFabric.png");
         }
 
-        // 9. Perforated Metal Texture (Ghế phòng chờ kim loại)
         private static void GeneratePerforatedMetalTexture()
         {
             int size = 256;
@@ -588,7 +550,6 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_PerforatedMetal.png");
         }
 
-        // 10. Ceiling Grid (Trần ô vuông 600x600)
         private static void GenerateCeilingGridTexture()
         {
             int size = 512;
@@ -603,7 +564,6 @@ namespace IUHCampus.Editor
                     float noise = Mathf.PerlinNoise((float)x * 0.5f, (float)y * 0.5f) * 0.04f;
                     Color c = tileWhite - new Color(noise, noise, noise, 0f);
 
-                    // 4x4 tiles in 512 texture
                     int gridSpacing = 128;
                     if (x % gridSpacing < 4 || y % gridSpacing < 4)
                     {
@@ -617,36 +577,29 @@ namespace IUHCampus.Editor
             SaveTexture(tex, "T_Interior_CeilingGrid.png");
         }
 
-        // ================= MATERIALS GENERATION =================
         public static void GenerateInteriorMaterials()
         {
             Shader litShader = Shader.Find("Universal Render Pipeline/Lit");
             if (litShader == null) litShader = Shader.Find("Standard");
 
-            // 1. Black Marble Tile
             Material mMarble = CreateLitMaterial("M_IUH_Int_BlackMarble", litShader, Color.white, 0.88f, 0.12f);
             Texture2D tMarble = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_BlackMarbleTile.png");
             if (tMarble != null) { mMarble.mainTexture = tMarble; mMarble.mainTextureScale = new Vector2(4, 4); }
 
-            // 2. Light Porcelain Tile
             Material mPorcelain = CreateLitMaterial("M_IUH_Int_LightTile", litShader, Color.white, 0.72f, 0.05f);
             Texture2D tPorcelain = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_LightPorcelainTile.png");
             if (tPorcelain != null) { mPorcelain.mainTexture = tPorcelain; mPorcelain.mainTextureScale = new Vector2(4, 4); }
 
-            // 3. Light Wood / Oak Slat
             Material mWood = CreateLitMaterial("M_IUH_Int_LightWood", litShader, Color.white, 0.45f, 0.02f);
             Texture2D tWood = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_WoodSlat.png");
             if (tWood != null) { mWood.mainTexture = tWood; mWood.mainTextureScale = new Vector2(2, 2); }
 
-            // 4. Sage Green Wall Paint
             CreateLitMaterial("M_IUH_Int_SageGreen", litShader, new Color(0.48f, 0.62f, 0.54f, 1f), 0.20f, 0.0f);
 
-            // 5. Cyan Upholstery Fabric
             Material mCyan = CreateLitMaterial("M_IUH_Int_CyanSofa", litShader, Color.white, 0.25f, 0.0f);
             Texture2D tCyan = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_CyanFabric.png");
             if (tCyan != null) { mCyan.mainTexture = tCyan; mCyan.mainTextureScale = new Vector2(3, 3); }
 
-            // 6. LED Display Screen (Emissive)
             Material mLED = CreateLitMaterial("M_IUH_Int_LEDDisplay", litShader, Color.white, 0.85f, 0.20f);
             Texture2D tLED = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_DashboardScreen.png");
             if (tLED != null)
@@ -657,7 +610,6 @@ namespace IUHCampus.Editor
                 mLED.SetTexture("_EmissionMap", tLED);
             }
 
-            // 7. PC Screen (Emissive)
             Material mPC = CreateLitMaterial("M_IUH_Int_ScreenPC", litShader, Color.white, 0.75f, 0.10f);
             Texture2D tPC = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_ScreenPC.png");
             if (tPC != null)
@@ -668,7 +620,6 @@ namespace IUHCampus.Editor
                 mPC.SetTexture("_EmissionMap", tPC);
             }
 
-            // 8. Academic Posters
             Material mPost1 = CreateLitMaterial("M_IUH_Int_Poster1", litShader, Color.white, 0.35f, 0.0f);
             Texture2D tPost1 = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_AcademicPoster1.png");
             if (tPost1 != null) mPost1.mainTexture = tPost1;
@@ -677,27 +628,22 @@ namespace IUHCampus.Editor
             Texture2D tPost2 = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_AcademicPoster2.png");
             if (tPost2 != null) mPost2.mainTexture = tPost2;
 
-            // 9. Frosted Decal Glass & Clear Glass
             CreateTransparentGlass("M_IUH_Int_GlassFrosted", litShader, new Color(0.92f, 0.95f, 0.98f, 0.55f), 0.30f, 0.05f);
             CreateTransparentGlass("M_IUH_Int_GlassClear", litShader, new Color(0.85f, 0.92f, 0.98f, 0.15f), 0.95f, 0.30f);
 
-            // 10. Perforated Metal Waiting Chairs
             Material mMetal = CreateLitMaterial("M_IUH_Int_PerforatedMetal", litShader, Color.white, 0.65f, 0.85f);
             Texture2D tMetal = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_PerforatedMetal.png");
             if (tMetal != null) { mMetal.mainTexture = tMetal; mMetal.mainTextureScale = new Vector2(4, 4); }
 
-            // 11. Clean Matte White Dividers & Walls
             CreateLitMaterial("M_IUH_Int_MatteWhite", litShader, new Color(0.96f, 0.96f, 0.97f, 1f), 0.15f, 0.0f);
             CreateLitMaterial("M_IUH_Int_DarkMullion", litShader, new Color(0.12f, 0.14f, 0.16f, 1f), 0.70f, 0.80f);
             CreateLitMaterial("M_IUH_Int_Chrome", litShader, new Color(0.90f, 0.92f, 0.94f, 1f), 0.95f, 0.95f);
             CreateLitMaterial("M_IUH_Int_NavyChair", litShader, new Color(0.10f, 0.15f, 0.24f, 1f), 0.35f, 0.05f);
 
-            // 12. Ceiling Grid
             Material mCeil = CreateLitMaterial("M_IUH_Int_CeilingGrid", litShader, Color.white, 0.20f, 0.05f);
             Texture2D tCeil = AssetDatabase.LoadAssetAtPath<Texture2D>(TexPath + "T_Interior_CeilingGrid.png");
             if (tCeil != null) { mCeil.mainTexture = tCeil; mCeil.mainTextureScale = new Vector2(4, 4); }
 
-            // 13. Avatar Character Materials (Student Uniform & Skin)
             CreateLitMaterial("M_IUH_Avatar_Skin", litShader, new Color(0.92f, 0.78f, 0.68f, 1f), 0.35f, 0.0f);
             CreateLitMaterial("M_IUH_Avatar_Jacket", litShader, new Color(0.08f, 0.30f, 0.62f, 1f), 0.30f, 0.0f);
         }

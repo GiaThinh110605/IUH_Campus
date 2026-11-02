@@ -11,7 +11,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Enable CORS for Unity Client & Web Dashboard
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -44,18 +43,19 @@ def health_check():
 @app.post("/predict/student-card", response_model=PredictResponse)
 async def predict_student_card(file: UploadFile = File(...)):
     """
-    Endpoint nhận ảnh từ Camera điện thoại / Unity AR và chạy mô hình Deep Learning
-    để nhận diện Thẻ Sinh Viên IUH, phân loại Khoa viện.
-    """
+
+        EEnnddppooiinntt  nnhhậậnn  ảảnnhh  ttừừ  CCaammeerraa  đđiiệệnn  tthhooạạii  //  UUnniittyy  AARR  vvàà  cchhạạyy  mmôô  hhììnnhh  DDeeeepp  LLeeaarrnniinngg
+
+        đđểể  nnhhậậnn  ddiiệệnn  TThhẻẻ  SSiinnhh  VViiêênn  IIUUHH,,  pphhâânn  llooạạii  KKhhooaa  vviiệệnn..
+
+        """"
     start_time = time.time()
     try:
         contents = await file.read()
         image = Image.open(io.BytesIO(contents)).convert("RGB")
-        
-        # Giả lập hoặc chạy ONNX Runtime suy luận
+
         inference_time = (time.time() - start_time) * 1000
 
-        # Kết quả nhận diện (sẽ nạp model ONNX thực tế khi triển khai)
         return {
             "status": "success",
             "label": "The_Sinh_Vien_IUH",
@@ -70,9 +70,12 @@ async def predict_student_card(file: UploadFile = File(...)):
 @app.get("/iot/parking-status")
 def get_parking_iot_telemetry():
     """
-    Endpoint mô phỏng cảm biến IoT gửi trạng thái chỗ trống bãi xe IUH
-    lên Cloud thời gian thực cho Minigame của Nhật.
-    """
+
+        EEnnddppooiinntt  mmôô  pphhỏỏnngg  ccảảmm  bbiiếếnn  IIooTT  ggửửii  ttrrạạnngg  tthhááii  cchhỗỗ  ttrrốốnngg  bbããii  xxee  IIUUHH
+
+        llêênn  CClloouudd  tthhờờii  ggiiaann  tthhựựcc  cchhoo  MMiinniiggaammee  ccủủaa  NNhhậậtt..
+
+        """"
     return {
         "zone": "Bai_Xe_Sinh_Vien_IUH",
         "total_slots": 500,

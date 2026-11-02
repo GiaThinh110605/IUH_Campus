@@ -16,14 +16,12 @@ namespace IUHCampus.Editor
         {
             Debug.Log("[IUH Player Exploration] Starting Complete Verification & Image Capture...");
 
-            // 1. Open Scene if not already active
             var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
             if (activeScene.path != "Assets/IUH_Campus/Scenes/IUH_RightCluster.unity")
             {
                 activeScene = EditorSceneManager.OpenScene("Assets/IUH_Campus/Scenes/IUH_RightCluster.unity", OpenSceneMode.Single);
             }
 
-            // 2. Ensure Interior and Player System exist
             GameObject interiorRoot = GameObject.Find("IUH_RightCluster_Interior");
             if (interiorRoot == null)
             {
@@ -31,11 +29,10 @@ namespace IUHCampus.Editor
                 interiorRoot = GameObject.Find("IUH_RightCluster_Interior");
             }
 
-            // 3. Find Player & Camera components
             GameObject player = GameObject.Find("Player");
             if (player == null)
             {
-                // Rebuild interior and player system
+
                 IUHRightClusterInteriorBuilder.BuildAndCaptureInterior();
                 player = GameObject.Find("Player");
             }
@@ -59,19 +56,17 @@ namespace IUHCampus.Editor
                 return;
             }
 
-            // Disable unbaked reflection probes
             foreach (var probe in UnityEngine.Object.FindObjectsByType<ReflectionProbe>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
                 probe.enabled = false;
             }
 
             CharacterController cc = player.GetComponent<CharacterController>();
-            if (cc != null) cc.enabled = false; // Disable temporarily for precise positioning
+            if (cc != null) cc.enabled = false;
 
             if (!Directory.Exists(ScreenshotDir)) Directory.CreateDirectory(ScreenshotDir);
             if (!Directory.Exists(ArtifactDir)) Directory.CreateDirectory(ArtifactDir);
 
-            // Checkpoint 1: Exterior Entrance Plaza (Player approaching automatic sliding doors)
             Debug.Log("[IUH Player Exploration] Capturing Checkpoint 1: Exterior Entrance...");
             player.transform.position = new Vector3(109.0f, 0.05f, -8.0f);
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -79,7 +74,6 @@ namespace IUHCampus.Editor
             mainCam.transform.rotation = Quaternion.Euler(10.0f, -12.0f, 0.0f);
             CaptureView(mainCam, 1920, 1080, "player_01_exterior_entrance.png");
 
-            // Checkpoint 2: Reception Desk (Zone A - Student exploring reception area)
             Debug.Log("[IUH Player Exploration] Capturing Checkpoint 2: Reception Lobby...");
             player.transform.position = new Vector3(95.0f, 0.05f, 6.0f);
             player.transform.rotation = Quaternion.Euler(0, -90.0f, 0);
@@ -87,7 +81,6 @@ namespace IUHCampus.Editor
             mainCam.transform.rotation = Quaternion.Euler(14.0f, -60.0f, 0.0f);
             CaptureView(mainCam, 1920, 1080, "player_02_reception.png");
 
-            // Checkpoint 3: Waiting Lounge & Media Screen (Zone B - Student in modern lounge)
             Debug.Log("[IUH Player Exploration] Capturing Checkpoint 3: Waiting Lounge...");
             player.transform.position = new Vector3(108.0f, 0.05f, 5.5f);
             player.transform.rotation = Quaternion.Euler(0, 0.0f, 0);
@@ -95,7 +88,6 @@ namespace IUHCampus.Editor
             mainCam.transform.rotation = Quaternion.Euler(12.0f, 0.0f, 0.0f);
             CaptureView(mainCam, 1920, 1080, "player_03_waiting_lounge.png");
 
-            // Checkpoint 4: Training & Computer Lab (Zone C - Student inside central aisle)
             Debug.Log("[IUH Player Exploration] Capturing Checkpoint 4: Training Lab...");
             player.transform.position = new Vector3(96.0f, 0.05f, -9.5f);
             player.transform.rotation = Quaternion.Euler(0, 180.0f, 0);
@@ -103,7 +95,6 @@ namespace IUHCampus.Editor
             mainCam.transform.rotation = Quaternion.Euler(14.0f, 196.0f, 0.0f);
             CaptureView(mainCam, 1920, 1080, "player_04_training_lab.png");
 
-            // Reset Player to default spawn: PlayerSpawn_Exterior
             Transform spawnExt = interiorRoot.transform.Find("PlayerSystem/PlayerSpawn_Exterior");
             if (spawnExt != null)
             {
@@ -113,7 +104,7 @@ namespace IUHCampus.Editor
                 mainCam.transform.rotation = Quaternion.Euler(12.0f, spawnExt.eulerAngles.y, 0);
             }
 
-            if (cc != null) cc.enabled = true; // Re-enable CharacterController for Play Mode
+            if (cc != null) cc.enabled = true;
 
             EditorSceneManager.SaveScene(activeScene);
             AssetDatabase.Refresh();
@@ -143,11 +134,9 @@ namespace IUHCampus.Editor
             rt.Release();
             UnityEngine.Object.DestroyImmediate(rt);
 
-            // Save to project screenshots folder
             string projectPath = Path.Combine(ScreenshotDir, fileName);
             File.WriteAllBytes(projectPath, bytes);
 
-            // Save to assistant artifact directory
             string artifactPath = Path.Combine(ArtifactDir, fileName);
             try
             {

@@ -9,11 +9,7 @@ using IUHCampus.UI;
 
 namespace IUHCampus.Minigames.PhotoHunter.Editor
 {
-    /// <summary>
-    /// Idempotent, non-destructive Editor setup utility for Mini-Game 2.4 "Photo Hunter".
-    /// Creates or updates target landmarks, UI hierarchy, and manager bindings with full Undo support.
-    /// Safely saves scene to disk upon completion.
-    /// </summary>
+
     public static class IUHPhotoHunterSetup
     {
         private const string RootName = "GAMEPLAY_PHOTO_HUNTER";
@@ -58,7 +54,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 }
             }
 
-            // 1. Locate or create root GameObject
             GameObject rootGo = GameObject.Find(RootName);
             if (rootGo == null)
             {
@@ -68,14 +63,12 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             }
             Undo.RecordObject(rootGo, "Configure Photo Hunter Root");
 
-            // Manager component
             var manager = rootGo.GetComponent<IUHPhotoHunterManager>();
             if (manager == null)
             {
                 manager = Undo.AddComponent<IUHPhotoHunterManager>(rootGo);
             }
 
-            // 2. Setup Targets Container and 3 Core Landmarks
             Transform targetsContainer = rootGo.transform.Find(TargetsContainerName);
             if (targetsContainer == null)
             {
@@ -87,7 +80,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
 
             var targetsList = new List<IUHPhotoTarget>();
 
-            // Target 1: Gate 01 (Nguyen Van Bao Main Entrance)
             Transform gate01Struct = GameObject.Find("campus_P0_progress/Gate_01_SteelGate")?.transform
                                   ?? GameObject.Find("campus_P0_progress/Gate_01_Arch_Beam")?.transform;
             var target1 = SetupTarget(
@@ -103,13 +95,12 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 new Vector3(12.0f, 6.0f, 4.0f),
                 gate01Struct,
                 new List<Vector3> {
-                    new Vector3(0f, 2.0f, 0f),       // Arch top
-                    new Vector3(-4.5f, -0.5f, 0f),   // Left pillar
-                    new Vector3(4.5f, -0.5f, 0f)     // Right pillar
+                    new Vector3(0f, 2.0f, 0f),
+                    new Vector3(-4.5f, -0.5f, 0f),
+                    new Vector3(4.5f, -0.5f, 0f)
                 });
             targetsList.Add(target1);
 
-            // Target 2: Central Courtyard (San Truong Trung Tam)
             Transform courtStruct = GameObject.Find("campus_P0_progress/Courtyard_Main")?.transform;
             var target2 = SetupTarget(
                 targetsContainer,
@@ -124,13 +115,12 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 new Vector3(28.0f, 4.0f, 28.0f),
                 courtStruct,
                 new List<Vector3> {
-                    new Vector3(0f, 0.5f, 0f),       // Courtyard center
-                    new Vector3(-7f, -0.5f, 6f),     // Left planter zone
-                    new Vector3(7f, -0.5f, 6f)       // Right planter zone
+                    new Vector3(0f, 0.5f, 0f),
+                    new Vector3(-7f, -0.5f, 6f),
+                    new Vector3(7f, -0.5f, 6f)
                 });
             targetsList.Add(target2);
 
-            // Target 3: Block A Facade (Nha Hieu Bo / Block A)
             Transform blockAStruct = GameObject.Find("campus_P0_progress/Block_A_Sign_Letter")?.transform
                                   ?? GameObject.Find("campus_P0_progress/Block_A_Entrance_Canopy")?.transform;
             var target3 = SetupTarget(
@@ -146,17 +136,15 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 new Vector3(16.0f, 8.0f, 6.0f),
                 blockAStruct,
                 new List<Vector3> {
-                    new Vector3(0f, 1.0f, 0f),       // Canopy center
-                    new Vector3(-5.0f, -1.5f, 0f),   // Left pillar
-                    new Vector3(5.0f, -1.5f, 0f)     // Right pillar
+                    new Vector3(0f, 1.0f, 0f),
+                    new Vector3(-5.0f, -1.5f, 0f),
+                    new Vector3(5.0f, -1.5f, 0f)
                 });
             targetsList.Add(target3);
 
-            // 3. Find or create UI under IUH_Minigame_Canvas
             Canvas targetCanvas = FindOrCreateCanvas();
             IUHPhotoHunterUI uiComponent = SetupUIHierarchy(targetCanvas);
 
-            // 4. Wire serialized properties on Manager via SerializedObject
             SerializedObject soManager = new SerializedObject(manager);
             soManager.Update();
 
@@ -179,13 +167,11 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
 
             soManager.ApplyModifiedProperties();
 
-            // 5. Update Card 4 in Portal UI if found
             UpdatePortalMenuCard();
 
             if (IUHCampus.World.IUHReferenceLayout.IsActive)
                 IUHCampus.Editor.IUHReferenceCampusBuilder.RelinkGames(false);
 
-            // Mark Scene Dirty and Save Scene to disk
             EditorSceneManager.MarkSceneDirty(activeScene);
             EditorSceneManager.SaveScene(activeScene);
 
@@ -296,22 +282,16 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             var uiComponent = uiRootGo.GetComponent<IUHPhotoHunterUI>();
             if (uiComponent == null) uiComponent = Undo.AddComponent<IUHPhotoHunterUI>(uiRootGo);
 
-            // 1. Briefing Panel
             GameObject briefingPanel = SetupBriefingPanel(uiRootGo.transform);
 
-            // 2. Exploration HUD
             GameObject hudPanel = SetupHUDPanel(uiRootGo.transform);
 
-            // 3. Viewfinder Overlay
             GameObject viewfinderPanel = SetupViewfinderPanel(uiRootGo.transform);
 
-            // 4. Flash Effect Overlay
             GameObject flashOverlayGo = SetupFlashOverlay(uiRootGo.transform);
 
-            // 5. Victory Dialog
             GameObject victoryDialog = SetupVictoryDialog(uiRootGo.transform);
 
-            // Serialize into IUHPhotoHunterUI
             SerializedObject soUI = new SerializedObject(uiComponent);
             soUI.Update();
 
@@ -344,7 +324,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             soUI.FindProperty("m_BtnRestartMission").objectReferenceValue = victoryDialog.transform.Find("Card/Footer/BtnRestart")?.GetComponent<Button>();
             soUI.FindProperty("m_BtnExitToCampus").objectReferenceValue = victoryDialog.transform.Find("Card/Footer/BtnExit")?.GetComponent<Button>();
 
-            // Setup thumbnail arrays in victory dialog
             Transform gallery = victoryDialog.transform.Find("Card/Gallery");
             if (gallery != null && gallery.childCount >= 3)
             {
@@ -366,8 +345,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             return uiComponent;
         }
 
-        // ================= UI BUILDERS =================
-
         private static GameObject SetupBriefingPanel(Transform parent)
         {
             Transform panelTrans = parent.Find("BriefingPanel");
@@ -380,7 +357,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 var imgBg = panel.AddComponent<Image>();
                 imgBg.color = new Color(0.03f, 0.05f, 0.10f, 0.88f);
 
-                // Card
                 GameObject card = CreateUIElement("Card", panel.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-380, -280), new Vector2(380, 280));
                 var cardImg = card.AddComponent<Image>();
                 cardImg.color = new Color(0.08f, 0.12f, 0.22f, 0.98f);
@@ -395,7 +371,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 cardTrans = panelTrans.Find("Card") ?? panelTrans;
             }
 
-            // Title
             if (cardTrans.Find("TxtTitle") == null)
             {
                 GameObject title = CreateUIElement("TxtTitle", cardTrans, new Vector2(0, 1), new Vector2(1, 1), new Vector2(20, -55), new Vector2(-20, -15));
@@ -408,7 +383,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 txtTitle.text = "📷 THỢ SĂN KHOẢNH KHẮC — PHOTO HUNTER";
             }
 
-            // Status notice
             if (cardTrans.Find("TxtStatus") == null)
             {
                 GameObject statusGo = CreateUIElement("TxtStatus", cardTrans, new Vector2(0, 1), new Vector2(1, 1), new Vector2(25, -95), new Vector2(-25, -60));
@@ -420,7 +394,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 txtStatus.text = "Chào mừng bạn đến với thử thách khám phá khuôn viên trường!";
             }
 
-            // Description
             if (cardTrans.Find("TxtDesc") == null)
             {
                 GameObject desc = CreateUIElement("TxtDesc", cardTrans, new Vector2(0, 0), new Vector2(1, 1), new Vector2(30, 80), new Vector2(-30, -100));
@@ -443,7 +416,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                     "• Nhấn <b>[Q]</b> hoặc <b>[ESC]</b> để thoát ống ngắm quay về di chuyển tự do.";
             }
 
-            // Action Buttons
             if (cardTrans.Find("BtnStart") == null)
                 CreateButton("BtnStart", cardTrans, new Vector2(0.04f, 0.04f), new Vector2(0.38f, 0.15f), "⚡ Bắt Đầu Săn Ảnh", new Color(0.06f, 0.58f, 0.85f));
             if (cardTrans.Find("BtnTeleportGate1") == null)
@@ -475,7 +447,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 hud = panelTrans.gameObject;
             }
 
-            // Title
             if (hud.transform.Find("TxtTitle") == null)
             {
                 GameObject title = CreateUIElement("TxtTitle", hud.transform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(15, -32), new Vector2(-15, -5));
@@ -487,7 +458,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 txtTitle.text = "📷 THỢ SĂN KHOẢNH KHẮC";
             }
 
-            // Progress & Score
             if (hud.transform.Find("TxtProgress") == null)
             {
                 GameObject progress = CreateUIElement("TxtProgress", hud.transform, new Vector2(0, 1), new Vector2(0.6f, 1), new Vector2(15, -55), new Vector2(0, -32));
@@ -511,7 +481,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 txtScore.text = "Điểm: 0 đ";
             }
 
-            // Target List
             if (hud.transform.Find("TxtTargetList") == null)
             {
                 GameObject listGo = CreateUIElement("TxtTargetList", hud.transform, new Vector2(0, 0), new Vector2(1, 1), new Vector2(15, 52), new Vector2(-15, -60));
@@ -523,7 +492,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 txtList.text = "1. Cổng Chính Trường [○]\n2. Sân Trung Tâm [○]\n3. Mặt Tiền Tòa Nhà A [○]";
             }
 
-            // Action Buttons
             if (hud.transform.Find("BtnOpenCam") == null)
                 CreateButton("BtnOpenCam", hud.transform, new Vector2(0.04f, 0.06f), new Vector2(0.62f, 0.22f), "📸 Mở Máy Ảnh [C]", new Color(0.06f, 0.58f, 0.85f));
             if (hud.transform.Find("BtnViewAlbumHUD") == null)
@@ -542,7 +510,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
 
             GameObject vf = CreateUIElement("ViewfinderOverlay", parent, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
-            // Reticle Center Box
             GameObject reticle = CreateUIElement("Reticle", vf.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-120, -80), new Vector2(120, 80));
             var reticleImg = reticle.AddComponent<Image>();
             reticleImg.color = new Color(1f, 1f, 1f, 0.04f);
@@ -550,12 +517,10 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             reticleOutline.effectColor = new Color(0.22f, 0.74f, 0.97f, 0.75f);
             reticleOutline.effectDistance = new Vector2(2, -2);
 
-            // Center crosshair dot
             GameObject dot = CreateUIElement("Dot", reticle.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-4, -4), new Vector2(4, 4));
             var dotImg = dot.AddComponent<Image>();
             dotImg.color = new Color(0.22f, 0.74f, 0.97f, 0.9f);
 
-            // Top Bar
             GameObject topBar = CreateUIElement("TopBar", vf.transform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0, -60), Vector2.zero);
             var topBarImg = topBar.AddComponent<Image>();
             topBarImg.color = new Color(0.03f, 0.05f, 0.10f, 0.70f);
@@ -571,7 +536,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
 
             CreateButton("BtnExitCam", topBar.transform, new Vector2(0.85f, 0.15f), new Vector2(0.98f, 0.85f), "✕ Thoát Ngắm [Q/ESC]", new Color(0.60f, 0.15f, 0.15f));
 
-            // Specs Bar
             GameObject specsBar = CreateUIElement("SpecsBar", vf.transform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0, -95), new Vector2(0, -60));
             GameObject txtSpecs = CreateUIElement("TxtSpecs", specsBar.transform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             var tSpecs = txtSpecs.AddComponent<Text>();
@@ -581,7 +545,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             tSpecs.color = new Color(0.94f, 0.96f, 0.98f, 0.85f);
             tSpecs.text = "ISO 100  |  f/2.8  |  1/500s  |  AF-C ACTIVE  |  35mm";
 
-            // Toast Message Text
             GameObject toastGo = CreateUIElement("TxtToast", vf.transform, new Vector2(0.15f, 0.20f), new Vector2(0.85f, 0.32f), Vector2.zero, Vector2.zero);
             var txtToast = toastGo.AddComponent<Text>();
             txtToast.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -595,7 +558,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             toastOutline.effectDistance = new Vector2(1.5f, -1.5f);
             toastGo.SetActive(false);
 
-            // Bottom Bar
             GameObject bottomBar = CreateUIElement("BottomBar", vf.transform, new Vector2(0, 0), new Vector2(1, 0), Vector2.zero, new Vector2(0, 90));
             var btmImg = bottomBar.AddComponent<Image>();
             btmImg.color = new Color(0.03f, 0.05f, 0.10f, 0.70f);
@@ -628,7 +590,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             var bgImg = dialog.AddComponent<Image>();
             bgImg.color = new Color(0.03f, 0.05f, 0.10f, 0.92f);
 
-            // Card
             GameObject card = CreateUIElement("Card", dialog.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-460, -300), new Vector2(460, 300));
             var cardImg = card.AddComponent<Image>();
             cardImg.color = new Color(0.08f, 0.12f, 0.22f, 0.98f);
@@ -636,7 +597,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             outline.effectColor = new Color(0.06f, 0.72f, 0.51f, 0.8f);
             outline.effectDistance = new Vector2(2, -2);
 
-            // Title
             GameObject title = CreateUIElement("TxtTitle", card.transform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(20, -55), new Vector2(-20, -15));
             var txtTitle = title.AddComponent<Text>();
             txtTitle.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -646,7 +606,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             txtTitle.color = new Color(0.06f, 0.72f, 0.51f);
             txtTitle.text = "🎉 XUẤT SẮC! BỘ ẢNH KHUÔN VIÊN HOÀN THÀNH";
 
-            // Score
             GameObject score = CreateUIElement("TxtScore", card.transform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(20, -90), new Vector2(-20, -55));
             var txtScore = score.AddComponent<Text>();
             txtScore.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -656,7 +615,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
             txtScore.color = new Color(0.98f, 0.75f, 0.14f);
             txtScore.text = "TỔNG ĐIỂM: 300 / 300 ĐIỂM (Hoàn thành 3/3 địa điểm)";
 
-            // Gallery Slots (3 slots)
             GameObject gallery = CreateUIElement("Gallery", card.transform, new Vector2(0.05f, 0.22f), new Vector2(0.95f, 0.82f), Vector2.zero, Vector2.zero);
             var glg = gallery.AddComponent<GridLayoutGroup>();
             glg.cellSize = new Vector2(265, 170);
@@ -682,7 +640,6 @@ namespace IUHCampus.Minigames.PhotoHunter.Editor
                 txtL.text = $"Địa điểm {i + 1}";
             }
 
-            // Footer
             GameObject footer = CreateUIElement("Footer", card.transform, new Vector2(0, 0), new Vector2(1, 0.20f), Vector2.zero, Vector2.zero);
             CreateButton("BtnRestart", footer.transform, new Vector2(0.15f, 0.25f), new Vector2(0.48f, 0.85f), "🔄 Chơi Lại Thử Thách", new Color(0.20f, 0.50f, 0.80f));
             CreateButton("BtnExit", footer.transform, new Vector2(0.52f, 0.25f), new Vector2(0.85f, 0.85f), "🚶 Trở Về Khám Phá Campus", new Color(0.06f, 0.65f, 0.45f));

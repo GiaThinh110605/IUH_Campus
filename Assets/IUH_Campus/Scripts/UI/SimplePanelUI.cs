@@ -38,7 +38,7 @@ namespace IUHCampus.UI
         {
             if (IsOpen && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)))
             {
-                // Only close on E if we didn't just open it this frame
+
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     HidePanel();

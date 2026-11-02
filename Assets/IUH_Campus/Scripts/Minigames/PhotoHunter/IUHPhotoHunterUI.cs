@@ -6,12 +6,7 @@ using UnityEngine.UI;
 
 namespace IUHCampus.Minigames.PhotoHunter
 {
-    /// <summary>
-    /// Master UI Controller for Photo Hunter Minigame.
-    /// Manages Briefing Modal, HUD checklist, Viewfinder Overlay with camera reticle,
-    /// flash shutter animation, toast notifications, and Victory Gallery dialog.
-    /// Handles texture memory ownership and deallocation cleanly.
-    /// </summary>
+
     public class IUHPhotoHunterUI : MonoBehaviour
     {
         [Header("Root Canvas")]
@@ -54,7 +49,6 @@ namespace IUHCampus.Minigames.PhotoHunter
         private Coroutine m_ToastCoroutine;
         private Coroutine m_FlashCoroutine;
 
-        // Texture memory ownership: tracks textures loaded specifically for the gallery display
         private List<Texture2D> m_LoadedGalleryTextures = new List<Texture2D>();
 
         public int LoadedTextureCount => m_LoadedGalleryTextures != null ? m_LoadedGalleryTextures.Count : 0;
@@ -73,7 +67,7 @@ namespace IUHCampus.Minigames.PhotoHunter
 
         private void WireButtonListeners()
         {
-            // Briefing buttons
+
             if (m_BtnStartMission != null)
             {
                 m_BtnStartMission.onClick.RemoveAllListeners();
@@ -98,7 +92,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 m_BtnCloseBriefing.onClick.AddListener(() => IUHPhotoHunterManager.Instance?.CancelMission());
             }
 
-            // HUD buttons
             if (m_BtnOpenViewfinder != null)
             {
                 m_BtnOpenViewfinder.onClick.RemoveAllListeners();
@@ -117,7 +110,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 m_BtnCancelMission.onClick.AddListener(() => IUHPhotoHunterManager.Instance?.CancelMission());
             }
 
-            // Viewfinder buttons
             if (m_BtnCapturePhoto != null)
             {
                 m_BtnCapturePhoto.onClick.RemoveAllListeners();
@@ -130,7 +122,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 m_BtnCloseViewfinder.onClick.AddListener(() => IUHPhotoHunterManager.Instance?.ExitViewfinderMode());
             }
 
-            // Victory buttons
             if (m_BtnRestartMission != null)
             {
                 m_BtnRestartMission.onClick.RemoveAllListeners();
@@ -146,8 +137,6 @@ namespace IUHCampus.Minigames.PhotoHunter
                 });
             }
         }
-
-        // ================= STATE TOGGLES =================
 
         public void ShowBriefing(bool show, bool isAlreadyCompleted = false)
         {
@@ -225,8 +214,6 @@ namespace IUHCampus.Minigames.PhotoHunter
             ClearLoadedGalleryTextures();
         }
 
-        // ================= DATA UPDATES =================
-
         public void UpdateHUD(int completedCount, int totalTargets, int currentScore, List<IUHPhotoTarget> targets)
         {
             if (m_TxtProgress != null)
@@ -267,7 +254,7 @@ namespace IUHCampus.Minigames.PhotoHunter
 
         public void ShowPersistenceError(string message)
         {
-            // The viewfinder toast is hidden on the briefing/album screens where Restart is clicked.
+
             if(m_VictoryDialog!=null&&m_VictoryDialog.activeInHierarchy&&m_TxtVictoryTitle!=null)
                 m_TxtVictoryTitle.text="<color=#ef4444>"+message+"</color>";
             else if(m_BriefingPanel!=null&&m_BriefingPanel.activeInHierarchy&&m_TxtBriefingStatus!=null)
@@ -317,13 +304,9 @@ namespace IUHCampus.Minigames.PhotoHunter
             m_FlashCoroutine = null;
         }
 
-        /// <summary>
-        /// Populates the victory / album gallery with captured photos from disk.
-        /// Reliably destroys any previous textures to prevent memory buildup.
-        /// </summary>
         public void PopulateVictoryDialog(int totalScore, List<PhotoRecord> records)
         {
-            // Clear any previously loaded gallery textures first
+
             ClearLoadedGalleryTextures();
 
             if (m_TxtVictoryScore != null)
@@ -354,7 +337,7 @@ namespace IUHCampus.Minigames.PhotoHunter
                         }
                         else
                         {
-                            // Missing / corrupted photo placeholder
+
                             m_PhotoThumbnails[i].texture = null;
                             m_PhotoThumbnails[i].color = new Color(0.15f, 0.15f, 0.15f, 1f);
                             m_PhotoThumbnails[i].gameObject.SetActive(true);

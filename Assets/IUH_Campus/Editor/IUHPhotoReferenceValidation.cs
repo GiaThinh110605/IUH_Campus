@@ -34,7 +34,7 @@ namespace IUHCampus.Editor
             Check(r,root.Find("Block_E").GetComponentsInChildren<Transform>().Any(t=>t.name=="Signage_Panel_IUH"),"E has its photographic curtain-wall facade and sign");
             Directory.CreateDirectory(Evidence);File.WriteAllText(Evidence+"/photo-reference-audit.json",JsonUtility.ToJson(r,true));return r;
         }
-        // Exercise both ramps with the actual player collision solver; no transform writes between endpoints.
+
         public static Report TestRampPhysics()
         {
             if(!Application.isPlaying)throw new InvalidOperationException("Run ramp collision verification in Play Mode.");

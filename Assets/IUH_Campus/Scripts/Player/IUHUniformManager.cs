@@ -6,10 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus.Player
 {
-    /// <summary>
-    /// Manages authentic IUH student uniform selection and human character appearance.
-    /// Supports 5 IUH uniforms, hotkeys 1-5, and an in-game Wardrobe UI (Key 'U').
-    /// </summary>
+
     public class IUHUniformManager : MonoBehaviour
     {
         [System.Serializable]
@@ -117,7 +114,7 @@ namespace IUHCampus.Player
             }
             else
             {
-                // Find hair template from campus
+
                 var campus = GameObject.Find("campus_P0_progress");
                 if (campus != null)
                 {
@@ -151,7 +148,7 @@ namespace IUHCampus.Player
 
         private void Update()
         {
-            // If not in Playing state (e.g., in menus or setup) or if portal is open, do not intercept keys 1-6 or U
+
             if (IUHCampus.Core.IUHGameFlowManager.Instance != null &&
                 (IUHCampus.Core.IUHGameFlowManager.Instance.CurrentState != IUHCampus.Core.IUHGameFlowManager.FlowState.Playing ||
                  IUHCampus.Core.IUHGameFlowManager.Instance.ActiveGameIndex >= 0))
@@ -165,13 +162,11 @@ namespace IUHCampus.Player
                 return;
             }
 
-            // Toggle Wardrobe UI with Key U
             if (IsKeyTriggered(KeyCode.U))
             {
                 showWardrobeUI = !showWardrobeUI;
             }
 
-            // Quick outfit hotkeys: 1, 2, 3, 4, 5
             if (IsKeyTriggered(KeyCode.Alpha1) || IsKeyTriggered(KeyCode.Keypad1)) ApplyOutfit(0);
             if (IsKeyTriggered(KeyCode.Alpha2) || IsKeyTriggered(KeyCode.Keypad2)) ApplyOutfit(1);
             if (IsKeyTriggered(KeyCode.Alpha3) || IsKeyTriggered(KeyCode.Keypad3)) ApplyOutfit(2);
@@ -227,9 +222,9 @@ namespace IUHCampus.Player
             if (m_SkinnedMeshRenderer != null && outfit.bodyMaterial != null && outfit.armsMaterial != null && outfit.legsMaterial != null)
             {
                 Material[] mats = new Material[3];
-                mats[0] = outfit.bodyMaterial; // Body
-                mats[1] = outfit.armsMaterial; // Arms & Face
-                mats[2] = outfit.legsMaterial; // Legs & Shoes
+                mats[0] = outfit.bodyMaterial;
+                mats[1] = outfit.armsMaterial;
+                mats[2] = outfit.legsMaterial;
                 m_SkinnedMeshRenderer.sharedMaterials = mats;
             }
 
@@ -238,10 +233,9 @@ namespace IUHCampus.Player
 
         private void OnGUI()
         {
-            // 1. Floating HUD badge at top-right
+
             DrawCurrentOutfitBadge();
 
-            // 2. Full wardrobe UI modal when toggled with 'U'
             if (showWardrobeUI)
             {
                 DrawWardrobeModal();
@@ -251,26 +245,23 @@ namespace IUHCampus.Player
         private void DrawCurrentOutfitBadge()
         {
             if (m_Outfits == null || m_CurrentOutfitIndex >= m_Outfits.Length) return;
-            // Hide badge if Mini-Game Portal is open or Grab Campus mission is active
+
             if (IUHCampus.UI.IUHMiniGamePortalUI.Instance != null && IUHCampus.UI.IUHMiniGamePortalUI.Instance.IsOpen) return;
             if (IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance != null && IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager.Instance.IsMissionActive) return;
 
             int bw = 380;
             int bh = 42;
-            int bx = 20; // Top-Left corner
+            int bx = 20;
             int by = 20;
 
             Color prev = GUI.color;
 
-            // Background
             GUI.color = new Color(0.08f, 0.12f, 0.18f, 0.88f);
             GUI.Box(new Rect(bx, by, bw, bh), GUIContent.none);
 
-            // Left colored stripe
             GUI.color = m_Outfits[m_CurrentOutfitIndex].previewColor;
             GUI.Box(new Rect(bx, by, 6, bh), GUIContent.none);
 
-            // Content
             GUI.color = Color.white;
             GUIStyle labelStyle = new GUIStyle(GUI.skin.label)
             {
@@ -295,15 +286,12 @@ namespace IUHCampus.Player
 
             Color prev = GUI.color;
 
-            // Background dark overlay
             GUI.color = new Color(0.05f, 0.08f, 0.12f, 0.95f);
             GUI.Box(new Rect(mx, my, mw, mh), GUIContent.none);
 
-            // Header banner
             GUI.color = new Color(0.12f, 0.45f, 0.85f, 1f);
             GUI.Box(new Rect(mx, my, mw, 52), GUIContent.none);
 
-            // Header title
             GUI.color = Color.white;
             GUIStyle headStyle = new GUIStyle(GUI.skin.label)
             {
@@ -314,13 +302,11 @@ namespace IUHCampus.Player
             headStyle.normal.textColor = Color.white;
             GUI.Label(new Rect(mx, my + 12, mw, 30), "👔 TỦ ĐỒ ĐỒNG PHỤC SINH VIÊN IUH", headStyle);
 
-            // Close button [X]
             if (GUI.Button(new Rect(mx + mw - 44, my + 10, 32, 32), "✕"))
             {
                 showWardrobeUI = false;
             }
 
-            // Uniform cards
             int startY = my + 68;
             int itemH = 68;
 
@@ -343,15 +329,12 @@ namespace IUHCampus.Player
                 int iy = startY + i * (itemH + 10);
                 bool isCurrent = (i == m_CurrentOutfitIndex);
 
-                // Row background
                 GUI.color = isCurrent ? new Color(0.16f, 0.28f, 0.44f, 0.85f) : new Color(0.10f, 0.14f, 0.20f, 0.80f);
                 GUI.Box(new Rect(mx + 20, iy, mw - 40, itemH), GUIContent.none);
 
-                // Color accent bar
                 GUI.color = outfit.previewColor;
                 GUI.Box(new Rect(mx + 20, iy, 8, itemH), GUIContent.none);
 
-                // Hotkey badge [1], [2], ...
                 GUI.color = new Color(0.2f, 0.24f, 0.32f);
                 GUI.Box(new Rect(mx + 36, iy + 14, 38, 38), GUIContent.none);
                 GUI.color = Color.white;
@@ -364,11 +347,9 @@ namespace IUHCampus.Player
                 keyStyle.normal.textColor = Color.yellow;
                 GUI.Label(new Rect(mx + 36, iy + 14, 38, 38), $"[{i + 1}]", keyStyle);
 
-                // Title & Description
                 GUI.Label(new Rect(mx + 84, iy + 10, mw - 260, 24), outfit.name, titleStyle);
                 GUI.Label(new Rect(mx + 84, iy + 34, mw - 260, 28), outfit.description, descStyle);
 
-                // Equip button
                 if (isCurrent)
                 {
                     GUI.color = new Color(0.3f, 0.8f, 0.4f);
@@ -391,7 +372,6 @@ namespace IUHCampus.Player
                 }
             }
 
-            // Footer hint
             GUI.color = new Color(0.7f, 0.8f, 0.9f);
             GUIStyle footStyle = new GUIStyle(GUI.skin.label)
             {

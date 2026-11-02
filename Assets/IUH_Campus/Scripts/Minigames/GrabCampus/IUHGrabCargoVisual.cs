@@ -5,14 +5,7 @@ using IUHCampus.Core;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Interactive 3D Cargo & Delivery Box Visualizer on the Grab Motorbike.
-    /// Provides clear physical feedback for:
-    /// - Thermal Delivery Bag mounted on Rear Cargo Rack
-    /// - Loaded state: Physical parcels / bubble tea cups on rack + glowing 3D badge
-    /// - Dynamic damage feedback (sparks/smoke when ghosts attack)
-    /// - Delivery completion celebration
-    /// </summary>
+
     public class IUHGrabCargoVisual : MonoBehaviour
     {
         private static IUHGrabCargoVisual s_Instance;
@@ -43,7 +36,6 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private string m_CargoName = "Trà Sữa ToCoToCo";
         [SerializeField] private int m_Integrity = 100;
 
-        // Visual transforms
         private Transform m_CargoBoxRoot;
         private Transform m_CargoItemsRoot;
         private GameObject m_FloatingBadgeGo;
@@ -68,7 +60,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void Update()
         {
-            // Billboard floating badge towards camera
+
             if (m_FloatingBadgeGo != null && m_FloatingBadgeGo.activeSelf)
             {
                 var cam = Camera.main;
@@ -83,26 +75,22 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             if (m_CargoBoxRoot != null) return;
 
-            // Find Rear_Cargo_Rack on bike
             Transform rack = transform.Find("Visual_Root/Rear_Cargo_Rack");
             if (rack == null) rack = transform.Find("Rear_Cargo_Rack");
             if (rack == null) rack = transform;
 
-            // 1. Cargo Box Root
             var boxGo = new GameObject("Delivery_Thermal_Box");
             boxGo.transform.SetParent(rack, false);
             boxGo.transform.localPosition = new Vector3(0f, 0.28f, -0.05f);
             boxGo.transform.localRotation = Quaternion.identity;
             m_CargoBoxRoot = boxGo.transform;
 
-            // Determine brand color (Grab green, Xanh SM teal, be yellow, IUH blue)
-            Color boxColor = new Color(0f, 0.69f, 0.31f); // Grab Green
+            Color boxColor = new Color(0f, 0.69f, 0.31f);
             if (IUHCustomizationManager.Instance != null)
             {
                 boxColor = IUHCustomizationManager.Instance.ActiveConfig.primaryColor;
             }
 
-            // Main insulated box body
             var body = GameObject.CreatePrimitive(PrimitiveType.Cube);
             body.name = "Thermal_Bag_Body";
             body.transform.SetParent(m_CargoBoxRoot, false);
@@ -115,7 +103,6 @@ namespace IUHCampus.Minigames.GrabCampus
             bodyMat.SetFloat("_Glossiness", 0.35f);
             body.GetComponent<Renderer>().material = bodyMat;
 
-            // Reflective horizontal safety stripe
             var stripe = GameObject.CreatePrimitive(PrimitiveType.Cube);
             stripe.name = "Reflective_Stripe";
             stripe.transform.SetParent(m_CargoBoxRoot, false);
@@ -129,7 +116,6 @@ namespace IUHCampus.Minigames.GrabCampus
             stripeMat.SetColor("_EmissionColor", new Color(0.8f, 0.9f, 1.0f) * 0.8f);
             stripe.GetComponent<Renderer>().material = stripeMat;
 
-            // Top lid
             var lid = GameObject.CreatePrimitive(PrimitiveType.Cube);
             lid.name = "Thermal_Bag_Lid";
             lid.transform.SetParent(m_CargoBoxRoot, false);
@@ -140,13 +126,11 @@ namespace IUHCampus.Minigames.GrabCampus
             lidMat.color = boxColor * 0.85f;
             lid.GetComponent<Renderer>().material = lidMat;
 
-            // 2. Cargo Items Root (Visible parcels/drinks when loaded)
             var itemsGo = new GameObject("Loaded_Cargo_Contents");
             itemsGo.transform.SetParent(m_CargoBoxRoot, false);
             itemsGo.transform.localPosition = new Vector3(0f, 0.48f, 0f);
             m_CargoItemsRoot = itemsGo.transform;
 
-            // Physical item: Cup carrier with 2 bubble tea cups on top of bag
             var tray = GameObject.CreatePrimitive(PrimitiveType.Cube);
             tray.name = "Drink_Tray";
             tray.transform.SetParent(m_CargoItemsRoot, false);
@@ -157,15 +141,12 @@ namespace IUHCampus.Minigames.GrabCampus
             trayMat.color = new Color(0.28f, 0.20f, 0.12f);
             tray.GetComponent<Renderer>().material = trayMat;
 
-            // Cup 1 (left)
             CreateBubbleTeaCup(m_CargoItemsRoot, new Vector3(-0.10f, 0.14f, 0f), new Color(0.92f, 0.72f, 0.45f));
-            // Cup 2 (right)
+
             CreateBubbleTeaCup(m_CargoItemsRoot, new Vector3(0.10f, 0.14f, 0f), new Color(0.45f, 0.75f, 0.45f));
 
-            // Strip any remaining colliders recursively so CharacterController never gets blocked
             StripAllColliders(transform);
 
-            // 3. Cargo Glow Light
             var lightGo = new GameObject("CargoGlowLight");
             lightGo.transform.SetParent(m_CargoBoxRoot, false);
             lightGo.transform.localPosition = new Vector3(0f, 0.55f, 0f);
@@ -176,7 +157,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_CargoGlowLight.color = new Color(0.2f, 1.0f, 0.5f);
             m_CargoGlowLight.enabled = false;
 
-            // 4. Floating 3D Billboard Badge
             BuildFloatingBadge();
         }
 
@@ -219,7 +199,6 @@ namespace IUHCampus.Minigames.GrabCampus
             cupMat.SetFloat("_Glossiness", 0.8f);
             cup.GetComponent<Renderer>().material = cupMat;
 
-            // Dome Lid
             var lid = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             lid.name = "CupLid";
             lid.transform.SetParent(cup.transform, false);
@@ -230,7 +209,6 @@ namespace IUHCampus.Minigames.GrabCampus
             lidMat.color = new Color(0.95f, 0.95f, 0.98f, 0.8f);
             lid.GetComponent<Renderer>().material = lidMat;
 
-            // Straw
             var straw = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             straw.name = "Straw";
             straw.transform.SetParent(cup.transform, false);
@@ -255,7 +233,6 @@ namespace IUHCampus.Minigames.GrabCampus
             rt.sizeDelta = new Vector2(240f, 80f);
             m_FloatingBadgeGo.transform.localScale = Vector3.one * 0.007f;
 
-            // Background panel
             var bgGo = new GameObject("BadgeBg");
             bgGo.transform.SetParent(m_FloatingBadgeGo.transform, false);
             var bgImg = bgGo.AddComponent<Image>();
@@ -265,12 +242,10 @@ namespace IUHCampus.Minigames.GrabCampus
             bgRt.anchorMax = Vector2.one;
             bgRt.sizeDelta = Vector2.zero;
 
-            // Outline
             var outline = bgGo.AddComponent<Outline>();
             outline.effectColor = new Color(0.2f, 0.8f, 1.0f, 0.8f);
             outline.effectDistance = new Vector2(2f, -2f);
 
-            // Title text
             var titleGo = new GameObject("TxtTitle");
             titleGo.transform.SetParent(bgGo.transform, false);
             m_TxtBadgeTitle = titleGo.AddComponent<Text>();
@@ -285,7 +260,6 @@ namespace IUHCampus.Minigames.GrabCampus
             titleRt.anchorMax = new Vector2(1f, 1f);
             titleRt.sizeDelta = Vector2.zero;
 
-            // Integrity text
             var intGo = new GameObject("TxtIntegrity");
             intGo.transform.SetParent(bgGo.transform, false);
             m_TxtBadgeIntegrity = intGo.AddComponent<Text>();
@@ -303,9 +277,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_FloatingBadgeGo.SetActive(false);
         }
 
-        /// <summary>
-        /// Called when food/cargo is picked up from stall.
-        /// </summary>
         public void SetCargoLoaded(string cargoName, int integrity = 100)
         {
             if (m_CargoBoxRoot == null) BuildDeliveryBoxVisuals();
@@ -331,9 +302,6 @@ namespace IUHCampus.Minigames.GrabCampus
             Debug.Log($"[IUH Grab Cargo] Đã chất hàng lên thùng xe máy: {m_CargoName} (Độ bền: {integrity}%)");
         }
 
-        /// <summary>
-        /// Updates integrity and shows visual damage feedback when hit by ghosts.
-        /// </summary>
         public void UpdateCargoIntegrity(int integrity)
         {
             m_Integrity = integrity;
@@ -362,9 +330,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        /// <summary>
-        /// Called when cargo is successfully delivered to customer NPC.
-        /// </summary>
         public void SetCargoDelivered()
         {
             m_IsLoaded = false;
@@ -383,9 +348,6 @@ namespace IUHCampus.Minigames.GrabCampus
             }
         }
 
-        /// <summary>
-        /// Resets to empty state.
-        /// </summary>
         public void SetEmpty()
         {
             m_IsLoaded = false;

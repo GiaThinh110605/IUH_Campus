@@ -54,7 +54,6 @@ namespace IUHCampus.Editor
         private static Material m_AcadConcrete;
         private static Material m_AcadTopSign;
 
-        // ── Entrance Gate materials ──
         private static Material m_GateStone;
         private static Material m_GateBlueRailing;
         private static Material m_GateWelcomeBanner;
@@ -65,7 +64,6 @@ namespace IUHCampus.Editor
         private static Material m_GateCurb;
         private static Material m_GateGoldText;
 
-
         [MenuItem("IUH Campus/Build Complete Master Campus")]
         public static void BuildMasterCampus()
         {
@@ -74,7 +72,6 @@ namespace IUHCampus.Editor
             LoadMaterials();
             EnsureDirectories();
 
-            // 1. Create Modular Reusable Prefabs
             GameObject mainBuildingPrefab = CreateMainBuildingPrefab();
             GameObject greenTowerPrefab = CreateGreenGlassTowerPrefab();
             GameObject leftPaleWingPrefab = CreateLeftPaleWingPrefab();
@@ -90,15 +87,12 @@ namespace IUHCampus.Editor
             GameObject flagPolesPrefab = CreateFlagPolesPrefab();
             GameObject mainEntrancePrefab = CreateMainEntrancePrefab();
 
-
-            // 2. Assemble Master Scene with 100% Authoritative Spatial Accuracy
             AssembleMasterScene(
                 mainBuildingPrefab, greenTowerPrefab, leftPaleWingPrefab, redRoofPrefab,
                 rightLargeAcademicPrefab, backTowerPrefab, treeClusterPrefab, sportsCourtyardPrefab,
                 motorbikeRowPrefab, blueBoothPrefab, coveredRampPrefab, monumentPrefab, flagPolesPrefab,
                 mainEntrancePrefab
             );
-
 
             Debug.Log("[IUH] Entire Master IUH Campus constructed with authoritative aerial layout and ground details!");
         }
@@ -156,22 +150,19 @@ namespace IUHCampus.Editor
 
         #region Prefabs
 
-        // 1. IUH_MainBuilding.prefab (Nhà Hiệu Bộ - Master Center Building facing courtyard)
         private static GameObject CreateMainBuildingPrefab()
         {
             GameObject root = new GameObject("IUH_MainBuilding");
 
-            const float bW = 44.0f;         // building width
-            const float bH = 22.0f;         // building total height (5 floors)
-            const float bD = 20.0f;         // building depth
-            const float floorH = bH / 5.0f; // 4.4m per floor
-            const float frontZ = bD * 0.5f; // local front face Z (+Z)
+            const float bW = 44.0f;
+            const float bH = 22.0f;
+            const float bD = 20.0f;
+            const float floorH = bH / 5.0f;
+            const float frontZ = bD * 0.5f;
 
-            // ================= 1. STRUCTURE =================
             GameObject goStructure = new GameObject("Structure");
             goStructure.transform.SetParent(root.transform);
 
-            // 1.1 Main Frame / Structural Core Body (White / light gray facade)
             GameObject mainFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
             mainFrame.name = "MainFrame";
             mainFrame.transform.SetParent(goStructure.transform);
@@ -179,7 +170,6 @@ namespace IUHCampus.Editor
             mainFrame.transform.localScale = new Vector3(bW, bH, bD);
             mainFrame.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // 1.2 Floors Slabs (5 concrete floor partitions)
             GameObject goFloors = new GameObject("Floors");
             goFloors.transform.SetParent(goStructure.transform);
             for (int f = 1; f <= 5; f++)
@@ -193,7 +183,6 @@ namespace IUHCampus.Editor
                 slab.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
             }
 
-            // 1.3 Interior Structural Columns (Visible through lower 2-floor glass curtain wall)
             GameObject goCols = new GameObject("Columns");
             goCols.transform.SetParent(goStructure.transform);
             for (int c = -3; c <= 3; c++)
@@ -207,11 +196,9 @@ namespace IUHCampus.Editor
                 pillar.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
             }
 
-            // 1.4 Roof (IUH_MainBuilding_Roof: Distinctive flat dark slate roof with cantilevered overhang)
             GameObject roof = new GameObject("IUH_MainBuilding_Roof");
             roof.transform.SetParent(goStructure.transform);
 
-            // Roof Slab with 1.2m front/side cantilever
             GameObject roofSlab = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roofSlab.name = "Roof_Slab_Overhang";
             roofSlab.transform.SetParent(roof.transform);
@@ -219,7 +206,6 @@ namespace IUHCampus.Editor
             roofSlab.transform.localScale = new Vector3(bW + 1.8f, 0.9f, bD + 2.4f);
             roofSlab.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // Thin dark modern architectural fascia trim along front edge
             GameObject roofFascia = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roofFascia.name = "Roof_Fascia_Front";
             roofFascia.transform.SetParent(roof.transform);
@@ -227,7 +213,6 @@ namespace IUHCampus.Editor
             roofFascia.transform.localScale = new Vector3(bW + 2.0f, 1.0f, 0.25f);
             roofFascia.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // Underside soffit of roof overhang
             GameObject roofSoffit = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roofSoffit.name = "Roof_Soffit";
             roofSoffit.transform.SetParent(roof.transform);
@@ -235,11 +220,9 @@ namespace IUHCampus.Editor
             roofSoffit.transform.localScale = new Vector3(bW + 1.6f, 0.12f, 1.8f);
             roofSoffit.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // ================= 2. FACADE =================
             GameObject goFacade = new GameObject("Facade");
             goFacade.transform.SetParent(root.transform);
 
-            // ─── 2.1 Lower 2 Floors Glass Curtain Wall & Mezzanine ───
             GameObject goGlassPanels = new GameObject("GlassPanels");
             goGlassPanels.transform.SetParent(goFacade.transform);
 
@@ -251,7 +234,6 @@ namespace IUHCampus.Editor
             lowerGlass.transform.localScale = new Vector3(bW - 0.2f, glassH, 0.18f);
             lowerGlass.GetComponent<MeshRenderer>().sharedMaterial = m_GlassCurtain;
 
-            // Vertical Dark Metal Mullions on Lower Glass
             for (int m = 0; m <= 22; m++)
             {
                 float mx = -bW * 0.5f + 0.8f + m * ((bW - 1.6f) / 22.0f);
@@ -263,7 +245,6 @@ namespace IUHCampus.Editor
                 mullion.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
             }
 
-            // Horizontal Transom Bars (Floor 1/2 line and door transom)
             float[] transoms = new float[] { 2.4f, floorH, floorH + 2.0f, glassH };
             foreach (float ty in transoms)
             {
@@ -275,7 +256,6 @@ namespace IUHCampus.Editor
                 transom.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
             }
 
-            // Mezzanine Indoor Greenery Planter Trough (visible through 2nd floor glass)
             GameObject mezzPlanter = GameObject.CreatePrimitive(PrimitiveType.Cube);
             mezzPlanter.name = "Mezzanine_IndoorPlanter";
             mezzPlanter.transform.SetParent(goGlassPanels.transform);
@@ -283,7 +263,6 @@ namespace IUHCampus.Editor
             mezzPlanter.transform.localScale = new Vector3(bW - 2.0f, 0.6f, 0.8f);
             mezzPlanter.GetComponent<MeshRenderer>().sharedMaterial = m_MatureFoliage;
 
-            // Floor 2/3 Horizontal Sill Band dividing lower glass from upper facade
             GameObject sillBand = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sillBand.name = "SillBand_F2_F3";
             sillBand.transform.SetParent(goFacade.transform);
@@ -291,14 +270,9 @@ namespace IUHCampus.Editor
             sillBand.transform.localScale = new Vector3(bW + 0.8f, 0.55f, 0.45f);
             sillBand.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // ─── 2.2 Upper Floors (Floors 3-5): Window Modules ───
             GameObject goWindows = new GameObject("Windows");
             goWindows.transform.SetParent(goFacade.transform);
 
-            // Window Bays on Left & Right Flanks and Floor 5 Center
-            // Left Flank Windows (X: -18.5, -14.2, -9.8) across floors 3, 4, 5
-            // Right Flank Windows (X: +9.8, +14.2, +18.5) across floors 3, 4, 5
-            // Floor 5 Center Windows (X: -5.5, -1.8, 1.8, 5.5)
             float[] upperFloorYs = new float[] { floorH * 2.5f, floorH * 3.5f, floorH * 4.5f };
             float[] flankWindowXs = new float[] { -18.5f, -14.2f, -9.8f, 9.8f, 14.2f, 18.5f };
 
@@ -311,7 +285,6 @@ namespace IUHCampus.Editor
                     winModule.transform.SetParent(goWindows.transform);
                     winModule.transform.localPosition = new Vector3(wx, wy, frontZ + 0.08f);
 
-                    // Recessed Glass Pane
                     GameObject winGlass = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     winGlass.name = "GlassPane";
                     winGlass.transform.SetParent(winModule.transform);
@@ -319,7 +292,6 @@ namespace IUHCampus.Editor
                     winGlass.transform.localScale = new Vector3(2.4f, 2.8f, 0.1f);
                     winGlass.GetComponent<MeshRenderer>().sharedMaterial = m_GlassReflective;
 
-                    // Dark Metal Frame
                     GameObject winFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     winFrame.name = "DarkFrame";
                     winFrame.transform.SetParent(winModule.transform);
@@ -327,7 +299,6 @@ namespace IUHCampus.Editor
                     winFrame.transform.localScale = new Vector3(2.55f, 2.95f, 0.08f);
                     winFrame.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                    // Operable Casement divider line
                     GameObject sash = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     sash.name = "SashLine";
                     sash.transform.SetParent(winModule.transform);
@@ -337,7 +308,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Floor 5 Center Window Modules (above billboard)
             float[] f5CenterXs = new float[] { -5.8f, -2.0f, 2.0f, 5.8f };
             foreach (float cx in f5CenterXs)
             {
@@ -360,7 +330,6 @@ namespace IUHCampus.Editor
                 winFrame.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
             }
 
-            // ─── 2.3 Vertical Fins (IUH_FacadeFin: Pale Sky-Blue Architectural Louvers) ───
             GameObject goFins = new GameObject("VerticalFins");
             goFins.transform.SetParent(goFacade.transform);
 
@@ -374,12 +343,11 @@ namespace IUHCampus.Editor
             {
                 float fx = -bW * 0.5f + 0.5f + fc * finSpacing;
 
-                // On floors 3-4, skip central billboard area
                 bool isCenterGap = (fx > -centralBillboardW && fx < centralBillboardW);
 
                 if (isCenterGap)
                 {
-                    // For center gap on floor 5 ONLY (above billboard):
+
                     float f5FinY = floorH * 4.5f;
                     GameObject f5Fin = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     f5Fin.name = "IUH_FacadeFin_F5_" + fc;
@@ -391,7 +359,7 @@ namespace IUHCampus.Editor
                 }
                 else
                 {
-                    // Full-height 3D protruding sky-blue fin across floors 3-5
+
                     GameObject fin = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     fin.name = "IUH_FacadeFin_" + fc;
                     fin.transform.SetParent(goFins.transform);
@@ -402,11 +370,9 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // ─── 2.4 White Structural Frames Dividing Architectural Zones ───
             GameObject goFrames = new GameObject("Frames");
             goFrames.transform.SetParent(goFacade.transform);
 
-            // Left, Center-Left, Center-Right, Right Vertical Structural Framing Piers
             float[] pierXs = new float[] { -bW * 0.5f + 0.2f, -centralBillboardW - 0.2f, centralBillboardW + 0.2f, bW * 0.5f - 0.2f };
             foreach (float px in pierXs)
             {
@@ -418,11 +384,9 @@ namespace IUHCampus.Editor
                 pier.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
             }
 
-            // ================= 3. CENTRAL FACADE =================
             GameObject goCentral = new GameObject("CentralFacade");
             goCentral.transform.SetParent(root.transform);
 
-            // 3.1 Large Central Glass Facade (IUH_MainBuilding_CentralGlassFacade: Floors 3-4 Center)
             float billboardY = glassH + floorH * 0.95f;
             float billboardH = floorH * 1.82f;
             float billboardW = centralBillboardW * 1.95f;
@@ -431,7 +395,6 @@ namespace IUHCampus.Editor
             centralGlass.transform.SetParent(goCentral.transform);
             centralGlass.transform.localPosition = new Vector3(0, billboardY, frontZ + 0.32f);
 
-            // Projecting Billboard Frame Backing Box
             GameObject bbBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bbBox.name = "CentralGlass_Backing";
             bbBox.transform.SetParent(centralGlass.transform);
@@ -439,7 +402,6 @@ namespace IUHCampus.Editor
             bbBox.transform.localScale = new Vector3(billboardW, billboardH, 0.35f);
             bbBox.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // Reflective Glass Layer
             GameObject bbGlass = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bbGlass.name = "CentralGlass_ReflectiveLayer";
             bbGlass.transform.SetParent(centralGlass.transform);
@@ -447,7 +409,6 @@ namespace IUHCampus.Editor
             bbGlass.transform.localScale = new Vector3(billboardW - 0.3f, billboardH - 0.3f, 0.08f);
             bbGlass.GetComponent<MeshRenderer>().sharedMaterial = m_GlassReflective;
 
-            // Dark Architectural Metal Surround Border
             GameObject bbBorder = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bbBorder.name = "CentralGlass_MetalBorder";
             bbBorder.transform.SetParent(centralGlass.transform);
@@ -455,7 +416,6 @@ namespace IUHCampus.Editor
             bbBorder.transform.localScale = new Vector3(billboardW + 0.2f, billboardH + 0.2f, 0.12f);
             bbBorder.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // 3.2 IUH Signage (IUH_MainBuilding_Signage: Separate replaceable branding object)
             GameObject signage = new GameObject("IUH_MainBuilding_Signage");
             signage.transform.SetParent(centralGlass.transform);
             signage.transform.localPosition = new Vector3(0, 0, 0.28f);
@@ -467,7 +427,6 @@ namespace IUHCampus.Editor
             signCube.transform.localScale = new Vector3(billboardW * 0.94f, billboardH * 0.90f, 0.04f);
             signCube.GetComponent<MeshRenderer>().sharedMaterial = m_SignBillboard;
 
-            // 3.3 IUH Crest Logo (Floor 5 Top-Left)
             GameObject crest = GameObject.CreatePrimitive(PrimitiveType.Cube);
             crest.name = "IUH_Crest_Logo";
             crest.transform.SetParent(goCentral.transform);
@@ -475,11 +434,9 @@ namespace IUHCampus.Editor
             crest.transform.localScale = new Vector3(3.6f, 3.6f, 0.04f);
             crest.GetComponent<MeshRenderer>().sharedMaterial = m_LogoCrest;
 
-            // ================= 4. ENTRANCE =================
             GameObject goEntrance = new GameObject("Entrance");
             goEntrance.transform.SetParent(root.transform);
 
-            // 4.1 Glass Entrance Doors
             GameObject glassDoors = new GameObject("GlassDoors");
             glassDoors.transform.SetParent(goEntrance.transform);
             glassDoors.transform.localPosition = new Vector3(0, 1.5f, frontZ + 0.26f);
@@ -498,7 +455,6 @@ namespace IUHCampus.Editor
             doorGlass.transform.localScale = new Vector3(7.1f, 2.7f, 0.06f);
             doorGlass.GetComponent<MeshRenderer>().sharedMaterial = m_GlassCurtain;
 
-            // Stainless steel push/pull handles
             for (int h = -1; h <= 1; h += 2)
             {
                 GameObject handle = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -509,7 +465,6 @@ namespace IUHCampus.Editor
                 handle.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
             }
 
-            // 4.2 Lobby Ground Floor Landing
             GameObject lobby = new GameObject("Lobby");
             lobby.transform.SetParent(goEntrance.transform);
             lobby.transform.localPosition = new Vector3(0, 0.2f, frontZ - 3.0f);
@@ -521,7 +476,6 @@ namespace IUHCampus.Editor
             lobbyFloor.transform.localScale = new Vector3(18.0f, 0.4f, 6.0f);
             lobbyFloor.GetComponent<MeshRenderer>().sharedMaterial = m_GraniteStairs;
 
-            // Reception counter visible inside lobby
             GameObject receptionDesk = GameObject.CreatePrimitive(PrimitiveType.Cube);
             receptionDesk.name = "ReceptionDesk";
             receptionDesk.transform.SetParent(lobby.transform);
@@ -529,7 +483,6 @@ namespace IUHCampus.Editor
             receptionDesk.transform.localScale = new Vector3(4.5f, 1.1f, 1.2f);
             receptionDesk.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // 4.3 Entrance Canopy (IUH_MainBuilding_EntranceCanopy: Large curved cantilever dark canopy)
             float canopyY = floorH * 1.05f;
             float canopyExt = 6.2f;
 
@@ -537,7 +490,6 @@ namespace IUHCampus.Editor
             canopy.transform.SetParent(goEntrance.transform);
             canopy.transform.localPosition = new Vector3(0, canopyY, frontZ);
 
-            // Dark Cantilever Slab
             GameObject canopySlab = GameObject.CreatePrimitive(PrimitiveType.Cube);
             canopySlab.name = "Canopy_RoofSlab";
             canopySlab.transform.SetParent(canopy.transform);
@@ -545,7 +497,6 @@ namespace IUHCampus.Editor
             canopySlab.transform.localScale = new Vector3(18.0f, 0.38f, canopyExt);
             canopySlab.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // Curved / Oval Front Fascia Trim
             GameObject canopyFrontFascia = GameObject.CreatePrimitive(PrimitiveType.Cube);
             canopyFrontFascia.name = "Canopy_FrontFascia";
             canopyFrontFascia.transform.SetParent(canopy.transform);
@@ -553,7 +504,6 @@ namespace IUHCampus.Editor
             canopyFrontFascia.transform.localScale = new Vector3(18.2f, 0.65f, 0.25f);
             canopyFrontFascia.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-            // Underside Translucent Glass Soffit Panels
             GameObject canopySoffit = GameObject.CreatePrimitive(PrimitiveType.Cube);
             canopySoffit.name = "Canopy_GlassSoffit";
             canopySoffit.transform.SetParent(canopy.transform);
@@ -561,7 +511,6 @@ namespace IUHCampus.Editor
             canopySoffit.transform.localScale = new Vector3(17.2f, 0.06f, canopyExt - 0.4f);
             canopySoffit.GetComponent<MeshRenderer>().sharedMaterial = m_GlassCurtain;
 
-            // Stainless Steel Diagonal Tie Rod Stays anchored to floor 2 beam
             for (int r = -3; r <= 3; r++)
             {
                 if (r == 0) continue;
@@ -575,12 +524,10 @@ namespace IUHCampus.Editor
                 stay.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
             }
 
-            // 4.4 Entrance Stairs (IUH_MainBuilding_Stairs: Dark Polished Granite Platform & Cascading Steps)
             GameObject stairs = new GameObject("IUH_MainBuilding_Stairs");
             stairs.transform.SetParent(goEntrance.transform);
             stairs.transform.localPosition = new Vector3(0, 0, frontZ);
 
-            // Elevated Landing Platform
             GameObject platform = GameObject.CreatePrimitive(PrimitiveType.Cube);
             platform.name = "LandingPlatform";
             platform.transform.SetParent(stairs.transform);
@@ -588,7 +535,6 @@ namespace IUHCampus.Editor
             platform.transform.localScale = new Vector3(19.0f, 0.84f, 3.6f);
             platform.GetComponent<MeshRenderer>().sharedMaterial = m_GraniteStairs;
 
-            // 5 Cascading Steps leading down to courtyard
             for (int s = 0; s < 5; s++)
             {
                 float stepZ = 3.6f + s * 0.75f;
@@ -601,11 +547,9 @@ namespace IUHCampus.Editor
                 step.GetComponent<MeshRenderer>().sharedMaterial = m_GraniteStairs;
             }
 
-            // ================= 5. LANDSCAPING & FLANKING TREES =================
             GameObject goLandscaping = new GameObject("Landscaping");
             goLandscaping.transform.SetParent(root.transform);
 
-            // Flanking Potted Bonsai Ficus Trees on both sides of entrance stairs
             foreach (float side in new float[] { -12.5f, 12.5f })
             {
                 GameObject bonsaiBase = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -630,7 +574,6 @@ namespace IUHCampus.Editor
                 bonsaiCanopy.GetComponent<MeshRenderer>().sharedMaterial = m_MatureFoliage;
             }
 
-            // ================= 6. SIDE FACADES (Left & Right Convincing Depth) =================
             GameObject goSides = new GameObject("SideFacades");
             goSides.transform.SetParent(root.transform);
 
@@ -641,7 +584,6 @@ namespace IUHCampus.Editor
                 sideWing.transform.SetParent(goSides.transform);
                 sideWing.transform.localPosition = new Vector3(sx, 0, 0);
 
-                // Horizontal floor bands along side
                 for (int f = 1; f <= 5; f++)
                 {
                     GameObject band = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -651,7 +593,6 @@ namespace IUHCampus.Editor
                     band.transform.localScale = new Vector3(0.18f, 0.4f, bD);
                     band.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                    // Side window strips
                     if (f >= 2)
                     {
                         GameObject sideWin = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -664,7 +605,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Simple BoxCollider for VR navigation / physics
             BoxCollider col = root.AddComponent<BoxCollider>();
             col.center = new Vector3(0, bH * 0.5f, 0);
             col.size = new Vector3(bW + 2.0f, bH + 1.0f, bD + 2.0f);
@@ -672,14 +612,13 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabArchPath + "IUH_MainBuilding.prefab");
         }
 
-        // 2. IUH_GreenGlassTower.prefab (Nhà B/E - On the Left side of the courtyard)
         private static GameObject CreateGreenGlassTowerPrefab()
         {
             GameObject root = new GameObject("IUH_GreenGlassTower");
 
             float towerW = 22.0f;
             float towerD = 22.0f;
-            float towerH = 56.0f; // 13-story vertical tower
+            float towerH = 56.0f;
 
             GameObject core = GameObject.CreatePrimitive(PrimitiveType.Cube);
             core.name = "Tower_Core";
@@ -688,7 +627,6 @@ namespace IUHCampus.Editor
             core.transform.localScale = new Vector3(towerW, towerH, towerD);
             core.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // 4 Emerald/Turquoise Green Glass Corners
             for (int side = -1; side <= 1; side += 2)
             {
                 for (int fb = -1; fb <= 1; fb += 2)
@@ -702,10 +640,9 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // Central Vertical Green Glass Curtain Window Banks
             for (int side = -1; side <= 1; side += 2)
             {
-                // Front and back vertical curtain walls
+
                 GameObject glassV = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 glassV.name = "CurtainGlass_Z_" + side;
                 glassV.transform.SetParent(root.transform);
@@ -713,7 +650,6 @@ namespace IUHCampus.Editor
                 glassV.transform.localScale = new Vector3(12.0f, towerH * 0.82f, 0.25f);
                 glassV.GetComponent<MeshRenderer>().sharedMaterial = m_GreenGlass;
 
-                // Left and right vertical curtain walls
                 GameObject glassH = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 glassH.name = "CurtainGlass_X_" + side;
                 glassH.transform.SetParent(root.transform);
@@ -722,7 +658,6 @@ namespace IUHCampus.Editor
                 glassH.GetComponent<MeshRenderer>().sharedMaterial = m_GreenGlass;
             }
 
-            // Floor Bands (13 floors)
             for (int f = 1; f <= 13; f++)
             {
                 float y = f * 3.8f;
@@ -734,7 +669,6 @@ namespace IUHCampus.Editor
                 fBand.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
             }
 
-            // Upper Observation Balcony (Floors 9–10)
             GameObject upperBalcony = GameObject.CreatePrimitive(PrimitiveType.Cube);
             upperBalcony.name = "Observation_Balcony";
             upperBalcony.transform.SetParent(root.transform);
@@ -742,7 +676,6 @@ namespace IUHCampus.Editor
             upperBalcony.transform.localScale = new Vector3(16.0f, 7.0f, 2.4f);
             upperBalcony.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // Rooftop Parapet and Dark Slate Pyramidal Crown
             GameObject roofBase = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roofBase.name = "Rooftop_Base";
             roofBase.transform.SetParent(root.transform);
@@ -757,7 +690,6 @@ namespace IUHCampus.Editor
             crown.transform.localScale = new Vector3(13.0f, 4.5f, 11.0f);
             crown.GetComponent<MeshRenderer>().sharedMaterial = m_TowerPyramidRoof;
 
-            // Water Tank
             GameObject tank = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             tank.name = "WaterTank";
             tank.transform.SetParent(root.transform);
@@ -773,15 +705,14 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabArchPath + "IUH_GreenGlassTower.prefab");
         }
 
-        // 3. IUH_LeftPaleWing.prefab (Massive L-shaped/Horizontal Academic Wing on Left with Pale Green Roof)
         private static GameObject CreateLeftPaleWingPrefab()
         {
             GameObject root = new GameObject("IUH_LeftPaleWing");
 
             float floorH = 3.6f;
             int numFloors = 5;
-            float bHeight = numFloors * floorH; // 18m
-            float wingLength = 115.0f; // Massive length extending along the left flank
+            float bHeight = numFloors * floorH;
+            float wingLength = 115.0f;
             float wingDepth = 18.0f;
 
             GameObject body = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -791,7 +722,6 @@ namespace IUHCampus.Editor
             body.transform.localScale = new Vector3(wingDepth, bHeight, wingLength);
             body.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // Balconies, Railings & Windows on the inner facade (facing courtyard at +X)
             for (int f = 1; f <= numFloors; f++)
             {
                 float y = (f - 0.5f) * floorH;
@@ -818,7 +748,6 @@ namespace IUHCampus.Editor
                 glass.GetComponent<MeshRenderer>().sharedMaterial = m_GlassReflective;
             }
 
-            // Columns Grid along the courtyard facade
             int numCols = 24;
             for (int c = 0; c <= numCols; c++)
             {
@@ -831,7 +760,6 @@ namespace IUHCampus.Editor
                 col.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
             }
 
-            // Pale Green Corrugated Roof
             GameObject roof = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roof.name = "PaleGreen_Roof";
             roof.transform.SetParent(root.transform);
@@ -839,7 +767,6 @@ namespace IUHCampus.Editor
             roof.transform.localScale = new Vector3(wingDepth + 4.0f, 3.0f, wingLength + 4.0f);
             roof.GetComponent<MeshRenderer>().sharedMaterial = m_PaleGreenRoof;
 
-            // Solar Panels
             GameObject solar = GameObject.CreatePrimitive(PrimitiveType.Cube);
             solar.name = "SolarPanels";
             solar.transform.SetParent(roof.transform);
@@ -854,13 +781,12 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabArchPath + "IUH_LeftPaleWing.prefab");
         }
 
-        // 4. IUH_RedRoofBuilding.prefab (Nhà A - Behind Left Academic Wing)
         private static GameObject CreateRedRoofBuildingPrefab()
         {
             GameObject root = new GameObject("IUH_RedRoofBuilding");
 
             float buildingW = 20.0f;
-            float buildingH = 22.0f; // 6 floors
+            float buildingH = 22.0f;
             float buildingL = 60.0f;
 
             GameObject body = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -870,7 +796,6 @@ namespace IUHCampus.Editor
             body.transform.localScale = new Vector3(buildingW, buildingH, buildingL);
             body.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // Green Windows
             for (int f = 1; f <= 6; f++)
             {
                 float y = (f - 0.5f) * (buildingH / 6.0f);
@@ -882,7 +807,6 @@ namespace IUHCampus.Editor
                 win.GetComponent<MeshRenderer>().sharedMaterial = m_GreenGlass;
             }
 
-            // Terracotta Red Metal Roof
             GameObject redRoof = GameObject.CreatePrimitive(PrimitiveType.Cube);
             redRoof.name = "Terracotta_Red_Roof";
             redRoof.transform.SetParent(root.transform);
@@ -893,20 +817,18 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabArchPath + "IUH_RedRoofBuilding.prefab");
         }
 
-        // 5. IUH_RightCluster.prefab (Nhà G, Nhà I, Nhà C, Khối Đế Podium, Sân Bãi Xe Máy, Cây Xanh)
         private static GameObject CreateRightLargeAcademicBuildingPrefab()
         {
             return IUHRightClusterBuilder.CreateRightClusterPrefab();
         }
 
-        // 6. IUH_BackCentralTower.prefab (Tall High-Rise Tower behind Main Building)
         private static GameObject CreateBackCentralTowerPrefab()
         {
             GameObject root = new GameObject("IUH_BackCentralTower");
 
             float towerW = 32.0f;
             float towerD = 24.0f;
-            float towerH = 68.0f; // 15-story tower in the deep center
+            float towerH = 68.0f;
 
             GameObject core = GameObject.CreatePrimitive(PrimitiveType.Cube);
             core.name = "Tower_Core";
@@ -915,7 +837,6 @@ namespace IUHCampus.Editor
             core.transform.localScale = new Vector3(towerW, towerH, towerD);
             core.GetComponent<MeshRenderer>().sharedMaterial = m_WhiteFacade;
 
-            // Green Windows
             for (int f = 1; f <= 15; f++)
             {
                 float y = (f - 0.5f) * (towerH / 15.0f);
@@ -927,7 +848,6 @@ namespace IUHCampus.Editor
                 win.GetComponent<MeshRenderer>().sharedMaterial = m_GreenGlass;
             }
 
-            // Rooftop Parapet
             GameObject crown = GameObject.CreatePrimitive(PrimitiveType.Cube);
             crown.name = "Crown";
             crown.transform.SetParent(root.transform);
@@ -938,13 +858,10 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabArchPath + "IUH_BackCentralTower.prefab");
         }
 
-        // 7. IUH_CentralTreeCluster.prefab (Dense Mature Tropical Trees in Front of Main Building)
         private static GameObject CreateCentralTreeClusterPrefab()
         {
             GameObject root = new GameObject("IUH_CentralTreeCluster");
 
-            // Frame 4 large mature tropical shade trees to left (-X) and right (+X) flanks
-            // Leaving the central entrance corridor completely open and un-obscured!
             Vector3[] positions = new Vector3[]
             {
                 new Vector3(-24.0f, 0, 2.0f),
@@ -959,7 +876,6 @@ namespace IUHCampus.Editor
                 tree.transform.SetParent(root.transform);
                 tree.transform.localPosition = positions[t];
 
-                // Trunk
                 GameObject trunk = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 trunk.name = "Trunk";
                 trunk.transform.SetParent(tree.transform);
@@ -967,7 +883,6 @@ namespace IUHCampus.Editor
                 trunk.transform.localScale = new Vector3(1.6f, 4.5f, 1.6f);
                 trunk.GetComponent<MeshRenderer>().sharedMaterial = m_DarkMetal;
 
-                // Circular concrete bench planter
                 GameObject bench = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 bench.name = "Bench";
                 bench.transform.SetParent(tree.transform);
@@ -975,7 +890,6 @@ namespace IUHCampus.Editor
                 bench.transform.localScale = new Vector3(4.2f, 0.35f, 4.2f);
                 bench.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
 
-                // Dense multi-lobed canopy
                 Vector3[] lobeOffsets = new Vector3[]
                 {
                     new Vector3(0, 11.0f, 0),
@@ -999,7 +913,6 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabEnvPath + "IUH_CentralTreeCluster.prefab");
         }
 
-        // 8. Sports Courtyard / Parking / Road Details
         private static GameObject CreateSportsCourtyardPrefab()
         {
             GameObject root = new GameObject("IUH_SportsCourtyard");
@@ -1126,7 +1039,6 @@ namespace IUHCampus.Editor
         {
             GameObject root = new GameObject("IUH_FrontMonument");
 
-            // Organic curved teardrop grass island curb
             GameObject islandCurb = GameObject.CreatePrimitive(PrimitiveType.Cube);
             islandCurb.name = "Grass_Island_Curb";
             islandCurb.transform.SetParent(root.transform);
@@ -1134,7 +1046,6 @@ namespace IUHCampus.Editor
             islandCurb.transform.localScale = new Vector3(16.0f, 0.35f, 10.0f);
             islandCurb.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
 
-            // Pointed tip of island
             GameObject islandTip = GameObject.CreatePrimitive(PrimitiveType.Cube);
             islandTip.name = "Grass_Island_Tip";
             islandTip.transform.SetParent(root.transform);
@@ -1143,7 +1054,6 @@ namespace IUHCampus.Editor
             islandTip.transform.localRotation = Quaternion.Euler(0, -8f, 0);
             islandTip.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
 
-            // Grass surface
             GameObject grassSurface = GameObject.CreatePrimitive(PrimitiveType.Cube);
             grassSurface.name = "Grass_Surface";
             grassSurface.transform.SetParent(root.transform);
@@ -1151,7 +1061,6 @@ namespace IUHCampus.Editor
             grassSurface.transform.localScale = new Vector3(15.0f, 0.15f, 9.2f);
             grassSurface.GetComponent<MeshRenderer>().sharedMaterial = m_Grass;
 
-            // White Sculpted Rock Monument Base
             GameObject monRock = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             monRock.name = "Monument_Rock";
             monRock.transform.SetParent(root.transform);
@@ -1159,13 +1068,10 @@ namespace IUHCampus.Editor
             monRock.transform.localScale = new Vector3(7.5f, 1.6f, 3.2f);
             monRock.GetComponent<MeshRenderer>().sharedMaterial = m_MonumentStone;
 
-            // ─── EXPLICIT 3D GEOMETRY FOR "I", "U", "H" LETTERS (Silver/Chrome Metal) ───
-            // Facing South (-Z) directly towards the courtyard / camera!
             GameObject letterGroup = new GameObject("IUH_3D_Letters");
             letterGroup.transform.SetParent(root.transform);
             letterGroup.transform.localPosition = new Vector3(0, 1.9f, -1.1f);
 
-            // Letter 'I' (Left side when looking at -Z face)
             GameObject letterI = GameObject.CreatePrimitive(PrimitiveType.Cube);
             letterI.name = "Letter_I";
             letterI.transform.SetParent(letterGroup.transform);
@@ -1173,7 +1079,6 @@ namespace IUHCampus.Editor
             letterI.transform.localScale = new Vector3(0.55f, 2.2f, 0.45f);
             letterI.GetComponent<MeshRenderer>().sharedMaterial = m_MonumentLetter;
 
-            // Letter 'U' (Center - Left bar + Right bar + Bottom bar)
             GameObject letterU = new GameObject("Letter_U");
             letterU.transform.SetParent(letterGroup.transform);
             letterU.transform.localPosition = new Vector3(0, 0, 0);
@@ -1196,7 +1101,6 @@ namespace IUHCampus.Editor
             uB.transform.localScale = new Vector3(1.78f, 0.48f, 0.45f);
             uB.GetComponent<MeshRenderer>().sharedMaterial = m_MonumentLetter;
 
-            // Letter 'H' (Right side - Left bar + Right bar + Center crossbar)
             GameObject letterH = new GameObject("Letter_H");
             letterH.transform.SetParent(letterGroup.transform);
             letterH.transform.localPosition = new Vector3(2.4f, 0, 0);
@@ -1219,7 +1123,6 @@ namespace IUHCampus.Editor
             hC.transform.localScale = new Vector3(1.78f, 0.48f, 0.45f);
             hC.GetComponent<MeshRenderer>().sharedMaterial = m_MonumentLetter;
 
-            // White Ceramic Flower Pots with Orange/Yellow Flowers along island front edge (-Z)
             for (int p = -5; p <= 5; p++)
             {
                 float px = p * 1.45f;
@@ -1252,7 +1155,6 @@ namespace IUHCampus.Editor
             Material[] flagMats = new Material[] { m_FlagVn, m_FlagIuh, m_FlagYouth };
             string[] flagNames = new string[] { "Vietnam", "IUH", "YouthUnion" };
 
-            // 3 High-Visibility Inox Stainless Steel Flagpoles on Concrete Base
             for (int i = 0; i < 3; i++)
             {
                 float x = i * 3.2f;
@@ -1271,7 +1173,6 @@ namespace IUHCampus.Editor
                 pole.transform.localScale = new Vector3(0.16f, 11.0f, 0.16f);
                 pole.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-                // Gold finial sphere on top of pole
                 GameObject finial = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 finial.name = "Finial_" + i;
                 finial.transform.SetParent(root.transform);
@@ -1279,7 +1180,6 @@ namespace IUHCampus.Editor
                 finial.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
                 finial.GetComponent<MeshRenderer>().sharedMaterial = m_MonumentLetter;
 
-                // Double-sided 3D Cubes for ALL 3 FLAGS so they render beautifully on ALL 3 POLES!
                 GameObject flag = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 flag.name = "FlagCloth_" + flagNames[i];
                 flag.transform.SetParent(root.transform);
@@ -1291,23 +1191,10 @@ namespace IUHCampus.Editor
             return SaveAsPrefab(root, PrefabEnvPath + "IUH_FlagPoles.prefab");
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // 14. IUH_MainEntrance.prefab
-        //     Open‑passage style entrance matching IUH reference photos:
-        //     - Wide 2‑lane asphalt approach road
-        //     - Stone monument slab (LEFT of road) with gold IUH text
-        //     - Horizontal overhead welcome banner spanning the road
-        //     - Two tall entrance stone gate pillars flanking the road
-        //     - Security booth (RIGHT of road)
-        //     - Blue metal railing walkway (RIGHT side)
-        //     - Colourful event flags along both sides
-        //     - Concrete curb / sidewalk strips both sides
-        // ─────────────────────────────────────────────────────────────────────
         private static GameObject CreateMainEntrancePrefab()
         {
             GameObject root = new GameObject("IUH_MainEntrance");
 
-            // ── Materials (fall back to generic if gate mats are null) ──
             Material matStone   = m_GateStone   ?? m_ConcreteGround;
             Material matRail    = m_GateBlueRailing ?? m_DarkMetal;
             Material matBooth   = m_GateBooth   ?? m_WhiteFacade;
@@ -1318,13 +1205,9 @@ namespace IUHCampus.Editor
             Material matCurb    = m_GateCurb    ?? m_ConcreteGround;
             Material matGold    = m_GateGoldText ?? m_MonumentLetter;
 
-            // ─────────────────────────────────────────────────────────────────
-            // A. ENTRANCE ROAD  (the open, wide 2-lane passage)
-            // ─────────────────────────────────────────────────────────────────
             GameObject goRoad = new GameObject("Entrance_Road");
             goRoad.transform.SetParent(root.transform);
 
-            // Main asphalt surface  (14m wide × 30m deep)
             GameObject roadSurf = GameObject.CreatePrimitive(PrimitiveType.Cube);
             roadSurf.name = "Road_Asphalt";
             roadSurf.transform.SetParent(goRoad.transform);
@@ -1332,7 +1215,6 @@ namespace IUHCampus.Editor
             roadSurf.transform.localScale = new Vector3(14.0f, 0.06f, 30.0f);
             roadSurf.GetComponent<MeshRenderer>().sharedMaterial = matRoad;
 
-            // White lane divider line
             GameObject laneLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
             laneLine.name = "LaneDivider";
             laneLine.transform.SetParent(goRoad.transform);
@@ -1340,7 +1222,6 @@ namespace IUHCampus.Editor
             laneLine.transform.localScale = new Vector3(0.22f, 0.04f, 28.0f);
             laneLine.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-            // Left curb/sidewalk strip
             GameObject leftCurb = GameObject.CreatePrimitive(PrimitiveType.Cube);
             leftCurb.name = "Curb_Left";
             leftCurb.transform.SetParent(goRoad.transform);
@@ -1348,7 +1229,6 @@ namespace IUHCampus.Editor
             leftCurb.transform.localScale = new Vector3(5.0f, 0.10f, 30.0f);
             leftCurb.GetComponent<MeshRenderer>().sharedMaterial = matCurb;
 
-            // Right curb/sidewalk strip
             GameObject rightCurb = GameObject.CreatePrimitive(PrimitiveType.Cube);
             rightCurb.name = "Curb_Right";
             rightCurb.transform.SetParent(goRoad.transform);
@@ -1356,20 +1236,16 @@ namespace IUHCampus.Editor
             rightCurb.transform.localScale = new Vector3(5.0f, 0.10f, 30.0f);
             rightCurb.GetComponent<MeshRenderer>().sharedMaterial = matCurb;
 
-            // ─────────────────────────────────────────────────────────────────
-            // B. TWO MAIN GATE PILLARS  (left & right of the road opening)
-            // ─────────────────────────────────────────────────────────────────
             GameObject goPillars = new GameObject("Gate_Pillars");
             goPillars.transform.SetParent(root.transform);
 
-            float pillarX  = 8.2f;   // distance from centre
-            float pillarH  = 8.5f;   // total pillar height
+            float pillarX  = 8.2f;
+            float pillarH  = 8.5f;
 
             foreach (float side in new float[] { -1f, 1f })
             {
                 string sideTag = side < 0 ? "L" : "R";
 
-                // Base plinth
                 GameObject plinth = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 plinth.name = "Pillar_Plinth_" + sideTag;
                 plinth.transform.SetParent(goPillars.transform);
@@ -1377,7 +1253,6 @@ namespace IUHCampus.Editor
                 plinth.transform.localScale = new Vector3(2.8f, 1.0f, 2.8f);
                 plinth.GetComponent<MeshRenderer>().sharedMaterial = matStone;
 
-                // Main shaft
                 GameObject shaft = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 shaft.name = "Pillar_Shaft_" + sideTag;
                 shaft.transform.SetParent(goPillars.transform);
@@ -1385,7 +1260,6 @@ namespace IUHCampus.Editor
                 shaft.transform.localScale = new Vector3(2.2f, pillarH, 2.2f);
                 shaft.GetComponent<MeshRenderer>().sharedMaterial = matStone;
 
-                // Capital (top block)
                 GameObject cap = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cap.name = "Pillar_Capital_" + sideTag;
                 cap.transform.SetParent(goPillars.transform);
@@ -1393,7 +1267,6 @@ namespace IUHCampus.Editor
                 cap.transform.localScale = new Vector3(2.7f, 0.55f, 2.7f);
                 cap.GetComponent<MeshRenderer>().sharedMaterial = matStone;
 
-                // IUH gold lettering plaque on each pillar front face
                 GameObject plaque = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 plaque.name = "Pillar_Plaque_" + sideTag;
                 plaque.transform.SetParent(goPillars.transform);
@@ -1402,14 +1275,10 @@ namespace IUHCampus.Editor
                 plaque.GetComponent<MeshRenderer>().sharedMaterial = matGold;
             }
 
-            // ─────────────────────────────────────────────────────────────────
-            // C. OVERHEAD WELCOME BANNER  (stretched between the two pillars)
-            // ─────────────────────────────────────────────────────────────────
             GameObject goBanner = new GameObject("Overhead_Welcome_Banner");
             goBanner.transform.SetParent(root.transform);
             goBanner.transform.localPosition = new Vector3(0, pillarH + 1.45f, -10.0f);
 
-            // Horizontal support beam
             GameObject bannerBeam = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bannerBeam.name = "Banner_Beam";
             bannerBeam.transform.SetParent(goBanner.transform);
@@ -1417,7 +1286,6 @@ namespace IUHCampus.Editor
             bannerBeam.transform.localScale = new Vector3(pillarX * 2.0f - 2.2f, 0.28f, 0.28f);
             bannerBeam.GetComponent<MeshRenderer>().sharedMaterial = matRail;
 
-            // Red banner cloth hanging from beam
             GameObject bannerCloth = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bannerCloth.name = "Banner_Cloth";
             bannerCloth.transform.SetParent(goBanner.transform);
@@ -1425,7 +1293,6 @@ namespace IUHCampus.Editor
             bannerCloth.transform.localScale = new Vector3(pillarX * 2.0f - 2.6f, 1.9f, 0.08f);
             bannerCloth.GetComponent<MeshRenderer>().sharedMaterial = matBanner;
 
-            // Gold lettering strip at top of banner cloth
             GameObject bannerText = GameObject.CreatePrimitive(PrimitiveType.Cube);
             bannerText.name = "Banner_GoldLettering";
             bannerText.transform.SetParent(goBanner.transform);
@@ -1433,15 +1300,10 @@ namespace IUHCampus.Editor
             bannerText.transform.localScale = new Vector3(pillarX * 2.0f - 4.0f, 0.35f, 0.04f);
             bannerText.GetComponent<MeshRenderer>().sharedMaterial = matGold;
 
-            // ─────────────────────────────────────────────────────────────────
-            // D. LEFT SIDE: Stone University Monument / Identification Slab
-            //    (The large granite rectangular slab with raised IUH letters)
-            // ─────────────────────────────────────────────────────────────────
             GameObject goMonumentSlab = new GameObject("University_Monument_Slab");
             goMonumentSlab.transform.SetParent(root.transform);
             goMonumentSlab.transform.localPosition = new Vector3(-13.5f, 0, -6.0f);
 
-            // Base / foundation block
             GameObject monBase = GameObject.CreatePrimitive(PrimitiveType.Cube);
             monBase.name = "Monument_Base";
             monBase.transform.SetParent(goMonumentSlab.transform);
@@ -1449,7 +1311,6 @@ namespace IUHCampus.Editor
             monBase.transform.localScale = new Vector3(8.5f, 0.70f, 2.0f);
             monBase.GetComponent<MeshRenderer>().sharedMaterial = matStone;
 
-            // Vertical main slab
             GameObject monSlab = GameObject.CreatePrimitive(PrimitiveType.Cube);
             monSlab.name = "Monument_Slab";
             monSlab.transform.SetParent(goMonumentSlab.transform);
@@ -1457,7 +1318,6 @@ namespace IUHCampus.Editor
             monSlab.transform.localScale = new Vector3(8.0f, 3.8f, 0.65f);
             monSlab.GetComponent<MeshRenderer>().sharedMaterial = matStone;
 
-            // Top cap stone
             GameObject monCap = GameObject.CreatePrimitive(PrimitiveType.Cube);
             monCap.name = "Monument_TopCap";
             monCap.transform.SetParent(goMonumentSlab.transform);
@@ -1465,7 +1325,6 @@ namespace IUHCampus.Editor
             monCap.transform.localScale = new Vector3(8.4f, 0.45f, 0.80f);
             monCap.GetComponent<MeshRenderer>().sharedMaterial = matStone;
 
-            // Gold IUH raised lettering panel on slab face
             GameObject monLetters = GameObject.CreatePrimitive(PrimitiveType.Cube);
             monLetters.name = "Monument_IUH_Letters";
             monLetters.transform.SetParent(goMonumentSlab.transform);
@@ -1473,7 +1332,6 @@ namespace IUHCampus.Editor
             monLetters.transform.localScale = new Vector3(5.8f, 1.2f, 0.08f);
             monLetters.GetComponent<MeshRenderer>().sharedMaterial = matGold;
 
-            // University full name sub-text panel
             GameObject monSubtext = GameObject.CreatePrimitive(PrimitiveType.Cube);
             monSubtext.name = "Monument_Subtext";
             monSubtext.transform.SetParent(goMonumentSlab.transform);
@@ -1481,7 +1339,6 @@ namespace IUHCampus.Editor
             monSubtext.transform.localScale = new Vector3(7.2f, 0.55f, 0.06f);
             monSubtext.GetComponent<MeshRenderer>().sharedMaterial = matGold;
 
-            // Grass planter bed around monument
             GameObject monGrass = GameObject.CreatePrimitive(PrimitiveType.Cube);
             monGrass.name = "Monument_GrassBed";
             monGrass.transform.SetParent(goMonumentSlab.transform);
@@ -1489,14 +1346,10 @@ namespace IUHCampus.Editor
             monGrass.transform.localScale = new Vector3(10.0f, 0.12f, 4.0f);
             monGrass.GetComponent<MeshRenderer>().sharedMaterial = m_Grass;
 
-            // ─────────────────────────────────────────────────────────────────
-            // E. RIGHT SIDE: Security Guard Booth
-            // ─────────────────────────────────────────────────────────────────
             GameObject goBooth = new GameObject("Security_Booth");
             goBooth.transform.SetParent(root.transform);
             goBooth.transform.localPosition = new Vector3(12.5f, 0, -8.0f);
 
-            // Booth body
             GameObject boothBody = GameObject.CreatePrimitive(PrimitiveType.Cube);
             boothBody.name = "Booth_Body";
             boothBody.transform.SetParent(goBooth.transform);
@@ -1504,7 +1357,6 @@ namespace IUHCampus.Editor
             boothBody.transform.localScale = new Vector3(2.8f, 2.8f, 2.4f);
             boothBody.GetComponent<MeshRenderer>().sharedMaterial = matBooth;
 
-            // Booth roof (blue)
             GameObject boothRoof = GameObject.CreatePrimitive(PrimitiveType.Cube);
             boothRoof.name = "Booth_Roof";
             boothRoof.transform.SetParent(goBooth.transform);
@@ -1512,7 +1364,6 @@ namespace IUHCampus.Editor
             boothRoof.transform.localScale = new Vector3(3.2f, 0.30f, 2.8f);
             boothRoof.GetComponent<MeshRenderer>().sharedMaterial = matBoothRf;
 
-            // Booth windows (glass panels front & side)
             foreach (float wz in new float[] { 0f })
             {
                 GameObject boothWin = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1523,7 +1374,6 @@ namespace IUHCampus.Editor
                 boothWin.GetComponent<MeshRenderer>().sharedMaterial = m_GlassCurtain;
             }
 
-            // Booth door
             GameObject boothDoor = GameObject.CreatePrimitive(PrimitiveType.Cube);
             boothDoor.name = "Booth_Door";
             boothDoor.transform.SetParent(goBooth.transform);
@@ -1531,15 +1381,10 @@ namespace IUHCampus.Editor
             boothDoor.transform.localScale = new Vector3(0.95f, 2.0f, 0.08f);
             boothDoor.GetComponent<MeshRenderer>().sharedMaterial = matBooth;
 
-            // ─────────────────────────────────────────────────────────────────
-            // F. RIGHT SIDE: Blue Metal Railing / Pedestrian Walkway Fence
-            //    (Extends along the right side from booth toward campus)
-            // ─────────────────────────────────────────────────────────────────
             GameObject goRailing = new GameObject("Right_Blue_Railing");
             goRailing.transform.SetParent(root.transform);
             goRailing.transform.localPosition = new Vector3(11.8f, 0, 0);
 
-            // Top horizontal rail
             GameObject topRail = GameObject.CreatePrimitive(PrimitiveType.Cube);
             topRail.name = "Rail_Top";
             topRail.transform.SetParent(goRailing.transform);
@@ -1547,7 +1392,6 @@ namespace IUHCampus.Editor
             topRail.transform.localScale = new Vector3(0.10f, 0.10f, 22.0f);
             topRail.GetComponent<MeshRenderer>().sharedMaterial = matRail;
 
-            // Bottom rail
             GameObject botRail = GameObject.CreatePrimitive(PrimitiveType.Cube);
             botRail.name = "Rail_Bottom";
             botRail.transform.SetParent(goRailing.transform);
@@ -1555,7 +1399,6 @@ namespace IUHCampus.Editor
             botRail.transform.localScale = new Vector3(0.10f, 0.10f, 22.0f);
             botRail.GetComponent<MeshRenderer>().sharedMaterial = matRail;
 
-            // Vertical balusters
             int numBalusters = 18;
             for (int b = 0; b < numBalusters; b++)
             {
@@ -1568,9 +1411,6 @@ namespace IUHCampus.Editor
                 bal.GetComponent<MeshRenderer>().sharedMaterial = matRail;
             }
 
-            // ─────────────────────────────────────────────────────────────────
-            // G. LEFT SIDE: Matching Blue Metal Railing
-            // ─────────────────────────────────────────────────────────────────
             GameObject goRailingL = new GameObject("Left_Blue_Railing");
             goRailingL.transform.SetParent(root.transform);
             goRailingL.transform.localPosition = new Vector3(-11.8f, 0, 0);
@@ -1600,14 +1440,9 @@ namespace IUHCampus.Editor
                 bal.GetComponent<MeshRenderer>().sharedMaterial = matRail;
             }
 
-            // ─────────────────────────────────────────────────────────────────
-            // H. COLOURFUL EVENT FLAGS  (on both sides along the road)
-            //    Each flag unit = small pole + triangular pennant
-            // ─────────────────────────────────────────────────────────────────
             GameObject goFlags = new GameObject("Event_Flag_Line");
             goFlags.transform.SetParent(root.transform);
 
-            // Alternate flag colours: orange, red, IUH blue, green
             Material[] flagCycleMats = new Material[]
             {
                 m_GateEventFlag ?? m_FlagIuh,
@@ -1625,7 +1460,6 @@ namespace IUHCampus.Editor
                     float fz = -12.0f + fi * flagSpacing;
                     float fx = side * 9.8f;
 
-                    // Thin metal pole
                     GameObject fPole = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                     fPole.name = "FlagPole_" + (side < 0 ? "L" : "R") + "_" + fi;
                     fPole.transform.SetParent(goFlags.transform);
@@ -1633,7 +1467,6 @@ namespace IUHCampus.Editor
                     fPole.transform.localScale = new Vector3(0.06f, 2.5f, 0.06f);
                     fPole.GetComponent<MeshRenderer>().sharedMaterial = m_LightMetal;
 
-                    // Pennant flag (triangular shape via scaled cube)
                     GameObject fFlag = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     fFlag.name = "Pennant_" + (side < 0 ? "L" : "R") + "_" + fi;
                     fFlag.transform.SetParent(goFlags.transform);
@@ -1643,9 +1476,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // ─────────────────────────────────────────────────────────────────
-            // I. SMALL TREES / SHRUBS along entrance (beautification)
-            // ─────────────────────────────────────────────────────────────────
             GameObject goEntranceTrees = new GameObject("Entrance_Trees");
             goEntranceTrees.transform.SetParent(root.transform);
 
@@ -1677,7 +1507,6 @@ namespace IUHCampus.Editor
 
         #endregion
 
-
         #region Master Scene Assembly
 
         private static void AssembleMasterScene(
@@ -1690,57 +1519,46 @@ namespace IUHCampus.Editor
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
-            // Master Root Container
             GameObject campusRoot = new GameObject("IUH_Campus");
 
-            // ================= 1. BUILDINGS =================
             GameObject goBuildings = new GameObject("Buildings");
             goBuildings.transform.SetParent(campusRoot.transform);
 
-            // A. IUH_MainBuilding (Nhà Hiệu Bộ - At the far head of the central courtyard)
             GameObject mainBuilding = PrefabUtility.InstantiatePrefab(mainBuildingPrefab) as GameObject;
             mainBuilding.transform.SetParent(goBuildings.transform);
             mainBuilding.transform.localPosition = new Vector3(0, 0, 75.0f);
-            mainBuilding.transform.localRotation = Quaternion.Euler(0, 180, 0); // Faces toward the central courtyard (-Z)
+            mainBuilding.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-            // B. IUH_BackCentralTower (Behind Main Building)
             GameObject backTower = PrefabUtility.InstantiatePrefab(backTowerPrefab) as GameObject;
             backTower.transform.SetParent(goBuildings.transform);
             backTower.transform.localPosition = new Vector3(0, 0, 108.0f);
             backTower.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-            // C. LEFT FLANK: IUH_GreenGlassComplex
             GameObject greenComplex = new GameObject("IUH_GreenGlassComplex");
             greenComplex.transform.SetParent(goBuildings.transform);
 
-            // Green Glass Tower (at head/left corner near main building)
             GameObject greenTower = PrefabUtility.InstantiatePrefab(greenTowerPrefab) as GameObject;
             greenTower.transform.SetParent(greenComplex.transform);
             greenTower.transform.localPosition = new Vector3(-24.0f, 0, 64.0f);
             greenTower.transform.localRotation = Quaternion.Euler(0, 90, 0);
 
-            // Left Academic Wing (tightly flanking the left side of the courtyard)
             GameObject leftWing = PrefabUtility.InstantiatePrefab(leftPaleWingPrefab) as GameObject;
             leftWing.transform.SetParent(greenComplex.transform);
             leftWing.transform.localPosition = new Vector3(-27.0f, 0, 52.0f);
 
-            // Red-Roof Building (Behind the left wing)
             GameObject redRoof = PrefabUtility.InstantiatePrefab(redRoofPrefab) as GameObject;
             redRoof.transform.SetParent(greenComplex.transform);
             redRoof.transform.localPosition = new Vector3(-50.0f, 0, 10.0f);
             redRoof.transform.localRotation = Quaternion.Euler(0, 90, 0);
 
-            // D. RIGHT FLANK: IUH_RightCluster (Reconstructed Nha G, Nha I, Nha C, Podium, Parking, Props)
             GameObject rightBuilding = PrefabUtility.InstantiatePrefab(rightLargeAcademicPrefab) as GameObject;
             rightBuilding.name = "IUH_RightCluster";
             rightBuilding.transform.SetParent(goBuildings.transform);
             rightBuilding.transform.localPosition = new Vector3(14.0f, 0, 4.0f);
 
-            // ================= 2. CENTRAL COURTYARD & ROADS =================
             GameObject goCourtyard = new GameObject("CentralCourtyard");
             goCourtyard.transform.SetParent(campusRoot.transform);
 
-            // Main Central Asphalt Plaza / Courtyard Ground (Compressed width for dense campus)
             GameObject courtAsphalt = GameObject.CreatePrimitive(PrimitiveType.Cube);
             courtAsphalt.name = "Courtyard_Asphalt_Ground";
             courtAsphalt.transform.SetParent(goCourtyard.transform);
@@ -1748,12 +1566,10 @@ namespace IUHCampus.Editor
             courtAsphalt.transform.localScale = new Vector3(68.0f, 0.1f, 150.0f);
             courtAsphalt.GetComponent<MeshRenderer>().sharedMaterial = m_AsphaltRoad;
 
-            // Central Sports Ground (Sân bóng chuyền/cầu lông) in the middle of the courtyard
             GameObject sportCourt = PrefabUtility.InstantiatePrefab(sportsCourtyardPrefab) as GameObject;
             sportCourt.transform.SetParent(goCourtyard.transform);
             sportCourt.transform.localPosition = new Vector3(0, 0, -10.0f);
 
-            // Sidewalks along Left and Right building flanks
             GameObject leftSidewalk = GameObject.CreatePrimitive(PrimitiveType.Cube);
             leftSidewalk.name = "Left_Flank_Sidewalk";
             leftSidewalk.transform.SetParent(goCourtyard.transform);
@@ -1768,7 +1584,6 @@ namespace IUHCampus.Editor
             rightSidewalk.transform.localScale = new Vector3(4.0f, 0.1f, 140.0f);
             rightSidewalk.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
 
-            // Main Building Forecourt Sidewalk
             GameObject mainBuildingSidewalk = GameObject.CreatePrimitive(PrimitiveType.Cube);
             mainBuildingSidewalk.name = "MainBuilding_Sidewalk";
             mainBuildingSidewalk.transform.SetParent(goCourtyard.transform);
@@ -1776,7 +1591,6 @@ namespace IUHCampus.Editor
             mainBuildingSidewalk.transform.localScale = new Vector3(50.0f, 0.1f, 10.0f);
             mainBuildingSidewalk.GetComponent<MeshRenderer>().sharedMaterial = m_ConcreteGround;
 
-            // Yellow Road Direction Arrow in courtyard
             GameObject roadArrow = GameObject.CreatePrimitive(PrimitiveType.Quad);
             roadArrow.name = "Road_Arrow_Yellow";
             roadArrow.transform.SetParent(goCourtyard.transform);
@@ -1785,19 +1599,16 @@ namespace IUHCampus.Editor
             roadArrow.transform.localScale = new Vector3(3.5f, 3.5f, 1.0f);
             roadArrow.GetComponent<MeshRenderer>().sharedMaterial = m_RoadArrow;
 
-            // ================= 3. LANDSCAPING & TREE CLUSTER =================
             GameObject goLandscaping = new GameObject("Landscaping");
             goLandscaping.transform.SetParent(campusRoot.transform);
 
-            // Central Tree Cluster (At the head of the courtyard, framing the Main Building)
             GameObject treeCluster = PrefabUtility.InstantiatePrefab(treeClusterPrefab) as GameObject;
             treeCluster.transform.SetParent(goLandscaping.transform);
             treeCluster.transform.localPosition = new Vector3(0, 0, 52.0f);
 
-            // Trimmed ornamental ficus bushes along the flanks
             for (int i = -3; i <= 3; i++)
             {
-                // Left flank bushes
+
                 GameObject bL = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 bL.name = "Bush_L_" + i;
                 bL.transform.SetParent(goLandscaping.transform);
@@ -1805,7 +1616,6 @@ namespace IUHCampus.Editor
                 bL.transform.localScale = new Vector3(2.4f, 2.4f, 2.4f);
                 bL.GetComponent<MeshRenderer>().sharedMaterial = m_MatureFoliage;
 
-                // Right flank bushes
                 GameObject bR = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 bR.name = "Bush_R_" + i;
                 bR.transform.SetParent(goLandscaping.transform);
@@ -1814,22 +1624,19 @@ namespace IUHCampus.Editor
                 bR.GetComponent<MeshRenderer>().sharedMaterial = m_MatureFoliage;
             }
 
-            // Front IUH Monument & Flagpoles
             GameObject monument = PrefabUtility.InstantiatePrefab(monumentPrefab) as GameObject;
             monument.transform.SetParent(goLandscaping.transform);
             monument.transform.localPosition = new Vector3(-3.0f, 0.1f, 57.0f);
-            monument.transform.localRotation = Quaternion.Euler(0, 0, 0); // Facing South into courtyard
+            monument.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
             GameObject flagPoles = PrefabUtility.InstantiatePrefab(flagPolesPrefab) as GameObject;
             flagPoles.transform.SetParent(goLandscaping.transform);
             flagPoles.transform.localPosition = new Vector3(10.0f, 0, 58.0f);
             flagPoles.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-            // ================= 4. MOTORBIKE PARKING & CAMPUS STRUCTURES =================
             GameObject goParking = new GameObject("Parking");
             goParking.transform.SetParent(campusRoot.transform);
 
-            // Left side motorbike parking rows
             for (int k = -2; k <= 2; k++)
             {
                 GameObject bikeRowL = PrefabUtility.InstantiatePrefab(motorbikeRowPrefab) as GameObject;
@@ -1837,7 +1644,6 @@ namespace IUHCampus.Editor
                 bikeRowL.transform.localPosition = new Vector3(-19.0f, 0, k * 22.0f);
             }
 
-            // Right side motorbike parking rows
             for (int k = -2; k <= 2; k++)
             {
                 GameObject bikeRowR = PrefabUtility.InstantiatePrefab(motorbikeRowPrefab) as GameObject;
@@ -1845,7 +1651,6 @@ namespace IUHCampus.Editor
                 bikeRowR.transform.localPosition = new Vector3(18.0f, 0, k * 22.0f);
             }
 
-            // Blue event tents / canopy booths
             GameObject booth1 = PrefabUtility.InstantiatePrefab(blueBoothPrefab) as GameObject;
             booth1.transform.SetParent(goParking.transform);
             booth1.transform.localPosition = new Vector3(-15.0f, 0, 24.0f);
@@ -1854,33 +1659,27 @@ namespace IUHCampus.Editor
             booth2.transform.SetParent(goParking.transform);
             booth2.transform.localPosition = new Vector3(15.0f, 0, -32.0f);
 
-            // Covered Basement Ramp on Left
             GameObject coveredRamp = PrefabUtility.InstantiatePrefab(coveredRampPrefab) as GameObject;
             coveredRamp.transform.SetParent(goParking.transform);
             coveredRamp.transform.localPosition = new Vector3(-21.0f, 0, 38.0f);
 
-            // ================= 5. BACKGROUND CITY CONTEXT =================
             GameObject goCity = new GameObject("BackgroundCity");
             goCity.transform.SetParent(campusRoot.transform);
 
-            // ================= MAIN ENTRANCE GATE =================
-            // Positioned at the south opening of the campus, aligned with the central courtyard road
-            // The entrance sits at Z = -75 (south end of the campus, in front of the courtyard)
             GameObject goEntranceGate = new GameObject("IUH_MainEntrance_Zone");
             goEntranceGate.transform.SetParent(campusRoot.transform);
 
             GameObject mainEntrance = PrefabUtility.InstantiatePrefab(mainEntrancePrefab) as GameObject;
             mainEntrance.transform.SetParent(goEntranceGate.transform);
-            // Place at front/south of campus, just beyond the courtyard opening
+
             mainEntrance.transform.localPosition = new Vector3(0, 0, -72.0f);
             mainEntrance.transform.localRotation = Quaternion.identity;
 
-            // Surrounding dense low-poly urban blocks
             for (int bx = -2; bx <= 2; bx++)
             {
                 for (int bz = -2; bz <= 2; bz++)
                 {
-                    if (Mathf.Abs(bx) <= 1 && Mathf.Abs(bz) <= 1) continue; // Skip campus core
+                    if (Mathf.Abs(bx) <= 1 && Mathf.Abs(bz) <= 1) continue;
 
                     GameObject cityBlock = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     cityBlock.name = "CityBlock_" + bx + "_" + bz;
@@ -1892,7 +1691,6 @@ namespace IUHCampus.Editor
                 }
             }
 
-            // ================= 6. LIGHTING & CAMERAS =================
             SetupLightingAndCameras(campusRoot);
 
             EditorSceneManager.SaveScene(scene, ScenePath);
@@ -1900,7 +1698,7 @@ namespace IUHCampus.Editor
 
         private static void SetupLightingAndCameras(GameObject root)
         {
-            // Daytime Sunlight
+
             GameObject sunObj = new GameObject("Directional_SunLight");
             sunObj.transform.SetParent(root.transform);
             Light sun = sunObj.AddComponent<Light>();
@@ -1910,7 +1708,6 @@ namespace IUHCampus.Editor
             sun.shadows = LightShadows.Soft;
             sunObj.transform.rotation = Quaternion.Euler(50, 160, 0);
 
-            // Main Courtyard Reflection Probe
             GameObject probeObj = new GameObject("ReflectionProbe_Courtyard");
             probeObj.transform.SetParent(root.transform);
             probeObj.transform.localPosition = new Vector3(0, 15.0f, 0);
@@ -1919,7 +1716,6 @@ namespace IUHCampus.Editor
             probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
             probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake;
 
-            // Main Camera (Default Perspective: High Aerial Overview matching Authoritative Reference)
             GameObject camObj = new GameObject("Main_Camera");
             camObj.tag = "MainCamera";
             Camera cam = camObj.AddComponent<Camera>();
@@ -1929,7 +1725,6 @@ namespace IUHCampus.Editor
             camObj.transform.position = new Vector3(0, 95.0f, -55.0f);
             camObj.transform.rotation = Quaternion.Euler(48, 0, 0);
 
-            // Ground Courtyard View Camera (Clear line of sight to Main Building & Monument)
             GameObject camGround = new GameObject("Camera_Courtyard_Ground");
             camGround.transform.SetParent(root.transform);
             Camera cGround = camGround.AddComponent<Camera>();
@@ -1937,7 +1732,6 @@ namespace IUHCampus.Editor
             camGround.transform.position = new Vector3(0, 2.5f, 22.0f);
             camGround.transform.rotation = Quaternion.Euler(4, 0, 0);
 
-            // Ground Close-Up Camera focused directly on Front Monument & Flagpoles
             GameObject camMon = new GameObject("Camera_Front_Monument_CloseUp");
             camMon.transform.SetParent(root.transform);
             Camera cMon = camMon.AddComponent<Camera>();
@@ -1945,7 +1739,6 @@ namespace IUHCampus.Editor
             camMon.transform.position = new Vector3(-2.5f, 1.85f, 44.0f);
             camMon.transform.rotation = Quaternion.Euler(6, 12, 0);
 
-            // Ground View looking at Green Glass Tower
             GameObject camTower = new GameObject("Camera_LookAt_GreenTower");
             camTower.transform.SetParent(root.transform);
             Camera cTower = camTower.AddComponent<Camera>();
@@ -1953,7 +1746,6 @@ namespace IUHCampus.Editor
             camTower.transform.position = new Vector3(10.0f, 1.8f, -10.0f);
             camTower.transform.rotation = Quaternion.Euler(10, 300, 0);
 
-            // Ground View looking at Right Academic Building
             GameObject camRight = new GameObject("Camera_LookAt_RightBuilding");
             camRight.transform.SetParent(root.transform);
             Camera cRight = camRight.AddComponent<Camera>();

@@ -6,17 +6,13 @@ using UnityEngine.InputSystem;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Arcade Motorbike Controller for Grab Campus ("Chuyến xe tâm linh").
-    /// Full support for New Input System & Legacy Input.
-    /// Seamlessly interfaces with Cinemachine to follow the motorbike and 3D rider figure.
-    /// </summary>
+
     [RequireComponent(typeof(CharacterController))]
     public class IUHGrabMotorbike : MonoBehaviour
     {
         [Header("Movement & Performance")]
-        [SerializeField] private float m_MaxForwardSpeed = 16.5f; // ~60 km/h
-        [SerializeField] private float m_TurboSpeed = 22.0f;      // ~79 km/h
+        [SerializeField] private float m_MaxForwardSpeed = 16.5f;
+        [SerializeField] private float m_TurboSpeed = 22.0f;
         [SerializeField] private float m_ReverseSpeed = 5.0f;
         [SerializeField] private float m_Acceleration = 18.0f;
         [SerializeField] private float m_BrakingDeceleration = 28.0f;
@@ -40,7 +36,6 @@ namespace IUHCampus.Minigames.GrabCampus
         [SerializeField] private KeyCode m_HornKey = KeyCode.H;
         [SerializeField] private KeyCode m_TurboKey = KeyCode.LeftShift;
 
-        // Runtime state
         private CharacterController m_CharController;
         private AudioSource m_EngineAudio;
         private AudioSource m_SfxAudio;
@@ -73,7 +68,6 @@ namespace IUHCampus.Minigames.GrabCampus
             m_CharController.stepOffset = 0.5f;
             m_CharController.slopeLimit = 60f;
 
-            // Isolate motorbike to root in world space so no parent container rotation can ever influence it
             transform.SetParent(null, true);
 
             SetupAudio();
@@ -133,7 +127,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_RiderAvatar.SetActive(m_IsMounted);
             }
 
-            // Ensure 3D Cargo Visual is present on the motorbike
             if (GetComponent<IUHGrabCargoVisual>() == null)
             {
                 gameObject.AddComponent<IUHGrabCargoVisual>();
@@ -202,8 +195,7 @@ namespace IUHCampus.Minigames.GrabCampus
             }
             else
             {
-                // CRITICAL FIX: In Grab Campus delivery mission, DO NOT dismount!
-                // Rider must stay on the bike to navigate campus and deliver food.
+
                 bool inMission = (IUHGrabCampusManager.Instance != null && IUHGrabCampusManager.Instance.IsMissionActive);
                 bool inGrabGame = (IUHGameFlowManager.Instance != null && IUHGameFlowManager.Instance.ActiveGameIndex == 0);
                 if (!inMission && !inGrabGame)
@@ -247,10 +239,8 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_Headlight.enabled = true;
             }
 
-            // Switch Cinemachine to follow this motorbike
             SwitchCinemachineTarget(true);
 
-            // Start engine sound
             if (m_EngineAudio != null && !m_EngineAudio.isPlaying)
             {
                 m_EngineAudio.Play();
@@ -283,7 +273,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_PlayerOriginal.SetActive(true);
             }
 
-            // Switch Cinemachine back to follow player
             SwitchCinemachineTarget(false);
 
             Debug.Log("[IUH Grab Motorbike] Người chơi đã xuống xe máy!");
@@ -346,7 +335,7 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void UpdatePhysicsMovement()
         {
-            // Anti-fall recovery: If bike drops below road elevation or falls into void, snap to safe road immediately
+
             if (transform.position.y < -0.2f)
             {
                 RecoverToSafety();
@@ -356,13 +345,12 @@ namespace IUHCampus.Minigames.GrabCampus
             if (m_GhostSlowdownTimer > 0f)
             {
                 m_GhostSlowdownTimer -= Time.deltaTime;
-                ghostSpeedMult = 0.70f; // 30% temporary speed penalty, bike NEVER freezes to 0!
+                ghostSpeedMult = 0.70f;
             }
 
             float customMult = (IUHCustomizationManager.Instance != null) ? IUHCustomizationManager.Instance.ActiveConfig.speedMultiplier : 1.0f;
             float targetMaxSpeed = (m_IsTurbo ? m_TurboSpeed : m_MaxForwardSpeed) * customMult * ghostSpeedMult;
 
-            // Acceleration / Deceleration
             if (m_IsBraking)
             {
                 m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, 0f, m_BrakingDeceleration * Time.deltaTime);
@@ -380,7 +368,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_CurrentSpeed = Mathf.MoveTowards(m_CurrentSpeed, 0f, m_CoastDeceleration * Time.deltaTime);
             }
 
-            // Steering: responsive at speed, and allows smooth pivoting when stationary
             float steerVal = Mathf.Abs(m_SteerInput) > 0.10f ? m_SteerInput : 0f;
             if (Mathf.Abs(steerVal) > 0.01f)
             {
@@ -393,7 +380,7 @@ namespace IUHCampus.Minigames.GrabCampus
             }
 
             Vector3 move = transform.forward * m_CurrentSpeed;
-            // Stable grounded gravity: prevents micro-jitter and clipping through meshes
+
             move.y = (m_CharController != null && m_CharController.isGrounded) ? -2.5f : -9.81f;
 
             if (m_CharController != null && m_CharController.enabled)

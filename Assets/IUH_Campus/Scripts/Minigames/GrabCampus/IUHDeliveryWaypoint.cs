@@ -3,16 +3,7 @@ using UnityEngine.UI;
 
 namespace IUHCampus.Minigames.GrabCampus
 {
-    /// <summary>
-    /// Holographic 3D Waypoint beacon for Grab Campus deliveries (Pickup & Dropoff).
-    /// Features:
-    /// - 40-meter towering glowing sky beam visible across the whole campus.
-    /// - Pulsing multi-ring ground landing zone.
-    /// - Rotating diamond holographic marker.
-    /// - Auto-facing camera billboard with prominent instructions:
-    ///   * "[ DỪNG XE & BẤM [E] ĐỂ LẤY ĐỒ ]" at Pickup
-    ///   * "[ DỪNG XE & BẤM [E] ĐỂ GIAO HÀNG CHO SINH VIÊN ]" at Dropoff
-    /// </summary>
+
     public class IUHDeliveryWaypoint : MonoBehaviour
     {
         public enum WaypointType { Pickup, Dropoff }
@@ -53,7 +44,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 if (m_LabelText == null) m_LabelText = canvasTrans.GetComponentInChildren<Text>(true);
             }
 
-            // Ensure collider is a trigger
             var col = GetComponent<Collider>();
             if (col != null) col.isTrigger = true;
         }
@@ -80,7 +70,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_PointLight.intensity = 4.0f;
             }
 
-            // Apply color to materials
             if (m_CylinderBeam != null)
             {
                 var rend = m_CylinderBeam.GetComponent<Renderer>();
@@ -112,21 +101,19 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void Update()
         {
-            // 1. Rotate billboard to always face main camera
+
             var cam = Camera.main;
             if (m_BillboardCanvas != null && cam != null)
             {
                 m_BillboardCanvas.rotation = cam.transform.rotation;
             }
 
-            // 2. Pulsing ground ring scale
             if (m_GroundRing != null)
             {
                 float ringScale = 1.0f + Mathf.Sin(Time.time * m_PulseSpeed) * 0.22f;
                 m_GroundRing.localScale = new Vector3(ringScale, 0.05f, ringScale);
             }
 
-            // 3. Rotating & bobbing floating diamond
             if (m_FloatingIcon != null)
             {
                 m_FloatingIcon.Rotate(0f, 50f * Time.deltaTime, 0f, Space.Self);
@@ -134,7 +121,6 @@ namespace IUHCampus.Minigames.GrabCampus
                 m_FloatingIcon.localPosition = new Vector3(0f, bobY, 0f);
             }
 
-            // 4. Slow rotation on towering sky beam
             if (m_CylinderBeam != null)
             {
                 m_CylinderBeam.Rotate(0f, -25f * Time.deltaTime, 0f, Space.Self);

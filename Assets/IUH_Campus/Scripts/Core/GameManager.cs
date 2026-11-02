@@ -36,7 +36,6 @@ namespace IUHCampus.Core
         {
             Debug.Log("[GameManager] --- Bắt đầu khởi tạo hệ thống game IUH Campus ---");
 
-            // 1. Initialize Managers
             if (WorldState.Instance == null)
             {
                 gameObject.AddComponent<WorldState>();
@@ -56,13 +55,11 @@ namespace IUHCampus.Core
                 }
             }
 
-            // 2. Spawn Player
             if (PlayerSpawnManager.Instance != null)
             {
                 PlayerSpawnManager.Instance.SpawnPlayer(initialSpawnPointId);
             }
 
-            // 3. Load Save Data if requested
             if (loadSaveOnStart && SaveSystem.HasSaveFile())
             {
                 SaveSystem.LoadGame();
