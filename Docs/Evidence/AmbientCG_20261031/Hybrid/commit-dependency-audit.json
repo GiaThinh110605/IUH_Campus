@@ -1,0 +1,14 @@
+{
+  "approvedPropAssets": 24,
+  "unityPropDependencies": 26,
+  "unityExtras": [],
+  "missingFiles": [],
+  "missingSceneDependencies": [],
+  "rawUnknownGuids": [],
+  "rawOutsideProps": [],
+  "selectedFiles": 164,
+  "packageGuidResolutions": {
+    "933532a4fcc9baf4fa0491de14d08ed7": "com.unity.render-pipelines.universal/Shaders/Lit.shader",
+    "d0353a89b1f911e48b9e16bdc9f2e058": "com.unity.render-pipelines.universal/Editor/AssetVersion.cs"
+  }
+}

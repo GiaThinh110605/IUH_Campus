@@ -1,0 +1,356 @@
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Courtyard sandstone_Normal.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_23_Tree bark.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Models/Armature.fbx
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Body_AlbedoTransparency.tif
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear west wing_4_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear east wing_5_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central fountain and sculpture_7_Antique brass.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central fountain and sculpture_7_Paving pale.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_28_Tree bark.asset
+Packages/com.unity.render-pipelines.core/Runtime/Volume/VolumeProfile.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central university_1_Ivory sculpture.asset
+Packages/com.unity.cinemachine/Runtime/Behaviours/CinemachineBrain.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central clock tower_6_Blue green glazing.asset
+Packages/com.unity.inputsystem/InputSystem/Runtime/Plugins/PlayerInput/PlayerInput.cs
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Trimmed hedge foliage_Albedo.png
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/LensFlareScreenSpace.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear west wing_4_Limestone facade.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear east wing_5_Blue green glazing.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Pale paving slabs.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Garden beds and furniture_11_Lawn.asset
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Large02.png
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/Bricks051/Bricks051_2K-JPG_NormalGL.jpg
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_27_Tree bark.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_30.png
+Assets/IUH_Campus/ReferenceLayout/DepthWorldText.shader
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_16.png
+Packages/com.unity.render-pipelines.universal/Runtime/Overrides/MotionBlur.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_24_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Facade relief_402_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Detailed central facade_400_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University main gate_30_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/Dark bronze.mat
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Stand--Idle.anim.fbx
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_8.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central university_1_Limestone facade.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central clock tower_6_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen_8_Dark bronze.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_13.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_28.png
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/PaniniProjection.shader
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/Plaster001/Plaster001_2K-JPG_Color.jpg
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1.png
+Assets/Urban_Props_Pack_Rozity/Models/SM_TrashCan_02.fbx
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/Bloom.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Layered planting and clipped hedges_405_White flowers.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central fountain and sculpture_7_Ivory sculpture.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Prefabs/MainCamera.prefab
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Campus festival_10_Festival violet.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central university_1_Dark bronze.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/LutBuilderLdr.shader
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/BokehDepthOfField.shader
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Speckled granite_Normal.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_23.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_22_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_13_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_602_Sky blue window reflections.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Curved fountain gardens_101_Antique brass.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Legs_AlbedoTransparency.tif
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_16_Tree bark.asset
+Packages/com.unity.render-pipelines.universal/Runtime/Overrides/Bloom.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen terrace_9_Ivory sculpture.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Land.wav
+Packages/com.unity.render-pipelines.universal/Runtime/Overrides/Tonemapping.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Curved fountain gardens_101_Hedge.asset
+Packages/com.unity.inputsystem/InputSystem/Runtime/Actions/InputActionReference.cs
+Assets/IUH_Campus/SharedCampusConcept/Materials/Blue green glazing.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Library west wing_2_Warm granite.asset
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_StreetLight_Modern_Glass_01 1.mat
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_AO.png
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/LensFlareDataDriven.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Dormitory east wing_3_Terracotta brick.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_7.png
+Packages/com.unity.render-pipelines.universal/Runtime/RendererFeatures/ScreenSpaceAmbientOcclusion.cs
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Courtyard sandstone.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Students in courtyard_102_Limestone facade.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/CameraMotionBlur.shader
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Detailed lawn_Albedo.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Plaza paving_0_Lawn.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Dormitory east wing_3_Blue green glazing.asset
+Assets/Starter Assets/Runtime/Common/BasicRigidBodyPush.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central clock tower_6_Limestone facade.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_11.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_10.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_20.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear west wing_4_Blue green glazing.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_600_Warm window reflections.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Facade relief_402_Dressed limestone.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_2_LOD0.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Trimmed hedge foliage_Normal.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_601_Ivory sculpture.asset
+Assets/Urban_Props_Pack_Rozity/Prefabs/URP/SM_Park_Bench_01.prefab
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_600_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University main gate_30_IUH blue.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_1_LOD0.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_03.wav
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_Norma.png
+Assets/IUH_Campus/SharedCampusConcept/Materials/ambientCG/ambientCG_Limestone_facade.mat
+Packages/com.unity.render-pipelines.universal/Editor/AssetVersion.cs
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Thin02.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_1_LOD2.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Pale paving slabs_Albedo.png
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/UberPost.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen terrace_9_Canteen awning.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_0_LOD2.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Library west wing_2_Dark bronze.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Locomotion--Run_N.anim.fbx
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University entrance portico_100_Blue green glazing.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_12_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/Festival violet.mat
+Packages/com.unity.render-pipelines.core/Editor/Icons/Processed/d_Volume Icon.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Body_Normal.tif
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_Park_Bench_01.mat
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Jump--Jump.anim.fbx
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen_8_Warm granite.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_2_LOD2.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Festival pavilions and banners_200_Festival violet.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_6.png
+Assets/IUH_Campus/SharedCampusConcept/Materials/Antique brass.mat
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_05.wav
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Height.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_19_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Festival pavilions and banners_200_Dark bronze.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_18.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_29.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Festival pavilions and banners_200_Festival LED.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear west wing_4_Warm granite.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen_8_Terracotta brick.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_06.wav
+Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen_8_Limestone facade.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Campus HQ Pipeline.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central fountain and sculpture_7_Warm granite.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/GaussianDepthOfField.shader
+Packages/com.unity.cinemachine/Runtime/Core/NoiseSettings.cs
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Body_MetallicSmoothness.tif
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_3.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Library west wing_2_Limestone facade.asset
+Packages/com.unity.render-pipelines.universal/Runtime/Data/UniversalRenderPipelineAsset.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear west wing_4_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Bark grooves_Normal.png
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_04.wav
+Packages/com.unity.cinemachine/Runtime/Components/CinemachineThirdPersonFollow.cs
+Assets/Urban_Props_Pack_Rozity/Models/SM_Park_Bench_01.fbx
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Thin01.png
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/TemporalAA.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear east wing_5_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central fountain and sculpture_7_Fountain water.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Photographic campus sky.mat
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_TrashCan_02.mat
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Vietnam flag fabric.mat
+Assets/Urban_Props_Pack_Rozity/Models/SM_StreetLight_Modern_02.fbx
+Packages/com.unity.render-pipelines.universal/Textures/BayerMatrix.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_5.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen terrace_9_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/Ivory sculpture.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen_8_Blue green glazing.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise64/L/LDR_LLL1_0.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_601_Sky blue window reflections.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Detailed lawn.mat
+Packages/com.unity.inputsystem/InputSystem/Editor/AssetImporter/InputActionImporter.cs
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Campus_day_sky.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_600_Sky blue window reflections.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Legs_MetallicSmoothness.tif
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Medium05.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University main gate_30_Ivory sculpture.asset
+Packages/com.unity.render-pipelines.universal/Runtime/UniversalRendererData.cs
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Medium06.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_1_LOD1.asset
+Packages/com.unity.cinemachine/Runtime/Behaviours/CinemachineCamera.cs
+Assets/IUH_Campus/SharedCampusConcept/Materials/Student jacket.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Layered planting and clipped hedges_405_Marigold.asset
+Packages/com.unity.cinemachine/Editor/EditorResources/Icons/Light/CmCamera@256.png
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/FinalPost.shader
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_NormalL.png
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/StarterAssetsThirdPerson.controller
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Campus festival_10_Ivory sculpture.asset
+Assets/Starter Assets/Runtime/InputSystem/StarterAssets.inputactions
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_0.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Bark grooves.mat
+Packages/com.unity.render-pipelines.universal/Shaders/Debug/HDRDebugView.shader
+Assets/IUH_Campus/SharedCampusConcept/Scripts/IUHConceptPreviewController.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Garden beds and furniture_11_Hedge.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Materials/M_Armature_Legs.mat
+Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+Assets/Starter Assets/Runtime/ThirdPersonController/Prefabs/PlayerArmature.prefab
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear east wing_5_Terracotta brick.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_27.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_17.png
+Packages/com.unity.render-pipelines.core/Runtime/Volume/Volume.cs
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_24.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Warm window reflections.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Detailed central facade_400_Dressed limestone.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Students in courtyard_102_Student skin.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Curved fountain gardens_101_Warm granite.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Locomotion--Walk_N.anim.fbx
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_AO.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_15.png
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Medium01.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_21.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_4.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Trimmed hedge foliage.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Layered planting and clipped hedges_405_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/Fountain water.mat
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_01.wav
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_602_Ivory sculpture.asset
+Assets/IUH_Campus/Scripts/World/IUHDepthLabel.cs
+Assets/Starter Assets/Runtime/InputSystem/StarterAssetsInputs.cs
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Base_color.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/White flowers.mat
+Assets/IUH_Campus/SharedCampusConcept/Scripts/IUHConceptRenderQuality.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear east wing_5_Limestone facade.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_21_Tree bark.asset
+Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+Packages/com.unity.render-pipelines.universal/Runtime/Overrides/Vignette.cs
+Packages/com.unity.render-pipelines.universal/Runtime/Overrides/ColorAdjustments.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen terrace_9_Paving pale.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Facade relief_401_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University entrance portico_100_Ivory sculpture.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Scripts/ThirdPersonController.cs
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_Metallic.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Library west wing_2_Ivory sculpture.asset
+Packages/com.unity.inputsystem/InputSystem/Runtime/Actions/InputActionAsset.cs
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Materials/M_Armature_Body.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_26_Tree bark.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_2.png
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Medium02.png
+Assets/IUH_Campus/SharedCampusConcept/Materials/Leaves shadow.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_0_LOD0.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Students in courtyard_102_IUH blue.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/StopNaN.shader
+Packages/com.unity.cinemachine/Runtime/Components/CinemachineBasicMultiChannelPerlin.cs
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Mixed_AO.png
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/Plaster001/Plaster001_2K-JPG_NormalGL.jpg
+Assets/IUH_Campus/SharedCampusConcept/Materials/Student skin.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Layered planting and clipped hedges_405_Pink flowers.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Entrance flags_404_Vietnam flag fabric.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Detailed central facade_400_Dark bronze.asset
+Assets/Urban_Props_Pack_Rozity/Prefabs/URP/SM_TrashCan_02.prefab
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central university_1_Warm granite.asset
+Assets/Settings/SampleSceneProfile.asset
+Packages/com.unity.render-pipelines.universal/Textures/SMAA/SearchTex.tga
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_Metallic.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_9.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Students in courtyard_102_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/WoodFloor051/WoodFloor051_2K-JPG_AmbientOcclusion.jpg
+Assets/IUH_Campus/SharedCampusConcept/Materials/IUH blue.mat
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_19.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Courtyard sandstone_Albedo.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University main gate_30_Warm granite.asset
+Packages/com.unity.render-pipelines.universal/Shaders/Debug/ProbeVolumeSamplingDebugPositionNormal.compute
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_10.wav
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/WoodFloor051/WoodFloor051_2K-JPG_Color.jpg
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Medium04.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University flags_403_Dark bronze.asset
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Large01.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_StreetLight_Modern_01_Base_color.png
+Assets/IUH_Campus/SharedCampusConcept/Materials/ambientCG/ambientCG_Teak_timber.mat
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Jump--InAir.anim.fbx
+Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Dormitory east wing_3_Ivory sculpture.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_12.png
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_25.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University main gate_30_Limestone facade.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Campus festival_10_IUH blue.asset
+Assets/Urban_Props_Pack_Rozity/Textures/T_bench1_Height.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Layered planting and clipped hedges_405_Trimmed hedge foliage.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/SubpixelMorphologicalAntialiasing.shader
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Metallic.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_29_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/Leaves sunlight.mat
+Assets/IUH_Campus/SharedCampusConcept/Shaders/PoolWater.shader
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Locomotion--Walk_N_Land.anim.fbx
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/LutBuilderHdr.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central university_1_Blue green glazing.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Pale paving slabs_Normal.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen terrace_9_Teak timber.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_17_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Garden beds and furniture_11_Warm granite.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/ScalingSetup.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Garden beds and furniture_11_Antique brass.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Arms_MetallicSmoothness.tif
+Packages/com.unity.render-pipelines.universal/Textures/FilmGrain/Medium03.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University entrance portico_100_Warm granite.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/ambientCG/ambientCG_Terracotta_brick.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Central clock tower_6_Warm granite.asset
+Packages/com.unity.render-pipelines.universal/Textures/SMAA/AreaTex.tga
+Assets/IUH_Campus/SharedCampusConcept/Materials/Festival LED.mat
+Assets/Urban_Props_Pack_Rozity/Prefabs/URP/SM_StreetLight_Modern_02.prefab
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_601_Warm window reflections.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_14_Tree bark.asset
+Packages/com.unity.cinemachine/Editor/EditorResources/Icons/Light/CmComponent@256.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Marigold.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Rear east wing_5_Warm granite.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_09.wav
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Sky blue window reflections.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Dormitory east wing_3_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_0_LOD1.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Campus HQ Renderer.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_20_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Dormitory east wing_3_Limestone facade.asset
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Arms_Normal.tif
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_22.png
+Packages/com.unity.render-pipelines.universal/Shaders/Debug/DebugReplacement.shader
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Arms_AlbedoTransparency.tif
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_02.wav
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Plaza paving_0_Paving pale.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_15_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_18_Tree bark.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_14.png
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/WoodFloor051/WoodFloor051_2K-JPG_NormalGL.jpg
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_31.png
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Broadleaf_2_LOD1.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Campus festival_10_Warm granite.asset
+Assets/IUH_Campus/SharedCampusConcept/Campus volume.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_1.png
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_08.wav
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Materials/M_Armature_Arms.mat
+Assets/IUH_Campus/Textures/T_Flag_Vietnam.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Pink flowers.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Facade relief_401_Dressed limestone.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Plaza paving_0_Sandstone paving.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Dormitory east wing_3_Warm granite.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Garden beds and furniture_11_Dark bronze.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/University entrance portico_100_Limestone facade.asset
+Packages/com.unity.render-pipelines.universal/Textures/BlueNoise16/L/LDR_LLL1_26.png
+Assets/Urban_Props_Pack_Rozity/Textures/T_TrashCan_02_Norma.png
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Animations/Locomotion--Run_N_Land.anim.fbx
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Detailed central facade_400_Blue green glazing.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Speckled granite.mat
+Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.cs
+Assets/Urban_Props_Pack_Rozity/Material/URP/M_StreetLight_Modern_01.mat
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Speckled granite_Albedo.png
+Packages/com.unity.render-pipelines.universal/Runtime/UniversalAdditionalLightData.cs
+Assets/Starter Assets/Runtime/ThirdPersonController/Prefabs/PlayerFollowCamera.prefab
+Packages/com.unity.inputsystem/InputSystem/Editor/Icons/InputAction.png
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_07.wav
+Assets/Starter Assets/Runtime/ThirdPersonController/Character/Textures/Armature_Legs_Normal.tif
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Festival pavilions and banners_200_IUH blue.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Campus festival_10_Antique brass.asset
+Assets/IUH_Campus/SharedCampusConcept/Textures/ambientCG/Bricks051/Bricks051_2K-JPG_Color.jpg
+Packages/com.unity.render-pipelines.universal/Runtime/UniversalAdditionalCameraData.cs
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Campus festival_10_Dark bronze.asset
+Packages/com.unity.cinemachine/Presets/Noise/Handheld_normal_mild.asset
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Bark grooves_Albedo.png
+Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Detailed lawn_Normal.png
+Assets/IUH_Campus/SharedCampusConcept/Materials/Canteen awning.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Individual window reflections_602_Warm window reflections.asset
+Packages/com.unity.render-pipelines.universal/Shaders/PostProcessing/EdgeAdaptiveSpatialUpsampling.shader
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Curved fountain gardens_101_Lawn.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Festival pavilions and banners_200_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Canteen_8_Ivory sculpture.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Plaza paving_0_Warm granite.asset
+Assets/IUH_Campus/SharedCampusConcept/Materials/Hedge.mat
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Library west wing_2_Blue green glazing.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Shade tree_25_Tree bark.asset
+Assets/IUH_Campus/SharedCampusConcept/Meshes/Garden beds and furniture_11_Teak timber.asset

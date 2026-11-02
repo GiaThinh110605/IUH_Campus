@@ -1,0 +1,1 @@
+Final Unity read_console(types=error,warning,count=20): Retrieved 0 log entries. No shader/material errors detected. Play material validation: badMaterialSlots=0.

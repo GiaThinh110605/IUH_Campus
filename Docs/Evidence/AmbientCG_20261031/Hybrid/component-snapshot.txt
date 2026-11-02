@@ -1,0 +1,4 @@
+Before=848 After=848 Campus=822
+Changed serialized entries=7; expected: seven renderer sharedMaterials
+Unexpected after ignoring sharedMaterials=0
+Props=6 Playing=False
