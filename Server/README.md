@@ -85,3 +85,28 @@ SQLite reward/event dedupe is exactly once for the specified keys. External HTTP
 /health adds db_ok, cloud_configured, outbox_pending, outbox_failed; DB failure returns503 with unavailable counts null. /metrics adds gameplay_events_total{type,result}, cloud_sync_total{result} and outbox_pending. Cloud metrics are collected from durable SQLite stats rather than an unshared metrics directory in the sync container, so API metrics reflect the sync service and survive restarts. SQLite data and Prometheus multiprocess mmap files must stay in separate directories.
 
 Tests isolate credentials/databases and deny live network. Live acceptance is explicitly opt-in: live_cloud_check.py sends manual sample telemetry, not claims of actual camera/gameplay integration. Evidence: Docs/Evidence/CampusGuardian/B3/. Capture Adafruit dashboard screenshots separately for the report.
+
+
+## B4 monitoring stack
+
+```mermaid
+flowchart LR
+    Unity -->|5001| nginx
+    nginx -->|5001| API[Gunicorn API]
+    API --> DB[(SQLite bind volume)]
+    Sync[Adafruit sync worker] --> DB
+    Sync --> Adafruit
+    Prometheus -->|internal metrics every 5s| API
+    Grafana --> Prometheus
+```
+
+Five services: nginx, iuh-guardian-api, iuh-guardian-sync, prometheus, grafana.
+Copy .env.example to .env and set GRAFANA_ADMIN_PASSWORD to a private nonempty password before `docker compose up -d --build` in Server/. Missing/empty password fails Compose interpolation; no admin/admin default. Never share `docker compose config` or container inspect output because they contain resolved credentials. The local .env is ignored. Grafana preserves its initialized credentials in its named volume; changing .env alone does not reset an existing admin password.
+
+Ports: public API stays http://localhost:5001 through nginx; API has no host-published port. External /metrics returns404; internal Prometheus scrapes http://iuh-guardian-api:5001/metrics every5s, retaining7days. Nginx allows6MiB multipart requests; Flask still enforces5MiB with413JSON. Above6MiB nginx returns its own413. ProxyFix trusts exactly one X-Forwarded-For/Proto hop; nginx overwrites incoming client forwarding headers. HTTP only for local demo; TLS is deployment work.
+
+Prometheus http://127.0.0.1:9090; Grafana http://127.0.0.1:3000. Both bind only loopback. Grafana permits anonymous Viewer demo access; administrator username admin uses the private .env password. Datasource Prometheus and dashboard "IUH Campus Guardian — API" provision automatically. Data persists in named prometheus_data/grafana_data volumes; do not use down -v to preserve monitoring history.
+
+Cloud metrics use option(a): API custom collector reads shared SQLite sync_stats/outbox on every scrape, so separate sync worker data appears without starting another metrics server. Request rate uses duration_count with path/status labels (flask_http_request_total lacks path). Target-found ratio is successful /predict requests with a target match divided by all successful /predict requests, including calls with no target. Detections/gameplay show five-minute increases; cloud_sync_total shows durable cumulative totals. Quantiles require traffic and may be NaN when idle. Histogram quantiles are bucket estimates.
+
+Generate opt-in demo data: `python tools/demo_traffic.py` (60seconds, new UUIDs, quest_id=demo_traffic, scan telemetry only). It posts at most20events/minute, while persistent outbox independently caps Adafruit sends to20points/minute. Each event may affect four feeds, so queue coalescing can occur. These are manual demo events, not verified game actions, and change scan totals on real Adafruit feeds. Capture the Grafana dashboard screenshot for the report after running traffic.

@@ -1,0 +1,210 @@
+[
+  {
+    "panel": "Request rate by endpoint/status",
+    "query": "sum by (path, status) (rate(flask_http_request_duration_seconds_count[1m]))",
+    "result": [
+      {
+        "metric": {
+          "path": "/health",
+          "status": "200"
+        },
+        "value": [
+          1793721976.014,
+          "0.03636628118408612"
+        ]
+      },
+      {
+        "metric": {
+          "path": "/predict",
+          "status": "200"
+        },
+        "value": [
+          1793721976.014,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "path": "/gameplay/events",
+          "status": "201"
+        },
+        "value": [
+          1793721976.014,
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "HTTP p50/p95",
+    "query": "histogram_quantile(0.5, sum by (le) (rate(flask_http_request_duration_seconds_bucket[1m])))",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1793721976.021,
+          "0.0175"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "HTTP p50/p95",
+    "query": "histogram_quantile(0.95, sum by (le) (rate(flask_http_request_duration_seconds_bucket[1m])))",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1793721976.028,
+          "0.02425"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Inference p50/p95",
+    "query": "histogram_quantile(0.5, sum by (le) (rate(inference_seconds_bucket[1m])))",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1793721976.032,
+          "NaN"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Inference p50/p95",
+    "query": "histogram_quantile(0.95, sum by (le) (rate(inference_seconds_bucket[1m])))",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1793721976.036,
+          "NaN"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Detections by label",
+    "query": "sum by (label) (increase(detections_total[5m]))",
+    "result": [
+      {
+        "metric": {
+          "label": "laptop"
+        },
+        "value": [
+          1793721976.04,
+          "58.57426769842999"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Target found ratio",
+    "query": "sum(rate(predict_target_found_total[1m])) / clamp_min(sum(rate(flask_http_request_duration_seconds_count{path=\"/predict\",status=\"200\"}[1m])), 0.000001)",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1793721976.046,
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Gameplay by type/result",
+    "query": "sum by (type, result) (increase(gameplay_events_total[5m]))",
+    "result": [
+      {
+        "metric": {
+          "result": "recorded",
+          "type": "scan_confirmed"
+        },
+        "value": [
+          1793721976.05,
+          "20.553263571277945"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Cloud sync by result",
+    "query": "sum by (result) (cloud_sync_total)",
+    "result": [
+      {
+        "metric": {
+          "result": "synced"
+        },
+        "value": [
+          1793721976.077,
+          "33"
+        ]
+      },
+      {
+        "metric": {
+          "result": "retry"
+        },
+        "value": [
+          1793721976.077,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "result": "failed"
+        },
+        "value": [
+          1793721976.077,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "result": "rate_limited"
+        },
+        "value": [
+          1793721976.077,
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Outbox pending",
+    "query": "outbox_pending",
+    "result": [
+      {
+        "metric": {
+          "__name__": "outbox_pending",
+          "instance": "iuh-guardian-api:5001",
+          "job": "guardian-api"
+        },
+        "value": [
+          1793721976.081,
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Model loaded",
+    "query": "model_loaded",
+    "result": [
+      {
+        "metric": {
+          "__name__": "model_loaded",
+          "instance": "iuh-guardian-api:5001",
+          "job": "guardian-api"
+        },
+        "value": [
+          1793721976.084,
+          "1"
+        ]
+      }
+    ]
+  }
+]

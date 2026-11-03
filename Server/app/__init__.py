@@ -4,6 +4,7 @@ import time
 import json
 from pathlib import Path
 from flask import Flask
+from werkzeug.middleware.proxy_fix import ProxyFix
 from prometheus_client import CollectorRegistry, Gauge, Histogram, Counter
 from .config import load_config
 from .routes.health import health
@@ -16,6 +17,7 @@ from .storage_metrics import DurableCollector, DurableMetrics, DurableGunicornMe
 
 def create_app(config=None):
     app = Flask(__name__)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
     app.config.from_mapping(load_config())
     if config:
         app.config.update(config)

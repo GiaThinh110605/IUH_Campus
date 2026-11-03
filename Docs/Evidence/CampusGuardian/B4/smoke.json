@@ -1,0 +1,237 @@
+{
+  "health": {
+    "cloud_configured": true,
+    "db_ok": true,
+    "model_loaded": true,
+    "model_path_configured": true,
+    "outbox_failed": 0,
+    "outbox_pending": 3,
+    "service": "IUH Guardian API",
+    "status": "healthy",
+    "uptime_seconds": 115.888821,
+    "version": "0.1.0"
+  },
+  "predict": {
+    "best_confidence": 0.7349098920822144,
+    "detections": [
+      {
+        "bbox": [
+          418.58,
+          348.174,
+          149.348,
+          88.563
+        ],
+        "class_id": 63,
+        "confidence": 0.7349098920822144,
+        "label": "laptop"
+      }
+    ],
+    "image_size": [
+      800,
+      533
+    ],
+    "inference_time_ms": 37.94237400001066,
+    "model": {
+      "name": "yolov8n",
+      "sha256_prefix": "4d063228"
+    },
+    "target_class": "laptop",
+    "target_found": true,
+    "threshold": 0.7,
+    "total_time_ms": 51.091982000002645
+  },
+  "event_request": {
+    "event_id": "c68027d3-4052-4c7c-9b45-2c24809361ef",
+    "session_id": "f0faf316-f55c-47a6-9cb3-257253ed9ce6",
+    "quest_id": "B4_smoke",
+    "milestone_id": "library_intro",
+    "event_type": "scan_confirmed",
+    "occurred_at": "2026-11-03T16:02:54.845709+00:00",
+    "payload": {
+      "label": "laptop",
+      "confidence": 0.9
+    }
+  },
+  "event_response": {
+    "cloud": "pending",
+    "core_awarded": 0,
+    "event_id": "c68027d3-4052-4c7c-9b45-2c24809361ef",
+    "status": "recorded"
+  },
+  "external_metrics_status": 404,
+  "targets": {
+    "status": "success",
+    "data": {
+      "activeTargets": [
+        {
+          "discoveredLabels": {
+            "__address__": "iuh-guardian-api:5001",
+            "__metrics_path__": "/metrics",
+            "__scheme__": "http",
+            "__scrape_interval__": "5s",
+            "__scrape_timeout__": "5s",
+            "job": "guardian-api"
+          },
+          "labels": {
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api"
+          },
+          "scrapePool": "guardian-api",
+          "scrapeUrl": "http://iuh-guardian-api:5001/metrics",
+          "globalUrl": "http://iuh-guardian-api:5001/metrics",
+          "lastError": "",
+          "lastScrape": "2026-11-03T16:02:52.339725154Z",
+          "lastScrapeDuration": 0.023485243,
+          "health": "up",
+          "scrapeInterval": "5s",
+          "scrapeTimeout": "5s"
+        }
+      ],
+      "droppedTargets": [],
+      "droppedTargetCounts": {
+        "guardian-api": 0
+      }
+    }
+  },
+  "model_loaded": {
+    "status": "success",
+    "data": {
+      "resultType": "vector",
+      "result": [
+        {
+          "metric": {
+            "__name__": "model_loaded",
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api"
+          },
+          "value": [
+            1793721774.928,
+            "1"
+          ]
+        }
+      ]
+    }
+  },
+  "cloud_sync_total": {
+    "status": "success",
+    "data": {
+      "resultType": "vector",
+      "result": [
+        {
+          "metric": {
+            "__name__": "cloud_sync_total",
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api",
+            "result": "synced"
+          },
+          "value": [
+            1793721774.942,
+            "15"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "cloud_sync_total",
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api",
+            "result": "retry"
+          },
+          "value": [
+            1793721774.942,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "cloud_sync_total",
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api",
+            "result": "failed"
+          },
+          "value": [
+            1793721774.942,
+            "0"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "cloud_sync_total",
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api",
+            "result": "rate_limited"
+          },
+          "value": [
+            1793721774.942,
+            "0"
+          ]
+        }
+      ]
+    }
+  },
+  "outbox_pending": {
+    "status": "success",
+    "data": {
+      "resultType": "vector",
+      "result": [
+        {
+          "metric": {
+            "__name__": "outbox_pending",
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api"
+          },
+          "value": [
+            1793721774.95,
+            "4"
+          ]
+        }
+      ]
+    }
+  },
+  "grafana_health": {
+    "database": "ok",
+    "version": "11.6.0",
+    "commit": "d2fdff9ee4d75c74bfd3a97c18a0b8e4d029f06e"
+  },
+  "grafana_search": [
+    {
+      "id": 1,
+      "uid": "dg377p43074sga",
+      "orgId": 1,
+      "title": "IUH Campus Guardian",
+      "uri": "db/iuh-campus-guardian",
+      "url": "/dashboards/f/dg377p43074sga/iuh-campus-guardian",
+      "slug": "",
+      "type": "dash-folder",
+      "tags": [],
+      "isStarred": false,
+      "sortMeta": 0,
+      "isDeleted": false
+    },
+    {
+      "id": 2,
+      "uid": "guardian-api",
+      "orgId": 1,
+      "title": "IUH Campus Guardian \u2014 API",
+      "uri": "db/iuh-campus-guardian-e28094-api",
+      "url": "/d/guardian-api/iuh-campus-guardian-e28094-api",
+      "slug": "",
+      "type": "dash-db",
+      "tags": [],
+      "isStarred": false,
+      "folderId": 1,
+      "folderUid": "dg377p43074sga",
+      "folderTitle": "IUH Campus Guardian",
+      "folderUrl": "/dashboards/f/dg377p43074sga/IUH Campus Guardian",
+      "sortMeta": 0,
+      "isDeleted": false
+    }
+  ],
+  "grafana_datasources": [
+    {
+      "name": "Prometheus",
+      "type": "prometheus",
+      "uid": "guardian-prometheus",
+      "url": "http://prometheus:9090"
+    }
+  ]
+}

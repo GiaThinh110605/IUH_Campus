@@ -1,0 +1,101 @@
+# HELP predict_target_found_total Requests matching target class
+# TYPE predict_target_found_total counter
+predict_target_found_total 59.0
+# HELP flask_http_request_total Total number of HTTP requests
+# TYPE flask_http_request_total counter
+flask_http_request_total{method="GET",status="200"} 11.0
+flask_http_request_total{method="POST",status="200"} 59.0
+flask_http_request_total{method="POST",status="201"} 22.0
+# HELP detections_total Accepted detections
+# TYPE detections_total counter
+detections_total{label="laptop"} 59.0
+# HELP gameplay_events_total Gameplay request outcomes
+# TYPE gameplay_events_total counter
+gameplay_events_total{result="recorded",type="scan_confirmed"} 22.0
+# HELP inference_seconds ONNX session.run latency
+# TYPE inference_seconds histogram
+inference_seconds_sum 2.6793638269999747
+inference_seconds_bucket{le="0.005"} 0.0
+inference_seconds_bucket{le="0.01"} 0.0
+inference_seconds_bucket{le="0.025"} 0.0
+inference_seconds_bucket{le="0.05"} 46.0
+inference_seconds_bucket{le="0.075"} 58.0
+inference_seconds_bucket{le="0.1"} 59.0
+inference_seconds_bucket{le="0.25"} 59.0
+inference_seconds_bucket{le="0.5"} 59.0
+inference_seconds_bucket{le="0.75"} 59.0
+inference_seconds_bucket{le="1.0"} 59.0
+inference_seconds_bucket{le="2.5"} 59.0
+inference_seconds_bucket{le="5.0"} 59.0
+inference_seconds_bucket{le="7.5"} 59.0
+inference_seconds_bucket{le="10.0"} 59.0
+inference_seconds_bucket{le="+Inf"} 59.0
+inference_seconds_count 59.0
+# HELP flask_http_request_duration_seconds Flask HTTP request duration in seconds
+# TYPE flask_http_request_duration_seconds histogram
+flask_http_request_duration_seconds_sum{method="GET",path="/health",status="200"} 0.21907537599997795
+flask_http_request_duration_seconds_bucket{le="0.005",method="GET",path="/health",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="GET",path="/health",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_count{method="GET",path="/health",status="200"} 11.0
+flask_http_request_duration_seconds_sum{method="POST",path="/predict",status="200"} 3.564537828999846
+flask_http_request_duration_seconds_bucket{le="0.005",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="POST",path="/predict",status="200"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="POST",path="/predict",status="200"} 10.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="POST",path="/predict",status="200"} 53.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="POST",path="/predict",status="200"} 58.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_count{method="POST",path="/predict",status="200"} 59.0
+flask_http_request_duration_seconds_sum{method="POST",path="/gameplay/events",status="201"} 0.8321650620002856
+flask_http_request_duration_seconds_bucket{le="0.005",method="POST",path="/gameplay/events",status="201"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="POST",path="/gameplay/events",status="201"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="POST",path="/gameplay/events",status="201"} 0.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="POST",path="/gameplay/events",status="201"} 22.0
+flask_http_request_duration_seconds_count{method="POST",path="/gameplay/events",status="201"} 22.0
+# HELP flask_exporter_info Information about the Prometheus Flask exporter
+# TYPE flask_exporter_info gauge
+flask_exporter_info{version="0.23.2"} 1.0
+# HELP model_loaded Whether all live API workers loaded their ONNX model
+# TYPE model_loaded gauge
+model_loaded 1.0
+# HELP outbox_pending Pending durable cloud rows
+# TYPE outbox_pending gauge
+outbox_pending 0.0
+# HELP cloud_sync_total Durable cloud send outcomes
+# TYPE cloud_sync_total counter
+cloud_sync_total{result="synced"} 33.0
+cloud_sync_total{result="retry"} 0.0
+cloud_sync_total{result="failed"} 0.0
+cloud_sync_total{result="rate_limited"} 0.0
