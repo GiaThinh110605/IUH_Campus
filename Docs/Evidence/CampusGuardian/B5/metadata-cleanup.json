@@ -1,0 +1,31 @@
+{
+  "deleted_previously": [
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/Editor.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianApiClient.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianBackendConfig.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianBackendService.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEvent.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEventOutbox.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianHttpTransport.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianImageEncoder.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianResults.cs.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/IUHCampus.Guardian.Backend.asmdef.meta.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/BackendAvailabilityTests.cs.meta.meta.meta"
+  ],
+  "deleted_in_final_round": [],
+  "current_meta_meta_files_in_entire_project": [],
+  "cause": "The agent metadata generator iterated existing .meta files from rglob and appended .meta again; repeated runs produced .meta.meta and .meta.meta.meta. It was not Unity generating normal metadata for C# files.",
+  "first_cleanup": "Exactly 11 listed extras removed using validated literal paths; refresh then showed 9 missing legitimate metas, agent stopped without further repair.",
+  "final_authorized_round": "All 9 legitimate metas already existed before final round. AssetDatabase.Refresh performed, 18 assets/folders matched 18 metas, no orphans or Backend GUID collisions in 4291 logical project metas. No manual generation or C# changes in final round.",
+  "code_sha256_unchanged": true,
+  "self_fix_rounds": 3,
+  "additional_metadata_rounds_authorized": 2,
+  "final_tests": {
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0
+  },
+  "final_console_errors": 0,
+  "final_backend_errors_warnings": 0,
+  "scene_dirty": false
+}

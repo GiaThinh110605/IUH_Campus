@@ -1,0 +1,12 @@
+{
+  "name": "IUHCampus.Guardian.Backend.Tests",
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "references": [
+    "IUHCampus.Guardian.Backend"
+  ]
+}

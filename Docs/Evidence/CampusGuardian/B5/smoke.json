@@ -1,0 +1,61 @@
+{
+    "timestampUtc": "2026-11-03T16:37:40.3055790Z",
+    "platform": "6000.5.8f1 WindowsEditor",
+    "baseUrl": "http://127.0.0.1:5001",
+    "error": "",
+    "dirtyBefore": false,
+    "dirtyAfter": false,
+    "passed": true,
+    "health": {
+        "Status": 0,
+        "ModelLoaded": true,
+        "DbOk": true,
+        "CloudConfigured": true,
+        "OutboxPending": 0,
+        "OutboxFailed": 0,
+        "Error": "",
+        "HttpStatus": 200
+    },
+    "predict": {
+        "TargetFound": true,
+        "Detections": [
+            {
+                "label": "laptop",
+                "class_id": 63,
+                "confidence": 0.7349098920822144,
+                "bbox": [
+                    418.5799865722656,
+                    348.17401123046877,
+                    149.34800720214845,
+                    88.56300354003906
+                ]
+            }
+        ],
+        "InferenceMs": 304.4283752441406,
+        "Status": 0,
+        "HttpStatus": 200,
+        "Error": ""
+    },
+    "first": {
+        "Outcome": 0,
+        "CoreAwarded": 0,
+        "Cloud": "pending",
+        "Error": "",
+        "Field": "",
+        "HttpStatus": 201
+    },
+    "second": {
+        "Outcome": 1,
+        "CoreAwarded": 0,
+        "Cloud": "pending",
+        "Error": "",
+        "Field": "",
+        "HttpStatus": 200
+    },
+    "eventSchemas": [
+        "{\"event_id\":\"6327b15b-aa93-4021-a7ae-c36d36c18ed5\",\"session_id\":\"be371626-e016-4d4a-b754-715c9fb66bd6\",\"quest_id\":\"B5_smoke\",\"milestone_id\":\"library_intro\",\"event_type\":\"scan_confirmed\",\"occurred_at\":\"2026-11-03T16:37:41.2498556Z\",\"payload\":{\"label\":\"laptop\",\"confidence\":0.7}}",
+        "{\"event_id\":\"b59a9bf6-4c36-4006-8be5-a6115b354c24\",\"session_id\":\"be371626-e016-4d4a-b754-715c9fb66bd6\",\"quest_id\":\"B5_smoke\",\"milestone_id\":\"library_intro\",\"event_type\":\"combat_won\",\"occurred_at\":\"2026-11-03T16:37:41.4673124Z\"}",
+        "{\"event_id\":\"bccaaafd-a509-4a1c-9790-65137cfd2c8f\",\"session_id\":\"be371626-e016-4d4a-b754-715c9fb66bd6\",\"quest_id\":\"B5_smoke\",\"milestone_id\":\"library_intro\",\"event_type\":\"combat_lost\",\"occurred_at\":\"2026-11-03T16:37:41.4673124Z\"}",
+        "{\"event_id\":\"6b589027-d415-48d7-b73a-3d216984ab3e\",\"session_id\":\"be371626-e016-4d4a-b754-715c9fb66bd6\",\"quest_id\":\"B5_smoke\",\"milestone_id\":\"library_intro\",\"event_type\":\"upgrade_purchased\",\"occurred_at\":\"2026-11-03T16:37:41.4683134Z\",\"payload\":{\"branch\":\"defense\",\"level\":2}}"
+    ]
+}
