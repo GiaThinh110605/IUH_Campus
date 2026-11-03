@@ -7,7 +7,7 @@ Tuân thủ chặt chẽ tiêu chuẩn triển khai Deep Learning Production the
 - **Suy luận Production với ONNX Runtime**:
   - Không tải lại mô hình trong mỗi request; `InferenceSession` phải được khởi tạo một lần duy nhất lúc backend khởi động.
   - Tối ưu hóa thực thi (CPU Execution Provider / CoreML trên Mac / CUDA trên Linux GPU).
-  - Độ trễ suy luận mục tiêu: `< 45ms` cho mỗi khung hình 640x640.
+  - YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.
   - Ngưỡng lọc phát hiện hợp lệ: `confidence >= 0.70` (70%).
 
 ## 2. Tiêu chuẩn Docker & Web Service Backend

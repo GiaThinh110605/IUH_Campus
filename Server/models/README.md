@@ -23,3 +23,8 @@ Re-export using requirements-export.txt in Server/.venv-export. Original .pt/cac
 -640 dynamic signed QInt8:3,504,075bytes. ONNX Runtime1.23.2 CPU cannot load ConvInteger(10); latency/accuracy unavailable, not deployed.
 -640/512/480/416 speed tables: Docs/Evidence/CampusGuardian/B2/thread-benchmark.md.
 -No real user photos supplied; real-eval.md intentionally reports N/A. Default640 model bytes/checksum above are unchanged.
+
+## B2.7 — Model decision (2026-11-04)
+
+YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.
+Model/default inference code and checksum unchanged. Chưa đánh giá trên ảnh thật — sẽ bổ sung. See Docs/Evidence/CampusGuardian/B2/model-decision.md.

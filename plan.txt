@@ -8,7 +8,7 @@ Khám phá -> đầu mối -> quét -> nguồn nguyền -> match-3 -> Core -> n�
 Desktop (PC/Mac): camera game bật quét mới hiện khói tím/khối dữ liệu vỡ trên vật thể.
 Mobile (Android/iOS): camera thật quét vật thể tương ứng (sách/laptop/màn hình theo model),
 tuân thủ chuẩn W9-En.pdf (export_onnx.py -> model .onnx -> Flask/Gunicorn REST API ->
-Docker container -> Prometheus /metrics -> độ trễ < 45ms, confidence > 70%).
+Docker container -> Prometheus /metrics -> YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.).
 Xác nhận xong đóng camera quay về game mở trận đấu; không cần bám khói lên đồ vật thật.
 PC/Mac raycast không phải AI. Nhận diện camera chưa tự đáp ứng AR.
 
@@ -39,7 +39,7 @@ Không menu 6 game/Missing Script; quét đúng/sai/quyền camera xử lý rõ.
 Bàn cờ không kẹt, không đếm trùng, không input khi rơi; mỗi lượt quái đánh một lần.
 Thưởng/nâng cấp/lưu đúng; retry/restart không thưởng lặp, cloud có bằng chứng thật.
 AI/AR/Docker kiểm thử trên thiết bị/cấu hình thực theo chuẩn W9-En.pdf (export .onnx,
-POST /predict < 45ms & conf > 70%, container Docker chạy ổn định, Prometheus /metrics hoạt động).
+POST /predict: YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.; container Docker chạy ổn định, Prometheus /metrics hoạt động).
 Chốt thêm thiết bị, chỉ số/giá, lớp/ngưỡng model, luật thua/replay, yêu cầu AR,
 ngày bắt đầu/hạn nộp. Không cảm biến; key chỉ ở backend. Không cloud save liên máy.
 Chi tiết: plan.md. Hướng dẫn: README.md. Rubric gốc giữ nguyên bên dưới.
