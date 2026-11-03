@@ -1,0 +1,205 @@
+{
+  "time_utc": "2026-11-03T17:46:20.189627+00:00",
+  "attempts": [
+    {
+      "create_request": {
+        "session_id": "f8cca046-8e64-456b-99cb-4b2e8e2ee644"
+      },
+      "create_status": 201,
+      "created": {
+        "expires_at": "2026-11-03T18:01:20.239243+00:00",
+        "hint": "Tín hiệu nhiễu từ thứ mang trên vai và thứ để ngồi.",
+        "max_monsters": 2,
+        "scan_session_id": "6cd27e54-9b4e-4f57-bb46-aab0ce758793"
+      },
+      "predict_status": 200,
+      "prediction": {
+        "best_confidence": 0.7349098920822144,
+        "detections": [
+          {
+            "bbox": [
+              418.58,
+              348.174,
+              149.348,
+              88.563
+            ],
+            "class_id": 63,
+            "confidence": 0.7349098920822144,
+            "label": "laptop"
+          }
+        ],
+        "image_size": [
+          800,
+          533
+        ],
+        "inference_time_ms": 74.33342799959064,
+        "model": {
+          "name": "yolov8n",
+          "sha256_prefix": "4d063228"
+        },
+        "scan": {
+          "label": "laptop",
+          "monster_token": null,
+          "monsters_remaining": 2,
+          "result": "clean"
+        },
+        "target_class": null,
+        "target_found": false,
+        "threshold": 0.7,
+        "total_time_ms": 199.06572200034134
+      }
+    },
+    {
+      "create_request": {
+        "session_id": "740c1278-494d-4c0b-afa2-34ae28d638cc"
+      },
+      "create_status": 201,
+      "created": {
+        "expires_at": "2026-11-03T18:01:20.484435+00:00",
+        "hint": "Tín hiệu nhiễu từ thứ chứa chữ và thứ mang trên vai.",
+        "max_monsters": 2,
+        "scan_session_id": "3c207730-33ac-4ac3-972b-e711d2c37d2f"
+      },
+      "predict_status": 200,
+      "prediction": {
+        "best_confidence": 0.7349098920822144,
+        "detections": [
+          {
+            "bbox": [
+              418.58,
+              348.174,
+              149.348,
+              88.563
+            ],
+            "class_id": 63,
+            "confidence": 0.7349098920822144,
+            "label": "laptop"
+          }
+        ],
+        "image_size": [
+          800,
+          533
+        ],
+        "inference_time_ms": 67.01553600032639,
+        "model": {
+          "name": "yolov8n",
+          "sha256_prefix": "4d063228"
+        },
+        "scan": {
+          "label": "laptop",
+          "monster_token": null,
+          "monsters_remaining": 2,
+          "result": "clean"
+        },
+        "target_class": null,
+        "target_found": false,
+        "threshold": 0.7,
+        "total_time_ms": 160.2548000000752
+      }
+    },
+    {
+      "create_request": {
+        "session_id": "ac464046-f248-4a12-9d16-16a402807930"
+      },
+      "create_status": 201,
+      "created": {
+        "expires_at": "2026-11-03T18:01:20.686302+00:00",
+        "hint": "Tín hiệu nhiễu từ đồ điện tử và thứ để ngồi.",
+        "max_monsters": 2,
+        "scan_session_id": "2430f4ce-4759-4da4-a9b1-6fee61d15d7a"
+      },
+      "predict_status": 200,
+      "prediction": {
+        "best_confidence": 0.7349098920822144,
+        "detections": [
+          {
+            "bbox": [
+              418.58,
+              348.174,
+              149.348,
+              88.563
+            ],
+            "class_id": 63,
+            "confidence": 0.7349098920822144,
+            "label": "laptop"
+          }
+        ],
+        "image_size": [
+          800,
+          533
+        ],
+        "inference_time_ms": 73.34307200017065,
+        "model": {
+          "name": "yolov8n",
+          "sha256_prefix": "4d063228"
+        },
+        "scan": {
+          "label": "laptop",
+          "monster_token": "hBV0AuxfoN1IvFyd-QrOJGiMO3gtcAwu84y9QkGw-TI",
+          "monsters_remaining": 1,
+          "result": "infested"
+        },
+        "target_class": null,
+        "target_found": false,
+        "threshold": 0.7,
+        "total_time_ms": 153.41453900055058
+      }
+    }
+  ],
+  "manual_telemetry": true,
+  "health": {
+    "cloud_configured": true,
+    "db_ok": true,
+    "model_loaded": true,
+    "model_path_configured": true,
+    "outbox_failed": 0,
+    "outbox_pending": 0,
+    "service": "IUH Guardian API",
+    "status": "healthy",
+    "uptime_seconds": 86.171512,
+    "version": "0.1.0"
+  },
+  "event_request": {
+    "event_id": "06ed45ae-8e12-47f4-bae4-012fb18d08dc",
+    "session_id": "ac464046-f248-4a12-9d16-16a402807930",
+    "quest_id": "B6_smoke",
+    "milestone_id": "ar_monster",
+    "event_type": "combat_won",
+    "occurred_at": "2026-11-03T17:46:20.890216+00:00",
+    "payload": {
+      "monster_token": "hBV0AuxfoN1IvFyd-QrOJGiMO3gtcAwu84y9QkGw-TI"
+    }
+  },
+  "recorded": {
+    "cloud": "pending",
+    "core_awarded": 10,
+    "event_id": "06ed45ae-8e12-47f4-bae4-012fb18d08dc",
+    "status": "recorded"
+  },
+  "duplicate": {
+    "cloud": "pending",
+    "core_awarded": 10,
+    "event_id": "06ed45ae-8e12-47f4-bae4-012fb18d08dc",
+    "status": "duplicate"
+  },
+  "new_event_same_token": {
+    "status": 400,
+    "response": {
+      "error": "invalid_monster_token",
+      "field": "payload.monster_token"
+    }
+  },
+  "cloud_status": {
+    "cloud": "synced",
+    "core_awarded": 10,
+    "event_id": "06ed45ae-8e12-47f4-bae4-012fb18d08dc",
+    "status": "recorded"
+  },
+  "session_status": {
+    "expires_at": "2026-11-03T18:01:20.686302+00:00",
+    "hint": "Tín hiệu nhiễu từ đồ điện tử và thứ để ngồi.",
+    "monsters_remaining": 1,
+    "revealed_count": 1,
+    "scan_session_id": "2430f4ce-4759-4da4-a9b1-6fee61d15d7a"
+  }
+}

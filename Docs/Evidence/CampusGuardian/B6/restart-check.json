@@ -1,0 +1,112 @@
+{
+  "duplicate_after_restart": {
+    "status": 200,
+    "response": {
+      "cloud": "synced",
+      "core_awarded": 10,
+      "event_id": "06ed45ae-8e12-47f4-bae4-012fb18d08dc",
+      "status": "duplicate"
+    }
+  },
+  "repeat_scan_after_restart": {
+    "status": 200,
+    "scan": {
+      "label": "laptop",
+      "monster_token": "hBV0AuxfoN1IvFyd-QrOJGiMO3gtcAwu84y9QkGw-TI",
+      "monsters_remaining": 1,
+      "result": "infested"
+    }
+  },
+  "session_after_restart": {
+    "expires_at": "2026-11-03T18:01:20.686302+00:00",
+    "hint": "Tín hiệu nhiễu từ đồ điện tử và thứ để ngồi.",
+    "monsters_remaining": 1,
+    "revealed_count": 1,
+    "scan_session_id": "2430f4ce-4759-4da4-a9b1-6fee61d15d7a"
+  },
+  "metrics": {
+    "scan_sessions_total": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "scan_sessions_total",
+              "instance": "iuh-guardian-api:5001",
+              "job": "guardian-api"
+            },
+            "value": [
+              1793728165.768,
+              "3"
+            ]
+          }
+        ]
+      }
+    },
+    "scan_results_total": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "scan_results_total",
+              "instance": "iuh-guardian-api:5001",
+              "job": "guardian-api",
+              "result": "infested"
+            },
+            "value": [
+              1793728165.792,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "scan_results_total",
+              "instance": "iuh-guardian-api:5001",
+              "job": "guardian-api",
+              "result": "clean"
+            },
+            "value": [
+              1793728165.792,
+              "2"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "scan_results_total",
+              "instance": "iuh-guardian-api:5001",
+              "job": "guardian-api",
+              "result": "none"
+            },
+            "value": [
+              1793728165.792,
+              "0"
+            ]
+          }
+        ]
+      }
+    },
+    "monsters_revealed_total": {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "monsters_revealed_total",
+              "instance": "iuh-guardian-api:5001",
+              "job": "guardian-api",
+              "label": "laptop"
+            },
+            "value": [
+              1793728165.796,
+              "1"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -10,6 +10,8 @@ from .config import load_config
 from .routes.health import health
 from .routes.predict import predict
 from .routes.gameplay import gameplay
+from .routes.scan import scan
+from .scan_store import ScanStore
 from .cloud_client import cloud_configured
 from .event_store import EventStore
 from .storage_metrics import DurableCollector, DurableMetrics, DurableGunicornMetrics
@@ -29,6 +31,7 @@ def create_app(config=None):
     app.register_blueprint(health)
     app.register_blueprint(predict)
     app.register_blueprint(gameplay)
+    app.register_blueprint(scan)
     app.extensions["prometheus_metrics"] = configure_metrics(app)
     return app
 
@@ -46,15 +49,20 @@ def configure_storage(app):
     if not isinstance(rewards, dict) or any(type(value) is not int or value < 0 for value in rewards.values()):
         raise ValueError("Invalid server reward configuration")
     app.extensions["event_store"] = EventStore(app.config["DATABASE_PATH"], rewards)
+    app.extensions["scan_store"] = ScanStore(app.extensions["event_store"], app.config)
     app.extensions["cloud_configured"] = cloud_configured(app.config)
+
+
+def path(request):
+    return request.url_rule.rule if request.url_rule else "/unmatched"
 
 
 def configure_metrics(app):
     registry = CollectorRegistry()
     if os.getenv("PROMETHEUS_MULTIPROC_DIR"):
-        metrics = DurableGunicornMetrics(app, registry=registry)
+        metrics = DurableGunicornMetrics(app, registry=registry, group_by=path)
     else:
-        metrics = DurableMetrics(app, registry=registry)
+        metrics = DurableMetrics(app, registry=registry, group_by=path)
     metrics.event_store = app.extensions["event_store"]
     registry.register(DurableCollector(metrics.event_store))
     app.extensions["gameplay_events_metric"] = Counter("gameplay_events_total", "Gameplay request outcomes", ["type", "result"], registry=registry)

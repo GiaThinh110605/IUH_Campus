@@ -37,6 +37,9 @@ def record_event():
         count_event(kind, "invalid")
         return jsonify(error=error.error, field=error.field), 400
     result, response = current_app.extensions["event_store"].record(event, current_app.extensions["cloud_configured"])
+    if result == "invalid_token":
+        count_event(kind, "invalid")
+        return jsonify(error="invalid_monster_token", field="payload.monster_token"), 400
     if result == "invalid_milestone":
         count_event(kind, "invalid")
         return jsonify(error="unknown_milestone", field="milestone_id"), 400

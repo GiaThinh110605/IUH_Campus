@@ -1,0 +1,6 @@
+{
+  "public_create_fields_only": true,
+  "no_hidden_class_list_in_public_evidence": true,
+  "no_scan_uuid_in_metric_labels": true,
+  "model_sha256_unchanged": "4d0632282232a5fe4eedf59a951f371d3d6b98e4d78546813f1d0ef07b06bb40"
+}
