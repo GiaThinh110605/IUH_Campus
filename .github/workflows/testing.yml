@@ -1,0 +1,20 @@
+name: CI FOR BACKEND
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  
+jobs:
+  build:
+    runs_on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      
+      - name: Install requirement
+        run: python3 -m pip install -r backend/requirements.txt 
+      
+      - name: Run test
+        run: python3 -m pytest backend/tests -v
