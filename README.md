@@ -81,7 +81,7 @@ Lỗi JSON: thiếu/ảnh không đọc được, target/threshold sai → 400; 
 
 `/metrics`: request count theo status, HTTP latency, `model_loaded` (min của worker sống), `inference_seconds`, `detections_total{label}`, `predict_target_found_total`. Multiprocess exporter gom hai worker Gunicorn; master dọn database metrics cũ trong thư mục tạm, `child_exit` loại gauge worker chết. Không log INFO theo từng inference ngoài access log.
 
-B1 đã nghiệm thu Docker; B2 chạy inference và ghi benchmark thật tại `Docs/Evidence/CampusGuardian/B2/`. Không suy ra đạt <45 ms từ việc model đã chạy; xem số liệu và tradeoff 640/480/416 trong evidence. Adafruit IO chưa tích hợp ở B2. Điện thoại cần IP LAN/URL backend, không dùng localhost của PC.
+B1 đã nghiệm thu Docker; B2 chạy inference và ghi benchmark thật tại `Docs/Evidence/CampusGuardian/B2/`. YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2. Không suy ra đạt chỉ tiêu từ việc model đã chạy; xem số liệu và tradeoff 640/480/416 trong evidence. Adafruit IO chưa tích hợp ở B2. Điện thoại cần IP LAN/URL backend, không dùng localhost của PC.
 
 ### Gameplay events và Adafruit IO (B3)
 

@@ -25,7 +25,7 @@ python3 export_onnx.py
 ```
 - Kiểm tra file output: `models/yolov8n.onnx` phải tồn tại.
 - Kích thước ảnh chuẩn vào: `640x640`.
-- Chế độ suy luận: Dynamic batch hoặc fixed batch size 1 cho độ trễ nhỏ hơn 45ms.
+- Chế độ suy luận: Dynamic batch hoặc fixed batch size 1; mục tiêu: YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.
 
 ## 3. Triển khai Docker Container
 Khởi động backend bằng Docker Compose:
