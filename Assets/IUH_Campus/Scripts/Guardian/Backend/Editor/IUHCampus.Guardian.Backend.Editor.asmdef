@@ -1,0 +1,9 @@
+{
+  "name": "IUHCampus.Guardian.Backend.Editor",
+  "references": [
+    "IUHCampus.Guardian.Backend"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

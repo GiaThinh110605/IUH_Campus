@@ -1,0 +1,11 @@
+B2.5 final; 2026-11-02 Asia/Bangkok; base c014e39; Windows11/Python3.11.9
+$ Server/.venv/Scripts/python.exe -m pytest Server/tests -q -p no:cacheprovider
+exit=0
+.............................................                            [100%]
+45 passed in 8.30s
+
+STDERR:
+Exception ignored in: <function Console.__del__ at 0x00000192E6DCB420>
+Traceback (most recent call last):
+  File "D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Lib\site-packages\pyreadline3\console\console.py", line 256, in __del__
+OSError: [WinError -1073741816] Windows Error 0xc0000008

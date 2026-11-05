@@ -1,0 +1,29 @@
+{
+  "best_confidence": 0.7349098920822144,
+  "detections": [
+    {
+      "bbox": [
+        418.58,
+        348.174,
+        149.348,
+        88.563
+      ],
+      "class_id": 63,
+      "confidence": 0.7349098920822144,
+      "label": "laptop"
+    }
+  ],
+  "image_size": [
+    800,
+    533
+  ],
+  "inference_time_ms": 97.71630399995956,
+  "model": {
+    "name": "yolov8n",
+    "sha256_prefix": "4d063228"
+  },
+  "target_class": "laptop",
+  "target_found": true,
+  "threshold": 0.7,
+  "total_time_ms": 147.01402199989388
+}

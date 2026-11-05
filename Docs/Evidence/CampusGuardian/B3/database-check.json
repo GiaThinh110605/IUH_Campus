@@ -1,0 +1,13 @@
+{
+  "integrity_check": "ok",
+  "journal_mode": "wal",
+  "tables": [
+    "events",
+    "milestone_rewards",
+    "aggregates",
+    "outbox",
+    "event_outbox",
+    "sync_control",
+    "sync_stats"
+  ]
+}

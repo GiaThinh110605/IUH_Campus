@@ -1,0 +1,144 @@
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml build
+exit=0
+#1 [internal] load local bake definitions
+#1 reading from stdin 579B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 828B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 1.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 210B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60
+#5 resolve docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 18.43kB done
+#6 DONE 0.0s
+
+#7 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [4/7] COPY requirements.txt .
+#8 CACHED
+
+#9 [2/7] WORKDIR /app
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 0.0s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus     && chown guardian:guardian /tmp/iuh-guardian-prometheus
+#12 DONE 0.3s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:4a7759da3f6be3a01d2de876fd9f07b033ddf183c4a000c27ab73b292fae27e2 0.0s done
+#13 exporting config sha256:2359dd2becbe96db6353e88f2b4f16e79f017c6718b90edad91435f4456c14f1
+#13 exporting config sha256:2359dd2becbe96db6353e88f2b4f16e79f017c6718b90edad91435f4456c14f1 0.0s done
+#13 exporting attestation manifest sha256:cc1ed8211584d7869b827db205ca11763329118ed543edfc1ca46702c69da903 0.0s done
+#13 exporting manifest list sha256:93ac49a4bd3113f2342eba6bf14a600ce8d107db4e075882880d116bebbfec5f 0.0s done
+#13 naming to docker.io/library/server-iuh-guardian-api:latest done
+#13 unpacking to docker.io/library/server-iuh-guardian-api:latest 0.1s done
+#13 DONE 0.3s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image server-iuh-guardian-api Building 
+ Image server-iuh-guardian-api Built 
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Network server_default Creating 
+ Network server_default Created 
+ Container server-iuh-guardian-api-1 Creating 
+ Container server-iuh-guardian-api-1 Created 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.223519,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.318982,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.355909,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.318063,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.294872,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.25932,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml exec -T iuh-guardian-api python -c import onnxruntime as o,json;
+try:
+ o.InferenceSession("/app/models/yolov8n-int8.onnx");print(json.dumps({"loadable":True}))
+except Exception as e:
+ print(json.dumps({"loadable":False,"error":str(e)}))
+exit=0
+{"loadable": false, "error": "[ONNXRuntimeError] : 9 : NOT_IMPLEMENTED : Could not find an implementation for ConvInteger(10) node with name '/model.0/conv/Conv_quant'"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml down
+exit=0
+ Container server-iuh-guardian-api-1 Stopping 
+ Container server-iuh-guardian-api-1 Stopped 
+ Container server-iuh-guardian-api-1 Removing 
+ Container server-iuh-guardian-api-1 Removed 
+ Network server_default Removing 
+ Network server_default Removed 

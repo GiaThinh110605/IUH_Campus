@@ -1,0 +1,62 @@
+[
+  {
+    "event_type": "scan_confirmed",
+    "valid": true,
+    "fields": [
+      "event_id",
+      "event_type",
+      "milestone_id",
+      "occurred_at",
+      "payload",
+      "quest_id",
+      "session_id"
+    ],
+    "payload": {
+      "label": "laptop",
+      "confidence": 0.7
+    }
+  },
+  {
+    "event_type": "combat_won",
+    "valid": true,
+    "fields": [
+      "event_id",
+      "event_type",
+      "milestone_id",
+      "occurred_at",
+      "quest_id",
+      "session_id"
+    ],
+    "payload": {}
+  },
+  {
+    "event_type": "combat_lost",
+    "valid": true,
+    "fields": [
+      "event_id",
+      "event_type",
+      "milestone_id",
+      "occurred_at",
+      "quest_id",
+      "session_id"
+    ],
+    "payload": {}
+  },
+  {
+    "event_type": "upgrade_purchased",
+    "valid": true,
+    "fields": [
+      "event_id",
+      "event_type",
+      "milestone_id",
+      "occurred_at",
+      "payload",
+      "quest_id",
+      "session_id"
+    ],
+    "payload": {
+      "branch": "defense",
+      "level": 2
+    }
+  }
+]

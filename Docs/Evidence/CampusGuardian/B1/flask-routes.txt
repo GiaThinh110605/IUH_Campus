@@ -1,0 +1,18 @@
+Date: 2026-11-02 (Asia/Bangkok)
+OS: Windows-10-10.0.26200-SP0
+Python: 3.11.9
+Base commit: c034442c4427a7c02f21cac9b56ee35f3873a81c
+Branch: minhnhat/backend-w9-b1
+Command: Server/.venv/Scripts/python.exe -m flask --app Server/wsgi.py routes
+Exit code: 0
+
+STDOUT:
+Endpoint               Methods  Rule                   
+---------------------  -------  -----------------------
+health.health_check    GET      /health                
+predict.predict_image  POST     /predict               
+prometheus_metrics     GET      /metrics               
+static                 GET      /static/<path:filename>
+
+STDERR:
+[2026-11-02 17:15:00,402] WARNING in model_registry: [IUH Guardian API] Model file unavailable; inference disabled

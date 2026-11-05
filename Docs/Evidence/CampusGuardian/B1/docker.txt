@@ -1,0 +1,432 @@
+B1 Docker acceptance, 2026-11-02 Asia/Bangkok; base commit 40b114f
+
+$ docker version
+exit=0
+Client:
+ Version:           29.3.1
+ API version:       1.54
+ Go version:        go1.25.8
+ Git commit:        c2be9cc
+ Built:             Wed Mar 25 16:16:33 2026
+ OS/Arch:           windows/amd64
+ Context:           desktop-linux
+
+Server: Docker Desktop 4.67.0 (222858)
+ Engine:
+  Version:          29.3.1
+  API version:      1.54 (minimum version 1.40)
+  Go version:       go1.25.8
+  Git commit:       f78c987
+  Built:            Wed Mar 25 16:13:48 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.2.1
+  GitCommit:        dea7da592f5d1d2b7755e3a161be07f43fad8f75
+ runc:
+  Version:          1.3.4
+  GitCommit:        v1.3.4-0-gd6d73eb8
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+$ docker compose -f Server/docker-compose.yml up -d --build
+exit=0
+#1 [internal] load local bake definitions
+#1 reading from stdin 579B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 826B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 1.9s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 182B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60
+#5 resolve docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60 0.0s done
+#5 DONE 0.0s
+
+#6 [2/7] WORKDIR /app
+#6 CACHED
+
+#7 [internal] load build context
+#7 transferring context: 7.94kB 0.0s done
+#7 DONE 0.0s
+
+#8 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#8 0.554 Hit:1 http://deb.debian.org/debian trixie InRelease
+#8 0.567 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#8 0.623 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#8 0.661 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+#8 1.248 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [1108 B]
+#8 1.286 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [293 kB]
+#8 1.848 Fetched 10.1 MB in 1s (7191 kB/s)
+#8 1.848 Reading package lists...
+#8 2.418 Reading package lists...
+#8 2.936 Building dependency tree...
+#8 3.098 Reading state information...
+#8 3.364 The following additional packages will be installed:
+#8 3.364   libbrotli1 libcom-err2 libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libidn2-0
+#8 3.364   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libnghttp2-14
+#8 3.366   libnghttp3-9 libp11-kit0 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db
+#8 3.367   libssh2-1t64 libtasn1-6 libunistring5
+#8 3.371 Suggested packages:
+#8 3.371   gnutls-bin krb5-doc krb5-user
+#8 3.371 Recommended packages:
+#8 3.371   bash-completion krb5-locales libldap-common publicsuffix libsasl2-modules
+#8 3.502 The following NEW packages will be installed:
+#8 3.502   curl libbrotli1 libcom-err2 libcurl4t64 libgnutls30t64 libgssapi-krb5-2
+#8 3.503   libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2
+#8 3.504   libnghttp2-14 libnghttp3-9 libp11-kit0 libpsl5t64 librtmp1 libsasl2-2
+#8 3.505   libsasl2-modules-db libssh2-1t64 libtasn1-6 libunistring5
+#8 3.608 0 upgraded, 22 newly installed, 0 to remove and 1 not upgraded.
+#8 3.608 Need to get 4885 kB of archives.
+#8 3.608 After this operation, 14.7 MB of additional disk space will be used.
+#8 3.608 Get:1 http://deb.debian.org/debian-security trixie-security/main amd64 libbrotli1 amd64 1.1.0-2+deb13u1 [304 kB]
+#8 3.734 Get:2 http://deb.debian.org/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5+deb13u1 [33.1 kB]
+#8 3.736 Get:3 http://deb.debian.org/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b12 [25.0 kB]
+#8 3.737 Get:4 http://deb.debian.org/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5+deb13u1 [81.2 kB]
+#8 3.741 Get:5 http://deb.debian.org/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]
+#8 3.741 Get:6 http://deb.debian.org/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5+deb13u1 [326 kB]
+#8 3.777 Get:7 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+#8 3.796 Get:8 http://deb.debian.org/debian trixie/main amd64 libunistring5 amd64 1.3-2 [477 kB]
+#8 3.826 Get:9 http://deb.debian.org/debian trixie/main amd64 libidn2-0 amd64 2.3.8-2 [109 kB]
+#8 3.835 Get:10 http://deb.debian.org/debian trixie/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9 [19.8 kB]
+#8 3.836 Get:11 http://deb.debian.org/debian trixie/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9 [57.5 kB]
+#8 3.838 Get:12 http://deb.debian.org/debian trixie/main amd64 libldap2 amd64 2.6.10+dfsg-1 [194 kB]
+#8 3.842 Get:13 http://deb.debian.org/debian trixie/main amd64 libnghttp2-14 amd64 1.64.0-1.1+deb13u1 [76.2 kB]
+#8 3.844 Get:14 http://deb.debian.org/debian trixie/main amd64 libnghttp3-9 amd64 1.8.0-1 [67.7 kB]
+#8 3.850 Get:15 http://deb.debian.org/debian trixie/main amd64 libpsl5t64 amd64 0.21.2-1.1+b1 [57.2 kB]
+#8 3.855 Get:16 http://deb.debian.org/debian trixie/main amd64 libp11-kit0 amd64 0.25.5-3 [425 kB]
+#8 3.882 Get:17 http://deb.debian.org/debian trixie/main amd64 libtasn1-6 amd64 4.20.0-2+deb13u1 [50.1 kB]
+#8 3.883 Get:18 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4 [1469 kB]
+#8 3.924 Get:19 http://deb.debian.org/debian trixie/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b5 [58.8 kB]
+#8 3.926 Get:20 http://deb.debian.org/debian trixie/main amd64 libssh2-1t64 amd64 1.11.1-1+deb13u2 [245 kB]
+#8 3.934 Get:21 http://deb.debian.org/debian-security trixie-security/main amd64 libcurl4t64 amd64 8.14.1-2+deb13u7 [392 kB]
+#8 3.953 Get:22 http://deb.debian.org/debian-security trixie-security/main amd64 curl amd64 8.14.1-2+deb13u7 [270 kB]
+#8 4.214 debconf: unable to initialize frontend: Dialog
+#8 4.214 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 4.214 debconf: falling back to frontend: Readline
+#8 4.215 debconf: unable to initialize frontend: Readline
+#8 4.215 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 22.)
+#8 4.215 debconf: falling back to frontend: Teletype
+#8 4.223 debconf: unable to initialize frontend: Teletype
+#8 4.223 debconf: (This frontend requires a controlling tty.)
+#8 4.223 debconf: falling back to frontend: Noninteractive
+#8 4.870 Fetched 4885 kB in 0s (10.2 MB/s)
+#8 4.904 Selecting previously unselected package libbrotli1:amd64.
+#8 4.904 (Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 5658 files and directories currently installed.)
+#8 4.927 Preparing to unpack .../00-libbrotli1_1.1.0-2+deb13u1_amd64.deb ...
+#8 4.934 Unpacking libbrotli1:amd64 (1.1.0-2+deb13u1) ...
+#8 4.989 Selecting previously unselected package libkrb5support0:amd64.
+#8 4.990 Preparing to unpack .../01-libkrb5support0_1.21.3-5+deb13u1_amd64.deb ...
+#8 4.995 Unpacking libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#8 5.036 Selecting previously unselected package libcom-err2:amd64.
+#8 5.037 Preparing to unpack .../02-libcom-err2_1.47.2-3+b12_amd64.deb ...
+#8 5.041 Unpacking libcom-err2:amd64 (1.47.2-3+b12) ...
+#8 5.081 Selecting previously unselected package libk5crypto3:amd64.
+#8 5.082 Preparing to unpack .../03-libk5crypto3_1.21.3-5+deb13u1_amd64.deb ...
+#8 5.086 Unpacking libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#8 5.128 Selecting previously unselected package libkeyutils1:amd64.
+#8 5.129 Preparing to unpack .../04-libkeyutils1_1.6.3-6_amd64.deb ...
+#8 5.133 Unpacking libkeyutils1:amd64 (1.6.3-6) ...
+#8 5.172 Selecting previously unselected package libkrb5-3:amd64.
+#8 5.173 Preparing to unpack .../05-libkrb5-3_1.21.3-5+deb13u1_amd64.deb ...
+#8 5.177 Unpacking libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#8 5.229 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#8 5.230 Preparing to unpack .../06-libgssapi-krb5-2_1.21.3-5+deb13u1_amd64.deb ...
+#8 5.233 Unpacking libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#8 5.275 Selecting previously unselected package libunistring5:amd64.
+#8 5.277 Preparing to unpack .../07-libunistring5_1.3-2_amd64.deb ...
+#8 5.280 Unpacking libunistring5:amd64 (1.3-2) ...
+#8 5.338 Selecting previously unselected package libidn2-0:amd64.
+#8 5.339 Preparing to unpack .../08-libidn2-0_2.3.8-2_amd64.deb ...
+#8 5.343 Unpacking libidn2-0:amd64 (2.3.8-2) ...
+#8 5.382 Selecting previously unselected package libsasl2-modules-db:amd64.
+#8 5.384 Preparing to unpack .../09-libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb ...
+#8 5.389 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+#8 5.432 Selecting previously unselected package libsasl2-2:amd64.
+#8 5.433 Preparing to unpack .../10-libsasl2-2_2.1.28+dfsg1-9_amd64.deb ...
+#8 5.437 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+#8 5.481 Selecting previously unselected package libldap2:amd64.
+#8 5.482 Preparing to unpack .../11-libldap2_2.6.10+dfsg-1_amd64.deb ...
+#8 5.486 Unpacking libldap2:amd64 (2.6.10+dfsg-1) ...
+#8 5.533 Selecting previously unselected package libnghttp2-14:amd64.
+#8 5.534 Preparing to unpack .../12-libnghttp2-14_1.64.0-1.1+deb13u1_amd64.deb ...
+#8 5.542 Unpacking libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+#8 5.587 Selecting previously unselected package libnghttp3-9:amd64.
+#8 5.588 Preparing to unpack .../13-libnghttp3-9_1.8.0-1_amd64.deb ...
+#8 5.592 Unpacking libnghttp3-9:amd64 (1.8.0-1) ...
+#8 5.633 Selecting previously unselected package libpsl5t64:amd64.
+#8 5.635 Preparing to unpack .../14-libpsl5t64_0.21.2-1.1+b1_amd64.deb ...
+#8 5.639 Unpacking libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+#8 5.681 Selecting previously unselected package libp11-kit0:amd64.
+#8 5.682 Preparing to unpack .../15-libp11-kit0_0.25.5-3_amd64.deb ...
+#8 5.685 Unpacking libp11-kit0:amd64 (0.25.5-3) ...
+#8 5.739 Selecting previously unselected package libtasn1-6:amd64.
+#8 5.740 Preparing to unpack .../16-libtasn1-6_4.20.0-2+deb13u1_amd64.deb ...
+#8 5.744 Unpacking libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+#8 5.783 Selecting previously unselected package libgnutls30t64:amd64.
+#8 5.784 Preparing to unpack .../17-libgnutls30t64_3.8.9-3+deb13u4_amd64.deb ...
+#8 5.788 Unpacking libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+#8 5.863 Selecting previously unselected package librtmp1:amd64.
+#8 5.864 Preparing to unpack .../18-librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb ...
+#8 5.868 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+#8 5.906 Selecting previously unselected package libssh2-1t64:amd64.
+#8 5.908 Preparing to unpack .../19-libssh2-1t64_1.11.1-1+deb13u2_amd64.deb ...
+#8 5.911 Unpacking libssh2-1t64:amd64 (1.11.1-1+deb13u2) ...
+#8 5.953 Selecting previously unselected package libcurl4t64:amd64.
+#8 5.955 Preparing to unpack .../20-libcurl4t64_8.14.1-2+deb13u7_amd64.deb ...
+#8 5.958 Unpacking libcurl4t64:amd64 (8.14.1-2+deb13u7) ...
+#8 6.004 Selecting previously unselected package curl.
+#8 6.006 Preparing to unpack .../21-curl_8.14.1-2+deb13u7_amd64.deb ...
+#8 6.010 Unpacking curl (8.14.1-2+deb13u7) ...
+#8 6.060 Setting up libkeyutils1:amd64 (1.6.3-6) ...
+#8 6.070 Setting up libbrotli1:amd64 (1.1.0-2+deb13u1) ...
+#8 6.079 Setting up libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+#8 6.089 Setting up libcom-err2:amd64 (1.47.2-3+b12) ...
+#8 6.097 Setting up libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#8 6.106 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+#8 6.115 Setting up libp11-kit0:amd64 (0.25.5-3) ...
+#8 6.124 Setting up libunistring5:amd64 (1.3-2) ...
+#8 6.133 Setting up libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#8 6.143 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+#8 6.152 Setting up libnghttp3-9:amd64 (1.8.0-1) ...
+#8 6.161 Setting up libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+#8 6.170 Setting up libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#8 6.179 Setting up libssh2-1t64:amd64 (1.11.1-1+deb13u2) ...
+#8 6.190 Setting up libldap2:amd64 (2.6.10+dfsg-1) ...
+#8 6.200 Setting up libidn2-0:amd64 (2.3.8-2) ...
+#8 6.210 Setting up libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#8 6.220 Setting up libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+#8 6.230 Setting up libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+#8 6.240 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+#8 6.250 Setting up libcurl4t64:amd64 (8.14.1-2+deb13u7) ...
+#8 6.260 Setting up curl (8.14.1-2+deb13u7) ...
+#8 6.270 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+#8 DONE 6.4s
+
+#9 [4/7] COPY requirements.txt .
+#9 DONE 0.0s
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 2.193 Collecting Flask==3.1.2 (from -r requirements.txt (line 1))
+#10 2.334   Downloading flask-3.1.2-py3-none-any.whl.metadata (3.2 kB)
+#10 2.392 Collecting gunicorn==23.0.0 (from -r requirements.txt (line 2))
+#10 2.425   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+#10 2.482 Collecting prometheus-flask-exporter==0.23.2 (from -r requirements.txt (line 3))
+#10 2.521   Downloading prometheus_flask_exporter-0.23.2-py3-none-any.whl.metadata (20 kB)
+#10 2.583 Collecting prometheus-client==0.26.0 (from -r requirements.txt (line 4))
+#10 2.620   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+#10 2.789 Collecting onnxruntime==1.23.2 (from -r requirements.txt (line 5))
+#10 2.823   Downloading onnxruntime-1.23.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+#10 3.159 Collecting numpy==2.2.6 (from -r requirements.txt (line 6))
+#10 3.195   Downloading numpy-2.2.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+#10 3.230      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 1.8 MB/s eta 0:00:00
+#10 3.565 Collecting Pillow==11.3.0 (from -r requirements.txt (line 7))
+#10 3.599   Downloading pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.0 kB)
+#10 3.650 Collecting python-dotenv==1.1.1 (from -r requirements.txt (line 8))
+#10 3.685   Downloading python_dotenv-1.1.1-py3-none-any.whl.metadata (24 kB)
+#10 3.738 Collecting blinker>=1.9.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#10 3.771   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#10 3.825 Collecting click>=8.1.3 (from Flask==3.1.2->-r requirements.txt (line 1))
+#10 3.858   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#10 3.904 Collecting itsdangerous>=2.2.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#10 3.937   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#10 3.987 Collecting jinja2>=3.1.2 (from Flask==3.1.2->-r requirements.txt (line 1))
+#10 4.021   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#10 4.120 Collecting markupsafe>=2.1.1 (from Flask==3.1.2->-r requirements.txt (line 1))
+#10 4.153   Downloading markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#10 4.215 Collecting werkzeug>=3.1.0 (from Flask==3.1.2->-r requirements.txt (line 1))
+#10 4.248   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+#10 4.256 Requirement already satisfied: packaging in /usr/local/lib/python3.11/site-packages (from gunicorn==23.0.0->-r requirements.txt (line 2)) (26.3)
+#10 4.313 Collecting coloredlogs (from onnxruntime==1.23.2->-r requirements.txt (line 5))
+#10 4.346   Downloading coloredlogs-15.0.1-py2.py3-none-any.whl.metadata (12 kB)
+#10 4.395 Collecting flatbuffers (from onnxruntime==1.23.2->-r requirements.txt (line 5))
+#10 4.427   Downloading flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+#10 4.731 Collecting protobuf (from onnxruntime==1.23.2->-r requirements.txt (line 5))
+#10 4.765   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+#10 4.817 Collecting sympy (from onnxruntime==1.23.2->-r requirements.txt (line 5))
+#10 4.851   Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+#10 4.947 Collecting humanfriendly>=9.1 (from coloredlogs->onnxruntime==1.23.2->-r requirements.txt (line 5))
+#10 4.981   Downloading humanfriendly-10.0-py2.py3-none-any.whl.metadata (9.2 kB)
+#10 5.044 Collecting mpmath<1.4,>=1.1.0 (from sympy->onnxruntime==1.23.2->-r requirements.txt (line 5))
+#10 5.079   Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+#10 5.131 Downloading flask-3.1.2-py3-none-any.whl (103 kB)
+#10 5.145    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.3/103.3 kB 9.2 MB/s eta 0:00:00
+#10 5.178 Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+#10 5.184    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.0/85.0 kB 33.3 MB/s eta 0:00:00
+#10 5.221 Downloading prometheus_flask_exporter-0.23.2-py3-none-any.whl (19 kB)
+#10 5.253 Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+#10 5.262    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.5/64.5 kB 12.9 MB/s eta 0:00:00
+#10 5.299 Downloading onnxruntime-1.23.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (17.4 MB)
+#10 6.037    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.4/17.4 MB 26.4 MB/s eta 0:00:00
+#10 6.072 Downloading numpy-2.2.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+#10 6.805    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 21.9 MB/s eta 0:00:00
+#10 6.843 Downloading pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)
+#10 7.519    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 9.8 MB/s eta 0:00:00
+#10 7.554 Downloading python_dotenv-1.1.1-py3-none-any.whl (20 kB)
+#10 7.587 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#10 7.629 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#10 7.644    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.3/125.3 kB 18.6 MB/s eta 0:00:00
+#10 7.678 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#10 7.711 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#10 7.723    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 15.2 MB/s eta 0:00:00
+#10 7.757 Downloading markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#10 7.793 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+#10 7.811    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 228.7/228.7 kB 14.1 MB/s eta 0:00:00
+#10 7.844 Downloading coloredlogs-15.0.1-py2.py3-none-any.whl (46 kB)
+#10 7.848    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.0/46.0 kB 26.7 MB/s eta 0:00:00
+#10 7.893 Downloading flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+#10 7.932 Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+#10 7.967    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 343.2/343.2 kB 10.6 MB/s eta 0:00:00
+#10 8.001 Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+#10 8.670    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 9.4 MB/s eta 0:00:00
+#10 8.703 Downloading humanfriendly-10.0-py2.py3-none-any.whl (86 kB)
+#10 8.712    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 86.8/86.8 kB 15.1 MB/s eta 0:00:00
+#10 8.744 Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+#10 8.815    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 7.7 MB/s eta 0:00:00
+#10 8.971 Installing collected packages: mpmath, flatbuffers, sympy, python-dotenv, protobuf, prometheus-client, Pillow, numpy, markupsafe, itsdangerous, humanfriendly, gunicorn, click, blinker, werkzeug, jinja2, coloredlogs, onnxruntime, Flask, prometheus-flask-exporter
+#10 17.71 Successfully installed Flask-3.1.2 Pillow-11.3.0 blinker-1.9.0 click-8.5.0 coloredlogs-15.0.1 flatbuffers-25.12.19 gunicorn-23.0.0 humanfriendly-10.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 mpmath-1.3.0 numpy-2.2.6 onnxruntime-1.23.2 prometheus-client-0.26.0 prometheus-flask-exporter-0.23.2 protobuf-7.36.2 python-dotenv-1.1.1 sympy-1.14.0 werkzeug-3.1.9
+#10 17.71 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#10 17.87 
+#10 17.87 [notice] A new release of pip is available: 24.0 -> 26.2.2
+#10 17.87 [notice] To update, run: pip install --upgrade pip
+#10 DONE 18.7s
+
+#11 [6/7] COPY . .
+#11 DONE 0.1s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus     && chown guardian:guardian /tmp/iuh-guardian-prometheus
+#12 DONE 0.3s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 7.5s done
+#13 exporting manifest sha256:9330eb6c8d78a687963fbfc2dbde78c7333cd2a46e7e1f51ea7ee4c8699b55fc 0.0s done
+#13 exporting config sha256:9e9466b539d213712fbb47b595a66456fe0be3cdc08b215c00f7c92731586109 0.0s done
+#13 exporting attestation manifest sha256:8cbc7e04e4af30166e02f3ddd5969c74c102130b4f70ed8b2d20f4573c75f3b2 0.0s done
+#13 exporting manifest list sha256:aad5aa477cb48006019bf4872029d404fc09ee27ff61a6fdacb5ee12acbc4c6e 0.0s done
+#13 naming to docker.io/library/server-iuh-guardian-api:latest done
+#13 unpacking to docker.io/library/server-iuh-guardian-api:latest
+#13 unpacking to docker.io/library/server-iuh-guardian-api:latest 2.9s done
+#13 DONE 10.5s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image server-iuh-guardian-api Building 
+ Image server-iuh-guardian-api Built 
+ Network server_default Creating 
+ Network server_default Created 
+ Container server-iuh-guardian-api-1 Creating 
+ Container server-iuh-guardian-api-1 Created 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ docker compose -f Server/docker-compose.yml ps
+exit=0
+NAME                        IMAGE                     COMMAND                  SERVICE            CREATED         STATUS                   PORTS
+server-iuh-guardian-api-1   server-iuh-guardian-api   "gunicorn -c gunicor…"   iuh-guardian-api   6 seconds ago   Up 5 seconds (healthy)   0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp
+
+$ curl.exe -sS -i http://localhost:5001/health
+exit=0
+HTTP/1.1 200 OK
+Server: gunicorn
+Date: Mon, 02 Nov 2026 10:40:36 GMT
+Connection: close
+Content-Type: application/json
+Content-Length: 144
+
+{"model_loaded":false,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":5.606623,"version":"0.1.0"}
+
+$ curl.exe -sS http://localhost:5001/metrics
+exit=0
+# HELP flask_http_request_total Total number of HTTP requests
+# TYPE flask_http_request_total counter
+flask_http_request_total{method="GET",status="200"} 2.0
+# HELP flask_exporter_info Information about the Prometheus Flask exporter
+# TYPE flask_exporter_info gauge
+flask_exporter_info{version="0.23.2"} 1.0
+# HELP flask_http_request_duration_seconds Flask HTTP request duration in seconds
+# TYPE flask_http_request_duration_seconds histogram
+flask_http_request_duration_seconds_sum{method="GET",path="/health",status="200"} 0.00023730799999555074
+flask_http_request_duration_seconds_bucket{le="0.005",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.01",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.025",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.05",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.075",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.1",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.25",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.5",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="0.75",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="1.0",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="2.5",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="5.0",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="7.5",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="10.0",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_bucket{le="+Inf",method="GET",path="/health",status="200"} 2.0
+flask_http_request_duration_seconds_count{method="GET",path="/health",status="200"} 2.0
+# HELP model_loaded Whether all live API workers loaded their ONNX model
+# TYPE model_loaded gauge
+model_loaded 0.0
+
+$ curl.exe -sS -i -X POST http://localhost:5001/predict
+exit=0
+HTTP/1.1 400 BAD REQUEST
+Server: gunicorn
+Date: Mon, 02 Nov 2026 10:40:36 GMT
+Connection: close
+Content-Type: application/json
+Content-Length: 27
+
+{"error":"image_required"}
+
+$ docker compose -f Server/docker-compose.yml logs --tail 50
+exit=0
+iuh-guardian-api-1  | [2026-11-02 10:40:30 +0000] [1] [INFO] Starting gunicorn 23.0.0
+iuh-guardian-api-1  | [2026-11-02 10:40:30 +0000] [1] [INFO] [IUH Guardian API] Multiprocess metrics directory initialized
+iuh-guardian-api-1  | [2026-11-02 10:40:30 +0000] [1] [INFO] Listening at: http://0.0.0.0:5001 (1)
+iuh-guardian-api-1  | [2026-11-02 10:40:30 +0000] [1] [INFO] Using worker: sync
+iuh-guardian-api-1  | [2026-11-02 10:40:30 +0000] [7] [INFO] Booting worker with pid: 7
+iuh-guardian-api-1  | [2026-11-02 10:40:30 +0000] [8] [INFO] Booting worker with pid: 8
+iuh-guardian-api-1  | [2026-11-02 10:40:30,590] WARNING in model_registry: [IUH Guardian API] Model file unavailable; inference disabled
+iuh-guardian-api-1  | [2026-11-02 10:40:30,625] WARNING in model_registry: [IUH Guardian API] Model file unavailable; inference disabled
+iuh-guardian-api-1  | 127.0.0.1 - - [02/Nov/2026:10:40:35 +0000] "GET /health HTTP/1.1" 200 144 "-" "curl/8.14.1"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:10:40:36 +0000] "GET /health HTTP/1.1" 200 144 "-" "curl/8.21.0"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:10:40:36 +0000] "GET /metrics HTTP/1.1" 200 2234 "-" "curl/8.21.0"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:10:40:36 +0000] "POST /predict HTTP/1.1" 400 27 "-" "curl/8.21.0"
+
+$ docker compose -f Server/docker-compose.yml down
+exit=0
+ Container server-iuh-guardian-api-1 Stopping 
+ Container server-iuh-guardian-api-1 Stopped 
+ Container server-iuh-guardian-api-1 Removing 
+ Container server-iuh-guardian-api-1 Removed 
+ Network server_default Removing 
+ Network server_default Removed 

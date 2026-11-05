@@ -1,0 +1,166 @@
+Export 640, 2026-11-02 Asia/Bangkok
+exit=0
+Creating new Ultralytics Settings v0.0.8 file  
+View Ultralytics Settings with 'yolo settings' or at 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv-export\ultralytics\Ultralytics\settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/usage/settings
+
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 1% ──────────── 64.0KB/6.2MB 135.7KB/s 0.1s<46.7s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 5% ╸─────────── 320.0KB/6.2MB 2.4MB/s 0.2s<2.4s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 8% ━─────────── 544.0KB/6.2MB 2.1MB/s 0.4s<2.8s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 12% ━─────────── 768.0KB/6.2MB 2.0MB/s 0.5s<2.8s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 15% ━╸────────── 1008.0KB/6.2MB 2.3MB/s 0.6s<2.3s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 19% ━━────────── 1.2/6.2MB 2.0MB/s 0.7s<2.5s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 22% ━━╸───────── 1.4/6.2MB 1.5MB/s 0.8s<3.2s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 26% ━━━───────── 1.6/6.2MB 2.3MB/s 0.9s<2.0s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 28% ━━━───────── 1.8/6.2MB 1.7MB/s 1.0s<2.7s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 31% ━━━╸──────── 2.0/6.2MB 1.5MB/s 1.1s<2.9s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 33% ━━━╸──────── 2.1/6.2MB 1.2MB/s 1.2s<3.6s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 35% ━━━━──────── 2.2/6.2MB 1.2MB/s 1.3s<3.3s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 37% ━━━━╸─────── 2.3/6.2MB 1.3MB/s 1.4s<3.0s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 39% ━━━━╸─────── 2.5/6.2MB 1.3MB/s 1.5s<2.8s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 42% ━━━━━─────── 2.6/6.2MB 1.4MB/s 1.6s<2.6s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 44% ━━━━━─────── 2.8/6.2MB 1.5MB/s 1.7s<2.4s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 47% ━━━━━╸────── 3.0/6.2MB 1.5MB/s 1.8s<2.2s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 50% ━━━━━━────── 3.1/6.2MB 1.6MB/s 2.0s<1.9s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 52% ━━━━━━────── 3.3/6.2MB 1.1MB/s 2.1s<2.6s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 55% ━━━━━━╸───── 3.4/6.2MB 1.6MB/s 2.2s<1.8s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 57% ━━━━━━╸───── 3.6/6.2MB 1.2MB/s 2.3s<2.2s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 59% ━━━━━━━───── 3.7/6.2MB 1.3MB/s 2.4s<2.0s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 61% ━━━━━━━───── 3.9/6.2MB 1.3MB/s 2.5s<1.9s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 64% ━━━━━━━╸──── 4.0/6.2MB 1.4MB/s 2.6s<1.6s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 66% ━━━━━━━╸──── 4.2/6.2MB 1.4MB/s 2.7s<1.5s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 69% ━━━━━━━━──── 4.3/6.2MB 1.5MB/s 2.8s<1.3s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 71% ━━━━━━━━╸─── 4.5/6.2MB 1.4MB/s 2.9s<1.3s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 74% ━━━━━━━━╸─── 4.6/6.2MB 1.5MB/s 3.0s<1.1s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 76% ━━━━━━━━━─── 4.8/6.2MB 1.4MB/s 3.1s<1.1s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 78% ━━━━━━━━━─── 4.9/6.2MB 1.1MB/s 3.3s<1.2s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 80% ━━━━━━━━━╸── 5.0/6.2MB 1.2MB/s 3.4s<1.0s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 82% ━━━━━━━━━╸── 5.1/6.2MB 1.2MB/s 3.5s<0.9s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 84% ━━━━━━━━━━── 5.3/6.2MB 1.3MB/s 3.6s<0.8s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 86% ━━━━━━━━━━── 5.4/6.2MB 1.3MB/s 3.7s<0.6s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 89% ━━━━━━━━━━╸─ 5.6/6.2MB 1.4MB/s 3.8s<0.5s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 91% ━━━━━━━━━━╸─ 5.7/6.2MB 1.4MB/s 3.9s<0.4s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 94% ━━━━━━━━━━━─ 5.9/6.2MB 1.6MB/s 4.0s<0.2s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 96% ━━━━━━━━━━━╸ 6.0/6.2MB 1.5MB/s 4.1s<0.1s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 99% ━━━━━━━━━━━╸ 6.2/6.2MB 1.6MB/s 4.2s<0.0s
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolov8n.pt to 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt': 100% ━━━━━━━━━━━━ 6.2MB 1.5MB/s 4.2s
+Ultralytics 8.4.198  Python-3.11.9 torch-2.7.1+cpu CPU (AMD Ryzen 7 6800H with Radeon Graphics)
+WARNING This model has no one-to-one head; using one-to-many outputs.
+YOLOv8n summary (fused): 72 layers, 3,151,904 parameters, 0 gradients, 8.7 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 84, 8400) (6.2 MB)
+WARNING [31m[1mrequirements:[0m Ultralytics requirement ['onnxslim>=0.1.82'] not found, AutoUpdate disabled by YOLO_AUTOINSTALL=False
+
+[34m[1mONNX:[0m starting export with onnx 1.17.0 opset 17...
+[34m[1mONNX:[0m slimming with onnxslim 0.1.71...
+[34m[1mONNX:[0m export success  2.9s, saved as 'D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.onnx' (12.3 MB)
+
+Export complete (3.1s)
+Results saved to [1mD:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.onnx[0m
+Predict:         yolo predict task=detect model=D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.onnx imgsz=640 
+Validate:        yolo val task=detect model=D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\models\yolov8n.onnx imgsz=640 data=coco.yaml 
+Visualize:       https://netron.app
+{
+  "path": "D:\\IUH\\CongNgheMoi\\CK\\IUH_Campus\\Server\\models\\yolov8n.onnx",
+  "size_mb": 12.851104,
+  "sha256": "4d0632282232a5fe4eedf59a951f371d3d6b98e4d78546813f1d0ef07b06bb40",
+  "inputs": [
+    [
+      1,
+      3,
+      640,
+      640
+    ]
+  ],
+  "outputs": [
+    [
+      1,
+      84,
+      8400
+    ]
+  ],
+  "classes": {
+    "0": "person",
+    "1": "bicycle",
+    "2": "car",
+    "3": "motorcycle",
+    "4": "airplane",
+    "5": "bus",
+    "6": "train",
+    "7": "truck",
+    "8": "boat",
+    "9": "traffic light",
+    "10": "fire hydrant",
+    "11": "stop sign",
+    "12": "parking meter",
+    "13": "bench",
+    "14": "bird",
+    "15": "cat",
+    "16": "dog",
+    "17": "horse",
+    "18": "sheep",
+    "19": "cow",
+    "20": "elephant",
+    "21": "bear",
+    "22": "zebra",
+    "23": "giraffe",
+    "24": "backpack",
+    "25": "umbrella",
+    "26": "handbag",
+    "27": "tie",
+    "28": "suitcase",
+    "29": "frisbee",
+    "30": "skis",
+    "31": "snowboard",
+    "32": "sports ball",
+    "33": "kite",
+    "34": "baseball bat",
+    "35": "baseball glove",
+    "36": "skateboard",
+    "37": "surfboard",
+    "38": "tennis racket",
+    "39": "bottle",
+    "40": "wine glass",
+    "41": "cup",
+    "42": "fork",
+    "43": "knife",
+    "44": "spoon",
+    "45": "bowl",
+    "46": "banana",
+    "47": "apple",
+    "48": "sandwich",
+    "49": "orange",
+    "50": "broccoli",
+    "51": "carrot",
+    "52": "hot dog",
+    "53": "pizza",
+    "54": "donut",
+    "55": "cake",
+    "56": "chair",
+    "57": "couch",
+    "58": "potted plant",
+    "59": "bed",
+    "60": "dining table",
+    "61": "toilet",
+    "62": "tv",
+    "63": "laptop",
+    "64": "mouse",
+    "65": "remote",
+    "66": "keyboard",
+    "67": "cell phone",
+    "68": "microwave",
+    "69": "oven",
+    "70": "toaster",
+    "71": "sink",
+    "72": "refrigerator",
+    "73": "book",
+    "74": "clock",
+    "75": "vase",
+    "76": "scissors",
+    "77": "teddy bear",
+    "78": "hair drier",
+    "79": "toothbrush"
+  }
+}
+
+STDERR:

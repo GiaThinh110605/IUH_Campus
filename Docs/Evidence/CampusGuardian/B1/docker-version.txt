@@ -1,0 +1,20 @@
+Date: 2026-11-02 (Asia/Bangkok)
+OS: Windows-10-10.0.26200-SP0
+Python: 3.11.9
+Base commit: c034442c4427a7c02f21cac9b56ee35f3873a81c
+Branch: minhnhat/backend-w9-b1
+Command: docker version
+Exit code: 1
+
+STDOUT:
+Client:
+ Version:           29.3.1
+ API version:       1.54
+ Go version:        go1.25.8
+ Git commit:        c2be9cc
+ Built:             Wed Mar 25 16:16:33 2026
+ OS/Arch:           windows/amd64
+ Context:           desktop-linux
+
+STDERR:
+failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.

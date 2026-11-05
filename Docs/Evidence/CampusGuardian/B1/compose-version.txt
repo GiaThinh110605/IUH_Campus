@@ -1,0 +1,12 @@
+Date: 2026-11-02 (Asia/Bangkok)
+OS: Windows-10-10.0.26200-SP0
+Python: 3.11.9
+Base commit: c034442c4427a7c02f21cac9b56ee35f3873a81c
+Branch: minhnhat/backend-w9-b1
+Command: docker compose version
+Exit code: 0
+
+STDOUT:
+Docker Compose version v5.1.1
+
+STDERR:

@@ -1,0 +1,41 @@
+{
+  "before": {
+    "id": 1,
+    "quests_completed": 0,
+    "campus_core_total": 0,
+    "upgrades_total": 0,
+    "scans_confirmed": 0,
+    "db_ok": true,
+    "outbox_pending": 0,
+    "outbox_failed": 0,
+    "sync_stats": {}
+  },
+  "after_events": {
+    "id": 1,
+    "quests_completed": 1,
+    "campus_core_total": 10,
+    "upgrades_total": 0,
+    "scans_confirmed": 1,
+    "db_ok": true,
+    "outbox_pending": 0,
+    "outbox_failed": 0,
+    "sync_stats": {
+      "synced": 4
+    }
+  },
+  "after_restart_duplicate": {
+    "id": 1,
+    "quests_completed": 1,
+    "campus_core_total": 10,
+    "upgrades_total": 0,
+    "scans_confirmed": 1,
+    "db_ok": true,
+    "outbox_pending": 0,
+    "outbox_failed": 0,
+    "sync_stats": {
+      "synced": 4
+    }
+  },
+  "values_match_feeds": true,
+  "credentials": "****"
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "samples": 50,
+    "elapsed_seconds": 2.726859000045806,
+    "requests_per_second": 18.336114921658982,
+    "inference_time_ms": {
+      "p50": 34.31276199989952,
+      "p95": 39.25979190007638,
+      "mean": 34.174412680004025
+    },
+    "total_time_ms": {
+      "p50": 47.29197699998622,
+      "p95": 59.516309649461604,
+      "mean": 47.93516842002646
+    },
+    "wall_ms": {
+      "p50": 54.04995003482327,
+      "p95": 67.26177499513142,
+      "mean": 54.46157200494781
+    },
+    "environment": "HTTP Gunicorn",
+    "clients": 1,
+    "requested_duration_seconds": 0,
+    "warmup_requests": 5,
+    "errors": [],
+    "size": 512,
+    "threads": 6,
+    "workers": 1
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 4.658125499961898,
+    "requests_per_second": 21.46786298497496,
+    "inference_time_ms": {
+      "p50": 60.663105500225356,
+      "p95": 95.51012539991461,
+      "mean": 64.997442300064
+    },
+    "total_time_ms": {
+      "p50": 80.07899849962996,
+      "p95": 115.15572989974315,
+      "mean": 84.64314198999091
+    },
+    "wall_ms": {
+      "p50": 87.71900000283495,
+      "p95": 124.2116099805571,
+      "mean": 92.78328899643384
+    },
+    "environment": "HTTP Gunicorn",
+    "clients": 2,
+    "requested_duration_seconds": 0,
+    "warmup_requests": 10,
+    "errors": [],
+    "size": 512,
+    "threads": 6,
+    "workers": 2
+  },
+  {
+    "samples": 50,
+    "elapsed_seconds": 2.434902900015004,
+    "requests_per_second": 20.53469976141221,
+    "inference_time_ms": {
+      "p50": 28.714387499803706,
+      "p95": 35.90578069984076,
+      "mean": 30.19551808003598
+    },
+    "total_time_ms": {
+      "p50": 40.365815500081226,
+      "p95": 54.11620309964746,
+      "mean": 42.62792050005373
+    },
+    "wall_ms": {
+      "p50": 45.89679994387552,
+      "p95": 61.506455019116395,
+      "mean": 48.62780999857932
+    },
+    "environment": "HTTP Gunicorn",
+    "clients": 1,
+    "requested_duration_seconds": 0,
+    "warmup_requests": 5,
+    "errors": [],
+    "size": 480,
+    "threads": 6,
+    "workers": 1
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 4.84271009999793,
+    "requests_per_second": 20.64959453179796,
+    "inference_time_ms": {
+      "p50": 64.9195190003411,
+      "p95": 106.67798969989232,
+      "mean": 67.37139289000879
+    },
+    "total_time_ms": {
+      "p50": 85.64418649984873,
+      "p95": 132.24587200033966,
+      "mean": 87.32761558000675
+    },
+    "wall_ms": {
+      "p50": 93.03975000511855,
+      "p95": 141.7088450398296,
+      "mean": 95.92483699088916
+    },
+    "environment": "HTTP Gunicorn",
+    "clients": 2,
+    "requested_duration_seconds": 0,
+    "warmup_requests": 10,
+    "errors": [],
+    "size": 480,
+    "threads": 6,
+    "workers": 2
+  },
+  {
+    "samples": 50,
+    "elapsed_seconds": 1.935107999946922,
+    "requests_per_second": 25.83835114183366,
+    "inference_time_ms": {
+      "p50": 21.203278000484715,
+      "p95": 27.100555649758462,
+      "mean": 21.63811070004158
+    },
+    "total_time_ms": {
+      "p50": 31.444090499917365,
+      "p95": 38.38943045006999,
+      "mean": 31.83072424004422
+    },
+    "wall_ms": {
+      "p50": 38.13724999781698,
+      "p95": 48.828580032568425,
+      "mean": 38.63470799755305
+    },
+    "environment": "HTTP Gunicorn",
+    "clients": 1,
+    "requested_duration_seconds": 0,
+    "warmup_requests": 5,
+    "errors": [],
+    "size": 416,
+    "threads": 6,
+    "workers": 1
+  },
+  {
+    "samples": 100,
+    "elapsed_seconds": 2.5392953000264242,
+    "requests_per_second": 39.38100464288631,
+    "inference_time_ms": {
+      "p50": 28.169529500246426,
+      "p95": 40.9739987494504,
+      "mean": 29.49409741000636
+    },
+    "total_time_ms": {
+      "p50": 41.037343999960285,
+      "p95": 56.686596450390425,
+      "mean": 42.90386098004092
+    },
+    "wall_ms": {
+      "p50": 49.00164995342493,
+      "p95": 65.57915006414987,
+      "mean": 50.31017399975099
+    },
+    "environment": "HTTP Gunicorn",
+    "clients": 2,
+    "requested_duration_seconds": 0,
+    "warmup_requests": 10,
+    "errors": [],
+    "size": 416,
+    "threads": 6,
+    "workers": 2
+  }
+]

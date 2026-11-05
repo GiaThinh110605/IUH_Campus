@@ -1,0 +1,13 @@
+{
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianApiClient.cs": "cf0f6bac232b14d1d5610f3c88a9b88aefcb02b2fbd0366298d0fbc4ccf11873",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianBackendConfig.cs": "e977cddfcf2133e5c7b9de60ceeea0a46b196b2c1d47c113b9e5e7ed71115bce",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianBackendService.cs": "6a44695ec0e3c4591fe9994353c64aa6fba986c4d1cc3f58d0d5836a0c4642d5",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEvent.cs": "6ed140baaf6947a2b4192ef3b460a1e5b6df05642c552c51ffb232f9674570fe",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEventOutbox.cs": "0bf3d4f908a5531894f0d5ac7b78b7eaa86e012c8d79b6f7220e599fa1de6702",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianHttpTransport.cs": "cf546a980c942d5a826900c0e842002df52230c3c3a18a427026c85760838fca",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianImageEncoder.cs": "d2bf2cf65a86c997f5a6bdd428d6a902fb2076717228d022d488505973775cbb",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianResults.cs": "2720af876392a356f05650a586d6b1d6574bda082f0f047ca066a8a65a8d78aa",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/Editor/GuardianBackendSmoke.cs": "20191075417504545ad6c44586dcd4186e7d52808defa780d297d7fe2b409129",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/BackendAvailabilityTests.cs": "96c84a6da24d8d0ee22f32b7ae51bb3ea7f97ee067bc569aed3d9636b195c5ad",
+  "Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/GuardianBackendTests.cs": "ecbf0e97cd063e0e1e07da8a678dbef824bc2b8b9d70ef090a14a75957b8e225"
+}

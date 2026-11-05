@@ -1,0 +1,28 @@
+exit=0
+{
+  "samples": 100,
+  "elapsed_seconds": 4.84271009999793,
+  "requests_per_second": 20.64959453179796,
+  "inference_time_ms": {
+    "p50": 64.9195190003411,
+    "p95": 106.67798969989232,
+    "mean": 67.37139289000879
+  },
+  "total_time_ms": {
+    "p50": 85.64418649984873,
+    "p95": 132.24587200033966,
+    "mean": 87.32761558000675
+  },
+  "wall_ms": {
+    "p50": 93.03975000511855,
+    "p95": 141.7088450398296,
+    "mean": 95.92483699088916
+  },
+  "environment": "HTTP Gunicorn",
+  "clients": 2,
+  "requested_duration_seconds": 0,
+  "warmup_requests": 10,
+  "errors": []
+}
+
+STDERR:

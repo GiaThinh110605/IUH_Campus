@@ -1,0 +1,71 @@
+[
+  {
+    "size": 640,
+    "model": "/app/models/yolov8n.onnx",
+    "image": "/tmp/laptop-reference.jpg",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "workers_configured": 2,
+    "benchmark_processes": 1,
+    "ort_threads": 2,
+    "warmup": 5,
+    "iterations": 50,
+    "inference_time_ms": {
+      "p50": 75.08978050009318,
+      "p95": 89.75975929995457,
+      "mean": 75.4595628999823
+    },
+    "total_time_ms": {
+      "p50": 89.30892050000239,
+      "p95": 105.5763310998941,
+      "mean": 89.59826853997583
+    },
+    "fixture_target_found": true
+  },
+  {
+    "size": 480,
+    "model": "/app/models/yolov8n-480.onnx",
+    "image": "/tmp/laptop-reference.jpg",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "workers_configured": 2,
+    "benchmark_processes": 1,
+    "ort_threads": 2,
+    "warmup": 5,
+    "iterations": 50,
+    "inference_time_ms": {
+      "p50": 37.167124499887905,
+      "p95": 46.093540150002354,
+      "mean": 38.48214264000035
+    },
+    "total_time_ms": {
+      "p50": 46.2173815000142,
+      "p95": 55.23411025000087,
+      "mean": 47.651721920001364
+    },
+    "fixture_target_found": false
+  },
+  {
+    "size": 416,
+    "model": "/app/models/yolov8n-416.onnx",
+    "image": "/tmp/laptop-reference.jpg",
+    "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+    "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "workers_configured": 2,
+    "benchmark_processes": 1,
+    "ort_threads": 2,
+    "warmup": 5,
+    "iterations": 50,
+    "inference_time_ms": {
+      "p50": 27.457513999934235,
+      "p95": 34.67342180005061,
+      "mean": 28.34505322000041
+    },
+    "total_time_ms": {
+      "p50": 35.33988349988704,
+      "p95": 43.92033479988412,
+      "mean": 36.538967379974565
+    },
+    "fixture_target_found": false
+  }
+]

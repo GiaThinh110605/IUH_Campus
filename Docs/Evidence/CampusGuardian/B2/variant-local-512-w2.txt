@@ -1,0 +1,29 @@
+exit=0
+{
+  "samples": 100,
+  "elapsed_seconds": 4.866027999902144,
+  "requests_per_second": 20.550642125777124,
+  "inference_time_ms": {
+    "p50": 34.79194996180013,
+    "p95": 50.677325006108724,
+    "mean": 37.009200998581946
+  },
+  "total_time_ms": {
+    "p50": 57.866199989803135,
+    "p95": 75.92550997505896,
+    "mean": 59.91865900577977
+  },
+  "wall_ms": {
+    "p50": 59.26840001484379,
+    "p95": 77.47970996424554,
+    "mean": 61.537218005396426
+  },
+  "environment": "local Flask test_client worker processes",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "threads": 6,
+  "workers": 2,
+  "warmup_per_worker": 5,
+  "iterations_per_worker": 50
+}
+
+STDERR:

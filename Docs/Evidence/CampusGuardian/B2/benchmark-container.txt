@@ -1,0 +1,24 @@
+{
+  "model": "/app/models/yolov8n.onnx",
+  "image": "/tmp/laptop-reference.jpg",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+  "workers_configured": 2,
+  "benchmark_processes": 1,
+  "ort_threads": 2,
+  "warmup": 5,
+  "iterations": 50,
+  "inference_time_ms": {
+    "p50": 71.13492999997106,
+    "p95": 87.94357930001979,
+    "mean": 71.58274923999443
+  },
+  "total_time_ms": {
+    "p50": 82.83785499997975,
+    "p95": 102.13193435001243,
+    "mean": 84.54234414000439
+  },
+  "fixture_target_found": true
+}
+
+STDERR:

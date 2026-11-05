@@ -1,0 +1,236 @@
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml build
+exit=0
+#1 [internal] load local bake definitions
+#1 reading from stdin 579B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 828B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 2.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 210B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60
+#5 resolve docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 27.59kB 0.0s done
+#6 DONE 0.0s
+
+#7 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [4/7] COPY requirements.txt .
+#8 CACHED
+
+#9 [2/7] WORKDIR /app
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 0.1s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus     && chown guardian:guardian /tmp/iuh-guardian-prometheus
+#12 DONE 0.9s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 0.2s done
+#13 exporting manifest sha256:7589afba81ccd4b06ed5e9c12318700f618be16927b7456b1a14bb9146f887bd 0.0s done
+#13 exporting config sha256:475c08d4b7f5e0290c1e295601c19989bb0197c929229af19a49b109c61e918c 0.0s done
+#13 exporting attestation manifest sha256:68959a968f836b025a749b3a2d16ccb3f68eaeb86bd8ac82b56a06af92f51267 0.0s done
+#13 exporting manifest list sha256:349af2a67bb533191a6c9d899aee255515ed02f401b3ea839ff246d520528709 0.0s done
+#13 naming to docker.io/library/server-iuh-guardian-api:latest
+#13 naming to docker.io/library/server-iuh-guardian-api:latest done
+#13 unpacking to docker.io/library/server-iuh-guardian-api:latest 0.1s done
+#13 DONE 0.4s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image server-iuh-guardian-api Building 
+ Image server-iuh-guardian-api Built 
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Network server_default Creating 
+ Network server_default Created 
+ Container server-iuh-guardian-api-1 Creating 
+ Container server-iuh-guardian-api-1 Created 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=52
+curl: (52) Empty reply from server
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.276263,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=52
+curl: (52) Empty reply from server
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.388791,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.304347,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.343255,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.371828,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.222457,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.250081,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.290262,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml up -d --force-recreate
+exit=0
+ Container server-iuh-guardian-api-1 Recreate 
+ Container server-iuh-guardian-api-1 Recreated 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"model_loaded":true,"model_path_configured":true,"service":"IUH Guardian API","status":"healthy","uptime_seconds":0.254916,"version":"0.1.0"}
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml ps
+exit=0
+NAME                        IMAGE                     COMMAND                  SERVICE            CREATED          STATUS                    PORTS
+server-iuh-guardian-api-1   server-iuh-guardian-api   "gunicorn -c gunicor…"   iuh-guardian-api   35 seconds ago   Up 33 seconds (healthy)   0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml logs --tail 50
+exit=0
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 366 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 366 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:12 +0000] "POST /predict HTTP/1.1" 200 366 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 366 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 369 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 369 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:13 +0000] "POST /predict HTTP/1.1" 200 366 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 366 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 365 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 365 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:14 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:15 +0000] "POST /predict HTTP/1.1" 200 368 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:15 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+iuh-guardian-api-1  | 172.21.0.1 - - [02/Nov/2026:12:30:15 +0000] "POST /predict HTTP/1.1" 200 367 "-" "Python-urllib/3.11"
+
+$ docker compose -f Server/docker-compose.yml -f Server\.venv-export\compose-tuning.yml down
+exit=0
+ Container server-iuh-guardian-api-1 Stopping 
+ Container server-iuh-guardian-api-1 Stopped 
+ Container server-iuh-guardian-api-1 Removing 
+ Container server-iuh-guardian-api-1 Removed 
+ Network server_default Removing 
+ Network server_default Removed 

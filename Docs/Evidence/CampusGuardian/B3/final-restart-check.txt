@@ -1,0 +1,114 @@
+
+$ docker compose -f Server/docker-compose.yml up -d --build
+exit=0
+#1 [internal] load local bake definitions
+#1 reading from stdin 575B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 891B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 2.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 217B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60
+#5 resolve docker.io/library/python:3.11-slim@sha256:673719e071ecf27434fd2635bbd8d00f49f4fdd81f243143438a42ced8bedf60 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 23.15kB done
+#6 DONE 0.0s
+
+#7 [2/7] WORKDIR /app
+#7 CACHED
+
+#8 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [4/7] COPY requirements.txt .
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 0.1s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus /app/data     && chown guardian:guardian /tmp/iuh-guardian-prometheus /app/data
+#12 DONE 0.8s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 0.2s done
+#13 exporting manifest sha256:593fffc059837f957e9454b0514cc3238bd3854d6ea5484c82750ae7c1287f52 0.0s done
+#13 exporting config sha256:81b0a34c1290e7c2a5b3390216839675c6f1fcbb006a0d8be59adcbd2869c825 0.0s done
+#13 exporting attestation manifest sha256:dd61208a73c7cc9a3e49d5e5952618764d5b7dc864e841653f6d2dc5105c4399 0.0s done
+#13 exporting manifest list sha256:b3ad4830dd49c271509c5e8c4d471e13adc658b653f84617fb58bed58ac5bd73
+#13 exporting manifest list sha256:b3ad4830dd49c271509c5e8c4d471e13adc658b653f84617fb58bed58ac5bd73 0.0s done
+#13 naming to docker.io/library/iuh-guardian-api:b3 done
+#13 unpacking to docker.io/library/iuh-guardian-api:b3 0.1s done
+#13 DONE 0.5s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image iuh-guardian-api:b3 Building 
+ Image iuh-guardian-api:b3 Built 
+ Network server_default Creating 
+ Network server_default Created 
+ Container server-iuh-guardian-api-1 Creating 
+ Container server-iuh-guardian-api-1 Created 
+ Container server-iuh-guardian-sync-1 Creating 
+ Container server-iuh-guardian-sync-1 Created 
+ Container server-iuh-guardian-api-1 Starting 
+ Container server-iuh-guardian-api-1 Started 
+ Container server-iuh-guardian-api-1 Waiting 
+ Container server-iuh-guardian-api-1 Healthy 
+ Container server-iuh-guardian-sync-1 Starting 
+ Container server-iuh-guardian-sync-1 Started 
+
+$ curl.exe -sS http://localhost:5001/health
+exit=0
+{"cloud_configured":true,"db_ok":true,"model_loaded":true,"model_path_configured":true,"outbox_failed":0,"outbox_pending":0,"service":"IUH Guardian API","status":"healthy","uptime_seconds":5.376912,"version":"0.1.0"}
+
+$ Server/.venv/Scripts/python.exe Server/live_cloud_check.py --phase after --evidence Docs\Evidence\CampusGuardian\B3
+exit=0
+{"phase": "after", "all_synced": true, "credentials": "****"}
+
+$ docker compose -f Server/docker-compose.yml ps
+exit=0
+NAME                         IMAGE                 COMMAND                  SERVICE             CREATED          STATUS                    PORTS
+server-iuh-guardian-api-1    iuh-guardian-api:b3   "gunicorn -c gunicor…"   iuh-guardian-api    14 seconds ago   Up 12 seconds (healthy)   0.0.0.0:5001->5001/tcp, [::]:5001->5001/tcp
+server-iuh-guardian-sync-1   iuh-guardian-api:b3   "python -m app.sync_…"   iuh-guardian-sync   13 seconds ago   Up 6 seconds              5001/tcp
+
+$ docker compose -f Server/docker-compose.yml logs --tail 20
+exit=0
+iuh-guardian-api-1   | [2026-11-02 14:04:03 +0000] [1] [INFO] Starting gunicorn 23.0.0
+iuh-guardian-sync-1  | INFO:guardian.sync:[IUH Guardian API] Cloud sync worker started
+iuh-guardian-api-1   | [2026-11-02 14:04:03 +0000] [1] [INFO] [IUH Guardian API] Multiprocess metrics directory initialized
+iuh-guardian-api-1   | [2026-11-02 14:04:03 +0000] [1] [INFO] Listening at: http://0.0.0.0:5001 (1)
+iuh-guardian-api-1   | [2026-11-02 14:04:03 +0000] [1] [INFO] Using worker: sync
+iuh-guardian-api-1   | [2026-11-02 14:04:03 +0000] [7] [INFO] Booting worker with pid: 7
+iuh-guardian-api-1   | [2026-11-02 14:04:03 +0000] [8] [INFO] Booting worker with pid: 8
+iuh-guardian-api-1   | 127.0.0.1 - - [02/Nov/2026:14:04:08 +0000] "GET /health HTTP/1.1" 200 216 "-" "curl/8.14.1"
+iuh-guardian-api-1   | 172.21.0.1 - - [02/Nov/2026:14:04:09 +0000] "GET /health HTTP/1.1" 200 217 "-" "curl/8.21.0"
+iuh-guardian-api-1   | 172.21.0.1 - - [02/Nov/2026:14:04:11 +0000] "POST /gameplay/events HTTP/1.1" 200 108 "-" "python-requests/2.34.2"
+iuh-guardian-api-1   | 172.21.0.1 - - [02/Nov/2026:14:04:11 +0000] "GET /gameplay/events/66e86bdd-c1ab-4ffe-a37b-d1fcba54951c HTTP/1.1" 200 106 "-" "python-requests/2.34.2"
+iuh-guardian-api-1   | 172.21.0.1 - - [02/Nov/2026:14:04:11 +0000] "GET /gameplay/events/4ad3d7f4-f850-4e1e-8afc-b01a016ebc3d HTTP/1.1" 200 107 "-" "python-requests/2.34.2"
+
+$ docker compose -f Server/docker-compose.yml down
+exit=0
+ Container server-iuh-guardian-sync-1 Stopping 
+ Container server-iuh-guardian-sync-1 Stopped 
+ Container server-iuh-guardian-sync-1 Removing 
+ Container server-iuh-guardian-sync-1 Removed 
+ Container server-iuh-guardian-api-1 Stopping 
+ Container server-iuh-guardian-api-1 Stopped 
+ Container server-iuh-guardian-api-1 Removing 
+ Container server-iuh-guardian-api-1 Removed 
+ Network server_default Removing 
+ Network server_default Removed 
