@@ -3,6 +3,7 @@ import math
 from time import perf_counter
 from flask import Blueprint, current_app, jsonify, request
 from PIL import Image, UnidentifiedImageError
+from ..scan_store import ScanSessionError
 
 predict = Blueprint("predict", __name__)
 
@@ -29,6 +30,12 @@ def predict_image():
         target, threshold = prediction_options()
     except ValueError as error:
         return jsonify(error=str(error)), 400
+    scan_id = request.form.get("scan_session_id")
+    if scan_id is not None:
+        try:
+            current_app.extensions["scan_store"].status(scan_id)
+        except ScanSessionError as error:
+            return jsonify(error=error.error), error.status
     upload = request.files.get("image")
     if upload is None:
         return jsonify(error="image_required"), 400
@@ -43,6 +50,14 @@ def predict_image():
     if not current_app.extensions["model_registry"].loaded:
         return jsonify(error="model_not_loaded"), 503
     result = current_app.extensions["detector"].predict(image, threshold, target)
+    if scan_id is not None:
+        candidates = [d for d in result["detections"] if d["label"] in current_app.config["ALLOWED_CLASSES"]
+                      and math.isfinite(d["confidence"]) and d["confidence"] >= threshold]
+        label = max(candidates, key=lambda d: d["confidence"])["label"] if candidates else None
+        try:
+            result["scan"] = current_app.extensions["scan_store"].reveal(scan_id, label, current_app.extensions["cloud_configured"])
+        except ScanSessionError as error:
+            return jsonify(error=error.error), error.status
     result["total_time_ms"] = (perf_counter() - started) * 1000
     metrics = current_app.extensions["inference_metrics"]
     metrics["latency"].observe(result["inference_time_ms"] / 1000)

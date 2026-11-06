@@ -1,0 +1,26 @@
+{
+  "credentials": "****",
+  "feeds": [
+    {
+      "feed": "guardian-quests-completed",
+      "status": "exists"
+    },
+    {
+      "feed": "guardian-campus-core",
+      "status": "exists"
+    },
+    {
+      "feed": "guardian-upgrades",
+      "status": "exists"
+    },
+    {
+      "feed": "lost-found-count",
+      "status": "exists"
+    },
+    {
+      "feed": "guardian-monsters-revealed",
+      "status": "created",
+      "error": null
+    }
+  ]
+}

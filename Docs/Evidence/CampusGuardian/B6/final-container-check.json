@@ -1,0 +1,18 @@
+{
+  "duplicate_original_event": {
+    "status": 200,
+    "response": {
+      "cloud": "synced",
+      "core_awarded": 10,
+      "event_id": "06ed45ae-8e12-47f4-bae4-012fb18d08dc",
+      "status": "duplicate"
+    }
+  },
+  "ar_monster_without_token": {
+    "status": 400,
+    "response": {
+      "error": "invalid_monster_token",
+      "field": "payload.monster_token"
+    }
+  }
+}

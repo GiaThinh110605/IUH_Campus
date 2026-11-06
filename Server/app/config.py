@@ -32,4 +32,11 @@ def load_config():
         "ADAFRUIT_AIO_USERNAME": os.getenv("ADAFRUIT_AIO_USERNAME", ""),
         "ADAFRUIT_AIO_KEY": os.getenv("ADAFRUIT_AIO_KEY", ""),
         "MAX_CONTENT_LENGTH": 5 * 1024 * 1024,
+        "SCAN_MAX_ACTIVE_PER_GAME_SESSION": int(os.getenv("SCAN_MAX_ACTIVE_PER_GAME_SESSION", "1")),
+        "SCAN_COOLDOWN_SECONDS": float(os.getenv("SCAN_COOLDOWN_SECONDS", "120")),
+        "SCAN_MAX_SESSIONS_PER_GAME_SESSION": int(os.getenv("SCAN_MAX_SESSIONS_PER_GAME_SESSION", "5")),
+        "SCAN_INFECTED_MIN": int(os.getenv("SCAN_INFECTED_MIN", "1")),
+        "SCAN_INFECTED_MAX": int(os.getenv("SCAN_INFECTED_MAX", "2")),
+        "SCAN_SESSION_TTL_MINUTES": float(os.getenv("SCAN_SESSION_TTL_MINUTES", "15")),
+        "SCAN_HINTS_PATH": str(Path(__file__).resolve().parents[1] / "config/scan_hints.json"),
     }

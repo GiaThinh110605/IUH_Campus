@@ -1,6 +1,6 @@
 services:
   iuh-guardian-api:
-    image: iuh-guardian-api:b4
+    image: iuh-guardian-api:b6
     build:
       context: .
       dockerfile: Dockerfile
@@ -24,7 +24,7 @@ services:
       retries: 3
     restart: unless-stopped
   iuh-guardian-sync:
-    image: iuh-guardian-api:b4
+    image: iuh-guardian-api:b6
     pull_policy: never
     command: ["python", "-m", "app.sync_worker"]
     env_file:

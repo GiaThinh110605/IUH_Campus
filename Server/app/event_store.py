@@ -6,6 +6,8 @@ import sqlite3
 import time
 from uuid import uuid4
 
+from .scan_store import migrate_scan_tables, token_reward
+
 FEEDS = {"guardian-quests-completed": "quests_completed", "guardian-campus-core": "campus_core_total",
          "guardian-upgrades": "upgrades_total", "lost-found-count": "scans_confirmed"}
 SEND_INTERVAL = 3.1
@@ -47,6 +49,7 @@ class EventStore:
         with self.connection() as db:
             db.execute("PRAGMA journal_mode=WAL")
             db.executescript(SCHEMA)
+            migrate_scan_tables(db)
 
     @contextmanager
     def connection(self):
@@ -80,14 +83,23 @@ class EventStore:
                     return "conflict", None
                 return "duplicate", self._event_result(db, existing)
             won = event["event_type"] == "combat_won"
-            if won and event["milestone_id"] not in self.rewards:
+            monster_token = event.get("payload", {}).get("monster_token") if won else None
+            if won and event["milestone_id"] == "ar_monster" and not monster_token:
+                return "invalid_token", None
+            if monster_token and not token_reward(db, monster_token, event["session_id"]):
+                return "invalid_token", None
+            reward_key = "ar_monster" if monster_token else event["milestone_id"]
+            if won and reward_key not in self.rewards:
                 return "invalid_milestone", None
-            prior = db.execute("SELECT 1 FROM milestone_rewards WHERE session_id=? AND milestone_id=?",
-                               (event["session_id"], event["milestone_id"])).fetchone()
+            prior = None if monster_token else db.execute("SELECT 1 FROM milestone_rewards WHERE session_id=? AND milestone_id=?",
+                                                         (event["session_id"], event["milestone_id"])).fetchone()
             first_win = won and not prior
-            core = self.rewards[event["milestone_id"]] if first_win else 0
+            core = self.rewards[reward_key] if first_win else 0
             self._insert_event(db, event, canonical, digest, core, cloud_enabled)
-            if first_win:
+            if monster_token:
+                db.execute("UPDATE scan_reveals SET rewarded_event_id=? WHERE monster_token=? AND rewarded_event_id IS NULL",
+                           (event["event_id"], monster_token))
+            if first_win and not monster_token:
                 db.execute("INSERT INTO milestone_rewards VALUES(?,?,?)",
                            (event["session_id"], event["milestone_id"], event["event_id"]))
             db.execute("UPDATE aggregates SET quests_completed=quests_completed+?,campus_core_total=campus_core_total+?,"
@@ -104,9 +116,9 @@ class EventStore:
                    (event["event_id"], event["session_id"], event["quest_id"], event["milestone_id"],
                     event["event_type"], event["occurred_at"], canonical, digest, core, int(cloud_enabled), time.time()))
 
-    def _queue_snapshot(self, db, event_id):
+    def _queue_snapshot(self, db, event_id, feeds=None):
         aggregate = db.execute("SELECT * FROM aggregates WHERE id=1").fetchone()
-        for feed, column in FEEDS.items():
+        for feed, column in (FEEDS if feeds is None else feeds).items():
             pending = db.execute("SELECT id FROM outbox WHERE feed_key=? AND status='pending' AND claim_token IS NULL "
                                  "ORDER BY id DESC LIMIT 1", (feed,)).fetchone()
             if pending:

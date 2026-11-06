@@ -1,0 +1,110 @@
+{
+  "commit": "100b9e75d779f3c3dc851b9164f7a0fc172e1ef8",
+  "branch": "minhnhat/backend-w9-b3",
+  "push_command": "git push origin minhnhat/backend-w9-b3",
+  "push_exit_code": 0,
+  "remote_update": "f5289d8..100b9e7",
+  "latency_changes": [
+    {
+      "file": ".agents/rules/w9-backend-cloud.md",
+      "before_line": 10,
+      "after_line": 10,
+      "before": [
+        "  - Độ trễ suy luận mục tiêu: `< 45ms` cho mỗi khung hình 640x640."
+      ],
+      "after": [
+        "  - YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2."
+      ]
+    },
+    {
+      "file": ".agents/skills/w9-onnx-pipeline/SKILL.md",
+      "before_line": 28,
+      "after_line": 28,
+      "before": [
+        "- Chế độ suy luận: Dynamic batch hoặc fixed batch size 1 cho độ trễ nhỏ hơn 45ms."
+      ],
+      "after": [
+        "- Chế độ suy luận: Dynamic batch hoặc fixed batch size 1; mục tiêu: YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2."
+      ]
+    },
+    {
+      "file": "plan.md",
+      "before_line": 21,
+      "after_line": 21,
+      "before": [
+        "2. **Xây dựng REST API suy luận với Flask & Gunicorn**: Xây dựng ứng dụng REST API nhẹ bằng Flask (theo khuyến nghị W9) chạy qua WSGI HTTP server chuẩn production (Gunicorn). Sử dụng thư viện **ONNX Runtime** để thực thi suy luận với độ trễ thấp (< 45ms). Endpoint chính: `POST /predict` tiếp nhận khung hình từ camera điện thoại, nhận diện các lớp vật thể học tập thực tế trong khuôn viên IUH (`book` - sách giáo trình, `laptop` - máy tính xách tay, `chair` - ghế phòng lab, `bottle` - bình nước, `backpack` - ba lô sinh viên, `cell phone` - điện thoại). API trả về nhãn đối tượng, hộp bao `[x, y, w, h]` và confidence score."
+      ],
+      "after": [
+        "2. **Xây dựng REST API suy luận với Flask & Gunicorn**: Xây dựng ứng dụng REST API nhẹ bằng Flask (theo khuyến nghị W9) chạy qua WSGI HTTP server chuẩn production (Gunicorn). Sử dụng thư viện **ONNX Runtime** để thực thi suy luận với chỉ tiêu vận hành YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2. Endpoint chính: `POST /predict` tiếp nhận khung hình từ camera điện thoại, nhận diện các lớp vật thể học tập thực tế trong khuôn viên IUH (`book` - sách giáo trình, `laptop` - máy tính xách tay, `chair` - ghế phòng lab, `bottle` - bình nước, `backpack` - ba lô sinh viên, `cell phone` - điện thoại). API trả về nhãn đối tượng, hộp bao `[x, y, w, h]` và confidence score."
+      ]
+    },
+    {
+      "file": "plan.md",
+      "before_line": 113,
+      "after_line": 113,
+      "before": [
+        "| Tuần 3, ngày 15–18 | Sửa lỗi, tối ưu Mobile & macOS/PC, benchmark độ trễ suy luận ONNX (< 45ms), thử AI/AR, backend/Docker/Prometheus và checkout sạch | Ca bắt buộc đạt, lỗi còn lại có người xử lý |"
+      ],
+      "after": [
+        "| Tuần 3, ngày 15–18 | Sửa lỗi, tối ưu Mobile & macOS/PC, benchmark ONNX: YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.; thử AI/AR, backend/Docker/Prometheus và checkout sạch | Ca bắt buộc đạt, lỗi còn lại có người xử lý |"
+      ]
+    },
+    {
+      "file": "plan.md",
+      "before_line": 132,
+      "after_line": 132,
+      "before": [
+        "| G09 | AI/AR chuẩn W9-En.pdf (ONNX, Flask/Gunicorn, Docker, Prometheus, Adafruit IO) | Xuất mô hình `.onnx` thành công; container chạy ổn định qua `docker compose up -d`; `POST /predict` suy luận ONNX độ trễ < 45ms và conf > 70%; Prometheus `/metrics` hiển thị đầy đủ thông số; Adafruit IO đồng bộ feed thật |"
+      ],
+      "after": [
+        "| G09 | AI/AR chuẩn W9-En.pdf (ONNX, Flask/Gunicorn, Docker, Prometheus, Adafruit IO) | Xuất mô hình `.onnx` thành công; container chạy ổn định qua `docker compose up -d`; `POST /predict`: YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.; Prometheus `/metrics` hiển thị đầy đủ thông số; Adafruit IO đồng bộ feed thật |"
+      ]
+    },
+    {
+      "file": "plan.txt",
+      "before_line": 11,
+      "after_line": 11,
+      "before": [
+        "Docker container -> Prometheus /metrics -> độ trễ < 45ms, confidence > 70%)."
+      ],
+      "after": [
+        "Docker container -> Prometheus /metrics -> YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.)."
+      ]
+    },
+    {
+      "file": "plan.txt",
+      "before_line": 42,
+      "after_line": 42,
+      "before": [
+        "POST /predict < 45ms & conf > 70%, container Docker chạy ổn định, Prometheus /metrics hoạt động)."
+      ],
+      "after": [
+        "POST /predict: YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.; container Docker chạy ổn định, Prometheus /metrics hoạt động)."
+      ]
+    },
+    {
+      "file": "README.md",
+      "before_line": 84,
+      "after_line": 84,
+      "before": [
+        "B1 đã nghiệm thu Docker; B2 chạy inference và ghi benchmark thật tại `Docs/Evidence/CampusGuardian/B2/`. Không suy ra đạt <45 ms từ việc model đã chạy; xem số liệu và tradeoff 640/480/416 trong evidence. Adafruit IO chưa tích hợp ở B2. Điện thoại cần IP LAN/URL backend, không dùng localhost của PC."
+      ],
+      "after": [
+        "B1 đã nghiệm thu Docker; B2 chạy inference và ghi benchmark thật tại `Docs/Evidence/CampusGuardian/B2/`. YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2. Không suy ra đạt chỉ tiêu từ việc model đã chạy; xem số liệu và tradeoff 640/480/416 trong evidence. Adafruit IO chưa tích hợp ở B2. Điện thoại cần IP LAN/URL backend, không dùng localhost của PC."
+      ]
+    },
+    {
+      "file": "Server/models/README.md",
+      "before_line": 26,
+      "after_line": 26,
+      "before": [],
+      "after": [
+        "",
+        "## B2.7 — Model decision (2026-11-04)",
+        "",
+        "YOLOv8n 640: API total p50 ≤ 150 ms, p95 ≤ 220 ms trên CPU (Ryzen 7 6800H, Docker, Gunicorn 2 worker); confidence ≥ 0.70. Ưu tiên độ chính xác; 416 nhanh hơn nhưng trượt nhiều hơn trên mẫu thử B2.",
+        "Model/default inference code and checksum unchanged. Chưa đánh giá trên ảnh thật — sẽ bổ sung. See Docs/Evidence/CampusGuardian/B2/model-decision.md."
+      ]
+    }
+  ]
+}

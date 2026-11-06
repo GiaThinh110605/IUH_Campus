@@ -1,0 +1,6 @@
+NAME                         IMAGE                    COMMAND                  SERVICE             CREATED         STATUS                        PORTS
+server-grafana-1             grafana/grafana:11.6.0   "/run.sh"                grafana             2 hours ago     Up 2 hours (healthy)          127.0.0.1:3000->3000/tcp
+server-iuh-guardian-api-1    iuh-guardian-api:b6      "gunicorn -c gunicor…"   iuh-guardian-api    5 minutes ago   Up About a minute (healthy)   5001/tcp
+server-iuh-guardian-sync-1   iuh-guardian-api:b6      "python -m app.sync_…"   iuh-guardian-sync   5 minutes ago   Up About a minute             5001/tcp
+server-nginx-1               nginx:1.28.0-alpine      "/docker-entrypoint.…"   nginx               2 hours ago     Up 4 minutes (healthy)        0.0.0.0:5001->80/tcp, [::]:5001->80/tcp
+server-prometheus-1          prom/prometheus:v3.2.1   "/bin/prometheus --c…"   prometheus          2 hours ago     Up 2 hours (healthy)          127.0.0.1:9090->9090/tcp

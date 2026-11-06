@@ -1,0 +1,75 @@
+ Image iuh-guardian-api:b6 Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 575B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 891B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 1.9s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 217B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:db20d8506e2f15b6db39b40b6015ca46bae855dec6dd326d462cfe79ae972893
+#5 resolve docker.io/library/python:3.11-slim@sha256:db20d8506e2f15b6db39b40b6015ca46bae855dec6dd326d462cfe79ae972893 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 40.66kB done
+#6 DONE 0.0s
+
+#7 [4/7] COPY requirements.txt .
+#7 CACHED
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 0.1s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus /app/data     && chown guardian:guardian /tmp/iuh-guardian-prometheus /app/data
+#12 DONE 0.3s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:df2a09b5d1062b2d293c4d06ea05fe6f11ffedfe46ba5b2072129d5a8ec559e3 0.0s done
+#13 exporting config sha256:4fa58a0898bed25ea7374344462df398ba8c7e7b3a4c0c172f638a794bbdde62
+#13 exporting config sha256:4fa58a0898bed25ea7374344462df398ba8c7e7b3a4c0c172f638a794bbdde62 0.0s done
+#13 exporting attestation manifest sha256:839a08d3ff07b765622f188d853d13ded335aaaceb7192ceff80ca111bd3b602 0.0s done
+#13 exporting manifest list sha256:1eee671202f752e0068897aef726717ad7d122690f6609effb5427e5349163cc 0.0s done
+#13 naming to docker.io/library/iuh-guardian-api:b6 done
+#13 unpacking to docker.io/library/iuh-guardian-api:b6 0.1s done
+#13 DONE 0.3s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image iuh-guardian-api:b6 Built
+ Container server-iuh-guardian-api-1 Recreate
+ Container server-iuh-guardian-api-1 Recreated
+ Container server-prometheus-1 Running
+ Container server-nginx-1 Running
+ Container server-iuh-guardian-sync-1 Recreate
+ Container server-grafana-1 Running
+ Container server-iuh-guardian-sync-1 Recreated
+ Container server-iuh-guardian-api-1 Starting
+ Container server-iuh-guardian-api-1 Started
+ Container server-iuh-guardian-api-1 Waiting
+ Container server-iuh-guardian-api-1 Waiting
+ Container server-iuh-guardian-api-1 Waiting
+ Container server-iuh-guardian-api-1 Healthy
+ Container server-iuh-guardian-api-1 Healthy
+ Container server-prometheus-1 Waiting
+ Container server-iuh-guardian-api-1 Healthy
+ Container server-iuh-guardian-sync-1 Starting
+ Container server-iuh-guardian-sync-1 Started
+ Container server-prometheus-1 Healthy

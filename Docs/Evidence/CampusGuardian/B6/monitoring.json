@@ -1,0 +1,71 @@
+{
+  "panels": [
+    {
+      "title": "Scan result ratio",
+      "query": "sum by (result) (rate(scan_results_total[5m])) / clamp_min(sum(rate(scan_results_total[5m])), 0.000001)",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": []
+        }
+      }
+    },
+    {
+      "title": "Monsters revealed by object",
+      "query": "sum by (label) (monsters_revealed_total)",
+      "response": {
+        "status": "success",
+        "data": {
+          "resultType": "vector",
+          "result": [
+            {
+              "metric": {
+                "label": "laptop"
+              },
+              "value": [
+                1793728107.444,
+                "1"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "targets": {
+    "status": "success",
+    "data": {
+      "activeTargets": [
+        {
+          "discoveredLabels": {
+            "__address__": "iuh-guardian-api:5001",
+            "__metrics_path__": "/metrics",
+            "__scheme__": "http",
+            "__scrape_interval__": "5s",
+            "__scrape_timeout__": "5s",
+            "job": "guardian-api"
+          },
+          "labels": {
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api"
+          },
+          "scrapePool": "guardian-api",
+          "scrapeUrl": "http://iuh-guardian-api:5001/metrics",
+          "globalUrl": "http://iuh-guardian-api:5001/metrics",
+          "lastError": "",
+          "lastScrape": "2026-11-03T17:48:26.975712334Z",
+          "lastScrapeDuration": 0.054092509,
+          "health": "up",
+          "scrapeInterval": "5s",
+          "scrapeTimeout": "5s"
+        }
+      ],
+      "droppedTargets": [],
+      "droppedTargetCounts": {
+        "guardian-api": 0
+      }
+    }
+  },
+  "metrics_external_http": 404
+}

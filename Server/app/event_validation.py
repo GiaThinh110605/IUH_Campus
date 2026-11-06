@@ -36,7 +36,12 @@ def normalize_uuid(value, field):
 
 def validate_payload(kind, payload, allowed_labels, minimum):
     fields = {"scan_confirmed": {"label", "confidence"}, "upgrade_purchased": {"branch", "level"}}.get(kind, set())
-    whitelist(payload, fields, fields, "payload.")
+    allowed = fields | ({"monster_token"} if kind == "combat_won" else set())
+    whitelist(payload, allowed, fields, "payload.")
+    if "monster_token" in payload:
+        token = payload["monster_token"]
+        if not isinstance(token, str) or not IDENTIFIER.fullmatch(token):
+            raise InvalidEvent("payload.monster_token")
     if kind == "scan_confirmed":
         confidence = payload["confidence"]
         if payload["label"] not in allowed_labels:
