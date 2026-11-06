@@ -29,6 +29,9 @@ namespace IUHCampus.Editor
                 }
             }
 
+            // The duel is filmed in its own scene; (re)build it first so the stage can load it.
+            IUHCombatArenaSceneBuilder.BuildArenaScene();
+
             var canvasGO = GameObject.Find("IUH_Minigame_Canvas");
             if (canvasGO == null)
             {
@@ -41,6 +44,11 @@ namespace IUHCampus.Editor
                 cs.matchWidthOrHeight = 0.5f;
             }
 
+            // Remove every previous arena, wherever it ended up, so only one combat manager exists.
+            foreach (var oldMgr in Object.FindObjectsByType<Match3CombatManager>(FindObjectsInactive.Include))
+            {
+                if (oldMgr != null) Undo.DestroyObjectImmediate(oldMgr.gameObject);
+            }
             var existingArena = canvasGO.transform.Find("CombatArena_Match3");
             if (existingArena != null)
             {
@@ -113,18 +121,18 @@ namespace IUHCampus.Editor
             var pGap = soBoard.FindProperty("m_TileSpacing"); if (pGap != null) pGap.floatValue = gap;
             soBoard.ApplyModifiedProperties();
 
-            // Skill button sits beside the board (right), legend beside it (left).
-            var (skillBtn, skillTxt) = CreateButton(arenaRoot.transform, "BtnSkill", "Nộ 0/100", new Vector2(0.5f, 0f), new Vector2(300, 70), defaultFont);
-            skillBtn.GetComponent<RectTransform>().anchoredPosition = new Vector2(boardW * 0.5f + 190f, 70f);
+            // Fighters stand left and right of the board, so the skill button sits on top of it.
+            var (skillBtn, skillTxt) = CreateButton(arenaRoot.transform, "BtnSkill", "Nộ 0/100", new Vector2(0.5f, 0f), new Vector2(320, 60), defaultFont);
+            skillBtn.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 24f + boardH + 42f);
             skillBtn.GetComponent<Image>().color = new Color(0.95f, 0.65f, 0.1f);
             skillTxt.fontSize = 20;
             skillTxt.fontStyle = FontStyle.Bold;
 
             Text legend = CreateText(arenaRoot.transform, "Legend",
-                "<color=#F87171>■</color> Kiếm: gây sát thương\n<color=#38BDF8>■</color> Khiên: chặn đòn kế tiếp\n<color=#FB923C>■</color> Sét: tích Nộ cho skill\n<color=#4ADE80>■</color> Hồi: hồi HP\n<color=#C084FC>■</color> Pha lê: thanh tẩy, giảm đòn quái",
-                17, new Vector2(0.5f, 0f), new Vector2(330, 170), defaultFont, new Color(0.85f, 0.88f, 1f));
-            legend.alignment = TextAnchor.MiddleLeft;
-            legend.GetComponent<RectTransform>().anchoredPosition = new Vector2(-boardW * 0.5f - 200f, 110f);
+                "<color=#F87171>■</color> Kiếm: sát thương    <color=#38BDF8>■</color> Khiên: chặn đòn    <color=#FB923C>■</color> Sét: tích Nộ    <color=#4ADE80>■</color> Hồi: hồi HP    <color=#C084FC>■</color> Pha lê: giảm đòn quái",
+                17, new Vector2(0.5f, 1f), new Vector2(1100, 30), defaultFont, new Color(0.85f, 0.88f, 1f));
+            legend.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -168f);
+            legend.gameObject.AddComponent<Outline>().effectColor = new Color(0f, 0f, 0f, 0.7f);
 
             // ── Top HUD: player | VS + timer | monster ──
             GameObject hud = new GameObject("TopHUD", typeof(RectTransform), typeof(Image));
@@ -162,18 +170,40 @@ namespace IUHCampus.Editor
             timerTxt.text = "⏱️ 01:30";
 
             // ── Middle: combo banner and popup anchors over each fighter ──
-            Text combo = CreateText(arenaRoot.transform, "ComboText", "COMBO x2", 46, new Vector2(0.5f, 0.66f), new Vector2(700, 80), defaultFont, new Color(1f, 0.85f, 0.25f));
+            Text combo = CreateText(arenaRoot.transform, "ComboText", "COMBO x2", 46, new Vector2(0.5f, 0.7f), new Vector2(700, 80), defaultFont, new Color(1f, 0.85f, 0.25f));
             combo.fontStyle = FontStyle.BoldAndItalic;
             combo.gameObject.AddComponent<Outline>().effectColor = new Color(0.35f, 0.1f, 0.6f);
             combo.gameObject.SetActive(false);
 
-            RectTransform playerAnchor = CreateAnchor(arenaRoot.transform, "PlayerPopupAnchor", new Vector2(0.3f, 0.66f));
-            RectTransform bossAnchor = CreateAnchor(arenaRoot.transform, "MonsterPopupAnchor", new Vector2(0.7f, 0.7f));
+            RectTransform playerAnchor = CreateAnchor(arenaRoot.transform, "PlayerPopupAnchor", new Vector2(0.17f, 0.45f));
+            RectTransform bossAnchor = CreateAnchor(arenaRoot.transform, "MonsterPopupAnchor", new Vector2(0.83f, 0.62f));
 
             GameObject vicModal = CreateModal(arenaRoot.transform, "VictoryModal", "🏆 CHIẾN THẮNG!", "Bạn đã thanh tẩy hoàn toàn quái vật dữ liệu!\nBảo vệ an toàn cho khuôn viên IUH.", new Color(0.2f, 0.95f, 0.45f), defaultFont, out Button btnRetryVic, out Button btnCloseVic, out Text vicTitleTxt, out Text vicDescTxt, out Text vicRewardsTxt, "TIẾP TỤC KHÁM PHÁ [ĐÓNG]", true);
             GameObject defModal = CreateModal(arenaRoot.transform, "DefeatModal", "💀 THẤT BẠI", "Data Monster đã áp đảo lá chắn của bạn!\nHãy thử lại để thanh tẩy khu vực.", new Color(0.95f, 0.2f, 0.3f), defaultFont, out Button btnRetryDef, out Button btnCloseDef, out Text _, out Text defDescTxt, out Text _, "RÚT LUI KHỎI CHIẾN ĐẤU", false);
 
+            GameObject fadeGO = new GameObject("FadeOverlay", typeof(RectTransform), typeof(Image));
+            fadeGO.transform.SetParent(arenaRoot.transform, false);
+            var fadeRect = fadeGO.GetComponent<RectTransform>();
+            fadeRect.anchorMin = Vector2.zero;
+            fadeRect.anchorMax = Vector2.one;
+            fadeRect.sizeDelta = Vector2.zero;
+            var fadeImg = fadeGO.GetComponent<Image>();
+            fadeImg.color = new Color(0f, 0f, 0f, 0f);
+            fadeGO.SetActive(false);
+
             var stage = arenaRoot.AddComponent<Match3BattleStage>();
+            SerializedObject soStage = new SerializedObject(stage);
+            SetRef(soStage, "m_FadeOverlay", fadeImg);
+            // Any clip dropped into Audio/Combat becomes the battle theme (first by name).
+            if (AssetDatabase.IsValidFolder("Assets/IUH_Campus/Audio/Combat"))
+            {
+                var clipGuids = AssetDatabase.FindAssets("t:AudioClip", new[] { "Assets/IUH_Campus/Audio/Combat" });
+                var clipPaths = new List<string>();
+                foreach (var g in clipGuids) clipPaths.Add(AssetDatabase.GUIDToAssetPath(g));
+                clipPaths.Sort(System.StringComparer.OrdinalIgnoreCase);
+                if (clipPaths.Count > 0) SetRef(soStage, "m_CombatMusic", AssetDatabase.LoadAssetAtPath<AudioClip>(clipPaths[0]));
+            }
+            soStage.ApplyModifiedProperties();
             var combatMgr = arenaRoot.AddComponent<Match3CombatManager>();
 
             SpawnPlayerOverhead(sprBarBg, sprHpPlayer, sprBarShield, sprBarEnergy, defaultFont);

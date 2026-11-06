@@ -40,6 +40,7 @@ namespace IUHCampus.Guardian
         private ThirdPersonController m_ThirdPersonController;
         private StarterAssetsInputs m_StarterInputs;
         private IUHGrabMotorbike m_MotorbikeController;
+        private bool m_MotorbikeWasEnabled = true;
         private bool m_IsEncounterActive;
         private bool m_IsDefeated;
         private float m_TriggerCooldown = 0f;
@@ -92,6 +93,12 @@ namespace IUHCampus.Guardian
 
         private void FindPlayer()
         {
+            // The bike keeps reading input even while the student rides it, so it must be paused in combat too.
+            if (m_MotorbikeController == null)
+            {
+                m_MotorbikeController = FindAnyObjectByType<IUHGrabMotorbike>(FindObjectsInactive.Include);
+            }
+
             var student = GameObject.Find("Campus Student");
             if (student != null)
             {
@@ -222,7 +229,15 @@ namespace IUHCampus.Guardian
 
             if (m_MotorbikeController != null)
             {
-                m_MotorbikeController.enabled = enabled;
+                if (!enabled)
+                {
+                    m_MotorbikeWasEnabled = m_MotorbikeController.enabled;
+                    m_MotorbikeController.enabled = false;
+                }
+                else
+                {
+                    m_MotorbikeController.enabled = m_MotorbikeWasEnabled;
+                }
             }
 
             Cursor.lockState = enabled ? CursorLockMode.Locked : CursorLockMode.None;

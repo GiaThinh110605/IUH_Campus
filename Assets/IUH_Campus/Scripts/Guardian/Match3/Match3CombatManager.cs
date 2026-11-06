@@ -70,6 +70,8 @@ namespace IUHCampus.Guardian.Match3
         private bool m_IsCombatActive;
         private bool m_IsResolving;
         private bool m_UsingStage;
+        // True from StartNewCombat until the fight is closed, including while the arena loads.
+        private bool m_IsEngaged;
         private float m_ComboTextTimer;
 
         private float m_ShownPlayerHp;
@@ -98,7 +100,9 @@ namespace IUHCampus.Guardian.Match3
                 m_BoardView.OnTurnCompleted += HandlePlayerTurnCompleted;
             }
 
-            if (!m_IsCombatActive)
+            // Only hide when nobody asked for a fight. Start runs one frame after the encounter
+            // enables us, while the arena is still loading, so m_IsCombatActive is not enough here.
+            if (!m_IsEngaged)
             {
                 if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
                 gameObject.SetActive(false);
@@ -129,13 +133,18 @@ namespace IUHCampus.Guardian.Match3
         public void StartNewCombat()
         {
             StopAllCoroutines();
+            m_IsEngaged = true;
             gameObject.SetActive(true);
+            StartCoroutine(BeginCombatRoutine());
+        }
 
+        private IEnumerator BeginCombatRoutine()
+        {
             m_Rules = new Match3CombatRules(m_Config);
             m_ShownPlayerHp = m_Rules.PlayerHp;
             m_ShownBossHp = m_Rules.BossHp;
             m_RemainingTime = m_CombatDuration;
-            m_IsCombatActive = true;
+            m_IsCombatActive = false;
             m_IsResolving = false;
             m_ComboTextTimer = 0f;
 
@@ -147,19 +156,28 @@ namespace IUHCampus.Guardian.Match3
             if (m_PlayerNameText != null) m_PlayerNameText.text = m_PlayerName;
             if (m_BossNameText != null) m_BossNameText.text = m_CurrentEncounter != null ? m_CurrentEncounter.MonsterName : "DATA MONSTER";
 
-            EnterStage();
+            UpdateAllUI();
+            UpdateTimerDisplay();
 
+            // The board is built while the screen is black, so it appears together with the arena.
             var model = new Match3BoardModel();
             model.Initialize();
             if (m_BoardView != null)
             {
                 m_BoardView.gameObject.SetActive(true);
-                m_BoardView.InputLocked = false;
+                m_BoardView.InputLocked = true;
                 m_BoardView.Initialize(model);
             }
 
+            // Keep the HUD and board hidden until the screen is black, so they never show over the campus.
+            bool freshEntry = m_Stage != null && !m_Stage.IsActive;
+            if (freshEntry) SetHudVisible(false);
+            yield return EnterStage();
+            SetHudVisible(true);
+
+            LockBoard(false);
+            m_IsCombatActive = true;
             UpdateAllUI();
-            UpdateTimerDisplay();
         }
 
         /// <summary>Leave the fight without winning (Esc, or the defeat modal's button).</summary>
@@ -167,7 +185,8 @@ namespace IUHCampus.Guardian.Match3
         {
             StopAllCoroutines();
             m_IsCombatActive = false;
-            ExitStage(true);
+            m_IsEngaged = false;
+            ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatDefeat();
             else gameObject.SetActive(false);
@@ -313,29 +332,44 @@ namespace IUHCampus.Guardian.Match3
 
         private void OnCloseVictoryClicked()
         {
-            ExitStage(false);
+            m_IsEngaged = false;
+            ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatVictory();
             else gameObject.SetActive(false);
         }
 
-        private void EnterStage()
+        private IEnumerator EnterStage()
         {
             m_UsingStage = false;
-            if (m_Stage == null || m_CurrentEncounter == null) return;
+            if (m_Stage == null || m_CurrentEncounter == null) yield break;
 
             Transform player = m_CurrentEncounter.PlayerTransform;
-            // The encounter falls back to the camera when no student exists; never stage the camera itself.
-            if (player == null || player.GetComponent<Camera>() != null) return;
+            // The encounter falls back to the camera when no student exists; there is nothing to copy then.
+            if (player != null && player.GetComponent<Camera>() != null) player = null;
 
-            m_Stage.Enter(player, m_CurrentEncounter.transform);
+            yield return m_Stage.Enter(player, m_CurrentEncounter.transform, () => SetHudVisible(true));
             m_UsingStage = m_Stage.IsActive;
         }
 
-        private void ExitStage(bool restorePlayerPosition)
+        private void ExitStage()
         {
-            if (m_Stage != null && m_UsingStage) m_Stage.Exit(restorePlayerPosition);
+            if (m_Stage != null) m_Stage.Exit();
             m_UsingStage = false;
+        }
+
+        private void SetHudVisible(bool visible)
+        {
+            GameObject fade = m_Stage != null ? m_Stage.FadeOverlayObject : null;
+            foreach (Transform child in transform)
+            {
+                if (fade != null && child.gameObject == fade) continue;
+                var group = child.GetComponent<CanvasGroup>();
+                if (group == null) group = child.gameObject.AddComponent<CanvasGroup>();
+                group.alpha = visible ? 1f : 0f;
+                group.interactable = visible;
+                group.blocksRaycasts = visible;
+            }
         }
 
         private void LockBoard(bool locked)
