@@ -100,6 +100,6 @@ Server/models/*.pt
 Server/data/*
 !Server/data/.gitkeep
 
-# Unity Asset Store packages (Standard EULA: each teammate imports them from My Assets, never commit)
+# Ignore unused LuceedStudio pack contents; the selected Campus Student dependencies are tracked.
 /[Aa]ssets/LuceedStudio/
 /[Aa]ssets/LuceedStudio.meta

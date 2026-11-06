@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 1f27677735830794682f43f6336497e8
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 388730
+  packageName: Little Guys - Free Sample
+  packageVersion: 1.2.1
+  assetPath: Assets/LuceedStudio/Character Lab/Shaders/S_URP_Stylized_Combined.shader
+  uploadId: 954370
