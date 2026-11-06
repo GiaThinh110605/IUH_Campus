@@ -43,6 +43,7 @@ namespace IUHCampus.Guardian
         private bool m_MotorbikeWasEnabled = true;
         private bool m_IsEncounterActive;
         private bool m_IsDefeated;
+        private bool m_RequireLeaveRange;
         private float m_TriggerCooldown = 0f;
 
         public string MonsterName => m_MonsterName;
@@ -150,7 +151,7 @@ namespace IUHCampus.Guardian
                     m_ActionPromptObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown())
                 {
                     if (m_CombatManager != null) m_CombatManager.Flee();
                     else OnCombatDefeat();
@@ -164,9 +165,18 @@ namespace IUHCampus.Guardian
                 if (m_PlayerTransform == null) return;
             }
 
+            if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput)
+            {
+                if (Vector3.Distance(transform.position, m_PlayerTransform.position) <= m_TriggerRadius) m_RequireLeaveRange = true;
+                return;
+            }
+            var preview = m_PlayerTransform.GetComponent<IUHCampus.World.IUHConceptPreviewController>();
+            if (preview != null && preview.IsExplorationPaused) return;
+            if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown()) return;
             float dist = Vector3.Distance(transform.position, m_PlayerTransform.position);
             bool inRevealRange = dist <= m_RevealRadius;
             bool inCombatRange = dist <= m_TriggerRadius;
+            if (!inCombatRange) m_RequireLeaveRange = false;
 
             if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf != inCombatRange)
             {
@@ -178,7 +188,7 @@ namespace IUHCampus.Guardian
                 m_ActionPromptObject.SetActive(inRevealRange && !inCombatRange);
             }
 
-            if (inCombatRange && m_TriggerCooldown <= 0f)
+            if (inCombatRange && !m_RequireLeaveRange && m_TriggerCooldown <= 0f)
             {
                 TriggerCombat();
             }
@@ -191,6 +201,7 @@ namespace IUHCampus.Guardian
         public void TriggerCombat()
         {
             if (m_IsDefeated || m_IsEncounterActive) return;
+            if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput) return;
 
             m_IsEncounterActive = true;
             if (m_ActionPromptObject != null) m_ActionPromptObject.SetActive(false);
@@ -216,6 +227,7 @@ namespace IUHCampus.Guardian
         {
             if (m_ThirdPersonController != null)
             {
+                m_ThirdPersonController.ResetMotion();
                 m_ThirdPersonController.enabled = enabled;
             }
 
@@ -263,6 +275,7 @@ namespace IUHCampus.Guardian
         {
             m_IsEncounterActive = false;
             m_TriggerCooldown = 3.5f;
+            m_RequireLeaveRange = true;
 
             SetPlayerControl(true);
 

@@ -72,6 +72,9 @@ namespace IUHCampus.Guardian.Match3
         private bool m_UsingStage;
         // True from StartNewCombat until the fight is closed, including while the arena loads.
         private bool m_IsEngaged;
+        private GameObject m_BattleStartIntro;
+        private int m_LastExitFrame = -1;
+        public bool BlocksExplorationInput => m_IsEngaged || m_LastExitFrame == Time.frameCount;
         private float m_ComboTextTimer;
 
         private float m_ShownPlayerHp;
@@ -133,6 +136,7 @@ namespace IUHCampus.Guardian.Match3
         public void StartNewCombat()
         {
             StopAllCoroutines();
+            ClearBattleStartIntro();
             m_IsEngaged = true;
             gameObject.SetActive(true);
             StartCoroutine(BeginCombatRoutine());
@@ -170,9 +174,9 @@ namespace IUHCampus.Guardian.Match3
             }
 
             // Keep the HUD and board hidden until the screen is black, so they never show over the campus.
-            bool freshEntry = m_Stage != null && !m_Stage.IsActive;
-            if (freshEntry) SetHudVisible(false);
+            SetHudVisible(false);
             yield return EnterStage();
+            yield return PlayBattleStartIntro();
             SetHudVisible(true);
 
             LockBoard(false);
@@ -186,6 +190,8 @@ namespace IUHCampus.Guardian.Match3
             StopAllCoroutines();
             m_IsCombatActive = false;
             m_IsEngaged = false;
+            m_LastExitFrame = Time.frameCount;
+            ClearBattleStartIntro();
             ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatDefeat();
@@ -333,6 +339,8 @@ namespace IUHCampus.Guardian.Match3
         private void OnCloseVictoryClicked()
         {
             m_IsEngaged = false;
+            m_LastExitFrame = Time.frameCount;
+            ClearBattleStartIntro();
             ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatVictory();
@@ -348,7 +356,7 @@ namespace IUHCampus.Guardian.Match3
             // The encounter falls back to the camera when no student exists; there is nothing to copy then.
             if (player != null && player.GetComponent<Camera>() != null) player = null;
 
-            yield return m_Stage.Enter(player, m_CurrentEncounter.transform, () => SetHudVisible(true));
+            yield return m_Stage.Enter(player, m_CurrentEncounter.transform);
             m_UsingStage = m_Stage.IsActive;
         }
 
@@ -370,6 +378,52 @@ namespace IUHCampus.Guardian.Match3
                 group.interactable = visible;
                 group.blocksRaycasts = visible;
             }
+        }
+
+        private IEnumerator PlayBattleStartIntro()
+        {
+            m_BattleStartIntro = new GameObject("BattleStartIntro", typeof(RectTransform), typeof(CanvasGroup));
+            var root = m_BattleStartIntro.GetComponent<RectTransform>();
+            root.SetParent(transform, false);
+            root.anchorMin = Vector2.zero; root.anchorMax = Vector2.one;
+            root.offsetMin = root.offsetMax = Vector2.zero;
+            root.SetAsLastSibling();
+            var group = root.GetComponent<CanvasGroup>();
+            group.blocksRaycasts = true;
+            Font font = m_ComboText != null ? m_ComboText.font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            var battle = CreateIntroWord(root, "BATTLE", -165f, font, new Color(0.35f, 0.9f, 1f));
+            var start = CreateIntroWord(root, "START", 165f, font, new Color(1f, 0.8f, 0.2f));
+            yield return new WaitForSecondsRealtime(0.4f);
+            const float duration = 0.65f;
+            for (float t = 0; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = Mathf.Clamp01(t / duration);
+                float slide = Mathf.SmoothStep(0, 1, k) * 500f;
+                battle.anchoredPosition = new Vector2(-165f - slide, 0);
+                start.anchoredPosition = new Vector2(165f + slide, 0);
+                group.alpha = 1f - k;
+                yield return null;
+            }
+            ClearBattleStartIntro();
+        }
+
+        private static RectTransform CreateIntroWord(Transform parent, string word, float x, Font font, Color color)
+        {
+            var go = new GameObject(word, typeof(RectTransform), typeof(Text), typeof(Outline));
+            var rect = go.GetComponent<RectTransform>(); rect.SetParent(parent, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.sizeDelta = new Vector2(330, 120); rect.anchoredPosition = new Vector2(x, 0);
+            var text = go.GetComponent<Text>(); text.text = word; text.font = font;
+            text.fontSize = 72; text.fontStyle = FontStyle.BoldAndItalic;
+            text.alignment = TextAnchor.MiddleCenter; text.color = color; text.raycastTarget = false;
+            go.GetComponent<Outline>().effectColor = new Color(0.03f, 0.03f, 0.12f, 1);
+            return rect;
+        }
+
+        private void ClearBattleStartIntro()
+        {
+            if (m_BattleStartIntro != null) { m_BattleStartIntro.SetActive(false); Destroy(m_BattleStartIntro); }
+            m_BattleStartIntro = null;
         }
 
         private void LockBoard(bool locked)

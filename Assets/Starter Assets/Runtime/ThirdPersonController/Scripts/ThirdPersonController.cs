@@ -182,6 +182,7 @@ namespace StarterAssets
             ClearPendingInput();
             _speed = 0f;
             _animationBlend = 0f;
+            if (_animator != null) { _animator.SetFloat("Speed", 0f); _animator.SetFloat("MotionSpeed", 0f); }
             _rotationVelocity = 0f;
             _verticalVelocity = -2f;
             _jumpTimeoutDelta = JumpTimeout;

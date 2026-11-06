@@ -504,6 +504,10 @@ namespace IUHCampus.Core
 
         private void HandleEscapeKey()
         {
+            // The campus cursor and combat own Escape before generic minigame pause/resume.
+            if (IUHCampus.World.IUHConceptPreviewController.EscapeHandledThisFrame) return;
+            var combat = IUHCampus.Guardian.Match3.Match3CombatManager.Instance;
+            if (combat != null && combat.BlocksExplorationInput) return;
             var photo = Minigames.PhotoHunter.IUHPhotoHunterManager.Instance;
             var green = Minigames.GreenCampus.IUHGreenCampusManager.Instance;
             if ((photo != null && (photo.HasActiveModal || photo.CurrentState == Minigames.PhotoHunter.IUHPhotoHunterManager.PhotoHunterState.ViewfinderMode)) ||
