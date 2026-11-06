@@ -51,6 +51,10 @@ namespace IUHCampus.Guardian.Match3
             typeof(ParticleSystem), typeof(ParticleSystemRenderer)
         };
 
+        private AsyncOperation m_PendingLoad;
+        private AsyncOperation m_PendingUnload;
+        private bool m_CancelPendingLoad;
+        private int m_EntryVersion;
         private Match3ArenaAnchors m_Anchors;
         private Camera m_ArenaCamera;
         private Camera m_MainCamera;
@@ -80,11 +84,15 @@ namespace IUHCampus.Guardian.Match3
         {
             if (monster == null) { onReady?.Invoke(); yield break; }
 
+            int entryVersion = ++m_EntryVersion;
+            m_CancelPendingLoad = false;
             bool firstEntry = !IsActive;
             if (firstEntry)
             {
                 yield return Fade(0f, 1f);
+                if (entryVersion != m_EntryVersion) yield break;
                 yield return LoadArena();
+                if (entryVersion != m_EntryVersion) yield break;
                 if (m_Anchors == null)
                 {
                     Debug.LogWarning($"[IUH Guardian] Arena scene '{m_ArenaSceneName}' is missing or has no Match3ArenaAnchors. Run IUH Campus > Guardian > Build Match-3 Combat Arena.");
@@ -111,19 +119,38 @@ namespace IUHCampus.Guardian.Match3
         {
             StopAllCoroutines();
             SetFade(0f);
-            if (!IsActive) return;
-            IsActive = false;
+            ++m_EntryVersion;
+            if (m_PendingLoad != null && !m_PendingLoad.isDone) m_CancelPendingLoad = true;
+            if (IsActive)
+            {
+                IsActive = false;
+                DestroyProxies();
+                ReleaseCamera();
+                StopMusic();
 
-            DestroyProxies();
-            ReleaseCamera();
-            StopMusic();
+                if (m_PlayerOverhead != null) m_PlayerOverhead.SetActive(m_PlayerOverheadWasActive);
+                m_PlayerOverhead = null;
+            }
 
-            if (m_PlayerOverhead != null) m_PlayerOverhead.SetActive(m_PlayerOverheadWasActive);
-            m_PlayerOverhead = null;
-
-            Scene arena = SceneManager.GetSceneByName(m_ArenaSceneName);
-            if (arena.isLoaded) SceneManager.UnloadSceneAsync(arena);
+            UnloadArena();
             m_Anchors = null;
+        }
+
+        private void UnloadArena()
+        {
+            if (m_PendingUnload != null && !m_PendingUnload.isDone) return;
+            Scene arena = SceneManager.GetSceneByName(m_ArenaSceneName);
+            if (arena.isLoaded) m_PendingUnload = SceneManager.UnloadSceneAsync(arena);
+        }
+
+        private void OnArenaLoaded(AsyncOperation operation)
+        {
+            operation.completed -= OnArenaLoaded;
+            if (m_PendingLoad == operation) m_PendingLoad = null;
+            // The entry coroutine may already have been stopped by Flee. Cleanup must outlive it.
+            if (!m_CancelPendingLoad) return;
+            m_CancelPendingLoad = false;
+            UnloadArena();
         }
 
         public void PlayPlayerAttack() => Lunge(m_PlayerProxy, m_PlayerHome, m_MonsterHome, m_LungeDistance);
@@ -149,12 +176,18 @@ namespace IUHCampus.Guardian.Match3
 
         private IEnumerator LoadArena()
         {
+            while (m_PendingUnload != null && !m_PendingUnload.isDone) yield return null;
+            m_PendingUnload = null;
             Scene arena = SceneManager.GetSceneByName(m_ArenaSceneName);
             if (!arena.isLoaded)
             {
                 if (!Application.CanStreamedLevelBeLoaded(m_ArenaSceneName)) yield break;
-                AsyncOperation op = SceneManager.LoadSceneAsync(m_ArenaSceneName, LoadSceneMode.Additive);
-                while (op != null && !op.isDone) yield return null;
+                if (m_PendingLoad == null)
+                {
+                    m_PendingLoad = SceneManager.LoadSceneAsync(m_ArenaSceneName, LoadSceneMode.Additive);
+                    if (m_PendingLoad != null) m_PendingLoad.completed += OnArenaLoaded;
+                }
+                while (m_PendingLoad != null && !m_PendingLoad.isDone) yield return null;
                 arena = SceneManager.GetSceneByName(m_ArenaSceneName);
             }
 

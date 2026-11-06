@@ -1,0 +1,34 @@
+{
+  "base": "eaf395e",
+  "red": {
+    "playModeJob": "007ebdc889f447a88c837d084474dcfd",
+    "failures": [
+      "ExitDuringLoadCleansScene: arena remained loaded",
+      "ImmediateReentryHasOneArena: expected 1, got 2"
+    ]
+  },
+  "green": {
+    "playModeJob": "10b69746088b435cb0c6981e8704cc66",
+    "playMode": {
+      "passed": 4,
+      "failed": 0
+    },
+    "editModeJob": "257c2cd4603749cdb3d1b048a1e5576e",
+    "editMode": {
+      "passed": 35,
+      "failed": 0
+    }
+  },
+  "sceneDirtyBefore": false,
+  "sceneDirtyAfter": false,
+  "runtimeEarlyFlee": {
+    "managerActive": false,
+    "controllerEnabled": true,
+    "arenaLoaded": false
+  },
+  "manualStatus": "Keyboard/visual Esc and full victory/defeat walkthrough not verified. Normal campus encounter probe did not observe IsActive=true; no console warning/error reported. No out-of-scope change attempted.",
+  "limitations": [
+    "B7 tests are absent on this branch; current EditMode run includes available Match3 and Backend B5 tests.",
+    "PlayMode tests invoke Assembly-CSharp through reflection to preserve existing asmdef dependencies."
+  ]
+}
