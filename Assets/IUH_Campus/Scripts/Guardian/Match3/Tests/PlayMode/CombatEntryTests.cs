@@ -70,6 +70,31 @@ public class CombatEntryTests
         }
         finally { UnityEngine.Object.Destroy(go); }
     }
+    [UnityTest] public IEnumerator HudFadesBeforeUnlockAndFleeRestoresLayout()
+    {
+        var type = FindType("IUHCampus.Guardian.Match3.Match3CombatManager");
+        var go = new GameObject("HudRevealTest");
+        var hud = new GameObject("TopHUD", typeof(RectTransform));
+        hud.transform.SetParent(go.transform, false);
+        var rect = hud.GetComponent<RectTransform>();
+        var home = new Vector2(10, -20); rect.anchoredPosition = home;
+        var manager = (MonoBehaviour)go.AddComponent(type);
+        try
+        {
+            type.GetMethod("StartNewCombat").Invoke(manager, null);
+            yield return null;
+            while (go.transform.Find("BattleStartIntro") != null) yield return null;
+            yield return new WaitForSecondsRealtime(.12f);
+            var group = hud.GetComponent<CanvasGroup>();
+            Assert.That(group.alpha, Is.GreaterThan(0).And.LessThan(1), "HUD should fade instead of popping in");
+            Assert.IsFalse(group.interactable);
+            Assert.IsFalse((bool)type.GetProperty("IsCombatActive").GetValue(manager));
+            Assert.AreNotEqual(home, rect.anchoredPosition);
+            type.GetMethod("Flee").Invoke(manager, null);
+            Assert.AreEqual(home, rect.anchoredPosition, "Cancel must restore layout for the next fight");
+        }
+        finally { UnityEngine.Object.Destroy(go); }
+    }
     [UnityTest] public IEnumerator IntroFinishesBeforeCombatUnlocks()
     {
         var type = Type.GetType("IUHCampus.Guardian.Match3.Match3CombatManager, Assembly-CSharp", true);
@@ -77,7 +102,7 @@ public class CombatEntryTests
         try
         {
             type.GetMethod("StartNewCombat").Invoke(manager, null);
-            yield return new WaitForSecondsRealtime(1.5f);
+            yield return new WaitForSecondsRealtime(2f);
             Assert.IsTrue((bool)type.GetProperty("IsCombatActive").GetValue(manager));
             Assert.IsNull(go.transform.Find("BattleStartIntro"));
         }

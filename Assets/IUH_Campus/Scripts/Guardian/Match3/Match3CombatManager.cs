@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +74,8 @@ namespace IUHCampus.Guardian.Match3
         // True from StartNewCombat until the fight is closed, including while the arena loads.
         private bool m_IsEngaged;
         private GameObject m_BattleStartIntro;
+        private readonly List<RectTransform> m_RevealRects = new List<RectTransform>();
+        private readonly List<Vector2> m_RevealHomes = new List<Vector2>();
         private int m_LastExitFrame = -1;
         public bool BlocksExplorationInput => m_IsEngaged || m_LastExitFrame == Time.frameCount;
         private float m_ComboTextTimer;
@@ -137,6 +140,7 @@ namespace IUHCampus.Guardian.Match3
         {
             StopAllCoroutines();
             ClearBattleStartIntro();
+            RestoreHudLayout();
             m_IsEngaged = true;
             gameObject.SetActive(true);
             StartCoroutine(BeginCombatRoutine());
@@ -177,7 +181,7 @@ namespace IUHCampus.Guardian.Match3
             SetHudVisible(false);
             yield return EnterStage();
             yield return PlayBattleStartIntro();
-            SetHudVisible(true);
+            yield return RevealHud();
 
             LockBoard(false);
             m_IsCombatActive = true;
@@ -192,6 +196,7 @@ namespace IUHCampus.Guardian.Match3
             m_IsEngaged = false;
             m_LastExitFrame = Time.frameCount;
             ClearBattleStartIntro();
+            RestoreHudLayout();
             ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatDefeat();
@@ -341,6 +346,7 @@ namespace IUHCampus.Guardian.Match3
             m_IsEngaged = false;
             m_LastExitFrame = Time.frameCount;
             ClearBattleStartIntro();
+            RestoreHudLayout();
             ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatVictory();
@@ -378,6 +384,52 @@ namespace IUHCampus.Guardian.Match3
                 group.interactable = visible;
                 group.blocksRaycasts = visible;
             }
+        }
+
+        private IEnumerator RevealHud()
+        {
+            RestoreHudLayout();
+            var groups = new List<CanvasGroup>();
+            var offsets = new List<Vector2>();
+            var delays = new List<float>();
+            GameObject fade = m_Stage != null ? m_Stage.FadeOverlayObject : null;
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject == fade || child.gameObject == m_BattleStartIntro) continue;
+                var rect = child as RectTransform;
+                if (rect == null || !child.gameObject.activeSelf) continue;
+                var group = child.GetComponent<CanvasGroup>();
+                if (group == null) group = child.gameObject.AddComponent<CanvasGroup>();
+                m_RevealRects.Add(rect); m_RevealHomes.Add(rect.anchoredPosition);
+                groups.Add(group);
+                bool top = child.name == "TopHUD";
+                offsets.Add(new Vector2(0, top ? 18f : -28f));
+                delays.Add(top ? 0f : .06f);
+                group.alpha = 0f; group.interactable = false; group.blocksRaycasts = false;
+            }
+
+            const float duration = .45f;
+            for (float elapsed = 0; elapsed < duration + .06f; elapsed += Time.unscaledDeltaTime)
+            {
+                for (int i = 0; i < m_RevealRects.Count; i++)
+                {
+                    float k = Mathf.Clamp01((elapsed - delays[i]) / duration);
+                    // Smooth opacity and ease-out travel, without overshoot on the board.
+                    groups[i].alpha = Mathf.SmoothStep(0f, 1f, k);
+                    float travel = 1f - Mathf.Pow(1f - k, 3f);
+                    m_RevealRects[i].anchoredPosition = m_RevealHomes[i] + offsets[i] * (1f - travel);
+                }
+                yield return null;
+            }
+            RestoreHudLayout();
+            SetHudVisible(true);
+        }
+
+        private void RestoreHudLayout()
+        {
+            for (int i = 0; i < m_RevealRects.Count; i++)
+                if (m_RevealRects[i] != null) m_RevealRects[i].anchoredPosition = m_RevealHomes[i];
+            m_RevealRects.Clear(); m_RevealHomes.Clear();
         }
 
         private IEnumerator PlayBattleStartIntro()
