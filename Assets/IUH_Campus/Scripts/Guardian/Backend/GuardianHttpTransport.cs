@@ -10,7 +10,7 @@ namespace IUHCampus.Guardian.Backend
 {
     public sealed class GuardianHttpRequest
     {
-        public string Url, Json, TargetClass;
+        public string Url, Json, TargetClass, ScanSessionId;
         public byte[] Jpg;
         public int TimeoutSeconds;
     }
@@ -18,6 +18,7 @@ namespace IUHCampus.Guardian.Backend
     {
         public long StatusCode;
         public string Body;
+        public string RetryAfter;
         public bool NetworkError;
     }
     public interface IGuardianHttpTransport
@@ -43,7 +44,7 @@ namespace IUHCampus.Guardian.Backend
                 await completion.Task;
                 cancellationToken.ThrowIfCancellationRequested();
                 return new GuardianHttpResponse { StatusCode = request.responseCode,
-                    Body = request.downloadHandler.text,
+                    Body = request.downloadHandler.text, RetryAfter = request.GetResponseHeader("Retry-After"),
                     NetworkError = request.result == UnityWebRequest.Result.ConnectionError ||
                                    request.result == UnityWebRequest.Result.DataProcessingError };
             }
@@ -58,6 +59,7 @@ namespace IUHCampus.Guardian.Backend
                 var fields = new List<IMultipartFormSection> {
                     new MultipartFormFileSection("image", input.Jpg, "frame.jpg", "image/jpeg") };
                 if (!string.IsNullOrEmpty(input.TargetClass)) fields.Add(new MultipartFormDataSection("target_class", input.TargetClass));
+                if (input.ScanSessionId != null) fields.Add(new MultipartFormDataSection("scan_session_id", input.ScanSessionId));
                 return UnityWebRequest.Post(input.Url, fields);
             }
             if (input.Json == null) return UnityWebRequest.Get(input.Url);

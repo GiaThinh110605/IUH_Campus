@@ -1,0 +1,34 @@
+{
+    "dirtyBefore": false,
+    "dirtyAfter": false,
+    "passed": false,
+    "first": {
+        "Outcome": 0,
+        "ScanSessionId": "558ae69a-c27e-4994-9837-c0146487b28c",
+        "Hint": "Tín hiệu nhiễu từ đồ điện tử và thứ đựng nước.",
+        "ExpiresAt": "2026-11-06T08:27:47.027992+00:00",
+        "MaxMonsters": 2,
+        "MonstersRemaining": 0,
+        "RevealedCount": 0,
+        "RetryAfterSeconds": 0
+    },
+    "second": {
+        "Outcome": 0,
+        "ScanSessionId": "84f2629d-942a-4327-bf2a-a327e27c171a",
+        "Hint": "Tín hiệu nhiễu từ thứ để ngồi và đồ điện tử.",
+        "ExpiresAt": "2026-11-06T08:27:47.767886+00:00",
+        "MaxMonsters": 2,
+        "MonstersRemaining": 0,
+        "RevealedCount": 0,
+        "RetryAfterSeconds": 0
+    },
+    "frame": {
+        "Outcome": 1,
+        "Label": "laptop",
+        "MonsterToken": "",
+        "Confidence": 0.7349098920822144,
+        "InferenceMs": 125.48668670654297,
+        "MonstersRemaining": 2
+    },
+    "error": ""
+}

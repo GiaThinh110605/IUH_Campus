@@ -55,3 +55,45 @@ Encoder đọc texture vào buffer riêng, giữ tỉ lệ, không upscale, cạ
 Menu `IUH Campus/Guardian Backend/Smoke Test` chỉ chạy khi bấm, yêu cầu Edit Mode và scene sạch. Dùng fixture laptop-stocksnap.jpg (nguồn/license trong Server/tests/fixtures/README.md), gọi health/predict, gửi một scan quest_id=B5_smoke hai lần cùng JSON: Recorded rồi Duplicate, Core0. Đây là telemetry thử thủ công, làm tăng scan tổng thực trên Adafruit khi cloud bật. Menu ghi Docs/Evidence/CampusGuardian/B5/smoke.json, không save scene hoặc config asset.
 
 Chạy EditMode assembly IUHCampus.Guardian.Backend.Tests qua MCP/Test Runner. Test dùng fake, thư mục tạm, giữ/khôi phục PlayerPrefs override; warning rejection/corruption được LogAssert.Expect kiểm tra có chủ đích. Runtime và Editor asmdef không tham chiếu code của Thịnh. Evidence B5 lưu test/smoke/console/scene checks; không có key trong Unity.
+
+## Luồng quét AR
+
+Thư viện không tham chiếu AR Foundation. Thịnh nối ARCameraManager/CPU image vào JPG (cạnh dài ≤640), gọi service rồi cập nhật UI trên main thread. `PredictAsync` B5 giữ nguyên. API mới nhận CancellationToken; cancellation chủ động được truyền ra caller. Lỗi mạng/HTTP thông thường được trả qua Outcome.
+
+```csharp
+// Trong MonoBehaviour của AR scene; config là GuardianBackendConfig.
+var service = config.CreateScanService();
+var gate = new GuardianScanStabilizer(); // 2 khung, 1.5 giây, 0.5 s/khung
+var session = await service.StartScanSessionAsync(destroyCancellationToken);
+if (session.Outcome == ScanSessionOutcome.Cooldown) {
+    ShowWait(session.RetryAfterSeconds); return;
+}
+if (session.Outcome == ScanSessionOutcome.ActiveExists)
+    session = await service.GetScanSessionAsync(session.ScanSessionId, destroyCancellationToken);
+if (session.Outcome != ScanSessionOutcome.Created && session.Outcome != ScanSessionOutcome.Found)
+    return; // Hiện lỗi/giới hạn, cho người chơi thử lại khi phù hợp.
+ShowHint(session.Hint);
+// Mỗi frame AR: chỉ lấy CPU image khi gate cho phép.
+if (!gate.TryBeginFrame(Time.realtimeSinceStartupAsDouble)) return;
+try {
+    byte[] jpg = CaptureCpuImageAsJpg(maxSide: 640); // Dispose CPU image sau chuyển đổi.
+    var frame = await service.ScanFrameAsync(jpg, session.ScanSessionId, destroyCancellationToken);
+    bool confirmed = gate.Observe(frame, Time.realtimeSinceStartupAsDouble);
+    ShowAnalysisProgress(gate.Progress);
+    if (!confirmed) return;
+    if (frame.Outcome == ScanFrameOutcome.Clean) ShowStatus("✓ An toàn");
+    if (frame.Outcome == ScanFrameOutcome.Infested) {
+        PlaceMonsterOnPlane(frame.MonsterToken); // Giữ token trên monster này.
+        // Khi thắng match-3: outbox.Enqueue(GuardianEventFactory.CombatWon(
+        //     "ar_scan", "ar_monster", frame.MonsterToken));
+    }
+} finally { gate.EndFrame(); }
+```
+
+Các hàm Show/Capture/Place trong ví dụ là điểm nối của scene, không thuộc thư viện. Không lấy lại cùng Awaitable để await nhiều lần. Stabilizer chỉ phát xác nhận một lần cho chuỗi cùng label/result; reset khi đổi label/result hoặc kết quả không hợp lệ. Gọi `Reset()` khi đổi phiên hoặc quay lại quét sau combat. NoObject reset phân tích; SessionNotFound/SessionExpired cần tạo phiên mới theo UI. GET trả Found, SessionNotFound hoặc SessionExpired; MaxMonsters chỉ có ở POST, GET dùng MonstersRemaining/RevealedCount.
+
+Bật `useFakeScan` trên config để dùng FakeScanService trong Editor/Development build; cấu hình `fakeInfestedClasses`, `fakeLabels`, `fakeHint`. Mỗi request tiêu thụ một label đầu vào, hết danh sách trả NoObject. Fake không mạng, token ổn định theo label trong phiên; không gửi token giả lên backend thật. Release build từ chối khởi tạo Fake.
+
+Menu **IUH Campus → Guardian Backend → B7 Scan Smoke** chỉ chạy khi bấm, scene sạch, Editor không Play. Bật Docker stack trước; kết quả lưu `Docs/Evidence/CampusGuardian/B7/smoke.json`. Smoke không in danh sách lớp nhiễm.
+
+Trên iOS dùng IP LAN của máy chạy server thay localhost. Thịnh xử lý `NSAllowsLocalNetworking` trong ProjectSettings/Info.plist; thư viện này không sửa cấu hình iOS.
