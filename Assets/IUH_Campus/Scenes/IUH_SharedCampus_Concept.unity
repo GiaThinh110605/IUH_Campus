@@ -46986,6 +46986,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1717629266}
+  - component: {fileID: 1717629267}
   m_Layer: 0
   m_Name: Central fountain and sculpture_7
   m_TagString: Untagged
@@ -47014,6 +47015,21 @@ Transform:
   - {fileID: 420895988}
   m_Father: {fileID: 773544066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1717629267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717629265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f4e094769d1c04f929b19e0e3011a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.World.IUHFountainEffects
+  waterParticles: {fileID: 2100000, guid: f524d0faedc60e7489855f89f4da493d, type: 2}
+  waterRipples: {fileID: 2100000, guid: 6e89f0891e95b6449b9ea81958e0b02d, type: 2}
+  waterVolume: 0.12
 --- !u!1 &1718395343
 GameObject:
   m_ObjectHideFlags: 0
@@ -58253,7 +58269,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051631659}
-  m_Mesh: {fileID: 4300000, guid: de67f15d296d6a14abbb9004696ceb42, type: 2}
+  m_Mesh: {fileID: 4300000, guid: d5bc13b34429c794f97e570cf3a5b9cb, type: 2}
 --- !u!21 &2052123784
 Material:
   serializedVersion: 8
