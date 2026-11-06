@@ -13,12 +13,13 @@ namespace IUHCampus.Guardian.Match3
         [SerializeField] private Sprite m_SpriteShield;
         [SerializeField] private Sprite m_SpriteEnergy;
         [SerializeField] private Sprite m_SpriteHeal;
+        [SerializeField] private Sprite m_SpritePurify;
         [SerializeField] private Sprite m_SpriteTileBg;
         [SerializeField] private Sprite m_SpriteTileSelected;
 
         [Header("Layout Settings")]
         [SerializeField] private RectTransform m_GridRoot;
-        [SerializeField] private float m_TileSize = 74f;
+        [SerializeField] private float m_TileSize = 84f;
         [SerializeField] private float m_TileSpacing = 6f;
 
         [Header("Animation Durations")]
@@ -38,6 +39,9 @@ namespace IUHCampus.Guardian.Match3
         public event Action OnTurnCompleted;
 
         public bool IsBusy => m_IsBusy;
+
+        /// <summary>Set by the combat manager while the boss acts or the fight is over.</summary>
+        public bool InputLocked { get; set; }
         public Match3BoardModel Model => m_Model;
 
         public void Initialize(Match3BoardModel model)
@@ -143,13 +147,14 @@ namespace IUHCampus.Guardian.Match3
                 case TileType.Shield: return m_SpriteShield;
                 case TileType.Energy: return m_SpriteEnergy;
                 case TileType.Heal: return m_SpriteHeal;
+                case TileType.Purify: return m_SpritePurify;
                 default: return null;
             }
         }
 
         private void OnTileClicked(BoardCoord coord)
         {
-            if (m_IsBusy) return;
+            if (m_IsBusy || InputLocked) return;
 
             if (!m_SelectedCoord.HasValue)
             {
@@ -177,7 +182,7 @@ namespace IUHCampus.Guardian.Match3
 
         private void OnTileSwiped(BoardCoord coord, Vector2 direction)
         {
-            if (m_IsBusy) return;
+            if (m_IsBusy || InputLocked) return;
 
             DeselectTile();
             int targetX = coord.X + Mathf.RoundToInt(direction.x);
@@ -211,7 +216,8 @@ namespace IUHCampus.Guardian.Match3
 
         public void TryPerformSwap(BoardCoord a, BoardCoord b)
         {
-            if (m_IsBusy) return;
+            if (m_IsBusy || InputLocked) return;
+            DeselectTile();
             StartCoroutine(ExecuteSwapSequence(a, b));
         }
 
@@ -257,10 +263,12 @@ namespace IUHCampus.Guardian.Match3
 
         private IEnumerator ResolveCascadesRoutine()
         {
+            int comboIndex = 0;
             while (true)
             {
                 CascadeStep step = m_Model.ProcessStep();
                 if (step == null) break;
+                step.ComboIndex = comboIndex++;
 
                 List<Coroutine> popCoroutines = new List<Coroutine>();
                 foreach (var group in step.Matches)

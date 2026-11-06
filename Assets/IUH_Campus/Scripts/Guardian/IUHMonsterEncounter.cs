@@ -11,15 +11,15 @@ namespace IUHCampus.Guardian
     {
         [Header("Encounter Settings")]
         [SerializeField] private string m_MonsterName = "DATA CORRUPTION";
-        [SerializeField] private int m_MonsterHp = 120;
+        [SerializeField] private int m_MonsterHp = 800;
         [SerializeField] private float m_RevealRadius = 16.0f;
         [SerializeField] private float m_TriggerRadius = 10.0f;
         [SerializeField] private KeyCode m_InteractKey = KeyCode.E;
 
         [Header("Combat Balance")]
-        [SerializeField] private int m_BossMinDmg = 8;
-        [SerializeField] private int m_BossMaxDmg = 14;
-        [SerializeField] private float m_CombatDuration = 60f;
+        [SerializeField] private int m_BossMinDmg = 65;
+        [SerializeField] private int m_BossMaxDmg = 90;
+        [SerializeField] private float m_CombatDuration = 90f;
 
         [Header("Rewards on Victory")]
         [SerializeField] private int m_RewardGold = 100;
@@ -51,6 +51,7 @@ namespace IUHCampus.Guardian
         public float CombatDuration => m_CombatDuration;
         public int RewardGold => m_RewardGold;
         public string[] RewardItems => m_RewardItems;
+        public Transform PlayerTransform => m_PlayerTransform;
         public Image BossHpFill => m_BossHpFill;
         public Text BossHpText => m_BossHpText;
         public Text BossIntentText => m_BossIntentText;
@@ -132,9 +133,10 @@ namespace IUHCampus.Guardian
 
             if (m_IsEncounterActive)
             {
-                if (m_MonsterOverheadCanvas != null && !m_MonsterOverheadCanvas.activeSelf)
+                // The combat HUD shows the boss bar during the duel.
+                if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf)
                 {
-                    m_MonsterOverheadCanvas.SetActive(true);
+                    m_MonsterOverheadCanvas.SetActive(false);
                 }
                 if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf)
                 {
@@ -143,7 +145,8 @@ namespace IUHCampus.Guardian
 
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    OnCombatDefeat();
+                    if (m_CombatManager != null) m_CombatManager.Flee();
+                    else OnCombatDefeat();
                 }
                 return;
             }
@@ -184,8 +187,9 @@ namespace IUHCampus.Guardian
 
             m_IsEncounterActive = true;
             if (m_ActionPromptObject != null) m_ActionPromptObject.SetActive(false);
-            if (m_MonsterOverheadCanvas != null) m_MonsterOverheadCanvas.SetActive(true);
+            if (m_MonsterOverheadCanvas != null) m_MonsterOverheadCanvas.SetActive(false);
 
+            if (m_PlayerTransform == null) FindPlayer();
             SetPlayerControl(false);
 
             if (m_CombatManager == null)

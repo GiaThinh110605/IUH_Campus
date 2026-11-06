@@ -1,0 +1,12 @@
+{
+  "name": "IUHCampus.Guardian.Match3.Tests",
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "references": [
+    "IUHCampus.Guardian.Match3.Core"
+  ]
+}
