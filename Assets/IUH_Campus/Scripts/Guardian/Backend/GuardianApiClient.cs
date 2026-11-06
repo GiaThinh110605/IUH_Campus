@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IUHCampus.Guardian.Backend
 {
-    public sealed class GuardianApiClient
+    public sealed partial class GuardianApiClient
     {
         private readonly GuardianBackendConfig config;
         private readonly IGuardianHttpTransport transport;

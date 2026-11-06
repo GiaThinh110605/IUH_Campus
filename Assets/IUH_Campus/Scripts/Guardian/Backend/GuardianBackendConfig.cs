@@ -14,6 +14,13 @@ namespace IUHCampus.Guardian.Backend
         [Min(1)] public int maxAttempts = 8;
         [Min(1)] public int maxImageSide = 640;
         [Range(1, 100)] public int jpgQuality = 80;
+        public bool useFakeScan = false;
+        public string[] fakeInfestedClasses = { "laptop" };
+        public string[] fakeLabels = { "laptop", "laptop", "chair", "chair" };
+        public string fakeHint = "Fake: electronics";
+        public IGuardianScanService CreateScanService() => useFakeScan
+            ? new FakeScanService(fakeInfestedClasses, fakeLabels, fakeHint)
+            : new BackendScanService(new GuardianApiClient(this));
         public string BaseUrl => PlayerPrefs.GetString(UrlPreference, baseUrl).TrimEnd('/');
 
         public static void SetBaseUrl(string value)

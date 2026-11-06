@@ -24,6 +24,7 @@ namespace IUHCampus.Guardian.Backend
         {
             public string event_id, session_id, quest_id, milestone_id, event_type, occurred_at;
         }
+        [Serializable] private sealed class Token { public string monster_token; }
         [Serializable] private sealed class Scan { public string label; }
         [Serializable] private sealed class Upgrade { public string branch; public int level; }
 
@@ -45,7 +46,8 @@ namespace IUHCampus.Guardian.Backend
             payload = payload.Substring(0, payload.Length - 1) + ",\"confidence\":" + confidence.ToString("R", CultureInfo.InvariantCulture) + "}";
             return Create(quest, milestone, "scan_confirmed", payload);
         }
-        public static GuardianEvent CombatWon(string quest, string milestone) => Create(quest, milestone, "combat_won");
+        public static GuardianEvent CombatWon(string quest, string milestone, string monsterToken = null) =>
+            Create(quest, milestone, "combat_won", monsterToken == null ? null : JsonUtility.ToJson(new Token { monster_token = monsterToken }));
         public static GuardianEvent CombatLost(string quest, string milestone) => Create(quest, milestone, "combat_lost");
         public static GuardianEvent UpgradePurchased(string quest, string milestone, string branch, int level)
         {
