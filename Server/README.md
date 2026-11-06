@@ -136,3 +136,12 @@ Giới hạn chống farm: ràng buộc1..2quái và thưởngmộtlần áp d�
 Unity: B5 chưa có StartScanSessionAsync/GetScanSessionAsync hoặc DTO scan/monster_token. Thịnh/Minh Nhật cần thêm sau: giữ game UUID ổn định, hiển thịhint, gửi scan_session_id cùng JPG, chặn mở lại cùngtoken, lưu token đểCombatWon, xử lý404/410và monsters_remaining; tích hợpAR plane/monster/match3 riêng. B6 không sửaAssets/scene hoặc khai báo đã cóAR.
 
 Nghiệm thu opt-in: python tools/b6_smoke.py (Docker stack chạy). Script thử tối đa12lượt random với fixture laptop có license, mỗi lượt game UUIDkhác, không đọc DB/lớp bí mật; dừng khiinfested hoặc thoát2nếu không trúng, không bịa. Chỉ một token tìm thấy được gửicombat_won demo, quest_id=B6_smoke; lần2Duplicate vàeventmới dùngtokencũ400. Đây là telemetry thủ công, có thể tăngfeed/Core thật; không phải trận thắng được xác minh. Evidence ởDocs/Evidence/CampusGuardian/B6/. Chụp2panelGrafana bằngtay saukhi cótraffic.
+
+
+### B6.1: giới hạn phiên quét
+
+- `SCAN_MAX_ACTIVE_PER_GAME_SESSION=1`: phiên còn hạn và còn quái chưa reveal trả `409 scan_session_active`, kèm `scan_session_id` đang mở.
+- `SCAN_COOLDOWN_SECONDS=120`: tính từ lúc tạo phiên gần nhất; trả `429 scan_cooldown` cùng `Retry-After` (giây).
+- `SCAN_MAX_SESSIONS_PER_GAME_SESSION=5`: tối đa 5 phiên trong một game session, trả `429 scan_limit_reached`.
+- Ưu tiên: active → tổng số phiên → cooldown. Reveal hết hoặc hết hạn thì phiên không còn active. Kiểm tra và tạo trong một transaction SQLite. Metric `scan_sessions_rejected_total{reason}` tồn tại qua restart.
+- Giới hạn không có tài khoản; mở lại app tạo session_id mới. Hạn mức theo game session, không phải theo người chơi.

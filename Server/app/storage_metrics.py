@@ -26,6 +26,10 @@ class DurableCollector:
         sessions = CounterMetricFamily("scan_sessions", "Durable scan sessions created")
         sessions.add_metric([], scans["sessions"])
         yield sessions
+        rejected = CounterMetricFamily("scan_sessions_rejected", "Rejected scan sessions", labels=["reason"])
+        for reason in ("scan_session_active", "scan_cooldown", "scan_limit_reached"):
+            rejected.add_metric([reason], scans["rejections"].get(reason, 0))
+        yield rejected
         results = CounterMetricFamily("scan_results", "Scan responses", labels=["result"])
         for result in ("infested", "clean", "none"):
             results.add_metric([result], scans["results"].get(result, 0))

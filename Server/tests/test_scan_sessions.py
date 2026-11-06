@@ -249,3 +249,42 @@ def test_electronics_hints_and_exact_six_class_dictionary(app, monkeypatch):
     result = ScanStore(app.extensions["event_store"], app.config).create(str(uuid4()))
     assert result["hint"].count("đồ điện tử") == 2
     assert result["max_monsters"] == 2
+
+
+def test_anti_farm_active_cooldown_and_limit(app):
+    store = app.extensions['scan_store']
+    store.clock = lambda: 1000
+    game, scan, _ = start(app)
+    client = app.test_client()
+    response = client.post('/scan/sessions', json={'session_id': game})
+    assert response.status_code == 409
+    assert response.json == {'error': 'scan_session_active', 'scan_session_id': scan}
+    store.reveal(scan, 'book', False)
+    store.reveal(scan, 'bottle', False)
+    response = client.post('/scan/sessions', json={'session_id': game})
+    assert response.status_code == 429 and response.json['error'] == 'scan_cooldown'
+    assert response.headers['Retry-After'] == '120'
+    for index in range(1, 5):
+        store.clock = lambda index=index: 1000 + 120 * index
+        _, scan, _ = start(app, game)
+        store.reveal(scan, 'book', False)
+        store.reveal(scan, 'bottle', False)
+    response = client.post('/scan/sessions', json={'session_id': game})
+    assert response.status_code == 429 and response.json['error'] == 'scan_limit_reached'
+    restarted = create_app(dict(app.config))
+    assert restarted.test_client().post('/scan/sessions', json={'session_id': game}).json['error'] == 'scan_limit_reached'
+    metrics = restarted.test_client().get('/metrics').text
+    for reason in ('scan_session_active', 'scan_cooldown', 'scan_limit_reached'):
+        assert 'scan_sessions_rejected_total{reason="' + reason + '"}' in metrics
+
+
+def test_concurrent_creation_and_expiry(app):
+    game = str(uuid4())
+    store = app.extensions['scan_store']
+    store.clock = lambda: 1000
+    def create(_):
+        return app.test_client().post('/scan/sessions', json={'session_id': game}).status_code
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        assert sorted(pool.map(create, range(4))) == [201, 409, 409, 409]
+    store.clock = lambda: 1900
+    start(app, game)

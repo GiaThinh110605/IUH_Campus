@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS scan_reveals(
  scan_session_id TEXT NOT NULL REFERENCES scan_sessions(id), label TEXT NOT NULL,
  monster_token TEXT NOT NULL UNIQUE, revealed_at REAL NOT NULL,
  rewarded_event_id TEXT REFERENCES events(event_id), PRIMARY KEY(scan_session_id,label));
+CREATE TABLE IF NOT EXISTS scan_rejections(reason TEXT PRIMARY KEY, count INTEGER NOT NULL DEFAULT 0);
+CREATE INDEX IF NOT EXISTS scan_game_session ON scan_sessions(game_session_id);
 CREATE TABLE IF NOT EXISTS scan_stats(result TEXT PRIMARY KEY, count INTEGER NOT NULL DEFAULT 0)
 """
 
@@ -36,9 +38,10 @@ def migrate_scan_tables(db):
 
 
 class ScanSessionError(ValueError):
-    def __init__(self, error, status):
+    def __init__(self, error, status, scan_session_id=None, retry_after=None):
         super().__init__(error)
         self.error, self.status = error, status
+        self.scan_session_id, self.retry_after = scan_session_id, retry_after
 
 
 def token_reward(db, token, game_session_id):
@@ -52,6 +55,11 @@ class ScanStore:
         self.store = store
         self.clock = clock or time.time
         self.minimum, self.maximum = config["SCAN_INFECTED_MIN"], config["SCAN_INFECTED_MAX"]
+        self.max_active = config["SCAN_MAX_ACTIVE_PER_GAME_SESSION"]
+        self.cooldown = config["SCAN_COOLDOWN_SECONDS"]
+        self.max_sessions = config["SCAN_MAX_SESSIONS_PER_GAME_SESSION"]
+        if self.max_active < 1 or self.max_sessions < 1 or not math.isfinite(self.cooldown) or self.cooldown < 0:
+            raise ValueError("Invalid scan configuration")
         self.ttl = config["SCAN_SESSION_TTL_MINUTES"] * 60
         self.classes = tuple(dict.fromkeys(config["ALLOWED_CLASSES"]))
         self.hints = json.loads(Path(config["SCAN_HINTS_PATH"]).read_text(encoding="utf-8"))
@@ -65,9 +73,24 @@ class ScanStore:
         infected = random.sample(self.classes, random.randint(self.minimum, self.maximum))
         hint = "Tín hiệu nhiễu từ " + " và ".join(self.hints[label] for label in infected) + "."
         now, scan_id = self.clock(), str(uuid4())
+        rejection = None
         with self.store.transaction() as db:
-            db.execute("INSERT INTO scan_sessions VALUES(?,?,?,?,?,?)",
+            rows = db.execute("SELECT * FROM scan_sessions WHERE game_session_id=? ORDER BY created_at DESC", (game_session_id,)).fetchall()
+            active = [row for row in rows if row["expires_at"] > now and
+                      self._revealed(db, row["id"]) < len(json.loads(row["infected_classes"]))]
+            if len(active) >= self.max_active:
+                rejection = ScanSessionError("scan_session_active", 409, scan_session_id=active[0]["id"])
+            elif len(rows) >= self.max_sessions:
+                rejection = ScanSessionError("scan_limit_reached", 429)
+            elif rows and now < rows[0]["created_at"] + self.cooldown:
+                rejection = ScanSessionError("scan_cooldown", 429, retry_after=math.ceil(rows[0]["created_at"] + self.cooldown - now))
+            if rejection:
+                db.execute("INSERT INTO scan_rejections VALUES(?,1) ON CONFLICT(reason) DO UPDATE SET count=count+1", (rejection.error,))
+            else:
+                db.execute("INSERT INTO scan_sessions VALUES(?,?,?,?,?,?)",
                        (scan_id, game_session_id, json.dumps(infected), hint, now, now + self.ttl))
+        if rejection:
+            raise rejection
         return {"scan_session_id": scan_id, "hint": hint, "max_monsters": len(infected),
                 "expires_at": self._iso(now + self.ttl)}
 
@@ -129,7 +152,8 @@ class ScanStore:
 
 def scan_metrics(store):
     with store.connection() as db:
-        return {"sessions": db.execute("SELECT count(*) FROM scan_sessions").fetchone()[0],
+        return {"rejections": {row["reason"]: row["count"] for row in db.execute("SELECT * FROM scan_rejections")},
+                "sessions": db.execute("SELECT count(*) FROM scan_sessions").fetchone()[0],
                 "results": {row["result"]: row["count"] for row in db.execute("SELECT * FROM scan_stats")},
                 "reveals": {row["label"]: row["count"] for row in db.execute(
                     "SELECT label,count(*) AS count FROM scan_reveals GROUP BY label")}}

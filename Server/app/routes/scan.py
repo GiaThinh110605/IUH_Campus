@@ -20,7 +20,16 @@ def create_session():
         return jsonify(error="invalid_json_or_body_too_large", field="body"), 400
     except InvalidEvent as error:
         return jsonify(error=error.error, field=error.field), 400
-    return jsonify(current_app.extensions["scan_store"].create(game_id)), 201
+    try:
+        return jsonify(current_app.extensions["scan_store"].create(game_id)), 201
+    except ScanSessionError as error:
+        body = {"error": error.error}
+        if error.scan_session_id:
+            body["scan_session_id"] = error.scan_session_id
+        response = jsonify(body)
+        if error.retry_after is not None:
+            response.headers["Retry-After"] = str(error.retry_after)
+        return response, error.status
 
 
 @scan.get("/scan/sessions/<scan_id>")
