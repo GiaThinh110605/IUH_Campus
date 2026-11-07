@@ -61,17 +61,24 @@ class ScanStore:
         if self.max_active < 1 or self.max_sessions < 1 or not math.isfinite(self.cooldown) or self.cooldown < 0:
             raise ValueError("Invalid scan configuration")
         self.ttl = config["SCAN_SESSION_TTL_MINUTES"] * 60
-        self.classes = tuple(dict.fromkeys(config["ALLOWED_CLASSES"]))
+        pool = config["SCAN_INFECTED_POOL"]
+        if not isinstance(pool, str):
+            raise ValueError("Invalid SCAN_INFECTED_POOL: expected comma-separated class names")
+        self.classes = tuple(dict.fromkeys(label.strip() for label in pool.split(",") if label.strip()))
+        if not self.classes or any(label not in config["ALLOWED_CLASSES"] for label in self.classes):
+            raise ValueError("Invalid SCAN_INFECTED_POOL: must be non-empty and contain only ALLOWED_CLASSES")
         self.hints = json.loads(Path(config["SCAN_HINTS_PATH"]).read_text(encoding="utf-8"))
-        if (not 1 <= self.minimum <= self.maximum <= min(2, len(self.classes)) or
+        if (not 1 <= self.minimum <= self.maximum <= 2 or
                 not math.isfinite(self.ttl) or self.ttl <= 0 or
                 any(not isinstance(self.hints.get(label), str) or not self.hints[label] for label in self.classes)):
             raise ValueError("Invalid scan configuration")
+        self.minimum = min(self.minimum, len(self.classes))
+        self.maximum = min(self.maximum, len(self.classes))
 
     def create(self, game_session_id):
         random = secrets.SystemRandom()
         infected = random.sample(self.classes, random.randint(self.minimum, self.maximum))
-        hint = "Tín hiệu nhiễu từ " + " và ".join(self.hints[label] for label in infected) + "."
+        hint = "Tín hiệu nhiễu từ " + " và ".join(dict.fromkeys(self.hints[label] for label in infected)) + "."
         now, scan_id = self.clock(), str(uuid4())
         rejection = None
         with self.store.transaction() as db:
@@ -123,7 +130,7 @@ class ScanStore:
             row = self._session(db, scan_id)
             infected = json.loads(row["infected_classes"])
             result, token = ("none" if label is None else "clean"), None
-            if label in infected:
+            if label in infected and label in self.classes:
                 result = "infested"
                 existing = db.execute("SELECT monster_token FROM scan_reveals WHERE scan_session_id=? AND label=?",
                                       (scan_id, label)).fetchone()

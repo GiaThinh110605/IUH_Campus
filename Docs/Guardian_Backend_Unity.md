@@ -58,6 +58,8 @@ Chạy EditMode assembly IUHCampus.Guardian.Backend.Tests qua MCP/Test Runner. T
 
 ## Luồng quét AR
 
+B2.8: đồ có thể bị nhiễm là **điện thoại, laptop, ghế**, qua `SCAN_INFECTED_POOL=cell phone,laptop,chair`. Ba lớp này có recall B2.6 tại 0.70 tốt hơn book/bottle/backpack trên tập nhỏ; xem [real-eval.md](Evidence/CampusGuardian/B2/real-eval.md). Model giữ YOLOv8n 640/ngưỡng 0.70. `/predict` vẫn nhận sáu lớp; book/bottle/backpack được phát hiện trả `scan.result=clean` trong pool mặc định. Số lớp nhiễm là 1–2 và không vượt kích thước pool. Gợi ý “đồ điện tử” (laptop/cell phone), “thứ để ngồi” (chair), không lặp khi cả hai là đồ điện tử. Pool rỗng/tên sai làm backend lỗi khởi động; tạo phiên mới sau khi đổi pool vì phiên cũ giữ gợi ý/TTL đã lưu.
+
 Thư viện không tham chiếu AR Foundation. Thịnh nối ARCameraManager/CPU image vào JPG (cạnh dài ≤640), gọi service rồi cập nhật UI trên main thread. `PredictAsync` B5 giữ nguyên. API mới nhận CancellationToken; cancellation chủ động được truyền ra caller. Lỗi mạng/HTTP thông thường được trả qua Outcome.
 
 ```csharp
