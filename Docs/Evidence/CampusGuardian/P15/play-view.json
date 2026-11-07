@@ -1,0 +1,17 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":\"seed qty=2 slots=5 toolHidden=True useDisabled=True plantDisabled=True timescale=1\",\"compiler\":\"codedom\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": "seed qty=2 slots=5 toolHidden=True useDisabled=True plantDisabled=True timescale=1",
+      "compiler": "codedom"
+    }
+  },
+  "isError": false
+}

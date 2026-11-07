@@ -1,0 +1,17 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":\"I=True cursor=None,True; Esc=False cursor=Locked,False; Bag=True\",\"compiler\":\"codedom\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": "I=True cursor=None,True; Esc=False cursor=Locked,False; Bag=True",
+      "compiler": "codedom"
+    }
+  },
+  "isError": false
+}

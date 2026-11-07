@@ -1,0 +1,52 @@
+{
+  "base": "d57c60c",
+  "campus_isDirty_before": false,
+  "campus_isDirty_after": false,
+  "campus_content_unchanged_ignoring_CRLF": true,
+  "item_definition_diff_only_icon": {
+    "seed_sunflower": [
+      "-  icon: {fileID: 0}",
+      "+  icon: {fileID: 21300000, guid: bcb443a7cc1b4a1ebd22c8aa13cde0a1, type: 3}"
+    ],
+    "seed_rose": [
+      "-  icon: {fileID: 0}",
+      "+  icon: {fileID: 21300000, guid: 8fbdc1e264e2427baeae495a34dabfc9, type: 3}"
+    ],
+    "seed_daisy": [
+      "-  icon: {fileID: 0}",
+      "+  icon: {fileID: 21300000, guid: 64725a0c353e4361a77d7d46f3d4978c, type: 3}"
+    ],
+    "tool_watering_can": [
+      "-  icon: {fileID: 0}",
+      "+  icon: {fileID: 21300000, guid: 3f4ac15d85d24cf1b9e46a15a7cf3f0e, type: 3}"
+    ],
+    "fertilizer": [
+      "-  icon: {fileID: 0}",
+      "+  icon: {fileID: 21300000, guid: bca296cafa4c416c8ec000287f3eb544, type: 3}"
+    ]
+  },
+  "images": {
+    "detail-2532.png": [
+      2532,
+      1170
+    ],
+    "empty-1920.png": [
+      1920,
+      1080
+    ],
+    "items-1920.png": [
+      1920,
+      1080
+    ]
+  },
+  "font": "LegacyRuntime.ttf",
+  "tests": {
+    "total": 66,
+    "passed": 66,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 10.3076698,
+    "resultState": "Passed"
+  },
+  "physical_iPhone_tested": false
+}

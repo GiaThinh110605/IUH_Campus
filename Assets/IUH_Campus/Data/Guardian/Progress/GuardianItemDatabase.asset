@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851321a686544e6f878ee0fd5b6c5d75, type: 3}
+  m_Name: GuardianItemDatabase
+  m_EditorClassIdentifier:
+  definitions:
+  - {fileID: 11400000, guid: 956a64674dec40a38a9d58c4232d5f57, type: 2}
+  - {fileID: 11400000, guid: d4997a3065c64833929b74e6737402ef, type: 2}
+  - {fileID: 11400000, guid: c62e80b235174b61bb8911006f5ab995, type: 2}
+  - {fileID: 11400000, guid: 9f55a75008ba40bcb05b65e7293d8e22, type: 2}
+  - {fileID: 11400000, guid: e481bc2fb4aa4ab0be0b09da75c1a46c, type: 2}
