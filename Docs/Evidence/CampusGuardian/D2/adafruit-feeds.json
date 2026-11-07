@@ -1,0 +1,22 @@
+[
+  {
+    "feed": "guardian-quests-completed",
+    "value": "3"
+  },
+  {
+    "feed": "guardian-campus-core",
+    "value": "40"
+  },
+  {
+    "feed": "guardian-upgrades",
+    "value": "0"
+  },
+  {
+    "feed": "lost-found-count",
+    "value": "28"
+  },
+  {
+    "feed": "guardian-monsters-revealed",
+    "value": "5"
+  }
+]

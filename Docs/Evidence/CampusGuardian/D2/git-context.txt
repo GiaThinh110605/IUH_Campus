@@ -1,0 +1,14 @@
+697be98 Merge remote-tracking branch 'origin/main' into minhnhat/docs-testing
+9a838cb Merge pull request #22 from GiaThinh110605/minhnhat/gamedev-skills
+fa63394 docs(agents): add selected gamedev skills (Apache-2.0)
+6c69def feat(backend): restrict infested classes to reliably detected pool (B2.8)
+64b1e2b test(backend): evaluate YOLOv8n 640 on real photos (B2.6)
+a9e13e0 Merge pull request #20 from GiaThinh110605/minhnhat/match3-combat-revamp
+commit 697be9883856d26f453475a9a8c8c3f133b9c75b
+Merge: 6c69def 9a838cb
+Author:     minhat2502 <khuunhat05@gmail.com>
+AuthorDate: Sat Nov 7 16:29:39 2026 +0700
+Commit:     minhat2502 <khuunhat05@gmail.com>
+CommitDate: Sat Nov 7 16:29:39 2026 +0700
+
+    Merge remote-tracking branch 'origin/main' into minhnhat/docs-testing

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "restart",
+    "iuh-guardian-api"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": " Container server-iuh-guardian-api-1 Restarting \n Container server-iuh-guardian-api-1 Started \n"
+}

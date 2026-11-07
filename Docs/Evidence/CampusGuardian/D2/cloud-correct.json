@@ -1,0 +1,90 @@
+{
+  "recorded": {
+    "cloud": "pending",
+    "core_awarded": 0,
+    "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+    "status": "recorded"
+  },
+  "history": [
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    },
+    {
+      "cloud": "synced",
+      "core_awarded": 0,
+      "event_id": "424be2ad-0316-40a6-a0b6-f2af2455ccee",
+      "status": "recorded"
+    }
+  ],
+  "key": "[REDACTED original env key]",
+  "pass": true
+}

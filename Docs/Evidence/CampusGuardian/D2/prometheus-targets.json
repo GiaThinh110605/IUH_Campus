@@ -1,0 +1,37 @@
+{
+  "http": 200,
+  "body": {
+    "status": "success",
+    "data": {
+      "activeTargets": [
+        {
+          "discoveredLabels": {
+            "__address__": "iuh-guardian-api:5001",
+            "__metrics_path__": "/metrics",
+            "__scheme__": "http",
+            "__scrape_interval__": "5s",
+            "__scrape_timeout__": "5s",
+            "job": "guardian-api"
+          },
+          "labels": {
+            "instance": "iuh-guardian-api:5001",
+            "job": "guardian-api"
+          },
+          "scrapePool": "guardian-api",
+          "scrapeUrl": "http://iuh-guardian-api:5001/metrics",
+          "globalUrl": "http://iuh-guardian-api:5001/metrics",
+          "lastError": "",
+          "lastScrape": "2026-11-07T09:39:42.279503004Z",
+          "lastScrapeDuration": 0.562329973,
+          "health": "up",
+          "scrapeInterval": "5s",
+          "scrapeTimeout": "5s"
+        }
+      ],
+      "droppedTargets": [],
+      "droppedTargetCounts": {
+        "guardian-api": 0
+      }
+    }
+  }
+}

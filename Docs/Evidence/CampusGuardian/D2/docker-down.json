@@ -1,0 +1,12 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "down"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": " Container server-grafana-1 Stopping \n Container server-iuh-guardian-sync-1 Stopping \n Container server-nginx-1 Stopping \n Container server-grafana-1 Stopped \n Container server-grafana-1 Removing \n Container server-grafana-1 Removed \n Container server-prometheus-1 Stopping \n Container server-nginx-1 Stopped \n Container server-nginx-1 Removing \n Container server-nginx-1 Removed \n Container server-iuh-guardian-sync-1 Stopped \n Container server-iuh-guardian-sync-1 Removing \n Container server-iuh-guardian-sync-1 Removed \n Container server-prometheus-1 Stopped \n Container server-prometheus-1 Removing \n Container server-prometheus-1 Removed \n Container server-iuh-guardian-api-1 Stopping \n Container server-iuh-guardian-api-1 Stopped \n Container server-iuh-guardian-api-1 Removing \n Container server-iuh-guardian-api-1 Removed \n Network server_default Removing \n Network server_default Removed \n"
+}

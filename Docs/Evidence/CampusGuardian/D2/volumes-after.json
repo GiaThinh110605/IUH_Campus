@@ -1,0 +1,14 @@
+{
+  "command": [
+    "docker",
+    "volume",
+    "ls",
+    "--filter",
+    "label=com.docker.compose.project=server",
+    "--format",
+    "{{.Name}}"
+  ],
+  "exit_code": 0,
+  "stdout": "server_grafana_data\nserver_prometheus_data\n",
+  "stderr": ""
+}

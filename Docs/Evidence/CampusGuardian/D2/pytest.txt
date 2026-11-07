@@ -1,0 +1,24 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0
+rootdir: D:\IUH\CongNgheMoi\CK\IUH_Campus
+collected 134 items
+
+Server\tests\test_api.py ............                                    [  8%]
+Server\tests\test_gameplay.py ...................................        [ 35%]
+Server\tests\test_inference.py ..........                                [ 42%]
+Server\tests\test_multiprocess.py ..                                     [ 44%]
+Server\tests\test_outbox.py ............                                 [ 52%]
+Server\tests\test_proxy.py ..                                            [ 54%]
+Server\tests\test_real_eval_protocol.py ....                             [ 57%]
+Server\tests\test_real_labels.py .....                                   [ 61%]
+Server\tests\test_real_model.py ......                                   [ 65%]
+Server\tests\test_runtime_options.py ..........                          [ 73%]
+Server\tests\test_scan_pool.py ............                              [ 82%]
+Server\tests\test_scan_sessions.py ........................              [100%]
+
+- generated xml file: D:\IUH\CongNgheMoi\CK\IUH_Campus\Docs\Evidence\CampusGuardian\D2\pytest.xml -
+============================ 134 passed in 16.69s =============================
+Exception ignored in: <function Console.__del__ at 0x0000010C5C2944A0>
+Traceback (most recent call last):
+  File "D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Lib\site-packages\pyreadline3\console\console.py", line 256, in __del__
+OSError: [WinError -1073741816] Windows Error 0xc0000008

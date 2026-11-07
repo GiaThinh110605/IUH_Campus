@@ -1,0 +1,2 @@
+PASS: secret scan; complete HTTP trace; cloud failure/recovery; .env unchanged; named volumes preserved; relative links resolve.
+Known measured failure retained: API total p95=257.221ms >220ms; historical real-photo recall failures retained.

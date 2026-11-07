@@ -1,0 +1,16 @@
+{
+  "D2": {
+    "Pass": 37,
+    "Fail": 1,
+    "Chưa kiểm thử": 4
+  },
+  "historical_B2_6": {
+    "Fail": 5,
+    "Pass": 3
+  },
+  "all_rows": {
+    "Pass": 40,
+    "Fail": 6,
+    "Chưa kiểm thử": 4
+  }
+}

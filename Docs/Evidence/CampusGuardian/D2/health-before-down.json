@@ -1,0 +1,12 @@
+{
+  "cloud_configured": true,
+  "db_ok": true,
+  "model_loaded": true,
+  "model_path_configured": true,
+  "outbox_failed": 0,
+  "outbox_pending": 0,
+  "service": "IUH Guardian API",
+  "status": "healthy",
+  "uptime_seconds": 156.431492,
+  "version": "0.1.0"
+}
