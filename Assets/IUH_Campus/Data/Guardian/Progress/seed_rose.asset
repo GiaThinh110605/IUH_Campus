@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Hạt hoa hồng
   description: Hạt hoa hồng
   flowerType: rose
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8fbdc1e264e2427baeae495a34dabfc9, type: 3}
   category: 0
   stackable: 1
   maxStack: 99

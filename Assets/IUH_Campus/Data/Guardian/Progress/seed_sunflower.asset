@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Hạt hướng dương
   description: Hạt hướng dương
   flowerType: sunflower
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: bcb443a7cc1b4a1ebd22c8aa13cde0a1, type: 3}
   category: 0
   stackable: 1
   maxStack: 99

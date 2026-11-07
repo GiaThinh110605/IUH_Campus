@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Bình tưới
   description: Bình tưới
   flowerType:
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 3f4ac15d85d24cf1b9e46a15a7cf3f0e, type: 3}
   category: 1
   stackable: 0
   maxStack: 1

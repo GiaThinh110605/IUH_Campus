@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Hạt hoa cúc
   description: Hạt hoa cúc
   flowerType: daisy
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 64725a0c353e4361a77d7d46f3d4978c, type: 3}
   category: 0
   stackable: 1
   maxStack: 99

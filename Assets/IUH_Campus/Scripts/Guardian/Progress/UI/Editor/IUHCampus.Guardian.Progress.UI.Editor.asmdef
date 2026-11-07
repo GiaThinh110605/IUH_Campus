@@ -1,0 +1,1 @@
+{"name": "IUHCampus.Guardian.Progress.UI.Editor", "references": ["IUHCampus.Guardian.Progress.UI", "IUHCampus.Guardian.Progress", "Unity.ugui", "Unity.InputSystem"], "includePlatforms": ["Editor"]}

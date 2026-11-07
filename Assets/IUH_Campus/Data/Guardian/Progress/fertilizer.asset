@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Phân bón
   description: Phân bón
   flowerType:
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: bca296cafa4c416c8ec000287f3eb544, type: 3}
   category: 2
   stackable: 1
   maxStack: 99
