@@ -1,0 +1,2 @@
+Verified 9 complete clean runs, AC=1 and no heavy app processes before/after each run, no request errors, runtime/env unchanged, historical D2 benchmark unchanged, no actual secrets in new deliverables.
+Default ORT8, each gameplay repeat passes; no ORT4/6 experiment required. Docker stack left running.

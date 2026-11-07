@@ -79,3 +79,13 @@ Mỗi dòng bảng là một ca/nhóm ca báo cáo, không đồng nhất số d
 D2: **37 Pass / 1 Fail / 4 Chưa kiểm thử**. Toàn bộ bảng kể cả B2.6: **40 Pass / 6 Fail / 4 Chưa kiểm thử**.
 
 Năm Fail lịch sử B2.6 là backpack, book, bottle, cell phone, chair theo kỳ vọng tìm đủ mọi ảnh có nhãn; không che kết quả sau khi thu hẹp pool. Recall 0.70: backpack0/5, book0/3, bottle0/5, cell phone3/5, chair4/6, laptop5/5; tổng12/29, pool12/16; none0/4 FP. Nguồn ảnh **không rõ/ảnh mạng** theo EXIF, không xác nhận ảnh tự chụp. Không thay model/ngưỡng hay sửa code trong D2.
+
+## B2.9 — độ trễ gameplay (bổ sung, không xóa Fail D2)
+
+D2 dùng ảnh gốc [800, 533] và Unity Editor đang mở. Dòng G09-Perf Fail (p95=257.221ms) cùng evidence cũ giữ nguyên; các điều kiện này khác input gameplay và có thể ảnh hưởng latency, chưa tách định lượng từng nguyên nhân. B2.9 dùng ảnh≤640/JPEG80 43698bytes, Unity/Edge/Claude đã đóng, máy cắm AC; xem quy trình và bảng(a)/(b)/(c) trong [README B2.9](Evidence/CampusGuardian/D2/README.md). Chỉ (a) chấm chỉ tiêu B2.7; mỗi lần phải đạt.
+
+| ID | Ca kiểm thử | Nền tảng/môi trường | Commit | Bước | Mong đợi | Thực tế | Pass/Fail | Bằng chứng |
+|---|---|---|---|---|---|---|---|---|
+| G09-Perf-B2.9 | Độ trễ gameplay | AC/Unity đóng/Docker CPU/2workers/ORT8 | a3e162d | 3 lần; mỗi lần10warmup+200request, một client, JPEG80≤640 | Mỗi lần APIp50≤150 và p95≤220ms | Pooled p50=59.347, p95=74.290; p95 từng lần=67.027,83.905,65.351ms; >220=0/600 | Pass | [benchmark-b29.json](Evidence/CampusGuardian/D2/benchmark-b29.json), [README](Evidence/CampusGuardian/D2/README.md) |
+
+Tổng toàn bộ bảng sau bổ sung B2.9: **41 Pass / 6 Fail / 4 Chưa kiểm thử**. Số liệu D2 và B2.6 ở các phần trước là lịch sử, không bị thay thế.
