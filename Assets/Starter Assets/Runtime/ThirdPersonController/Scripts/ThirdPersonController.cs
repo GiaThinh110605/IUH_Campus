@@ -82,6 +82,9 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Tooltip("Disable ground movement and gravity (e.g. while flying) while keeping camera look active")]
+        public bool LockMovementAndGravity = false;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -165,6 +168,13 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
+
+            // Cho phép các hệ thống khác (như FlightController) kiểm soát chuyển động khi đang bay,
+            // nhưng giữ LateUpdate() để CameraRotation hoạt động tự nhiên không bị gián đoạn hay xoay tròn
+            if (LockMovementAndGravity)
+            {
+                return;
+            }
 
             GroundedCheck();
             JumpAndGravity();
