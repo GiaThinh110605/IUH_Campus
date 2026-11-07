@@ -417,7 +417,7 @@ namespace IUHCampus.Combat
             }
             else if (m_State == BalloonFlightState.AirborneHover)
             {
-                m_BillboardPromptText.text = "<color=#FF5252>[F]</color> HẠ CÁNH VỀ SÂN TRƯỜNG\n<size=11><color=#00E5FF>[Space x 2] hoặc [J] BUNG CÁNH BAY TỰ DO</color></size>";
+                m_BillboardPromptText.text = "<color=#FF5252>[F]</color> HẠ CÁNH  •  <color=#FFD54F>[K]</color> BẮN PHÁO HOA LỄ HỘI\n<size=11><color=#00E5FF>[Space x 2] hoặc [J] BUNG CÁNH BAY TỰ DO</color></size>";
             }
             else if (m_State == BalloonFlightState.Ascending)
             {

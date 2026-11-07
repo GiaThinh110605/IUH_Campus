@@ -16,6 +16,7 @@ namespace IUHCampus.EditorTools
 
             SetupPlayerWings();
             SetupHotAirBalloon();
+            SetupFireworksManager();
             AdjustAerialMonstersForSkyCombat();
 
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
@@ -416,6 +417,19 @@ namespace IUHCampus.EditorTools
             wall.transform.localPosition = localPos;
             var col = wall.AddComponent<BoxCollider>();
             col.size = size;
+        }
+
+        private static void SetupFireworksManager()
+        {
+            var existing = GameObject.Find("IUH_FIREWORKS_MANAGER");
+            if (existing == null)
+            {
+                existing = new GameObject("IUH_FIREWORKS_MANAGER");
+            }
+            if (existing.GetComponent<IUHCampusFireworksManager>() == null)
+            {
+                existing.AddComponent<IUHCampusFireworksManager>();
+            }
         }
 
         private static void AdjustAerialMonstersForSkyCombat()

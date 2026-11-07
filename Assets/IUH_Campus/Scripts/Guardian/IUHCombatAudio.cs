@@ -19,6 +19,8 @@ namespace IUHCampus.Guardian
         private static AudioClip s_ComboClip;
         private static AudioClip s_PunchWhooshClip;
         private static AudioClip s_PunchHitClip;
+        private static AudioClip s_FireworkWhistleClip;
+        private static AudioClip s_FireworkBurstClip;
 
         private void Awake()
         {
@@ -77,6 +79,22 @@ namespace IUHCampus.Guardian
         public static void PlayLaserShoot()
         {
             PlayEnergy();
+        }
+
+        public static void PlayFireworkWhistle(float volume = 0.85f)
+        {
+            EnsureInstance();
+            if (s_FireworkWhistleClip == null) s_FireworkWhistleClip = GenerateFireworkWhistle();
+            Instance.m_AudioSource.pitch = Random.Range(0.95f, 1.1f);
+            Instance.m_AudioSource.PlayOneShot(s_FireworkWhistleClip, volume);
+        }
+
+        public static void PlayFireworkBurst(float volume = 1.0f)
+        {
+            EnsureInstance();
+            if (s_FireworkBurstClip == null) s_FireworkBurstClip = GenerateFireworkBurst();
+            Instance.m_AudioSource.pitch = Random.Range(0.92f, 1.08f);
+            Instance.m_AudioSource.PlayOneShot(s_FireworkBurstClip, volume);
         }
 
         public static void PlaySkillBurst()
@@ -409,6 +427,60 @@ namespace IUHCampus.Guardian
             }
 
             AudioClip clip = AudioClip.Create("SFX_PunchHit", samples, 1, sampleRate, false);
+            clip.SetData(data, 0);
+            return clip;
+        }
+
+        private static AudioClip GenerateFireworkWhistle()
+        {
+            int sampleRate = 44100;
+            float duration = 0.55f;
+            int samples = Mathf.RoundToInt(sampleRate * duration);
+            float[] data = new float[samples];
+
+            for (int i = 0; i < samples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float progress = t / duration;
+
+                // Pitch climbs from 400Hz to 1600Hz with airy resonance
+                float freq = Mathf.Lerp(400f, 1600f, progress * progress);
+                float env = Mathf.Sin(progress * Mathf.PI * 0.9f);
+                float whistle = Mathf.Sin(2f * Mathf.PI * freq * t) * 0.65f;
+                float airyNoise = (Random.value * 2f - 1f) * 0.25f;
+
+                data[i] = Mathf.Clamp((whistle + airyNoise) * env, -1f, 1f) * 0.8f;
+            }
+
+            AudioClip clip = AudioClip.Create("SFX_FireworkWhistle", samples, 1, sampleRate, false);
+            clip.SetData(data, 0);
+            return clip;
+        }
+
+        private static AudioClip GenerateFireworkBurst()
+        {
+            int sampleRate = 44100;
+            float duration = 1.1f;
+            int samples = Mathf.RoundToInt(sampleRate * duration);
+            float[] data = new float[samples];
+
+            for (int i = 0; i < samples; i++)
+            {
+                float t = (float)i / sampleRate;
+                float progress = t / duration;
+
+                // Deep concussive boom + glittering crackles
+                float boomEnv = Mathf.Exp(-7.0f * progress);
+                float boom = Mathf.Sin(2f * Mathf.PI * Mathf.Lerp(110f, 40f, progress) * t) * boomEnv * 0.9f;
+
+                // Crackle pops
+                float crackleEnv = Mathf.Exp(-3.5f * progress) * (progress > 0.1f ? 1f : progress * 10f);
+                float crackle = (Random.value > 0.92f ? (Random.value * 2f - 1f) * 0.75f : 0f) * crackleEnv;
+
+                data[i] = Mathf.Clamp(boom + crackle, -1f, 1f);
+            }
+
+            AudioClip clip = AudioClip.Create("SFX_FireworkBurst", samples, 1, sampleRate, false);
             clip.SetData(data, 0);
             return clip;
         }
