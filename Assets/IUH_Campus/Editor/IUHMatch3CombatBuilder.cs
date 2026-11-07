@@ -247,6 +247,27 @@ namespace IUHCampus.Editor
 
             soMgr.ApplyModifiedProperties();
 
+            // Setup Camera Shake
+            EnsureCameraShake();
+
+            // Setup Guardian Inventory
+            EnsureInventory(canvasGO);
+
+            // Setup Player Customizer
+            EnsurePlayerCustomizer();
+
+            // Setup Shop & Inventory & Skins UI
+            CreateShopUI(canvasGO.transform, defaultFont);
+
+            // Spawn In-World Tech Kiosk
+            SpawnTechKiosk(defaultFont);
+
+            // Spawn Hidden Treasure Chests
+            SpawnHiddenChests(defaultFont);
+
+            // Spawn Check-in Spots
+            SpawnCheckInSpots(defaultFont);
+
             boardObj.SetActive(false);
             arenaRoot.SetActive(false);
 
@@ -419,6 +440,24 @@ namespace IUHCampus.Editor
                     lightRange = 8f,
                     rewardGold = 500,
                     rewardItems = new string[] { "⚔️ Kiếm Ánh Sáng Cyber IUH (+15 Công Gạch Kiếm)", "🏆 Huy Hiệu Vàng Người Bảo Vệ IUH (Huyền Thoại)", "💎 3x Lõi Dữ Liệu Tối Thượng" }
+                },
+                new MonsterData
+                {
+                    id = "MONSTER_05_CORRUPTED_BACKPACK",
+                    name = "TIỂU QUỶ BALO NHIỄM ĐỘC (AR)",
+                    modelPath = "Assets/IUH_Campus/Models/Monsters/BlueDemon.obj",
+                    position = new Vector3(4.0f, 0.0f, -28.0f),
+                    rotationY = 210f,
+                    scale = new Vector3(1.35f, 1.35f, 1.35f),
+                    hp = 70,
+                    minDmg = 8,
+                    maxDmg = 12,
+                    duration = 50f,
+                    lightColor = new Color(0.85f, 0.2f, 1.0f),
+                    lightIntensity = 4.2f,
+                    lightRange = 6.5f,
+                    rewardGold = 100,
+                    rewardItems = new string[] { "Bình Dược Liệu Nano (+50 HP)", "Lõi Dữ Liệu Thanh Tẩy IUH (Hiếm)" }
                 }
             };
 
@@ -459,6 +498,52 @@ namespace IUHCampus.Editor
                 light.color = cfg.lightColor;
                 light.intensity = cfg.lightIntensity;
                 light.range = cfg.lightRange;
+
+                if (cfg.id == "MONSTER_05_CORRUPTED_BACKPACK")
+                {
+                    // 1. Backpack Prop
+                    GameObject bp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    bp.name = "CorruptedBackpackProp";
+                    bp.transform.SetParent(monsterRoot.transform, false);
+                    bp.transform.localPosition = new Vector3(0f, 0.22f, -0.4f);
+                    bp.transform.localRotation = Quaternion.Euler(15f, 25f, 10f);
+                    bp.transform.localScale = new Vector3(0.55f, 0.65f, 0.32f);
+                    Material bpMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/SharedCampusConcept/Materials/Student jacket.mat")
+                        ?? AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Student_BluePolo.mat");
+                    if (bpMat != null) bp.GetComponent<Renderer>().sharedMaterial = bpMat;
+
+                    // 2. AR Hologram Reticle on ground
+                    GameObject reticle = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    reticle.name = "AR_Hologram_Reticle";
+                    reticle.transform.SetParent(monsterRoot.transform, false);
+                    reticle.transform.localPosition = new Vector3(0f, 0.02f, 0f);
+                    reticle.transform.localScale = new Vector3(2.4f, 0.015f, 2.4f);
+                    Material holoMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Waypoint_Holo.mat")
+                        ?? AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Podium_Turquoise.mat");
+                    if (holoMat != null) reticle.GetComponent<Renderer>().sharedMaterial = holoMat;
+                    foreach (var c in reticle.GetComponentsInChildren<Collider>()) Object.DestroyImmediate(c);
+
+                    // 3. Volumetric Purple Smoke
+                    GameObject smokeGO = new GameObject("PurpleSmoke", typeof(ParticleSystem));
+                    smokeGO.transform.SetParent(monsterRoot.transform, false);
+                    smokeGO.transform.localPosition = new Vector3(0f, 0.15f, -0.4f);
+                    var ps = smokeGO.GetComponent<ParticleSystem>();
+                    var main = ps.main;
+                    main.startLifetime = 2.0f;
+                    main.startSpeed = 0.9f;
+                    main.startSize = 0.75f;
+                    main.maxParticles = 60;
+                    main.startColor = new ParticleSystem.MinMaxGradient(
+                        new Color(0.65f, 0.1f, 0.95f, 0.85f),
+                        new Color(0.9f, 0.2f, 1f, 0.95f)
+                    );
+                    var emission = ps.emission;
+                    emission.rateOverTime = 25f;
+                    var shape = ps.shape;
+                    shape.shapeType = ParticleSystemShapeType.Cone;
+                    shape.angle = 20f;
+                    shape.radius = 0.35f;
+                }
 
                 GameObject overheadCanvasGO = new GameObject("DATA_CORRUPTION_OVERHEAD", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(IUHGreenBillboard));
                 overheadCanvasGO.transform.SetParent(monsterRoot.transform, false);
@@ -764,6 +849,579 @@ namespace IUHCampus.Editor
 
             modal.SetActive(false);
             return modal;
+        }
+
+        private static void EnsureCameraShake()
+        {
+            var cam = Camera.main ?? GameObject.Find("MainCamera")?.GetComponent<Camera>();
+            if (cam != null && cam.GetComponent<IUHCameraShake>() == null)
+            {
+                cam.gameObject.AddComponent<IUHCameraShake>();
+                Debug.Log("[IUH Guardian] IUHCameraShake attached to MainCamera!");
+            }
+        }
+
+        private static void EnsureInventory(GameObject canvasGO)
+        {
+            var inv = Object.FindAnyObjectByType<IUHGuardianInventory>(FindObjectsInactive.Include);
+            if (inv == null)
+            {
+                GameObject invObj = new GameObject("IUH_Guardian_Inventory", typeof(IUHGuardianInventory));
+                invObj.transform.SetParent(canvasGO.transform, false);
+                Debug.Log("[IUH Guardian] IUHGuardianInventory component created!");
+            }
+        }
+
+        private static void CreateShopUI(Transform canvasParent, Font font)
+        {
+            var oldUI = canvasParent.Find("IUH_Upgrade_Shop_UI");
+            if (oldUI != null) Undo.DestroyObjectImmediate(oldUI.gameObject);
+
+            var oldHudBtn = canvasParent.Find("Btn_HUD_OpenShop");
+            if (oldHudBtn != null) Undo.DestroyObjectImmediate(oldHudBtn.gameObject);
+
+            // 1. HUD Shortcut Button (Top-Right)
+            GameObject hudBtnObj = new GameObject("Btn_HUD_OpenShop", typeof(RectTransform), typeof(Image), typeof(Button));
+            hudBtnObj.transform.SetParent(canvasParent, false);
+            var hudRect = hudBtnObj.GetComponent<RectTransform>();
+            hudRect.anchorMin = new Vector2(1f, 1f);
+            hudRect.anchorMax = new Vector2(1f, 1f);
+            hudRect.pivot = new Vector2(1f, 1f);
+            hudRect.anchoredPosition = new Vector2(-20f, -20f);
+            hudRect.sizeDelta = new Vector2(240f, 44f);
+
+            var hudImg = hudBtnObj.GetComponent<Image>();
+            hudImg.color = new Color(0.10f, 0.16f, 0.28f, 0.90f);
+
+            var hudBtn = hudBtnObj.GetComponent<Button>();
+            ColorBlock cb = hudBtn.colors;
+            cb.highlightedColor = new Color(0.20f, 0.45f, 0.85f);
+            cb.pressedColor = new Color(0.12f, 0.30f, 0.60f);
+            hudBtn.colors = cb;
+
+            Text hudTxt = CreateText(hudBtnObj.transform, "Label", "🎒 <b>KHO ĐỒ & NÂNG CẤP [B]</b>", 13, new Vector2(0.5f, 0.5f), new Vector2(230f, 38f), font, new Color(0.35f, 0.95f, 1f));
+
+            // 2. Main Shop UI Root
+            GameObject shopRoot = new GameObject("IUH_Upgrade_Shop_UI", typeof(RectTransform), typeof(IUHUpgradeShopUI));
+            shopRoot.transform.SetParent(canvasParent, false);
+            var rootRt = shopRoot.GetComponent<RectTransform>();
+            rootRt.anchorMin = Vector2.zero;
+            rootRt.anchorMax = Vector2.one;
+            rootRt.sizeDelta = Vector2.zero;
+
+            // Wire HUD button click to shop toggle
+            var shopComp = shopRoot.GetComponent<IUHUpgradeShopUI>();
+            hudBtn.onClick.AddListener(() =>
+            {
+                if (IUHUpgradeShopUI.Instance != null) IUHUpgradeShopUI.Instance.ToggleShop();
+            });
+
+            // 3. Modal Overlay Panel
+            GameObject panelModal = new GameObject("ModalPanel", typeof(RectTransform), typeof(Image));
+            panelModal.transform.SetParent(shopRoot.transform, false);
+            var pmRect = panelModal.GetComponent<RectTransform>();
+            pmRect.anchorMin = Vector2.zero;
+            pmRect.anchorMax = Vector2.one;
+            pmRect.sizeDelta = Vector2.zero;
+            var pmImg = panelModal.GetComponent<Image>();
+            pmImg.color = new Color(0.03f, 0.05f, 0.08f, 0.85f);
+
+            // 4. Modal Window Card
+            GameObject cardObj = new GameObject("Card", typeof(RectTransform), typeof(Image));
+            cardObj.transform.SetParent(panelModal.transform, false);
+            var cardRt = cardObj.GetComponent<RectTransform>();
+            cardRt.anchorMin = new Vector2(0.5f, 0.5f);
+            cardRt.anchorMax = new Vector2(0.5f, 0.5f);
+            cardRt.sizeDelta = new Vector2(720f, 540f);
+            var cardImg = cardObj.GetComponent<Image>();
+            cardImg.color = new Color(0.08f, 0.12f, 0.19f, 0.98f);
+
+            // Card Header
+            Text titleTxt = CreateText(cardObj.transform, "Title", "🏪 TRẠM NÂNG CẤP & KHO ĐỒ IUH", 20, new Vector2(0.5f, 0.93f), new Vector2(660f, 32f), font, new Color(0.3f, 0.88f, 1f));
+            titleTxt.fontStyle = FontStyle.Bold;
+
+            // Close button [X]
+            var (btnClose, _) = CreateButton(cardObj.transform, "BtnClose", "✕", new Vector2(0.96f, 0.93f), new Vector2(36f, 32f), font);
+            btnClose.GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.25f);
+
+            // Gold Status bar
+            GameObject goldBar = new GameObject("GoldBar", typeof(RectTransform), typeof(Image));
+            goldBar.transform.SetParent(cardObj.transform, false);
+            var gbRt = goldBar.GetComponent<RectTransform>();
+            gbRt.anchorMin = new Vector2(0.5f, 0.84f);
+            gbRt.anchorMax = new Vector2(0.5f, 0.84f);
+            gbRt.sizeDelta = new Vector2(680f, 34f);
+            var gbImg = goldBar.GetComponent<Image>();
+            gbImg.color = new Color(0.04f, 0.07f, 0.11f, 0.95f);
+            gbImg.raycastTarget = false;
+
+            Text txtGold = CreateText(goldBar.transform, "TxtGold", "💰 VÀNG CỦA BẠN: 0 IUH Gold", 14, new Vector2(0.05f, 0.5f), new Vector2(400f, 30f), font, new Color(1f, 0.92f, 0.35f));
+            txtGold.alignment = TextAnchor.MiddleLeft;
+            txtGold.fontStyle = FontStyle.Bold;
+
+            // 3 Tab Buttons
+            var (btnTabUpgrades, _) = CreateButton(cardObj.transform, "BtnTabUpgrades", "⚙️ NÂNG CẤP", new Vector2(0.18f, 0.76f), new Vector2(210f, 36f), font);
+            var (btnTabInventory, _) = CreateButton(cardObj.transform, "BtnTabInventory", "🎒 KHO ĐỒ", new Vector2(0.50f, 0.76f), new Vector2(210f, 36f), font);
+            var (btnTabSkins, _) = CreateButton(cardObj.transform, "BtnTabSkins", "👗 NGOẠI TRANG", new Vector2(0.82f, 0.76f), new Vector2(210f, 36f), font);
+            btnTabInventory.GetComponent<Image>().color = new Color(0.12f, 0.18f, 0.28f);
+            btnTabSkins.GetComponent<Image>().color = new Color(0.12f, 0.18f, 0.28f);
+
+            // Container for Tabs
+            GameObject contentUpgrades = new GameObject("Tab_Upgrades", typeof(RectTransform));
+            contentUpgrades.transform.SetParent(cardObj.transform, false);
+            var uRt = contentUpgrades.GetComponent<RectTransform>();
+            uRt.anchorMin = new Vector2(0.04f, 0.04f);
+            uRt.anchorMax = new Vector2(0.96f, 0.70f);
+            uRt.sizeDelta = Vector2.zero;
+
+            GameObject contentInventory = new GameObject("Tab_Inventory", typeof(RectTransform));
+            contentInventory.transform.SetParent(cardObj.transform, false);
+            var iRt = contentInventory.GetComponent<RectTransform>();
+            iRt.anchorMin = new Vector2(0.04f, 0.04f);
+            iRt.anchorMax = new Vector2(0.96f, 0.70f);
+            iRt.sizeDelta = Vector2.zero;
+
+            GameObject contentSkins = new GameObject("Tab_Skins", typeof(RectTransform));
+            contentSkins.transform.SetParent(cardObj.transform, false);
+            var skRt = contentSkins.GetComponent<RectTransform>();
+            skRt.anchorMin = new Vector2(0.04f, 0.04f);
+            skRt.anchorMax = new Vector2(0.96f, 0.70f);
+            skRt.sizeDelta = Vector2.zero;
+
+            // 5. Build Upgrades Tab (3 Rows)
+            // Row 1: Sword
+            var (swCur, swNext, swBtn, swBtnTxt) = CreateUpgradeRow(contentUpgrades.transform, "RowSword", "⚔️ Sát Thương Gạch Kiếm", 0.78f, font, new Color(1f, 0.45f, 0.45f));
+            // Row 2: Shield
+            var (shCur, shNext, shBtn, shBtnTxt) = CreateUpgradeRow(contentUpgrades.transform, "RowShield", "🛡️ Khả Năng Hấp Thụ Khiên", 0.46f, font, new Color(0.4f, 0.8f, 1f));
+            // Row 3: Max HP
+            var (hpCur, hpNext, hpBtn, hpBtnTxt) = CreateUpgradeRow(contentUpgrades.transform, "RowHp", "💚 Sinh Lực Tối Đa (Max HP)", 0.14f, font, new Color(0.4f, 0.95f, 0.5f));
+
+            // 6. Build Inventory Tab
+            GameObject scrollObj = new GameObject("ScrollContainer", typeof(RectTransform), typeof(ScrollRect), typeof(Image));
+            scrollObj.transform.SetParent(contentInventory.transform, false);
+            var scRt = scrollObj.GetComponent<RectTransform>();
+            scRt.anchorMin = Vector2.zero;
+            scRt.anchorMax = Vector2.one;
+            scRt.sizeDelta = Vector2.zero;
+            var scImg = scrollObj.GetComponent<Image>();
+            scImg.color = new Color(0.04f, 0.06f, 0.10f, 0.7f);
+
+            GameObject itemsContainer = new GameObject("ItemsList", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
+            itemsContainer.transform.SetParent(scrollObj.transform, false);
+            var itRt = itemsContainer.GetComponent<RectTransform>();
+            itRt.anchorMin = new Vector2(0f, 1f);
+            itRt.anchorMax = new Vector2(1f, 1f);
+            itRt.pivot = new Vector2(0.5f, 1f);
+            itRt.sizeDelta = new Vector2(0f, 300f);
+
+            var vlg = itemsContainer.GetComponent<VerticalLayoutGroup>();
+            vlg.padding = new RectOffset(12, 12, 12, 12);
+            vlg.spacing = 8f;
+            vlg.childControlWidth = true;
+            vlg.childControlHeight = false;
+            vlg.childForceExpandWidth = true;
+            vlg.childForceExpandHeight = false;
+
+            var csf = itemsContainer.GetComponent<ContentSizeFitter>();
+            csf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            var sRect = scrollObj.GetComponent<ScrollRect>();
+            sRect.content = itRt;
+            sRect.horizontal = false;
+            sRect.vertical = true;
+
+            Text txtEmpty = CreateText(contentInventory.transform, "TxtEmpty", "Kho đồ trống.\nHãy tiêu diệt quái vật dữ liệu trên khuôn viên để nhận bảo vật!", 15, new Vector2(0.5f, 0.5f), new Vector2(500f, 60f), font, new Color(0.7f, 0.8f, 0.9f, 0.7f));
+
+            // 7. Build Skins Tab
+            GameObject scrollSkinsObj = new GameObject("ScrollSkinsContainer", typeof(RectTransform), typeof(ScrollRect), typeof(Image));
+            scrollSkinsObj.transform.SetParent(contentSkins.transform, false);
+            var skScRt = scrollSkinsObj.GetComponent<RectTransform>();
+            skScRt.anchorMin = Vector2.zero;
+            skScRt.anchorMax = Vector2.one;
+            skScRt.sizeDelta = Vector2.zero;
+            var skScImg = scrollSkinsObj.GetComponent<Image>();
+            skScImg.color = new Color(0.04f, 0.06f, 0.10f, 0.7f);
+
+            GameObject skinsContainer = new GameObject("SkinsList", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
+            skinsContainer.transform.SetParent(scrollSkinsObj.transform, false);
+            var skListRt = skinsContainer.GetComponent<RectTransform>();
+            skListRt.anchorMin = new Vector2(0f, 1f);
+            skListRt.anchorMax = new Vector2(1f, 1f);
+            skListRt.pivot = new Vector2(0.5f, 1f);
+            skListRt.sizeDelta = new Vector2(0f, 300f);
+
+            var skVlg = skinsContainer.GetComponent<VerticalLayoutGroup>();
+            skVlg.padding = new RectOffset(12, 12, 12, 12);
+            skVlg.spacing = 8f;
+            skVlg.childControlWidth = true;
+            skVlg.childControlHeight = false;
+            skVlg.childForceExpandWidth = true;
+            skVlg.childForceExpandHeight = false;
+
+            var skCsf = skinsContainer.GetComponent<ContentSizeFitter>();
+            skCsf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            var skScroll = scrollSkinsObj.GetComponent<ScrollRect>();
+            skScroll.content = skListRt;
+            skScroll.horizontal = false;
+            skScroll.vertical = true;
+
+            contentInventory.SetActive(false);
+            contentSkins.SetActive(false);
+            panelModal.SetActive(false);
+
+            // Serialize into IUHUpgradeShopUI
+            SerializedObject so = new SerializedObject(shopComp);
+            SetRef(so, "m_ShopPanel", panelModal);
+            SetRef(so, "m_TabUpgradesContent", contentUpgrades);
+            SetRef(so, "m_TabInventoryContent", contentInventory);
+            SetRef(so, "m_TabSkinsContent", contentSkins);
+            SetRef(so, "m_BtnTabUpgrades", btnTabUpgrades);
+            SetRef(so, "m_BtnTabInventory", btnTabInventory);
+            SetRef(so, "m_BtnTabSkins", btnTabSkins);
+            SetRef(so, "m_BtnClose", btnClose);
+            SetRef(so, "m_TxtGold", txtGold);
+
+            SetRef(so, "m_TxtSwordCurrent", swCur);
+            SetRef(so, "m_TxtSwordNext", swNext);
+            SetRef(so, "m_BtnUpgradeSword", swBtn);
+            SetRef(so, "m_TxtBtnSword", swBtnTxt);
+
+            SetRef(so, "m_TxtShieldCurrent", shCur);
+            SetRef(so, "m_TxtShieldNext", shNext);
+            SetRef(so, "m_BtnUpgradeShield", shBtn);
+            SetRef(so, "m_TxtBtnShield", shBtnTxt);
+
+            SetRef(so, "m_TxtHpCurrent", hpCur);
+            SetRef(so, "m_TxtHpNext", hpNext);
+            SetRef(so, "m_BtnUpgradeHp", hpBtn);
+            SetRef(so, "m_TxtBtnHp", hpBtnTxt);
+
+            SetRef(so, "m_ItemsContainer", itemsContainer.transform);
+            SetRef(so, "m_SkinsContainer", skinsContainer.transform);
+            SetRef(so, "m_TxtEmptyInventory", txtEmpty);
+            so.ApplyModifiedProperties();
+        }
+
+        private static (Text curTxt, Text nextTxt, Button upBtn, Text btnTxt) CreateUpgradeRow(Transform parent, string name, string rowTitle, float centerYAnchor, Font font, Color accentColor)
+        {
+            GameObject row = new GameObject(name, typeof(RectTransform), typeof(Image));
+            row.transform.SetParent(parent, false);
+            var rect = row.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.5f, centerYAnchor);
+            rect.anchorMax = new Vector2(0.5f, centerYAnchor);
+            rect.sizeDelta = new Vector2(650f, 90f);
+
+            var img = row.GetComponent<Image>();
+            img.color = new Color(0.05f, 0.08f, 0.13f, 0.90f);
+
+            Text title = CreateText(row.transform, "Title", rowTitle, 15, new Vector2(0.04f, 0.72f), new Vector2(300f, 24f), font, accentColor);
+            title.alignment = TextAnchor.MiddleLeft;
+            title.fontStyle = FontStyle.Bold;
+
+            Text cur = CreateText(row.transform, "Cur", "Hiện tại: Lv.1", 13, new Vector2(0.04f, 0.35f), new Vector2(250f, 22f), font, Color.white);
+            cur.alignment = TextAnchor.MiddleLeft;
+
+            Text next = CreateText(row.transform, "Next", "Tiếp theo: Lv.2", 12, new Vector2(0.36f, 0.35f), new Vector2(200f, 22f), font, new Color(0.8f, 0.9f, 1f, 0.8f));
+            next.alignment = TextAnchor.MiddleLeft;
+
+            var (btn, btnTxt) = CreateButton(row.transform, "BtnUp", "NÂNG CẤP", new Vector2(0.85f, 0.50f), new Vector2(170f, 44f), font);
+            btn.GetComponent<Image>().color = new Color(0.2f, 0.65f, 0.35f);
+            btnTxt.fontSize = 13;
+            btnTxt.fontStyle = FontStyle.Bold;
+
+            return (cur, next, btn, btnTxt);
+        }
+
+        private static void SpawnTechKiosk(Font font)
+        {
+            var oldKiosk = GameObject.Find("IUH_TECH_KIOSK");
+            if (oldKiosk != null) Undo.DestroyObjectImmediate(oldKiosk);
+
+            GameObject kioskRoot = new GameObject("IUH_TECH_KIOSK");
+            kioskRoot.transform.position = new Vector3(-8.0f, 0.0f, -26.0f);
+            kioskRoot.transform.rotation = Quaternion.Euler(0f, 30f, 0f);
+
+            // Base pedestal
+            GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            pedestal.name = "Pedestal";
+            pedestal.transform.SetParent(kioskRoot.transform, false);
+            pedestal.transform.localPosition = new Vector3(0f, 0.2f, 0f);
+            pedestal.transform.localScale = new Vector3(1.6f, 0.2f, 1.6f);
+
+            // Terminal column
+            GameObject pillar = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            pillar.name = "Pillar";
+            pillar.transform.SetParent(kioskRoot.transform, false);
+            pillar.transform.localPosition = new Vector3(0f, 1.2f, 0f);
+            pillar.transform.localScale = new Vector3(0.9f, 1.8f, 0.45f);
+
+            // Screen visor
+            GameObject screen = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            screen.name = "ScreenVisor";
+            screen.transform.SetParent(kioskRoot.transform, false);
+            screen.transform.localPosition = new Vector3(0f, 1.7f, 0.24f);
+            screen.transform.localRotation = Quaternion.Euler(-18f, 0f, 0f);
+            screen.transform.localScale = new Vector3(0.78f, 0.55f, 0.05f);
+
+            // Holographic cyan light
+            GameObject glowLight = new GameObject("KioskGlow");
+            glowLight.transform.SetParent(kioskRoot.transform, false);
+            glowLight.transform.localPosition = new Vector3(0f, 1.8f, 0.6f);
+            var light = glowLight.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.color = new Color(0.15f, 0.85f, 1f);
+            light.intensity = 3.5f;
+            light.range = 6.5f;
+
+            // Overhead 3D Prompt Billboard
+            GameObject promptCanvas = new GameObject("PROMPT_BILLBOARD", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(IUHGreenBillboard));
+            promptCanvas.transform.SetParent(kioskRoot.transform, false);
+            promptCanvas.transform.localPosition = new Vector3(0f, 2.7f, 0f);
+
+            var c = promptCanvas.GetComponent<Canvas>();
+            c.renderMode = RenderMode.WorldSpace;
+            var rt = promptCanvas.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(240f, 70f);
+            rt.localScale = Vector3.one * 0.008f;
+
+            GameObject cardBg = new GameObject("CardBg", typeof(RectTransform), typeof(Image));
+            cardBg.transform.SetParent(promptCanvas.transform, false);
+            var bgRt = cardBg.GetComponent<RectTransform>();
+            bgRt.anchorMin = Vector2.zero;
+            bgRt.anchorMax = Vector2.one;
+            bgRt.sizeDelta = Vector2.zero;
+            var bgImg = cardBg.GetComponent<Image>();
+            bgImg.color = new Color(0.06f, 0.10f, 0.18f, 0.90f);
+
+            Text promptHeader = CreateText(cardBg.transform, "Header", "🏪 TRẠM DỊCH VỤ IUH", 13, new Vector2(0.5f, 0.72f), new Vector2(230f, 20f), font, new Color(0.35f, 0.95f, 1f));
+            promptHeader.fontStyle = FontStyle.Bold;
+
+            Text promptAction = CreateText(cardBg.transform, "Action", "Nhấn <b>[E]</b> Mở Nâng Cấp & Kho Đồ", 11, new Vector2(0.5f, 0.28f), new Vector2(230f, 18f), font, new Color(1f, 0.95f, 0.4f));
+
+            // Attach Interaction Component
+            var interaction = kioskRoot.AddComponent<IUHTechKioskInteraction>();
+            SerializedObject so = new SerializedObject(interaction);
+            var pRad = so.FindProperty("m_InteractRadius"); if (pRad != null) pRad.floatValue = 3.5f;
+            var pKey = so.FindProperty("m_InteractKey"); if (pKey != null) pKey.enumValueIndex = (int)KeyCode.E;
+            SetRef(so, "m_PromptObject", promptCanvas);
+            so.ApplyModifiedProperties();
+        }
+
+        private static void EnsurePlayerCustomizer()
+        {
+            var playerGO = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
+            if (playerGO != null)
+            {
+                var customizer = playerGO.GetComponent<IUHPlayerCustomizer>();
+                if (customizer == null) customizer = playerGO.AddComponent<IUHPlayerCustomizer>();
+                customizer.FindComponents();
+                Debug.Log("[IUH Guardian] IUHPlayerCustomizer configured on Campus Student!");
+            }
+        }
+
+        private class ChestConfig
+        {
+            public string id;
+            public string name;
+            public Vector3 position;
+            public float rotationY;
+            public int gold;
+            public string item;
+        }
+
+        private static void SpawnHiddenChests(Font font)
+        {
+            var existingChests = Object.FindObjectsByType<IUHHiddenChest>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (var c in existingChests) Undo.DestroyObjectImmediate(c.gameObject);
+
+            var configs = new ChestConfig[]
+            {
+                new ChestConfig { id = "CHEST_CANTEEN", name = "Rương Bí Mật Căn Tin", position = new Vector3(-25.0f, 0.0f, -18.0f), rotationY = 90f, gold = 60, item = "Bình Dược Liệu Nano (+50 HP)" },
+                new ChestConfig { id = "CHEST_GARDEN", name = "Rương Ẩn Khu Vườn Hoa", position = new Vector3(-14.0f, 0.0f, 5.0f), rotationY = 45f, gold = 80, item = "Khiên Bảo Hộ Sinh Viên (+30 Giáp)" },
+                new ChestConfig { id = "CHEST_FESTIVAL", name = "Rương Kho Báu Sân Khấu", position = new Vector3(24.0f, 0.6f, 6.0f), rotationY = -90f, gold = 120, item = "Đĩa Dữ Liệu Lễ Hội Festival (Hiếm)" },
+                new ChestConfig { id = "CHEST_FOUNTAIN", name = "Rương Kho Báu Đài Phun Nước", position = new Vector3(0.0f, 0.0f, 10.0f), rotationY = 180f, gold = 150, item = "Huy Hiệu Vàng Người Bảo Vệ IUH" }
+            };
+
+            Material woodMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Station_Wood.mat")
+                ?? AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_DarkMetal.mat");
+            Material goldMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Cloth_Yellow.mat");
+
+            foreach (var cfg in configs)
+            {
+                GameObject chestRoot = new GameObject(cfg.id);
+                chestRoot.transform.position = cfg.position;
+                chestRoot.transform.rotation = Quaternion.Euler(0f, cfg.rotationY, 0f);
+
+                // Base Chest Body
+                GameObject body = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                body.name = "ChestBody";
+                body.transform.SetParent(chestRoot.transform, false);
+                body.transform.localPosition = new Vector3(0f, 0.28f, 0f);
+                body.transform.localScale = new Vector3(0.9f, 0.55f, 0.65f);
+                if (woodMat != null) body.GetComponent<Renderer>().sharedMaterial = woodMat;
+
+                // Chest Lid with hinge pivot at rear
+                GameObject lid = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                lid.name = "ChestLid";
+                lid.transform.SetParent(chestRoot.transform, false);
+                lid.transform.localPosition = new Vector3(0f, 0.58f, 0f);
+                lid.transform.localScale = new Vector3(0.94f, 0.16f, 0.68f);
+                if (goldMat != null) lid.GetComponent<Renderer>().sharedMaterial = goldMat;
+
+                // Golden Lock
+                GameObject lockObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                lockObj.name = "ChestLock";
+                lockObj.transform.SetParent(chestRoot.transform, false);
+                lockObj.transform.localPosition = new Vector3(0f, 0.45f, 0.34f);
+                lockObj.transform.localScale = new Vector3(0.18f, 0.16f, 0.08f);
+                if (goldMat != null) lockObj.GetComponent<Renderer>().sharedMaterial = goldMat;
+
+                // Remove sub colliders & add single box collider
+                foreach (var subCol in chestRoot.GetComponentsInChildren<Collider>()) Object.DestroyImmediate(subCol);
+                var col = chestRoot.AddComponent<BoxCollider>();
+                col.center = new Vector3(0f, 0.4f, 0f);
+                col.size = new Vector3(1.1f, 0.8f, 0.9f);
+
+                // Aura Light
+                GameObject lightGO = new GameObject("AuraLight");
+                lightGO.transform.SetParent(chestRoot.transform, false);
+                lightGO.transform.localPosition = new Vector3(0f, 0.7f, 0f);
+                var light = lightGO.AddComponent<Light>();
+                light.type = LightType.Point;
+                light.color = new Color(1f, 0.85f, 0.25f);
+                light.intensity = 3.5f;
+                light.range = 5.5f;
+
+                // 3D Billboard Prompt
+                GameObject promptCanvas = new GameObject("PROMPT_CHEST", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(IUHGreenBillboard));
+                promptCanvas.transform.SetParent(chestRoot.transform, false);
+                promptCanvas.transform.localPosition = new Vector3(0f, 1.8f, 0f);
+
+                var c = promptCanvas.GetComponent<Canvas>();
+                c.renderMode = RenderMode.WorldSpace;
+                var rt = promptCanvas.GetComponent<RectTransform>();
+                rt.sizeDelta = new Vector2(230f, 65f);
+                rt.localScale = Vector3.one * 0.0075f;
+
+                GameObject cardBg = new GameObject("CardBg", typeof(RectTransform), typeof(Image));
+                cardBg.transform.SetParent(promptCanvas.transform, false);
+                var bgRt = cardBg.GetComponent<RectTransform>();
+                bgRt.anchorMin = Vector2.zero;
+                bgRt.anchorMax = Vector2.one;
+                bgRt.sizeDelta = Vector2.zero;
+                var bgImg = cardBg.GetComponent<Image>();
+                bgImg.color = new Color(0.06f, 0.09f, 0.16f, 0.92f);
+
+                Text header = CreateText(cardBg.transform, "Header", $"🎁 {cfg.name}", 12, new Vector2(0.5f, 0.72f), new Vector2(220f, 20f), font, new Color(1f, 0.88f, 0.35f));
+                header.fontStyle = FontStyle.Bold;
+
+                Text action = CreateText(cardBg.transform, "Action", $"Nhấn <b>[E]</b> Mở Rương (+{cfg.gold} Vàng)", 10, new Vector2(0.5f, 0.28f), new Vector2(220f, 18f), font, new Color(0.4f, 0.95f, 0.5f));
+
+                promptCanvas.SetActive(false);
+
+                // Attach IUHHiddenChest
+                var chestComp = chestRoot.AddComponent<IUHHiddenChest>();
+                SerializedObject so = new SerializedObject(chestComp);
+                so.FindProperty("m_ChestId").stringValue = cfg.id;
+                so.FindProperty("m_ChestName").stringValue = cfg.name;
+                so.FindProperty("m_RewardGold").intValue = cfg.gold;
+                so.FindProperty("m_RewardItem").stringValue = cfg.item;
+                so.FindProperty("m_InteractRadius").floatValue = 3.0f;
+                SetRef(so, "m_LidTransform", lid.transform);
+                SetRef(so, "m_PromptObject", promptCanvas);
+                SetRef(so, "m_AuraLight", light);
+                so.ApplyModifiedProperties();
+            }
+        }
+
+        private class SpotConfig
+        {
+            public string id;
+            public string name;
+            public Vector3 position;
+            public int gold;
+            public string badge;
+        }
+
+        private static void SpawnCheckInSpots(Font font)
+        {
+            var existingSpots = Object.FindObjectsByType<IUHCheckInSpot>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (var s in existingSpots) Undo.DestroyObjectImmediate(s.gameObject);
+
+            var configs = new SpotConfig[]
+            {
+                new SpotConfig { id = "SPOT_FOUNTAIN", name = "Đài Phun Nước Trung Tâm IUH", position = new Vector3(0.0f, 0.05f, -4.0f), gold = 30, badge = "Huy Hiệu Check-in: Đài Phun Nước IUH" },
+                new SpotConfig { id = "SPOT_GATE", name = "Cổng Chính Đại Học Công Nghiệp", position = new Vector3(0.0f, 0.05f, -32.0f), gold = 30, badge = "Huy Hiệu Check-in: Cổng Trường IUH" },
+                new SpotConfig { id = "SPOT_FESTIVAL", name = "Sân Khấu Âm Nhạc Festival", position = new Vector3(16.0f, 0.05f, 3.0f), gold = 30, badge = "Huy Hiệu Check-in: Sân Khấu Festival" }
+            };
+
+            Material holoMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Waypoint_Holo.mat")
+                ?? AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/M_IUH_Podium_Turquoise.mat");
+
+            foreach (var cfg in configs)
+            {
+                GameObject spotRoot = new GameObject("CHECKIN_" + cfg.id);
+                spotRoot.transform.position = cfg.position;
+
+                // Glowing Holo Ring on floor
+                GameObject ring = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                ring.name = "HoloRing";
+                ring.transform.SetParent(spotRoot.transform, false);
+                ring.transform.localPosition = Vector3.zero;
+                ring.transform.localScale = new Vector3(3.2f, 0.03f, 3.2f);
+                if (holoMat != null) ring.GetComponent<Renderer>().sharedMaterial = holoMat;
+                foreach (var spotCol in ring.GetComponentsInChildren<Collider>()) Object.DestroyImmediate(spotCol);
+
+                // Cyan Light
+                GameObject lightGO = new GameObject("SpotLight");
+                lightGO.transform.SetParent(spotRoot.transform, false);
+                lightGO.transform.localPosition = new Vector3(0f, 0.6f, 0f);
+                var light = lightGO.AddComponent<Light>();
+                light.type = LightType.Point;
+                light.color = new Color(0.2f, 0.85f, 1f);
+                light.intensity = 2.8f;
+                light.range = 5.0f;
+
+                // 3D Billboard Prompt
+                GameObject promptCanvas = new GameObject("PROMPT_SPOT", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(IUHGreenBillboard));
+                promptCanvas.transform.SetParent(spotRoot.transform, false);
+                promptCanvas.transform.localPosition = new Vector3(0f, 2.2f, 0f);
+
+                var c = promptCanvas.GetComponent<Canvas>();
+                c.renderMode = RenderMode.WorldSpace;
+                var rt = promptCanvas.GetComponent<RectTransform>();
+                rt.sizeDelta = new Vector2(240f, 65f);
+                rt.localScale = Vector3.one * 0.008f;
+
+                GameObject cardBg = new GameObject("CardBg", typeof(RectTransform), typeof(Image));
+                cardBg.transform.SetParent(promptCanvas.transform, false);
+                var bgRt = cardBg.GetComponent<RectTransform>();
+                bgRt.anchorMin = Vector2.zero;
+                bgRt.anchorMax = Vector2.one;
+                bgRt.sizeDelta = Vector2.zero;
+                var bgImg = cardBg.GetComponent<Image>();
+                bgImg.color = new Color(0.04f, 0.08f, 0.15f, 0.92f);
+
+                Text header = CreateText(cardBg.transform, "Header", $"📸 {cfg.name}", 12, new Vector2(0.5f, 0.72f), new Vector2(230f, 20f), font, new Color(0.35f, 0.95f, 1f));
+                header.fontStyle = FontStyle.Bold;
+
+                Text action = CreateText(cardBg.transform, "Action", $"Đứng vào vòng tròn để Check-in (+{cfg.gold}g)", 10, new Vector2(0.5f, 0.28f), new Vector2(230f, 18f), font, new Color(1f, 0.92f, 0.4f));
+
+                promptCanvas.SetActive(false);
+
+                // Attach IUHCheckInSpot
+                var spotComp = spotRoot.AddComponent<IUHCheckInSpot>();
+                SerializedObject so = new SerializedObject(spotComp);
+                so.FindProperty("m_SpotId").stringValue = cfg.id;
+                so.FindProperty("m_SpotName").stringValue = cfg.name;
+                so.FindProperty("m_RewardGold").intValue = cfg.gold;
+                so.FindProperty("m_SouvenirBadge").stringValue = cfg.badge;
+                so.FindProperty("m_Radius").floatValue = 2.8f;
+                SetRef(so, "m_HoloRing", ring);
+                SetRef(so, "m_BillboardPrompt", promptCanvas);
+                so.ApplyModifiedProperties();
+            }
         }
     }
 }

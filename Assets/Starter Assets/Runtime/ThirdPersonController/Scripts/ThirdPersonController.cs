@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -20,6 +20,13 @@ namespace StarterAssets
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
+
+        [Header("Hold To Run / Auto Sprint")]
+        [Tooltip("When enabled, holding movement key for longer than this duration triggers sprint/run automatically")]
+        public bool EnableHoldToSprint = true;
+        [Tooltip("Seconds of continuous movement before sprinting begins")]
+        public float HoldToSprintDuration = 0.38f;
+        private float _moveHoldTimer = 0.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -64,10 +71,10 @@ namespace StarterAssets
         public GameObject CinemachineCameraTarget;
 
         [Tooltip("How far in degrees can you move the camera up")]
-        public float TopClamp = 70.0f;
+        public float TopClamp = 85.0f;
 
         [Tooltip("How far in degrees can you move the camera down")]
-        public float BottomClamp = -30.0f;
+        public float BottomClamp = -45.0f;
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
         public float CameraAngleOverride = 0.0f;
@@ -135,6 +142,9 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            float initialPitch = CinemachineCameraTarget.transform.rotation.eulerAngles.x;
+            if (initialPitch > 180f) initialPitch -= 360f;
+            _cinemachineTargetPitch = Mathf.Clamp(Mathf.Abs(initialPitch) > 0.1f ? initialPitch : 8.0f, BottomClamp, TopClamp);
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
@@ -220,11 +230,20 @@ namespace StarterAssets
 
         private void GroundedCheck()
         {
-            // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+            // set sphere position, with offset ensuring it checks near the base of the character
+            float effectiveOffset = Mathf.Abs(GroundedOffset);
+            if (effectiveOffset < 0.05f) effectiveOffset = 0.14f;
+
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - effectiveOffset,
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
+
+            // Robust fallback if character is on stairs, ramps, or slightly uneven ground
+            if (!Grounded && _controller != null)
+            {
+                Grounded = _controller.isGrounded || Physics.Raycast(transform.position + Vector3.up * 0.25f, Vector3.down, 0.45f, GroundLayers, QueryTriggerInteraction.Ignore);
+            }
 
             // update animator if using character
             if (_hasAnimator)
@@ -256,20 +275,68 @@ namespace StarterAssets
 
         private void Move()
         {
+            // Read input direction with fallback to direct keyboard
+            Vector2 moveDir = _input != null ? _input.move : Vector2.zero;
+#if ENABLE_INPUT_SYSTEM
+            if (moveDir.sqrMagnitude < 0.01f && UnityEngine.InputSystem.Keyboard.current != null)
+            {
+                var kb = UnityEngine.InputSystem.Keyboard.current;
+                if (kb.wKey.isPressed || kb.upArrowKey.isPressed) moveDir.y += 1f;
+                if (kb.sKey.isPressed || kb.downArrowKey.isPressed) moveDir.y -= 1f;
+                if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) moveDir.x += 1f;
+                if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) moveDir.x -= 1f;
+                moveDir = Vector2.ClampMagnitude(moveDir, 1f);
+            }
+#endif
+            try
+            {
+                if (moveDir.sqrMagnitude < 0.01f)
+                {
+                    float h = Input.GetAxisRaw("Horizontal");
+                    float v = Input.GetAxisRaw("Vertical");
+                    if (Mathf.Abs(h) > 0.01f || Mathf.Abs(v) > 0.01f)
+                        moveDir = Vector2.ClampMagnitude(new Vector2(h, v), 1f);
+                }
+            }
+            catch {}
+
+            // Track continuous movement for Hold-to-Run
+            if (moveDir.sqrMagnitude > 0.04f)
+            {
+                _moveHoldTimer += Time.deltaTime;
+            }
+            else
+            {
+                _moveHoldTimer = 0f;
+            }
+
+            bool isHoldSprinting = EnableHoldToSprint && (_moveHoldTimer >= HoldToSprintDuration);
+            bool isShiftHeld = false;
+#if ENABLE_INPUT_SYSTEM
+            if (UnityEngine.InputSystem.Keyboard.current != null && 
+                (UnityEngine.InputSystem.Keyboard.current.leftShiftKey.isPressed || UnityEngine.InputSystem.Keyboard.current.rightShiftKey.isPressed))
+            {
+                isShiftHeld = true;
+            }
+#endif
+            try { if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) isShiftHeld = true; } catch {}
+
+            bool shouldSprint = (_input != null && _input.sprint) || isHoldSprinting || isShiftHeld;
+
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = shouldSprint ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (moveDir == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            float inputMagnitude = (_input != null && _input.analogMovement) ? moveDir.magnitude : 1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -294,11 +361,11 @@ namespace StarterAssets
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            Vector3 inputDirection = new Vector3(moveDir.x, 0.0f, moveDir.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (moveDir != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
@@ -326,6 +393,19 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
+            bool jumpTriggered = (_input != null && _input.jump);
+#if ENABLE_INPUT_SYSTEM
+            if (!jumpTriggered && UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                jumpTriggered = true;
+            }
+            if (!jumpTriggered && UnityEngine.InputSystem.Gamepad.current != null && UnityEngine.InputSystem.Gamepad.current.buttonSouth.wasPressedThisFrame)
+            {
+                jumpTriggered = true;
+            }
+#endif
+            try { if (!jumpTriggered && Input.GetKeyDown(KeyCode.Space)) jumpTriggered = true; } catch {}
+
             if (Grounded)
             {
                 // reset the fall timeout timer
@@ -345,11 +425,11 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                if (jumpTriggered && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-                    _input.jump = false;
+                    if (_input != null) _input.jump = false;
 
                     // update animator if using character
                     if (_hasAnimator)
@@ -384,7 +464,7 @@ namespace StarterAssets
                 }
 
                 // if we are not grounded, do not jump
-                _input.jump = false;
+                if (_input != null) _input.jump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)

@@ -106,3 +106,4 @@ Server/data/*
 
 # Private real-photo evaluation inputs (never commit photos)
 Server/tests/fixtures/real/
+Build_iOS/

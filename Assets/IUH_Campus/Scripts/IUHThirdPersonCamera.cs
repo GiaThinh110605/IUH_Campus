@@ -99,14 +99,19 @@ namespace IUHCampus
                 return;
             }
 
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Mathf.Abs(scroll) > 0.001f)
+            {
+                m_DefaultDistance = Mathf.Clamp(m_DefaultDistance - scroll * 2.0f, m_MinDistance, m_MaxDistance);
+            }
+
             Vector3 backDir = -transform.forward;
-            float desiredDist = m_DefaultDistance;
+            float desiredDist = Mathf.Clamp(m_DefaultDistance, m_MinDistance, m_MaxDistance);
 
             RaycastHit hit;
             if (Physics.SphereCast(targetCenter, m_CollisionRadius, backDir, out hit, m_DefaultDistance, m_CollisionLayers, QueryTriggerInteraction.Ignore))
             {
-
-                desiredDist = Mathf.Clamp(hit.distance - m_CollisionBuffer, m_MinDistance, m_DefaultDistance);
+                desiredDist = Mathf.Clamp(hit.distance - m_CollisionBuffer, m_MinDistance, m_MaxDistance);
             }
 
             m_TargetDistance = desiredDist;

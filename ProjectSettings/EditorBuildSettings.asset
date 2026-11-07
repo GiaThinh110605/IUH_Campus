@@ -12,4 +12,6 @@ EditorBuildSettings:
     path: Assets/IUH_Campus/Scenes/IUH_CombatArena.unity
     guid: 8a2757ae8ccdb3145ace9b11556333fc
   m_configObjects:
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 93f76984f738b4de6b330bbfff017e04, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c7034399ec3c943e4a6806fa354bb05d, type: 2}

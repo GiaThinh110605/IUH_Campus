@@ -167,7 +167,55 @@ namespace IUHCampus.Guardian.Match3
             List<MatchGroup> matches = FindMatches();
             if (matches.Count == 0) return null;
 
+            bool hasMegaBomb = false;
+            foreach (var group in matches)
+            {
+                if (group.Coords.Count >= 5)
+                {
+                    group.IsMegaBomb = true;
+                    hasMegaBomb = true;
+
+                    // 1. Radial splash explosion (3x3 area around every matched tile in the 5-match)
+                    foreach (var c in group.Coords)
+                    {
+                        for (int dx = -1; dx <= 1; dx++)
+                        {
+                            for (int dy = -1; dy <= 1; dy++)
+                            {
+                                int nx = c.X + dx;
+                                int ny = c.Y + dy;
+                                if (IsValidCoord(nx, ny) && m_Grid[nx, ny] != TileType.None)
+                                {
+                                    BoardCoord bc = new BoardCoord(nx, ny);
+                                    if (!group.Coords.Contains(bc) && !group.BlastCoords.Contains(bc))
+                                    {
+                                        group.BlastCoords.Add(bc);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 2. Candy Crush Color Bomb: Clear all remaining tiles of this same type across the entire board!
+                    for (int bx = 0; bx < Width; bx++)
+                    {
+                        for (int by = 0; by < Height; by++)
+                        {
+                            if (m_Grid[bx, by] == group.Type)
+                            {
+                                BoardCoord bc = new BoardCoord(bx, by);
+                                if (!group.Coords.Contains(bc) && !group.BlastCoords.Contains(bc))
+                                {
+                                    group.BlastCoords.Add(bc);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             HashSet<BoardCoord> uniqueMatched = new HashSet<BoardCoord>();
+            List<BoardCoord> allBlasted = new List<BoardCoord>();
             int swords = 0;
             int shields = 0;
             int energies = 0;
@@ -176,11 +224,30 @@ namespace IUHCampus.Guardian.Match3
 
             foreach (var group in matches)
             {
+                // Process main match coords
                 foreach (var coord in group.Coords)
                 {
                     if (uniqueMatched.Add(coord))
                     {
-                        switch (group.Type)
+                        TileType t = m_Grid[coord.X, coord.Y];
+                        switch (t)
+                        {
+                            case TileType.Sword: swords++; break;
+                            case TileType.Shield: shields++; break;
+                            case TileType.Energy: energies++; break;
+                            case TileType.Heal: heals++; break;
+                        }
+                    }
+                }
+
+                // Process mega-bomb blast wave coords
+                foreach (var blastCoord in group.BlastCoords)
+                {
+                    if (uniqueMatched.Add(blastCoord))
+                    {
+                        allBlasted.Add(blastCoord);
+                        TileType t = m_Grid[blastCoord.X, blastCoord.Y];
+                        switch (t)
                         {
                             case TileType.Sword: swords++; break;
                             case TileType.Shield: shields++; break;
@@ -234,8 +301,10 @@ namespace IUHCampus.Guardian.Match3
                 ShieldCount = shields,
                 EnergyCount = energies,
                 HealCount = heals,
-                PurifyCount = purifies
+                PurifyCount = purifies,
+                HasMegaBomb = hasMegaBomb
             };
+            step.AllBlastedCoords.AddRange(allBlasted);
 
             return step;
         }

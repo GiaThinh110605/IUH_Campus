@@ -283,6 +283,24 @@ namespace IUHCampus.Guardian.Match3
                             m_TilePool.Enqueue(v);
                         }
                     }
+
+                    // Blast wave coords from 5-in-a-row Mega Bomb
+                    foreach (var coord in group.BlastCoords)
+                    {
+                        Match3TileView v = m_Views[coord.X, coord.Y];
+                        if (v != null && v.gameObject.activeSelf)
+                        {
+                            popCoroutines.Add(StartCoroutine(v.AnimatePopAndFade(m_PopDuration)));
+                            m_Views[coord.X, coord.Y] = null;
+                            m_TilePool.Enqueue(v);
+                        }
+                    }
+                }
+
+                if (step.HasMegaBomb)
+                {
+                    IUHCombatAudio.PlaySkillBurst();
+                    IUHCameraShake.Shake(0.35f, 0.25f);
                 }
 
                 foreach (var c in popCoroutines) yield return c;

@@ -41,6 +41,8 @@ namespace IUHCampus.Guardian.Match3
     {
         public TileType Type { get; }
         public List<BoardCoord> Coords { get; }
+        public bool IsMegaBomb { get; set; }
+        public List<BoardCoord> BlastCoords { get; set; } = new List<BoardCoord>();
 
         public MatchGroup(TileType type, List<BoardCoord> coords)
         {
@@ -102,6 +104,8 @@ namespace IUHCampus.Guardian.Match3
                 return longest;
             }
         }
+        public bool HasMegaBomb { get; set; }
+        public List<BoardCoord> AllBlastedCoords { get; } = new List<BoardCoord>();
 
         public CascadeStep(List<MatchGroup> matches, List<TileDrop> drops, List<TileSpawn> spawns)
         {

@@ -290,6 +290,28 @@ namespace IUHCampus.Guardian
             }
         }
 
+        public void ApplyEmpStun(float duration)
+        {
+            if (m_IsDefeated) return;
+            m_TriggerCooldown = Mathf.Max(m_TriggerCooldown, duration);
+
+            // Reduce monster HP by 25%
+            int damage = Mathf.Max(1, m_MonsterHp / 4);
+            m_MonsterHp = Mathf.Max(10, m_MonsterHp - damage);
+
+            if (m_BossHpText != null)
+            {
+                m_BossHpText.text = $"{m_MonsterHp} HP (STUNNED!)";
+            }
+            if (m_BossHpFill != null)
+            {
+                m_BossHpFill.fillAmount = (float)m_MonsterHp / 100f;
+            }
+
+            IUHCameraShake.Shake(0.3f, 0.4f);
+            IUHCombatAudio.PlayShield();
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;

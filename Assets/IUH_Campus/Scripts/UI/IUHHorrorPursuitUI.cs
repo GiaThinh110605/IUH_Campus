@@ -51,7 +51,11 @@ namespace IUHCampus.UI
         private void Start()
         {
             if (m_AlertContainer != null) m_AlertContainer.SetActive(false);
-            if (m_HorrorVignette != null) m_HorrorVignette.color = new Color(0.8f, 0f, 0f, 0f);
+            if (m_HorrorVignette != null)
+            {
+                m_HorrorVignette.raycastTarget = false;
+                m_HorrorVignette.color = new Color(0.8f, 0f, 0f, 0f);
+            }
         }
 
         private void Update()
