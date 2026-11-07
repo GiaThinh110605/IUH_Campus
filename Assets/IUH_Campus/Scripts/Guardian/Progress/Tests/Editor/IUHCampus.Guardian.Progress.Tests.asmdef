@@ -1,0 +1,12 @@
+{
+  "name": "IUHCampus.Guardian.Progress.Tests",
+  "references": [
+    "IUHCampus.Guardian.Progress"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
