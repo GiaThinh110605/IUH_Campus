@@ -178,6 +178,13 @@ namespace IUHCampus.EditorTools
             floor.transform.localScale = new Vector3(3.6f, 0.15f, 3.6f);
             if (darkMat != null) floor.GetComponent<Renderer>().sharedMaterial = darkMat;
 
+            // Thay thế collider của sàn bằng BoxCollider phẳng để CharacterController đứng vững tuyệt đối
+            var origFloorCol = floor.GetComponent<Collider>();
+            if (origFloorCol != null) UnityEngine.Object.DestroyImmediate(origFloorCol);
+            var floorBox = floor.AddComponent<BoxCollider>();
+            floorBox.size = new Vector3(3.8f, 0.4f, 3.8f);
+            floorBox.center = new Vector3(0f, -0.1f, 0f);
+
             // Thành giỏ (Railing Octagon / Cylindrical ring)
             GameObject railing = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             railing.name = "Basket_Railing";
@@ -186,6 +193,12 @@ namespace IUHCampus.EditorTools
             railing.transform.localScale = new Vector3(3.7f, 0.55f, 3.7f);
             if (railing.GetComponent<Collider>() != null) UnityEngine.Object.DestroyImmediate(railing.GetComponent<Collider>());
             if (blueMat != null) railing.GetComponent<Renderer>().sharedMaterial = blueMat;
+
+            // 4 bức tường an toàn vật lý (Safety Invisible Walls) ngăn chặn mọi trường hợp rơi khỏi giỏ
+            CreateSafetyWall(basket.transform, "Safety_Wall_North", new Vector3(0f, 1.0f, 1.8f), new Vector3(3.8f, 2.2f, 0.3f));
+            CreateSafetyWall(basket.transform, "Safety_Wall_South", new Vector3(0f, 1.0f, -1.8f), new Vector3(3.8f, 2.2f, 0.3f));
+            CreateSafetyWall(basket.transform, "Safety_Wall_East",  new Vector3(1.8f, 1.0f, 0f),  new Vector3(0.3f, 2.2f, 3.8f));
+            CreateSafetyWall(basket.transform, "Safety_Wall_West",  new Vector3(-1.8f, 1.0f, 0f), new Vector3(0.3f, 2.2f, 3.8f));
 
             // Vành neon bọc giỏ
             GameObject rimNeon = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -396,6 +409,15 @@ namespace IUHCampus.EditorTools
             return ps;
         }
 
+        private static void CreateSafetyWall(Transform parent, string name, Vector3 localPos, Vector3 size)
+        {
+            var wall = new GameObject(name);
+            wall.transform.SetParent(parent, false);
+            wall.transform.localPosition = localPos;
+            var col = wall.AddComponent<BoxCollider>();
+            col.size = size;
+        }
+
         private static void AdjustAerialMonstersForSkyCombat()
         {
             // Nâng các quái vật bay lên độ cao tầng mây 32m - 38m để chiến đấu với khinh khí cầu
@@ -425,3 +447,4 @@ namespace IUHCampus.EditorTools
         }
     }
 }
+

@@ -161,6 +161,12 @@ namespace IUHCampus.Combat
             if (m_IsFlying) return;
             m_IsFlying = true;
 
+            // Rời khỏi giỏ khinh khí cầu nếu đang ở trên khinh khí cầu
+            if (IUHHotAirBalloonController.Instance != null && IUHHotAirBalloonController.Instance.IsPlayerOnBoard)
+            {
+                IUHHotAirBalloonController.Instance.DisembarkPlayer();
+            }
+
             // Vô hiệu hóa điều khiển trọng lực mặt đất của TPC để flight controller kiểm soát
             if (m_TPC != null)
             {
@@ -168,9 +174,9 @@ namespace IUHCampus.Combat
             }
 
             // Nhấc bổng nhân vật nhẹ lên khỏi mặt đất nếu đang đứng sát sàn
-            if (m_Controller.isGrounded)
+            if (m_Controller != null)
             {
-                m_Controller.Move(Vector3.up * 1.5f);
+                m_Controller.Move(Vector3.up * 2.0f);
             }
 
             SetWingsActive(true);
@@ -321,3 +327,4 @@ namespace IUHCampus.Combat
         }
     }
 }
+
