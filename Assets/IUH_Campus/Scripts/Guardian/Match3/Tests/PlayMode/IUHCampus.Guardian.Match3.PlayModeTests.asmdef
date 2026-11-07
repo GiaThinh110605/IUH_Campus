@@ -1,0 +1,9 @@
+{
+  "name": "IUHCampus.Guardian.Match3.PlayModeTests",
+  "references": [
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

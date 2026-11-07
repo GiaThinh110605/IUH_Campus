@@ -99,3 +99,7 @@ Server/models/*.pt
 
 Server/data/*
 !Server/data/.gitkeep
+
+# Ignore unused LuceedStudio pack contents; the selected Campus Student dependencies are tracked.
+/[Aa]ssets/LuceedStudio/
+/[Aa]ssets/LuceedStudio.meta

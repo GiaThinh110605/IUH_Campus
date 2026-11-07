@@ -29,6 +29,9 @@ namespace IUHCampus.Editor
                 }
             }
 
+            // The duel is filmed in its own scene; (re)build it first so the stage can load it.
+            IUHCombatArenaSceneBuilder.BuildArenaScene();
+
             var canvasGO = GameObject.Find("IUH_Minigame_Canvas");
             if (canvasGO == null)
             {
@@ -41,6 +44,11 @@ namespace IUHCampus.Editor
                 cs.matchWidthOrHeight = 0.5f;
             }
 
+            // Remove every previous arena, wherever it ended up, so only one combat manager exists.
+            foreach (var oldMgr in Object.FindObjectsByType<Match3CombatManager>(FindObjectsInactive.Include))
+            {
+                if (oldMgr != null) Undo.DestroyObjectImmediate(oldMgr.gameObject);
+            }
             var existingArena = canvasGO.transform.Find("CombatArena_Match3");
             if (existingArena != null)
             {
@@ -69,17 +77,28 @@ namespace IUHCampus.Editor
             Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             if (defaultFont == null) defaultFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
 
+            Sprite sprPurify = AssetDatabase.LoadAssetAtPath<Sprite>(TEXTURE_DIR + "gem_purify.png");
+
+            // ── Board: 6×5, docked to the bottom so the duel stays visible above it ──
+            const float tile = 84f, gap = 6f, pad = 14f;
+            float boardW = Match3BoardModel.Width * tile + (Match3BoardModel.Width - 1) * gap + pad * 2f;
+            float boardH = Match3BoardModel.Height * tile + (Match3BoardModel.Height - 1) * gap + pad * 2f;
+
             GameObject boardObj = new GameObject("Match3_Board", typeof(RectTransform), typeof(Image), typeof(Match3BoardView));
             boardObj.transform.SetParent(arenaRoot.transform, false);
             var boardRect = boardObj.GetComponent<RectTransform>();
-            boardRect.anchorMin = new Vector2(0.5f, 0.5f);
-            boardRect.anchorMax = new Vector2(0.5f, 0.5f);
-            boardRect.anchoredPosition = new Vector2(0f, -10f);
-            boardRect.sizeDelta = new Vector2(510f, 510f);
+            boardRect.anchorMin = new Vector2(0.5f, 0f);
+            boardRect.anchorMax = new Vector2(0.5f, 0f);
+            boardRect.pivot = new Vector2(0.5f, 0f);
+            boardRect.anchoredPosition = new Vector2(0f, 24f);
+            boardRect.sizeDelta = new Vector2(boardW, boardH);
 
             var boardBgImg = boardObj.GetComponent<Image>();
-            boardBgImg.color = new Color(0.06f, 0.09f, 0.15f, 0.85f);
+            boardBgImg.color = new Color(0.07f, 0.08f, 0.22f, 0.88f);
             boardBgImg.raycastTarget = false;
+            var boardOutline = boardObj.AddComponent<Outline>();
+            boardOutline.effectColor = new Color(0.55f, 0.45f, 1f, 0.9f);
+            boardOutline.effectDistance = new Vector2(3f, -3f);
 
             GameObject gridRootObj = new GameObject("GridRoot", typeof(RectTransform));
             gridRootObj.transform.SetParent(boardObj.transform, false);
@@ -97,26 +116,121 @@ namespace IUHCampus.Editor
             SetRef(soBoard, "m_SpriteShield", sprShield);
             SetRef(soBoard, "m_SpriteEnergy", sprEnergy);
             SetRef(soBoard, "m_SpriteHeal", sprHeal);
+            SetRef(soBoard, "m_SpritePurify", sprPurify);
+            var pTile = soBoard.FindProperty("m_TileSize"); if (pTile != null) pTile.floatValue = tile;
+            var pGap = soBoard.FindProperty("m_TileSpacing"); if (pGap != null) pGap.floatValue = gap;
             soBoard.ApplyModifiedProperties();
 
-            var (skillBtn, skillTxt) = CreateButton(boardObj.transform, "BtnSkill", "Nộ: 0/100", new Vector2(0.5f, -0.09f), new Vector2(280, 44), defaultFont);
-            var (timerFill, timerTxt) = CreateTimerBar(boardObj.transform, sprBarBg, sprBarEnergy, defaultFont);
+            // Fighters stand left and right of the board, so the skill button sits on top of it.
+            var (skillBtn, skillTxt) = CreateButton(arenaRoot.transform, "BtnSkill", "Nộ 0/100", new Vector2(0.5f, 0f), new Vector2(320, 60), defaultFont);
+            skillBtn.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 24f + boardH + 42f);
+            skillBtn.GetComponent<Image>().color = new Color(0.95f, 0.65f, 0.1f);
+            skillTxt.fontSize = 20;
+            skillTxt.fontStyle = FontStyle.Bold;
+
+            Text legend = CreateText(arenaRoot.transform, "Legend",
+                "<color=#F87171>■</color> Kiếm: sát thương    <color=#38BDF8>■</color> Khiên: chặn đòn    <color=#FB923C>■</color> Sét: tích Nộ    <color=#4ADE80>■</color> Hồi: hồi HP    <color=#C084FC>■</color> Pha lê: giảm đòn quái",
+                17, new Vector2(0.5f, 1f), new Vector2(1100, 30), defaultFont, new Color(0.85f, 0.88f, 1f));
+            legend.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -168f);
+            legend.gameObject.AddComponent<Outline>().effectColor = new Color(0f, 0f, 0f, 0.7f);
+
+            // ── Top HUD: player | VS + timer | monster ──
+            GameObject hud = new GameObject("TopHUD", typeof(RectTransform), typeof(Image));
+            hud.transform.SetParent(arenaRoot.transform, false);
+            var hudRect = hud.GetComponent<RectTransform>();
+            hudRect.anchorMin = new Vector2(0f, 1f);
+            hudRect.anchorMax = new Vector2(1f, 1f);
+            hudRect.pivot = new Vector2(0.5f, 1f);
+            hudRect.sizeDelta = new Vector2(0f, 150f);
+            var hudImg = hud.GetComponent<Image>();
+            hudImg.color = new Color(0.04f, 0.05f, 0.16f, 0.72f);
+            hudImg.raycastTarget = false;
+
+            var playerPanel = CreateFighterPanel(hud.transform, "PlayerPanel", true, sprBarBg, sprHpPlayer, defaultFont,
+                out Text playerName, out Image playerHpFill, out Text playerHpTxt, out Text playerSubTxt);
+            var (pShieldFill, pShieldTxt) = CreateMiniBar(playerPanel, "ShieldBar", sprBarBg, sprBarShield, new Vector2(0.27f, 0.12f), new Vector2(300f, 18f), defaultFont, "");
+            var (pEnergyFill, pEnergyTxt) = CreateMiniBar(playerPanel, "EnergyBar", sprBarBg, sprBarEnergy, new Vector2(0.73f, 0.12f), new Vector2(300f, 18f), defaultFont, "⚡ 0/100");
+            pShieldTxt.fontSize = 13; pEnergyTxt.fontSize = 13;
+            pShieldFill.fillAmount = 0f; pEnergyFill.fillAmount = 0f;
+            playerSubTxt.gameObject.SetActive(false);
+
+            CreateFighterPanel(hud.transform, "MonsterPanel", false, sprBarBg, sprHpBoss, defaultFont,
+                out Text bossName, out Image bossHpFill, out Text bossHpTxt, out Text bossIntentTxt);
+
+            Text vs = CreateText(hud.transform, "VS", "VS", 78, new Vector2(0.5f, 0.6f), new Vector2(200, 100), defaultFont, Color.white);
+            vs.fontStyle = FontStyle.BoldAndItalic;
+            var vsOutline = vs.gameObject.AddComponent<Outline>();
+            vsOutline.effectColor = new Color(0.45f, 0.3f, 1f);
+            vsOutline.effectDistance = new Vector2(4f, -4f);
+
+            var (timerFill, timerTxt) = CreateTimerBar(hud.transform, sprBarBg, sprBarEnergy, defaultFont);
+            var timerRect = timerFill.transform.parent.parent.GetComponent<RectTransform>();
+            timerRect.anchorMin = timerRect.anchorMax = new Vector2(0.5f, 0.14f);
+            timerRect.sizeDelta = new Vector2(220f, 30f);
+            timerTxt.text = "⏱️ 01:30";
+
+            // ── Middle: combo banner and popup anchors over each fighter ──
+            Text combo = CreateText(arenaRoot.transform, "ComboText", "COMBO x2", 46, new Vector2(0.5f, 0.7f), new Vector2(700, 80), defaultFont, new Color(1f, 0.85f, 0.25f));
+            combo.fontStyle = FontStyle.BoldAndItalic;
+            combo.gameObject.AddComponent<Outline>().effectColor = new Color(0.35f, 0.1f, 0.6f);
+            combo.gameObject.SetActive(false);
+
+            RectTransform playerAnchor = CreateAnchor(arenaRoot.transform, "PlayerPopupAnchor", new Vector2(0.17f, 0.45f));
+            RectTransform bossAnchor = CreateAnchor(arenaRoot.transform, "MonsterPopupAnchor", new Vector2(0.83f, 0.62f));
 
             GameObject vicModal = CreateModal(arenaRoot.transform, "VictoryModal", "🏆 CHIẾN THẮNG!", "Bạn đã thanh tẩy hoàn toàn quái vật dữ liệu!\nBảo vệ an toàn cho khuôn viên IUH.", new Color(0.2f, 0.95f, 0.45f), defaultFont, out Button btnRetryVic, out Button btnCloseVic, out Text vicTitleTxt, out Text vicDescTxt, out Text vicRewardsTxt, "TIẾP TỤC KHÁM PHÁ [ĐÓNG]", true);
-            GameObject defModal = CreateModal(arenaRoot.transform, "DefeatModal", "💀 THẤT BẠI", "Dữ liệu bị nguyền đã áp đảo lá chắn của bạn!\nHãy thử lại để thanh tẩy khu vực.", new Color(0.95f, 0.2f, 0.3f), defaultFont, out Button btnRetryDef, out Button btnCloseDef, out Text _, out Text defDescTxt, out Text _, "RÚT LUI KHỎI CHIẾN ĐẤU", false);
+            GameObject defModal = CreateModal(arenaRoot.transform, "DefeatModal", "💀 THẤT BẠI", "Data Monster đã áp đảo lá chắn của bạn!\nHãy thử lại để thanh tẩy khu vực.", new Color(0.95f, 0.2f, 0.3f), defaultFont, out Button btnRetryDef, out Button btnCloseDef, out Text _, out Text defDescTxt, out Text _, "RÚT LUI KHỎI CHIẾN ĐẤU", false);
 
+            GameObject fadeGO = new GameObject("FadeOverlay", typeof(RectTransform), typeof(Image));
+            fadeGO.transform.SetParent(arenaRoot.transform, false);
+            var fadeRect = fadeGO.GetComponent<RectTransform>();
+            fadeRect.anchorMin = Vector2.zero;
+            fadeRect.anchorMax = Vector2.one;
+            fadeRect.sizeDelta = Vector2.zero;
+            var fadeImg = fadeGO.GetComponent<Image>();
+            fadeImg.color = new Color(0f, 0f, 0f, 0f);
+            fadeGO.SetActive(false);
+
+            var stage = arenaRoot.AddComponent<Match3BattleStage>();
+            SerializedObject soStage = new SerializedObject(stage);
+            SetRef(soStage, "m_FadeOverlay", fadeImg);
+            // Any clip dropped into Audio/Combat becomes the battle theme (first by name).
+            if (AssetDatabase.IsValidFolder("Assets/IUH_Campus/Audio/Combat"))
+            {
+                var clipGuids = AssetDatabase.FindAssets("t:AudioClip", new[] { "Assets/IUH_Campus/Audio/Combat" });
+                var clipPaths = new List<string>();
+                foreach (var g in clipGuids) clipPaths.Add(AssetDatabase.GUIDToAssetPath(g));
+                clipPaths.Sort(System.StringComparer.OrdinalIgnoreCase);
+                if (clipPaths.Count > 0) SetRef(soStage, "m_CombatMusic", AssetDatabase.LoadAssetAtPath<AudioClip>(clipPaths[0]));
+            }
+            soStage.ApplyModifiedProperties();
             var combatMgr = arenaRoot.AddComponent<Match3CombatManager>();
 
-            var playerOverhead = SpawnPlayerOverhead(sprBarBg, sprHpPlayer, sprBarShield, sprBarEnergy, defaultFont);
-
-            var allEncounters = SpawnAllMonsters(combatMgr, sprBarBg, sprHpBoss, defaultFont);
-            var firstEncounter = allEncounters.Count > 0 ? allEncounters[0] : null;
+            SpawnPlayerOverhead(sprBarBg, sprHpPlayer, sprBarShield, sprBarEnergy, defaultFont);
+            SpawnAllMonsters(combatMgr, sprBarBg, sprHpBoss, defaultFont);
 
             SerializedObject soMgr = new SerializedObject(combatMgr);
             SetRef(soMgr, "m_BoardView", boardView);
+            SetRef(soMgr, "m_Stage", stage);
 
-            var pDuration = soMgr.FindProperty("m_CombatDuration");
-            if (pDuration != null) pDuration.floatValue = 60.0f;
+            SetRef(soMgr, "m_PlayerNameText", playerName);
+            SetRef(soMgr, "m_PlayerHpFill", playerHpFill);
+            SetRef(soMgr, "m_PlayerHpText", playerHpTxt);
+            SetRef(soMgr, "m_PlayerShieldFill", pShieldFill);
+            SetRef(soMgr, "m_PlayerShieldText", pShieldTxt);
+            SetRef(soMgr, "m_PlayerEnergyFill", pEnergyFill);
+            SetRef(soMgr, "m_PlayerEnergyText", pEnergyTxt);
+
+            SetRef(soMgr, "m_BossNameText", bossName);
+            SetRef(soMgr, "m_BossHpFill", bossHpFill);
+            SetRef(soMgr, "m_BossHpText", bossHpTxt);
+            SetRef(soMgr, "m_BossIntentText", bossIntentTxt);
+
+            SetRef(soMgr, "m_ComboText", combo);
+            SetRef(soMgr, "m_PlayerPopupAnchor", playerAnchor);
+            SetRef(soMgr, "m_BossPopupAnchor", bossAnchor);
+            SetRef(soMgr, "m_SkillButton", skillBtn);
+            SetRef(soMgr, "m_SkillButtonText", skillTxt);
             SetRef(soMgr, "m_TimerText", timerTxt);
             SetRef(soMgr, "m_TimerFill", timerFill);
 
@@ -126,27 +240,6 @@ namespace IUHCampus.Editor
             SetRef(soMgr, "m_VictoryRewardsText", vicRewardsTxt);
             SetRef(soMgr, "m_DefeatModal", defModal);
             SetRef(soMgr, "m_DefeatDescText", defDescTxt);
-
-            if (playerOverhead != null)
-            {
-                SetRef(soMgr, "m_PlayerHpFill", playerOverhead.HpFill);
-                SetRef(soMgr, "m_PlayerHpText", playerOverhead.HpText);
-                SetRef(soMgr, "m_PlayerShieldFill", playerOverhead.ShieldFill);
-                SetRef(soMgr, "m_PlayerShieldText", playerOverhead.ShieldText);
-                SetRef(soMgr, "m_PlayerEnergyFill", playerOverhead.EnergyFill);
-                SetRef(soMgr, "m_PlayerEnergyText", playerOverhead.EnergyText);
-            }
-
-            if (firstEncounter != null)
-            {
-                SetRef(soMgr, "m_BossHpFill", firstEncounter.BossHpFill);
-                SetRef(soMgr, "m_BossHpText", firstEncounter.BossHpText);
-                SetRef(soMgr, "m_BossIntentText", firstEncounter.BossIntentText);
-            }
-
-            SetRef(soMgr, "m_SkillButton", skillBtn);
-            SetRef(soMgr, "m_SkillButtonText", skillTxt);
-
             SetRef(soMgr, "m_BtnRetryVictory", btnRetryVic);
             SetRef(soMgr, "m_BtnRetryDefeat", btnRetryDef);
             SetRef(soMgr, "m_BtnCloseVictory", btnCloseVic);
@@ -161,7 +254,7 @@ namespace IUHCampus.Editor
             EditorSceneManager.SaveScene(activeScene);
             AssetDatabase.SaveAssets();
 
-            Debug.Log("[IUH Guardian] Build complete: Clean overhead UI configured on player and monster!");
+            Debug.Log("[IUH Guardian] Build complete: Match-3 duel arena (6x5 board, VS HUD, 3D stage) ready.");
         }
 
         private static void SetRef(SerializedObject so, string propName, UnityEngine.Object obj)
@@ -263,10 +356,10 @@ namespace IUHCampus.Editor
                     position = new Vector3(0.0f, 0.0f, -24.0f),
                     rotationY = 180f,
                     scale = new Vector3(1.35f, 1.35f, 1.35f),
-                    hp = 60,
-                    minDmg = 8,
-                    maxDmg = 12,
-                    duration = 45f,
+                    hp = 550,
+                    minDmg = 50,
+                    maxDmg = 70,
+                    duration = 75f,
                     lightColor = new Color(0.1f, 0.85f, 1.0f),
                     lightIntensity = 3.5f,
                     lightRange = 6f,
@@ -281,10 +374,10 @@ namespace IUHCampus.Editor
                     position = new Vector3(-18.0f, 0.0f, -8.0f),
                     rotationY = 135f,
                     scale = new Vector3(1.6f, 1.6f, 1.6f),
-                    hp = 100,
-                    minDmg = 12,
-                    maxDmg = 16,
-                    duration = 55f,
+                    hp = 700,
+                    minDmg = 60,
+                    maxDmg = 85,
+                    duration = 90f,
                     lightColor = new Color(0.2f, 1.0f, 0.4f),
                     lightIntensity = 3.8f,
                     lightRange = 6.5f,
@@ -299,10 +392,10 @@ namespace IUHCampus.Editor
                     position = new Vector3(18.0f, 0.0f, -6.0f),
                     rotationY = 225f,
                     scale = new Vector3(1.45f, 1.45f, 1.45f),
-                    hp = 85,
-                    minDmg = 10,
-                    maxDmg = 15,
-                    duration = 50f,
+                    hp = 800,
+                    minDmg = 65,
+                    maxDmg = 90,
+                    duration = 95f,
                     lightColor = new Color(0.85f, 0.25f, 1.0f),
                     lightIntensity = 3.8f,
                     lightRange = 6.5f,
@@ -317,10 +410,10 @@ namespace IUHCampus.Editor
                     position = new Vector3(0.0f, 0.0f, 22.0f),
                     rotationY = 180f,
                     scale = new Vector3(1.85f, 1.85f, 1.85f),
-                    hp = 150,
-                    minDmg = 16,
-                    maxDmg = 22,
-                    duration = 70f,
+                    hp = 1000,
+                    minDmg = 75,
+                    maxDmg = 100,
+                    duration = 120f,
                     lightColor = new Color(1.0f, 0.15f, 0.2f),
                     lightIntensity = 4.5f,
                     lightRange = 8f,
@@ -428,6 +521,63 @@ namespace IUHCampus.Editor
             }
 
             return results;
+        }
+
+        private static RectTransform CreateFighterPanel(Transform parent, string name, bool isLeft, Sprite barBg, Sprite barFill, Font font,
+            out Text nameTxt, out Image hpFill, out Text hpTxt, out Text subTxt)
+        {
+            GameObject panel = new GameObject(name, typeof(RectTransform));
+            panel.transform.SetParent(parent, false);
+            var rect = panel.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(isLeft ? 0f : 0.6f, 0f);
+            rect.anchorMax = new Vector2(isLeft ? 0.4f : 1f, 1f);
+            rect.offsetMin = new Vector2(isLeft ? 36f : 0f, 8f);
+            rect.offsetMax = new Vector2(isLeft ? 0f : -36f, -8f);
+
+            nameTxt = CreateText(panel.transform, "Name", isLeft ? "SINH VIÊN IUH" : "DATA MONSTER", 26, new Vector2(0.5f, 0.82f), new Vector2(700f, 36f), font, Color.white);
+            nameTxt.fontStyle = FontStyle.Bold;
+            nameTxt.alignment = isLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight;
+            var nameRect = nameTxt.GetComponent<RectTransform>();
+            nameRect.anchorMin = new Vector2(0f, 0.72f);
+            nameRect.anchorMax = new Vector2(1f, 0.95f);
+            nameRect.sizeDelta = Vector2.zero;
+
+            var (fill, label) = CreateMiniBar(panel.transform, "HpBar", barBg, barFill, new Vector2(0.5f, 0.5f), new Vector2(0f, 34f), font, "HP 0");
+            var barRect = fill.transform.parent.parent.GetComponent<RectTransform>();
+            barRect.anchorMin = new Vector2(0f, 0.38f);
+            barRect.anchorMax = new Vector2(1f, 0.66f);
+            barRect.sizeDelta = Vector2.zero;
+            fill.fillOrigin = isLeft ? 0 : 1;
+            label.fontSize = 20;
+            label.fontStyle = FontStyle.Bold;
+            label.alignment = isLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight;
+            var labelRect = label.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.sizeDelta = new Vector2(-24f, 0f);
+            label.gameObject.AddComponent<Outline>().effectColor = new Color(0f, 0f, 0f, 0.7f);
+            hpFill = fill;
+            hpTxt = label;
+
+            subTxt = CreateText(panel.transform, "Intent", "", 19, new Vector2(0.5f, 0.15f), new Vector2(700f, 30f), font, new Color(1f, 0.85f, 0.25f));
+            subTxt.alignment = isLeft ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight;
+            subTxt.fontStyle = FontStyle.Bold;
+            var subRect = subTxt.GetComponent<RectTransform>();
+            subRect.anchorMin = new Vector2(0f, 0.02f);
+            subRect.anchorMax = new Vector2(1f, 0.3f);
+            subRect.sizeDelta = Vector2.zero;
+            return rect;
+        }
+
+        private static RectTransform CreateAnchor(Transform parent, string name, Vector2 anchor)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            var rect = go.GetComponent<RectTransform>();
+            rect.anchorMin = anchor;
+            rect.anchorMax = anchor;
+            rect.sizeDelta = Vector2.zero;
+            return rect;
         }
 
         private static (Image fill, Text label) CreateMiniBar(Transform parent, string name, Sprite bgSpr, Sprite fillSpr, Vector2 anchor, Vector2 size, Font font, string initText)

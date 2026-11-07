@@ -6,14 +6,17 @@ namespace IUHCampus.Guardian.Match3
     public class Match3BoardModel
     {
         public const int Width = 6;
-        public const int Height = 6;
+        public const int Height = 5;
         private static readonly TileType[] PlayableTypes =
         {
             TileType.Sword,
             TileType.Shield,
             TileType.Energy,
-            TileType.Heal
+            TileType.Heal,
+            TileType.Purify
         };
+
+        public static IReadOnlyList<TileType> Playable => PlayableTypes;
 
         private readonly TileType[,] m_Grid = new TileType[Width, Height];
         private readonly Random m_Random;
@@ -169,6 +172,7 @@ namespace IUHCampus.Guardian.Match3
             int shields = 0;
             int energies = 0;
             int heals = 0;
+            int purifies = 0;
 
             foreach (var group in matches)
             {
@@ -182,6 +186,7 @@ namespace IUHCampus.Guardian.Match3
                             case TileType.Shield: shields++; break;
                             case TileType.Energy: energies++; break;
                             case TileType.Heal: heals++; break;
+                            case TileType.Purify: purifies++; break;
                         }
                     }
                 }
@@ -228,7 +233,8 @@ namespace IUHCampus.Guardian.Match3
                 SwordCount = swords,
                 ShieldCount = shields,
                 EnergyCount = energies,
-                HealCount = heals
+                HealCount = heals,
+                PurifyCount = purifies
             };
 
             return step;

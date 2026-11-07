@@ -9,7 +9,8 @@ namespace IUHCampus.Guardian.Match3
         Sword = 1,
         Shield = 2,
         Energy = 3,
-        Heal = 4
+        Heal = 4,
+        Purify = 5
     }
 
     public readonly struct BoardCoord : IEquatable<BoardCoord>
@@ -83,6 +84,24 @@ namespace IUHCampus.Guardian.Match3
         public int ShieldCount { get; set; }
         public int EnergyCount { get; set; }
         public int HealCount { get; set; }
+        public int PurifyCount { get; set; }
+
+        /// <summary>0 for the match made by the swap, 1+ for each cascade after it.</summary>
+        public int ComboIndex { get; set; }
+
+        /// <summary>Length of the longest single line in this step (3, 4, 5+).</summary>
+        public int LongestMatch
+        {
+            get
+            {
+                int longest = 0;
+                foreach (var group in Matches)
+                {
+                    if (group.Coords.Count > longest) longest = group.Coords.Count;
+                }
+                return longest;
+            }
+        }
 
         public CascadeStep(List<MatchGroup> matches, List<TileDrop> drops, List<TileSpawn> spawns)
         {

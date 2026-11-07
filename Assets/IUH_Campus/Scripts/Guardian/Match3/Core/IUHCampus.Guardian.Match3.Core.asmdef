@@ -1,0 +1,5 @@
+{
+  "name": "IUHCampus.Guardian.Match3.Core",
+  "rootNamespace": "IUHCampus.Guardian.Match3",
+  "noEngineReferences": true
+}

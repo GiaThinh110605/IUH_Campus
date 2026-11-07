@@ -1,0 +1,30 @@
+{
+  "playMode": {
+    "passed": 8,
+    "job": "e066f4ad015841f48b3cbaf0e9466851"
+  },
+  "editMode": {
+    "passed": 35,
+    "job": "76596cf79f1f4a9a8a835bde027977d7"
+  },
+  "introRuntime": {
+    "stageActive": true,
+    "combatActive": false,
+    "boardAlpha": 0,
+    "inputLocked": true,
+    "screenshot": "intro.png"
+  },
+  "singleEscapeRuntime": {
+    "managerActive": false,
+    "combatActive": false,
+    "arenaLoaded": false,
+    "movementEnabled": false,
+    "explorationPaused": true,
+    "move": "(0,0)"
+  },
+  "notes": [
+    "Input System queued Escape event in the real campus scene. Editor background simulation enabled temporarily during inspection.",
+    "EditMode runner initialization timed out on earlier attempts; final explicit assembly run passed.",
+    "Escape handlers in campus preview and generic game flow now have explicit ownership. Nearby monsters require leaving range before automatic retrigger."
+  ]
+}

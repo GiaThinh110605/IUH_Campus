@@ -1,54 +1,52 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace IUHCampus.Guardian.Match3
 {
+    /// <summary>
+    /// Drives one Match-3 duel: board input → <see cref="Match3CombatRules"/> → HUD, popups and
+    /// the 3D <see cref="Match3BattleStage"/>. Balance lives in the rules and the encounter.
+    /// </summary>
     public class Match3CombatManager : MonoBehaviour
     {
         public static Match3CombatManager Instance { get; private set; }
 
-        [Header("Board Reference")]
+        [Header("References")]
         [SerializeField] private Match3BoardView m_BoardView;
+        [SerializeField] private Match3BattleStage m_Stage;
 
-        [Header("Player Settings")]
-        [SerializeField] private int m_PlayerMaxHp = 100;
-        [SerializeField] private int m_PlayerMaxEnergy = 100;
+        [Header("Balance (boss values are overridden by the encounter)")]
+        [SerializeField] private Match3CombatConfig m_Config = new Match3CombatConfig();
+        [SerializeField] private float m_CombatDuration = 90f;
+        [SerializeField] private string m_PlayerName = "SINH VIÊN IUH";
 
-        [Header("Boss Settings")]
-        [SerializeField] private int m_BossMaxHp = 120;
-        [SerializeField] private int m_BossMinDmg = 12;
-        [SerializeField] private int m_BossMaxDmg = 18;
-
-        [Header("Balance Multipliers")]
-        [SerializeField] private int m_DmgPerSword = 6;
-        [SerializeField] private int m_ShieldPerTile = 5;
-        [SerializeField] private int m_EnergyPerTile = 6;
-        [SerializeField] private int m_HealPerTile = 5;
-        [SerializeField] private int m_SkillDamage = 40;
-
-        [Header("UI - Player HUD")]
+        [Header("HUD - Player (left)")]
+        [SerializeField] private Text m_PlayerNameText;
         [SerializeField] private Image m_PlayerHpFill;
         [SerializeField] private Text m_PlayerHpText;
         [SerializeField] private Image m_PlayerShieldFill;
         [SerializeField] private Text m_PlayerShieldText;
         [SerializeField] private Image m_PlayerEnergyFill;
         [SerializeField] private Text m_PlayerEnergyText;
-        [SerializeField] private Button m_SkillButton;
-        [SerializeField] private Text m_SkillButtonText;
 
-        [Header("UI - Boss HUD")]
+        [Header("HUD - Monster (right)")]
+        [SerializeField] private Text m_BossNameText;
         [SerializeField] private Image m_BossHpFill;
         [SerializeField] private Text m_BossHpText;
         [SerializeField] private Text m_BossIntentText;
 
-        [Header("Combat Timer")]
-        [SerializeField] private float m_CombatDuration = 60f;
+        [Header("HUD - Center")]
+        [SerializeField] private Text m_ComboText;
+        [SerializeField] private RectTransform m_PlayerPopupAnchor;
+        [SerializeField] private RectTransform m_BossPopupAnchor;
+        [SerializeField] private Button m_SkillButton;
+        [SerializeField] private Text m_SkillButtonText;
         [SerializeField] private Text m_TimerText;
         [SerializeField] private Image m_TimerFill;
 
-        [Header("UI - Modals")]
+        [Header("Modals")]
         [SerializeField] private GameObject m_VictoryModal;
         [SerializeField] private Text m_VictoryTitleText;
         [SerializeField] private Text m_VictoryDescText;
@@ -60,33 +58,30 @@ namespace IUHCampus.Guardian.Match3
         [SerializeField] private Button m_BtnCloseVictory;
         [SerializeField] private Button m_BtnFleeDefeat;
 
+        private static readonly Color DamageColor = new Color(1f, 0.62f, 0.2f);
+        private static readonly Color HurtColor = new Color(1f, 0.3f, 0.35f);
+        private static readonly Color ShieldColor = new Color(0.45f, 0.8f, 1f);
+        private static readonly Color HealColor = new Color(0.4f, 0.95f, 0.55f);
+        private static readonly Color EnergyColor = new Color(1f, 0.85f, 0.25f);
+        private static readonly Color PurifyColor = new Color(0.8f, 0.6f, 1f);
+
         private IUHMonsterEncounter m_CurrentEncounter;
-
-        public void SetActiveEncounter(IUHMonsterEncounter encounter)
-        {
-            m_CurrentEncounter = encounter;
-            if (encounter != null)
-            {
-                if (encounter.BossHpFill != null) m_BossHpFill = encounter.BossHpFill;
-                if (encounter.BossHpText != null) m_BossHpText = encounter.BossHpText;
-                if (encounter.BossIntentText != null) m_BossIntentText = encounter.BossIntentText;
-                m_BossMaxHp = encounter.MonsterHp;
-                m_BossMinDmg = encounter.BossMinDmg;
-                m_BossMaxDmg = encounter.BossMaxDmg;
-                m_CombatDuration = encounter.CombatDuration;
-            }
-        }
-
-        private int m_CurrentPlayerHp;
-        private int m_CurrentPlayerShield;
-        private int m_CurrentPlayerEnergy;
-
-        private int m_CurrentBossHp;
-        private int m_CurrentBossIntentDmg;
-
-        private int m_TurnAccumulatedDamage;
-        private bool m_IsCombatActive;
+        private Match3CombatRules m_Rules;
         private float m_RemainingTime;
+        private bool m_IsCombatActive;
+        private bool m_IsResolving;
+        private bool m_UsingStage;
+        // True from StartNewCombat until the fight is closed, including while the arena loads.
+        private bool m_IsEngaged;
+        private GameObject m_BattleStartIntro;
+        private readonly List<RectTransform> m_RevealRects = new List<RectTransform>();
+        private readonly List<Vector2> m_RevealHomes = new List<Vector2>();
+        private int m_LastExitFrame = -1;
+        public bool BlocksExplorationInput => m_IsEngaged || m_LastExitFrame == Time.frameCount;
+        private float m_ComboTextTimer;
+
+        private float m_ShownPlayerHp;
+        private float m_ShownBossHp;
 
         public bool IsCombatActive => m_IsCombatActive;
 
@@ -99,7 +94,8 @@ namespace IUHCampus.Guardian.Match3
             if (m_BtnRetryVictory != null) m_BtnRetryVictory.onClick.AddListener(StartNewCombat);
             if (m_BtnRetryDefeat != null) m_BtnRetryDefeat.onClick.AddListener(StartNewCombat);
             if (m_BtnCloseVictory != null) m_BtnCloseVictory.onClick.AddListener(OnCloseVictoryClicked);
-            if (m_BtnFleeDefeat != null) m_BtnFleeDefeat.onClick.AddListener(OnFleeDefeatClicked);
+            if (m_BtnFleeDefeat != null) m_BtnFleeDefeat.onClick.AddListener(Flee);
+            if (m_Stage == null) m_Stage = GetComponent<Match3BattleStage>();
         }
 
         private void Start()
@@ -110,185 +106,391 @@ namespace IUHCampus.Guardian.Match3
                 m_BoardView.OnTurnCompleted += HandlePlayerTurnCompleted;
             }
 
-            if (!m_IsCombatActive)
+            // Only hide when nobody asked for a fight. Start runs one frame after the encounter
+            // enables us, while the arena is still loading, so m_IsCombatActive is not enough here.
+            if (!m_IsEngaged)
             {
                 if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
                 gameObject.SetActive(false);
             }
         }
 
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+            if (m_BoardView != null)
+            {
+                m_BoardView.OnStepResolved -= HandleCascadeStep;
+                m_BoardView.OnTurnCompleted -= HandlePlayerTurnCompleted;
+            }
+        }
+
+        public void SetActiveEncounter(IUHMonsterEncounter encounter)
+        {
+            m_CurrentEncounter = encounter;
+            if (encounter == null) return;
+
+            m_Config.BossMaxHp = encounter.MonsterHp;
+            m_Config.BossMinDmg = encounter.BossMinDmg;
+            m_Config.BossMaxDmg = Mathf.Max(encounter.BossMinDmg, encounter.BossMaxDmg);
+            m_CombatDuration = encounter.CombatDuration;
+        }
+
+        public void StartNewCombat()
+        {
+            StopAllCoroutines();
+            ClearBattleStartIntro();
+            RestoreHudLayout();
+            m_IsEngaged = true;
+            gameObject.SetActive(true);
+            StartCoroutine(BeginCombatRoutine());
+        }
+
+        private IEnumerator BeginCombatRoutine()
+        {
+            m_Rules = new Match3CombatRules(m_Config);
+            m_ShownPlayerHp = m_Rules.PlayerHp;
+            m_ShownBossHp = m_Rules.BossHp;
+            m_RemainingTime = m_CombatDuration;
+            m_IsCombatActive = false;
+            m_IsResolving = false;
+            m_ComboTextTimer = 0f;
+
+            if (m_VictoryModal != null) m_VictoryModal.SetActive(false);
+            if (m_DefeatModal != null) m_DefeatModal.SetActive(false);
+            if (m_ComboText != null) m_ComboText.gameObject.SetActive(false);
+            ClearPopups(m_PlayerPopupAnchor);
+            ClearPopups(m_BossPopupAnchor);
+            if (m_PlayerNameText != null) m_PlayerNameText.text = m_PlayerName;
+            if (m_BossNameText != null) m_BossNameText.text = m_CurrentEncounter != null ? m_CurrentEncounter.MonsterName : "DATA MONSTER";
+
+            UpdateAllUI();
+            UpdateTimerDisplay();
+
+            // The board is built while the screen is black, so it appears together with the arena.
+            var model = new Match3BoardModel();
+            model.Initialize();
+            if (m_BoardView != null)
+            {
+                m_BoardView.gameObject.SetActive(true);
+                m_BoardView.InputLocked = true;
+                m_BoardView.Initialize(model);
+            }
+
+            // Keep the HUD and board hidden until the screen is black, so they never show over the campus.
+            SetHudVisible(false);
+            yield return EnterStage();
+            yield return PlayBattleStartIntro();
+            yield return RevealHud();
+
+            LockBoard(false);
+            m_IsCombatActive = true;
+            UpdateAllUI();
+        }
+
+        /// <summary>Leave the fight without winning (Esc, or the defeat modal's button).</summary>
+        public void Flee()
+        {
+            StopAllCoroutines();
+            m_IsCombatActive = false;
+            m_IsEngaged = false;
+            m_LastExitFrame = Time.frameCount;
+            ClearBattleStartIntro();
+            RestoreHudLayout();
+            ExitStage();
+            if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
+            if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatDefeat();
+            else gameObject.SetActive(false);
+        }
+
         private void Update()
         {
-            if (!m_IsCombatActive) return;
+            if (m_Rules == null) return;
+
+            AnimateBars();
+
+            if (m_ComboTextTimer > 0f)
+            {
+                m_ComboTextTimer -= Time.deltaTime;
+                if (m_ComboTextTimer <= 0f && m_ComboText != null) m_ComboText.gameObject.SetActive(false);
+            }
+
+            if (!m_IsCombatActive || m_IsResolving) return;
 
             m_RemainingTime -= Time.deltaTime;
             if (m_RemainingTime <= 0f)
             {
                 m_RemainingTime = 0f;
-                UpdateTimerDisplay();
-                TriggerDefeat("⏱️ HẾT THỜI GIAN CHIẾN ĐẤU!\nQuái vật dữ liệu đã quá tải và chiếm quyền kiểm soát hệ thống!");
+                m_Rules.TimeOut();
+                StartCoroutine(DefeatRoutine("⏱️ HẾT THỜI GIAN!\nData Monster đã quá tải và chiếm quyền hệ thống."));
             }
-            else
-            {
-                UpdateTimerDisplay();
-            }
-        }
-
-        public void StartNewCombat()
-        {
-            gameObject.SetActive(true);
-            if (m_BoardView != null)
-            {
-                m_BoardView.gameObject.SetActive(true);
-            }
-
-            m_CurrentPlayerHp = m_PlayerMaxHp;
-            m_CurrentPlayerShield = 0;
-            m_CurrentPlayerEnergy = 0;
-
-            m_CurrentBossHp = m_BossMaxHp;
-            RollBossIntent();
-
-            m_TurnAccumulatedDamage = 0;
-            m_RemainingTime = m_CombatDuration;
-            m_IsCombatActive = true;
-
-            if (m_VictoryModal != null) m_VictoryModal.SetActive(false);
-            if (m_DefeatModal != null) m_DefeatModal.SetActive(false);
-
-            Match3BoardModel model = new Match3BoardModel();
-            model.Initialize();
-
-            if (m_BoardView != null)
-            {
-                m_BoardView.gameObject.SetActive(true);
-                m_BoardView.Initialize(model);
-            }
-
-            UpdateAllUI();
             UpdateTimerDisplay();
-        }
-
-        private void RollBossIntent()
-        {
-            m_CurrentBossIntentDmg = UnityEngine.Random.Range(m_BossMinDmg, m_BossMaxDmg + 1);
         }
 
         private void HandleCascadeStep(CascadeStep step)
         {
-            if (!m_IsCombatActive) return;
+            if (!m_IsCombatActive || m_Rules == null) return;
 
-            int stepDamage = step.SwordCount * m_DmgPerSword;
-            int stepShield = step.ShieldCount * m_ShieldPerTile;
-            int stepEnergy = step.EnergyCount * m_EnergyPerTile;
-            int stepHeal = step.HealCount * m_HealPerTile;
+            StepResult r = m_Rules.ApplyStep(step);
 
-            m_TurnAccumulatedDamage += stepDamage;
-            m_CurrentPlayerShield += stepShield;
-            m_CurrentPlayerEnergy = Mathf.Min(m_PlayerMaxEnergy, m_CurrentPlayerEnergy + stepEnergy);
-            m_CurrentPlayerHp = Mathf.Min(m_PlayerMaxHp, m_CurrentPlayerHp + stepHeal);
+            if (r.Damage > 0)
+            {
+                Popup(m_BossPopupAnchor, $"-{r.Damage}", DamageColor, r.Multiplier > 1.01f ? 52 : 42);
+                if (m_Stage != null && m_UsingStage) { m_Stage.PlayPlayerAttack(); m_Stage.PlayMonsterHit(); }
+            }
+            if (r.IntentReduced > 0) Popup(m_BossPopupAnchor, $"Thanh tẩy -{r.IntentReduced}", PurifyColor, 30, 60f);
+            if (r.ShieldGained > 0) Popup(m_PlayerPopupAnchor, $"+{r.ShieldGained} Giáp", ShieldColor, 32);
+            if (r.Healed > 0) Popup(m_PlayerPopupAnchor, $"+{r.Healed} HP", HealColor, 34, 40f);
+            if (r.EnergyGained > 0) Popup(m_PlayerPopupAnchor, $"+{r.EnergyGained} Nộ", EnergyColor, 28, 80f);
+
+            if (step.ComboIndex >= 1 && m_ComboText != null)
+            {
+                m_ComboText.gameObject.SetActive(true);
+                m_ComboText.text = $"COMBO x{step.ComboIndex + 1}  (×{r.Multiplier:0.##})";
+                m_ComboTextTimer = 1.2f;
+                StartCoroutine(Punch(m_ComboText.rectTransform));
+            }
 
             UpdateAllUI();
         }
 
         private void HandlePlayerTurnCompleted()
         {
-            if (!m_IsCombatActive) return;
-
-            StartCoroutine(ExecuteTurnResolutionRoutine());
+            if (!m_IsCombatActive || m_Rules == null) return;
+            StartCoroutine(BossTurnRoutine());
         }
 
-        private IEnumerator ExecuteTurnResolutionRoutine()
+        private IEnumerator BossTurnRoutine()
         {
-            if (m_TurnAccumulatedDamage > 0)
+            if (m_Rules.Outcome == CombatOutcome.Victory)
             {
-                m_CurrentBossHp = Mathf.Max(0, m_CurrentBossHp - m_TurnAccumulatedDamage);
-                m_TurnAccumulatedDamage = 0;
-                UpdateAllUI();
-            }
-
-            if (m_CurrentBossHp <= 0)
-            {
-                TriggerVictory();
+                yield return VictoryRoutine();
                 yield break;
             }
 
-            yield return new WaitForSeconds(0.4f);
+            m_IsResolving = true;
+            LockBoard(true);
 
-            int damageToTake = m_CurrentBossIntentDmg;
-            if (m_CurrentPlayerShield > 0)
-            {
-                if (m_CurrentPlayerShield >= damageToTake)
-                {
-                    m_CurrentPlayerShield -= damageToTake;
-                    damageToTake = 0;
-                }
-                else
-                {
-                    damageToTake -= m_CurrentPlayerShield;
-                    m_CurrentPlayerShield = 0;
-                }
-            }
+            yield return new WaitForSeconds(0.35f);
 
-            m_CurrentPlayerShield = 0;
-            m_CurrentPlayerHp = Mathf.Max(0, m_CurrentPlayerHp - damageToTake);
-            RollBossIntent();
+            bool charged = m_Rules.IsBossCharging;
+            if (m_Stage != null && m_UsingStage) { m_Stage.PlayMonsterAttack(charged); m_Stage.PlayPlayerHit(); }
+            yield return new WaitForSeconds(0.14f);
+
+            BossTurnResult turn = m_Rules.ResolveBossTurn();
+            if (turn.Blocked > 0) Popup(m_PlayerPopupAnchor, $"Chặn {turn.Blocked}", ShieldColor, 30, 50f);
+            if (turn.Damage > 0) Popup(m_PlayerPopupAnchor, $"-{turn.Damage}", HurtColor, charged ? 54 : 44);
             UpdateAllUI();
 
-            if (m_CurrentPlayerHp <= 0)
+            if (m_Rules.Outcome == CombatOutcome.Defeat)
             {
-                TriggerDefeat("Dữ liệu bị nguyền đã áp đảo lá chắn của bạn!\nHãy thử lại để thanh tẩy khu vực.");
+                yield return DefeatRoutine("Data Monster đã áp đảo lá chắn của bạn!\nHãy thử lại để thanh tẩy khu vực.");
+                yield break;
             }
+
+            yield return new WaitForSeconds(0.3f);
+            m_IsResolving = false;
+            LockBoard(false);
+            UpdateAllUI();
         }
 
         private void OnSkillButtonClicked()
         {
-            if (!m_IsCombatActive || m_BoardView.IsBusy) return;
-            if (m_CurrentPlayerEnergy < m_PlayerMaxEnergy) return;
+            if (!m_IsCombatActive || m_Rules == null || m_IsResolving) return;
+            if (m_BoardView != null && m_BoardView.IsBusy) return;
 
-            m_CurrentPlayerEnergy = 0;
-            m_CurrentBossHp = Mathf.Max(0, m_CurrentBossHp - m_SkillDamage);
+            int dmg = m_Rules.CastSkill();
+            if (dmg <= 0) return;
+
+            Popup(m_BossPopupAnchor, $"⚡ -{dmg}", EnergyColor, 60);
+            if (m_Stage != null && m_UsingStage) { m_Stage.PlayPlayerAttack(); m_Stage.PlayMonsterHit(); }
             UpdateAllUI();
 
-            if (m_CurrentBossHp <= 0)
-            {
-                TriggerVictory();
-            }
-            else
-            {
-                StartCoroutine(ExecuteTurnResolutionRoutine());
-            }
+            // The skill is a free action: the boss only acts after a swap.
+            if (m_Rules.Outcome == CombatOutcome.Victory) StartCoroutine(VictoryRoutine());
         }
 
-        private void TriggerVictory()
+        private IEnumerator VictoryRoutine()
         {
             m_IsCombatActive = false;
+            m_IsResolving = true;
+            LockBoard(true);
+            UpdateAllUI();
+
+            if (m_Stage != null && m_UsingStage) yield return m_Stage.PlayMonsterDefeat();
+            else yield return new WaitForSeconds(0.4f);
+
             if (m_CurrentEncounter != null)
             {
-                if (m_VictoryTitleText != null)
-                {
-                    m_VictoryTitleText.text = $"🏆 CHIẾN THẮNG {m_CurrentEncounter.MonsterName.ToUpper()}!";
-                }
-                if (m_VictoryDescText != null)
-                {
-                    m_VictoryDescText.text = $"Bạn đã xuất sắc đánh bại {m_CurrentEncounter.MonsterName} và thanh tẩy thành công khu vực!";
-                }
-                if (m_VictoryRewardsText != null)
-                {
-                    m_VictoryRewardsText.text = m_CurrentEncounter.GetRewardsFormatted();
-                }
+                if (m_VictoryTitleText != null) m_VictoryTitleText.text = $"🏆 ĐÃ ĐÁNH BẠI {m_CurrentEncounter.MonsterName.ToUpper()}!";
+                if (m_VictoryDescText != null) m_VictoryDescText.text = $"Còn {m_Rules.PlayerHp}/{m_Config.PlayerMaxHp} HP. Khu vực đã được thanh tẩy!";
+                if (m_VictoryRewardsText != null) m_VictoryRewardsText.text = m_CurrentEncounter.GetRewardsFormatted();
             }
             if (m_VictoryModal != null) m_VictoryModal.SetActive(true);
         }
 
-        private void TriggerDefeat(string reason = null)
+        private IEnumerator DefeatRoutine(string reason)
         {
             m_IsCombatActive = false;
-            if (m_DefeatDescText != null && !string.IsNullOrEmpty(reason))
-            {
-                m_DefeatDescText.text = reason;
-            }
+            m_IsResolving = true;
+            LockBoard(true);
+            UpdateAllUI();
+            yield return new WaitForSeconds(0.4f);
+
+            if (m_DefeatDescText != null && !string.IsNullOrEmpty(reason)) m_DefeatDescText.text = reason;
             if (m_DefeatModal != null) m_DefeatModal.SetActive(true);
+        }
+
+        private void OnCloseVictoryClicked()
+        {
+            m_IsEngaged = false;
+            m_LastExitFrame = Time.frameCount;
+            ClearBattleStartIntro();
+            RestoreHudLayout();
+            ExitStage();
+            if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
+            if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatVictory();
+            else gameObject.SetActive(false);
+        }
+
+        private IEnumerator EnterStage()
+        {
+            m_UsingStage = false;
+            if (m_Stage == null || m_CurrentEncounter == null) yield break;
+
+            Transform player = m_CurrentEncounter.PlayerTransform;
+            // The encounter falls back to the camera when no student exists; there is nothing to copy then.
+            if (player != null && player.GetComponent<Camera>() != null) player = null;
+
+            yield return m_Stage.Enter(player, m_CurrentEncounter.transform);
+            m_UsingStage = m_Stage.IsActive;
+        }
+
+        private void ExitStage()
+        {
+            if (m_Stage != null) m_Stage.Exit();
+            m_UsingStage = false;
+        }
+
+        private void SetHudVisible(bool visible)
+        {
+            GameObject fade = m_Stage != null ? m_Stage.FadeOverlayObject : null;
+            foreach (Transform child in transform)
+            {
+                if (fade != null && child.gameObject == fade) continue;
+                var group = child.GetComponent<CanvasGroup>();
+                if (group == null) group = child.gameObject.AddComponent<CanvasGroup>();
+                group.alpha = visible ? 1f : 0f;
+                group.interactable = visible;
+                group.blocksRaycasts = visible;
+            }
+        }
+
+        private IEnumerator RevealHud()
+        {
+            RestoreHudLayout();
+            var groups = new List<CanvasGroup>();
+            var offsets = new List<Vector2>();
+            var delays = new List<float>();
+            GameObject fade = m_Stage != null ? m_Stage.FadeOverlayObject : null;
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject == fade || child.gameObject == m_BattleStartIntro) continue;
+                var rect = child as RectTransform;
+                if (rect == null || !child.gameObject.activeSelf) continue;
+                var group = child.GetComponent<CanvasGroup>();
+                if (group == null) group = child.gameObject.AddComponent<CanvasGroup>();
+                m_RevealRects.Add(rect); m_RevealHomes.Add(rect.anchoredPosition);
+                groups.Add(group);
+                bool top = child.name == "TopHUD";
+                offsets.Add(new Vector2(0, top ? 18f : -28f));
+                delays.Add(top ? 0f : .06f);
+                group.alpha = 0f; group.interactable = false; group.blocksRaycasts = false;
+            }
+
+            const float duration = .45f;
+            for (float elapsed = 0; elapsed < duration + .06f; elapsed += Time.unscaledDeltaTime)
+            {
+                for (int i = 0; i < m_RevealRects.Count; i++)
+                {
+                    float k = Mathf.Clamp01((elapsed - delays[i]) / duration);
+                    // Smooth opacity and ease-out travel, without overshoot on the board.
+                    groups[i].alpha = Mathf.SmoothStep(0f, 1f, k);
+                    float travel = 1f - Mathf.Pow(1f - k, 3f);
+                    m_RevealRects[i].anchoredPosition = m_RevealHomes[i] + offsets[i] * (1f - travel);
+                }
+                yield return null;
+            }
+            RestoreHudLayout();
+            SetHudVisible(true);
+        }
+
+        private void RestoreHudLayout()
+        {
+            for (int i = 0; i < m_RevealRects.Count; i++)
+                if (m_RevealRects[i] != null) m_RevealRects[i].anchoredPosition = m_RevealHomes[i];
+            m_RevealRects.Clear(); m_RevealHomes.Clear();
+        }
+
+        private IEnumerator PlayBattleStartIntro()
+        {
+            m_BattleStartIntro = new GameObject("BattleStartIntro", typeof(RectTransform), typeof(CanvasGroup));
+            var root = m_BattleStartIntro.GetComponent<RectTransform>();
+            root.SetParent(transform, false);
+            root.anchorMin = Vector2.zero; root.anchorMax = Vector2.one;
+            root.offsetMin = root.offsetMax = Vector2.zero;
+            root.SetAsLastSibling();
+            var group = root.GetComponent<CanvasGroup>();
+            group.blocksRaycasts = true;
+            Font font = m_ComboText != null ? m_ComboText.font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            var battle = CreateIntroWord(root, "BATTLE", -165f, font, new Color(0.35f, 0.9f, 1f));
+            var start = CreateIntroWord(root, "START", 165f, font, new Color(1f, 0.8f, 0.2f));
+            yield return new WaitForSecondsRealtime(0.4f);
+            const float duration = 0.65f;
+            for (float t = 0; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = Mathf.Clamp01(t / duration);
+                float slide = Mathf.SmoothStep(0, 1, k) * 500f;
+                battle.anchoredPosition = new Vector2(-165f - slide, 0);
+                start.anchoredPosition = new Vector2(165f + slide, 0);
+                group.alpha = 1f - k;
+                yield return null;
+            }
+            ClearBattleStartIntro();
+        }
+
+        private static RectTransform CreateIntroWord(Transform parent, string word, float x, Font font, Color color)
+        {
+            var go = new GameObject(word, typeof(RectTransform), typeof(Text), typeof(Outline));
+            var rect = go.GetComponent<RectTransform>(); rect.SetParent(parent, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.sizeDelta = new Vector2(330, 120); rect.anchoredPosition = new Vector2(x, 0);
+            var text = go.GetComponent<Text>(); text.text = word; text.font = font;
+            text.fontSize = 72; text.fontStyle = FontStyle.BoldAndItalic;
+            text.alignment = TextAnchor.MiddleCenter; text.color = color; text.raycastTarget = false;
+            go.GetComponent<Outline>().effectColor = new Color(0.03f, 0.03f, 0.12f, 1);
+            return rect;
+        }
+
+        private void ClearBattleStartIntro()
+        {
+            if (m_BattleStartIntro != null) { m_BattleStartIntro.SetActive(false); Destroy(m_BattleStartIntro); }
+            m_BattleStartIntro = null;
+        }
+
+        private void LockBoard(bool locked)
+        {
+            if (m_BoardView != null) m_BoardView.InputLocked = locked;
+        }
+
+        private void AnimateBars()
+        {
+            float k = 1f - Mathf.Exp(-8f * Time.deltaTime);
+            m_ShownPlayerHp = Mathf.Lerp(m_ShownPlayerHp, m_Rules.PlayerHp, k);
+            m_ShownBossHp = Mathf.Lerp(m_ShownBossHp, m_Rules.BossHp, k);
+
+            if (m_PlayerHpFill != null) m_PlayerHpFill.fillAmount = m_ShownPlayerHp / Mathf.Max(1, m_Config.PlayerMaxHp);
+            if (m_BossHpFill != null) m_BossHpFill.fillAmount = m_ShownBossHp / Mathf.Max(1, m_Config.BossMaxHp);
         }
 
         private void UpdateTimerDisplay()
@@ -296,95 +498,115 @@ namespace IUHCampus.Guardian.Match3
             if (m_TimerText != null)
             {
                 int totalSec = Mathf.CeilToInt(m_RemainingTime);
-                int mins = totalSec / 60;
-                int secs = totalSec % 60;
-                m_TimerText.text = $"⏱️ THỜI GIAN: {mins:00}:{secs:00}";
-                if (m_RemainingTime <= 10f)
-                {
-                    m_TimerText.color = new Color(1f, 0.28f, 0.28f);
-                }
-                else if (m_RemainingTime <= 20f)
-                {
-                    m_TimerText.color = new Color(1f, 0.85f, 0.25f);
-                }
-                else
-                {
-                    m_TimerText.color = Color.white;
-                }
+                m_TimerText.text = $"⏱️ {totalSec / 60:00}:{totalSec % 60:00}";
+                m_TimerText.color = m_RemainingTime <= 10f ? HurtColor : m_RemainingTime <= 20f ? EnergyColor : Color.white;
             }
 
             if (m_TimerFill != null)
             {
                 float ratio = m_CombatDuration > 0 ? Mathf.Clamp01(m_RemainingTime / m_CombatDuration) : 0f;
                 m_TimerFill.fillAmount = ratio;
-                if (ratio <= 0.2f)
-                    m_TimerFill.color = new Color(0.95f, 0.2f, 0.25f);
-                else if (ratio <= 0.45f)
-                    m_TimerFill.color = new Color(1f, 0.75f, 0.15f);
-                else
-                    m_TimerFill.color = new Color(0.2f, 0.75f, 1f);
-            }
-        }
-
-        private void OnCloseVictoryClicked()
-        {
-            if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
-            if (m_CurrentEncounter != null)
-            {
-                m_CurrentEncounter.OnCombatVictory();
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
-        }
-
-        private void OnFleeDefeatClicked()
-        {
-            if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
-            if (m_CurrentEncounter != null)
-            {
-                m_CurrentEncounter.OnCombatDefeat();
-            }
-            else
-            {
-                gameObject.SetActive(false);
+                m_TimerFill.color = ratio <= 0.2f ? HurtColor : ratio <= 0.45f ? EnergyColor : new Color(0.2f, 0.75f, 1f);
             }
         }
 
         private void UpdateAllUI()
         {
-            if (m_PlayerHpFill != null) m_PlayerHpFill.fillAmount = (float)m_CurrentPlayerHp / m_PlayerMaxHp;
-            if (m_PlayerHpText != null) m_PlayerHpText.text = $"{m_CurrentPlayerHp}/{m_PlayerMaxHp}";
+            if (m_Rules == null) return;
+            var c = m_Config;
 
-            if (m_PlayerShieldFill != null) m_PlayerShieldFill.fillAmount = Mathf.Clamp01((float)m_CurrentPlayerShield / 50f);
-            if (m_PlayerShieldText != null) m_PlayerShieldText.text = m_CurrentPlayerShield > 0 ? $"Giáp: {m_CurrentPlayerShield}" : "";
+            if (m_PlayerHpText != null) m_PlayerHpText.text = $"HP {m_Rules.PlayerHp}";
+            if (m_PlayerShieldFill != null) m_PlayerShieldFill.fillAmount = Mathf.Clamp01((float)m_Rules.PlayerShield / Mathf.Max(1, m_Rules.BossIntent));
+            if (m_PlayerShieldText != null) m_PlayerShieldText.text = m_Rules.PlayerShield > 0 ? $"🛡 {m_Rules.PlayerShield}" : "";
+            if (m_PlayerEnergyFill != null) m_PlayerEnergyFill.fillAmount = (float)m_Rules.PlayerEnergy / Mathf.Max(1, c.PlayerMaxEnergy);
+            if (m_PlayerEnergyText != null) m_PlayerEnergyText.text = $"⚡ {m_Rules.PlayerEnergy}/{c.PlayerMaxEnergy}";
 
-            if (m_PlayerEnergyFill != null) m_PlayerEnergyFill.fillAmount = (float)m_CurrentPlayerEnergy / m_PlayerMaxEnergy;
-            if (m_PlayerEnergyText != null) m_PlayerEnergyText.text = $"{m_CurrentPlayerEnergy}/{m_PlayerMaxEnergy}";
-
-            if (IUHPlayerOverheadHUD.Instance != null)
+            if (m_BossHpText != null) m_BossHpText.text = $"HP {m_Rules.BossHp}";
+            if (m_BossIntentText != null)
             {
-                IUHPlayerOverheadHUD.Instance.SetHp(m_CurrentPlayerHp, m_PlayerMaxHp);
-                IUHPlayerOverheadHUD.Instance.SetShield(m_CurrentPlayerShield);
-                IUHPlayerOverheadHUD.Instance.SetEnergy(m_CurrentPlayerEnergy, m_PlayerMaxEnergy);
+                if (m_Rules.IsOver)
+                {
+                    m_BossIntentText.text = "";
+                }
+                else if (m_Rules.IsBossCharging)
+                {
+                    m_BossIntentText.text = $"⚠ ĐANG TÍCH TỤ: {m_Rules.BossIntent} DMG";
+                    m_BossIntentText.color = HurtColor;
+                }
+                else
+                {
+                    m_BossIntentText.text = $"Ý định: tấn công {m_Rules.BossIntent} DMG";
+                    m_BossIntentText.color = EnergyColor;
+                }
             }
-
-            if (m_BossHpFill != null) m_BossHpFill.fillAmount = (float)m_CurrentBossHp / m_BossMaxHp;
-            if (m_BossHpText != null) m_BossHpText.text = $"{m_CurrentBossHp}/{m_BossMaxHp}";
-
-            if (m_BossIntentText != null) m_BossIntentText.text = $"Ý định: Tấn công {m_CurrentBossIntentDmg} DMG";
 
             if (m_SkillButton != null)
             {
-                bool canCast = m_CurrentPlayerEnergy >= m_PlayerMaxEnergy && m_IsCombatActive && (m_BoardView != null && !m_BoardView.IsBusy);
+                bool canCast = m_IsCombatActive && !m_IsResolving && m_Rules.CanCastSkill && (m_BoardView == null || !m_BoardView.IsBusy);
                 m_SkillButton.interactable = canCast;
                 if (m_SkillButtonText != null)
                 {
-                    m_SkillButtonText.text = canCast ? "⚡ TUNG SKILL (40 DMG)" : $"Nộ: {m_CurrentPlayerEnergy}/100";
+                    m_SkillButtonText.text = m_Rules.CanCastSkill ? $"⚡ TUNG SKILL ({c.SkillDamage} DMG)" : $"Nộ {m_Rules.PlayerEnergy}/{c.PlayerMaxEnergy}";
                 }
             }
         }
+
+        private void Popup(RectTransform anchor, string text, Color color, int size, float yOffset = 0f)
+        {
+            if (anchor == null) return;
+            Font font = m_ComboText != null ? m_ComboText.font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+            var go = new GameObject("Popup", typeof(RectTransform), typeof(Text), typeof(Outline));
+            var rt = go.GetComponent<RectTransform>();
+            rt.SetParent(anchor, false);
+            rt.sizeDelta = new Vector2(420f, 80f);
+            rt.anchoredPosition = new Vector2(Random.Range(-40f, 40f), yOffset);
+
+            var t = go.GetComponent<Text>();
+            t.font = font;
+            t.text = text;
+            t.fontSize = size;
+            t.fontStyle = FontStyle.Bold;
+            t.alignment = TextAnchor.MiddleCenter;
+            t.color = color;
+            t.raycastTarget = false;
+            t.horizontalOverflow = HorizontalWrapMode.Overflow;
+            go.GetComponent<Outline>().effectColor = new Color(0f, 0f, 0f, 0.8f);
+
+            StartCoroutine(FloatAndFade(rt, t));
+        }
+
+        private static void ClearPopups(RectTransform anchor)
+        {
+            if (anchor == null) return;
+            for (int i = anchor.childCount - 1; i >= 0; i--) Destroy(anchor.GetChild(i).gameObject);
+        }
+
+        private static IEnumerator FloatAndFade(RectTransform rt, Text t)
+        {
+            const float duration = 0.9f;
+            Vector2 start = rt.anchoredPosition;
+            Color c = t.color;
+            for (float time = 0f; time < duration && rt != null; time += Time.deltaTime)
+            {
+                float k = time / duration;
+                rt.anchoredPosition = start + new Vector2(0f, 90f * k);
+                rt.localScale = Vector3.one * (k < 0.15f ? Mathf.Lerp(0.6f, 1.15f, k / 0.15f) : 1f);
+                c.a = k < 0.6f ? 1f : 1f - (k - 0.6f) / 0.4f;
+                t.color = c;
+                yield return null;
+            }
+            if (rt != null) Destroy(rt.gameObject);
+        }
+
+        private static IEnumerator Punch(RectTransform rt)
+        {
+            for (float time = 0f; time < 0.2f; time += Time.deltaTime)
+            {
+                rt.localScale = Vector3.one * Mathf.Lerp(1.35f, 1f, time / 0.2f);
+                yield return null;
+            }
+            rt.localScale = Vector3.one;
+        }
     }
 }
-

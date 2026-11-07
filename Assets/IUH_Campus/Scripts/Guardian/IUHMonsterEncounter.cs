@@ -11,15 +11,15 @@ namespace IUHCampus.Guardian
     {
         [Header("Encounter Settings")]
         [SerializeField] private string m_MonsterName = "DATA CORRUPTION";
-        [SerializeField] private int m_MonsterHp = 120;
+        [SerializeField] private int m_MonsterHp = 800;
         [SerializeField] private float m_RevealRadius = 16.0f;
         [SerializeField] private float m_TriggerRadius = 10.0f;
         [SerializeField] private KeyCode m_InteractKey = KeyCode.E;
 
         [Header("Combat Balance")]
-        [SerializeField] private int m_BossMinDmg = 8;
-        [SerializeField] private int m_BossMaxDmg = 14;
-        [SerializeField] private float m_CombatDuration = 60f;
+        [SerializeField] private int m_BossMinDmg = 65;
+        [SerializeField] private int m_BossMaxDmg = 90;
+        [SerializeField] private float m_CombatDuration = 90f;
 
         [Header("Rewards on Victory")]
         [SerializeField] private int m_RewardGold = 100;
@@ -40,8 +40,10 @@ namespace IUHCampus.Guardian
         private ThirdPersonController m_ThirdPersonController;
         private StarterAssetsInputs m_StarterInputs;
         private IUHGrabMotorbike m_MotorbikeController;
+        private bool m_MotorbikeWasEnabled = true;
         private bool m_IsEncounterActive;
         private bool m_IsDefeated;
+        private bool m_RequireLeaveRange;
         private float m_TriggerCooldown = 0f;
 
         public string MonsterName => m_MonsterName;
@@ -51,6 +53,7 @@ namespace IUHCampus.Guardian
         public float CombatDuration => m_CombatDuration;
         public int RewardGold => m_RewardGold;
         public string[] RewardItems => m_RewardItems;
+        public Transform PlayerTransform => m_PlayerTransform;
         public Image BossHpFill => m_BossHpFill;
         public Text BossHpText => m_BossHpText;
         public Text BossIntentText => m_BossIntentText;
@@ -91,6 +94,12 @@ namespace IUHCampus.Guardian
 
         private void FindPlayer()
         {
+            // The bike keeps reading input even while the student rides it, so it must be paused in combat too.
+            if (m_MotorbikeController == null)
+            {
+                m_MotorbikeController = FindAnyObjectByType<IUHGrabMotorbike>(FindObjectsInactive.Include);
+            }
+
             var student = GameObject.Find("Campus Student");
             if (student != null)
             {
@@ -132,18 +141,20 @@ namespace IUHCampus.Guardian
 
             if (m_IsEncounterActive)
             {
-                if (m_MonsterOverheadCanvas != null && !m_MonsterOverheadCanvas.activeSelf)
+                // The combat HUD shows the boss bar during the duel.
+                if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf)
                 {
-                    m_MonsterOverheadCanvas.SetActive(true);
+                    m_MonsterOverheadCanvas.SetActive(false);
                 }
                 if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf)
                 {
                     m_ActionPromptObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown())
                 {
-                    OnCombatDefeat();
+                    if (m_CombatManager != null) m_CombatManager.Flee();
+                    else OnCombatDefeat();
                 }
                 return;
             }
@@ -154,9 +165,18 @@ namespace IUHCampus.Guardian
                 if (m_PlayerTransform == null) return;
             }
 
+            if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput)
+            {
+                if (Vector3.Distance(transform.position, m_PlayerTransform.position) <= m_TriggerRadius) m_RequireLeaveRange = true;
+                return;
+            }
+            var preview = m_PlayerTransform.GetComponent<IUHCampus.World.IUHConceptPreviewController>();
+            if (preview != null && preview.IsExplorationPaused) return;
+            if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown()) return;
             float dist = Vector3.Distance(transform.position, m_PlayerTransform.position);
             bool inRevealRange = dist <= m_RevealRadius;
             bool inCombatRange = dist <= m_TriggerRadius;
+            if (!inCombatRange) m_RequireLeaveRange = false;
 
             if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf != inCombatRange)
             {
@@ -168,7 +188,7 @@ namespace IUHCampus.Guardian
                 m_ActionPromptObject.SetActive(inRevealRange && !inCombatRange);
             }
 
-            if (inCombatRange && m_TriggerCooldown <= 0f)
+            if (inCombatRange && !m_RequireLeaveRange && m_TriggerCooldown <= 0f)
             {
                 TriggerCombat();
             }
@@ -181,11 +201,13 @@ namespace IUHCampus.Guardian
         public void TriggerCombat()
         {
             if (m_IsDefeated || m_IsEncounterActive) return;
+            if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput) return;
 
             m_IsEncounterActive = true;
             if (m_ActionPromptObject != null) m_ActionPromptObject.SetActive(false);
-            if (m_MonsterOverheadCanvas != null) m_MonsterOverheadCanvas.SetActive(true);
+            if (m_MonsterOverheadCanvas != null) m_MonsterOverheadCanvas.SetActive(false);
 
+            if (m_PlayerTransform == null) FindPlayer();
             SetPlayerControl(false);
 
             if (m_CombatManager == null)
@@ -205,6 +227,7 @@ namespace IUHCampus.Guardian
         {
             if (m_ThirdPersonController != null)
             {
+                m_ThirdPersonController.ResetMotion();
                 m_ThirdPersonController.enabled = enabled;
             }
 
@@ -218,7 +241,15 @@ namespace IUHCampus.Guardian
 
             if (m_MotorbikeController != null)
             {
-                m_MotorbikeController.enabled = enabled;
+                if (!enabled)
+                {
+                    m_MotorbikeWasEnabled = m_MotorbikeController.enabled;
+                    m_MotorbikeController.enabled = false;
+                }
+                else
+                {
+                    m_MotorbikeController.enabled = m_MotorbikeWasEnabled;
+                }
             }
 
             Cursor.lockState = enabled ? CursorLockMode.Locked : CursorLockMode.None;
@@ -244,6 +275,7 @@ namespace IUHCampus.Guardian
         {
             m_IsEncounterActive = false;
             m_TriggerCooldown = 3.5f;
+            m_RequireLeaveRange = true;
 
             SetPlayerControl(true);
 
