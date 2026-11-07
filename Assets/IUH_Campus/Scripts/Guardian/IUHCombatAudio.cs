@@ -74,6 +74,11 @@ namespace IUHCampus.Guardian
             Instance.m_AudioSource.PlayOneShot(s_EnergyClip, 0.75f);
         }
 
+        public static void PlayLaserShoot()
+        {
+            PlayEnergy();
+        }
+
         public static void PlaySkillBurst()
         {
             EnsureInstance();
