@@ -103,3 +103,6 @@ Server/data/*
 # Ignore unused LuceedStudio pack contents; the selected Campus Student dependencies are tracked.
 /[Aa]ssets/LuceedStudio/
 /[Aa]ssets/LuceedStudio.meta
+
+# Private real-photo evaluation inputs (never commit photos)
+Server/tests/fixtures/real/

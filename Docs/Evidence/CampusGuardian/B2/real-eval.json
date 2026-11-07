@@ -1,0 +1,3637 @@
+{
+  "labels": [
+    {
+      "file": "backpack/backpack1.jpg",
+      "target_class": "backpack"
+    },
+    {
+      "file": "backpack/backpack2.jpg",
+      "target_class": "backpack"
+    },
+    {
+      "file": "backpack/backpack3.jpg",
+      "target_class": "backpack"
+    },
+    {
+      "file": "backpack/backpack4.jpg",
+      "target_class": "backpack"
+    },
+    {
+      "file": "backpack/backpack5.jpg",
+      "target_class": "backpack"
+    },
+    {
+      "file": "book/book3.jpg",
+      "target_class": "book"
+    },
+    {
+      "file": "book/book4.jpg",
+      "target_class": "book"
+    },
+    {
+      "file": "book/book5.jpg",
+      "target_class": "book"
+    },
+    {
+      "file": "bottle/bottle1.jpg",
+      "target_class": "bottle"
+    },
+    {
+      "file": "bottle/bottle2.jpg",
+      "target_class": "bottle"
+    },
+    {
+      "file": "bottle/bottle3.jpg",
+      "target_class": "bottle"
+    },
+    {
+      "file": "bottle/bottle4.jpg",
+      "target_class": "bottle"
+    },
+    {
+      "file": "bottle/bottle5.jpg",
+      "target_class": "bottle"
+    },
+    {
+      "file": "cellphone/cellphone1.jpg",
+      "target_class": "cell phone"
+    },
+    {
+      "file": "cellphone/cellphone2.jpg",
+      "target_class": "cell phone"
+    },
+    {
+      "file": "cellphone/cellphone3.jpg",
+      "target_class": "cell phone"
+    },
+    {
+      "file": "cellphone/cellphone4.jpg",
+      "target_class": "cell phone"
+    },
+    {
+      "file": "cellphone/cellphone5.jpg",
+      "target_class": "cell phone"
+    },
+    {
+      "file": "chair/chair1.jpg",
+      "target_class": "chair"
+    },
+    {
+      "file": "chair/chair2.jpg",
+      "target_class": "chair"
+    },
+    {
+      "file": "chair/chair3.jpg",
+      "target_class": "chair"
+    },
+    {
+      "file": "chair/chair4.jpg",
+      "target_class": "chair"
+    },
+    {
+      "file": "chair/chair5.jpg",
+      "target_class": "chair"
+    },
+    {
+      "file": "chair/chair6.jpg",
+      "target_class": "chair"
+    },
+    {
+      "file": "laptop/laptop1.jpg",
+      "target_class": "laptop"
+    },
+    {
+      "file": "laptop/laptop2.jpg",
+      "target_class": "laptop"
+    },
+    {
+      "file": "laptop/laptop3.jpg",
+      "target_class": "laptop"
+    },
+    {
+      "file": "laptop/laptop4.jpg",
+      "target_class": "laptop"
+    },
+    {
+      "file": "laptop/laptop5.jpg",
+      "target_class": "laptop"
+    },
+    {
+      "file": "none/none1.jpg",
+      "target_class": "none"
+    },
+    {
+      "file": "none/none2.jpg",
+      "target_class": "none"
+    },
+    {
+      "file": "none/none4.jpg",
+      "target_class": "none"
+    },
+    {
+      "file": "none/none5.jpg",
+      "target_class": "none"
+    }
+  ],
+  "discovered_count": 36,
+  "excluded": [
+    {
+      "file": "book/book1.jpg",
+      "target_class": "book",
+      "reason": "original >5 MiB (user-confirmed exclusion)",
+      "original_bytes": 11263338
+    },
+    {
+      "file": "book/book2.jpg",
+      "target_class": "book",
+      "reason": "original >5 MiB (user-confirmed exclusion)",
+      "original_bytes": 5802668
+    },
+    {
+      "file": "none/none3.jpg",
+      "target_class": "none",
+      "reason": "original >5 MiB (user-confirmed exclusion)",
+      "original_bytes": 12636209
+    }
+  ],
+  "metadata": {
+    "backpack/backpack1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3214,
+        4821
+      ],
+      "original_bytes": 1521085,
+      "sha256": "b20ea050b6981f877d66976919265cd7ebd4fec2420583e585102c5ca050af4d"
+    },
+    "backpack/backpack2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3890,
+        5790
+      ],
+      "original_bytes": 1750275,
+      "sha256": "f74bb03adda6acc88628884d35400d39935330f65d77a37aee9241989e2af7c6"
+    },
+    "backpack/backpack3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4912,
+        7360
+      ],
+      "original_bytes": 2399476,
+      "sha256": "8565a418019a0c0c01e7e1910a8a6699cfc4c38947385ae6b5805673510e2a26"
+    },
+    "backpack/backpack4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4912,
+        7360
+      ],
+      "original_bytes": 1647415,
+      "sha256": "6424501c9bb9741f33c119d076c94154edbf695eb94d9506dfae126e20035ae9"
+    },
+    "backpack/backpack5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4000,
+        6000
+      ],
+      "original_bytes": 1976595,
+      "sha256": "0cf5499d86aa573c3d312224a50da600238efe07e9a6a00511e9088160b8f668"
+    },
+    "book/book1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        6336,
+        9504
+      ],
+      "original_bytes": 11263338,
+      "sha256": "0c2d33bad5a8b97394fb4afb64e1c5070d4b0cefde439bdb0afd3050b8c5ebe3"
+    },
+    "book/book2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        6517,
+        4347
+      ],
+      "original_bytes": 5802668,
+      "sha256": "15c00d5d92d888e9ba3df9dfe5fb3ec75fc0ee4c71583b13724390a04770d780"
+    },
+    "book/book3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        1920,
+        2560
+      ],
+      "original_bytes": 948462,
+      "sha256": "508ea780cccde59979af556fec83d38d9ae40a53a18b05714ce75070e33fdfbd"
+    },
+    "book/book4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4592,
+        3448
+      ],
+      "original_bytes": 3012602,
+      "sha256": "ad8b932dc3f8fa84cf80f9f800b9f4f632fb605a8805c71c99a47bd2f4c1cfad"
+    },
+    "book/book5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        1920,
+        2560
+      ],
+      "original_bytes": 477227,
+      "sha256": "b4410d18c852e743401a52163ddd7441bfd4db8d7e958fafb6ebe575e5c2424b"
+    },
+    "bottle/bottle1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3900,
+        6000
+      ],
+      "original_bytes": 3413203,
+      "sha256": "02de33fd4a52c5fc50675f9bbb5b5019d09c056637ab410ddd7b73ecacbf8548"
+    },
+    "bottle/bottle2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4000,
+        6000
+      ],
+      "original_bytes": 2861673,
+      "sha256": "c70bf63c1ae53e7fa6cfff22334f45c05c33bae7da4d805158544d5aa7952205"
+    },
+    "bottle/bottle3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4434,
+        5542
+      ],
+      "original_bytes": 2170428,
+      "sha256": "b2a2d84bd93a9d4dfff2adf2a1d50970c5f82b568e90831497e42e8c6ba639d6"
+    },
+    "bottle/bottle4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3328,
+        1864
+      ],
+      "original_bytes": 415140,
+      "sha256": "20e74581cd502b84cef3607f71212e8a23260447beedeb2a299ed5b12ff781e4"
+    },
+    "bottle/bottle5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4328,
+        5410
+      ],
+      "original_bytes": 812092,
+      "sha256": "1b7e0681bd851624b08e1fbae9509ba2189d872e4a436cc240e5203d86f76ac8"
+    },
+    "cellphone/cellphone1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        2698,
+        4047
+      ],
+      "original_bytes": 694501,
+      "sha256": "0d18bd3f87d0b0925c8b6f99f86f4e1cce480f07c48d16fa0bd1e22aabeca194"
+    },
+    "cellphone/cellphone2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        5147,
+        7717
+      ],
+      "original_bytes": 1633692,
+      "sha256": "e80ee8a94167232982516722b9a7adaad3884357d8e74483cfedf114a79ed540"
+    },
+    "cellphone/cellphone3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4000,
+        6000
+      ],
+      "original_bytes": 4678807,
+      "sha256": "bc0bd42d4a1dcc5847fe1508121b2a366633d3526d578f3a4ddd9b47e463099e"
+    },
+    "cellphone/cellphone4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4000,
+        4995
+      ],
+      "original_bytes": 1172847,
+      "sha256": "82daa9fa85a1d422c67a4e712644dc4b155129166522e129e561c244ba719bc7"
+    },
+    "cellphone/cellphone5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3024,
+        3024
+      ],
+      "original_bytes": 2468214,
+      "sha256": "aea379cea015eaf95c6c4a6efa8142a3a0b632ec683f707d8242f41bba54467b"
+    },
+    "chair/chair1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        8000,
+        4500
+      ],
+      "original_bytes": 1049286,
+      "sha256": "0b399549942b8f808d210b4b105e3be0faaa0b9793c76578178c1e79e0f4abbf"
+    },
+    "chair/chair2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        2743,
+        4122
+      ],
+      "original_bytes": 773808,
+      "sha256": "4db4e61848089dbdfff56c697b92c5ca72f84e7b63da7a2bab6c659b9f381092"
+    },
+    "chair/chair3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3456,
+        5184
+      ],
+      "original_bytes": 3638817,
+      "sha256": "341e9eb98db58f3e742a1cff5b70aaf1294628bae69d2a2bba6e2da3b54dc696"
+    },
+    "chair/chair4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3068,
+        4602
+      ],
+      "original_bytes": 1754891,
+      "sha256": "2a4e3037727b430c19b7f562fc4187dba743b687cd7b905a46d0a7107ef401a2"
+    },
+    "chair/chair5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        2000,
+        3000
+      ],
+      "original_bytes": 1215355,
+      "sha256": "7c6a3d8f35102d0ab9f1ef2568f596127fb55dd9945150f4f6c079f21f589386"
+    },
+    "chair/chair6.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        2586,
+        3232
+      ],
+      "original_bytes": 324200,
+      "sha256": "caf7cedd0e5347bfc49cf1ab79b235ed72cb6809d970995cb8fa317c56ab5b37"
+    },
+    "laptop/laptop1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        5243,
+        3495
+      ],
+      "original_bytes": 1595264,
+      "sha256": "ff7c722ff4802398c4e4c98eb4354f300055cf78ec85a5134b63556e6196c759"
+    },
+    "laptop/laptop2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        6240,
+        4160
+      ],
+      "original_bytes": 1186827,
+      "sha256": "d27d83e0829b63cf3419af7b7b3f8c9fd3afaf2d4aaceb470b8ae561b0bb2470"
+    },
+    "laptop/laptop3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        6276,
+        4184
+      ],
+      "original_bytes": 2119068,
+      "sha256": "be6578cea4eef159d49135feb600fc27337ba1d67baa9d261bbc449a0a3b8354"
+    },
+    "laptop/laptop4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4040,
+        2584
+      ],
+      "original_bytes": 891818,
+      "sha256": "cce9496a99b504b19283b0341bd227ecded6212dbc1067708e4649b091b3cf89"
+    },
+    "laptop/laptop5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        1920,
+        2560
+      ],
+      "original_bytes": 532609,
+      "sha256": "bf9cec52671efb11d628e556391f4cfcb743cc3c4ca7a49ddd4956ea44f2419d"
+    },
+    "none/none1.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        2730,
+        3412
+      ],
+      "original_bytes": 599229,
+      "sha256": "a24c5332fd46741ad945350f3804284db4d2b42175e021cb2f22959b1b5f9499"
+    },
+    "none/none2.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        4000,
+        6000
+      ],
+      "original_bytes": 2645867,
+      "sha256": "ba5a217e70400adf40de222da31b2edf39d1e4735165f339b7d0d38c0e0fb4da"
+    },
+    "none/none3.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        5504,
+        8256
+      ],
+      "original_bytes": 12636209,
+      "sha256": "1ae26a0213b5d14671ef8d9aedbfe517c9217ccf3dac5355ce66dc7a9f415357"
+    },
+    "none/none4.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        5568,
+        3128
+      ],
+      "original_bytes": 2991939,
+      "sha256": "57cd840e1405364012dec0e91329b076b9e2e91dc81c39a36f90064b4b1238c9"
+    },
+    "none/none5.jpg": {
+      "make": "",
+      "device_model": "",
+      "source": "unknown_web",
+      "original_size": [
+        3263,
+        4894
+      ],
+      "original_bytes": 2631842,
+      "sha256": "26be65caca50174fac00b8a256a4f999038a394421a7551408b4f09e47acd867"
+    }
+  },
+  "skipped": [],
+  "threads": 2,
+  "results": [
+    {
+      "model": "640 fp32",
+      "threshold": 0.5,
+      "status": "measured",
+      "recall_by_class": {
+        "backpack": {
+          "found": 0,
+          "total": 5,
+          "recall": 0.0
+        },
+        "book": {
+          "found": 0,
+          "total": 3,
+          "recall": 0.0
+        },
+        "bottle": {
+          "found": 2,
+          "total": 5,
+          "recall": 0.4
+        },
+        "cell phone": {
+          "found": 4,
+          "total": 5,
+          "recall": 0.8
+        },
+        "chair": {
+          "found": 4,
+          "total": 6,
+          "recall": 0.6666666666666666
+        },
+        "laptop": {
+          "found": 5,
+          "total": 5,
+          "recall": 1.0
+        }
+      },
+      "positive_found": 15,
+      "positive_total": 29,
+      "negative_images": 4,
+      "false_positive_images": 0,
+      "mean_correct_confidence": 0.8494508465131124,
+      "p50_total_ms": 433.22860007174313,
+      "p95_total_ms": 756.7947600502521,
+      "by_source": {
+        "unknown_web": {
+          "recall_by_class": {
+            "backpack": {
+              "found": 0,
+              "total": 5,
+              "recall": 0.0
+            },
+            "book": {
+              "found": 0,
+              "total": 3,
+              "recall": 0.0
+            },
+            "bottle": {
+              "found": 2,
+              "total": 5,
+              "recall": 0.4
+            },
+            "cell phone": {
+              "found": 4,
+              "total": 5,
+              "recall": 0.8
+            },
+            "chair": {
+              "found": 4,
+              "total": 6,
+              "recall": 0.6666666666666666
+            },
+            "laptop": {
+              "found": 5,
+              "total": 5,
+              "recall": 1.0
+            }
+          },
+          "positive_found": 15,
+          "positive_total": 29,
+          "negative_images": 4,
+          "false_positive_images": 0,
+          "mean_correct_confidence": 0.8494508465131124,
+          "p50_total_ms": 433.22860007174313,
+          "p95_total_ms": 756.7947600502521
+        }
+      },
+      "images": [
+        {
+          "file": "backpack/backpack1.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 340.18569998443127
+        },
+        {
+          "file": "backpack/backpack2.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            430,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 464.65980005450547
+        },
+        {
+          "file": "backpack/backpack3.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 758.482199977152
+        },
+        {
+          "file": "backpack/backpack4.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 668.4165000915527
+        },
+        {
+          "file": "backpack/backpack5.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 519.3794000661001
+        },
+        {
+          "file": "book/book3.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 144.81089997570962
+        },
+        {
+          "file": "book/book4.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            481
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 369.3284000037238
+        },
+        {
+          "file": "book/book5.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 134.03429999016225
+        },
+        {
+          "file": "bottle/bottle1.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            416,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.6061656475067139,
+          "detections": [
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.6061656475067139,
+              "bbox": [
+                127.973,
+                41.933,
+                159.72,
+                521.562
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 465.35579999908805
+        },
+        {
+          "file": "bottle/bottle2.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 446.72050001099706
+        },
+        {
+          "file": "bottle/bottle3.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.6791853308677673,
+          "detections": [
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.6791853308677673,
+              "bbox": [
+                179.762,
+                161.303,
+                153.045,
+                459.626
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 445.6288000801578
+        },
+        {
+          "file": "bottle/bottle4.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            358
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 167.22819989081472
+        },
+        {
+          "file": "bottle/bottle5.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 399.1927000461146
+        },
+        {
+          "file": "cellphone/cellphone1.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.6906379461288452,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.6906379461288452,
+              "bbox": [
+                158.359,
+                280.77,
+                91.622,
+                188.899
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 237.47829999774694
+        },
+        {
+          "file": "cellphone/cellphone2.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9086796045303345,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9086796045303345,
+              "bbox": [
+                143.855,
+                217.767,
+                134.22,
+                262.491
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 619.6234999224544
+        },
+        {
+          "file": "cellphone/cellphone3.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9081789255142212,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9081789255142212,
+              "bbox": [
+                151.286,
+                195.141,
+                113.922,
+                235.899
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 519.4941000081599
+        },
+        {
+          "file": "cellphone/cellphone4.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            513,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.8001120090484619,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.8001120090484619,
+              "bbox": [
+                154.6,
+                157.817,
+                185.289,
+                362.432
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 368.76260000281036
+        },
+        {
+          "file": "cellphone/cellphone5.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 267.69489992875606
+        },
+        {
+          "file": "chair/chair1.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            360
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9684043526649475,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9684043526649475,
+              "bbox": [
+                228.903,
+                76.072,
+                194.321,
+                245.159
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 570.9024999523535
+        },
+        {
+          "file": "chair/chair2.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            426,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9111296534538269,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9111296534538269,
+              "bbox": [
+                60.365,
+                262.963,
+                218.036,
+                322.387
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 271.26809989567846
+        },
+        {
+          "file": "chair/chair3.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.7195023894309998,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.7195023894309998,
+              "bbox": [
+                114.683,
+                167.237,
+                204.558,
+                388.122
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 450.25709993205965
+        },
+        {
+          "file": "chair/chair4.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9082491993904114,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9082491993904114,
+              "bbox": [
+                37.811,
+                257.461,
+                297.297,
+                342.743
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 326.1940999655053
+        },
+        {
+          "file": "chair/chair5.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 187.03479995019734
+        },
+        {
+          "file": "chair/chair6.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 192.2637999523431
+        },
+        {
+          "file": "laptop/laptop1.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9513658285140991,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9513658285140991,
+              "bbox": [
+                178.288,
+                116.239,
+                281.638,
+                219.116
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 354.353400063701
+        },
+        {
+          "file": "laptop/laptop2.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9704415798187256,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9704415798187256,
+              "bbox": [
+                112.446,
+                64.999,
+                318.6,
+                273.241
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 433.22860007174313
+        },
+        {
+          "file": "laptop/laptop3.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9012593030929565,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9012593030929565,
+              "bbox": [
+                88.175,
+                23.133,
+                460.547,
+                374.144
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 465.52840003278106
+        },
+        {
+          "file": "laptop/laptop4.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            409
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9073450565338135,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9073450565338135,
+              "bbox": [
+                140.001,
+                73.83,
+                462.729,
+                295.487
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 233.111200039275
+        },
+        {
+          "file": "laptop/laptop5.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9111058712005615,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9111058712005615,
+              "bbox": [
+                20.837,
+                73.361,
+                449.391,
+                566.377
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 134.01299994438887
+        },
+        {
+          "file": "none/none1.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 580.1068999571726
+        },
+        {
+          "file": "none/none2.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 832.8064000234008
+        },
+        {
+          "file": "none/none4.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            360
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 755.6698000989854
+        },
+        {
+          "file": "none/none5.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 714.7231999551877
+        }
+      ]
+    },
+    {
+      "model": "640 fp32",
+      "threshold": 0.6,
+      "status": "measured",
+      "recall_by_class": {
+        "backpack": {
+          "found": 0,
+          "total": 5,
+          "recall": 0.0
+        },
+        "book": {
+          "found": 0,
+          "total": 3,
+          "recall": 0.0
+        },
+        "bottle": {
+          "found": 2,
+          "total": 5,
+          "recall": 0.4
+        },
+        "cell phone": {
+          "found": 4,
+          "total": 5,
+          "recall": 0.8
+        },
+        "chair": {
+          "found": 4,
+          "total": 6,
+          "recall": 0.6666666666666666
+        },
+        "laptop": {
+          "found": 5,
+          "total": 5,
+          "recall": 1.0
+        }
+      },
+      "positive_found": 15,
+      "positive_total": 29,
+      "negative_images": 4,
+      "false_positive_images": 0,
+      "mean_correct_confidence": 0.8494508465131124,
+      "p50_total_ms": 399.80649994686246,
+      "p95_total_ms": 724.9214199604467,
+      "by_source": {
+        "unknown_web": {
+          "recall_by_class": {
+            "backpack": {
+              "found": 0,
+              "total": 5,
+              "recall": 0.0
+            },
+            "book": {
+              "found": 0,
+              "total": 3,
+              "recall": 0.0
+            },
+            "bottle": {
+              "found": 2,
+              "total": 5,
+              "recall": 0.4
+            },
+            "cell phone": {
+              "found": 4,
+              "total": 5,
+              "recall": 0.8
+            },
+            "chair": {
+              "found": 4,
+              "total": 6,
+              "recall": 0.6666666666666666
+            },
+            "laptop": {
+              "found": 5,
+              "total": 5,
+              "recall": 1.0
+            }
+          },
+          "positive_found": 15,
+          "positive_total": 29,
+          "negative_images": 4,
+          "false_positive_images": 0,
+          "mean_correct_confidence": 0.8494508465131124,
+          "p50_total_ms": 399.80649994686246,
+          "p95_total_ms": 724.9214199604467
+        }
+      },
+      "images": [
+        {
+          "file": "backpack/backpack1.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 317.8325999761
+        },
+        {
+          "file": "backpack/backpack2.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            430,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 407.7181000029668
+        },
+        {
+          "file": "backpack/backpack3.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 595.9615999599919
+        },
+        {
+          "file": "backpack/backpack4.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 579.717900021933
+        },
+        {
+          "file": "backpack/backpack5.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 425.1304999925196
+        },
+        {
+          "file": "book/book3.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 133.73930007219315
+        },
+        {
+          "file": "book/book4.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            481
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 365.6464000232518
+        },
+        {
+          "file": "book/book5.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 137.44329998735338
+        },
+        {
+          "file": "bottle/bottle1.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            416,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.6061656475067139,
+          "detections": [
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.6061656475067139,
+              "bbox": [
+                127.973,
+                41.933,
+                159.72,
+                521.562
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 466.35509992484003
+        },
+        {
+          "file": "bottle/bottle2.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 450.1600000075996
+        },
+        {
+          "file": "bottle/bottle3.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.6791853308677673,
+          "detections": [
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.6791853308677673,
+              "bbox": [
+                179.762,
+                161.303,
+                153.045,
+                459.626
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 447.7828999515623
+        },
+        {
+          "file": "bottle/bottle4.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            358
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 167.95170004479587
+        },
+        {
+          "file": "bottle/bottle5.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 398.7607000162825
+        },
+        {
+          "file": "cellphone/cellphone1.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.6906379461288452,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.6906379461288452,
+              "bbox": [
+                158.359,
+                280.77,
+                91.622,
+                188.899
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 233.28539996873587
+        },
+        {
+          "file": "cellphone/cellphone2.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9086796045303345,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9086796045303345,
+              "bbox": [
+                143.855,
+                217.767,
+                134.22,
+                262.491
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 623.7893999787048
+        },
+        {
+          "file": "cellphone/cellphone3.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9081789255142212,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9081789255142212,
+              "bbox": [
+                151.286,
+                195.141,
+                113.922,
+                235.899
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 513.9642999274656
+        },
+        {
+          "file": "cellphone/cellphone4.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            513,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.8001120090484619,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.8001120090484619,
+              "bbox": [
+                154.6,
+                157.817,
+                185.289,
+                362.432
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 375.05029991734773
+        },
+        {
+          "file": "cellphone/cellphone5.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 263.4452000493184
+        },
+        {
+          "file": "chair/chair1.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            360
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9684043526649475,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9684043526649475,
+              "bbox": [
+                228.903,
+                76.072,
+                194.321,
+                245.159
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 572.2191999666393
+        },
+        {
+          "file": "chair/chair2.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            426,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9111296534538269,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9111296534538269,
+              "bbox": [
+                60.365,
+                262.963,
+                218.036,
+                322.387
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 249.6300000930205
+        },
+        {
+          "file": "chair/chair3.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.7195023894309998,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.7195023894309998,
+              "bbox": [
+                114.683,
+                167.237,
+                204.558,
+                388.122
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 399.80649994686246
+        },
+        {
+          "file": "chair/chair4.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9082491993904114,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9082491993904114,
+              "bbox": [
+                37.811,
+                257.461,
+                297.297,
+                342.743
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 303.38970001321286
+        },
+        {
+          "file": "chair/chair5.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 179.57279994152486
+        },
+        {
+          "file": "chair/chair6.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 194.77919989731163
+        },
+        {
+          "file": "laptop/laptop1.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9513658285140991,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9513658285140991,
+              "bbox": [
+                178.288,
+                116.239,
+                281.638,
+                219.116
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 345.66459991037846
+        },
+        {
+          "file": "laptop/laptop2.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9704415798187256,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9704415798187256,
+              "bbox": [
+                112.446,
+                64.999,
+                318.6,
+                273.241
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 436.92529993131757
+        },
+        {
+          "file": "laptop/laptop3.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9012593030929565,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9012593030929565,
+              "bbox": [
+                88.175,
+                23.133,
+                460.547,
+                374.144
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 504.58279997110367
+        },
+        {
+          "file": "laptop/laptop4.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            409
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9073450565338135,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9073450565338135,
+              "bbox": [
+                140.001,
+                73.83,
+                462.729,
+                295.487
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 249.77320001926273
+        },
+        {
+          "file": "laptop/laptop5.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9111058712005615,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9111058712005615,
+              "bbox": [
+                20.837,
+                73.361,
+                449.391,
+                566.377
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 141.16260001901537
+        },
+        {
+          "file": "none/none1.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 562.2794000664726
+        },
+        {
+          "file": "none/none2.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 789.0741999726743
+        },
+        {
+          "file": "none/none4.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            360
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 729.4998998986557
+        },
+        {
+          "file": "none/none5.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 721.8691000016406
+        }
+      ]
+    },
+    {
+      "model": "640 fp32",
+      "threshold": 0.7,
+      "status": "measured",
+      "recall_by_class": {
+        "backpack": {
+          "found": 0,
+          "total": 5,
+          "recall": 0.0
+        },
+        "book": {
+          "found": 0,
+          "total": 3,
+          "recall": 0.0
+        },
+        "bottle": {
+          "found": 0,
+          "total": 5,
+          "recall": 0.0
+        },
+        "cell phone": {
+          "found": 3,
+          "total": 5,
+          "recall": 0.6
+        },
+        "chair": {
+          "found": 4,
+          "total": 6,
+          "recall": 0.6666666666666666
+        },
+        "laptop": {
+          "found": 5,
+          "total": 5,
+          "recall": 1.0
+        }
+      },
+      "positive_found": 12,
+      "positive_total": 29,
+      "negative_images": 4,
+      "false_positive_images": 0,
+      "mean_correct_confidence": 0.8971478144327799,
+      "p50_total_ms": 409.77029991336167,
+      "p95_total_ms": 732.093260018155,
+      "by_source": {
+        "unknown_web": {
+          "recall_by_class": {
+            "backpack": {
+              "found": 0,
+              "total": 5,
+              "recall": 0.0
+            },
+            "book": {
+              "found": 0,
+              "total": 3,
+              "recall": 0.0
+            },
+            "bottle": {
+              "found": 0,
+              "total": 5,
+              "recall": 0.0
+            },
+            "cell phone": {
+              "found": 3,
+              "total": 5,
+              "recall": 0.6
+            },
+            "chair": {
+              "found": 4,
+              "total": 6,
+              "recall": 0.6666666666666666
+            },
+            "laptop": {
+              "found": 5,
+              "total": 5,
+              "recall": 1.0
+            }
+          },
+          "positive_found": 12,
+          "positive_total": 29,
+          "negative_images": 4,
+          "false_positive_images": 0,
+          "mean_correct_confidence": 0.8971478144327799,
+          "p50_total_ms": 409.77029991336167,
+          "p95_total_ms": 732.093260018155
+        }
+      },
+      "images": [
+        {
+          "file": "backpack/backpack1.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "backpack",
+              "class_id": 24,
+              "confidence": 0.37276628613471985,
+              "bbox": [
+                99.224,
+                178.61,
+                229.284,
+                233.62
+              ]
+            },
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.0216655433177948,
+              "bbox": [
+                61.804,
+                389.269,
+                303.122,
+                250.179
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 303.567299968563
+        },
+        {
+          "file": "backpack/backpack2.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            430,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 404.33970000594854
+        },
+        {
+          "file": "backpack/backpack3.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 630.1996000111103
+        },
+        {
+          "file": "backpack/backpack4.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "backpack",
+              "class_id": 24,
+              "confidence": 0.025053709745407104,
+              "bbox": [
+                33.234,
+                511.036,
+                44.655,
+                86.57
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 602.189700002782
+        },
+        {
+          "file": "backpack/backpack5.jpg",
+          "target_class": "backpack",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 458.4620000096038
+        },
+        {
+          "file": "book/book3.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "book",
+              "class_id": 73,
+              "confidence": 0.03415489196777344,
+              "bbox": [
+                8.78,
+                124.765,
+                462.891,
+                509.812
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 142.16009993106127
+        },
+        {
+          "file": "book/book4.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            481
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.06557503342628479,
+              "bbox": [
+                66.016,
+                94.581,
+                572.283,
+                379.91
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 385.0479999091476
+        },
+        {
+          "file": "book/book5.jpg",
+          "target_class": "book",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.21106615662574768,
+              "bbox": [
+                54.828,
+                172.797,
+                397.449,
+                455.726
+              ]
+            },
+            {
+              "label": "book",
+              "class_id": 73,
+              "confidence": 0.036903053522109985,
+              "bbox": [
+                20.967,
+                173.097,
+                441.459,
+                454.432
+              ]
+            },
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.015821725130081177,
+              "bbox": [
+                0.496,
+                126.639,
+                28.509,
+                41.097
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 135.2764000184834
+        },
+        {
+          "file": "bottle/bottle1.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            416,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.6061656475067139,
+              "bbox": [
+                127.973,
+                41.933,
+                159.72,
+                521.562
+              ]
+            },
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.029557645320892334,
+              "bbox": [
+                152.741,
+                255.498,
+                86.774,
+                118.673
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 484.69650000333786
+        },
+        {
+          "file": "bottle/bottle2.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 459.1471999883652
+        },
+        {
+          "file": "bottle/bottle3.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "bottle",
+              "class_id": 39,
+              "confidence": 0.6791853308677673,
+              "bbox": [
+                179.762,
+                161.303,
+                153.045,
+                459.626
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 493.44220000784844
+        },
+        {
+          "file": "bottle/bottle4.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            358
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 175.71820004377514
+        },
+        {
+          "file": "bottle/bottle5.jpg",
+          "target_class": "bottle",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 409.77029991336167
+        },
+        {
+          "file": "cellphone/cellphone1.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.6906379461288452,
+              "bbox": [
+                158.359,
+                280.77,
+                91.622,
+                188.899
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 245.89270004071295
+        },
+        {
+          "file": "cellphone/cellphone2.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9086796045303345,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9086796045303345,
+              "bbox": [
+                143.855,
+                217.767,
+                134.22,
+                262.491
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9086796045303345,
+              "bbox": [
+                143.855,
+                217.767,
+                134.22,
+                262.491
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 722.7119000162929
+        },
+        {
+          "file": "cellphone/cellphone3.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9081789255142212,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9081789255142212,
+              "bbox": [
+                151.286,
+                195.141,
+                113.922,
+                235.899
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.9081789255142212,
+              "bbox": [
+                151.286,
+                195.141,
+                113.922,
+                235.899
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 600.1815999625251
+        },
+        {
+          "file": "cellphone/cellphone4.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            513,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.8001120090484619,
+          "detections": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.8001120090484619,
+              "bbox": [
+                154.6,
+                157.817,
+                185.289,
+                362.432
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.8001120090484619,
+              "bbox": [
+                154.6,
+                157.817,
+                185.289,
+                362.432
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 382.0896000834182
+        },
+        {
+          "file": "cellphone/cellphone5.jpg",
+          "target_class": "cell phone",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.35855528712272644,
+              "bbox": [
+                100.82,
+                61.909,
+                383.508,
+                440.969
+              ]
+            },
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.056833505630493164,
+              "bbox": [
+                500.693,
+                319.37,
+                138.936,
+                319.734
+              ]
+            },
+            {
+              "label": "book",
+              "class_id": 73,
+              "confidence": 0.043888479471206665,
+              "bbox": [
+                295.314,
+                235.871,
+                344.099,
+                403.426
+              ]
+            },
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.025555312633514404,
+              "bbox": [
+                615.218,
+                361.44,
+                24.558,
+                60.647
+              ]
+            },
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.02360793948173523,
+              "bbox": [
+                510.399,
+                505.625,
+                129.601,
+                117.3
+              ]
+            },
+            {
+              "label": "cell phone",
+              "class_id": 67,
+              "confidence": 0.023373037576675415,
+              "bbox": [
+                295.752,
+                159.12,
+                343.617,
+                479.056
+              ]
+            },
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.017072975635528564,
+              "bbox": [
+                17.511,
+                50.856,
+                622.13,
+                586.612
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 359.7445000195876
+        },
+        {
+          "file": "chair/chair1.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            360
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9684043526649475,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9684043526649475,
+              "bbox": [
+                228.903,
+                76.072,
+                194.321,
+                245.159
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9684043526649475,
+              "bbox": [
+                228.903,
+                76.072,
+                194.321,
+                245.159
+              ]
+            },
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.015157878398895264,
+              "bbox": [
+                290.297,
+                165.692,
+                132.158,
+                155.115
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 674.1660000989214
+        },
+        {
+          "file": "chair/chair2.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            426,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9111296534538269,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9111296534538269,
+              "bbox": [
+                60.365,
+                262.963,
+                218.036,
+                322.387
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9111296534538269,
+              "bbox": [
+                60.365,
+                262.963,
+                218.036,
+                322.387
+              ]
+            },
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.02223426103591919,
+              "bbox": [
+                122.375,
+                263.167,
+                145.884,
+                131.612
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 253.40530008543283
+        },
+        {
+          "file": "chair/chair3.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.7195023894309998,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.7195023894309998,
+              "bbox": [
+                114.683,
+                167.237,
+                204.558,
+                388.122
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.7195023894309998,
+              "bbox": [
+                114.683,
+                167.237,
+                204.558,
+                388.122
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 433.26570000499487
+        },
+        {
+          "file": "chair/chair4.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9082491993904114,
+          "detections": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9082491993904114,
+              "bbox": [
+                37.811,
+                257.461,
+                297.297,
+                342.743
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.9082491993904114,
+              "bbox": [
+                37.811,
+                257.461,
+                297.297,
+                342.743
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 340.94169992022216
+        },
+        {
+          "file": "chair/chair5.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [],
+          "total_ms": 192.85850005690008
+        },
+        {
+          "file": "chair/chair6.jpg",
+          "target_class": "chair",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.09165993332862854,
+              "bbox": [
+                197.574,
+                187.736,
+                211.285,
+                386.116
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 207.38939999137074
+        },
+        {
+          "file": "laptop/laptop1.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9513658285140991,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9513658285140991,
+              "bbox": [
+                178.288,
+                116.239,
+                281.638,
+                219.116
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9513658285140991,
+              "bbox": [
+                178.288,
+                116.239,
+                281.638,
+                219.116
+              ]
+            },
+            {
+              "label": "chair",
+              "class_id": 56,
+              "confidence": 0.46597573161125183,
+              "bbox": [
+                12.815,
+                158.13,
+                150.393,
+                101.898
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 366.29279993940145
+        },
+        {
+          "file": "laptop/laptop2.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9704415798187256,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9704415798187256,
+              "bbox": [
+                112.446,
+                64.999,
+                318.6,
+                273.241
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9704415798187256,
+              "bbox": [
+                112.446,
+                64.999,
+                318.6,
+                273.241
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 463.90810003504157
+        },
+        {
+          "file": "laptop/laptop3.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            427
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9012593030929565,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9012593030929565,
+              "bbox": [
+                88.175,
+                23.133,
+                460.547,
+                374.144
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9012593030929565,
+              "bbox": [
+                88.175,
+                23.133,
+                460.547,
+                374.144
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 487.2708999319002
+        },
+        {
+          "file": "laptop/laptop4.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            409
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9073450565338135,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9073450565338135,
+              "bbox": [
+                140.001,
+                73.83,
+                462.729,
+                295.487
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9073450565338135,
+              "bbox": [
+                140.001,
+                73.83,
+                462.729,
+                295.487
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 236.27330001909286
+        },
+        {
+          "file": "laptop/laptop5.jpg",
+          "target_class": "laptop",
+          "source": "unknown_web",
+          "prepared_size": [
+            480,
+            640
+          ],
+          "target_found": true,
+          "false_positive": false,
+          "best_confidence": 0.9111058712005615,
+          "detections": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9111058712005615,
+              "bbox": [
+                20.837,
+                73.361,
+                449.391,
+                566.377
+              ]
+            }
+          ],
+          "diagnostic_at_0_01": [
+            {
+              "label": "laptop",
+              "class_id": 63,
+              "confidence": 0.9111058712005615,
+              "bbox": [
+                20.837,
+                73.361,
+                449.391,
+                566.377
+              ]
+            }
+          ],
+          "none_trials": [],
+          "total_ms": 133.12910008244216
+        },
+        {
+          "file": "none/none1.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            512,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 606.6361999837682
+        },
+        {
+          "file": "none/none2.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 804.8443000297993
+        },
+        {
+          "file": "none/none4.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            640,
+            360
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 746.165300020948
+        },
+        {
+          "file": "none/none5.jpg",
+          "target_class": "none",
+          "source": "unknown_web",
+          "prepared_size": [
+            427,
+            640
+          ],
+          "target_found": false,
+          "false_positive": false,
+          "best_confidence": null,
+          "detections": [],
+          "diagnostic_at_0_01": [],
+          "none_trials": [
+            {
+              "target_class": "book",
+              "target_found": false
+            },
+            {
+              "target_class": "laptop",
+              "target_found": false
+            },
+            {
+              "target_class": "chair",
+              "target_found": false
+            },
+            {
+              "target_class": "bottle",
+              "target_found": false
+            },
+            {
+              "target_class": "backpack",
+              "target_found": false
+            },
+            {
+              "target_class": "cell phone",
+              "target_found": false
+            }
+          ],
+          "total_ms": 719.5164000149816
+        }
+      ]
+    }
+  ],
+  "model_sha256": "4d0632282232a5fe4eedf59a951f371d3d6b98e4d78546813f1d0ef07b06bb40",
+  "commit": "a9e13e01851bfe01ede0abde70420cefca741552",
+  "evaluator_sha256": "2e80471a1cb8df05c8ac4342e07f098e61940ebea1ad7f9579ceb9cc91e76751",
+  "date": "2026-11-07T15:47:20.174724+07:00",
+  "os": "Windows-10-10.0.26200-SP0",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "timing": "local disk decode + EXIF orientation + resize + detector preprocessing/inference/postprocessing; no HTTP; none = six sequential target calls; diagnostic excluded; five warmups",
+  "counts": {
+    "backpack": 5,
+    "book": 3,
+    "bottle": 5,
+    "cell phone": 5,
+    "chair": 6,
+    "laptop": 5,
+    "none": 4
+  }
+}
