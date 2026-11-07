@@ -36,6 +36,7 @@ def load_config():
         "SCAN_COOLDOWN_SECONDS": float(os.getenv("SCAN_COOLDOWN_SECONDS", "120")),
         "SCAN_MAX_SESSIONS_PER_GAME_SESSION": int(os.getenv("SCAN_MAX_SESSIONS_PER_GAME_SESSION", "5")),
         "SCAN_INFECTED_MIN": int(os.getenv("SCAN_INFECTED_MIN", "1")),
+        "SCAN_INFECTED_POOL": os.getenv("SCAN_INFECTED_POOL", "cell phone,laptop,chair"),
         "SCAN_INFECTED_MAX": int(os.getenv("SCAN_INFECTED_MAX", "2")),
         "SCAN_SESSION_TTL_MINUTES": float(os.getenv("SCAN_SESSION_TTL_MINUTES", "15")),
         "SCAN_HINTS_PATH": str(Path(__file__).resolve().parents[1] / "config/scan_hints.json"),

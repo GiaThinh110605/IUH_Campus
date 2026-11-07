@@ -1,0 +1,75 @@
+ Image iuh-guardian-api:b6 Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 575B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 891B 0.1s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 2.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 217B 0.0s done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:65bd3d9f1d7fa268dd1909973ba7eb4bdf41f6dcf2cfbe76ba9528b170f3fd79
+#5 resolve docker.io/library/python:3.11-slim@sha256:65bd3d9f1d7fa268dd1909973ba7eb4bdf41f6dcf2cfbe76ba9528b170f3fd79 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 30.71kB 0.0s done
+#6 DONE 0.0s
+
+#7 [4/7] COPY requirements.txt .
+#7 CACHED
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 0.1s
+
+#12 [7/7] RUN useradd --create-home --uid 10001 guardian     && mkdir -p /tmp/iuh-guardian-prometheus /app/data     && chown guardian:guardian /tmp/iuh-guardian-prometheus /app/data
+#12 DONE 1.6s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:220bbc2250f8ff104ec7bc131a5e859905b44eb70bafd45c844323f1d34f83c1 0.0s done
+#13 exporting config sha256:4f8aba50ca4d0486d4beb61a66c732787049036d51f13f01d50579832deedd30 0.0s done
+#13 exporting attestation manifest sha256:39c003af8616e78657adbca7186cca07fd9d3332a0caec0ecf82947f971cecab 0.0s done
+#13 exporting manifest list sha256:4bbca81e92ca33220a3564b3a25c5b7bec9d13b9dce073cd03cf4ca0a122dda1 0.0s done
+#13 naming to docker.io/library/iuh-guardian-api:b6
+#13 naming to docker.io/library/iuh-guardian-api:b6 done
+#13 unpacking to docker.io/library/iuh-guardian-api:b6 0.1s done
+#13 DONE 0.4s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ Image iuh-guardian-api:b6 Built
+ Container server-iuh-guardian-api-1 Recreate
+ Container server-iuh-guardian-api-1 Recreated
+ Container server-nginx-1 Running
+ Container server-prometheus-1 Running
+ Container server-iuh-guardian-sync-1 Recreate
+ Container server-grafana-1 Running
+ Container server-iuh-guardian-sync-1 Recreated
+ Container server-iuh-guardian-api-1 Starting
+ Container server-iuh-guardian-api-1 Started
+ Container server-iuh-guardian-api-1 Waiting
+ Container server-iuh-guardian-api-1 Waiting
+ Container server-iuh-guardian-api-1 Waiting
+ Container server-iuh-guardian-api-1 Healthy
+ Container server-iuh-guardian-sync-1 Starting
+ Container server-iuh-guardian-api-1 Healthy
+ Container server-iuh-guardian-api-1 Healthy
+ Container server-prometheus-1 Waiting
+ Container server-iuh-guardian-sync-1 Started
+ Container server-prometheus-1 Healthy

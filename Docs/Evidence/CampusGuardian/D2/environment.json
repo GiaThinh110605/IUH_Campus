@@ -1,0 +1,10 @@
+{
+  "commit": "697be9883856d26f453475a9a8c8c3f133b9c75b",
+  "date": "2026-11-07T16:39:36.346576+07:00",
+  "os": "Windows-10-10.0.26200-SP0",
+  "cpu": "AMD Ryzen 7 6800H with Radeon Graphics",
+  "config": "YOLOv8n 640, confidence 0.70, SCAN_INFECTED_POOL=cell phone,laptop,chair",
+  "env_sha256_before": "752849031d391e295adffd802a85793722c7747194348a572f3c91f5de1866bd",
+  "manual_telemetry": "Events increment real test aggregates/Adafruit feeds; not user gameplay.",
+  "cloud_credentials_present": true
+}

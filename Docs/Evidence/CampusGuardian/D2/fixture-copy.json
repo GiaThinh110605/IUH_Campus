@@ -1,0 +1,14 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "cp",
+    "Server/tests/fixtures/laptop-stocksnap.jpg",
+    "iuh-guardian-api:/tmp/d2-laptop.jpg"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": " server-iuh-guardian-api-1 Copying Server/tests/fixtures/laptop-stocksnap.jpg to server-iuh-guardian-api-1:/tmp/d2-laptop.jpg\n server-iuh-guardian-api-1 Copied Server/tests/fixtures/laptop-stocksnap.jpg to server-iuh-guardian-api-1:/tmp/d2-laptop.jpg\n"
+}

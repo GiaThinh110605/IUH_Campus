@@ -1,0 +1,29 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "run",
+    "-d",
+    "--no-deps",
+    "--name",
+    "d2-scan-boundaries",
+    "-p",
+    "127.0.0.1:5002:5001",
+    "-e",
+    "DATABASE_PATH=/tmp/d2-boundary.db",
+    "-e",
+    "SCAN_SESSION_TTL_MINUTES=0.02",
+    "-e",
+    "SCAN_COOLDOWN_SECONDS=3",
+    "-e",
+    "SCAN_MAX_SESSIONS_PER_GAME_SESSION=2",
+    "-e",
+    "ADAFRUIT_AIO_KEY=",
+    "iuh-guardian-api"
+  ],
+  "exit_code": 0,
+  "stdout": "9ef7edab75ddc8a30fba1420365005cee2a5d4167fd7d0aefcf3c28ec7556735\n",
+  "stderr": " Container d2-scan-boundaries Creating \n Container d2-scan-boundaries Created \n"
+}

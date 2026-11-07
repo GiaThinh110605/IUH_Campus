@@ -24,3 +24,11 @@ Mẫu B2 gồm2ảnh laptop có license rõ và2ảnh âm synthetic; không đ�
 **Chưa đánh giá trên ảnh thật — sẽ bổ sung.** eval_real.py đã sẵn sàng; không tự tạo ảnh hoặc số liệu. Các bản416/480/512 và classes.json tương ứng không được đưa vào commit này. INT8 thử trước không chạy trên CPUExecutionProvider do ConvInteger, không chọn làm mặc định.
 
 SHA256 model giữ nguyên: 4d0632282232a5fe4eedf59a951f371d3d6b98e4d78546813f1d0ef07b06bb40. Rubric gốc bắt đầu từ Assessment Rubric trong plan.txt giữ nguyên; chỉ cập nhật chỉ tiêu vận hành của nhóm. Không tự tuyên bố đã đạt chuẩn latency cũ của W9.
+
+## Pool lớp nhiễm (B2.8)
+
+Người dùng chốt `SCAN_INFECTED_POOL=cell phone,laptop,chair`: điện thoại, laptop, ghế. Giữ YOLOv8n 640 FP32 và ngưỡng 0.70; không thử YOLOv8s. `/predict` vẫn nhận sáu lớp, pool chỉ điều khiển lớp có thể nhiễm trong phiên scan; book/bottle/backpack được phát hiện là `clean` ở pool mặc định.
+
+Theo [B2.6 real-eval.md](real-eval.md), recall tại 0.70: cell phone **3/5 (60%)**, laptop **5/5 (100%)**, chair **4/6 (66.7%)**; book **0/3**, bottle **0/5**, backpack **0/5**. Tổng ba lớp pool: 12/16 (75%); toàn bộ sáu lớp: 12/29 (41.4%); none 0/4 dương giả. Mẫu gốc 36 ảnh, loại 3 ảnh >5 MiB, đo 33; nguồn không rõ/ảnh mạng theo EXIF. Quyết định thu hẹp pool nhằm giảm lượt chơi yêu cầu tìm lớp bị bỏ sót nhiều trên mẫu này, chưa chứng minh độ tin cậy camera iPhone hay tổng quát hóa.
+
+Pool không rỗng, mọi tên phải thuộc ALLOWED_CLASSES; backend báo ValueError rõ ràng khi khởi động nếu sai. Số lớp duy nhất chọn trong phiên không vượt pool và giới hạn 1–2; gợi ý điện tử được gộp, không lặp. Khi đổi pool, bắt đầu phiên mới: gợi ý/TTL của phiên SQLite cũ giữ nguyên, nhưng lớp ngoài pool hiện tại không reveal thêm.

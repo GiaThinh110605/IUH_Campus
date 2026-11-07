@@ -1,0 +1,14 @@
+{
+  "down_exit": 0,
+  "volume_names_before": [
+    "server_grafana_data",
+    "server_prometheus_data"
+  ],
+  "volume_names_after": [
+    "server_grafana_data",
+    "server_prometheus_data"
+  ],
+  "volumes_preserved": true,
+  "env_sha256_after": "752849031d391e295adffd802a85793722c7747194348a572f3c91f5de1866bd",
+  "env_unchanged": true
+}

@@ -1,0 +1,66 @@
+{
+  "environment": "Isolated Docker sidecar, real HTTP; temporary SQLite; test-only TTL=1.2s, cooldown=3s, max sessions=2. Model/pool/threshold unchanged.",
+  "rows": [
+    {
+      "name": "create",
+      "http": 201,
+      "expected": 201,
+      "body": {
+        "expires_at": "2026-11-07T09:36:06.142725+00:00",
+        "hint": "Tín hiệu nhiễu từ thứ để ngồi và đồ điện tử.",
+        "max_monsters": 2,
+        "scan_session_id": "6b3edf3b-b333-4bb0-a1f1-3542dc96268a"
+      },
+      "pass": true
+    },
+    {
+      "name": "active",
+      "http": 409,
+      "expected": 409,
+      "body": {
+        "error": "scan_session_active",
+        "scan_session_id": "6b3edf3b-b333-4bb0-a1f1-3542dc96268a"
+      },
+      "pass": true
+    },
+    {
+      "name": "expired",
+      "http": 410,
+      "expected": 410,
+      "body": {
+        "error": "scan_session_expired"
+      },
+      "pass": true
+    },
+    {
+      "name": "cooldown",
+      "http": 429,
+      "expected": 429,
+      "body": {
+        "error": "scan_cooldown"
+      },
+      "pass": true
+    },
+    {
+      "name": "create-second",
+      "http": 201,
+      "expected": 201,
+      "body": {
+        "expires_at": "2026-11-07T09:36:09.619340+00:00",
+        "hint": "Tín hiệu nhiễu từ đồ điện tử.",
+        "max_monsters": 2,
+        "scan_session_id": "0667b2e5-f10b-4c4f-a0b5-35a47e00f556"
+      },
+      "pass": true
+    },
+    {
+      "name": "limit",
+      "http": 429,
+      "expected": 429,
+      "body": {
+        "error": "scan_limit_reached"
+      },
+      "pass": true
+    }
+  ]
+}

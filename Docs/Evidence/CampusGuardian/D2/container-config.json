@@ -1,0 +1,17 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "exec",
+    "-T",
+    "iuh-guardian-api",
+    "python",
+    "-c",
+    "import json;from app.config import load_config;c=load_config();print(json.dumps({k:c[k] for k in ['CONFIDENCE_THRESHOLD','SCAN_INFECTED_POOL','WEB_CONCURRENCY','ORT_INTRA_THREADS','ALLOWED_CLASSES','MODEL_PATH']}))"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"CONFIDENCE_THRESHOLD\": 0.7, \"SCAN_INFECTED_POOL\": \"cell phone,laptop,chair\", \"WEB_CONCURRENCY\": 2, \"ORT_INTRA_THREADS\": 8, \"ALLOWED_CLASSES\": [\"book\", \"laptop\", \"chair\", \"bottle\", \"backpack\", \"cell phone\"], \"MODEL_PATH\": \"/app/models/yolov8n.onnx\"}\n",
+  "stderr": ""
+}

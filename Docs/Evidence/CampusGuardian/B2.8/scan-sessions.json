@@ -1,0 +1,55 @@
+{
+  "base_commit": "64b1e2b801d0de012700e9912819de8fbcae1edc",
+  "date": "2026-11-07T15:58:49.930985+07:00",
+  "environment": "Windows local HTTP/Werkzeug, temporary SQLite; real Flask/ONNX loaded, no mocks, no Docker/cloud",
+  "samples": [
+    {
+      "request": {
+        "method": "POST",
+        "path": "/scan/sessions",
+        "json": {
+          "session_id": "839c2e55-9f27-448c-8498-32eb5da65fdf"
+        }
+      },
+      "status": 201,
+      "response": {
+        "expires_at": "2026-11-07T09:13:49.870558+00:00",
+        "hint": "Tín hiệu nhiễu từ đồ điện tử.",
+        "max_monsters": 2,
+        "scan_session_id": "6fbd407d-aff5-4a4f-9120-8bbf35bfcb46"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/scan/sessions",
+        "json": {
+          "session_id": "09ab660b-1294-42e5-a6c1-4fe53ac09f9d"
+        }
+      },
+      "status": 201,
+      "response": {
+        "expires_at": "2026-11-07T09:13:49.878346+00:00",
+        "hint": "Tín hiệu nhiễu từ thứ để ngồi.",
+        "max_monsters": 1,
+        "scan_session_id": "ec1bdc94-856d-4048-b185-01d9fed83899"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/scan/sessions",
+        "json": {
+          "session_id": "9ea59358-aeb7-44b7-a5c7-97b62e869032"
+        }
+      },
+      "status": 201,
+      "response": {
+        "expires_at": "2026-11-07T09:13:49.886973+00:00",
+        "hint": "Tín hiệu nhiễu từ thứ để ngồi và đồ điện tử.",
+        "max_monsters": 2,
+        "scan_session_id": "c60e695d-8c78-4d4a-8496-05c09ce72c26"
+      }
+    }
+  ]
+}

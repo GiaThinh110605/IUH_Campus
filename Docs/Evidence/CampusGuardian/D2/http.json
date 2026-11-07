@@ -1,0 +1,637 @@
+[
+  {
+    "name": "health",
+    "method": "GET",
+    "path": "/health",
+    "http": 200,
+    "body": {
+      "cloud_configured": true,
+      "db_ok": true,
+      "model_loaded": true,
+      "model_path_configured": true,
+      "outbox_failed": 0,
+      "outbox_pending": 0,
+      "service": "IUH Guardian API",
+      "status": "healthy",
+      "uptime_seconds": 364.35375,
+      "version": "0.1.0"
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "predict-fixture",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": 0.7788437008857727,
+      "detections": [
+        {
+          "bbox": [
+            334.925,
+            278.275,
+            119.505,
+            71.743
+          ],
+          "class_id": 63,
+          "confidence": 0.7788437008857727,
+          "label": "laptop"
+        }
+      ],
+      "image_size": [
+        640,
+        426
+      ],
+      "inference_time_ms": 158.0597619999935,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "target_class": "laptop",
+      "target_found": true,
+      "threshold": 0.7,
+      "total_time_ms": 181.55393099982575
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "recorded",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 201,
+    "body": {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "status": "recorded"
+    },
+    "request": {
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "session_id": "6b2f27b7-071a-497f-9fbb-85f75dad2345",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "library_intro",
+      "event_type": "scan_confirmed",
+      "occurred_at": "2026-11-07T09:39:37.391242+00:00",
+      "payload": {
+        "label": "laptop",
+        "confidence": 0.9
+      }
+    },
+    "expected_http": [
+      201
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "duplicate",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 200,
+    "body": {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "status": "duplicate"
+    },
+    "request": {
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "session_id": "6b2f27b7-071a-497f-9fbb-85f75dad2345",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "library_intro",
+      "event_type": "scan_confirmed",
+      "occurred_at": "2026-11-07T09:39:37.391242+00:00",
+      "payload": {
+        "label": "laptop",
+        "confidence": 0.9
+      }
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "conflict",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 409,
+    "body": {
+      "error": "event_id_conflict",
+      "field": "event_id"
+    },
+    "request": {
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "session_id": "6b2f27b7-071a-497f-9fbb-85f75dad2345",
+      "quest_id": "D2_conflict",
+      "milestone_id": "library_intro",
+      "event_type": "scan_confirmed",
+      "occurred_at": "2026-11-07T09:39:37.391242+00:00",
+      "payload": {
+        "label": "laptop",
+        "confidence": 0.9
+      }
+    },
+    "expected_http": [
+      409
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "invalid-payload",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 400,
+    "body": {
+      "error": "unknown_field",
+      "field": "payload.core"
+    },
+    "request": {
+      "event_id": "42b3bbb0-2118-444d-b6ae-9b9810862643",
+      "session_id": "bc4b7543-bbd5-4c0b-a071-23175a884026",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "library_intro",
+      "event_type": "scan_confirmed",
+      "occurred_at": "2026-11-07T09:39:37.529405+00:00",
+      "payload": {
+        "label": "laptop",
+        "confidence": 0.9,
+        "core": 999
+      }
+    },
+    "expected_http": [
+      400
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "scan-create-0",
+    "method": "POST",
+    "path": "/scan/sessions",
+    "http": 201,
+    "body": {
+      "expires_at": "2026-11-07T09:54:37.540853+00:00",
+      "hint": "Tín hiệu nhiễu từ đồ điện tử.",
+      "max_monsters": 2,
+      "scan_session_id": "f1ae5d89-275f-4dba-a600-f7b727ba666e"
+    },
+    "request": {
+      "session_id": "5c964e42-2102-4d3f-a390-52ef6919d288"
+    },
+    "expected_http": [
+      201
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "scan-active-409",
+    "method": "POST",
+    "path": "/scan/sessions",
+    "http": 409,
+    "body": {
+      "error": "scan_session_active",
+      "scan_session_id": "f1ae5d89-275f-4dba-a600-f7b727ba666e"
+    },
+    "request": {
+      "session_id": "5c964e42-2102-4d3f-a390-52ef6919d288"
+    },
+    "expected_http": [
+      409
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "scan-none",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": null,
+      "detections": [],
+      "image_size": [
+        640,
+        480
+      ],
+      "inference_time_ms": 55.3644260000965,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": null,
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "none"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 132.61472099998173
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "outside-pool-book-book3.jpg",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": null,
+      "detections": [],
+      "image_size": [
+        480,
+        640
+      ],
+      "inference_time_ms": 45.196132000000944,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": null,
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "none"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 120.18411499980175
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "outside-pool-book-book4.jpg",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": null,
+      "detections": [],
+      "image_size": [
+        640,
+        481
+      ],
+      "inference_time_ms": 240.98723499992047,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": null,
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "none"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 357.97108500014474
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "outside-pool-book-book5.jpg",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": null,
+      "detections": [],
+      "image_size": [
+        480,
+        640
+      ],
+      "inference_time_ms": 141.82960500011177,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": null,
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "none"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 256.60357600008865
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "outside-pool-bottle-bottle1.jpg",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": null,
+      "detections": [],
+      "image_size": [
+        416,
+        640
+      ],
+      "inference_time_ms": 46.96224600002097,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": null,
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "none"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 109.66413200003444
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "outside-pool-bottle-bottle2.jpg",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": null,
+      "detections": [],
+      "image_size": [
+        427,
+        640
+      ],
+      "inference_time_ms": 61.73248400000375,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": null,
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "none"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 132.31552000002011
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "outside-pool-bottle-bottle3.jpg",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": 0.7431308627128601,
+      "detections": [
+        {
+          "bbox": [
+            179.539,
+            161.772,
+            152.374,
+            448.702
+          ],
+          "class_id": 39,
+          "confidence": 0.7431308627128601,
+          "label": "bottle"
+        }
+      ],
+      "image_size": [
+        512,
+        640
+      ],
+      "inference_time_ms": 55.79423400013184,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": "bottle",
+        "monster_token": null,
+        "monsters_remaining": 2,
+        "result": "clean"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 143.4787310001866
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "scan-laptop-0",
+    "method": "POST",
+    "path": "/predict",
+    "http": 200,
+    "body": {
+      "best_confidence": 0.7788437008857727,
+      "detections": [
+        {
+          "bbox": [
+            334.925,
+            278.275,
+            119.505,
+            71.743
+          ],
+          "class_id": 63,
+          "confidence": 0.7788437008857727,
+          "label": "laptop"
+        }
+      ],
+      "image_size": [
+        640,
+        426
+      ],
+      "inference_time_ms": 227.95795299998645,
+      "model": {
+        "name": "yolov8n",
+        "sha256_prefix": "4d063228"
+      },
+      "scan": {
+        "label": "laptop",
+        "monster_token": "ABIbwBHYCZYOjNrCpM9JMgYxtm5ih3id5tNjWls4gPo",
+        "monsters_remaining": 1,
+        "result": "infested"
+      },
+      "target_class": null,
+      "target_found": false,
+      "threshold": 0.7,
+      "total_time_ms": 360.496755999975
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "token-reward",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 201,
+    "body": {
+      "cloud": "pending",
+      "core_awarded": 10,
+      "event_id": "445eec87-5205-4c37-b16a-b497520bfaff",
+      "status": "recorded"
+    },
+    "request": {
+      "event_id": "445eec87-5205-4c37-b16a-b497520bfaff",
+      "session_id": "5c964e42-2102-4d3f-a390-52ef6919d288",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "ar_monster",
+      "event_type": "combat_won",
+      "occurred_at": "2026-11-07T09:39:40.839356+00:00",
+      "payload": {
+        "monster_token": "ABIbwBHYCZYOjNrCpM9JMgYxtm5ih3id5tNjWls4gPo"
+      }
+    },
+    "expected_http": [
+      201
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "token-duplicate",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 200,
+    "body": {
+      "cloud": "pending",
+      "core_awarded": 10,
+      "event_id": "445eec87-5205-4c37-b16a-b497520bfaff",
+      "status": "duplicate"
+    },
+    "request": {
+      "event_id": "445eec87-5205-4c37-b16a-b497520bfaff",
+      "session_id": "5c964e42-2102-4d3f-a390-52ef6919d288",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "ar_monster",
+      "event_type": "combat_won",
+      "occurred_at": "2026-11-07T09:39:40.839356+00:00",
+      "payload": {
+        "monster_token": "ABIbwBHYCZYOjNrCpM9JMgYxtm5ih3id5tNjWls4gPo"
+      }
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "token-reuse-400",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 400,
+    "body": {
+      "error": "invalid_monster_token",
+      "field": "payload.monster_token"
+    },
+    "request": {
+      "event_id": "24b9a92c-d401-4bce-b5a1-4ccd81d954ff",
+      "session_id": "5c964e42-2102-4d3f-a390-52ef6919d288",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "ar_monster",
+      "event_type": "combat_won",
+      "occurred_at": "2026-11-07T09:39:40.839356+00:00",
+      "payload": {
+        "monster_token": "ABIbwBHYCZYOjNrCpM9JMgYxtm5ih3id5tNjWls4gPo"
+      }
+    },
+    "expected_http": [
+      400
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "duplicate-after-restart",
+    "method": "POST",
+    "path": "/gameplay/events",
+    "http": 200,
+    "body": {
+      "cloud": "pending",
+      "core_awarded": 0,
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "status": "duplicate"
+    },
+    "request": {
+      "event_id": "4abe10d4-e6a1-4a3f-805f-7967e7da6d8f",
+      "session_id": "6b2f27b7-071a-497f-9fbb-85f75dad2345",
+      "quest_id": "D2_manual_test",
+      "milestone_id": "library_intro",
+      "event_type": "scan_confirmed",
+      "occurred_at": "2026-11-07T09:39:37.391242+00:00",
+      "payload": {
+        "label": "laptop",
+        "confidence": 0.9
+      }
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "external-metrics",
+    "method": "GET",
+    "path": "/metrics",
+    "http": 404,
+    "body": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "expected_http": [
+      403,
+      404
+    ],
+    "pass_http": true
+  },
+  {
+    "name": "final-health",
+    "method": "GET",
+    "path": "/health",
+    "http": 200,
+    "body": {
+      "cloud_configured": true,
+      "db_ok": true,
+      "model_loaded": true,
+      "model_path_configured": true,
+      "outbox_failed": 0,
+      "outbox_pending": 1,
+      "service": "IUH Guardian API",
+      "status": "healthy",
+      "uptime_seconds": 12.579808,
+      "version": "0.1.0"
+    },
+    "expected_http": [
+      200
+    ],
+    "pass_http": true
+  }
+]

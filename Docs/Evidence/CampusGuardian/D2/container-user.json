@@ -1,0 +1,15 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "exec",
+    "-T",
+    "iuh-guardian-api",
+    "id"
+  ],
+  "exit_code": 0,
+  "stdout": "uid=10001(guardian) gid=10001(guardian) groups=10001(guardian)\n",
+  "stderr": ""
+}

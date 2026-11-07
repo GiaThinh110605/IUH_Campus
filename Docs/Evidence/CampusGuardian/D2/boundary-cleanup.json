@@ -1,0 +1,11 @@
+{
+  "command": [
+    "docker",
+    "rm",
+    "-f",
+    "d2-scan-boundaries"
+  ],
+  "exit_code": 0,
+  "stdout": "d2-scan-boundaries\n",
+  "stderr": ""
+}

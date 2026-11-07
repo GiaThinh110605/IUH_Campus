@@ -150,7 +150,7 @@ Generate opt-in demo data: `python tools/demo_traffic.py` (60seconds, new UUIDs,
 
 ## B6 — Phiên quét đồ bị nhiễm
 
-Model640/ngưỡng0.70 và schema `/predict` cũ được giữ nguyên khi không gửi scan_session_id. Dùng game session UUID tạo một lượt scan; backend chọn ngẫu nhiên bảo mật1..2lớp từ ALLOWED_CLASSES bằng secrets.SystemRandom, chỉ lưu trong SQLite và trả gợi ý tiếng Việt. SCAN_INFECTED_MIN/MAX mặc định1/2 (chỉ cho1..2), SCAN_SESSION_TTL_MINUTES=15. Mapping gợi ý ở config/scan_hints.json. Không có API/log/metrics nào xuất danh sách lớp nhiễm chưa reveal.
+Model640/ngưỡng0.70 và schema `/predict` cũ được giữ nguyên khi không gửi scan_session_id. Dùng game session UUID tạo một lượt scan; backend chọn ngẫu nhiên bảo mật1..2lớp từ SCAN_INFECTED_POOL bằng secrets.SystemRandom, chỉ lưu trong SQLite và trả gợi ý tiếng Việt. SCAN_INFECTED_MIN/MAX mặc định1/2 (chỉ cho1..2), SCAN_SESSION_TTL_MINUTES=15. Mapping gợi ý ở config/scan_hints.json. Không có API/log/metrics nào xuất danh sách lớp nhiễm chưa reveal.
 
 | API | Request | Response |
 |---|---|---|
@@ -172,3 +172,9 @@ Giới hạn chống farm: ràng buộc1..2quái và thưởngmộtlần áp d�
 Unity: B5 chưa có StartScanSessionAsync/GetScanSessionAsync hoặc DTO scan/monster_token. Thịnh/Minh Nhật cần thêm sau: giữ game UUID ổn định, hiển thịhint, gửi scan_session_id cùng JPG, chặn mở lại cùngtoken, lưu token đểCombatWon, xử lý404/410và monsters_remaining; tích hợpAR plane/monster/match3 riêng. B6 không sửaAssets/scene hoặc khai báo đã cóAR.
 
 Nghiệm thu opt-in: python tools/b6_smoke.py (Docker stack chạy). Script thử tối đa12lượt random với fixture laptop có license, mỗi lượt game UUIDkhác, không đọc DB/lớp bí mật; dừng khiinfested hoặc thoát2nếu không trúng, không bịa. Chỉ một token tìm thấy được gửicombat_won demo, quest_id=B6_smoke; lần2Duplicate vàeventmới dùngtokencũ400. Đây là telemetry thủ công, có thể tăngfeed/Core thật; không phải trận thắng được xác minh. Evidence ởDocs/Evidence/CampusGuardian/B6/. Chụp2panelGrafana bằngtay saukhi cótraffic.
+
+### B2.8 — Pool lớp có thể bị nhiễm
+
+`SCAN_INFECTED_POOL=cell phone,laptop,chair` (mặc định trong env, mẫu ở `Server/.env.example`): đồ có thể bị nhiễm là **điện thoại, laptop, ghế**. Chọn ba lớp này vì recall B2.6 tại 0.70 tốt hơn book/bottle/backpack trên mẫu nhỏ; xem [kết quả ảnh thật](Docs/Evidence/CampusGuardian/B2/real-eval.md).
+
+Giữ YOLOv8n 640 và ngưỡng 0.70; `/predict` vẫn nhận đủ sáu lớp, nhưng book/bottle/backpack trả `scan.result=clean` khi được phát hiện với scan_session_id và pool mặc định. Mỗi phiên chọn 1–2 lớp, không vượt số lớp duy nhất trong pool; pool rỗng hoặc có tên ngoài ALLOWED_CLASSES làm backend lỗi khởi động rõ ràng. Gợi ý laptop/cell phone = “đồ điện tử”, chair = “thứ để ngồi”; hai lớp điện tử chỉ hiện một cụm gợi ý. Không sửa `.env` thật; cấu hình qua môi trường backend. Các phiên SQLite cũ giữ thời hạn và gợi ý đã lưu; lớp ngoài pool hiện tại không được reveal thêm, nên bắt đầu phiên mới sau khi đổi pool.

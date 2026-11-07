@@ -1,0 +1,12 @@
+Command (cwd Server): .venv/Scripts/python.exe -m pytest tests/test_real_labels.py tests/test_real_eval_protocol.py tests/test_real_model.py -q
+Commit base: a9e13e01851bfe01ede0abde70420cefca741552
+OS: Windows-10-10.0.26200-SP0
+CPU: AMD Ryzen 7 6800H with Radeon Graphics
+Final evaluation timestamp: 2026-11-07T15:47:20.174724+07:00
+
+...............                                                          [100%]
+15 passed in 5.85s
+Exception ignored in: <function Console.__del__ at 0x0000027A11F44540>
+Traceback (most recent call last):
+  File "D:\IUH\CongNgheMoi\CK\IUH_Campus\Server\.venv\Lib\site-packages\pyreadline3\console\console.py", line 256, in __del__
+OSError: [WinError -1073741816] Windows Error 0xc0000008

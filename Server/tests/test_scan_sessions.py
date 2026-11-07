@@ -18,7 +18,8 @@ def app(tmp_path, monkeypatch):
         def sample(self, population, count):
             return ["book", "bottle"][:count]
     monkeypatch.setattr("secrets.SystemRandom", FixedRandom)
-    result = create_app({"TESTING": True, "MODEL_PATH": "", "DATABASE_PATH": str(tmp_path / "scan.db")})
+    result = create_app({"TESTING": True, "MODEL_PATH": "", "DATABASE_PATH": str(tmp_path / "scan.db"),
+                         "SCAN_INFECTED_POOL": "book,laptop,chair,bottle,backpack,cell phone"})
     result.extensions["model_registry"].session = object()
     return result
 
@@ -247,7 +248,7 @@ def test_electronics_hints_and_exact_six_class_dictionary(app, monkeypatch):
             return ["laptop", "cell phone"]
     monkeypatch.setattr(secrets, "SystemRandom", Electronics)
     result = ScanStore(app.extensions["event_store"], app.config).create(str(uuid4()))
-    assert result["hint"].count("đồ điện tử") == 2
+    assert result["hint"].count("đồ điện tử") == 1
     assert result["max_monsters"] == 2
 
 

@@ -1,0 +1,785 @@
+{
+  "isolated_database": true,
+  "key": "[WRONG TEST KEY]",
+  "recorded_http": 201,
+  "recorded": {
+    "cloud": "pending",
+    "core_awarded": 0,
+    "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+    "status": "recorded"
+  },
+  "scheduler": "Controlled now argument advances 400 seconds per step to exercise backoff/8-attempt terminal state without a 20-minute wait. Real HTTP sends are spaced >=3.2 seconds.",
+  "steps": [
+    {
+      "index": 0,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 1
+        }
+      }
+    },
+    {
+      "index": 1,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 2
+        }
+      }
+    },
+    {
+      "index": 2,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 3
+        }
+      }
+    },
+    {
+      "index": 3,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 4
+        }
+      }
+    },
+    {
+      "index": 4,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 5
+        }
+      }
+    },
+    {
+      "index": 5,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 6
+        }
+      }
+    },
+    {
+      "index": 6,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 7
+        }
+      }
+    },
+    {
+      "index": 7,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 8
+        }
+      }
+    },
+    {
+      "index": 8,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 9
+        }
+      }
+    },
+    {
+      "index": 9,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 10
+        }
+      }
+    },
+    {
+      "index": 10,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 11
+        }
+      }
+    },
+    {
+      "index": 11,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 12
+        }
+      }
+    },
+    {
+      "index": 12,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 13
+        }
+      }
+    },
+    {
+      "index": 13,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 14
+        }
+      }
+    },
+    {
+      "index": 14,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 15
+        }
+      }
+    },
+    {
+      "index": 15,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 16
+        }
+      }
+    },
+    {
+      "index": 16,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 17
+        }
+      }
+    },
+    {
+      "index": 17,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 18
+        }
+      }
+    },
+    {
+      "index": 18,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 19
+        }
+      }
+    },
+    {
+      "index": 19,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 20
+        }
+      }
+    },
+    {
+      "index": 20,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 21
+        }
+      }
+    },
+    {
+      "index": 21,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 22
+        }
+      }
+    },
+    {
+      "index": 22,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 23
+        }
+      }
+    },
+    {
+      "index": 23,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 24
+        }
+      }
+    },
+    {
+      "index": 24,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 25
+        }
+      }
+    },
+    {
+      "index": 25,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 26
+        }
+      }
+    },
+    {
+      "index": 26,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 27
+        }
+      }
+    },
+    {
+      "index": 27,
+      "event": {
+        "cloud": "pending",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 4,
+        "outbox_failed": 0,
+        "sync_stats": {
+          "retry": 28
+        }
+      }
+    },
+    {
+      "index": 28,
+      "event": {
+        "cloud": "failed",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 3,
+        "outbox_failed": 1,
+        "sync_stats": {
+          "retry": 28,
+          "failed": 1
+        }
+      }
+    },
+    {
+      "index": 29,
+      "event": {
+        "cloud": "failed",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 2,
+        "outbox_failed": 2,
+        "sync_stats": {
+          "retry": 28,
+          "failed": 2
+        }
+      }
+    },
+    {
+      "index": 30,
+      "event": {
+        "cloud": "failed",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 1,
+        "outbox_failed": 3,
+        "sync_stats": {
+          "retry": 28,
+          "failed": 3
+        }
+      }
+    },
+    {
+      "index": 31,
+      "event": {
+        "cloud": "failed",
+        "core_awarded": 0,
+        "event_id": "6c6b26d0-bf32-4084-9428-3955bec79696",
+        "status": "recorded"
+      },
+      "summary": {
+        "id": 1,
+        "quests_completed": 0,
+        "campus_core_total": 0,
+        "upgrades_total": 0,
+        "scans_confirmed": 1,
+        "monsters_revealed": 0,
+        "db_ok": true,
+        "outbox_pending": 0,
+        "outbox_failed": 4,
+        "sync_stats": {
+          "retry": 28,
+          "failed": 4
+        }
+      }
+    }
+  ],
+  "outbox": [
+    {
+      "feed_key": "guardian-quests-completed",
+      "status": "failed",
+      "attempts": 8,
+      "last_error": "http_401",
+      "next_attempt_at": 0.0
+    },
+    {
+      "feed_key": "guardian-campus-core",
+      "status": "failed",
+      "attempts": 8,
+      "last_error": "http_401",
+      "next_attempt_at": 0.0
+    },
+    {
+      "feed_key": "guardian-upgrades",
+      "status": "failed",
+      "attempts": 8,
+      "last_error": "http_401",
+      "next_attempt_at": 0.0
+    },
+    {
+      "feed_key": "lost-found-count",
+      "status": "failed",
+      "attempts": 8,
+      "last_error": "http_401",
+      "next_attempt_at": 0.0
+    }
+  ],
+  "pass": true
+}

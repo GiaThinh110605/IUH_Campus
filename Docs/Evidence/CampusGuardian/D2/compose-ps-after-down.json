@@ -1,0 +1,12 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "Server/docker-compose.yml",
+    "ps"
+  ],
+  "exit_code": 0,
+  "stdout": "NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS\n",
+  "stderr": ""
+}
