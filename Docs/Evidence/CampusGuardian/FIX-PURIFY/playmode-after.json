@@ -1,0 +1,124 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "dc7befbb14514e63b22640f63136b9a2",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794242049969,
+      "finished_unix_ms": 1794242062279,
+      "last_update_unix_ms": 1794242062279,
+      "progress": {
+        "completed": 9,
+        "total": 9,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794242060228,
+        "last_finished_test_full_name": "CombatEntryTests.IntroFinishesBeforeCombatUnlocks",
+        "last_finished_unix_ms": 1794242062234,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 5.4523846,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "ExitDuringLoadCleansScene",
+            "fullName": "ArenaLifecycleTests.ExitDuringLoadCleansScene",
+            "state": "Passed",
+            "durationSeconds": 2.04661,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ImmediateReentryHasOneArena",
+            "fullName": "ArenaLifecycleTests.ImmediateReentryHasOneArena",
+            "state": "Passed",
+            "durationSeconds": 0.0434114,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NormalExitCleansScene",
+            "fullName": "ArenaLifecycleTests.NormalExitCleansScene",
+            "state": "Passed",
+            "durationSeconds": 0.029191,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReentryDuringUnloadWaitsForUnload",
+            "fullName": "ArenaLifecycleTests.ReentryDuringUnloadWaitsForUnload",
+            "state": "Passed",
+            "durationSeconds": 0.0419933,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConsumedEscapeDoesNotAlsoPauseGameFlow",
+            "fullName": "CombatEntryTests.ConsumedEscapeDoesNotAlsoPauseGameFlow",
+            "state": "Passed",
+            "durationSeconds": 0.0049018,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FreeCursorStopsPendingMovementOnFirstApply",
+            "fullName": "CombatEntryTests.FreeCursorStopsPendingMovementOnFirstApply",
+            "state": "Passed",
+            "durationSeconds": 0.0121986,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "HudFadesBeforeUnlockAndFleeRestoresLayout",
+            "fullName": "CombatEntryTests.HudFadesBeforeUnlockAndFleeRestoresLayout",
+            "state": "Passed",
+            "durationSeconds": 1.212765,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "IntroBlocksCombatAndFleeCancelsIt",
+            "fullName": "CombatEntryTests.IntroBlocksCombatAndFleeCancelsIt",
+            "state": "Passed",
+            "durationSeconds": 0.0128916,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "IntroFinishesBeforeCombatUnlocks",
+            "fullName": "CombatEntryTests.IntroFinishesBeforeCombatUnlocks",
+            "state": "Passed",
+            "durationSeconds": 2.0064266,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}
