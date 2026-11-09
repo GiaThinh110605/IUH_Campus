@@ -18,11 +18,9 @@ namespace IUHCampus.Guardian
         private static readonly Vector2 StatusSize = new Vector2(640f, 40f);
         private static readonly Vector2 StatusInset = new Vector2(-24f, -18f);
         private readonly HashSet<IUHMonsterEncounter> m_WarnedEncounters = new HashSet<IUHMonsterEncounter>();
-        private readonly HashSet<string> m_FailedEvents = new HashSet<string>();
         private readonly HashSet<string> m_AcceptedEvents = new HashSet<string>();
         private GuardianEventOutbox m_Outbox;
         private Text m_StatusText;
-        private int m_InitialRejected;
         private bool m_ErrorLogged;
 
         private void OnEnable()
@@ -45,7 +43,6 @@ namespace IUHCampus.Guardian
         {
             if (m_Outbox != null || m_Service == null || m_Service.Outbox == null) return;
             m_Outbox = m_Service.Outbox;
-            m_InitialRejected = Math.Max(0, m_Outbox.RejectedCount - m_FailedEvents.Count);
             m_Outbox.StatusChanged += HandleStatusChanged;
             RefreshStatus();
         }
@@ -76,14 +73,12 @@ namespace IUHCampus.Guardian
         private void HandleStatusChanged(string eventId, GuardianSyncStatus status)
         {
             if (status == GuardianSyncStatus.Synced) m_AcceptedEvents.Add(eventId);
-            if (status == GuardianSyncStatus.Failed) m_FailedEvents.Add(eventId);
-            else m_FailedEvents.Remove(eventId);
             RefreshStatus();
         }
 
         private void RefreshStatus()
         {
-            m_StatusText.text = $"Máy chủ: chờ {m_Outbox.PendingCount} · đã nhận {m_AcceptedEvents.Count} · lỗi {m_InitialRejected + m_FailedEvents.Count}";
+            m_StatusText.text = $"Máy chủ: chờ {m_Outbox.PendingCount} · đã nhận {m_AcceptedEvents.Count} · lỗi {m_Outbox.RejectedCount}";
         }
 
         private void EnsureStatusOverlay()

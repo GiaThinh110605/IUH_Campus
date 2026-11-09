@@ -187,8 +187,8 @@ namespace IUHCampus.Guardian.Backend.Tests
             now = now.AddSeconds(1); await outbox.FlushAsync(); Assert.That(fake.Requests.Count, Is.EqualTo(3));
         }
 
-        [UnityTest] public IEnumerator RetryCapAndCancellation() => Wait(CheckRetryCap());
-        private async Task CheckRetryCap()
+        [UnityTest] public IEnumerator TransientRetriesAndCancellation() => Wait(CheckTransientRetries());
+        private async Task CheckTransientRetries()
         {
             config.maxAttempts = 2; var fake = new Fake { Code = 0 };
             var now = DateTime.UtcNow; var client = new GuardianApiClient(config, fake);
@@ -196,12 +196,12 @@ namespace IUHCampus.Guardian.Backend.Tests
             var statuses = new List<GuardianSyncStatus>(); outbox.StatusChanged += (_, s) => statuses.Add(s);
             outbox.Enqueue(Event()); await outbox.FlushAsync(); now = now.AddHours(1); await outbox.FlushAsync();
             now = now.AddHours(1); await outbox.FlushAsync();
-            Assert.That(fake.Requests.Count, Is.EqualTo(2)); Assert.That(statuses[statuses.Count - 1], Is.EqualTo(GuardianSyncStatus.Failed));
+            Assert.That(fake.Requests.Count, Is.EqualTo(3)); Assert.That(statuses[statuses.Count - 1], Is.EqualTo(GuardianSyncStatus.Pending));
             Assert.That(outbox.PendingCount, Is.EqualTo(1)); outbox.RetryFailed();
             using var cancellation = new CancellationTokenSource(); cancellation.Cancel();
             try { await client.PostEventAsync(Event(), cancellation.Token); Assert.Fail("Cancellation was ignored"); }
             catch (OperationCanceledException) { }
-            Assert.That(fake.Requests.Count, Is.EqualTo(2));
+            Assert.That(fake.Requests.Count, Is.EqualTo(3));
         }
 
         [Test] public void CorruptQueuePreservedAsBackup()
