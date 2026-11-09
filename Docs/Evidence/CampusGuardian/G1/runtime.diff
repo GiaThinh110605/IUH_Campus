@@ -1,0 +1,174 @@
+﻿diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
+index 53c2f7b..aebdd0a 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
+@@ -26,6 +26,8 @@ namespace IUHCampus.Guardian
+     public class IUHGuardianInventory : MonoBehaviour
+     {
+         public static IUHGuardianInventory Instance { get; private set; }
++        private const string MilestoneKeyPrefix = "IUH_Guardian_Milestone_";
++        private bool m_IsBatchingReward;
+ 
+         [Header("Currencies")]
+         [SerializeField] private int m_Gold = 100;
+@@ -84,8 +86,34 @@ namespace IUHCampus.Guardian
+         {
+             if (amount <= 0) return;
+             m_Gold += amount;
++            SaveData();
++            NotifyDataChanged();
++        }
++
++        public bool HasClaimedMilestone(string milestoneId)
++        {
++            return !string.IsNullOrEmpty(milestoneId) &&
++                PlayerPrefs.GetInt(MilestoneKeyPrefix + milestoneId, 0) == 1;
++        }
++
++        public bool TryClaimMilestoneReward(string milestoneId, int gold, IReadOnlyList<string> items)
++        {
++            if (string.IsNullOrEmpty(milestoneId) || gold < 0 || HasClaimedMilestone(milestoneId))
++                return false;
++
++            m_IsBatchingReward = true;
++            try
++            {
++                AddGold(gold);
++                if (items != null)
++                    foreach (string item in items) AddItem(item);
++                PlayerPrefs.SetInt(MilestoneKeyPrefix + milestoneId, 1);
++            }
++            finally { m_IsBatchingReward = false; }
++
+             SaveData();
+             OnDataChanged?.Invoke();
++            return true;
+         }
+ 
+         public bool TrySpendGold(int amount)
+@@ -167,7 +195,7 @@ namespace IUHCampus.Guardian
+             }
+ 
+             SaveData();
+-            OnDataChanged?.Invoke();
++            NotifyDataChanged();
+         }
+ 
+         public bool UseItem(string itemName)
+@@ -204,12 +232,23 @@ namespace IUHCampus.Guardian
+         }
+ 
+         private void SaveData()
++        {
++            if (m_IsBatchingReward) return;
++            WritePlayerPrefs();
++            PlayerPrefs.Save();
++        }
++
++        private void NotifyDataChanged()
++        {
++            if (!m_IsBatchingReward) OnDataChanged?.Invoke();
++        }
++
++        private void WritePlayerPrefs()
+         {
+             PlayerPrefs.SetInt("IUH_Guardian_Gold", m_Gold);
+             PlayerPrefs.SetInt("IUH_Guardian_SwordLv", m_SwordLevel);
+             PlayerPrefs.SetInt("IUH_Guardian_ShieldLv", m_ShieldLevel);
+             PlayerPrefs.SetInt("IUH_Guardian_MaxHpLv", m_MaxHpLevel);
+-            PlayerPrefs.Save();
+         }
+ 
+         private void LoadData()
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs
+index 9ba046b..0985c12 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs
+@@ -9,6 +9,9 @@ namespace IUHCampus.Guardian
+ {
+     public class IUHMonsterEncounter : MonoBehaviour
+     {
++        private const string AlreadyClaimedMessage = "Đã nhận thưởng khu vực này";
++        private const string RewardUnavailableMessage = "Chưa nhận được thưởng";
++        private bool m_RewardWarningLogged;
+         [Header("Encounter Settings")]
+         [SerializeField] private string m_MonsterName = "DATA CORRUPTION";
+         [SerializeField] private string m_MilestoneId = "";
+@@ -60,8 +63,24 @@ namespace IUHCampus.Guardian
+         public Text BossHpText => m_BossHpText;
+         public Text BossIntentText => m_BossIntentText;
+ 
+-        public string GetRewardsFormatted()
++        public bool ClaimVictoryReward()
+         {
++            var inventory = IUHGuardianInventory.Instance;
++            if (inventory == null || string.IsNullOrEmpty(m_MilestoneId))
++            {
++                if (!m_RewardWarningLogged)
++                {
++                    m_RewardWarningLogged = true;
++                    Debug.LogWarning("[IUH Guardian] Victory reward unavailable: inventory or milestone is missing.", this);
++                }
++                return false;
++            }
++            return inventory.TryClaimMilestoneReward(m_MilestoneId, m_RewardGold, m_RewardItems);
++        }
++
++        public string GetRewardsFormatted(bool claimed, bool alreadyClaimed)
++        {
++            if (!claimed) return alreadyClaimed ? AlreadyClaimedMessage : RewardUnavailableMessage;
+             System.Text.StringBuilder sb = new System.Text.StringBuilder();
+             sb.AppendLine($"<color=#FDE047><b>💰 +{m_RewardGold} Vàng & Bạc IUH</b></color>");
+             if (m_RewardItems != null)
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs b/Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs
+index 3def7e1..c1048cb 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs
+@@ -71,6 +71,9 @@ namespace IUHCampus.Guardian.Match3
+         private float m_RemainingTime;
+         private bool m_IsCombatActive;
+         private bool m_OutcomeReported;
++        private bool m_VictoryRewardProcessed;
++        private bool m_VictoryRewardClaimed;
++        private bool m_VictoryRewardAlreadyClaimed;
+         private bool m_IsResolving;
+         private bool m_UsingStage;
+         // True from StartNewCombat until the fight is closed, including while the arena loads.
+@@ -141,6 +144,9 @@ namespace IUHCampus.Guardian.Match3
+         public void StartNewCombat()
+         {
+             m_OutcomeReported = false;
++            m_VictoryRewardProcessed = false;
++            m_VictoryRewardClaimed = false;
++            m_VictoryRewardAlreadyClaimed = false;
+             StopAllCoroutines();
+             ClearBattleStartIntro();
+             RestoreHudLayout();
+@@ -326,13 +332,26 @@ namespace IUHCampus.Guardian.Match3
+ 
+             if (m_CurrentEncounter != null)
+             {
++                ClaimCurrentVictoryReward();
+                 if (m_VictoryTitleText != null) m_VictoryTitleText.text = $"🏆 ĐÃ ĐÁNH BẠI {m_CurrentEncounter.MonsterName.ToUpper()}!";
+                 if (m_VictoryDescText != null) m_VictoryDescText.text = $"Còn {m_Rules.PlayerHp}/{m_Config.PlayerMaxHp} HP. Khu vực đã được thanh tẩy!";
+-                if (m_VictoryRewardsText != null) m_VictoryRewardsText.text = m_CurrentEncounter.GetRewardsFormatted();
++                if (m_VictoryRewardsText != null)
++                    m_VictoryRewardsText.text = m_CurrentEncounter.GetRewardsFormatted(
++                        m_VictoryRewardClaimed, m_VictoryRewardAlreadyClaimed);
+             }
+             if (m_VictoryModal != null) m_VictoryModal.SetActive(true);
+         }
+ 
++        private void ClaimCurrentVictoryReward()
++        {
++            if (m_VictoryRewardProcessed) return;
++            m_VictoryRewardProcessed = true;
++            var inventory = IUHGuardianInventory.Instance;
++            m_VictoryRewardAlreadyClaimed = inventory != null &&
++                inventory.HasClaimedMilestone(m_CurrentEncounter.MilestoneId);
++            m_VictoryRewardClaimed = m_CurrentEncounter.ClaimVictoryReward();
++        }
++
+         private IEnumerator DefeatRoutine(string reason)
+         {
+             ReportOutcome(false);
