@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-09",
+  "timezone": "Asia/Bangkok",
+  "unity_play_mode_before_restore": false,
+  "command": "git checkout -- ProjectSettings/EditorSettings.asset",
+  "exit_code": 0,
+  "verification": "git diff --ignore-cr-at-eol -- ProjectSettings/EditorSettings.asset",
+  "diff_output": "",
+  "diff_exit_code": 0,
+  "m_EnterPlayModeOptions": 0,
+  "rechecked_after_unity_state_query": true,
+  "staged": false,
+  "playmode_failure": {
+    "test": "CombatEntryTests.FreeCursorStopsPendingMovementOnFirstApply",
+    "status": "Fail — có sẵn từ e5aecbb, ngoài phạm vi",
+    "reason": "Test reflects Apply using Instance|NonPublic, but e5aecbb made IUHConceptPreviewController.Apply public. GetMethod returns null and Invoke throws NullReferenceException.",
+    "controller_and_playmode_test_unchanged": true
+  }
+}

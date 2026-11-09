@@ -1,0 +1,36 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "afd23701e9304b83ad29138efdd78316",
+      "status": "failed",
+      "mode": "EditMode",
+      "started_unix_ms": 1794240763414,
+      "finished_unix_ms": 1794240779500,
+      "last_update_unix_ms": 1794240779500,
+      "progress": {
+        "completed": 66,
+        "total": 66,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794240779255,
+        "last_finished_test_full_name": "IUHCampus.Guardian.Progress.UI.Tests.InventoryPresenterTests.SameCategorySortsByVietnameseName",
+        "last_finished_unix_ms": 1794240779257,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_CountsPurifyTiles",
+            "message": "  Expected: 3\r\n  But was:  0\r\n"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "active": {
+    "success": true,
+    "message": "Retrieved active scene information.",
+    "data": {
+      "name": "IUH_SharedCampus_Concept",
+      "path": "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity",
+      "buildIndex": 0,
+      "isDirty": false,
+      "isLoaded": true,
+      "rootCount": 48
+    }
+  },
+  "validation": {
+    "success": true,
+    "message": "Scene 'IUH_SharedCampus_Concept' is clean — no issues found.",
+    "data": {
+      "sceneName": "IUH_SharedCampus_Concept",
+      "totalIssues": 0,
+      "missingScripts": 0,
+      "brokenPrefabs": 0,
+      "repaired": 0,
+      "issues": [],
+      "truncated": false,
+      "note": null
+    }
+  },
+  "sceneContentDiffLines": 0
+}
