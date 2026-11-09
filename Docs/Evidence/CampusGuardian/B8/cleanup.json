@@ -1,0 +1,28 @@
+{
+  "command": "docker compose -f Server/docker-compose.yml down",
+  "exit_code": 0,
+  "volumeRemovalRequested": false,
+  "removedContainers": [
+    "server-grafana-1",
+    "server-iuh-guardian-sync-1",
+    "server-nginx-1",
+    "server-prometheus-1",
+    "server-iuh-guardian-api-1"
+  ],
+  "removedNetwork": "server_default",
+  "startup": {
+    "command": "docker compose -f Server/docker-compose.yml up -d --build",
+    "exit_code": 0
+  },
+  "routingIncident": {
+    "initialHealthHttpStatus": 502,
+    "nginxCachedApiIp": "172.21.0.5",
+    "currentApiDnsIp": "172.21.0.4",
+    "apiInternalHealth": true,
+    "resolution": "docker compose -f Server/docker-compose.yml exec -T nginx nginx -s reload",
+    "reloadExitCode": 0,
+    "healthAfterReload": "healthy"
+  },
+  "venvUnchanged": true,
+  "previousSandboxDiagnosisCorrected": "Python was inaccessible in sandbox; existing venv works outside sandbox (134 passed)."
+}

@@ -89,3 +89,24 @@ D2 dùng ảnh gốc [800, 533] và Unity Editor đang mở. Dòng G09-Perf Fail
 | G09-Perf-B2.9 | Độ trễ gameplay | AC/Unity đóng/Docker CPU/2workers/ORT8 | a3e162d | 3 lần; mỗi lần10warmup+200request, một client, JPEG80≤640 | Mỗi lần APIp50≤150 và p95≤220ms | Pooled p50=59.347, p95=74.290; p95 từng lần=67.027,83.905,65.351ms; >220=0/600 | Pass | [benchmark-b29.json](Evidence/CampusGuardian/D2/benchmark-b29.json), [README](Evidence/CampusGuardian/D2/README.md) |
 
 Tổng toàn bộ bảng sau bổ sung B2.9: **41 Pass / 6 Fail / 4 Chưa kiểm thử**. Số liệu D2 và B2.6 ở các phần trước là lịch sử, không bị thay thế.
+
+## B8 — gameplay
+
+Ngày 09/11/2026; Codex, Minh Nhật. Nhánh minhnhat/b8-backend-gameplay xếp chồng
+P1-REMOVE 9e884e4. Commit B8 là commit chứa bảng này và Evidence B8; test chạy
+trên working tree trước commit. Các tổng D2/B2.9 phía trên giữ nguyên lịch sử.
+
+| ID | Ca kiểm thử | Nền tảng/môi trường | Commit | Bước | Mong đợi | Thực tế | Pass/Fail | Bằng chứng |
+|---|---|---|---|---|---|---|---|---|
+| B8-a | Compile/scene/config | Unity 6000.5.8f1/MCP/Windows | Commit chứa Evidence B8 | Compile, Console, validate, GUID | 0 error, 0 Missing Script, đúng config | 0 error, missingScripts=0, brokenPrefabs=0, isDirty=false sau Play; config GUID có trong scene | Pass | [scene.json](Evidence/CampusGuardian/B8/scene.json), [console.json](Evidence/CampusGuardian/B8/console.json) |
+| B8-b | Toàn bộ EditMode | Unity/MCP | Commit chứa Evidence B8 | run_tests EditMode sau đổi chữ UI | Chỉ lỗi cũ ProcessStep_CountsPurifyTiles | Hoàn tất 69 ca, failures_so_far có đúng lỗi cũ; result=null, không tự dựng summary. 14 ca mới đã Pass ở lượt focused trước | Không có fail mới được MCP báo; không ghi Pass toàn suite | [unity-tests.json](Evidence/CampusGuardian/B8/unity-tests.json), [README](Evidence/CampusGuardian/B8/README.md) |
+| B8-c | Backend pytest | Windows/venv ngoài sandbox | Commit chứa Evidence B8 | python -m pytest Server/tests -q | 0 fail | 134 passed in 16.87s, exit 0; venv giữ nguyên | Pass | [pytest.txt](Evidence/CampusGuardian/B8/pytest.txt) |
+| B8-d | Docker build/health | Docker Desktop/ONNX thật | Commit chứa Evidence B8 | up -d --build, GET /health | model_loaded/db_ok=true | Build exit0; healthy, model_loaded=true, db_ok=true, cloud_configured=true; reload nginx giải quyết IP cũ sau recreate | Pass | [health.json](Evidence/CampusGuardian/B8/health.json), [cleanup.json](Evidence/CampusGuardian/B8/cleanup.json) |
+| B8-e | E2E event/replay/cloud/overlay | Editor Play/Flask/Adafruit thật | Commit chứa Evidence B8 | Gọi reporter won/lost/won cùng phiên/milestone, chờ flush, GET từng id | recorded, Core10/0/0, cloud ghi đúng thực tế | Cả ba recorded, Core10/0/0, cloud=synced; queue0, UI Máy chủ đã nhận3 | Pass | [e2e.json](Evidence/CampusGuardian/B8/e2e.json), [status.png](Evidence/CampusGuardian/B8/status.png) |
+| B8-f | Thua trận thật do hết giờ | Editor Play/campus | Commit chứa Evidence B8 | Không input, để timer tự hết; đọc manager/API và DB read-only | Đúng 1 combat_lost | remaining0, Defeat, modal hiện, đúng 1 event campus_cong_ar trong phiên; recorded/Core0/cloud=synced; số event không tăng khi quan sát lại | Pass | [e2e.json](Evidence/CampusGuardian/B8/e2e.json), [defeat.png](Evidence/CampusGuardian/B8/defeat.png) |
+| B8-g | Hồ sơ và giới hạn | Repo/evidence | Commit chứa Evidence B8 | Ghi kết quả thật, phân biệt handler won và trận thua thật | Không Pass giả | Lưu response/event_id, ảnh, test, môi trường; chưa kiểm thắng thật/Flee/thiết bị/build | Đã ghi | [README](Evidence/CampusGuardian/B8/README.md) |
+| B8-h | Tắt stack giữ volume | Docker Desktop | Commit chứa Evidence B8 | compose down không -v | Ngừng stack, giữ volume | exit0; 5 container/network gỡ, không -v | Pass | [cleanup.json](Evidence/CampusGuardian/B8/cleanup.json) |
+
+B8 có 6 ca Pass, 1 ca EditMode có lỗi cũ được cho phép, 1 mục hồ sơ đã ghi.
+Lỗi sandbox ban đầu được giải quyết bằng chạy venv hiện có ngoài sandbox;
+không tạo lại hoặc sửa venv. Không suy rộng client ACK thành cloud synced.

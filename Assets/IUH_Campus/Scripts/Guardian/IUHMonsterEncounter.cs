@@ -11,6 +11,7 @@ namespace IUHCampus.Guardian
     {
         [Header("Encounter Settings")]
         [SerializeField] private string m_MonsterName = "DATA CORRUPTION";
+        [SerializeField] private string m_MilestoneId = "";
         [SerializeField] private int m_MonsterHp = 800;
         [SerializeField] private float m_RevealRadius = 16.0f;
         [SerializeField] private float m_TriggerRadius = 10.0f;
@@ -47,6 +48,7 @@ namespace IUHCampus.Guardian
         private float m_TriggerCooldown = 0f;
 
         public string MonsterName => m_MonsterName;
+        public string MilestoneId => m_MilestoneId;
         public int MonsterHp => m_MonsterHp;
         public int BossMinDmg => m_BossMinDmg;
         public int BossMaxDmg => m_BossMaxDmg;

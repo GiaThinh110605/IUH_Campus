@@ -12,6 +12,7 @@ namespace IUHCampus.Guardian.Match3
     public class Match3CombatManager : MonoBehaviour
     {
         public static Match3CombatManager Instance { get; private set; }
+        public event System.Action<IUHMonsterEncounter, bool> CombatFinished;
 
         [Header("References")]
         [SerializeField] private Match3BoardView m_BoardView;
@@ -69,6 +70,7 @@ namespace IUHCampus.Guardian.Match3
         private Match3CombatRules m_Rules;
         private float m_RemainingTime;
         private bool m_IsCombatActive;
+        private bool m_OutcomeReported;
         private bool m_IsResolving;
         private bool m_UsingStage;
         // True from StartNewCombat until the fight is closed, including while the arena loads.
@@ -138,6 +140,7 @@ namespace IUHCampus.Guardian.Match3
 
         public void StartNewCombat()
         {
+            m_OutcomeReported = false;
             StopAllCoroutines();
             ClearBattleStartIntro();
             RestoreHudLayout();
@@ -312,6 +315,7 @@ namespace IUHCampus.Guardian.Match3
 
         private IEnumerator VictoryRoutine()
         {
+            ReportOutcome(true);
             m_IsCombatActive = false;
             m_IsResolving = true;
             LockBoard(true);
@@ -331,6 +335,7 @@ namespace IUHCampus.Guardian.Match3
 
         private IEnumerator DefeatRoutine(string reason)
         {
+            ReportOutcome(false);
             m_IsCombatActive = false;
             m_IsResolving = true;
             LockBoard(true);
@@ -339,6 +344,13 @@ namespace IUHCampus.Guardian.Match3
 
             if (m_DefeatDescText != null && !string.IsNullOrEmpty(reason)) m_DefeatDescText.text = reason;
             if (m_DefeatModal != null) m_DefeatModal.SetActive(true);
+        }
+
+        private void ReportOutcome(bool won)
+        {
+            if (m_OutcomeReported) return;
+            m_OutcomeReported = true;
+            CombatFinished?.Invoke(m_CurrentEncounter, won);
         }
 
         private void OnCloseVictoryClicked()
