@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-10",
+  "persistentPath": "C:/Users/Admin/AppData/LocalLow/DefaultCompany/IUH_Campus/guardian_outbox.json",
+  "verificationReadOnly": true,
+  "deletedOrDirectlyModifiedByAgent": false,
+  "httpErrorCodeStored": false,
+  "initial": {
+    "pendingCount": 1,
+    "rejectedCount": 0,
+    "event_id": "81da8955-ef93-44f3-b6b0-1a1173c51ac5",
+    "milestone_id": "campus_cong_ar",
+    "event_type": "combat_won",
+    "attempts": 3
+  },
+  "afterPlay": {
+    "version": 1,
+    "pending": [
+      {
+        "event_id": "81da8955-ef93-44f3-b6b0-1a1173c51ac5",
+        "event_type": "combat_won",
+        "milestone_id": "campus_cong_ar",
+        "attempts": 8,
+        "nextAttemptTicks": 639298524670096900
+      },
+      {
+        "event_id": "72e73027-2dae-4573-99c6-d56cfab988bf",
+        "event_type": "combat_lost",
+        "milestone_id": "campus_cong_ar",
+        "attempts": 0,
+        "nextAttemptTicks": 0
+      }
+    ],
+    "rejected": []
+  },
+  "maxAttemptsFromConfigAsset": 8,
+  "failedEntry": {
+    "event_id": "81da8955-ef93-44f3-b6b0-1a1173c51ac5",
+    "milestone_id": "campus_cong_ar",
+    "classification": "Pending entry exhausted attempts8/max8, emits local Failed when limit reached",
+    "isTestMilestone": false,
+    "httpErrorCode": null,
+    "errorCodeReason": "Saved schema has no last HTTP status or last error; cannot distinguish NetworkError vs ServerError from file alone."
+  },
+  "g1EvidenceOnly": {
+    "manualRetry": {
+      "version": 1,
+      "pending": [
+        {
+          "event_id": "b31a97c4-b5da-4054-929f-93fa909eeb35",
+          "milestone_id": "campus_cong_chinh",
+          "event_type": "combat_won",
+          "attempts": 8,
+          "exhausted": true
+        },
+        {
+          "event_id": "c1d816b6-e8af-4de4-bdae-5c83a69bc7cb",
+          "milestone_id": "test_g1_manual",
+          "event_type": "combat_won",
+          "attempts": 0,
+          "exhausted": false
+        },
+        {
+          "event_id": "f838de34-815a-49bb-9724-8d925ee8d81f",
+          "milestone_id": "test_g1_manual",
+          "event_type": "combat_won",
+          "attempts": 0,
+          "exhausted": false
+        }
+      ],
+      "rejectedCount": 0
+    },
+    "manual": {
+      "version": 1,
+      "pending": [
+        {
+          "event_id": "7794eb1d-6184-40e6-8c96-8c44b89416b4",
+          "milestone_id": "test_g1_manual",
+          "event_type": "combat_won",
+          "attempts": 6,
+          "exhausted": false
+        },
+        {
+          "event_id": "cc99858b-fb7a-485f-ba11-4e4a0e562925",
+          "milestone_id": "test_g1_manual",
+          "event_type": "combat_won",
+          "attempts": 0,
+          "exhausted": false
+        }
+      ],
+      "rejectedCount": 0
+    },
+    "interpretation": "G1 temporary retry snapshot has3 pending and one exhausted. First failed item is campus_cong_chinh (G1 probe), followed by2 test_g1_manual. This is separate from the real persistent file."
+  },
+  "normalRuntimeChanges": "During requested Play Mode checks the existing backend service retried the real pending item (3 -> 8), and a natural timeout queued a combat_lost. No direct editing, deletion or RetryFailed call was performed.",
+  "proposal": "Keep backup and diagnose/restore API connectivity, then explicitly approve RetryFailed to retry same IDs. If a future real queue contains confirmed test_* entries, back up and remove only those after approval; never delete entire live outbox. Keep G1 evidence files as history."
+}

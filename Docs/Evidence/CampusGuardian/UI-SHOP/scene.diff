@@ -1,0 +1,168 @@
+﻿diff --git a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+index 05e6ff9..81c9d54 100644
+--- a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
++++ b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+@@ -19510,7 +19510,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F3EA TR\u1EA0M N\xC2NG C\u1EA4P & KHO \u0110\u1ED2 IUH"
++  m_Text: "TR\u1EA0M N\xC2NG C\u1EA4P & KHO \u0110\u1ED2 IUH"
+ --- !u!222 &376785320
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -31639,7 +31639,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.36, y: 0.35}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 200, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &643751872
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -44464,7 +44464,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.04, y: 0.72}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 300, y: 24}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &830610654
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -44498,7 +44498,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F6E1\uFE0F Kh\u1EA3 N\u0103ng H\u1EA5p Th\u1EE5 Khi\xEAn"
++  m_Text: "Kh\u1EA3 N\u0103ng H\u1EA5p Th\u1EE5 Khi\xEAn"
+ --- !u!222 &830610655
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -44734,7 +44734,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.36, y: 0.35}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 200, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &835969690
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -47665,7 +47665,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.04, y: 0.72}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 300, y: 24}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &884936696
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -47699,7 +47699,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F49A Sinh L\u1EF1c T\u1ED1i \u0110a (Max HP)"
++  m_Text: "Sinh L\u1EF1c T\u1ED1i \u0110a (Max HP)"
+ --- !u!222 &884936697
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -48004,8 +48004,8 @@ RectTransform:
+   m_AnchorMin: {x: 0.04, y: 0.35}
+   m_AnchorMax: {x: 0.04, y: 0.35}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 250, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_SizeDelta: {x: 200, y: 22}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &890505121
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -73414,7 +73414,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.04, y: 0.72}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 300, y: 24}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1196120548
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -73448,7 +73448,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\u2694\uFE0F S\xE1t Th\u01B0\u01A1ng G\u1EA1ch Ki\u1EBFm"
++  m_Text: "S\xE1t Th\u01B0\u01A1ng G\u1EA1ch Ki\u1EBFm"
+ --- !u!222 &1196120549
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -76411,8 +76411,8 @@ RectTransform:
+   m_AnchorMin: {x: 0.04, y: 0.35}
+   m_AnchorMax: {x: 0.04, y: 0.35}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 250, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_SizeDelta: {x: 200, y: 22}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1272598475
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -91897,7 +91897,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F457 NGO\u1EA0I TRANG"
++  m_Text: "NGO\u1EA0I TRANG"
+ --- !u!222 &1486667248
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -106805,7 +106805,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.36, y: 0.35}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 200, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1664676124
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -116103,7 +116103,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F392 KHO \u0110\u1ED2"
++  m_Text: "KHO \u0110\u1ED2"
+ --- !u!222 &1844031789
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -116943,8 +116943,8 @@ RectTransform:
+   m_AnchorMin: {x: 0.04, y: 0.35}
+   m_AnchorMax: {x: 0.04, y: 0.35}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 250, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_SizeDelta: {x: 200, y: 22}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1862239879
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -128163,10 +128163,10 @@ RectTransform:
+   m_Children: []
+   m_Father: {fileID: 1362205121}
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+-  m_AnchorMin: {x: 0.05, y: 0.5}
+-  m_AnchorMax: {x: 0.05, y: 0.5}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 400, y: 30}
++  m_SizeDelta: {x: -24, y: 0}
+   m_Pivot: {x: 0.5, y: 0.5}
+ --- !u!114 &2063332149
+ MonoBehaviour:
+@@ -128201,7 +128201,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F4B0 V\xC0NG C\u1EE6A B\u1EA0N: 0 IUH Gold"
++  m_Text: "V\xC0NG C\u1EE6A B\u1EA0N: 0 IUH Gold"
+ --- !u!222 &2063332150
+ CanvasRenderer:
+   m_ObjectHideFlags: 0

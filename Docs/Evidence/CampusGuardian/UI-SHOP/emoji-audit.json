@@ -1,0 +1,321 @@
+{
+  "count": 63,
+  "method": "Static UnityEngine.UI.Text in campus scene, including inactive; JS Unicode Extended_Pictographic match; excludes runtime-created item/skin rows.",
+  "texts": [
+    {
+      "name": "Txt",
+      "parent": "Canvas",
+      "text": "<size=26><b>🍲 CƠM TẤM ĐÊM SÀI GÒN - IUH</b></size>\n<size=16><color=#FEF08A>Cơm sườn bì chả • Trứng ốp la • Canh rong biển nóng</color></size>"
+    },
+    {
+      "name": "Text",
+      "parent": "BtnTabUpgrades",
+      "text": "⚙️ NÂNG CẤP"
+    },
+    {
+      "name": "TxtRouteInfo",
+      "parent": "RouteInfoBadge",
+      "text": "🧋 Lấy hàng ➔ 🏁 Giao hàng"
+    },
+    {
+      "name": "TxtObjective",
+      "parent": "TopRightBanner",
+      "text": "📍 Giao cho KTX B • 320m"
+    },
+    {
+      "name": "TxtTitle",
+      "parent": "DialogCard",
+      "text": "⚠️ GIAO HÀNG THẤT BẠI!"
+    },
+    {
+      "name": "BossTitle",
+      "parent": "CardBg",
+      "text": "😈 TIỂU QUỶ BĂNG LAM (DỄ)"
+    },
+    {
+      "name": "TxtIntent",
+      "parent": "CardBg",
+      "text": "⚔️ Ý định: Tấn công 8-12 DMG"
+    },
+    {
+      "name": "TxtIntent",
+      "parent": "CardBg",
+      "text": "⚔️ Ý định: Tấn công 65-90 DMG"
+    },
+    {
+      "name": "Text",
+      "parent": "Billboard_Prompt",
+      "text": "🤖 LINH VẬT IUH\n<color=#FFFF00>[E] Nhận Thử Thách</color>"
+    },
+    {
+      "name": "TxtCargo",
+      "parent": "BottomCard",
+      "text": "📦 Kiện hàng: 100%"
+    },
+    {
+      "name": "BossTitle",
+      "parent": "CardBg",
+      "text": "😈 BÓNG MA GLITCH FESTIVAL (KHÁ)"
+    },
+    {
+      "name": "Text",
+      "parent": "BtnRetry",
+      "text": "🔄 ĐẤU LẠI MÀN NÀY"
+    },
+    {
+      "name": "Val",
+      "parent": "Bg",
+      "text": "⚡ 0/100"
+    },
+    {
+      "name": "Text",
+      "parent": "Billboard_Prompt",
+      "text": "🎁 HỘP QUÀ BÍ ẨN\n<color=#FFFF00>[E] Mở Quà</color>"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "🎁 Rương Ẩn Khu Vườn Hoa"
+    },
+    {
+      "name": "Txt",
+      "parent": "AvatarCircle",
+      "text": "🎓"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "📸 Cổng Chính Đại Học Công Nghiệp"
+    },
+    {
+      "name": "TxtTitle",
+      "parent": "DialogCard",
+      "text": "🎉 GIAO HÀNG THÀNH CÔNG!"
+    },
+    {
+      "name": "ReportTitle",
+      "parent": "ReconReportPanel",
+      "text": "📸 BÁO CÁO TRINH SÁT DRONE"
+    },
+    {
+      "name": "Text",
+      "parent": "Btn_RespawnNow",
+      "text": "⚡ HỒI SINH NGAY"
+    },
+    {
+      "name": "Text",
+      "parent": "Billboard_Prompt",
+      "text": "📦 VI MẠCH #2\n<color=#00E5FF>Nhiệm Vụ Linh Vật</color>"
+    },
+    {
+      "name": "Txt",
+      "parent": "BtnCustomizationHUD",
+      "text": "👕 ĐỔI TRANG PHỤC [ U ]"
+    },
+    {
+      "name": "Txt",
+      "parent": "Canvas",
+      "text": "<size=26><b>🧋 TIỆM TRÀ SỮA TOCOTOCO IUH</b></size>\n<size=16><color=#FEF08A>Trà sữa trân châu hoàng gia • Trà đào cam sả đêm</color></size>"
+    },
+    {
+      "name": "BossTitle",
+      "parent": "CardBg",
+      "text": "😈 ĐẠI MA VƯƠNG HẮC ÁM (ĐẠI BOSS)"
+    },
+    {
+      "name": "TxtReward",
+      "parent": "DialogCard",
+      "text": "💰 +75,000 VNĐ  •  ⭐ +150 EXP\n📦 Thưởng nguyên vẹn (100%): +15,000 VNĐ"
+    },
+    {
+      "name": "BossTitle",
+      "parent": "CardBg",
+      "text": "😈 CHIẾN BINH QUỶ DỮ LIỆU (VỪA)"
+    },
+    {
+      "name": "Txt",
+      "parent": "Canvas",
+      "text": "<size=26><b>🍢 XE CÁ VIÊN CHIÊN 79</b></size>\n<size=16><color=#FEF08A>Cá viên • Bò viên • Xúc xích chiên giòn • Ăn vặt đêm IUH</color></size>"
+    },
+    {
+      "name": "TxtTitle",
+      "parent": "TopRightBanner",
+      "text": "🛵 Grab Campus"
+    },
+    {
+      "name": "BossTitle",
+      "parent": "CardBg",
+      "text": "😈 TIỂU QUỶ BALO NHIỄM ĐỘC (AR)"
+    },
+    {
+      "name": "Title",
+      "parent": "Card",
+      "text": "🏆 CHIẾN THẮNG!"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "🎁 Rương Kho Báu Đài Phun Nước"
+    },
+    {
+      "name": "Header_Title",
+      "parent": "Album_Modal_Window",
+      "text": "📖 ALBUM KỶ NIỆM KHUÔN VIÊN IUH"
+    },
+    {
+      "name": "Text",
+      "parent": "Btn_CloseGuide",
+      "text": "✔ ĐÃ HIỂU / ĐÓNG [ESC]"
+    },
+    {
+      "name": "TxtIntent",
+      "parent": "CardBg",
+      "text": "⚔️ Ý định: Tấn công 50-70 DMG"
+    },
+    {
+      "name": "Text",
+      "parent": "Btn_OpenControlsGuide",
+      "text": "🎮 HƯỚNG DẪN [H]"
+    },
+    {
+      "name": "Txt",
+      "parent": "BillboardCanvas",
+      "text": "📦 ĐIỂM LẤY ĐỒ\n[ TIỆM TRÀ SỮA TOCOTOCO ]"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "🏪 TRẠM DỊCH VỤ IUH"
+    },
+    {
+      "name": "TxtTitle",
+      "parent": "DialogCard",
+      "text": "<size=24><color=#34D399><b>📦 Giao Hàng — Ký Túc Xá B</b></color></size>"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "📸 Đài Phun Nước Trung Tâm IUH"
+    },
+    {
+      "name": "Title",
+      "parent": "Card",
+      "text": "💀 THẤT BẠI"
+    },
+    {
+      "name": "Header",
+      "parent": "Controls_Guide_Modal",
+      "text": "🎮 BẢNG HƯỚNG DẪN ĐIỀU KHIỂN IUH CAMPUS"
+    },
+    {
+      "name": "RewardHeader",
+      "parent": "RewardPanel",
+      "text": "🎁 <b>PHẦN THƯỞNG CHIẾN LỢI PHẨM:</b>"
+    },
+    {
+      "name": "Title",
+      "parent": "Death_Screen_Modal",
+      "text": "☠️ BẠN ĐÃ BỊ HẠ GỤC!"
+    },
+    {
+      "name": "Txt",
+      "parent": "BillboardCanvas",
+      "text": "<color=#4ADE80><b>🏁 MỤC TIÊU GIAO HÀNG\n[ 🏢 KÝ TÚC XÁ KTX (CỔNG 4) ]</b></color>"
+    },
+    {
+      "name": "Title",
+      "parent": "Celebration_Banner_Toast",
+      "text": "🎉 CHÚC MỪNG HOÀN THÀNH!"
+    },
+    {
+      "name": "TxtRewards",
+      "parent": "DialogCard",
+      "text": "<size=17><color=#FDE047><b>Phần thưởng:</b></color>  <color=#34D399>💰 +75,000 VNĐ</color>  •  <color=#60A5FA>⭐ +100 XP</color></size>"
+    },
+    {
+      "name": "TxtWarning",
+      "parent": "DangerAlertBanner",
+      "text": "⚠️ MA ĐANG ĐUỔI THEO! 👻"
+    },
+    {
+      "name": "TxtDistance",
+      "parent": "BottomCard",
+      "text": "📍 Đến KTX: 85m"
+    },
+    {
+      "name": "Txt",
+      "parent": "BillboardCanvas",
+      "text": "🏁 MỤC TIÊU GIAO HÀNG\n[ KÝ TÚC XÁ KTX ]"
+    },
+    {
+      "name": "TxtIntent",
+      "parent": "CardBg",
+      "text": "⚔️ Ý định: Tấn công 60-85 DMG"
+    },
+    {
+      "name": "Title",
+      "parent": "Mascot_Dialogue_Window",
+      "text": "🤖 LINH VẬT IUH"
+    },
+    {
+      "name": "Label",
+      "parent": "Btn_HUD_OpenShop",
+      "text": "🎒 <b>KHO ĐỒ & NÂNG CẤP [B]</b>"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "🎁 Rương Bí Mật Căn Tin"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "🎁 Rương Kho Báu Sân Khấu"
+    },
+    {
+      "name": "Text",
+      "parent": "Billboard_Prompt",
+      "text": "📦 VI MẠCH #3\n<color=#00E5FF>Nhiệm Vụ Linh Vật</color>"
+    },
+    {
+      "name": "Text",
+      "parent": "Billboard_Prompt",
+      "text": "📦 VI MẠCH #1\n<color=#00E5FF>Nhiệm Vụ Linh Vật</color>"
+    },
+    {
+      "name": "Header",
+      "parent": "CardBg",
+      "text": "📸 Sân Khấu Âm Nhạc Festival"
+    },
+    {
+      "name": "Txt",
+      "parent": "BillboardCanvas",
+      "text": "<color=#4ADE80><b>🏁 MỤC TIÊU GIAO HÀNG\n[ 🔬 SẢNH TÒA NHÀ E ]</b></color>"
+    },
+    {
+      "name": "TxtClue",
+      "parent": "DialogCard",
+      "text": "📜 Manh mối nhận được: [Mảnh nhật ký tại Ký Túc Xá Block D]"
+    },
+    {
+      "name": "RewardsContent",
+      "parent": "RewardPanel",
+      "text": "💰 +100 Vàng & Bạc IUH\n✨ Vật phẩm dữ liệu"
+    },
+    {
+      "name": "Txt",
+      "parent": "BillboardCanvas",
+      "text": "<color=#4ADE80><b>🏁 MỤC TIÊU GIAO HÀNG\n[ 🏛️ GIẢNG ĐƯỜNG TÒA V ]</b></color>"
+    },
+    {
+      "name": "Text",
+      "parent": "BtnRetry",
+      "text": "🔄 THỬ LẠI TRẬN ĐẤU"
+    },
+    {
+      "name": "TxtIntent",
+      "parent": "CardBg",
+      "text": "⚔️ Ý định: Tấn công 75-100 DMG"
+    }
+  ]
+}

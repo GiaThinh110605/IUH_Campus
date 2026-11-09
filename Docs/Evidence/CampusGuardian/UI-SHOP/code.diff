@@ -1,0 +1,22 @@
+﻿diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
+index 36dc178..9a58497 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
+@@ -223,7 +223,7 @@ namespace IUHCampus.Guardian
+             if (inv == null) return;
+ 
+             // Currency
+-            if (m_TxtGold != null) m_TxtGold.text = $"💰 <b>{inv.Gold} Vàng</b>";
++            if (m_TxtGold != null) m_TxtGold.text = $"<b>{inv.Gold} Vàng</b>";
+ 
+             // Sword Upgrade
+             int swLvl = inv.SwordLevel;
+@@ -400,7 +400,7 @@ namespace IUHCampus.Guardian
+             };
+ 
+             // Section 1: Skins
+-            AddHeader("👗 TRANG PHỤC HỌC ĐƯỜNG & CHIẾN BINH");
++            AddHeader("TRANG PHỤC HỌC ĐƯỜNG & CHIẾN BINH");
+ 
+             AddRow("Người Bảo Vệ Xanh IUH", "Áo khoác xanh rêu truyền thống của đội bảo vệ", true,
+                 customizer.CurrentSkin == PlayerSkinType.Default, 0, () => customizer.ApplySkin(PlayerSkinType.Default));

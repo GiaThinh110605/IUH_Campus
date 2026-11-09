@@ -1,0 +1,315 @@
+{
+  "before": [
+    {
+      "name": "Card/Title",
+      "text": "🏪 TRẠM NÂNG CẤP & KHO ĐỒ IUH",
+      "left": -330,
+      "right": 330,
+      "parentLeft": -360,
+      "parentRight": 360
+    },
+    {
+      "name": "BtnClose/Text",
+      "text": "✕",
+      "left": -17.999939,
+      "right": 18,
+      "parentLeft": -18,
+      "parentRight": 18
+    },
+    {
+      "name": "GoldBar/TxtGold",
+      "text": "💰 <b>200 Vàng</b>",
+      "left": -506,
+      "right": -106.000008,
+      "parentLeft": -340,
+      "parentRight": 340
+    },
+    {
+      "name": "BtnTabUpgrades/Text",
+      "text": "⚙️ NÂNG CẤP",
+      "left": -104.999969,
+      "right": 105.000015,
+      "parentLeft": -105,
+      "parentRight": 105
+    },
+    {
+      "name": "BtnTabInventory/Text",
+      "text": "🎒 KHO ĐỒ",
+      "left": -105,
+      "right": 105,
+      "parentLeft": -105,
+      "parentRight": 105
+    },
+    {
+      "name": "BtnTabSkins/Text",
+      "text": "👗 NGOẠI TRANG",
+      "left": -105.000046,
+      "right": 104.999939,
+      "parentLeft": -105,
+      "parentRight": 105
+    },
+    {
+      "name": "RowSword/Title",
+      "text": "⚔️ Sát Thương Gạch Kiếm",
+      "left": -449.000031,
+      "right": -149.000031,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowSword/Cur",
+      "text": "Cấp 1: <b>6 DMG / ô kiếm</b>",
+      "left": -424.000031,
+      "right": -174.000031,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowSword/Next",
+      "text": "Tiếp: <b>8 DMG</b>",
+      "left": -191,
+      "right": 8.99998951,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "BtnUp/Text",
+      "text": "NÂNG CẤP (80 Vàng)",
+      "left": -85,
+      "right": 85,
+      "parentLeft": -85,
+      "parentRight": 85
+    },
+    {
+      "name": "RowShield/Title",
+      "text": "🛡️ Khả Năng Hấp Thụ Khiên",
+      "left": -449.000031,
+      "right": -149.000031,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowShield/Cur",
+      "text": "Cấp 1: <b>5 Giáp / ô khiên</b>",
+      "left": -424.000031,
+      "right": -174.000031,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowShield/Next",
+      "text": "Tiếp: <b>8 Giáp</b>",
+      "left": -191,
+      "right": 8.99998951,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "BtnUp/Text",
+      "text": "NÂNG CẤP (80 Vàng)",
+      "left": -85,
+      "right": 85,
+      "parentLeft": -85,
+      "parentRight": 85
+    },
+    {
+      "name": "RowHp/Title",
+      "text": "💚 Sinh Lực Tối Đa (Max HP)",
+      "left": -449.000031,
+      "right": -149.000031,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowHp/Cur",
+      "text": "Cấp 1: <b>100 Máu Tối Đa</b>",
+      "left": -424.000031,
+      "right": -174.000031,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowHp/Next",
+      "text": "Tiếp: <b>125 Máu</b>",
+      "left": -191,
+      "right": 8.99998951,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "BtnUp/Text",
+      "text": "NÂNG CẤP (100 Vàng)",
+      "left": -85,
+      "right": 85,
+      "parentLeft": -85,
+      "parentRight": 85
+    }
+  ],
+  "after": [
+    {
+      "name": "Card/Title",
+      "text": "TRẠM NÂNG CẤP & KHO ĐỒ IUH",
+      "left": -330,
+      "right": 330,
+      "parentLeft": -360,
+      "parentRight": 360
+    },
+    {
+      "name": "BtnClose/Text",
+      "text": "✕",
+      "left": -17.999939,
+      "right": 18,
+      "parentLeft": -18,
+      "parentRight": 18
+    },
+    {
+      "name": "GoldBar/TxtGold",
+      "text": "<b>200 Vàng</b>",
+      "left": -328.000031,
+      "right": 327.999969,
+      "parentLeft": -340,
+      "parentRight": 340
+    },
+    {
+      "name": "BtnTabUpgrades/Text",
+      "text": "⚙️ NÂNG CẤP",
+      "left": -104.999969,
+      "right": 105.000015,
+      "parentLeft": -105,
+      "parentRight": 105
+    },
+    {
+      "name": "BtnTabInventory/Text",
+      "text": "KHO ĐỒ",
+      "left": -105,
+      "right": 105,
+      "parentLeft": -105,
+      "parentRight": 105
+    },
+    {
+      "name": "BtnTabSkins/Text",
+      "text": "NGOẠI TRANG",
+      "left": -105.000046,
+      "right": 104.999939,
+      "parentLeft": -105,
+      "parentRight": 105
+    },
+    {
+      "name": "RowSword/Title",
+      "text": "Sát Thương Gạch Kiếm",
+      "left": -299.000031,
+      "right": 0.9999593,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowSword/Cur",
+      "text": "Cấp 1: <b>6 DMG / ô kiếm</b>",
+      "left": -299.000031,
+      "right": -99.00004,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowSword/Next",
+      "text": "Tiếp: <b>8 DMG</b>",
+      "left": -91.00001,
+      "right": 109.000038,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "BtnUp/Text",
+      "text": "NÂNG CẤP (80 Vàng)",
+      "left": -85,
+      "right": 85,
+      "parentLeft": -85,
+      "parentRight": 85
+    },
+    {
+      "name": "RowShield/Title",
+      "text": "Khả Năng Hấp Thụ Khiên",
+      "left": -299.000031,
+      "right": 0.9999593,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowShield/Cur",
+      "text": "Cấp 1: <b>5 Giáp / ô khiên</b>",
+      "left": -299.000031,
+      "right": -99.00004,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowShield/Next",
+      "text": "Tiếp: <b>8 Giáp</b>",
+      "left": -91.00001,
+      "right": 109.000038,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "BtnUp/Text",
+      "text": "NÂNG CẤP (80 Vàng)",
+      "left": -85,
+      "right": 85,
+      "parentLeft": -85,
+      "parentRight": 85
+    },
+    {
+      "name": "RowHp/Title",
+      "text": "Sinh Lực Tối Đa (Max HP)",
+      "left": -299.000031,
+      "right": 0.9999593,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowHp/Cur",
+      "text": "Cấp 1: <b>100 Máu Tối Đa</b>",
+      "left": -299.000031,
+      "right": -99.00004,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "RowHp/Next",
+      "text": "Tiếp: <b>125 Máu</b>",
+      "left": -91.00001,
+      "right": 109.000038,
+      "parentLeft": -325,
+      "parentRight": 325
+    },
+    {
+      "name": "BtnUp/Text",
+      "text": "NÂNG CẤP (100 Vàng)",
+      "left": -85,
+      "right": 85,
+      "parentLeft": -85,
+      "parentRight": 85
+    }
+  ],
+  "iphone": {
+    "width": 2532,
+    "height": 1170,
+    "left": -327.999969,
+    "right": 328.000031,
+    "barLeft": -340,
+    "barRight": 340,
+    "inside": true
+  },
+  "gameViewRestoration": {
+    "selectedIndex": 11,
+    "customCountAfter": 5,
+    "customCountBefore": 5
+  },
+  "imagesVerified": true,
+  "remainingVisualIssue": "Skins list last2 rows extend below viewport/card: existing scrolling/clipping issue, recorded only. Inventory tab has no additional anchor overflow or bad glyph observed.",
+  "supportedEmojiKept": [
+    "⚙️ NÂNG CẤP",
+    "✨ inventory item prefix",
+    "⚡ trails section header"
+  ]
+}
