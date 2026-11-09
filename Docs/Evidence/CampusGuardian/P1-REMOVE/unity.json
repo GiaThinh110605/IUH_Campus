@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-11-09T21:57:37+07:00",
+  "unity": "6000.5.8f1 Editor, Windows, MCP for Unity",
+  "before": {"active_scene": "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity", "isDirty": false, "console_errors": 0},
+  "after_refresh": {"compile": "domain reload done, ready_for_tools=true", "console_errors": 0, "console_warnings": "CS0618 obsolete Find* API only (pre-existing, unrelated files)"},
+  "scene_validate": {"scene": "IUH_SharedCampus_Concept", "missingScripts": 0, "brokenPrefabs": 0, "totalIssues": 0},
+  "editmode_tests": {"job_id": "751d591e8ae34433ac982e0bedefe792", "total": 55, "passed": 54, "failed": 1,
+    "failures": [{"name": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_CountsPurifyTiles", "message": "Expected: 3 But was: 0",
+      "related_to_removal": false,
+      "reason": "Match3.Tests chỉ tham chiếu Match3.Core (noEngineReferences, không phụ thuộc Progress), file không đổi so với origin/main. Commit e5aecbb (candy blast) bỏ case TileType.Purify ở vòng đếm ô ghép thường. Code của Thịnh, chưa sửa, đã báo."}]}
+}

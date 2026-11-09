@@ -1,0 +1,316 @@
+{
+  "generated_at": "2026-11-09T21:57:37+07:00",
+  "base_commit": "6432dc0",
+  "branch": "minhnhat/remove-progress-p1",
+  "source_commits": [
+    "d57c60c (P1)",
+    "43444ea (P1.5)"
+  ],
+  "removed_assets": [
+    "Assets/IUH_Campus/Data/Guardian.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/GuardianItemDatabase.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/GuardianItemDatabase.asset.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/GuardianProgressConfig.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/GuardianProgressConfig.asset.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/fertilizer.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/fertilizer.asset.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/seed_daisy.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/seed_daisy.asset.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/seed_rose.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/seed_rose.asset.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/seed_sunflower.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/seed_sunflower.asset.meta",
+    "Assets/IUH_Campus/Data/Guardian/Progress/tool_watering_can.asset",
+    "Assets/IUH_Campus/Data/Guardian/Progress/tool_watering_can.asset.meta",
+    "Assets/IUH_Campus/Prefabs/Guardian.meta",
+    "Assets/IUH_Campus/Prefabs/Guardian/GuardianInventoryUI.prefab",
+    "Assets/IUH_Campus/Prefabs/Guardian/GuardianInventoryUI.prefab.meta",
+    "Assets/IUH_Campus/Scenes/Test.meta",
+    "Assets/IUH_Campus/Scenes/Test/GuardianInventoryTest.unity",
+    "Assets/IUH_Campus/Scenes/Test/GuardianInventoryTest.unity.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianInventory.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianInventory.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianItemDatabase.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianItemDatabase.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianItemDefinition.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianItemDefinition.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressConfig.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressConfig.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressFactory.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressFactory.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressService.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressService.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressState.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressState.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressStore.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressStore.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianWallet.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianWallet.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/IUHCampus.Guardian.Progress.asmdef",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/IUHCampus.Guardian.Progress.asmdef.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor/IUHCampus.Guardian.Progress.Tests.asmdef",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor/IUHCampus.Guardian.Progress.Tests.asmdef.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor/ProgressTests.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor/ProgressTests.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/GuardianInventoryBuilder.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/GuardianInventoryBuilder.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/GuardianInventoryCapture.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/GuardianInventoryCapture.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/IUHCampus.Guardian.Progress.UI.Editor.asmdef",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/IUHCampus.Guardian.Progress.UI.Editor.asmdef.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryDebug.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryDebug.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryInputGate.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryInputGate.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryPresenter.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryPresenter.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventorySlot.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventorySlot.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryUI.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryUI.cs.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/IUHCampus.Guardian.Progress.UI.asmdef",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/IUHCampus.Guardian.Progress.UI.asmdef.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor/IUHCampus.Guardian.Progress.UI.Tests.asmdef",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor/IUHCampus.Guardian.Progress.UI.Tests.asmdef.meta",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor/InventoryPresenterTests.cs",
+    "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor/InventoryPresenterTests.cs.meta",
+    "Assets/IUH_Campus/UI/Guardian.meta",
+    "Assets/IUH_Campus/UI/Guardian/Icons.meta",
+    "Assets/IUH_Campus/UI/Guardian/Icons/fertilizer.png",
+    "Assets/IUH_Campus/UI/Guardian/Icons/fertilizer.png.meta",
+    "Assets/IUH_Campus/UI/Guardian/Icons/seed_daisy.png",
+    "Assets/IUH_Campus/UI/Guardian/Icons/seed_daisy.png.meta",
+    "Assets/IUH_Campus/UI/Guardian/Icons/seed_rose.png",
+    "Assets/IUH_Campus/UI/Guardian/Icons/seed_rose.png.meta",
+    "Assets/IUH_Campus/UI/Guardian/Icons/seed_sunflower.png",
+    "Assets/IUH_Campus/UI/Guardian/Icons/seed_sunflower.png.meta",
+    "Assets/IUH_Campus/UI/Guardian/Icons/tool_watering_can.png",
+    "Assets/IUH_Campus/UI/Guardian/Icons/tool_watering_can.png.meta",
+    "Docs/Guardian_Progress.md"
+  ],
+  "removed_count": 88,
+  "guids": [
+    {
+      "guid": "53a2a7a1e05608346ab88f50396da1ee",
+      "path": "Assets/IUH_Campus/Data/Guardian"
+    },
+    {
+      "guid": "d407543fe33f4847b4364647fd0373f9",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress"
+    },
+    {
+      "guid": "ef76b088ee104e27905bdf3459277e57",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/GuardianItemDatabase.asset"
+    },
+    {
+      "guid": "fb2105a613574738bab20710e606a52b",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/GuardianProgressConfig.asset"
+    },
+    {
+      "guid": "e481bc2fb4aa4ab0be0b09da75c1a46c",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/fertilizer.asset"
+    },
+    {
+      "guid": "c62e80b235174b61bb8911006f5ab995",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/seed_daisy.asset"
+    },
+    {
+      "guid": "d4997a3065c64833929b74e6737402ef",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/seed_rose.asset"
+    },
+    {
+      "guid": "956a64674dec40a38a9d58c4232d5f57",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/seed_sunflower.asset"
+    },
+    {
+      "guid": "9f55a75008ba40bcb05b65e7293d8e22",
+      "path": "Assets/IUH_Campus/Data/Guardian/Progress/tool_watering_can.asset"
+    },
+    {
+      "guid": "7a8c5f078dc8a85419d95ed033cfcad1",
+      "path": "Assets/IUH_Campus/Prefabs/Guardian"
+    },
+    {
+      "guid": "8c03a9abb8717004b98d9d5abaf9ddc4",
+      "path": "Assets/IUH_Campus/Prefabs/Guardian/GuardianInventoryUI.prefab"
+    },
+    {
+      "guid": "cb428e8c216058f498875a04e9bbb678",
+      "path": "Assets/IUH_Campus/Scenes/Test"
+    },
+    {
+      "guid": "9bace1cd2d50cfa41a819bdaf1d552e6",
+      "path": "Assets/IUH_Campus/Scenes/Test/GuardianInventoryTest.unity"
+    },
+    {
+      "guid": "3d90c0119b514b8d9db7dd659ada683f",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress"
+    },
+    {
+      "guid": "7a0646a536174a6c8182b16ae1f4d1e0",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianInventory.cs"
+    },
+    {
+      "guid": "851321a686544e6f878ee0fd5b6c5d75",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianItemDatabase.cs"
+    },
+    {
+      "guid": "7fa7b134ef994071b4e562e4715743d4",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianItemDefinition.cs"
+    },
+    {
+      "guid": "8fe435803d0446a3bd0455e87f3b7e8b",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressConfig.cs"
+    },
+    {
+      "guid": "ed26eea10999487e9a50fceab23558d3",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressFactory.cs"
+    },
+    {
+      "guid": "40066b66cfc24d34bd8abc62b469912b",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressService.cs"
+    },
+    {
+      "guid": "ace5c4e20ece4c01afb158609515b0e1",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressState.cs"
+    },
+    {
+      "guid": "c362b22db5724d338102ad8bfcbec324",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianProgressStore.cs"
+    },
+    {
+      "guid": "90a9b2328d5e44d486b00385656e78b6",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/GuardianWallet.cs"
+    },
+    {
+      "guid": "9867839f3f2b442da64ecf74ef992999",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/IUHCampus.Guardian.Progress.asmdef"
+    },
+    {
+      "guid": "d3bd5bc5acc04f0a88a8f7d16a3de9fc",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests"
+    },
+    {
+      "guid": "cc589821b34c407fa190747da5d16bcb",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor"
+    },
+    {
+      "guid": "2c1ef5576b0d4ce69e123f3c7e2cf6e6",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor/IUHCampus.Guardian.Progress.Tests.asmdef"
+    },
+    {
+      "guid": "b7f636f5c7b14d9a96b18f7a2ccef706",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/Tests/Editor/ProgressTests.cs"
+    },
+    {
+      "guid": "81ad40e6ff084d52af88abe05ccbfa1e",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI"
+    },
+    {
+      "guid": "bfd482fcaa7a484da7b4487d088f7ce2",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor"
+    },
+    {
+      "guid": "2da4de97dcbd5134686b94a747785f14",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/GuardianInventoryBuilder.cs"
+    },
+    {
+      "guid": "7b19231c34db08c4fb2c1d2f29186629",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/GuardianInventoryCapture.cs"
+    },
+    {
+      "guid": "5e35f74fac64401890c9c8436e00debe",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Editor/IUHCampus.Guardian.Progress.UI.Editor.asmdef"
+    },
+    {
+      "guid": "281dc8ab12424285bc042fdf05b74594",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryDebug.cs"
+    },
+    {
+      "guid": "e9db0bdc32224b929b64cc23d02a0bf2",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryInputGate.cs"
+    },
+    {
+      "guid": "4ed5d7c8bc8d4cc290dd03ad8fb4d130",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryPresenter.cs"
+    },
+    {
+      "guid": "d0f78e1ae1134aaaae3fe38c5141dd02",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventorySlot.cs"
+    },
+    {
+      "guid": "2fbcd986a1fc41c8b02cfc68bc3eadbf",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/GuardianInventoryUI.cs"
+    },
+    {
+      "guid": "7fa89db3a2bf4967be5636a5e6de2de2",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/IUHCampus.Guardian.Progress.UI.asmdef"
+    },
+    {
+      "guid": "9eedd4899d4a4a209b5d5563430d9557",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests"
+    },
+    {
+      "guid": "fe70c8fe21a44576a2090a439bb3bc7f",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor"
+    },
+    {
+      "guid": "dd9b3c2b470546d493cbd55b673b9440",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor/IUHCampus.Guardian.Progress.UI.Tests.asmdef"
+    },
+    {
+      "guid": "3fce08c54713775408b9410e28402313",
+      "path": "Assets/IUH_Campus/Scripts/Guardian/Progress/UI/Tests/Editor/InventoryPresenterTests.cs"
+    },
+    {
+      "guid": "eeda2c71d5ab46188957551dd3af7e46",
+      "path": "Assets/IUH_Campus/UI/Guardian"
+    },
+    {
+      "guid": "5bcddfc27de14039bb894f65b907c8d0",
+      "path": "Assets/IUH_Campus/UI/Guardian/Icons"
+    },
+    {
+      "guid": "bca296cafa4c416c8ec000287f3eb544",
+      "path": "Assets/IUH_Campus/UI/Guardian/Icons/fertilizer.png"
+    },
+    {
+      "guid": "64725a0c353e4361a77d7d46f3d4978c",
+      "path": "Assets/IUH_Campus/UI/Guardian/Icons/seed_daisy.png"
+    },
+    {
+      "guid": "8fbdc1e264e2427baeae495a34dabfc9",
+      "path": "Assets/IUH_Campus/UI/Guardian/Icons/seed_rose.png"
+    },
+    {
+      "guid": "bcb443a7cc1b4a1ebd22c8aa13cde0a1",
+      "path": "Assets/IUH_Campus/UI/Guardian/Icons/seed_sunflower.png"
+    },
+    {
+      "guid": "3f4ac15d85d24cf1b9e46a15a7cf3f0e",
+      "path": "Assets/IUH_Campus/UI/Guardian/Icons/tool_watering_can.png"
+    }
+  ],
+  "guid_scan": {
+    "scope": [
+      "Assets",
+      "ProjectSettings",
+      "Packages"
+    ],
+    "files_containing_any_guid": 59,
+    "files_outside_removal_set": []
+  },
+  "name_scan": {
+    "asmdef_refs_outside": [],
+    "cs_type_refs_outside": [],
+    "build_settings_refs": []
+  }
+}
