@@ -5,90 +5,186 @@ using UnityEngine;
 using UnityEngine.UI;
 using IUHCampus.Guardian.Match3;
 using IUHCampus.Minigames.GreenCampus;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 namespace IUHCampus.Guardian.AR
 {
+    public enum CorruptedObjectType
+    {
+        Backpack,
+        EngineeringLaptop,
+        LibraryTextbook,
+        Random
+    }
+
+    /// <summary>
+    /// Điều khiển hiện tượng 'Đồ Bị Nhiễm & Quái Vật Thức Tỉnh Trên Mặt Phẳng AR':
+    /// - Quản lý 3 loại vật thể sinh viên (Balo, Laptop đồ án, Sách giáo trình).
+    /// - Hiệu ứng khói tím u ám (Volumetric Smoke) + tia chớp pixel glitch + hào quang cảnh báo.
+    /// - Diễn hoạt quái vật Cyber Demon bước ra từ lốc xoáy khói và đứng vững trên mặt phẳng AR.
+    /// - Nhận diện tương tác cảm ứng / Click chuột / phím [E] để kích hoạt màn đấu Match-3 thanh tẩy.
+    /// - Trao thưởng Vàng & Dược phẩm nano khi tiêu diệt quái vật thành công.
+    /// </summary>
     public class IUHARCorruptedObjectEncounter : MonoBehaviour
     {
         public static IUHARCorruptedObjectEncounter Instance { get; private set; }
 
-        [Header("Prefabs & References")]
+        [Header("Object Variety")]
+        [SerializeField] private CorruptedObjectType m_ConfiguredType = CorruptedObjectType.Random;
         [SerializeField] private GameObject m_CorruptedBackpack;
+        [SerializeField] private GameObject m_CorruptedLaptop;
+        [SerializeField] private GameObject m_CorruptedTextbook;
+
+        [Header("Encounter References")]
         [SerializeField] private GameObject m_MonsterObject;
         [SerializeField] private ParticleSystem m_PurpleSmokeParticles;
+        [SerializeField] private ParticleSystem m_GlitchPixelParticles;
         [SerializeField] private Light m_PurpleAuraLight;
         [SerializeField] private GameObject m_ReticleObject;
         [SerializeField] private GameObject m_TapPromptCanvas;
         [SerializeField] private Match3CombatManager m_CombatManager;
 
-        [Header("Monster Config")]
-        [SerializeField] private string m_MonsterName = "Tiểu Quỷ Dữ Liệu (AR)";
+        [Header("Monster & Rewards Config")]
+        [SerializeField] private bool m_AutoPlaceOnStart = false;
+        [SerializeField] private string m_MonsterName = "Tiểu Quỷ Dữ Liệu (AR Cyber Demon)";
         [SerializeField] private int m_MonsterHp = 60;
-        [SerializeField] private float m_CombatDuration = 45f;
         [SerializeField] private int m_RewardGold = 100;
         [SerializeField] private string m_RewardItem = "Bình Dược Liệu Nano (+50 HP)";
+        [SerializeField] private float m_InteractionDistance = 3.8f;
 
         [Header("State")]
         private bool m_IsPlaced = false;
         private bool m_IsMonsterActive = false;
         private bool m_InCombat = false;
+        private bool m_IsPurified = false;
+        private GameObject m_ActiveCorruptedObject;
         private Camera m_ARCamera;
+        private Transform m_PlayerTransform;
 
         public bool IsPlaced => m_IsPlaced;
+        public bool IsMonsterActive => m_IsMonsterActive;
+        public bool IsPurified => m_IsPurified;
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
             m_ARCamera = Camera.main;
 
+            InitializeObjectSlots();
+        }
+
+        private void Start()
+        {
+            FindReferences();
+
+            if (m_AutoPlaceOnStart && !m_IsPlaced)
+            {
+                PlaceCorruptedObject(transform.position, transform.rotation);
+            }
+        }
+
+        private void InitializeObjectSlots()
+        {
             if (m_CorruptedBackpack != null) m_CorruptedBackpack.SetActive(false);
+            if (m_CorruptedLaptop != null) m_CorruptedLaptop.SetActive(false);
+            if (m_CorruptedTextbook != null) m_CorruptedTextbook.SetActive(false);
             if (m_MonsterObject != null) m_MonsterObject.SetActive(false);
             if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(false);
             if (m_PurpleAuraLight != null) m_PurpleAuraLight.enabled = false;
         }
 
-        private void Start()
+        private void FindReferences()
         {
             if (m_ARCamera == null) m_ARCamera = Camera.main;
+            var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
+            if (student != null) m_PlayerTransform = student.transform;
+
+            if (m_CombatManager == null)
+            {
+                m_CombatManager = Match3CombatManager.Instance ?? FindAnyObjectByType<Match3CombatManager>();
+            }
         }
 
         private void Update()
         {
-            if (!m_IsPlaced) return;
-
-            if (m_IsMonsterActive && !m_InCombat)
+            // Nhịp thở nhấp nháy của hào quang ánh sáng tím cảnh báo
+            if (m_PurpleAuraLight != null && m_PurpleAuraLight.enabled && !m_IsPurified)
             {
-                // Touch tap on iPhone or Left Mouse Click on Editor
-                bool isTapped = false;
-                Vector2 tapPos = Vector2.zero;
+                m_PurpleAuraLight.intensity = 3.2f + Mathf.Sin(Time.time * 5.0f) * 1.5f;
+            }
 
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    isTapped = true;
-                    tapPos = Input.GetTouch(0).position;
-                }
-                else if (Input.GetMouseButtonDown(0))
-                {
-                    isTapped = true;
-                    tapPos = Input.mousePosition;
-                }
+            if (!m_IsPlaced || !m_IsMonsterActive || m_InCombat || m_IsPurified) return;
 
-                if (isTapped && m_ARCamera != null)
+            HandleEngagementInput();
+        }
+
+        private void HandleEngagementInput()
+        {
+            bool tapRequested = false;
+            Vector2 tapPos = Vector2.zero;
+
+            // 1. Cảm ứng chạm màn hình điện thoại (Touch)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == UnityEngine.TouchPhase.Began)
+            {
+                tapRequested = true;
+                tapPos = Input.GetTouch(0).position;
+            }
+            // 2. Click chuột trái trên máy tính
+            else if (Input.GetMouseButtonDown(0))
+            {
+                tapRequested = true;
+                tapPos = Input.mousePosition;
+            }
+            // 3. Phím tắt [E] hoặc [Space] khi sinh viên đứng gần
+            bool keyRequested = false;
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null && (Keyboard.current.eKey.wasPressedThisFrame || Keyboard.current.spaceKey.wasPressedThisFrame))
+            {
+                keyRequested = true;
+            }
+#endif
+            try
+            {
+                if (!keyRequested && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space)))
                 {
-                    Ray ray = m_ARCamera.ScreenPointToRay(tapPos);
-                    if (Physics.Raycast(ray, out RaycastHit hit, 20f))
+                    keyRequested = true;
+                }
+            }
+            catch {}
+
+            if (keyRequested)
+            {
+                float dist = m_PlayerTransform != null 
+                    ? Vector3.Distance(m_PlayerTransform.position, transform.position)
+                    : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 0f);
+
+                if (dist <= m_InteractionDistance || dist < 0.1f)
+                {
+                    StartCombatEncounter();
+                    return;
+                }
+            }
+
+            if (tapRequested && m_ARCamera != null)
+            {
+                Ray ray = m_ARCamera.ScreenPointToRay(tapPos);
+                if (Physics.Raycast(ray, out RaycastHit hit, 25f))
+                {
+                    if (hit.transform.IsChildOf(m_MonsterObject.transform) ||
+                        (m_ActiveCorruptedObject != null && hit.transform.IsChildOf(m_ActiveCorruptedObject.transform)) ||
+                        hit.transform.IsChildOf(transform))
                     {
-                        if (hit.transform.IsChildOf(m_MonsterObject.transform) ||
-                            hit.transform.IsChildOf(m_CorruptedBackpack.transform) ||
-                            hit.transform.IsChildOf(transform))
-                        {
-                            StartCombatEncounter();
-                        }
+                        StartCombatEncounter();
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Đặt vật thể nhiễm độc lên mặt phẳng AR được phát hiện và bắt đầu kịch bản thức tỉnh quái vật
+        /// </summary>
         public void PlaceCorruptedObject(Vector3 worldPos, Quaternion rotation)
         {
             if (m_IsPlaced) return;
@@ -104,56 +200,58 @@ namespace IUHCampus.Guardian.AR
 
         private IEnumerator SpawnSequenceRoutine()
         {
-            // 1. Show Corrupted Backpack
-            if (m_CorruptedBackpack != null)
-            {
-                m_CorruptedBackpack.SetActive(true);
-                m_CorruptedBackpack.transform.localScale = Vector3.zero;
-            }
+            // 1. Lựa chọn và kích hoạt loại vật thể nhiễm độc
+            SelectAndActivateCorruptedObject();
 
-            // Animate scale up
-            float elapsed = 0f;
-            while (elapsed < 0.5f)
+            // Hiệu ứng phình to vật thể (Pop-in animation)
+            if (m_ActiveCorruptedObject != null)
             {
-                elapsed += Time.deltaTime;
-                float t = elapsed / 0.5f;
-                if (m_CorruptedBackpack != null)
+                m_ActiveCorruptedObject.transform.localScale = Vector3.zero;
+                float elapsed = 0f;
+                while (elapsed < 0.45f)
                 {
-                    m_CorruptedBackpack.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.2f, t);
+                    elapsed += Time.deltaTime;
+                    float t = elapsed / 0.45f;
+                    m_ActiveCorruptedObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.25f, Mathf.SmoothStep(0f, 1f, t));
+                    yield return null;
                 }
-                yield return null;
             }
 
-            // 2. Erupt purple smoke & dark aura light
+            // 2. Bùng nổ khói tím & tia chớp pixel glitch
             if (m_PurpleSmokeParticles != null) m_PurpleSmokeParticles.Play();
+            if (m_GlitchPixelParticles != null) m_GlitchPixelParticles.Play();
             if (m_PurpleAuraLight != null) m_PurpleAuraLight.enabled = true;
 
             IUHCombatAudio.PlayShield();
-            IUHCameraShake.Shake(0.15f, 0.25f);
-            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 0.8f, "⚠️ DỮ LIỆU BỊ NHIỄM ĐỘC!", new Color(0.85f, 0.2f, 1f), 1.2f);
+            IUHCameraShake.Shake(0.18f, 0.25f);
+            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 0.9f, "⚠️ DỊ TƯỢNG: DỮ LIỆU BỊ NHIỄM ĐỘC!", new Color(0.85f, 0.2f, 1f), 1.3f);
 
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1.1f);
 
-            // 3. Monster emerges from purple smoke
+            // 3. Quái vật Cyber Demon bước ra từ tâm lốc xoáy khói tím
             if (m_MonsterObject != null)
             {
                 m_MonsterObject.SetActive(true);
-                m_MonsterObject.transform.localPosition = new Vector3(0f, -0.5f, 0.5f);
+                m_MonsterObject.transform.localPosition = new Vector3(0f, -0.6f, 0.45f);
                 m_MonsterObject.transform.localScale = Vector3.zero;
             }
 
             IUHCombatAudio.PlayBossRoar();
-            IUHCameraShake.Shake(0.25f, 0.4f);
+            IUHCameraShake.Shake(0.28f, 0.45f);
 
-            elapsed = 0f;
-            while (elapsed < 0.8f)
+            float spawnDuration = 0.85f;
+            float time = 0f;
+            while (time < spawnDuration)
             {
-                elapsed += Time.deltaTime;
-                float t = elapsed / 0.8f;
+                time += Time.deltaTime;
+                float t = time / spawnDuration;
+                float easeOut = Mathf.Sin(t * Mathf.PI * 0.5f);
+
                 if (m_MonsterObject != null)
                 {
-                    m_MonsterObject.transform.localPosition = Vector3.Lerp(new Vector3(0f, -0.5f, 0.5f), new Vector3(0f, 0f, 0.6f), t);
-                    m_MonsterObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.35f, t);
+                    // Bước trồi lên mặt đất và mở rộng hình thể
+                    m_MonsterObject.transform.localPosition = Vector3.Lerp(new Vector3(0f, -0.6f, 0.45f), new Vector3(0f, 0f, 0.65f), easeOut);
+                    m_MonsterObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.4f, easeOut);
                 }
                 yield return null;
             }
@@ -161,37 +259,153 @@ namespace IUHCampus.Guardian.AR
             m_IsMonsterActive = true;
             if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(true);
 
-            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.6f, "⚡ CHẠM ĐỂ CHIẾN ĐẤU!", new Color(0.3f, 0.95f, 1f), 1.3f);
+            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.8f, "⚡ CHẠM ĐỂ CHIẾN ĐẤU [MATCH-3 RPG]!", new Color(0.15f, 0.95f, 1f), 1.5f);
+        }
+
+        private void SelectAndActivateCorruptedObject()
+        {
+            CorruptedObjectType chosen = m_ConfiguredType;
+            if (chosen == CorruptedObjectType.Random)
+            {
+                int rand = UnityEngine.Random.Range(0, 3);
+                chosen = (CorruptedObjectType)rand;
+            }
+
+            switch (chosen)
+            {
+                case CorruptedObjectType.EngineeringLaptop:
+                    if (m_CorruptedLaptop != null) m_ActiveCorruptedObject = m_CorruptedLaptop;
+                    else m_ActiveCorruptedObject = m_CorruptedBackpack;
+                    break;
+
+                case CorruptedObjectType.LibraryTextbook:
+                    if (m_CorruptedTextbook != null) m_ActiveCorruptedObject = m_CorruptedTextbook;
+                    else m_ActiveCorruptedObject = m_CorruptedBackpack;
+                    break;
+
+                case CorruptedObjectType.Backpack:
+                default:
+                    m_ActiveCorruptedObject = m_CorruptedBackpack;
+                    break;
+            }
+
+            if (m_ActiveCorruptedObject != null)
+            {
+                m_ActiveCorruptedObject.SetActive(true);
+            }
         }
 
         public void StartCombatEncounter()
         {
-            if (m_InCombat) return;
+            if (m_InCombat || m_IsPurified) return;
             m_InCombat = true;
 
             if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(false);
 
             IUHCombatAudio.PlaySword();
-            IUHCameraShake.Shake(0.2f, 0.3f);
+            IUHCameraShake.Shake(0.22f, 0.35f);
+
+            if (m_CombatManager == null)
+            {
+                m_CombatManager = Match3CombatManager.Instance ?? FindAnyObjectByType<Match3CombatManager>();
+            }
 
             if (m_CombatManager != null)
             {
+                // Đăng ký nhận sự kiện khi kết thúc trận đấu Match-3
+                m_CombatManager.CombatFinished += OnMatch3CombatFinished;
                 m_CombatManager.StartNewCombat();
             }
         }
 
+        private void OnMatch3CombatFinished(IUHMonsterEncounter encounter, bool victory)
+        {
+            if (m_CombatManager != null)
+            {
+                m_CombatManager.CombatFinished -= OnMatch3CombatFinished;
+            }
+
+            if (victory)
+            {
+                OnCombatWon();
+            }
+            else
+            {
+                // Thất bại: cho phép thử lại
+                m_InCombat = false;
+                if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(true);
+            }
+        }
+
+        /// <summary>
+        /// Kích hoạt khi người chơi chiến thắng màn đấu Match-3:
+        /// Quái vật tan biến thành bụi vàng, khói độc chuyển thành hào quang hồi phục,
+        /// và trao thưởng 100 Vàng + Bình Dược Liệu Nano vào kho đồ sinh viên.
+        /// </summary>
         public void OnCombatWon()
         {
             m_InCombat = false;
             m_IsMonsterActive = false;
+            m_IsPurified = true;
 
-            if (m_MonsterObject != null) m_MonsterObject.SetActive(false);
+            StartCoroutine(PurificationSequenceRoutine());
+        }
+
+        private IEnumerator PurificationSequenceRoutine()
+        {
+            // 1. Quái vật tan biến trong bụi sáng vàng kim
+            if (m_MonsterObject != null)
+            {
+                float fadeDuration = 0.6f;
+                float elapsed = 0f;
+                Vector3 initScale = m_MonsterObject.transform.localScale;
+
+                while (elapsed < fadeDuration)
+                {
+                    elapsed += Time.deltaTime;
+                    float t = elapsed / fadeDuration;
+                    m_MonsterObject.transform.localScale = Vector3.Lerp(initScale, Vector3.zero, t);
+                    m_MonsterObject.transform.position += Vector3.up * 0.8f * Time.deltaTime;
+                    yield return null;
+                }
+                m_MonsterObject.SetActive(false);
+            }
+
+            // 2. Chuyển khói tím sang hào quang Thanh Tẩy Xanh Ngọc
             if (m_PurpleSmokeParticles != null) m_PurpleSmokeParticles.Stop();
-            if (m_PurpleAuraLight != null) m_PurpleAuraLight.color = new Color(0.2f, 1f, 0.4f);
+            if (m_GlitchPixelParticles != null) m_GlitchPixelParticles.Stop();
 
+            if (m_PurpleAuraLight != null)
+            {
+                m_PurpleAuraLight.color = new Color(0.2f, 1f, 0.5f);
+                m_PurpleAuraLight.intensity = 5.0f;
+            }
+
+            IUHCombatAudio.PlayHeal();
             IUHCombatAudio.PlayCoin();
-            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.5f, "✨ ĐÃ THANH TẨY THÀNH CÔNG!", new Color(0.3f, 1f, 0.5f), 1.4f);
+
+            // 3. Trao thưởng vào túi đồ sinh viên IUH
+            if (IUHGuardianInventory.Instance != null)
+            {
+                IUHGuardianInventory.Instance.AddGold(m_RewardGold);
+                IUHGuardianInventory.Instance.AddItem(m_RewardItem);
+            }
+
+            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.6f, $"✨ ĐÃ THANH TẨY! +{m_RewardGold} VÀNG & {m_RewardItem}!", new Color(0.3f, 1f, 0.5f), 1.8f);
+
+            yield return new WaitForSeconds(3.0f);
+
+            // Giảm dần ánh sáng xanh ngọc
+            if (m_PurpleAuraLight != null)
+            {
+                float t = 0f;
+                while (t < 1.5f)
+                {
+                    t += Time.deltaTime;
+                    m_PurpleAuraLight.intensity = Mathf.Lerp(5f, 0.8f, t / 1.5f);
+                    yield return null;
+                }
+            }
         }
     }
 }
-
