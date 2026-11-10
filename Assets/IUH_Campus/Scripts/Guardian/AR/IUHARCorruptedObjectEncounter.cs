@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using IUHCampus.Core;
 using IUHCampus.Guardian.Match3;
 using IUHCampus.Minigames.GreenCampus;
 #if ENABLE_INPUT_SYSTEM
@@ -48,11 +49,12 @@ namespace IUHCampus.Guardian.AR
 
         [Header("Monster & Rewards Config")]
         [SerializeField] private bool m_AutoPlaceOnStart = false;
+        [SerializeField] private float m_AwakenDistance = 8.5f;
+        [SerializeField] private float m_InteractionDistance = 4.8f;
         [SerializeField] private string m_MonsterName = "Tiểu Quỷ Dữ Liệu (AR Cyber Demon)";
-        [SerializeField] private int m_MonsterHp = 60;
+        [SerializeField] private int m_MonsterHp = 800;
         [SerializeField] private int m_RewardGold = 100;
         [SerializeField] private string m_RewardItem = "Bình Dược Liệu Nano (+50 HP)";
-        [SerializeField] private float m_InteractionDistance = 3.8f;
 
         [Header("State")]
         private bool m_IsPlaced = false;
@@ -122,6 +124,9 @@ namespace IUHCampus.Guardian.AR
 
         private void HandleEngagementInput()
         {
+            if (m_ARCamera == null) m_ARCamera = Camera.main;
+            if (m_PlayerTransform == null) FindReferences();
+
             bool tapRequested = false;
             Vector2 tapPos = Vector2.zero;
 
@@ -137,22 +142,9 @@ namespace IUHCampus.Guardian.AR
                 tapRequested = true;
                 tapPos = Input.mousePosition;
             }
-            // 3. Phím tắt [E] hoặc [Space] khi sinh viên đứng gần
-            bool keyRequested = false;
-#if ENABLE_INPUT_SYSTEM
-            if (Keyboard.current != null && (Keyboard.current.eKey.wasPressedThisFrame || Keyboard.current.spaceKey.wasPressedThisFrame))
-            {
-                keyRequested = true;
-            }
-#endif
-            try
-            {
-                if (!keyRequested && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space)))
-                {
-                    keyRequested = true;
-                }
-            }
-            catch {}
+
+            // 3. Phím tắt [E] hoặc [Space] hoặc nút ảo Interact trên Mobile Controls UI
+            bool keyRequested = IUHInputHelper.IsInteractKeyDown();
 
             if (keyRequested)
             {
@@ -170,7 +162,7 @@ namespace IUHCampus.Guardian.AR
             if (tapRequested && m_ARCamera != null)
             {
                 Ray ray = m_ARCamera.ScreenPointToRay(tapPos);
-                if (Physics.Raycast(ray, out RaycastHit hit, 25f))
+                if (Physics.Raycast(ray, out RaycastHit hit, 35f))
                 {
                     if (hit.transform.IsChildOf(m_MonsterObject.transform) ||
                         (m_ActiveCorruptedObject != null && hit.transform.IsChildOf(m_ActiveCorruptedObject.transform)) ||
@@ -222,11 +214,27 @@ namespace IUHCampus.Guardian.AR
             if (m_GlitchPixelParticles != null) m_GlitchPixelParticles.Play();
             if (m_PurpleAuraLight != null) m_PurpleAuraLight.enabled = true;
 
+            if (m_AutoPlaceOnStart)
+            {
+                // Trong khuôn viên trường 3D: vật thể nằm bốc khói tím cảnh báo,
+                // chờ sinh viên tiến lại gần thì quái vật mới thức tỉnh!
+                while (true)
+                {
+                    if (m_PlayerTransform == null) FindReferences();
+                    float dist = m_PlayerTransform != null 
+                        ? Vector3.Distance(m_PlayerTransform.position, transform.position) 
+                        : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 999f);
+
+                    if (dist <= m_AwakenDistance) break;
+                    yield return new WaitForSeconds(0.2f);
+                }
+            }
+
             IUHCombatAudio.PlayShield();
             IUHCameraShake.Shake(0.18f, 0.25f);
-            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 0.9f, "⚠️ DỊ TƯỢNG: DỮ LIỆU BỊ NHIỄM ĐỘC!", new Color(0.85f, 0.2f, 1f), 1.3f);
+            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 0.9f, "⚠️ DỊ TƯỢNG XUẤT HIỆN: DỮ LIỆU BỊ NHIỄM ĐỘC!", new Color(0.85f, 0.2f, 1f), 1.5f);
 
-            yield return new WaitForSeconds(1.1f);
+            yield return new WaitForSeconds(0.7f);
 
             // 3. Quái vật Cyber Demon bước ra từ tâm lốc xoáy khói tím
             if (m_MonsterObject != null)
@@ -312,6 +320,12 @@ namespace IUHCampus.Guardian.AR
 
             if (m_CombatManager != null)
             {
+                var encounter = GetComponent<IUHMonsterEncounter>();
+                if (encounter != null)
+                {
+                    m_CombatManager.SetActiveEncounter(encounter);
+                }
+
                 // Đăng ký nhận sự kiện khi kết thúc trận đấu Match-3
                 m_CombatManager.CombatFinished += OnMatch3CombatFinished;
                 m_CombatManager.StartNewCombat();

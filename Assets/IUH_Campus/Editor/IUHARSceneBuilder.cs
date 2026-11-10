@@ -154,34 +154,88 @@ namespace IUHCampus.Editor
             }
         }
 
-        [MenuItem("IUH Campus/AR/Setup Corrupted Object in Main Campus Scene", false, 161)]
-        public static void SetupCorruptedEncounterInCampusScene()
+        [MenuItem("IUH Campus/AR/Setup Corrupted Encounters in Main Campus Scene", false, 161)]
+        public static void SetupAllCorruptedEncountersInCampusScene()
         {
+            const string MAIN_CAMPUS_PATH = "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity";
             var activeScene = EditorSceneManager.GetActiveScene();
-            Debug.Log("<color=#00E5FF>[IUH AR]</color> Cài đặt Dị Tượng Nhiễm Độc vào Scene hiện tại: " + activeScene.path);
-
-            var existing = GameObject.Find("CORRUPTED_OBJECT_STUDENT_BACKPACK");
-            if (existing != null)
+            if (activeScene.path != MAIN_CAMPUS_PATH)
             {
-                Object.DestroyImmediate(existing);
+                activeScene = EditorSceneManager.OpenScene(MAIN_CAMPUS_PATH, OpenSceneMode.Single);
             }
 
-            Vector3 spawnPos = new Vector3(4.0f, 0.05f, -28.0f);
-            GameObject root = new GameObject("CORRUPTED_OBJECT_STUDENT_BACKPACK");
-            root.transform.position = spawnPos;
+            Debug.Log("<color=#00E5FF>[IUH AR]</color> Khởi tạo 3 Điểm Dị Tượng Nhiễm Độc trên sân trường: " + activeScene.path);
+
+            // Dọn dẹp các object cũ nếu có
+            var oldBackpack = GameObject.Find("CORRUPTED_OBJECT_STUDENT_BACKPACK");
+            if (oldBackpack != null) Object.DestroyImmediate(oldBackpack);
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
 
-            // 3 Loại đồ vật bị nhiễm
+            // Điểm 1: Cạnh Đài Phun Nước / Cổng Trường (Balo Sinh Viên IUH)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_FOUNTAIN",
+                new Vector3(4.0f, 0.05f, -28.0f),
+                CorruptedObjectType.Backpack,
+                "Tiểu Quỷ Dữ Liệu - Balo IUH",
+                800,
+                "CAMPUS_CORRUPTED_FOUNTAIN",
+                font
+            );
+
+            // Điểm 2: Dưới Gốc Cây / Khuôn Viên Cây Xanh (Sách Giáo Trình Thư Viện)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_GARDEN",
+                new Vector3(-16.0f, 0.05f, -14.0f),
+                CorruptedObjectType.LibraryTextbook,
+                "Quỷ Dữ Liệu - Sách Giáo Trình",
+                1000,
+                "CAMPUS_CORRUPTED_GARDEN",
+                font
+            );
+
+            // Điểm 3: Sảnh Tòa Nhà E / Trước Cột Cờ (Laptop Đồ Án Kỹ Thuật)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_BUILDING_E",
+                new Vector3(-6.0f, 0.05f, 6.0f),
+                CorruptedObjectType.EngineeringLaptop,
+                "Chúa Tể Mã Độc - Laptop Đồ Án",
+                1200,
+                "CAMPUS_CORRUPTED_BUILDING_E",
+                font
+            );
+
+            // Cài đặt Mobile Touch Controls cho iPhone 12
+            SetupMobileControlsInScene();
+
+            EditorSceneManager.MarkSceneDirty(activeScene);
+            EditorSceneManager.SaveOpenScenes();
+
+            Debug.Log("<color=#00FF88>[IUH AR] ĐÃ CÀI ĐẶT THÀNH CÔNG 3 ĐIỂM DỊ TƯỢNG VÀ MOBILE CONTROLS VÀO SÂN TRƯỜNG!</color>");
+        }
+
+        private static GameObject CreateSingleCorruptedEncounter(
+            string name, 
+            Vector3 pos, 
+            CorruptedObjectType objType, 
+            string monsterName, 
+            int monsterHp, 
+            string milestoneId, 
+            Font font)
+        {
+            var old = GameObject.Find(name);
+            if (old != null) Object.DestroyImmediate(old);
+
+            GameObject root = new GameObject(name);
+            root.transform.position = pos;
+
             GameObject backpack = CreateCorruptedBackpack(root.transform);
             GameObject laptop = CreateCorruptedLaptop(root.transform);
             GameObject textbook = CreateCorruptedTextbook(root.transform);
 
-            // VFX
             var smokePS = CreatePurpleSmoke(root.transform);
             var glitchPS = CreateGlitchPixels(root.transform);
 
-            // Point Light
             GameObject auraLightGO = new GameObject("PurpleAuraLight", typeof(Light));
             auraLightGO.transform.SetParent(root.transform, false);
             auraLightGO.transform.localPosition = new Vector3(0f, 0.6f, 0f);
@@ -191,17 +245,26 @@ namespace IUHCampus.Editor
             auraLight.intensity = 4.5f;
             auraLight.range = 6.0f;
 
-            // Reticle
             var reticlePack = CreateHologramReticle(root.transform);
-
-            // 3D Monster
             var monsterPack = CreateCyberDemonMonster(root.transform, font);
 
-            // Attach & Wire Encounter Component
+            // Add IUHMonsterEncounter component
+            var monsterEnc = root.AddComponent<IUHMonsterEncounter>();
+            var soMon = new SerializedObject(monsterEnc);
+            soMon.FindProperty("m_MonsterName").stringValue = monsterName;
+            soMon.FindProperty("m_MilestoneId").stringValue = milestoneId;
+            soMon.FindProperty("m_MonsterHp").intValue = monsterHp;
+            soMon.FindProperty("m_RewardGold").intValue = 100;
+            soMon.FindProperty("m_TriggerRadius").floatValue = 4.8f;
+            soMon.ApplyModifiedProperties();
+
+            // Wire IUHARCorruptedObjectEncounter
             var encComp = root.AddComponent<IUHARCorruptedObjectEncounter>();
             var soEnc = new SerializedObject(encComp);
             soEnc.FindProperty("m_AutoPlaceOnStart").boolValue = true;
-            soEnc.FindProperty("m_ConfiguredType").enumValueIndex = (int)CorruptedObjectType.Random;
+            soEnc.FindProperty("m_ConfiguredType").enumValueIndex = (int)objType;
+            soEnc.FindProperty("m_MonsterName").stringValue = monsterName;
+            soEnc.FindProperty("m_MonsterHp").intValue = monsterHp;
             soEnc.FindProperty("m_CorruptedBackpack").objectReferenceValue = backpack;
             soEnc.FindProperty("m_CorruptedLaptop").objectReferenceValue = laptop;
             soEnc.FindProperty("m_CorruptedTextbook").objectReferenceValue = textbook;
@@ -213,13 +276,129 @@ namespace IUHCampus.Editor
             soEnc.FindProperty("m_TapPromptCanvas").objectReferenceValue = monsterPack.tapPrompt;
             soEnc.ApplyModifiedProperties();
 
-            // Kích hoạt đặt sẵn tại sân trường để sinh viên tiếp cận là chiến đấu được ngay
-            encComp.PlaceCorruptedObject(spawnPos, Quaternion.identity);
+            encComp.PlaceCorruptedObject(pos, Quaternion.identity);
+            return root;
+        }
 
-            EditorSceneManager.MarkSceneDirty(activeScene);
-            EditorSceneManager.SaveOpenScenes();
+        public static void SetupMobileControlsInScene()
+        {
+            // Dọn dẹp các đối tượng UI cũ nếu có
+            string[] cleanupNames = new string[] { "UI_TouchScreenInput", "IUH_MOBILE_HUD", "IUH_MOBILE_INTERACT_BTN", "IUH_MOBILE_CONTROLS_CANVAS" };
+            foreach (var name in cleanupNames)
+            {
+                var oldObj = GameObject.Find(name);
+                if (oldObj != null) Object.DestroyImmediate(oldObj);
+            }
 
-            Debug.Log("<color=#00FF88>[IUH AR] ĐÃ CÀI ĐẶT THÀNH CÔNG DỊ TƯỢNG VÀO SÂN TRƯỜNG!</color>");
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+
+            // 1. Tạo Canvas điều khiển chuyên biệt cho Màn hình ngang (Landscape Mobile Controls Canvas)
+            GameObject canvasGO = new GameObject("IUH_MOBILE_CONTROLS_CANVAS", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            var canvas = canvasGO.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 90; // Nổi lên trên môi trường 3D
+
+            var scaler = canvasGO.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080); // Tỉ lệ chuẩn màn hình ngang 16:9
+            scaler.matchWidthOrHeight = 0.5f;
+
+            var mobileCtrl = canvasGO.AddComponent<IUHCampus.UI.IUHMobileControlsUI>();
+
+            // 2. Vùng vuốt xoay camera 360 độ (Touch Look Zone bao phủ nửa phải màn hình)
+            GameObject lookZoneGO = new GameObject("TouchLookZone", typeof(RectTransform), typeof(Image));
+            lookZoneGO.transform.SetParent(canvasGO.transform, false);
+            var lookRt = lookZoneGO.GetComponent<RectTransform>();
+            lookRt.anchorMin = new Vector2(0.35f, 0f);
+            lookRt.anchorMax = new Vector2(1f, 1f);
+            lookRt.sizeDelta = Vector2.zero;
+            var lookImg = lookZoneGO.GetComponent<Image>();
+            lookImg.color = new Color(0f, 0f, 0f, 0f); // Trong suốt không che tầm nhìn
+            lookImg.raycastTarget = true;
+
+            // 3. Cần xoay ảo Joystick di chuyển (Góc dưới bên trái)
+            GameObject joyBaseGO = new GameObject("JoystickBase", typeof(RectTransform), typeof(Image));
+            joyBaseGO.transform.SetParent(canvasGO.transform, false);
+            var jbRt = joyBaseGO.GetComponent<RectTransform>();
+            jbRt.anchorMin = Vector2.zero; jbRt.anchorMax = Vector2.zero;
+            jbRt.pivot = new Vector2(0.5f, 0.5f);
+            jbRt.anchoredPosition = new Vector2(210f, 210f);
+            jbRt.sizeDelta = new Vector2(180f, 180f);
+            var jbImg = joyBaseGO.GetComponent<Image>();
+            jbImg.color = new Color(0.04f, 0.08f, 0.16f, 0.65f);
+            var jbOutline = joyBaseGO.AddComponent<Outline>();
+            jbOutline.effectColor = new Color(0.2f, 0.85f, 1f, 0.8f);
+            jbOutline.effectDistance = new Vector2(3f, 3f);
+
+            GameObject joyHandleGO = new GameObject("JoystickHandle", typeof(RectTransform), typeof(Image));
+            joyHandleGO.transform.SetParent(joyBaseGO.transform, false);
+            var jhRt = joyHandleGO.GetComponent<RectTransform>();
+            jhRt.anchorMin = new Vector2(0.5f, 0.5f); jhRt.anchorMax = new Vector2(0.5f, 0.5f);
+            jhRt.sizeDelta = new Vector2(75f, 75f);
+            var jhImg = joyHandleGO.GetComponent<Image>();
+            jhImg.color = new Color(0.2f, 0.9f, 1f, 0.95f);
+
+            // 4. Cụm nút hành động góc dưới bên phải (Landscape Arc Layout)
+            // Nút 1: Tương tác [E] (Vào trận Match-3 / Dị tượng / Trò chuyện)
+            var btnInt = CreateLandscapeActionButton(canvasGO.transform, "BtnInteract", "⚔️ [E]\n<size=13>TƯƠNG TÁC</size>", new Vector2(-130f, 160f), 100f, new Color(0.02f, 0.52f, 0.78f, 0.92f), font);
+
+            // Nút 2: Nhảy [Space]
+            var btnJump = CreateLandscapeActionButton(canvasGO.transform, "BtnJump", "🦘\n<size=13>NHẢY</size>", new Vector2(-260f, 110f), 90f, new Color(0.09f, 0.64f, 0.29f, 0.92f), font);
+
+            // Nút 3: Chạy nhanh [Shift / Turbo]
+            var btnSprint = CreateLandscapeActionButton(canvasGO.transform, "BtnSprint", "⚡\n<size=13>CHẠY</size>", new Vector2(-130f, 290f), 85f, new Color(0.92f, 0.35f, 0.05f, 0.92f), font);
+
+            // Nút 4: Lên/xuống xe máy & Khinh khí cầu [V]
+            var btnVeh = CreateLandscapeActionButton(canvasGO.transform, "BtnVehicle", "🛵\n<size=13>XE / BAY</size>", new Vector2(-260f, 230f), 80f, new Color(0.31f, 0.27f, 0.85f, 0.92f), font);
+
+            // Nút 5: Kỹ năng Bắn Pháo Hoa Lễ Hội [K/B]
+            var btnFire = CreateLandscapeActionButton(canvasGO.transform, "BtnFireworks", "🎆\n<size=13>PHÁO HOA</size>", new Vector2(-370f, 175f), 80f, new Color(0.86f, 0.15f, 0.47f, 0.92f), font);
+
+            // Gán các tham chiếu vào script IUHMobileControlsUI
+            var so = new SerializedObject(mobileCtrl);
+            so.FindProperty("m_JoystickBase").objectReferenceValue = jbRt;
+            so.FindProperty("m_JoystickHandle").objectReferenceValue = jhRt;
+            so.FindProperty("m_TouchLookZone").objectReferenceValue = lookRt;
+            so.FindProperty("m_BtnInteract").objectReferenceValue = btnInt.GetComponent<Button>();
+            so.FindProperty("m_BtnJump").objectReferenceValue = btnJump.GetComponent<Button>();
+            so.FindProperty("m_BtnSprint").objectReferenceValue = btnSprint.GetComponent<Button>();
+            so.FindProperty("m_BtnVehicle").objectReferenceValue = btnVeh.GetComponent<Button>();
+            so.FindProperty("m_BtnFireworks").objectReferenceValue = btnFire.GetComponent<Button>();
+            so.ApplyModifiedProperties();
+        }
+
+        private static GameObject CreateLandscapeActionButton(Transform parent, string name, string text, Vector2 anchoredPos, float size, Color col, Font font)
+        {
+            GameObject btnGO = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+            btnGO.transform.SetParent(parent, false);
+            var rt = btnGO.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(1f, 0f);
+            rt.anchorMax = new Vector2(1f, 0f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = anchoredPos;
+            rt.sizeDelta = new Vector2(size, size);
+
+            var img = btnGO.GetComponent<Image>();
+            img.color = col;
+
+            var outline = btnGO.AddComponent<Outline>();
+            outline.effectColor = Color.white;
+            outline.effectDistance = new Vector2(2f, 2f);
+
+            GameObject textGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
+            textGO.transform.SetParent(btnGO.transform, false);
+            var tRt = textGO.GetComponent<RectTransform>();
+            tRt.anchorMin = Vector2.zero; tRt.anchorMax = Vector2.one; tRt.sizeDelta = Vector2.zero;
+            var t = textGO.GetComponent<Text>();
+            t.font = font;
+            t.text = text;
+            t.fontSize = (int)(size * 0.22f);
+            t.fontStyle = FontStyle.Bold;
+            t.alignment = TextAnchor.MiddleCenter;
+            t.color = Color.white;
+            t.raycastTarget = false;
+
+            return btnGO;
         }
 
         public static (GameObject reticleRoot, Transform outerRing, Transform innerRing) CreateHologramReticle(Transform parent)

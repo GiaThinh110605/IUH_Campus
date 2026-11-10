@@ -6,15 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/IUH_Campus/Scenes/IUH_Campus_AR_Encounter.unity
-    guid: e3dbf7b5d84dc438293fcca5c444ef72
-  - enabled: 1
     path: Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
     guid: 5afa546000e52a0449f697db9f6c1ba1
-  - enabled: 1
-    path: Assets/IUH_Campus/Scenes/IUH_CombatArena.unity
-    guid: 8a2757ae8ccdb3145ace9b11556333fc
   m_configObjects:
+    Unity.XR.Management.XRGeneralSettings: {fileID: 0}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 93f76984f738b4de6b330bbfff017e04, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c7034399ec3c943e4a6806fa354bb05d, type: 2}
