@@ -34,8 +34,8 @@ namespace IUHCampus.Combat
         [Header("Basket Platform & Anti-Fall Safety")]
         [SerializeField] private Transform m_BasketTransform;
         [SerializeField] private Transform m_PlayerAnchorPoint;
-        [SerializeField] private float m_InteractionRadius = 4.2f;
-        [SerializeField] private float m_MaxWalkRadius = 1.55f;
+        [SerializeField] private float m_InteractionRadius = 6.5f;
+        [SerializeField] private float m_MaxWalkRadius = 1.85f;
         [SerializeField] private float m_FloorLocalY = 0.22f;
         [SerializeField] private Text m_BillboardPromptText;
         [SerializeField] private GameObject m_EnergyShieldVisual;
@@ -152,6 +152,15 @@ namespace IUHCampus.Combat
             UpdatePrompt();
         }
 
+        public bool IsPlayerNear
+        {
+            get
+            {
+                if (m_PlayerTransform == null || m_BasketTransform == null) return false;
+                return Vector3.Distance(m_PlayerTransform.position, m_BasketTransform.position) <= m_InteractionRadius || m_IsPlayerOnBoard;
+            }
+        }
+
         private void HandleInteractionInput()
         {
             if (m_PlayerTransform == null) return;
@@ -159,16 +168,23 @@ namespace IUHCampus.Combat
             bool inInteractRange = dist <= m_InteractionRadius || m_IsPlayerOnBoard;
             if (!inInteractRange) return;
 
-            if (Input.GetKeyDown(KeyCode.F))
+            bool interactPressed = Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E) || IUHCampus.Core.IUHInputHelper.VirtualInteractPressed;
+            if (interactPressed)
             {
-                if (m_State == BalloonFlightState.Grounded)
-                {
-                    LaunchBalloon();
-                }
-                else if (m_State == BalloonFlightState.AirborneHover)
-                {
-                    DescendBalloon();
-                }
+                IUHCampus.Core.IUHInputHelper.VirtualInteractPressed = false;
+                ToggleBoardOrLaunch();
+            }
+        }
+
+        public void ToggleBoardOrLaunch()
+        {
+            if (m_State == BalloonFlightState.Grounded)
+            {
+                LaunchBalloon();
+            }
+            else if (m_State == BalloonFlightState.AirborneHover)
+            {
+                DescendBalloon();
             }
         }
 

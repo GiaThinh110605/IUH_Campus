@@ -191,10 +191,13 @@ namespace IUHCampus.Combat
                     }
                 }
 
-                // Primary Attack: Left Click or [F] or Mobile Virtual Fire
+                // Primary Attack: Trên PC dùng chuột trái / phím F; trên Mobile CHỈ bắn khi bấm/giữ nút Bắn Súng (không tự bắn khi di chuyển hay xoay camera)
+                bool isPcAttack = !Application.isMobilePlatform && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F));
+                bool isMobilePunch = IUHCampus.Core.IUHInputHelper.VirtualFirePressed;
+
                 if (m_IsMeleeOnly)
                 {
-                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F) || IUHCampus.Core.IUHInputHelper.VirtualFirePressed)
+                    if (isPcAttack || isMobilePunch)
                     {
                         IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
                         PerformMeleePunch();
@@ -202,7 +205,10 @@ namespace IUHCampus.Combat
                 }
                 else
                 {
-                    if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F) || IUHCampus.Core.IUHInputHelper.VirtualFireHeld || IUHCampus.Core.IUHInputHelper.VirtualFirePressed)
+                    bool isPcFire = !Application.isMobilePlatform && (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F));
+                    bool isMobileFire = IUHCampus.Core.IUHInputHelper.VirtualFireHeld || IUHCampus.Core.IUHInputHelper.VirtualFirePressed;
+
+                    if (isPcFire || isMobileFire)
                     {
                         IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
                         TryFireGun();

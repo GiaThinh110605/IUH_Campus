@@ -103,9 +103,10 @@ namespace IUHCampus.Guardian
 
         private void Update()
         {
-            // Toggle with key 'B' or 'I'
-            if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I))
+            // Toggle with key 'B' or 'I' or mobile VirtualBackpackPressed
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I) || IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed)
             {
+                IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed = false;
                 if (m_IsOpen) CloseShop();
                 else OpenShop();
             }

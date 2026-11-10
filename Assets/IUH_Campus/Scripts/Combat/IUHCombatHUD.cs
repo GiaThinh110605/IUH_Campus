@@ -122,9 +122,10 @@ namespace IUHCampus.Combat
 
         private void Update()
         {
-            // Toggle Controls Guide with [H] or close with [ESC]
-            if (Input.GetKeyDown(KeyCode.H))
+            // Toggle Controls Guide with [H] or mobile virtual help button
+            if (Input.GetKeyDown(KeyCode.H) || IUHCampus.Core.IUHInputHelper.VirtualHelpPressed)
             {
+                IUHCampus.Core.IUHInputHelper.VirtualHelpPressed = false;
                 ToggleGuide();
             }
             else if (IsGuideOpen && Input.GetKeyDown(KeyCode.Escape))

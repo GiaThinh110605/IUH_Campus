@@ -180,6 +180,12 @@ namespace IUHCampus.Minigames.GrabCampus
                 hornKey = Keyboard.current.hKey.wasPressedThisFrame;
             }
 #endif
+            try { hornKey = hornKey || Input.GetKeyDown(m_HornKey); } catch {}
+            if (IUHInputHelper.VirtualHelpPressed && m_IsMounted)
+            {
+                hornKey = true;
+                IUHInputHelper.VirtualHelpPressed = false;
+            }
 
             if (!m_IsMounted)
             {

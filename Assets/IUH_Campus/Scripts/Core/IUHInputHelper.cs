@@ -20,6 +20,8 @@ namespace IUHCampus.Core
         public static bool VirtualAimHeld = false;
         public static bool VirtualAimToggled = false;
         public static bool VirtualMissilePressed = false;
+        public static bool VirtualHelpPressed = false;
+        public static bool VirtualBackpackPressed = false;
 
         public static Vector2 GetMovementAxis()
         {
