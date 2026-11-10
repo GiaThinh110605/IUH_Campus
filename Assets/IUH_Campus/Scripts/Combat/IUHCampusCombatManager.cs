@@ -147,13 +147,15 @@ namespace IUHCampus.Combat
             if (m_AntiAirMissileTimer > 0f) m_AntiAirMissileTimer -= Time.deltaTime;
             if (m_GrenadeTimer > 0f) m_GrenadeTimer -= Time.deltaTime;
 
-            // Handle Aiming State (Holding Right Mouse Button)
-            m_IsAiming = (Cursor.lockState == CursorLockMode.Locked) && Input.GetMouseButton(1);
+            // Handle Aiming State (Holding Right Mouse Button on PC or Virtual Aim on Mobile)
+            bool isMobileAim = IUHCampus.Core.IUHInputHelper.VirtualAimHeld || IUHCampus.Core.IUHInputHelper.VirtualAimToggled;
+            m_IsAiming = ((Cursor.lockState == CursorLockMode.Locked) && Input.GetMouseButton(1)) || isMobileAim;
             UpdateAimCamera();
             UpdateAirLockOn();
 
             // Handle Input if not blocked by UI modals
-            if (Cursor.lockState == CursorLockMode.Locked)
+            bool canCombat = (Cursor.lockState == CursorLockMode.Locked) || Application.isMobilePlatform || isMobileAim || IUHCampus.Core.IUHInputHelper.VirtualFireHeld;
+            if (canCombat)
             {
                 // Switch Weapon Mode: [X] or [Tab] or [0]
                 if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Alpha0))
@@ -167,9 +169,10 @@ namespace IUHCampus.Combat
                     PerformMeleePunch();
                 }
 
-                // Dedicated Anti-Air Missile: [Q]
-                if (Input.GetKeyDown(KeyCode.Q))
+                // Dedicated Anti-Air Missile: [Q] or Mobile Virtual Missile
+                if (Input.GetKeyDown(KeyCode.Q) || IUHCampus.Core.IUHInputHelper.VirtualMissilePressed)
                 {
+                    IUHCampus.Core.IUHInputHelper.VirtualMissilePressed = false;
                     UseAntiAirMissile();
                 }
 
@@ -188,18 +191,20 @@ namespace IUHCampus.Combat
                     }
                 }
 
-                // Primary Attack: Left Click or [F]
+                // Primary Attack: Left Click or [F] or Mobile Virtual Fire
                 if (m_IsMeleeOnly)
                 {
-                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F))
+                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F) || IUHCampus.Core.IUHInputHelper.VirtualFirePressed)
                     {
+                        IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
                         PerformMeleePunch();
                     }
                 }
                 else
                 {
-                    if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F))
+                    if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F) || IUHCampus.Core.IUHInputHelper.VirtualFireHeld || IUHCampus.Core.IUHInputHelper.VirtualFirePressed)
                     {
+                        IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
                         TryFireGun();
                     }
                 }
@@ -437,6 +442,22 @@ namespace IUHCampus.Combat
                 if (camFwd.sqrMagnitude > 0.001f)
                 {
                     m_PlayerTransform.rotation = Quaternion.Slerp(m_PlayerTransform.rotation, Quaternion.LookRotation(camFwd.normalized), Time.deltaTime * 18f);
+                }
+
+                // Magnetic Aim-Assist when aiming at locked flying monster
+                if (m_LockedAirTarget != null && !m_LockedAirTarget.IsDead)
+                {
+                    var tpc = m_PlayerTransform.GetComponent<StarterAssets.ThirdPersonController>();
+                    if (tpc != null)
+                    {
+                        Vector3 toTarget = (m_LockedAirTarget.transform.position - m_MainCamera.transform.position).normalized;
+                        Vector3 fullCamFwd = m_MainCamera.transform.forward;
+                        float yawDiff = Vector3.SignedAngle(new Vector3(fullCamFwd.x, 0, fullCamFwd.z), new Vector3(toTarget.x, 0, toTarget.z), Vector3.up);
+                        float camPitch = -Mathf.Asin(Mathf.Clamp(fullCamFwd.y, -0.99f, 0.99f)) * Mathf.Rad2Deg;
+                        float targetPitch = -Mathf.Asin(Mathf.Clamp(toTarget.y, -0.99f, 0.99f)) * Mathf.Rad2Deg;
+                        float pitchDiff = Mathf.DeltaAngle(camPitch, targetPitch);
+                        tpc.AddCameraRotation(yawDiff * Time.deltaTime * 4.5f, pitchDiff * Time.deltaTime * 4.5f);
+                    }
                 }
             }
         }

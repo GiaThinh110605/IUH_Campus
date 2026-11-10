@@ -280,6 +280,14 @@ namespace IUHCampus.Editor
             return root;
         }
 
+        [MenuItem("IUH Campus/UI/Setup Cyberpunk Mobile HUD", false, 170)]
+        public static void SetupMobileControlsMenu()
+        {
+            SetupMobileControlsInScene();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        }
+
         public static void SetupMobileControlsInScene()
         {
             // Dọn dẹp các đối tượng UI cũ nếu có
@@ -338,36 +346,58 @@ namespace IUHCampus.Editor
             var jhImg = joyHandleGO.GetComponent<Image>();
             jhImg.color = new Color(0.2f, 0.9f, 1f, 0.95f);
 
-            // 4. Cụm nút hành động góc dưới bên phải (Landscape Arc Layout)
-            // Nút 1: Tương tác [E] (Vào trận Match-3 / Dị tượng / Trò chuyện)
-            var btnInt = CreateLandscapeActionButton(canvasGO.transform, "BtnInteract", "⚔️ [E]\n<size=13>TƯƠNG TÁC</size>", new Vector2(-130f, 160f), 100f, new Color(0.02f, 0.52f, 0.78f, 0.92f), font);
+            // 4. Cụm nút hành động góc dưới bên phải (Ergonomic Cyberpunk RPG Layout)
+            Sprite circleSprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
 
-            // Nút 2: Nhảy [Space]
-            var btnJump = CreateLandscapeActionButton(canvasGO.transform, "BtnJump", "🦘\n<size=13>NHẢY</size>", new Vector2(-260f, 110f), 90f, new Color(0.09f, 0.64f, 0.29f, 0.92f), font);
+            if (jhImg != null && circleSprite != null) { jhImg.sprite = circleSprite; }
 
-            // Nút 3: Chạy nhanh [Shift / Turbo]
-            var btnSprint = CreateLandscapeActionButton(canvasGO.transform, "BtnSprint", "⚡\n<size=13>CHẠY</size>", new Vector2(-130f, 290f), 85f, new Color(0.92f, 0.35f, 0.05f, 0.92f), font);
+            // Nút 1: BẮN SÚNG PLASMA CHÍNH [Fire / Attack] (To nhất, màu đỏ cam rực lửa)
+            var btnFire = CreateLandscapeActionButton(canvasGO.transform, "BtnFire", "🔫\n<size=15>BẮN</size>", new Vector2(-125f, 160f), 115f, new Color(1f, 0.25f, 0.12f, 0.95f), new Color(1f, 0.85f, 0.3f, 1f), circleSprite, font);
 
-            // Nút 4: Lên/xuống xe máy & Khinh khí cầu [V]
-            var btnVeh = CreateLandscapeActionButton(canvasGO.transform, "BtnVehicle", "🛵\n<size=13>XE / BAY</size>", new Vector2(-260f, 230f), 80f, new Color(0.31f, 0.27f, 0.85f, 0.92f), font);
+            // Nút 2: NGẮM ADS CAMERA [Aim / Scope] (Màu xanh neon hologram)
+            var btnAim = CreateLandscapeActionButton(canvasGO.transform, "BtnAim", "🎯\n<size=13>NGẮM</size>", new Vector2(-125f, 290f), 85f, new Color(0.05f, 0.72f, 0.95f, 0.92f), new Color(0.6f, 0.95f, 1f, 1f), circleSprite, font);
 
-            // Nút 5: Kỹ năng Bắn Pháo Hoa Lễ Hội [K/B]
-            var btnFire = CreateLandscapeActionButton(canvasGO.transform, "BtnFireworks", "🎆\n<size=13>PHÁO HOA</size>", new Vector2(-370f, 175f), 80f, new Color(0.86f, 0.15f, 0.47f, 0.92f), font);
+            // Nút 3: TÊN LỬA CAO XẠ PHÒNG KHÔNG [Q] (Màu vàng cam lửa)
+            var btnMissile = CreateLandscapeActionButton(canvasGO.transform, "BtnMissile", "🚀\n<size=12>TÊN LỬA</size>", new Vector2(-240f, 250f), 82f, new Color(1f, 0.65f, 0.05f, 0.92f), new Color(1f, 0.9f, 0.4f, 1f), circleSprite, font);
 
-            // Gán các tham chiếu vào script IUHMobileControlsUI
+            // Nút 4: Tương tác [E] (Vào trận Match-3 / Dị tượng / Trò chuyện - Xanh dương điện tử)
+            var btnInt = CreateLandscapeActionButton(canvasGO.transform, "BtnInteract", "⚔️ [E]\n<size=12>MATCH-3</size>", new Vector2(-240f, 125f), 92f, new Color(0.12f, 0.55f, 1f, 0.95f), new Color(0.5f, 0.85f, 1f, 1f), circleSprite, font);
+
+            // Nút 5: Nhảy [Space] (Xanh ngọc lục bảo)
+            var btnJump = CreateLandscapeActionButton(canvasGO.transform, "BtnJump", "🦘\n<size=12>NHẢY</size>", new Vector2(-345f, 95f), 85f, new Color(0.05f, 0.82f, 0.4f, 0.92f), new Color(0.6f, 1f, 0.8f, 1f), circleSprite, font);
+
+            // Nút 6: Chạy nhanh [Shift / Turbo] (Tím neon sấm sét)
+            var btnSprint = CreateLandscapeActionButton(canvasGO.transform, "BtnSprint", "⚡\n<size=12>CHẠY</size>", new Vector2(-345f, 200f), 80f, new Color(0.85f, 0.12f, 0.95f, 0.92f), new Color(1f, 0.6f, 1f, 1f), circleSprite, font);
+
+            // Nút 7: Lên/xuống xe máy & Khinh khí cầu [V] (Tím đậm công nghệ)
+            var btnVeh = CreateLandscapeActionButton(canvasGO.transform, "BtnVehicle", "🛵\n<size=12>XE / BAY</size>", new Vector2(-445f, 95f), 76f, new Color(0.45f, 0.2f, 0.95f, 0.92f), new Color(0.8f, 0.6f, 1f, 1f), circleSprite, font);
+
+            // Nút 8: Kỹ năng Bắn Pháo Hoa Lễ Hội [K/B] (Hồng neon rực rỡ)
+            var btnFireworks = CreateLandscapeActionButton(canvasGO.transform, "BtnFireworks", "🎆\n<size=12>PHÁO HOA</size>", new Vector2(-440f, 195f), 76f, new Color(1f, 0.15f, 0.55f, 0.92f), new Color(1f, 0.65f, 0.85f, 1f), circleSprite, font);
+
+            // Gán các tham chiếu an toàn vào script IUHMobileControlsUI
             var so = new SerializedObject(mobileCtrl);
-            so.FindProperty("m_JoystickBase").objectReferenceValue = jbRt;
-            so.FindProperty("m_JoystickHandle").objectReferenceValue = jhRt;
-            so.FindProperty("m_TouchLookZone").objectReferenceValue = lookRt;
-            so.FindProperty("m_BtnInteract").objectReferenceValue = btnInt.GetComponent<Button>();
-            so.FindProperty("m_BtnJump").objectReferenceValue = btnJump.GetComponent<Button>();
-            so.FindProperty("m_BtnSprint").objectReferenceValue = btnSprint.GetComponent<Button>();
-            so.FindProperty("m_BtnVehicle").objectReferenceValue = btnVeh.GetComponent<Button>();
-            so.FindProperty("m_BtnFireworks").objectReferenceValue = btnFire.GetComponent<Button>();
+            SetSerializedRef(so, "m_JoystickBase", jbRt);
+            SetSerializedRef(so, "m_JoystickHandle", jhRt);
+            SetSerializedRef(so, "m_TouchLookZone", lookRt);
+            SetSerializedRef(so, "m_BtnFire", btnFire.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnAim", btnAim.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnMissile", btnMissile.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnInteract", btnInt.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnJump", btnJump.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnSprint", btnSprint.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnVehicle", btnVeh.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnFireworks", btnFireworks.GetComponent<Button>());
             so.ApplyModifiedProperties();
         }
 
-        private static GameObject CreateLandscapeActionButton(Transform parent, string name, string text, Vector2 anchoredPos, float size, Color col, Font font)
+        private static void SetSerializedRef(SerializedObject so, string propName, UnityEngine.Object target)
+        {
+            var prop = so.FindProperty(propName);
+            if (prop != null) prop.objectReferenceValue = target;
+        }
+
+        private static GameObject CreateLandscapeActionButton(Transform parent, string name, string text, Vector2 anchoredPos, float size, Color col, Color glowCol, Sprite sprite, Font font)
         {
             GameObject btnGO = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
             btnGO.transform.SetParent(parent, false);
@@ -379,11 +409,20 @@ namespace IUHCampus.Editor
             rt.sizeDelta = new Vector2(size, size);
 
             var img = btnGO.GetComponent<Image>();
+            img.sprite = sprite;
             img.color = col;
+            img.raycastTarget = true;
 
             var outline = btnGO.AddComponent<Outline>();
-            outline.effectColor = Color.white;
-            outline.effectDistance = new Vector2(2f, 2f);
+            outline.effectColor = glowCol;
+            outline.effectDistance = new Vector2(2.5f, -2.5f);
+
+            var btn = btnGO.GetComponent<Button>();
+            var colors = btn.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f, 1f);
+            colors.pressedColor = new Color(0.75f, 0.75f, 0.75f, 1f);
+            btn.colors = colors;
 
             GameObject textGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
             textGO.transform.SetParent(btnGO.transform, false);

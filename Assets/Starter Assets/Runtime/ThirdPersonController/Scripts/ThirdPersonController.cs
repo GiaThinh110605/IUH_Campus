@@ -74,7 +74,7 @@ namespace StarterAssets
         public float TopClamp = 85.0f;
 
         [Tooltip("How far in degrees can you move the camera down")]
-        public float BottomClamp = -45.0f;
+        public float BottomClamp = -85.0f;
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
         public float CameraAngleOverride = 0.0f;
@@ -147,6 +147,8 @@ namespace StarterAssets
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             float initialPitch = CinemachineCameraTarget.transform.rotation.eulerAngles.x;
             if (initialPitch > 180f) initialPitch -= 360f;
+            if (BottomClamp > -80f) BottomClamp = -85f;
+            if (TopClamp < 80f) TopClamp = 85f;
             _cinemachineTargetPitch = Mathf.Clamp(Mathf.Abs(initialPitch) > 0.1f ? initialPitch : 8.0f, BottomClamp, TopClamp);
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -229,6 +231,21 @@ namespace StarterAssets
                     _cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0f);
         }
 
+        /// <summary>Directly adjust camera yaw and pitch from mobile touch drag or aim assist.</summary>
+        public void AddCameraRotation(float yawDelta, float pitchDelta)
+        {
+            if (LockCameraPosition) return;
+            _cinemachineTargetYaw += yawDelta;
+            _cinemachineTargetPitch += pitchDelta;
+            _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+            _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+            if (CinemachineCameraTarget != null)
+            {
+                CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+                    _cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+            }
+        }
+
         private void AssignAnimationIDs()
         {
             _animIDSpeed = Animator.StringToHash("Speed");
@@ -267,8 +284,9 @@ namespace StarterAssets
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
-                //Don't multiply mouse input by Time.deltaTime;
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                // Don't multiply mouse or mobile touch delta by Time.deltaTime;
+                bool isDeltaInput = IsCurrentDeviceMouse || Application.isMobilePlatform;
+                float deltaTimeMultiplier = isDeltaInput ? 1.0f : Time.deltaTime;
 
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
