@@ -22,6 +22,9 @@ namespace IUHCampus.Core
         public static bool VirtualMissilePressed = false;
         public static bool VirtualHelpPressed = false;
         public static bool VirtualBackpackPressed = false;
+        public static float VirtualDroneAltitude = 0f;
+        public static bool VirtualDroneBoost = false;
+        public static Vector2 VirtualDroneLook = Vector2.zero;
 
         public static Vector2 GetMovementAxis()
         {

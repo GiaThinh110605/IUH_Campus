@@ -65,6 +65,15 @@ namespace IUHCampus.UI
         [SerializeField] private Button m_BtnKeyH;
         [SerializeField] private Button m_BtnKeyB;
 
+        [Header("Drone Mobile Flight Controls")]
+        private Button m_BtnDroneLaunch;
+        private GameObject m_DroneControlsRoot;
+        private Button m_BtnDroneAscend;
+        private Button m_BtnDroneDescend;
+        private Button m_BtnDroneSupply;
+        private Button m_BtnDroneExit;
+        private bool m_LastDroneActiveState = false;
+
         [Header("Player Status Widgets (Top Left)")]
         [SerializeField] private Image m_HealthBarFill;
         [SerializeField] private Text m_HealthText;
@@ -192,6 +201,23 @@ namespace IUHCampus.UI
                 m_BtnVehicle = transform.Find("HUD_Actions/Vehicle_Button")?.GetComponent<Button>()
                     ?? transform.Find("BtnVehicle")?.GetComponent<Button>();
             }
+            if (m_BtnDroneLaunch == null)
+            {
+                m_BtnDroneLaunch = transform.Find("HUD_Actions/Drone_Button")?.GetComponent<Button>()
+                    ?? m_BtnVehicle;
+            }
+
+            if (m_DroneControlsRoot == null)
+            {
+                m_DroneControlsRoot = transform.Find("HUD_DroneFlightControls")?.gameObject;
+            }
+            if (m_DroneControlsRoot != null)
+            {
+                m_BtnDroneAscend = m_DroneControlsRoot.transform.Find("Btn_DroneAscend")?.GetComponent<Button>();
+                m_BtnDroneDescend = m_DroneControlsRoot.transform.Find("Btn_DroneDescend")?.GetComponent<Button>();
+                m_BtnDroneSupply = m_DroneControlsRoot.transform.Find("Btn_DroneSupply")?.GetComponent<Button>();
+                m_BtnDroneExit = m_DroneControlsRoot.transform.Find("Btn_DroneExit")?.GetComponent<Button>();
+            }
 
             // Combat buttons fallback
             if (m_BtnAim == null) m_BtnAim = transform.Find("HUD_Actions/BtnAim")?.GetComponent<Button>() ?? transform.Find("BtnAim")?.GetComponent<Button>();
@@ -263,10 +289,19 @@ namespace IUHCampus.UI
                 }
             }
 
+            bool isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
+
             // 1. Đồng bộ di chuyển từ Joystick vào Player controller & Tự động Chạy (Auto-Sprint)
             if (m_StarterInputs != null)
             {
-                if (m_IsDraggingJoystick && m_InputVector.sqrMagnitude > 0.001f)
+                if (isDroneActive)
+                {
+                    // Khi đang lái drone, nhân vật người chơi đứng yên tại chỗ, KHÔNG chạy theo drone
+                    m_StarterInputs.MoveInput(Vector2.zero);
+                    m_StarterInputs.SprintInput(false);
+                    m_StarterInputs.JumpInput(false);
+                }
+                else if (m_IsDraggingJoystick && m_InputVector.sqrMagnitude > 0.001f)
                 {
                     m_StarterInputs.MoveInput(m_InputVector);
 
@@ -283,17 +318,22 @@ namespace IUHCampus.UI
             }
 
             // 2. Đồng bộ xoay camera (Touch Look) mượt mà không khựng, không drift
-            if (m_StarterInputs != null)
+            if (IsTouchLookActive && m_AccumulatedLookDelta.sqrMagnitude > 0.0001f)
             {
-                if (IsTouchLookActive && m_AccumulatedLookDelta.sqrMagnitude > 0.0001f)
+                if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled)
+                {
+                    IUHCampus.Core.IUHInputHelper.VirtualDroneLook = new Vector2(m_AccumulatedLookDelta.x, -m_AccumulatedLookDelta.y) * 0.15f;
+                    m_AccumulatedLookDelta = Vector2.zero;
+                }
+                else if (m_StarterInputs != null)
                 {
                     m_StarterInputs.LookInput(m_AccumulatedLookDelta);
                     m_AccumulatedLookDelta = Vector2.zero; // Tiêu thụ ngay delta frame này
                 }
-                else if (!IsTouchLookActive && Application.isMobilePlatform)
-                {
-                    m_StarterInputs.LookInput(Vector2.zero);
-                }
+            }
+            else if (!IsTouchLookActive && Application.isMobilePlatform && m_StarterInputs != null)
+            {
+                m_StarterInputs.LookInput(Vector2.zero);
             }
 
             // 3. Xử lý giữ nút Bắn liên thanh trên Mobile (chỉ bắn khi bấm/giữ nút Bắn Súng)
@@ -316,11 +356,49 @@ namespace IUHCampus.UI
             // 5. Đồng bộ thanh máu và Level người chơi
             UpdatePlayerStatusUI();
 
+            // 6. Tự động ẩn TouchLookZone khi có Modal mở (Album, Balo/Shop, Hướng dẫn) để không chặn cảm ứng bấm nút đóng
+            bool isAnyModalOpen = (IUHCampusActivitiesHUD.Instance != null && (IUHCampusActivitiesHUD.Instance.IsAlbumOpen || IUHCampusActivitiesHUD.Instance.IsMascotDialogOpen))
+                || (IUHCombatHUD.Instance != null && IUHCombatHUD.Instance.IsGuideOpen)
+                || (IUHUpgradeShopUI.Instance != null && IUHUpgradeShopUI.Instance.IsOpen);
+
+            if (m_TouchLookZone != null && m_TouchLookZone.gameObject.activeSelf == isAnyModalOpen)
+            {
+                m_TouchLookZone.gameObject.SetActive(!isAnyModalOpen);
+                if (isAnyModalOpen)
+                {
+                    m_LookPointerId = -999;
+                    IsTouchLookActive = false;
+                    m_AccumulatedLookDelta = Vector2.zero;
+                }
+            }
+
+            // 7. Đồng bộ giao diện điều khiển Drone khi đang bay
+            bool isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
+            if (isDroneActive != m_LastDroneActiveState)
+            {
+                m_LastDroneActiveState = isDroneActive;
+                UpdateDroneFlightModeUI(isDroneActive);
+            }
+
             // Phím F8 giả lập bật tắt UI mobile trên Editor/PC
             if (Input.GetKeyDown(KeyCode.F8))
             {
                 m_ForceShowOnPC = !m_ForceShowOnPC;
                 CheckPlatformVisibility();
+            }
+        }
+
+        private void UpdateDroneFlightModeUI(bool isDroneActive)
+        {
+            if (m_DroneControlsRoot != null)
+            {
+                m_DroneControlsRoot.SetActive(isDroneActive);
+            }
+
+            var hudActions = transform.Find("HUD_Actions")?.gameObject;
+            if (hudActions != null)
+            {
+                hudActions.SetActive(!isDroneActive);
             }
         }
 
@@ -369,13 +447,9 @@ namespace IUHCampus.UI
                 {
                     m_InteractBtnText.text = "LÊN KHINH KHÍ CẦU\n[E]";
                 }
-                else if (bState == BalloonFlightState.AirborneHover)
-                {
-                    m_InteractBtnText.text = "HẠ CÁNH\n[E]";
-                }
                 else
                 {
-                    m_InteractBtnText.text = "ĐANG BAY\n[E]";
+                    m_InteractBtnText.text = "NHẢY XUỐNG\n[E]";
                 }
             }
             else
@@ -386,6 +460,13 @@ namespace IUHCampus.UI
 
         public void TriggerDoubleTapJump()
         {
+            // Nếu người chơi đang ở trên giỏ khinh khí cầu, nhấn đúp nhảy là lập tức bung cánh nhảy xuống
+            if (IUHHotAirBalloonController.Instance != null && IUHHotAirBalloonController.Instance.IsPlayerInBasket)
+            {
+                IUHHotAirBalloonController.Instance.JumpDownFromBalloon();
+                return;
+            }
+
             if (m_StarterInputs != null)
             {
                 m_StarterInputs.JumpInput(true);
@@ -483,9 +564,9 @@ namespace IUHCampus.UI
                 m_BtnInventory.onClick.RemoveAllListeners();
                 m_BtnInventory.onClick.AddListener(() => {
                     IUHCombatAudio.PlayShield();
-                    if (IUHCampusDailyActivitiesManager.Instance != null)
+                    if (IUHCampusActivitiesHUD.Instance != null)
                     {
-                        IUHCampusDailyActivitiesManager.Instance.OpenAlbum();
+                        IUHCampusActivitiesHUD.Instance.ToggleAlbum();
                     }
                     else if (IUHUpgradeShopUI.Instance != null)
                     {
@@ -577,9 +658,10 @@ namespace IUHCampus.UI
                 m_BtnKeyH.onClick.AddListener(() => {
                     IUHInputHelper.VirtualHelpPressed = true;
                     IUHCombatAudio.PlayShield();
-                    if (IUHCombatHUD.Instance != null)
+                    var hud = IUHCombatHUD.Instance ?? FindAnyObjectByType<IUHCombatHUD>(FindObjectsInactive.Include);
+                    if (hud != null)
                     {
-                        IUHCombatHUD.Instance.ToggleGuide();
+                        hud.ToggleGuide();
                     }
                 });
             }
@@ -591,11 +673,73 @@ namespace IUHCampus.UI
                 m_BtnKeyB.onClick.AddListener(() => {
                     IUHInputHelper.VirtualBackpackPressed = true;
                     IUHCombatAudio.PlayCoin();
-                    if (IUHUpgradeShopUI.Instance != null)
+                    var shop = IUHUpgradeShopUI.Instance ?? FindAnyObjectByType<IUHUpgradeShopUI>(FindObjectsInactive.Include);
+                    if (shop != null)
                     {
-                        IUHUpgradeShopUI.Instance.ToggleShop();
+                        shop.ToggleShop();
                     }
                 });
+            }
+
+            // ===== 14. DRONE FLIGHT CONTROLS ===== //
+            if (m_BtnDroneLaunch != null)
+            {
+                m_BtnDroneLaunch.onClick.RemoveAllListeners();
+                m_BtnDroneLaunch.onClick.AddListener(() => {
+                    IUHCombatAudio.PlayLaserShoot();
+                    if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null)
+                    {
+                        IUHCampus.Guardian.IUHGuardianDroneController.Instance.SetControlled(true);
+                    }
+                });
+            }
+
+            if (m_BtnDroneExit != null)
+            {
+                m_BtnDroneExit.onClick.RemoveAllListeners();
+                m_BtnDroneExit.onClick.AddListener(() => {
+                    IUHCombatAudio.PlayShield();
+                    if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null)
+                    {
+                        IUHCampus.Guardian.IUHGuardianDroneController.Instance.SetControlled(false);
+                    }
+                });
+            }
+
+            if (m_BtnDroneSupply != null)
+            {
+                m_BtnDroneSupply.onClick.RemoveAllListeners();
+                m_BtnDroneSupply.onClick.AddListener(() => {
+                    IUHCombatAudio.PlayCoin();
+                    if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null)
+                    {
+                        IUHCampus.Guardian.IUHGuardianDroneController.Instance.DropSupplyAirdrop();
+                    }
+                });
+            }
+
+            if (m_BtnDroneAscend != null)
+            {
+                var trigger = m_BtnDroneAscend.gameObject.GetComponent<EventTrigger>() ?? m_BtnDroneAscend.gameObject.AddComponent<EventTrigger>();
+                trigger.triggers.Clear();
+                var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
+                down.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = 1f; });
+                trigger.triggers.Add(down);
+                var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
+                up.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = 0f; });
+                trigger.triggers.Add(up);
+            }
+
+            if (m_BtnDroneDescend != null)
+            {
+                var trigger = m_BtnDroneDescend.gameObject.GetComponent<EventTrigger>() ?? m_BtnDroneDescend.gameObject.AddComponent<EventTrigger>();
+                trigger.triggers.Clear();
+                var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
+                down.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = -1f; });
+                trigger.triggers.Add(down);
+                var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
+                up.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = 0f; });
+                trigger.triggers.Add(up);
             }
         }
 

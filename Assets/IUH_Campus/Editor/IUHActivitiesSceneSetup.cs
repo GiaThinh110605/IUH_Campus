@@ -507,7 +507,7 @@ namespace IUHCampus.EditorTools
 
             var canvas = hudGo.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 80;
+            canvas.sortingOrder = 180;
 
             var scaler = hudGo.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;

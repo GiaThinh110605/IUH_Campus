@@ -196,6 +196,11 @@ namespace IUHCampus.Guardian
             AnimateNeonBox();
         }
 
+        public void ToggleDroneControl()
+        {
+            SetControlled(!m_IsControlled);
+        }
+
         public void SetControlled(bool controlled)
         {
             m_IsControlled = controlled;
@@ -212,8 +217,16 @@ namespace IUHCampus.Guardian
                 {
                     m_StarterInputs.move = Vector2.zero;
                     m_StarterInputs.look = Vector2.zero;
+                    m_StarterInputs.sprint = false;
+                    m_StarterInputs.jump = false;
                     m_StarterInputs.cursorLocked = false;
                     m_StarterInputs.cursorInputForLook = false;
+                }
+                var anim = m_ThirdPersonController != null ? m_ThirdPersonController.GetComponent<Animator>() : null;
+                if (anim != null)
+                {
+                    anim.SetFloat("Speed", 0f);
+                    anim.SetFloat("MotionSpeed", 0f);
                 }
                 if (m_PlayerMainCamera != null)
                 {
@@ -269,11 +282,32 @@ namespace IUHCampus.Guardian
             if (Input.GetKey(KeyCode.Space)) up += 1f;
             if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C)) up -= 1f;
 
-            bool isBoosting = Input.GetKey(KeyCode.LeftShift);
+            // Support Mobile Joystick
+            if (IUHCampus.Core.IUHInputHelper.VirtualMoveAxis.sqrMagnitude > 0.01f)
+            {
+                h = IUHCampus.Core.IUHInputHelper.VirtualMoveAxis.x;
+                v = IUHCampus.Core.IUHInputHelper.VirtualMoveAxis.y;
+            }
+
+            // Support Mobile Altitude buttons (Lên / Xuống)
+            if (Mathf.Abs(IUHCampus.Core.IUHInputHelper.VirtualDroneAltitude) > 0.01f)
+            {
+                up = IUHCampus.Core.IUHInputHelper.VirtualDroneAltitude;
+            }
+
+            bool isBoosting = Input.GetKey(KeyCode.LeftShift) || IUHCampus.Core.IUHInputHelper.VirtualDroneBoost;
             float speed = m_FlySpeed * (isBoosting ? m_BoostMultiplier : 1.0f);
 
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
+
+            // Support Mobile Touch Look swipe
+            if (IUHCampus.Core.IUHInputHelper.VirtualDroneLook.sqrMagnitude > 0.001f)
+            {
+                mouseX += IUHCampus.Core.IUHInputHelper.VirtualDroneLook.x;
+                mouseY += IUHCampus.Core.IUHInputHelper.VirtualDroneLook.y;
+                IUHCampus.Core.IUHInputHelper.VirtualDroneLook = Vector2.zero;
+            }
 
             if (Input.GetKey(KeyCode.Q)) mouseX -= 1f;
             if (Input.GetKey(KeyCode.E)) mouseX += 1f;

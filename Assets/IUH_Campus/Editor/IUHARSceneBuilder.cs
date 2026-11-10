@@ -172,7 +172,7 @@ namespace IUHCampus.Editor
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
 
-            // Điểm 1: Cạnh Đài Phun Nước / Cổng Trường (Balo Sinh Viên IUH)
+            // Điểm 1: Cạnh Đài Phun Nước / Sân chính (Balo Sinh Viên IUH)
             CreateSingleCorruptedEncounter(
                 "CORRUPTED_ENCOUNTER_FOUNTAIN",
                 new Vector3(4.0f, 0.05f, -28.0f),
@@ -205,16 +205,35 @@ namespace IUHCampus.Editor
                 font
             );
 
-            // Cài đặt Mobile Touch Controls cho iPhone 12
-            SetupMobileControlsInScene();
+            // Điểm 4: Khu Vực Căn Tin Sinh Viên (Balo Tiếp Tế)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_CANTEEN",
+                new Vector3(-22.0f, 0.05f, -36.0f),
+                CorruptedObjectType.Backpack,
+                "Mã Độc Tiếp Tế - Balo Căn Tin",
+                900,
+                "CAMPUS_CORRUPTED_CANTEEN",
+                font
+            );
+
+            // Điểm 5: Sân Thể Thao Đa Năng (Laptop Điều Khiển Sân Đấu)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_SPORTS",
+                new Vector3(20.0f, 0.05f, -10.0f),
+                CorruptedObjectType.EngineeringLaptop,
+                "Quỷ Mạng Lưới - Laptop Thể Thao",
+                1100,
+                "CAMPUS_CORRUPTED_SPORTS",
+                font
+            );
 
             EditorSceneManager.MarkSceneDirty(activeScene);
             EditorSceneManager.SaveOpenScenes();
 
-            Debug.Log("<color=#00FF88>[IUH AR] ĐÃ CÀI ĐẶT THÀNH CÔNG 3 ĐIỂM DỊ TƯỢNG VÀ MOBILE CONTROLS VÀO SÂN TRƯỜNG!</color>");
+            Debug.Log("<color=#00FF88>[IUH AR] ĐÃ CÀI ĐẶT THÀNH CÔNG 5 ĐIỂM DỊ TƯỢNG VÀO SÂN TRƯỜNG!</color>");
         }
 
-        private static GameObject CreateSingleCorruptedEncounter(
+        public static GameObject CreateSingleCorruptedEncounter(
             string name, 
             Vector3 pos, 
             CorruptedObjectType objType, 
@@ -242,8 +261,19 @@ namespace IUHCampus.Editor
             var auraLight = auraLightGO.GetComponent<Light>();
             auraLight.type = LightType.Point;
             auraLight.color = new Color(0.85f, 0.15f, 1f);
-            auraLight.intensity = 4.5f;
-            auraLight.range = 6.0f;
+            auraLight.intensity = 5.5f;
+            auraLight.range = 8.0f;
+
+            // Cột sáng tím neon cao vút lên trời (Beacon Pillar) để dễ thấy từ xa & từ Flycam Drone
+            GameObject beaconBeam = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            beaconBeam.name = "Beacon_Pillar_Beam";
+            beaconBeam.transform.SetParent(root.transform, false);
+            beaconBeam.transform.localPosition = new Vector3(0f, 6.0f, 0f);
+            beaconBeam.transform.localScale = new Vector3(0.4f, 6.0f, 0.4f);
+            Object.DestroyImmediate(beaconBeam.GetComponent<Collider>());
+            var bRend = beaconBeam.GetComponent<Renderer>();
+            var beamMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/CombatArena/ArenaGlowPurple.mat");
+            if (beamMat != null) bRend.sharedMaterial = beamMat;
 
             var reticlePack = CreateHologramReticle(root.transform);
             var monsterPack = CreateCyberDemonMonster(root.transform, font);

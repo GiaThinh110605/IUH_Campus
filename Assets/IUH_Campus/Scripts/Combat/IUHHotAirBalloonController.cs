@@ -182,10 +182,35 @@ namespace IUHCampus.Combat
             {
                 LaunchBalloon();
             }
-            else if (m_State == BalloonFlightState.AirborneHover)
+            else
             {
-                DescendBalloon();
+                // Khi đang ở trên không (đang bay lên hoặc đang lơ lửng), bấm nút [E] để nhảy xuống bung cánh bay
+                JumpDownFromBalloon();
             }
+        }
+
+        /// <summary>
+        /// Cho phép người chơi nhảy ra khỏi giỏ khinh khí cầu và kích hoạt cánh bay phản lực lượn xuống sân trường
+        /// </summary>
+        public void JumpDownFromBalloon()
+        {
+            if (!m_IsPlayerOnBoard || m_PlayerTransform == null) return;
+            m_IsPlayerOnBoard = false;
+
+            Vector3 exitDir = m_PlayerTransform.forward;
+            exitDir.y = 0.35f;
+
+            if (m_PlayerCC != null) m_PlayerCC.enabled = false;
+            m_PlayerTransform.position += exitDir.normalized * 2.8f;
+            if (m_PlayerCC != null) m_PlayerCC.enabled = true;
+
+            // Kích hoạt chế độ bay tự do bằng cánh phản lực (Aero Wings)
+            if (IUHAerialFlightController.Instance != null)
+            {
+                IUHAerialFlightController.Instance.StartFlight();
+            }
+
+            IUHCombatAudio.PlayShield();
         }
 
         /// <summary>
