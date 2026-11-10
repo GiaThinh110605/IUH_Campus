@@ -59,6 +59,23 @@ namespace IUHCampus.Guardian.Match3.Tests
             Assert.AreEqual(4, step.LongestMatch);
         }
 
+        [Test]
+        public void ProcessStep_CountsPurifyInOverlappingBlastAreasOnce()
+        {
+            var model = new Match3BoardModel(3);
+            FillNoMatch(model);
+            for (int x = 0; x < 5; x++) model.SetTile(x, 0, TileType.Sword);
+            model.SetTile(2, 1, TileType.Purify);
+
+            CascadeStep step = model.ProcessStep();
+
+            Assert.IsNotNull(step);
+            Assert.IsTrue(step.HasMegaBomb);
+            Assert.AreEqual(5, step.SwordCount);
+            Assert.AreEqual(1, step.PurifyCount);
+            Assert.AreEqual(1, step.AllBlastedCoords.FindAll(c => c.X == 2 && c.Y == 1).Count);
+        }
+
         // Checkerboard of two non-adjacent patterns guarantees no line of three anywhere.
         private static void FillNoMatch(Match3BoardModel model)
         {

@@ -1,0 +1,646 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "1a3f629d46f04d858efe659137017331",
+      "status": "succeeded",
+      "mode": "EditMode",
+      "started_unix_ms": 1794242124211,
+      "finished_unix_ms": 1794242140590,
+      "last_update_unix_ms": 1794242140590,
+      "progress": {
+        "completed": 67,
+        "total": 67,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794242140343,
+        "last_finished_test_full_name": "IUHCampus.Guardian.Progress.UI.Tests.InventoryPresenterTests.SameCategorySortsByVietnameseName",
+        "last_finished_unix_ms": 1794242140343,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 67,
+          "passed": 67,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 10.2180523,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "IndependentRuntimeAssemblyExists",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.BackendAvailabilityTests.IndependentRuntimeAssemblyExists",
+            "state": "Passed",
+            "durationSeconds": 0.0106417,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "BackoffDoublesThenCaps",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.BackoffDoublesThenCaps",
+            "state": "Passed",
+            "durationSeconds": 0.2001843,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ClientMapsHttpAndTimeout",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ClientMapsHttpAndTimeout",
+            "state": "Passed",
+            "durationSeconds": 0.1984937,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConcurrentFlushDoesNotSendTwice",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ConcurrentFlushDoesNotSendTwice",
+            "state": "Passed",
+            "durationSeconds": 0.1997003,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CorruptQueuePreservedAsBackup",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.CorruptQueuePreservedAsBackup",
+            "state": "Passed",
+            "durationSeconds": 0.0072688,
+            "message": null,
+            "stackTrace": null,
+            "output": "[IUH Guardian] Corrupt backend outbox backed up; starting an empty queue.\r\n"
+          },
+          {
+            "name": "EncoderDimensions(1920,1080,640,360)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions(1920,1080,640,360)",
+            "state": "Passed",
+            "durationSeconds": 0.0026392,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EncoderDimensions(1080,1920,360,640)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions(1080,1920,360,640)",
+            "state": "Passed",
+            "durationSeconds": 0.0010423,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EncoderDimensions(320,160,320,160)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions(320,160,320,160)",
+            "state": "Passed",
+            "durationSeconds": 0.0010177,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EncoderProducesIndependentJpegAndRestoresRenderTarget",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderProducesIndependentJpegAndRestoresRenderTarget",
+            "state": "Passed",
+            "durationSeconds": 0.0252041,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EventSchemasMatchBackendWhitelists",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EventSchemasMatchBackendWhitelists",
+            "state": "Passed",
+            "durationSeconds": 0.0190624,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidUpgradeRejectedLocally",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.InvalidUpgradeRejectedLocally",
+            "state": "Passed",
+            "durationSeconds": 0.0043391,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "OutboxRejectedOnlyOnce",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.OutboxRejectedOnlyOnce",
+            "state": "Passed",
+            "durationSeconds": 0.1448425,
+            "message": null,
+            "stackTrace": null,
+            "output": "[IUH Guardian] Backend event rejected: 26167801-da0a-4da4-9d05-e70dd99d4f30 (Conflict).\r\n[IUH Guardian] Backend event rejected: 0c93c9fc-9253-4ad5-9c5a-09f02e90c797 (Invalid).\r\n"
+          },
+          {
+            "name": "OutboxRestartBackoffAndFifo",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.OutboxRestartBackoffAndFifo",
+            "state": "Passed",
+            "durationSeconds": 0.1017262,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PredictionAndHealthMapping",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.PredictionAndHealthMapping",
+            "state": "Passed",
+            "durationSeconds": 0.196502,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RetryCapAndCancellation",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.RetryCapAndCancellation",
+            "state": "Passed",
+            "durationSeconds": 0.1983258,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ScanConfidenceAtThresholdDoesNotRoundBelowBackendMinimum",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ScanConfidenceAtThresholdDoesNotRoundBelowBackendMinimum",
+            "state": "Passed",
+            "durationSeconds": 0.0046431,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "UrlOverrideAndValidation",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.UrlOverrideAndValidation",
+            "state": "Passed",
+            "durationSeconds": 0.0019902,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ValidUpgrade(\"attack\",1)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade(\"attack\",1)",
+            "state": "Passed",
+            "durationSeconds": 0.0016891,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ValidUpgrade(\"defense\",2)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade(\"defense\",2)",
+            "state": "Passed",
+            "durationSeconds": 0.0009722,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ValidUpgrade(\"vitality\",1)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade(\"vitality\",1)",
+            "state": "Passed",
+            "durationSeconds": 0.0008909,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FakeAndToken",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FakeAndToken",
+            "state": "Passed",
+            "durationSeconds": 0.2972648,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(200,\"{\\\"scan\\\":{\\\"label\\\":\\\"laptop\\\",\\\"result\\\":\\\"infested\\\",\\\"monster_token\\\":\\\"tok\\\",\\\"monsters_remaining\\\":1},\\\"detections\\\":[{\\\"label\\\":\\\"laptop\\\",\\\"confidence\\\":0.9}],\\\"inference_time_ms\\\":12}\",Infested)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,\"{\\\"scan\\\":{\\\"label\\\":\\\"laptop\\\",\\\"result\\\":\\\"infested\\\",\\\"monster_token\\\":\\\"tok\\\",\\\"monsters_remaining\\\":1},\\\"detections\\\":[{\\\"label\\\":\\\"laptop\\\",\\\"confidence\\\":0.9}],\\\"inference_time_ms\\\":12}\",Infested)",
+            "state": "Passed",
+            "durationSeconds": 0.2999262,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(200,\"{\\\"scan\\\":{\\\"label\\\":\\\"chair\\\",\\\"result\\\":\\\"clean\\\"}}\",Clean)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,\"{\\\"scan\\\":{\\\"label\\\":\\\"chair\\\",\\\"result\\\":\\\"clean\\\"}}\",Clean)",
+            "state": "Passed",
+            "durationSeconds": 0.299353,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(200,\"{\\\"scan\\\":{\\\"result\\\":\\\"none\\\"}}\",NoObject)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,\"{\\\"scan\\\":{\\\"result\\\":\\\"none\\\"}}\",NoObject)",
+            "state": "Passed",
+            "durationSeconds": 0.2978798,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(404,\"{\\\"error\\\":\\\"scan_session_not_found\\\"}\",SessionNotFound)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(404,\"{\\\"error\\\":\\\"scan_session_not_found\\\"}\",SessionNotFound)",
+            "state": "Passed",
+            "durationSeconds": 0.2983046,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(410,\"{\\\"error\\\":\\\"scan_session_expired\\\"}\",SessionExpired)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(410,\"{\\\"error\\\":\\\"scan_session_expired\\\"}\",SessionExpired)",
+            "state": "Passed",
+            "durationSeconds": 0.2979492,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(503,\"{}\",ServerError)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(503,\"{}\",ServerError)",
+            "state": "Passed",
+            "durationSeconds": 0.2983156,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(200,\"{}\",ServerError)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,\"{}\",ServerError)",
+            "state": "Passed",
+            "durationSeconds": 0.2989203,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrameMapping(0,\"\",NetworkError)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(0,\"\",NetworkError)",
+            "state": "Passed",
+            "durationSeconds": 0.2976976,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GetSessionMapping(200,\"{\\\"scan_session_id\\\":\\\"id\\\",\\\"expires_at\\\":\\\"date\\\",\\\"monsters_remaining\\\":1}\",Found)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping(200,\"{\\\"scan_session_id\\\":\\\"id\\\",\\\"expires_at\\\":\\\"date\\\",\\\"monsters_remaining\\\":1}\",Found)",
+            "state": "Passed",
+            "durationSeconds": 0.2980398,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GetSessionMapping(404,\"{\\\"error\\\":\\\"scan_session_not_found\\\"}\",SessionNotFound)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping(404,\"{\\\"error\\\":\\\"scan_session_not_found\\\"}\",SessionNotFound)",
+            "state": "Passed",
+            "durationSeconds": 0.2976256,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GetSessionMapping(410,\"{\\\"error\\\":\\\"scan_session_expired\\\"}\",SessionExpired)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping(410,\"{\\\"error\\\":\\\"scan_session_expired\\\"}\",SessionExpired)",
+            "state": "Passed",
+            "durationSeconds": 0.2984723,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(201,\"{\\\"scan_session_id\\\":\\\"id\\\",\\\"hint\\\":\\\"h\\\",\\\"expires_at\\\":\\\"date\\\",\\\"max_monsters\\\":2}\",Created)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(201,\"{\\\"scan_session_id\\\":\\\"id\\\",\\\"hint\\\":\\\"h\\\",\\\"expires_at\\\":\\\"date\\\",\\\"max_monsters\\\":2}\",Created)",
+            "state": "Passed",
+            "durationSeconds": 0.3042693,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(409,\"{\\\"error\\\":\\\"scan_session_active\\\",\\\"scan_session_id\\\":\\\"id\\\"}\",ActiveExists)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(409,\"{\\\"error\\\":\\\"scan_session_active\\\",\\\"scan_session_id\\\":\\\"id\\\"}\",ActiveExists)",
+            "state": "Passed",
+            "durationSeconds": 0.2981443,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(429,\"{\\\"error\\\":\\\"scan_cooldown\\\"}\",Cooldown)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(429,\"{\\\"error\\\":\\\"scan_cooldown\\\"}\",Cooldown)",
+            "state": "Passed",
+            "durationSeconds": 0.2972488,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(429,\"{\\\"error\\\":\\\"scan_limit_reached\\\"}\",LimitReached)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(429,\"{\\\"error\\\":\\\"scan_limit_reached\\\"}\",LimitReached)",
+            "state": "Passed",
+            "durationSeconds": 0.2982493,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(500,\"{}\",ServerError)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(500,\"{}\",ServerError)",
+            "state": "Passed",
+            "durationSeconds": 0.2996685,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(200,\"bad json\",ServerError)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(200,\"bad json\",ServerError)",
+            "state": "Passed",
+            "durationSeconds": 0.298476,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SessionMapping(0,\"\",NetworkError)",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(0,\"\",NetworkError)",
+            "state": "Passed",
+            "durationSeconds": 0.2991604,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "StabilizerAndThrottle",
+            "fullName": "IUHCampus.Guardian.Backend.Tests.GuardianScanTests.StabilizerAndThrottle",
+            "state": "Passed",
+            "durationSeconds": 0.0017365,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Board_Is6x5_AndStartsWithoutMatches",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.Board_Is6x5_AndStartsWithoutMatches",
+            "state": "Passed",
+            "durationSeconds": 0.0065432,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Board_UsesAllFiveTileTypes",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.Board_UsesAllFiveTileTypes",
+            "state": "Passed",
+            "durationSeconds": 0.0002814,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ProcessStep_CountsPurifyInOverlappingBlastAreasOnce",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_CountsPurifyInOverlappingBlastAreasOnce",
+            "state": "Passed",
+            "durationSeconds": 0.0042983,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ProcessStep_CountsPurifyTiles",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_CountsPurifyTiles",
+            "state": "Passed",
+            "durationSeconds": 0.0004196,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ProcessStep_ReportsLineOfFour",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_ReportsLineOfFour",
+            "state": "Passed",
+            "durationSeconds": 0.0002181,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "BossAtZero_IsVictory_AndStopsBossTurn",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.BossAtZero_IsVictory_AndStopsBossTurn",
+            "state": "Passed",
+            "durationSeconds": 0.0016609,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ComboMultiplier_IsCapped",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.ComboMultiplier_IsCapped",
+            "state": "Passed",
+            "durationSeconds": 0.0005809,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Heal_AndEnergy_AreClamped",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Heal_AndEnergy_AreClamped",
+            "state": "Passed",
+            "durationSeconds": 0.0002491,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PlayerAtZero_IsDefeat",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.PlayerAtZero_IsDefeat",
+            "state": "Passed",
+            "durationSeconds": 0.0001706,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Purify_ReducesIntent_AndDealsSmallDamage",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Purify_ReducesIntent_AndDealsSmallDamage",
+            "state": "Passed",
+            "durationSeconds": 0.0001909,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Shield_AbsorbsBossHit_ThenResets",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Shield_AbsorbsBossHit_ThenResets",
+            "state": "Passed",
+            "durationSeconds": 0.0002011,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Skill_SpendsEnergy_AndHitsBoss",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Skill_SpendsEnergy_AndHitsBoss",
+            "state": "Passed",
+            "durationSeconds": 0.0002703,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "StartsAt1000vs800",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.StartsAt1000vs800",
+            "state": "Passed",
+            "durationSeconds": 0.0001724,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SwordDamage_ScalesWithCombo_AndBigMatch",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.SwordDamage_ScalesWithCombo_AndBigMatch",
+            "state": "Passed",
+            "durationSeconds": 0.0002337,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ThirdBossTurn_IsCharged",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.ThirdBossTurn_IsCharged",
+            "state": "Passed",
+            "durationSeconds": 0.0001924,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "TimeOut_IsDefeat",
+            "fullName": "IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.TimeOut_IsDefeat",
+            "state": "Passed",
+            "durationSeconds": 0.0001722,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DuplicateDatabaseRejected",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.DuplicateDatabaseRejected",
+            "state": "Passed",
+            "durationSeconds": 0.0018642,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FailedGrantDoesNotConsumeReward",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.FailedGrantDoesNotConsumeReward",
+            "state": "Passed",
+            "durationSeconds": 0.0017715,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InventoryLimits",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.InventoryLimits",
+            "state": "Passed",
+            "durationSeconds": 0.0003352,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PersistedRewardsAndStarterAreNotGrantedAgain",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.PersistedRewardsAndStarterAreNotGrantedAgain",
+            "state": "Passed",
+            "durationSeconds": 0.0085944,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SaveReloadAndRecovery",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.SaveReloadAndRecovery",
+            "state": "Passed",
+            "durationSeconds": 0.0179886,
+            "message": null,
+            "stackTrace": null,
+            "output": "[IUH Guardian] Progress recovered from backup.\r\n[IUH Guardian] Progress files invalid; starting new progress.\r\n"
+          },
+          {
+            "name": "SharedRewardLedger",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.SharedRewardLedger",
+            "state": "Passed",
+            "durationSeconds": 0.0004657,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ShippedAssetsValid",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.ShippedAssetsValid",
+            "state": "Passed",
+            "durationSeconds": 0.0100233,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "StarterUsesConfigOnce",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.StarterUsesConfigOnce",
+            "state": "Passed",
+            "durationSeconds": 0.0011599,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "UnknownIdWarnsOnce",
+            "fullName": "IUHCampus.Guardian.Progress.Tests.ProgressTests.UnknownIdWarnsOnce",
+            "state": "Passed",
+            "durationSeconds": 0.0011578,
+            "message": null,
+            "stackTrace": null,
+            "output": "[IUH Guardian] Unknown item id: missing\r\n"
+          },
+          {
+            "name": "MappingSortingAndActionState",
+            "fullName": "IUHCampus.Guardian.Progress.UI.Tests.InventoryPresenterTests.MappingSortingAndActionState",
+            "state": "Passed",
+            "durationSeconds": 0.0057953,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SameCategorySortsByVietnameseName",
+            "fullName": "IUHCampus.Guardian.Progress.UI.Tests.InventoryPresenterTests.SameCategorySortsByVietnameseName",
+            "state": "Passed",
+            "durationSeconds": 0.0007045,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

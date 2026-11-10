@@ -229,14 +229,8 @@ namespace IUHCampus.Guardian.Match3
                 {
                     if (uniqueMatched.Add(coord))
                     {
-                        TileType t = m_Grid[coord.X, coord.Y];
-                        switch (t)
-                        {
-                            case TileType.Sword: swords++; break;
-                            case TileType.Shield: shields++; break;
-                            case TileType.Energy: energies++; break;
-                            case TileType.Heal: heals++; break;
-                        }
+                        CountTile(m_Grid[coord.X, coord.Y], ref swords, ref shields,
+                            ref energies, ref heals, ref purifies);
                     }
                 }
 
@@ -246,15 +240,8 @@ namespace IUHCampus.Guardian.Match3
                     if (uniqueMatched.Add(blastCoord))
                     {
                         allBlasted.Add(blastCoord);
-                        TileType t = m_Grid[blastCoord.X, blastCoord.Y];
-                        switch (t)
-                        {
-                            case TileType.Sword: swords++; break;
-                            case TileType.Shield: shields++; break;
-                            case TileType.Energy: energies++; break;
-                            case TileType.Heal: heals++; break;
-                            case TileType.Purify: purifies++; break;
-                        }
+                        CountTile(m_Grid[blastCoord.X, blastCoord.Y], ref swords, ref shields,
+                            ref energies, ref heals, ref purifies);
                     }
                 }
             }
@@ -307,6 +294,19 @@ namespace IUHCampus.Guardian.Match3
             step.AllBlastedCoords.AddRange(allBlasted);
 
             return step;
+        }
+
+        private static void CountTile(TileType type, ref int swords, ref int shields,
+            ref int energies, ref int heals, ref int purifies)
+        {
+            switch (type)
+            {
+                case TileType.Sword: swords++; break;
+                case TileType.Shield: shields++; break;
+                case TileType.Energy: energies++; break;
+                case TileType.Heal: heals++; break;
+                case TileType.Purify: purifies++; break;
+            }
         }
 
         public bool HasValidMoves()

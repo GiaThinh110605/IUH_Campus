@@ -1,0 +1,36 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "865453b5990d4b12bfac79b6993be8b3",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794240961802,
+      "finished_unix_ms": 1794240975265,
+      "last_update_unix_ms": 1794240975265,
+      "progress": {
+        "completed": 9,
+        "total": 9,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794240973205,
+        "last_finished_test_full_name": "CombatEntryTests.IntroFinishesBeforeCombatUnlocks",
+        "last_finished_unix_ms": 1794240975217,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "CombatEntryTests.FreeCursorStopsPendingMovementOnFirstApply",
+            "message": "System.NullReferenceException : Object reference not set to an instance of an object"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

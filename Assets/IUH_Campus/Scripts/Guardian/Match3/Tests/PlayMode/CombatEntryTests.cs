@@ -27,7 +27,7 @@ public class CombatEntryTests
             var preview = go.AddComponent(previewType);
             previewType.GetField("movement", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(preview, controller);
             previewType.GetField("freeCursor", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(preview, true);
-            previewType.GetMethod("Apply", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(preview, null);
+            previewType.GetMethod("Apply", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Invoke(preview, null);
             Assert.IsFalse(controller.enabled);
             Assert.AreEqual(Vector2.zero, inputsType.GetField("move").GetValue(inputs));
             Assert.AreEqual(0f, controllerType.GetField("_speed", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(controller));
