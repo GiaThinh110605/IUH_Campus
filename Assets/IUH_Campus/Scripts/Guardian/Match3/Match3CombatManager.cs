@@ -71,6 +71,9 @@ namespace IUHCampus.Guardian.Match3
         private float m_RemainingTime;
         private bool m_IsCombatActive;
         private bool m_OutcomeReported;
+        private bool m_VictoryRewardProcessed;
+        private bool m_VictoryRewardClaimed;
+        private bool m_VictoryRewardAlreadyClaimed;
         private bool m_IsResolving;
         private bool m_UsingStage;
         // True from StartNewCombat until the fight is closed, including while the arena loads.
@@ -141,6 +144,9 @@ namespace IUHCampus.Guardian.Match3
         public void StartNewCombat()
         {
             m_OutcomeReported = false;
+            m_VictoryRewardProcessed = false;
+            m_VictoryRewardClaimed = false;
+            m_VictoryRewardAlreadyClaimed = false;
             StopAllCoroutines();
             ClearBattleStartIntro();
             RestoreHudLayout();
@@ -326,11 +332,24 @@ namespace IUHCampus.Guardian.Match3
 
             if (m_CurrentEncounter != null)
             {
+                ClaimCurrentVictoryReward();
                 if (m_VictoryTitleText != null) m_VictoryTitleText.text = $"🏆 ĐÃ ĐÁNH BẠI {m_CurrentEncounter.MonsterName.ToUpper()}!";
                 if (m_VictoryDescText != null) m_VictoryDescText.text = $"Còn {m_Rules.PlayerHp}/{m_Config.PlayerMaxHp} HP. Khu vực đã được thanh tẩy!";
-                if (m_VictoryRewardsText != null) m_VictoryRewardsText.text = m_CurrentEncounter.GetRewardsFormatted();
+                if (m_VictoryRewardsText != null)
+                    m_VictoryRewardsText.text = m_CurrentEncounter.GetRewardsFormatted(
+                        m_VictoryRewardClaimed, m_VictoryRewardAlreadyClaimed);
             }
             if (m_VictoryModal != null) m_VictoryModal.SetActive(true);
+        }
+
+        private void ClaimCurrentVictoryReward()
+        {
+            if (m_VictoryRewardProcessed) return;
+            m_VictoryRewardProcessed = true;
+            var inventory = IUHGuardianInventory.Instance;
+            m_VictoryRewardAlreadyClaimed = inventory != null &&
+                inventory.HasClaimedMilestone(m_CurrentEncounter.MilestoneId);
+            m_VictoryRewardClaimed = m_CurrentEncounter.ClaimVictoryReward();
         }
 
         private IEnumerator DefeatRoutine(string reason)

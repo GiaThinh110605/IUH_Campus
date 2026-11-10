@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-10",
+  "timezone": "Asia/Bangkok",
+  "baseCommit": "3c9b857cd3455e91a275dd08d464ac802f52a2ee",
+  "restoredSceneMilestones": [
+    {
+      "name": "MONSTER_01_BLUEDEMON",
+      "milestone": "campus_cong_chinh"
+    },
+    {
+      "name": "MONSTER_02_ORC",
+      "milestone": "campus_cantin"
+    },
+    {
+      "name": "MONSTER_03_PHANTOM",
+      "milestone": "campus_le_hoi"
+    },
+    {
+      "name": "MONSTER_04_DEMON_BOSS",
+      "milestone": "campus_dau_truong_bac"
+    },
+    {
+      "name": "MONSTER_05_CORRUPTED_BACKPACK",
+      "milestone": "campus_cong_ar"
+    }
+  ],
+  "setup": {
+    "encounter": "MONSTER_05_CORRUPTED_BACKPACK",
+    "originalMilestone": "campus_cong_ar",
+    "testMilestone": "test_g1_manual",
+    "gold": 300,
+    "RewardGold": 100,
+    "checkInAllEnabled": true
+  },
+  "excludedProbe": {
+    "state": "done",
+    "stableSecondsRequired": 4,
+    "goldChanges": [
+      {
+        "elapsed": 0.7931824,
+        "gold": 440
+      },
+      {
+        "elapsed": 5.344925,
+        "gold": 500
+      }
+    ],
+    "goldAtStart": 405,
+    "goldBefore": 440,
+    "stableSecondsObserved": 4.25492859,
+    "beforeAt": 85.10347,
+    "goldAfter": 500,
+    "savedGoldAfter": 500,
+    "marker": 0,
+    "modalText": "<color=#FDE047><b>💰 +60 Vàng & Bạc IUH</b></color>\r\n<color=#67E8F9>✨ Bình Dược Liệu Nano (+50 HP)</color>\r\n<color=#67E8F9>✨ 1x Mảnh Tinh Thể Dữ Liệu Lam</color>",
+    "afterAt": 85.40028
+  },
+  "excludedProbeNote": "Initial observer did not bind target; manager moved to another encounter and that probe awarded60. Probe not used for repeat result; its campus_cong_chinh claim was returned to unclaimed during cleanup.",
+  "firstBound": {
+    "state": "done",
+    "stableSecondsRequired": 4,
+    "goldChanges": [
+      {
+        "elapsed": 4.61477661,
+        "gold": 635
+      }
+    ],
+    "goldAtStart": 535,
+    "encounter": "MONSTER_05_CORRUPTED_BACKPACK",
+    "milestone": "test_g1_manual",
+    "goldBefore": 535,
+    "stableSecondsObserved": 4.005661,
+    "beforeAt": 181.4084,
+    "goldAfter": 635,
+    "savedGoldAfter": 635,
+    "marker": 1,
+    "modalText": "<color=#FDE047><b>💰 +100 Vàng & Bạc IUH</b></color>\r\n<color=#67E8F9>✨ Bình Dược Liệu Nano (+50 HP)</color>\r\n<color=#67E8F9>✨ Lõi Dữ Liệu Thanh Tẩy IUH (Hiếm)</color>",
+    "afterAt": 182.017517
+  },
+  "repeatBound": {
+    "state": "done",
+    "stableSecondsRequired": 4,
+    "goldChanges": [],
+    "goldAtStart": 635,
+    "encounter": "MONSTER_05_CORRUPTED_BACKPACK",
+    "milestone": "test_g1_manual",
+    "goldBefore": 635,
+    "stableSecondsObserved": 4.006134,
+    "beforeAt": 300.083252,
+    "goldAfter": 635,
+    "savedGoldAfter": 635,
+    "marker": 1,
+    "modalText": "Đã nhận thưởng khu vực này",
+    "afterAt": 300.693176
+  },
+  "measurementMethod": "Editor callback waits for at least4 seconds without Gold change; immediately before forced Victory snapshots Gold, target name and test milestone; snapshots Gold at first frame victory modal is visible, then unregisters.",
+  "checkInDisabled": false,
+  "screenshots": {
+    "first": "victory-first.png",
+    "repeat": "victory-repeat.png",
+    "visuallyVerified": true,
+    "originalAttemptFirst": "victory-first-initial.png",
+    "originalAttemptRepeat": "victory-repeat-initial.png"
+  },
+  "repeatPass": true,
+  "noServerResponseRequired": true,
+  "outbox": "manual-retry-outbox.json",
+  "cloudTested": false
+}

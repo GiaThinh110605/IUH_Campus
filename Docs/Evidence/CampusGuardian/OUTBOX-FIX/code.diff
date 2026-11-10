@@ -1,0 +1,106 @@
+﻿diff --git a/Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEventOutbox.cs b/Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEventOutbox.cs
+index 31a1920..5c0eeab 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEventOutbox.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/Backend/GuardianEventOutbox.cs
+@@ -9,6 +9,7 @@ namespace IUHCampus.Guardian.Backend
+     public enum GuardianSyncStatus { Pending, Synced, Failed }
+ 
+     /// <summary>Single owner on the Unity main thread; never open two writers for the same path.</summary>
++    /// <remarks>Config.maxAttempts is retained for serialized asset compatibility; transient retries have no attempt limit.</remarks>
+     public sealed class GuardianEventOutbox
+     {
+         [Serializable] private sealed class Entry
+@@ -59,7 +60,7 @@ namespace IUHCampus.Guardian.Backend
+                 {
+                     cancellationToken.ThrowIfCancellationRequested();
+                     var entry = state.pending[0];
+-                    if (entry.attempts >= Math.Max(1, config.maxAttempts) || entry.nextAttemptTicks > utcNow().Ticks) return;
++                    if (entry.nextAttemptTicks > utcNow().Ticks) return;
+                     var result = await client.PostEventAsync(new GuardianEvent(entry.id, entry.json), cancellationToken);
+                     Apply(entry, result);
+                     if (result.Outcome == GuardianEventOutcome.NetworkError || result.Outcome == GuardianEventOutcome.ServerError) return;
+@@ -81,12 +82,12 @@ namespace IUHCampus.Guardian.Backend
+                 Debug.LogWarning("[IUH Guardian] Backend event rejected: " + entry.id + " (" + result.Outcome + ").");
+                 StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Failed); return;
+             }
+-            entry.attempts++;
++            if (entry.attempts < int.MaxValue) entry.attempts++;
+             double seconds = Math.Min(Math.Max(0.1, config.maxBackoffSeconds),
+                 Math.Max(0.1, config.retryBaseSeconds) * Math.Pow(2, Math.Min(30, entry.attempts - 1)));
+             entry.nextAttemptTicks = utcNow().AddSeconds(seconds).Ticks;
+             Save();
+-            StatusChanged?.Invoke(entry.id, entry.attempts >= Math.Max(1, config.maxAttempts) ? GuardianSyncStatus.Failed : GuardianSyncStatus.Pending);
++            StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Pending);
+         }
+ 
+         private Snapshot Load()
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/GuardianBackendTests.cs b/Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/GuardianBackendTests.cs
+index 63eff32..74eae43 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/GuardianBackendTests.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/Backend/Tests/Editor/GuardianBackendTests.cs
+@@ -187,8 +187,8 @@ namespace IUHCampus.Guardian.Backend.Tests
+             now = now.AddSeconds(1); await outbox.FlushAsync(); Assert.That(fake.Requests.Count, Is.EqualTo(3));
+         }
+ 
+-        [UnityTest] public IEnumerator RetryCapAndCancellation() => Wait(CheckRetryCap());
+-        private async Task CheckRetryCap()
++        [UnityTest] public IEnumerator TransientRetriesAndCancellation() => Wait(CheckTransientRetries());
++        private async Task CheckTransientRetries()
+         {
+             config.maxAttempts = 2; var fake = new Fake { Code = 0 };
+             var now = DateTime.UtcNow; var client = new GuardianApiClient(config, fake);
+@@ -196,12 +196,12 @@ namespace IUHCampus.Guardian.Backend.Tests
+             var statuses = new List<GuardianSyncStatus>(); outbox.StatusChanged += (_, s) => statuses.Add(s);
+             outbox.Enqueue(Event()); await outbox.FlushAsync(); now = now.AddHours(1); await outbox.FlushAsync();
+             now = now.AddHours(1); await outbox.FlushAsync();
+-            Assert.That(fake.Requests.Count, Is.EqualTo(2)); Assert.That(statuses[statuses.Count - 1], Is.EqualTo(GuardianSyncStatus.Failed));
++            Assert.That(fake.Requests.Count, Is.EqualTo(3)); Assert.That(statuses[statuses.Count - 1], Is.EqualTo(GuardianSyncStatus.Pending));
+             Assert.That(outbox.PendingCount, Is.EqualTo(1)); outbox.RetryFailed();
+             using var cancellation = new CancellationTokenSource(); cancellation.Cancel();
+             try { await client.PostEventAsync(Event(), cancellation.Token); Assert.Fail("Cancellation was ignored"); }
+             catch (OperationCanceledException) { }
+-            Assert.That(fake.Requests.Count, Is.EqualTo(2));
++            Assert.That(fake.Requests.Count, Is.EqualTo(3));
+         }
+ 
+         [Test] public void CorruptQueuePreservedAsBackup()
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs
+index b492d67..66230de 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs
+@@ -18,11 +18,9 @@ namespace IUHCampus.Guardian
+         private static readonly Vector2 StatusSize = new Vector2(640f, 40f);
+         private static readonly Vector2 StatusInset = new Vector2(-24f, -18f);
+         private readonly HashSet<IUHMonsterEncounter> m_WarnedEncounters = new HashSet<IUHMonsterEncounter>();
+-        private readonly HashSet<string> m_FailedEvents = new HashSet<string>();
+         private readonly HashSet<string> m_AcceptedEvents = new HashSet<string>();
+         private GuardianEventOutbox m_Outbox;
+         private Text m_StatusText;
+-        private int m_InitialRejected;
+         private bool m_ErrorLogged;
+ 
+         private void OnEnable()
+@@ -45,7 +43,6 @@ namespace IUHCampus.Guardian
+         {
+             if (m_Outbox != null || m_Service == null || m_Service.Outbox == null) return;
+             m_Outbox = m_Service.Outbox;
+-            m_InitialRejected = Math.Max(0, m_Outbox.RejectedCount - m_FailedEvents.Count);
+             m_Outbox.StatusChanged += HandleStatusChanged;
+             RefreshStatus();
+         }
+@@ -76,14 +73,12 @@ namespace IUHCampus.Guardian
+         private void HandleStatusChanged(string eventId, GuardianSyncStatus status)
+         {
+             if (status == GuardianSyncStatus.Synced) m_AcceptedEvents.Add(eventId);
+-            if (status == GuardianSyncStatus.Failed) m_FailedEvents.Add(eventId);
+-            else m_FailedEvents.Remove(eventId);
+             RefreshStatus();
+         }
+ 
+         private void RefreshStatus()
+         {
+-            m_StatusText.text = $"Máy chủ: chờ {m_Outbox.PendingCount} · đã nhận {m_AcceptedEvents.Count} · lỗi {m_InitialRejected + m_FailedEvents.Count}";
++            m_StatusText.text = $"Máy chủ: chờ {m_Outbox.PendingCount} · đã nhận {m_AcceptedEvents.Count} · lỗi {m_Outbox.RejectedCount}";
+         }
+ 
+         private void EnsureStatusOverlay()

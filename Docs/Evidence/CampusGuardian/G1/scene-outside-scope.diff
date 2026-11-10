@@ -1,0 +1,49 @@
+﻿diff --git a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+index 05e6ff9..bb3edca 100644
+--- a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
++++ b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+@@ -13300,7 +13300,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "TI\u1EC2U QU\u1EF6 B\u0102NG LAM (D\u1EC4)"
+-  m_MilestoneId: campus_cong_chinh
++  m_MilestoneId: 
+   m_MonsterHp: 550
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -63226,7 +63226,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "CHI\u1EBEN BINH QU\u1EF6 D\u1EEE LI\u1EC6U (V\u1EEAA)"
+-  m_MilestoneId: campus_cantin
++  m_MilestoneId: 
+   m_MonsterHp: 700
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -83543,7 +83543,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "B\xD3NG MA GLITCH FESTIVAL (KH\xC1)"
+-  m_MilestoneId: campus_le_hoi
++  m_MilestoneId: 
+   m_MonsterHp: 800
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -111353,7 +111353,7 @@ MonoBehaviour:
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "\u0110\u1EA0I MA V\u01AF\u01A0NG H\u1EAEC \xC1M (\u0110\u1EA0I
+     BOSS)"
+-  m_MilestoneId: campus_dau_truong_bac
++  m_MilestoneId: 
+   m_MonsterHp: 1000
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -129588,7 +129588,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "TI\u1EC2U QU\u1EF6 BALO NHI\u1EC4M \u0110\u1ED8C (AR)"
+-  m_MilestoneId: campus_cong_ar
++  m_MilestoneId: 
+   m_MonsterHp: 70
+   m_RevealRadius: 16
+   m_TriggerRadius: 10

@@ -9,6 +9,9 @@ namespace IUHCampus.Guardian
 {
     public class IUHMonsterEncounter : MonoBehaviour
     {
+        private const string AlreadyClaimedMessage = "Đã nhận thưởng khu vực này";
+        private const string RewardUnavailableMessage = "Chưa nhận được thưởng";
+        private bool m_RewardWarningLogged;
         [Header("Encounter Settings")]
         [SerializeField] private string m_MonsterName = "DATA CORRUPTION";
         [SerializeField] private string m_MilestoneId = "";
@@ -60,8 +63,24 @@ namespace IUHCampus.Guardian
         public Text BossHpText => m_BossHpText;
         public Text BossIntentText => m_BossIntentText;
 
-        public string GetRewardsFormatted()
+        public bool ClaimVictoryReward()
         {
+            var inventory = IUHGuardianInventory.Instance;
+            if (inventory == null || string.IsNullOrEmpty(m_MilestoneId))
+            {
+                if (!m_RewardWarningLogged)
+                {
+                    m_RewardWarningLogged = true;
+                    Debug.LogWarning("[IUH Guardian] Victory reward unavailable: inventory or milestone is missing.", this);
+                }
+                return false;
+            }
+            return inventory.TryClaimMilestoneReward(m_MilestoneId, m_RewardGold, m_RewardItems);
+        }
+
+        public string GetRewardsFormatted(bool claimed, bool alreadyClaimed)
+        {
+            if (!claimed) return alreadyClaimed ? AlreadyClaimedMessage : RewardUnavailableMessage;
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendLine($"<color=#FDE047><b>💰 +{m_RewardGold} Vàng & Bạc IUH</b></color>");
             if (m_RewardItems != null)
