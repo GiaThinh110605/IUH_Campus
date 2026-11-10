@@ -2,6 +2,32 @@
 
 Namespace `IUHCampus.Guardian.Backend`, assembly `IUHCampus.Guardian.Backend`. Không tham chiếu Assembly-CSharp, Guardian flow, Match3 hoặc Minigames. B5 chỉ cung cấp thư viện: chưa gắn component hoặc tích hợp UI/gameplay, chưa chạy Play Mode/Android.
 
+## B8 — gameplay
+
+Scene campus có root `GUARDIAN_BACKEND`: `GuardianBackendService` dùng config tại
+`Data/Guardian/Backend/GuardianBackendConfig.asset` (localhost:5001, fake scan tắt),
+`IUHGuardianBackendReporter` tham chiếu service và Match3CombatManager hiện có.
+Manager phát `CombatFinished(encounter, won)` một lần ở đầu routine thắng/thua,
+kể cả hết giờ; reset cờ khi bắt đầu trận mới. Flee không phát sự kiện.
+Reporter tạo event qua `GuardianCombatReport.Create`, lưu bằng `Outbox.Enqueue`;
+quest mặc định `campus`, không gửi payload thưởng/Gold và không cộng tiền client.
+ID quest/milestone sai bị bỏ qua, cảnh báo một lần cho mỗi encounter.
+
+| GameObject | Milestone |
+|---|---|
+| MONSTER_01_BLUEDEMON | campus_cong_chinh |
+| MONSTER_02_ORC | campus_cantin |
+| MONSTER_03_PHANTOM | campus_le_hoi |
+| MONSTER_04_DEMON_BOSS | campus_dau_truong_bac |
+| MONSTER_05_CORRUPTED_BACKPACK | campus_cong_ar |
+
+Mỗi milestone cấu hình tạm 10 Core ở backend; đây là dữ liệu server, không thay
+Gold/kho đồ. Hậu tố `ar` chỉ phân biệt encounter có sẵn, B8 không triển khai AR.
+Overlay runtime góc phải trên hiển thị `Máy chủ: chờ {pending} · đã nhận {n} · lỗi {m}` theo `StatusChanged`;
+không nhận raycast và không polling trong Update. `Đã nhận` đếm API ACK trong vòng
+đời reporter, không phải xác nhận Adafruit đã đồng bộ. Kiểm cloud thật bằng
+`GET /gameplay/events/<event_id>`. Evidence tại `Evidence/CampusGuardian/B8/`.
+
 ## Thiết lập sau khi nhận thư viện
 
 1. Tạo config qua Assets > Create > IUH Campus > Guardian Backend > Config; đặt timeout, retryBaseSeconds, maxBackoffSeconds, maxAttempts, maxImageSide=640, jpgQuality=80.

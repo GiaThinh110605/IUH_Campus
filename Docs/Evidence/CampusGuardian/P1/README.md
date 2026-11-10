@@ -11,3 +11,5 @@ Base: origin/main `9a838cb`; branch minhnhat/progress-p1. Date: 2026-11-07 Asia/
 - Core uses model state/config data; no references to Backend/Match3 assemblies. Prices/rewards/upgrade increases are editable prototype defaults, not playtest measurements. Save version1 only; migration before introducing a later schema.
 
 API and examples: [Guardian_Progress.md](../../../Guardian_Progress.md).
+
+**Đã gỡ ở P1-REMOVE (09/11/2026, nhánh minhnhat/remove-progress-p1).** Code/asset/tài liệu Guardian_Progress.md không còn trong repo; liên kết trên chỉ còn trong lịch sử git (commit d57c60c). Xem [P1-REMOVE](../P1-REMOVE/README.md).

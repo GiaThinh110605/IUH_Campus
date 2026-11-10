@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-10",
+  "timezone": "Asia/Bangkok",
+  "environment": "Unity6000.5.8f1 Play Mode -> real Docker Flask/Gunicorn/SQLite -> Adafruit",
+  "before": {
+    "pending": 2,
+    "rejected": 0,
+    "hud": "Máy chủ: chờ 2 · đã nhận 0 · lỗi 0"
+  },
+  "after": {
+    "pending": 0,
+    "rejected": 0,
+    "hud": "Máy chủ: chờ 0 · đã nhận 1 · lỗi 0"
+  },
+  "apiGetResponses": [
+    {
+      "cloud": "synced",
+      "core_awarded": 10,
+      "event_id": "81da8955-ef93-44f3-b6b0-1a1173c51ac5",
+      "status": "recorded"
+    },
+    {
+      "cloud": "synced",
+      "core_awarded": 0,
+      "event_id": "72e73027-2dae-4573-99c6-d56cfab988bf",
+      "status": "recorded"
+    }
+  ],
+  "afterFile": {
+    "version": 1,
+    "pending": [],
+    "rejected": []
+  },
+  "backup": "outbox-before.json",
+  "afterSnapshot": "outbox-after.json",
+  "backupSha256": "6DD733D3A0B9B28D60C9728B0682509A764499DFE75EADA3DA273279AE7AA25B",
+  "afterSha256": "6C761FED329548570F35FBEA385AC4891A36B36D88394FB56687C99889F47430",
+  "legacyHeadAttemptCount": 8,
+  "manualRetryFailedCalled": false,
+  "outboxRestored": false,
+  "notes": [
+    "The actual saved queue contained2 real events; both API GETs are recorded/cloud synced.",
+    "HUD accepted counter was1 in observed session; it counts status events seen by reporter, not persisted lifetime API records. Pending0 and both API records verify queue drain.",
+    "Old HUD before fix showed errors0 after restart although head attempts8; old reporter did not rebuild capped transient failures from pending snapshot.",
+    "Original event IDs/JSON kept; no delete or backup restore; no new manual POSTs."
+  ]
+}

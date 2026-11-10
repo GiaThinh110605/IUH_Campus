@@ -1,0 +1,60 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "84a70118d09a4b17a3721eac5717234c",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794252427987,
+      "finished_unix_ms": 1794252439507,
+      "last_update_unix_ms": 1794252439507,
+      "progress": {
+        "completed": 7,
+        "total": 7,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794252439436,
+        "last_finished_test_full_name": "VictoryRewardTests.ZeroGoldRewardStillClaimsAndNotifiesOnce",
+        "last_finished_unix_ms": 1794252439438,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "VictoryRewardTests.EmptyMilestoneDoesNotChangeSave(null)",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "VictoryRewardTests.EmptyMilestoneDoesNotChangeSave(\"\")",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "VictoryRewardTests.FirstClaimAddsGoldAndItemsAndNotifiesOnce",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "VictoryRewardTests.NegativeGoldDoesNotClaimMilestone",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "VictoryRewardTests.NewInventoryRemembersGoldAndClaimedMilestone",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "VictoryRewardTests.SecondClaimDoesNotChangeGoldItemsOrNotifications",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "VictoryRewardTests.ZeroGoldRewardStillClaimsAndNotifiesOnce",
+            "message": "  Milestone reward API must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

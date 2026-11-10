@@ -32,3 +32,5 @@ EditMode toàn bộ66passed/0failed/0skipped:64test cũ+2presenter (map/qty, cat
 Có3vòng điều chỉnh trong phạm vi UI: tách state thử RAM sau khi auto-review chặn xóa inventory trên save thật; sửa importer placeholder từ Cubemap sangTexture2D để sprite hiện; đối chiếu và sửa tên controller xe thành IUHGrabMotorbike. Lệnh bị chặn không thực thi. Không cố vượt chặn, không xóa đồ save thật.
 
 Chưa kiểm iPhone vật lý, campus end-to-end với character thật, controller spawn muộn và physical keyboard/touch trong harness hiện tại. Không tự gắn prefab vào campus. Test scene Editor không chứng minh các phần tích hợp đó đã nghiệm thu.
+
+**Đã gỡ ở P1-REMOVE (09/11/2026, nhánh minhnhat/remove-progress-p1).** Prefab, scene test, icon và code UI kho P1.5 không còn trong repo; khôi phục từ commit 43444ea nếu cần. Xem [P1-REMOVE](../P1-REMOVE/README.md).

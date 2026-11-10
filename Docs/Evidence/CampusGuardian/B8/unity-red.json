@@ -1,0 +1,88 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "8d9c29d9181b4de296964b602552c839",
+      "status": "failed",
+      "mode": "EditMode",
+      "started_unix_ms": 1794237331873,
+      "finished_unix_ms": 1794237342016,
+      "last_update_unix_ms": 1794237342016,
+      "progress": {
+        "completed": 14,
+        "total": 14,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794237341744,
+        "last_finished_test_full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.OutcomeCreatesEventWithoutRewardPayload(False,\"combat_lost\")",
+        "last_finished_unix_ms": 1794237341746,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.EachCallCreatesANewEventId",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.IdentifierLengthBoundariesAreEnforced",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(null)",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(\"\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(\"campus d\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(\"campus/d\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(\"campus_d\\n\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(\"khu_đ\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(null)",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(\"\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(\"invalid quest\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(\"campus\\n\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.OutcomeCreatesEventWithoutRewardPayload(True,\"combat_won\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          },
+          {
+            "full_name": "IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.OutcomeCreatesEventWithoutRewardPayload(False,\"combat_lost\")",
+            "message": "  Combat report adapter must exist.\r\n  Expected: not null\r\n  But was:  null\r\n"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-10",
+  "phase": "before runtime implementation; test-first preparation",
+  "get_editor_state": "Unity session not ready for 'get_editor_state' (ping not answered); please retry",
+  "get_active_scene": [
+    "TimeoutError",
+    "Unity plugin session be17c2a8-f5e0-4b52-ae35-d22065234e6a disconnected while awaiting command_result"
+  ],
+  "read_console": "Unity session not ready for 'read_console' (ping not answered); please retry",
+  "run_tests": {
+    "mode": "PlayMode",
+    "assembly_names": ["IUHCampus.Guardian.Match3.PlayModeTests"],
+    "group_names": ["VictoryRewardTests"],
+    "init_timeout": 120000,
+    "error": "Unity plugin session c1ca17d5-b6a5-402a-801d-c472867264a8 disconnected while awaiting command_result",
+    "job_id_received": false
+  },
+  "pass_claimed": false,
+  "runtime_files_modified": false,
+  "gold_measurement": null,
+  "gold_save_modified_by_manual_test": false
+}

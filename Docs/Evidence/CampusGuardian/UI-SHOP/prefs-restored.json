@@ -1,0 +1,1582 @@
+{
+  "keyCount": 126,
+  "before": [
+    {
+      "key": "IUH_Guardian_Gold",
+      "type": "int",
+      "existed": true,
+      "value": "200"
+    },
+    {
+      "key": "IUH_Guardian_SwordLv",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_Guardian_ShieldLv",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_Guardian_MaxHpLv",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_EQUIPPED_SKIN",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_EQUIPPED_TRAIL",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_CHECKIN_SPOT_GATE",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_CHECKIN_SPOT_FOUNTAIN",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_CHECKIN_SPOT_FESTIVAL",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COINS_COLLECTED_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "2"
+    },
+    {
+      "key": "IUH_MYSTERY_OPENED_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_MASCOT_STATE_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_MASCOT_ITEMS_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_LUCKY_STAR_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_0",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_1",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_2",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_3",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_4",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_5",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_6",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_7",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_8",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_9",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_10",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_11",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_12",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_13",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_14",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_15",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_16",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_17",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_18",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_19",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_20",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_21",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_22",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_23",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_24",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_25",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_26",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_27",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_28",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_29",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_30",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_31",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_32",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_33",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_34",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_35",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_36",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_37",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_38",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_39",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_40",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_41",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_42",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_43",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_44",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_45",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_46",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_47",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_48",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_49",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_50",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_51",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_52",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_53",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_54",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_55",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_56",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_57",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_58",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_59",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_60",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_61",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_62",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_63",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_64",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_65",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_66",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_67",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_68",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_69",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_70",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_71",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_72",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_73",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_74",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_75",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_76",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_77",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_78",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_79",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_80",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_81",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_82",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_83",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_84",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_85",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_86",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_87",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_88",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_89",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_90",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_91",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_92",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_93",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_94",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_95",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_96",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_97",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_98",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_99",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_Default",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_IUH_Student",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_Graduate",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_Cyber",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_None",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_CyberSparks",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_CherryPetals",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_GoldenStars",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_ACTIVITY_DATE",
+      "type": "string",
+      "existed": true,
+      "value": "20261109"
+    },
+    {
+      "key": "IUH_CHECKIN_DATE_SPOT_GATE",
+      "type": "string",
+      "existed": true,
+      "value": "10/11/2026 02:35"
+    },
+    {
+      "key": "IUH_CHECKIN_DATE_SPOT_FOUNTAIN",
+      "type": "string",
+      "existed": true,
+      "value": "10/11/2026 02:35"
+    },
+    {
+      "key": "IUH_CHECKIN_DATE_SPOT_FESTIVAL",
+      "type": "string",
+      "existed": false,
+      "value": ""
+    }
+  ],
+  "changesDuringChecks": [
+    {
+      "before": {
+        "key": "IUH_Guardian_Gold",
+        "type": "int",
+        "existed": true,
+        "value": "200"
+      },
+      "beforeRestore": {
+        "key": "IUH_Guardian_Gold",
+        "type": "int",
+        "existed": true,
+        "value": "270"
+      },
+      "restored": {
+        "key": "IUH_Guardian_Gold",
+        "type": "int",
+        "existed": true,
+        "value": "200"
+      }
+    },
+    {
+      "before": {
+        "key": "IUH_CHECKIN_DATE_SPOT_GATE",
+        "type": "string",
+        "existed": true,
+        "value": "10/11/2026 02:35"
+      },
+      "beforeRestore": {
+        "key": "IUH_CHECKIN_DATE_SPOT_GATE",
+        "type": "string",
+        "existed": true,
+        "value": "10/11/2026 03:18"
+      },
+      "restored": {
+        "key": "IUH_CHECKIN_DATE_SPOT_GATE",
+        "type": "string",
+        "existed": true,
+        "value": "10/11/2026 02:35"
+      }
+    },
+    {
+      "before": {
+        "key": "IUH_CHECKIN_DATE_SPOT_FOUNTAIN",
+        "type": "string",
+        "existed": true,
+        "value": "10/11/2026 02:35"
+      },
+      "beforeRestore": {
+        "key": "IUH_CHECKIN_DATE_SPOT_FOUNTAIN",
+        "type": "string",
+        "existed": true,
+        "value": "10/11/2026 03:17"
+      },
+      "restored": {
+        "key": "IUH_CHECKIN_DATE_SPOT_FOUNTAIN",
+        "type": "string",
+        "existed": true,
+        "value": "10/11/2026 02:35"
+      }
+    }
+  ],
+  "after": [
+    {
+      "key": "IUH_Guardian_Gold",
+      "type": "int",
+      "existed": true,
+      "value": "200"
+    },
+    {
+      "key": "IUH_Guardian_SwordLv",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_Guardian_ShieldLv",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_Guardian_MaxHpLv",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_EQUIPPED_SKIN",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_EQUIPPED_TRAIL",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_CHECKIN_SPOT_GATE",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_CHECKIN_SPOT_FOUNTAIN",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_CHECKIN_SPOT_FESTIVAL",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COINS_COLLECTED_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "2"
+    },
+    {
+      "key": "IUH_MYSTERY_OPENED_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_MASCOT_STATE_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_MASCOT_ITEMS_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_LUCKY_STAR_20261109",
+      "type": "int",
+      "existed": true,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_0",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_1",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_2",
+      "type": "int",
+      "existed": true,
+      "value": "1"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_3",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_4",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_5",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_6",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_7",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_8",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_9",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_10",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_11",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_12",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_13",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_14",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_15",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_16",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_17",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_18",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_19",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_20",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_21",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_22",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_23",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_24",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_25",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_26",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_27",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_28",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_29",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_30",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_31",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_32",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_33",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_34",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_35",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_36",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_37",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_38",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_39",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_40",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_41",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_42",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_43",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_44",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_45",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_46",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_47",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_48",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_49",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_50",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_51",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_52",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_53",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_54",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_55",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_56",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_57",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_58",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_59",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_60",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_61",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_62",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_63",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_64",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_65",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_66",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_67",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_68",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_69",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_70",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_71",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_72",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_73",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_74",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_75",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_76",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_77",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_78",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_79",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_80",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_81",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_82",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_83",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_84",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_85",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_86",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_87",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_88",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_89",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_90",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_91",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_92",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_93",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_94",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_95",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_96",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_97",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_98",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_COIN_IDX_20261109_99",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_Default",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_IUH_Student",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_Graduate",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_Cyber",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_None",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_CyberSparks",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_CherryPetals",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_OWNED_GoldenStars",
+      "type": "int",
+      "existed": false,
+      "value": "0"
+    },
+    {
+      "key": "IUH_ACTIVITY_DATE",
+      "type": "string",
+      "existed": true,
+      "value": "20261109"
+    },
+    {
+      "key": "IUH_CHECKIN_DATE_SPOT_GATE",
+      "type": "string",
+      "existed": true,
+      "value": "10/11/2026 02:35"
+    },
+    {
+      "key": "IUH_CHECKIN_DATE_SPOT_FOUNTAIN",
+      "type": "string",
+      "existed": true,
+      "value": "10/11/2026 02:35"
+    },
+    {
+      "key": "IUH_CHECKIN_DATE_SPOT_FESTIVAL",
+      "type": "string",
+      "existed": false,
+      "value": ""
+    }
+  ],
+  "allRestored": true
+}

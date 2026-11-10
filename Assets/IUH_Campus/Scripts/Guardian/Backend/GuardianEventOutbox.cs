@@ -9,6 +9,7 @@ namespace IUHCampus.Guardian.Backend
     public enum GuardianSyncStatus { Pending, Synced, Failed }
 
     /// <summary>Single owner on the Unity main thread; never open two writers for the same path.</summary>
+    /// <remarks>Config.maxAttempts is retained for serialized asset compatibility; transient retries have no attempt limit.</remarks>
     public sealed class GuardianEventOutbox
     {
         [Serializable] private sealed class Entry
@@ -59,7 +60,7 @@ namespace IUHCampus.Guardian.Backend
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var entry = state.pending[0];
-                    if (entry.attempts >= Math.Max(1, config.maxAttempts) || entry.nextAttemptTicks > utcNow().Ticks) return;
+                    if (entry.nextAttemptTicks > utcNow().Ticks) return;
                     var result = await client.PostEventAsync(new GuardianEvent(entry.id, entry.json), cancellationToken);
                     Apply(entry, result);
                     if (result.Outcome == GuardianEventOutcome.NetworkError || result.Outcome == GuardianEventOutcome.ServerError) return;
@@ -81,12 +82,12 @@ namespace IUHCampus.Guardian.Backend
                 Debug.LogWarning("[IUH Guardian] Backend event rejected: " + entry.id + " (" + result.Outcome + ").");
                 StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Failed); return;
             }
-            entry.attempts++;
+            if (entry.attempts < int.MaxValue) entry.attempts++;
             double seconds = Math.Min(Math.Max(0.1, config.maxBackoffSeconds),
                 Math.Max(0.1, config.retryBaseSeconds) * Math.Pow(2, Math.Min(30, entry.attempts - 1)));
             entry.nextAttemptTicks = utcNow().AddSeconds(seconds).Ticks;
             Save();
-            StatusChanged?.Invoke(entry.id, entry.attempts >= Math.Max(1, config.maxAttempts) ? GuardianSyncStatus.Failed : GuardianSyncStatus.Pending);
+            StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Pending);
         }
 
         private Snapshot Load()

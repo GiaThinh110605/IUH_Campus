@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-09",
+  "timezone": "Asia/Bangkok",
+  "environment": "Windows, Unity Editor 6000.5.8f1 Play Mode, Docker real API and Adafruit",
+  "testedTree": "B8 working tree on 9e884e4; see containing commit",
+  "branch": "minhnhat/b8-backend-gameplay",
+  "session_id": "32a4f2fa-f02a-4562-a1e0-f48a734b1d6b",
+  "invocation": {
+    "session": "32a4f2fa-f02a-4562-a1e0-f48a734b1d6b",
+    "encounter": "MONSTER_01_BLUEDEMON",
+    "milestone": "campus_cong_chinh",
+    "eventIds": [
+      "e05f25ee-db01-4408-a894-2ffcce60dde0",
+      "4ca18d68-e3a4-4d7c-bb30-7a9460f98d21",
+      "1e22a756-3b10-4728-80ab-c1203b30931f"
+    ],
+    "types": [
+      "combat_won",
+      "combat_lost",
+      "combat_won"
+    ],
+    "pending": 3
+  },
+  "events": [
+    {
+      "source": "reporter handler invoked via MCP",
+      "event_type": "combat_won",
+      "milestone_id": "campus_cong_chinh",
+      "event_id": "e05f25ee-db01-4408-a894-2ffcce60dde0",
+      "status": "recorded",
+      "core_awarded": 10,
+      "cloud": "synced"
+    },
+    {
+      "source": "reporter handler invoked via MCP",
+      "event_type": "combat_lost",
+      "milestone_id": "campus_cong_chinh",
+      "event_id": "4ca18d68-e3a4-4d7c-bb30-7a9460f98d21",
+      "status": "recorded",
+      "core_awarded": 0,
+      "cloud": "synced"
+    },
+    {
+      "source": "reporter handler invoked via MCP; new event ID, same session/milestone",
+      "event_type": "combat_won",
+      "milestone_id": "campus_cong_chinh",
+      "event_id": "1e22a756-3b10-4728-80ab-c1203b30931f",
+      "status": "recorded",
+      "core_awarded": 0,
+      "cloud": "synced"
+    },
+    {
+      "source": "natural combat timeout; no outcome/timer injection",
+      "event_type": "combat_lost",
+      "milestone_id": "campus_cong_ar",
+      "event_id": "24dbed64-5f98-43f7-a792-0fb86f46c4c5",
+      "status": "recorded",
+      "core_awarded": 0,
+      "cloud": "synced"
+    }
+  ],
+  "httpMethod": "GET",
+  "eventEndpoint": "http://127.0.0.1:5001/gameplay/events/<event_id>",
+  "firstThreeGetResponses": [
+    {
+      "cloud": "synced",
+      "core_awarded": 10,
+      "event_id": "e05f25ee-db01-4408-a894-2ffcce60dde0",
+      "status": "recorded"
+    },
+    {
+      "cloud": "synced",
+      "core_awarded": 0,
+      "event_id": "4ca18d68-e3a4-4d7c-bb30-7a9460f98d21",
+      "status": "recorded"
+    },
+    {
+      "cloud": "synced",
+      "core_awarded": 0,
+      "event_id": "1e22a756-3b10-4728-80ab-c1203b30931f",
+      "status": "recorded"
+    }
+  ],
+  "realTimeoutObservation": {
+    "active": false,
+    "remaining": 0,
+    "outcome": "Defeat",
+    "reported": true,
+    "encounter": "MONSTER_05_CORRUPTED_BACKPACK",
+    "milestone": "campus_cong_ar",
+    "defeatVisible": true,
+    "acceptedIds": [
+      "e05f25ee-db01-4408-a894-2ffcce60dde0",
+      "4ca18d68-e3a4-4d7c-bb30-7a9460f98d21",
+      "1e22a756-3b10-4728-80ab-c1203b30931f",
+      "24dbed64-5f98-43f7-a792-0fb86f46c4c5"
+    ],
+    "status": "Máy chủ: chờ 0 · đã nhận 4 · lỗi 0"
+  },
+  "databaseReadOnlyVerification": {
+    "sessionEventCount": 4,
+    "campus_cong_ar_combat_lost_count": 1,
+    "rows": [
+      {
+        "event_id": "e05f25ee-db01-4408-a894-2ffcce60dde0",
+        "session_id": "32a4f2fa-f02a-4562-a1e0-f48a734b1d6b",
+        "event_type": "combat_won",
+        "milestone_id": "campus_cong_chinh",
+        "core_awarded": 10
+      },
+      {
+        "event_id": "4ca18d68-e3a4-4d7c-bb30-7a9460f98d21",
+        "session_id": "32a4f2fa-f02a-4562-a1e0-f48a734b1d6b",
+        "event_type": "combat_lost",
+        "milestone_id": "campus_cong_chinh",
+        "core_awarded": 0
+      },
+      {
+        "event_id": "1e22a756-3b10-4728-80ab-c1203b30931f",
+        "session_id": "32a4f2fa-f02a-4562-a1e0-f48a734b1d6b",
+        "event_type": "combat_won",
+        "milestone_id": "campus_cong_chinh",
+        "core_awarded": 0
+      },
+      {
+        "event_id": "24dbed64-5f98-43f7-a792-0fb86f46c4c5",
+        "session_id": "32a4f2fa-f02a-4562-a1e0-f48a734b1d6b",
+        "event_type": "combat_lost",
+        "milestone_id": "campus_cong_ar",
+        "core_awarded": 0
+      }
+    ]
+  },
+  "followupObservation": {
+    "acceptedEventCount": 4,
+    "pending": 0,
+    "status": "Máy chủ: chờ 0 · đã nhận 4 · lỗi 0",
+    "noFurtherEventsObserved": true
+  },
+  "screenshots": {
+    "status": "status.png",
+    "timeoutDefeat": "defeat.png",
+    "visuallyInspected": true
+  },
+  "afterPlay": {
+    "isPlaying": false,
+    "isDirty": false,
+    "consoleErrorEntries": 0
+  },
+  "limitations": [
+    "Won result invoked via reporter handler; did not play a real victory.",
+    "Editor/PC only; no build or device/AR test.",
+    "Cloud statuses observed via API GET were synced; no inference from client ACK."
+  ]
+}

@@ -26,6 +26,8 @@ namespace IUHCampus.Guardian
     public class IUHGuardianInventory : MonoBehaviour
     {
         public static IUHGuardianInventory Instance { get; private set; }
+        private const string MilestoneKeyPrefix = "IUH_Guardian_Milestone_";
+        private bool m_IsBatchingReward;
 
         [Header("Currencies")]
         [SerializeField] private int m_Gold = 100;
@@ -85,7 +87,33 @@ namespace IUHCampus.Guardian
             if (amount <= 0) return;
             m_Gold += amount;
             SaveData();
+            NotifyDataChanged();
+        }
+
+        public bool HasClaimedMilestone(string milestoneId)
+        {
+            return !string.IsNullOrEmpty(milestoneId) &&
+                PlayerPrefs.GetInt(MilestoneKeyPrefix + milestoneId, 0) == 1;
+        }
+
+        public bool TryClaimMilestoneReward(string milestoneId, int gold, IReadOnlyList<string> items)
+        {
+            if (string.IsNullOrEmpty(milestoneId) || gold < 0 || HasClaimedMilestone(milestoneId))
+                return false;
+
+            m_IsBatchingReward = true;
+            try
+            {
+                AddGold(gold);
+                if (items != null)
+                    foreach (string item in items) AddItem(item);
+                PlayerPrefs.SetInt(MilestoneKeyPrefix + milestoneId, 1);
+            }
+            finally { m_IsBatchingReward = false; }
+
+            SaveData();
             OnDataChanged?.Invoke();
+            return true;
         }
 
         public bool TrySpendGold(int amount)
@@ -167,7 +195,7 @@ namespace IUHCampus.Guardian
             }
 
             SaveData();
-            OnDataChanged?.Invoke();
+            NotifyDataChanged();
         }
 
         public bool UseItem(string itemName)
@@ -205,11 +233,22 @@ namespace IUHCampus.Guardian
 
         private void SaveData()
         {
+            if (m_IsBatchingReward) return;
+            WritePlayerPrefs();
+            PlayerPrefs.Save();
+        }
+
+        private void NotifyDataChanged()
+        {
+            if (!m_IsBatchingReward) OnDataChanged?.Invoke();
+        }
+
+        private void WritePlayerPrefs()
+        {
             PlayerPrefs.SetInt("IUH_Guardian_Gold", m_Gold);
             PlayerPrefs.SetInt("IUH_Guardian_SwordLv", m_SwordLevel);
             PlayerPrefs.SetInt("IUH_Guardian_ShieldLv", m_ShieldLevel);
             PlayerPrefs.SetInt("IUH_Guardian_MaxHpLv", m_MaxHpLevel);
-            PlayerPrefs.Save();
         }
 
         private void LoadData()
