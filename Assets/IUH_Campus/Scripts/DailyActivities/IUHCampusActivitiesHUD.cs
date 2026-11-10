@@ -250,12 +250,38 @@ namespace IUHCampus.DailyActivities
         }
 
         // ================= MEMORIAL ALBUM ================= //
+        public void ToggleAlbum()
+        {
+            if (IsAlbumOpen)
+            {
+                CloseAlbum();
+            }
+            else
+            {
+                OpenAlbum();
+            }
+        }
+
         public void OpenAlbum()
         {
             if (m_AlbumModalRoot == null) return;
             PopulateAlbumCards();
             m_AlbumModalRoot.SetActive(true);
             SetUIMode(true);
+
+            if (m_CloseAlbumButton != null)
+            {
+                m_CloseAlbumButton.onClick.RemoveAllListeners();
+                m_CloseAlbumButton.onClick.AddListener(CloseAlbum);
+            }
+
+            // Also find any additional X button in modal
+            var xBtn = m_AlbumModalRoot.transform.Find("Btn_CloseAlbum_X")?.GetComponent<Button>();
+            if (xBtn != null)
+            {
+                xBtn.onClick.RemoveAllListeners();
+                xBtn.onClick.AddListener(CloseAlbum);
+            }
 
             if (UnityEngine.EventSystems.EventSystem.current != null && m_CloseAlbumButton != null)
             {

@@ -103,9 +103,10 @@ namespace IUHCampus.Guardian
 
         private void Update()
         {
-            // Toggle with key 'B' or 'I'
-            if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I))
+            // Toggle with key 'B' or 'I' or mobile VirtualBackpackPressed
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I) || IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed)
             {
+                IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed = false;
                 if (m_IsOpen) CloseShop();
                 else OpenShop();
             }
@@ -459,7 +460,7 @@ namespace IUHCampus.Guardian
                 GameObject row = new GameObject("ItemRow", typeof(RectTransform), typeof(Image));
                 row.transform.SetParent(m_ItemsContainer, false);
                 var rowRt = row.GetComponent<RectTransform>();
-                rowRt.sizeDelta = new Vector2(490f, 44f);
+                rowRt.sizeDelta = new Vector2(760f, 48f);
                 row.GetComponent<Image>().color = new Color(0.08f, 0.12f, 0.2f, 0.9f);
 
                 // Name & Count

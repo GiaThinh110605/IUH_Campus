@@ -880,28 +880,7 @@ namespace IUHCampus.Editor
             var oldHudBtn = canvasParent.Find("Btn_HUD_OpenShop");
             if (oldHudBtn != null) Undo.DestroyObjectImmediate(oldHudBtn.gameObject);
 
-            // 1. HUD Shortcut Button (Top-Right)
-            GameObject hudBtnObj = new GameObject("Btn_HUD_OpenShop", typeof(RectTransform), typeof(Image), typeof(Button));
-            hudBtnObj.transform.SetParent(canvasParent, false);
-            var hudRect = hudBtnObj.GetComponent<RectTransform>();
-            hudRect.anchorMin = new Vector2(1f, 1f);
-            hudRect.anchorMax = new Vector2(1f, 1f);
-            hudRect.pivot = new Vector2(1f, 1f);
-            hudRect.anchoredPosition = new Vector2(-20f, -20f);
-            hudRect.sizeDelta = new Vector2(240f, 44f);
-
-            var hudImg = hudBtnObj.GetComponent<Image>();
-            hudImg.color = new Color(0.10f, 0.16f, 0.28f, 0.90f);
-
-            var hudBtn = hudBtnObj.GetComponent<Button>();
-            ColorBlock cb = hudBtn.colors;
-            cb.highlightedColor = new Color(0.20f, 0.45f, 0.85f);
-            cb.pressedColor = new Color(0.12f, 0.30f, 0.60f);
-            hudBtn.colors = cb;
-
-            Text hudTxt = CreateText(hudBtnObj.transform, "Label", "🎒 <b>KHO ĐỒ & NÂNG CẤP [B]</b>", 13, new Vector2(0.5f, 0.5f), new Vector2(230f, 38f), font, new Color(0.35f, 0.95f, 1f));
-
-            // 2. Main Shop UI Root
+            // 1. Main Shop UI Root (Đã bỏ nút thô cũ Btn_HUD_OpenShop vì đã có cụm nút neon HUD mới)
             GameObject shopRoot = new GameObject("IUH_Upgrade_Shop_UI", typeof(RectTransform), typeof(IUHUpgradeShopUI));
             shopRoot.transform.SetParent(canvasParent, false);
             var rootRt = shopRoot.GetComponent<RectTransform>();
@@ -909,12 +888,7 @@ namespace IUHCampus.Editor
             rootRt.anchorMax = Vector2.one;
             rootRt.sizeDelta = Vector2.zero;
 
-            // Wire HUD button click to shop toggle
             var shopComp = shopRoot.GetComponent<IUHUpgradeShopUI>();
-            hudBtn.onClick.AddListener(() =>
-            {
-                if (IUHUpgradeShopUI.Instance != null) IUHUpgradeShopUI.Instance.ToggleShop();
-            });
 
             // 3. Modal Overlay Panel
             GameObject panelModal = new GameObject("ModalPanel", typeof(RectTransform), typeof(Image));
@@ -926,22 +900,22 @@ namespace IUHCampus.Editor
             var pmImg = panelModal.GetComponent<Image>();
             pmImg.color = new Color(0.03f, 0.05f, 0.08f, 0.85f);
 
-            // 4. Modal Window Card
+            // 4. Modal Window Card (Được căn lề rộng rãi 860px để hiển thị thoáng đãng trên mobile, không tràn viền)
             GameObject cardObj = new GameObject("Card", typeof(RectTransform), typeof(Image));
             cardObj.transform.SetParent(panelModal.transform, false);
             var cardRt = cardObj.GetComponent<RectTransform>();
             cardRt.anchorMin = new Vector2(0.5f, 0.5f);
             cardRt.anchorMax = new Vector2(0.5f, 0.5f);
-            cardRt.sizeDelta = new Vector2(720f, 540f);
+            cardRt.sizeDelta = new Vector2(860f, 560f);
             var cardImg = cardObj.GetComponent<Image>();
             cardImg.color = new Color(0.08f, 0.12f, 0.19f, 0.98f);
 
             // Card Header
-            Text titleTxt = CreateText(cardObj.transform, "Title", "🏪 TRẠM NÂNG CẤP & KHO ĐỒ IUH", 20, new Vector2(0.5f, 0.93f), new Vector2(660f, 32f), font, new Color(0.3f, 0.88f, 1f));
+            Text titleTxt = CreateText(cardObj.transform, "Title", "🏪 TRẠM NÂNG CẤP & KHO ĐỒ IUH", 20, new Vector2(0.5f, 0.93f), new Vector2(780f, 32f), font, new Color(0.3f, 0.88f, 1f));
             titleTxt.fontStyle = FontStyle.Bold;
 
             // Close button [X]
-            var (btnClose, _) = CreateButton(cardObj.transform, "BtnClose", "✕", new Vector2(0.96f, 0.93f), new Vector2(36f, 32f), font);
+            var (btnClose, _) = CreateButton(cardObj.transform, "BtnClose", "✕", new Vector2(0.96f, 0.93f), new Vector2(40f, 34f), font);
             btnClose.GetComponent<Image>().color = new Color(0.8f, 0.2f, 0.25f);
 
             // Gold Status bar
@@ -950,19 +924,19 @@ namespace IUHCampus.Editor
             var gbRt = goldBar.GetComponent<RectTransform>();
             gbRt.anchorMin = new Vector2(0.5f, 0.84f);
             gbRt.anchorMax = new Vector2(0.5f, 0.84f);
-            gbRt.sizeDelta = new Vector2(680f, 34f);
+            gbRt.sizeDelta = new Vector2(810f, 34f);
             var gbImg = goldBar.GetComponent<Image>();
             gbImg.color = new Color(0.04f, 0.07f, 0.11f, 0.95f);
             gbImg.raycastTarget = false;
 
-            Text txtGold = CreateText(goldBar.transform, "TxtGold", "💰 VÀNG CỦA BẠN: 0 IUH Gold", 14, new Vector2(0.05f, 0.5f), new Vector2(400f, 30f), font, new Color(1f, 0.92f, 0.35f));
+            Text txtGold = CreateText(goldBar.transform, "TxtGold", "💰 VÀNG CỦA BẠN: 0 IUH Gold", 14, new Vector2(0.04f, 0.5f), new Vector2(450f, 30f), font, new Color(1f, 0.92f, 0.35f));
             txtGold.alignment = TextAnchor.MiddleLeft;
             txtGold.fontStyle = FontStyle.Bold;
 
             // 3 Tab Buttons
-            var (btnTabUpgrades, _) = CreateButton(cardObj.transform, "BtnTabUpgrades", "⚙️ NÂNG CẤP", new Vector2(0.18f, 0.76f), new Vector2(210f, 36f), font);
-            var (btnTabInventory, _) = CreateButton(cardObj.transform, "BtnTabInventory", "🎒 KHO ĐỒ", new Vector2(0.50f, 0.76f), new Vector2(210f, 36f), font);
-            var (btnTabSkins, _) = CreateButton(cardObj.transform, "BtnTabSkins", "👗 NGOẠI TRANG", new Vector2(0.82f, 0.76f), new Vector2(210f, 36f), font);
+            var (btnTabUpgrades, _) = CreateButton(cardObj.transform, "BtnTabUpgrades", "⚙️ NÂNG CẤP", new Vector2(0.19f, 0.77f), new Vector2(240f, 38f), font);
+            var (btnTabInventory, _) = CreateButton(cardObj.transform, "BtnTabInventory", "🎒 KHO ĐỒ", new Vector2(0.50f, 0.77f), new Vector2(240f, 38f), font);
+            var (btnTabSkins, _) = CreateButton(cardObj.transform, "BtnTabSkins", "👗 NGOẠI TRANG", new Vector2(0.81f, 0.77f), new Vector2(240f, 38f), font);
             btnTabInventory.GetComponent<Image>().color = new Color(0.12f, 0.18f, 0.28f);
             btnTabSkins.GetComponent<Image>().color = new Color(0.12f, 0.18f, 0.28f);
 
@@ -970,22 +944,22 @@ namespace IUHCampus.Editor
             GameObject contentUpgrades = new GameObject("Tab_Upgrades", typeof(RectTransform));
             contentUpgrades.transform.SetParent(cardObj.transform, false);
             var uRt = contentUpgrades.GetComponent<RectTransform>();
-            uRt.anchorMin = new Vector2(0.04f, 0.04f);
-            uRt.anchorMax = new Vector2(0.96f, 0.70f);
+            uRt.anchorMin = new Vector2(0.03f, 0.03f);
+            uRt.anchorMax = new Vector2(0.97f, 0.71f);
             uRt.sizeDelta = Vector2.zero;
 
             GameObject contentInventory = new GameObject("Tab_Inventory", typeof(RectTransform));
             contentInventory.transform.SetParent(cardObj.transform, false);
             var iRt = contentInventory.GetComponent<RectTransform>();
-            iRt.anchorMin = new Vector2(0.04f, 0.04f);
-            iRt.anchorMax = new Vector2(0.96f, 0.70f);
+            iRt.anchorMin = new Vector2(0.03f, 0.03f);
+            iRt.anchorMax = new Vector2(0.97f, 0.71f);
             iRt.sizeDelta = Vector2.zero;
 
             GameObject contentSkins = new GameObject("Tab_Skins", typeof(RectTransform));
             contentSkins.transform.SetParent(cardObj.transform, false);
             var skRt = contentSkins.GetComponent<RectTransform>();
-            skRt.anchorMin = new Vector2(0.04f, 0.04f);
-            skRt.anchorMax = new Vector2(0.96f, 0.70f);
+            skRt.anchorMin = new Vector2(0.03f, 0.03f);
+            skRt.anchorMax = new Vector2(0.97f, 0.71f);
             skRt.sizeDelta = Vector2.zero;
 
             // 5. Build Upgrades Tab (3 Rows)
@@ -1110,22 +1084,22 @@ namespace IUHCampus.Editor
             var rect = row.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(0.5f, centerYAnchor);
             rect.anchorMax = new Vector2(0.5f, centerYAnchor);
-            rect.sizeDelta = new Vector2(650f, 90f);
+            rect.sizeDelta = new Vector2(780f, 85f);
 
             var img = row.GetComponent<Image>();
             img.color = new Color(0.05f, 0.08f, 0.13f, 0.90f);
 
-            Text title = CreateText(row.transform, "Title", rowTitle, 15, new Vector2(0.04f, 0.72f), new Vector2(300f, 24f), font, accentColor);
+            Text title = CreateText(row.transform, "Title", rowTitle, 15, new Vector2(0.03f, 0.72f), new Vector2(340f, 24f), font, accentColor);
             title.alignment = TextAnchor.MiddleLeft;
             title.fontStyle = FontStyle.Bold;
 
-            Text cur = CreateText(row.transform, "Cur", "Hiện tại: Lv.1", 13, new Vector2(0.04f, 0.35f), new Vector2(250f, 22f), font, Color.white);
+            Text cur = CreateText(row.transform, "Cur", "Hiện tại: Lv.1", 13, new Vector2(0.03f, 0.32f), new Vector2(220f, 22f), font, Color.white);
             cur.alignment = TextAnchor.MiddleLeft;
 
-            Text next = CreateText(row.transform, "Next", "Tiếp theo: Lv.2", 12, new Vector2(0.36f, 0.35f), new Vector2(200f, 22f), font, new Color(0.8f, 0.9f, 1f, 0.8f));
+            Text next = CreateText(row.transform, "Next", "Tiếp theo: Lv.2", 12, new Vector2(0.33f, 0.32f), new Vector2(220f, 22f), font, new Color(0.8f, 0.9f, 1f, 0.8f));
             next.alignment = TextAnchor.MiddleLeft;
 
-            var (btn, btnTxt) = CreateButton(row.transform, "BtnUp", "NÂNG CẤP", new Vector2(0.85f, 0.50f), new Vector2(170f, 44f), font);
+            var (btn, btnTxt) = CreateButton(row.transform, "BtnUp", "NÂNG CẤP", new Vector2(0.86f, 0.50f), new Vector2(175f, 44f), font);
             btn.GetComponent<Image>().color = new Color(0.2f, 0.65f, 0.35f);
             btnTxt.fontSize = 13;
             btnTxt.fontStyle = FontStyle.Bold;

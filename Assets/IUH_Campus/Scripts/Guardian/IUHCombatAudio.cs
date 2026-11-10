@@ -40,7 +40,7 @@ namespace IUHCampus.Guardian
             {
                 GameObject go = new GameObject("IUH_Combat_Audio");
                 Instance = go.AddComponent<IUHCombatAudio>();
-                DontDestroyOnLoad(go);
+                if (Application.isPlaying) DontDestroyOnLoad(go);
             }
         }
 

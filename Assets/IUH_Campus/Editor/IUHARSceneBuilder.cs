@@ -172,7 +172,7 @@ namespace IUHCampus.Editor
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
 
-            // Điểm 1: Cạnh Đài Phun Nước / Cổng Trường (Balo Sinh Viên IUH)
+            // Điểm 1: Cạnh Đài Phun Nước / Sân chính (Balo Sinh Viên IUH)
             CreateSingleCorruptedEncounter(
                 "CORRUPTED_ENCOUNTER_FOUNTAIN",
                 new Vector3(4.0f, 0.05f, -28.0f),
@@ -205,16 +205,35 @@ namespace IUHCampus.Editor
                 font
             );
 
-            // Cài đặt Mobile Touch Controls cho iPhone 12
-            SetupMobileControlsInScene();
+            // Điểm 4: Khu Vực Căn Tin Sinh Viên (Balo Tiếp Tế)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_CANTEEN",
+                new Vector3(-22.0f, 0.05f, -36.0f),
+                CorruptedObjectType.Backpack,
+                "Mã Độc Tiếp Tế - Balo Căn Tin",
+                900,
+                "CAMPUS_CORRUPTED_CANTEEN",
+                font
+            );
+
+            // Điểm 5: Sân Thể Thao Đa Năng (Laptop Điều Khiển Sân Đấu)
+            CreateSingleCorruptedEncounter(
+                "CORRUPTED_ENCOUNTER_SPORTS",
+                new Vector3(20.0f, 0.05f, -10.0f),
+                CorruptedObjectType.EngineeringLaptop,
+                "Quỷ Mạng Lưới - Laptop Thể Thao",
+                1100,
+                "CAMPUS_CORRUPTED_SPORTS",
+                font
+            );
 
             EditorSceneManager.MarkSceneDirty(activeScene);
             EditorSceneManager.SaveOpenScenes();
 
-            Debug.Log("<color=#00FF88>[IUH AR] ĐÃ CÀI ĐẶT THÀNH CÔNG 3 ĐIỂM DỊ TƯỢNG VÀ MOBILE CONTROLS VÀO SÂN TRƯỜNG!</color>");
+            Debug.Log("<color=#00FF88>[IUH AR] ĐÃ CÀI ĐẶT THÀNH CÔNG 5 ĐIỂM DỊ TƯỢNG VÀO SÂN TRƯỜNG!</color>");
         }
 
-        private static GameObject CreateSingleCorruptedEncounter(
+        public static GameObject CreateSingleCorruptedEncounter(
             string name, 
             Vector3 pos, 
             CorruptedObjectType objType, 
@@ -242,8 +261,19 @@ namespace IUHCampus.Editor
             var auraLight = auraLightGO.GetComponent<Light>();
             auraLight.type = LightType.Point;
             auraLight.color = new Color(0.85f, 0.15f, 1f);
-            auraLight.intensity = 4.5f;
-            auraLight.range = 6.0f;
+            auraLight.intensity = 5.5f;
+            auraLight.range = 8.0f;
+
+            // Cột sáng tím neon cao vút lên trời (Beacon Pillar) để dễ thấy từ xa & từ Flycam Drone
+            GameObject beaconBeam = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            beaconBeam.name = "Beacon_Pillar_Beam";
+            beaconBeam.transform.SetParent(root.transform, false);
+            beaconBeam.transform.localPosition = new Vector3(0f, 6.0f, 0f);
+            beaconBeam.transform.localScale = new Vector3(0.4f, 6.0f, 0.4f);
+            Object.DestroyImmediate(beaconBeam.GetComponent<Collider>());
+            var bRend = beaconBeam.GetComponent<Renderer>();
+            var beamMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/IUH_Campus/Materials/CombatArena/ArenaGlowPurple.mat");
+            if (beamMat != null) bRend.sharedMaterial = beamMat;
 
             var reticlePack = CreateHologramReticle(root.transform);
             var monsterPack = CreateCyberDemonMonster(root.transform, font);
@@ -300,6 +330,33 @@ namespace IUHCampus.Editor
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
 
+            // Load Sprites
+            Sprite spBtnInteract = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_interact.png");
+            Sprite spBtnRun = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_run.png");
+            Sprite spBtnJump = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_jump.png");
+            Sprite spBtnFireworks = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_fireworks.png");
+            Sprite spBtnVehicle = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_vehicle.png");
+            Sprite spBtnTop = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_top.png");
+            Sprite spBtnFire = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_btn_fire.png") ?? spBtnInteract;
+
+            Sprite spIconHand = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_hand_tap.png");
+            Sprite spIconGunFire = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_gun_fire.png");
+            Sprite spIconRun = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_run.png");
+            Sprite spIconJump = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_jump.png");
+            Sprite spIconFireworks = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_fireworks.png");
+            Sprite spIconVehicle = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_vehicle.png");
+            Sprite spIconBackpack = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_backpack.png");
+            Sprite spIconUpgrade = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_upgrade.png");
+            Sprite spIconSettings = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_settings.png");
+            Sprite spIconShield = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/icon_shield_health.png");
+
+            Sprite spJoyBase = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_joystick_base.png");
+            Sprite spJoyHandle = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_joystick_handle.png");
+            Sprite spPlayerStatus = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_player_status_panel.png");
+            Sprite spAvatar = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/student_avatar_portrait.png");
+            Sprite spHealthBg = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_health_bar_bg.png");
+            Sprite spHealthFill = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/IUH_Campus/UI/Textures/hud_health_bar_fill.png");
+
             // 1. Tạo Canvas điều khiển chuyên biệt cho Màn hình ngang (Landscape Mobile Controls Canvas)
             GameObject canvasGO = new GameObject("IUH_MOBILE_CONTROLS_CANVAS", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasGO.GetComponent<Canvas>();
@@ -324,82 +381,215 @@ namespace IUHCampus.Editor
             lookImg.color = new Color(0f, 0f, 0f, 0f); // Trong suốt không che tầm nhìn
             lookImg.raycastTarget = true;
 
-            // 3. Cần xoay ảo Joystick di chuyển (Góc dưới bên trái)
+            // ================= 3. HUD_TOP ================= //
+            GameObject hudTopGO = new GameObject("HUD_Top", typeof(RectTransform));
+            hudTopGO.transform.SetParent(canvasGO.transform, false);
+            var topRt = hudTopGO.GetComponent<RectTransform>();
+            topRt.anchorMin = new Vector2(0f, 1f);
+            topRt.anchorMax = new Vector2(1f, 1f);
+            topRt.pivot = new Vector2(0.5f, 1f);
+            topRt.anchoredPosition = Vector2.zero;
+            topRt.sizeDelta = new Vector2(0f, 120f);
+
+            // 3.A. HUD_PlayerStatus (Góc trên trái)
+            GameObject statusGO = new GameObject("HUD_PlayerStatus", typeof(RectTransform), typeof(Image));
+            statusGO.transform.SetParent(hudTopGO.transform, false);
+            var statusRt = statusGO.GetComponent<RectTransform>();
+            statusRt.anchorMin = new Vector2(0f, 1f); statusRt.anchorMax = new Vector2(0f, 1f);
+            statusRt.pivot = new Vector2(0f, 1f);
+            statusRt.anchoredPosition = new Vector2(25f, -20f);
+            statusRt.sizeDelta = new Vector2(360f, 95f);
+            var statusImg = statusGO.GetComponent<Image>();
+            statusImg.sprite = spPlayerStatus;
+            statusImg.color = Color.white;
+            statusImg.raycastTarget = false;
+
+            // Avatar Frame & Image
+            GameObject avatarFrameGO = new GameObject("Avatar_Frame", typeof(RectTransform), typeof(Image));
+            avatarFrameGO.transform.SetParent(statusGO.transform, false);
+            var afRt = avatarFrameGO.GetComponent<RectTransform>();
+            afRt.anchorMin = new Vector2(0f, 0.5f); afRt.anchorMax = new Vector2(0f, 0.5f);
+            afRt.pivot = new Vector2(0.5f, 0.5f);
+            afRt.anchoredPosition = new Vector2(50f, 0f);
+            afRt.sizeDelta = new Vector2(76f, 76f);
+            var afImg = avatarFrameGO.GetComponent<Image>();
+            afImg.sprite = spAvatar;
+            afImg.raycastTarget = false;
+
+            // Level Badge
+            GameObject lvGO = new GameObject("Level_Badge", typeof(RectTransform));
+            lvGO.transform.SetParent(statusGO.transform, false);
+            var lvRt = lvGO.GetComponent<RectTransform>();
+            lvRt.anchorMin = new Vector2(0f, 1f); lvRt.anchorMax = new Vector2(0f, 1f);
+            lvRt.pivot = new Vector2(0f, 1f);
+            lvRt.anchoredPosition = new Vector2(98f, -14f);
+            lvRt.sizeDelta = new Vector2(80f, 28f);
+
+            GameObject lvTextGO = new GameObject("Text", typeof(RectTransform), typeof(Text), typeof(Outline));
+            lvTextGO.transform.SetParent(lvGO.transform, false);
+            var lvtRt = lvTextGO.GetComponent<RectTransform>();
+            lvtRt.anchorMin = Vector2.zero; lvtRt.anchorMax = Vector2.one; lvtRt.sizeDelta = Vector2.zero;
+            var lvText = lvTextGO.GetComponent<Text>();
+            lvText.font = font;
+            lvText.text = "Lv.1";
+            lvText.fontSize = 20;
+            lvText.fontStyle = FontStyle.Bold;
+            lvText.color = Color.white;
+            lvText.alignment = TextAnchor.MiddleLeft;
+            var lvOut = lvTextGO.GetComponent<Outline>();
+            lvOut.effectColor = new Color(0.14f, 0.89f, 1f, 0.85f);
+            lvOut.effectDistance = new Vector2(1.5f, -1.5f);
+
+            // Health Bar Capsule
+            GameObject healthBarGO = new GameObject("Health_Bar", typeof(RectTransform), typeof(Image));
+            healthBarGO.transform.SetParent(statusGO.transform, false);
+            var hbRt = healthBarGO.GetComponent<RectTransform>();
+            hbRt.anchorMin = new Vector2(0f, 0f); hbRt.anchorMax = new Vector2(0f, 0f);
+            hbRt.pivot = new Vector2(0f, 0f);
+            hbRt.anchoredPosition = new Vector2(98f, 18f);
+            hbRt.sizeDelta = new Vector2(235f, 30f);
+            var hbImg = healthBarGO.GetComponent<Image>();
+            hbImg.sprite = spHealthBg;
+            hbImg.type = Image.Type.Sliced;
+            hbImg.raycastTarget = false;
+
+            // Health Bar Fill
+            GameObject fillGO = new GameObject("Fill", typeof(RectTransform), typeof(Image));
+            fillGO.transform.SetParent(healthBarGO.transform, false);
+            var fillRt = fillGO.GetComponent<RectTransform>();
+            fillRt.anchorMin = Vector2.zero; fillRt.anchorMax = Vector2.one; fillRt.sizeDelta = Vector2.zero;
+            var fillImg = fillGO.GetComponent<Image>();
+            fillImg.sprite = spHealthFill;
+            fillImg.type = Image.Type.Filled;
+            fillImg.fillMethod = Image.FillMethod.Horizontal;
+            fillImg.fillAmount = 1.0f;
+            fillImg.raycastTarget = false;
+
+            // Shield Icon on Health Bar
+            GameObject shieldIconGO = new GameObject("Shield_Icon", typeof(RectTransform), typeof(Image));
+            shieldIconGO.transform.SetParent(healthBarGO.transform, false);
+            var sRt = shieldIconGO.GetComponent<RectTransform>();
+            sRt.anchorMin = new Vector2(0f, 0.5f); sRt.anchorMax = new Vector2(0f, 0.5f);
+            sRt.pivot = new Vector2(0.5f, 0.5f);
+            sRt.anchoredPosition = new Vector2(15f, 0f);
+            sRt.sizeDelta = new Vector2(20f, 20f);
+            var sImg = shieldIconGO.GetComponent<Image>();
+            sImg.sprite = spIconShield;
+            sImg.raycastTarget = false;
+
+            // Health Text "100 / 100"
+            GameObject hpTextGO = new GameObject("HealthText", typeof(RectTransform), typeof(Text), typeof(Outline));
+            hpTextGO.transform.SetParent(healthBarGO.transform, false);
+            var hptRt = hpTextGO.GetComponent<RectTransform>();
+            hptRt.anchorMin = Vector2.zero; hptRt.anchorMax = Vector2.one; hptRt.sizeDelta = Vector2.zero;
+            var hpText = hpTextGO.GetComponent<Text>();
+            hpText.font = font;
+            hpText.text = "100 / 100";
+            hpText.fontSize = 13;
+            hpText.fontStyle = FontStyle.Bold;
+            hpText.alignment = TextAnchor.MiddleCenter;
+            hpText.color = Color.white;
+            var hpOut = hpTextGO.GetComponent<Outline>();
+            hpOut.effectColor = new Color(0.04f, 0.2f, 0.1f, 0.9f);
+            hpOut.effectDistance = new Vector2(1f, -1f);
+
+            // 3.B. HUD_TopRight (Kho đồ, Nâng cấp, Cài đặt)
+            GameObject hudTopRightGO = new GameObject("HUD_TopRight", typeof(RectTransform));
+            hudTopRightGO.transform.SetParent(hudTopGO.transform, false);
+            var trRt = hudTopRightGO.GetComponent<RectTransform>();
+            trRt.anchorMin = new Vector2(1f, 1f); trRt.anchorMax = new Vector2(1f, 1f);
+            trRt.pivot = new Vector2(1f, 1f);
+            trRt.anchoredPosition = new Vector2(-25f, -20f);
+            trRt.sizeDelta = new Vector2(270f, 90f);
+
+            var btnInv = CreateModernTopButton(hudTopRightGO.transform, "Inventory_Button", "Kho đồ", spBtnTop, spIconBackpack, new Vector2(-180f, 0f), font);
+            var btnUpg = CreateModernTopButton(hudTopRightGO.transform, "Upgrade_Button", "Nâng cấp", spBtnTop, spIconUpgrade, new Vector2(-90f, 0f), font);
+            var btnSet = CreateModernTopButton(hudTopRightGO.transform, "Settings_Button", "Cài đặt", spBtnTop, spIconSettings, new Vector2(0f, 0f), font);
+
+            // ================= 4. HUD_MOVEMENT (VIRTUAL JOYSTICK) ================= //
+            GameObject hudMoveGO = new GameObject("HUD_Movement", typeof(RectTransform));
+            hudMoveGO.transform.SetParent(canvasGO.transform, false);
+            var mvRt = hudMoveGO.GetComponent<RectTransform>();
+            mvRt.anchorMin = Vector2.zero; mvRt.anchorMax = Vector2.zero;
+            mvRt.pivot = Vector2.zero;
+            mvRt.anchoredPosition = Vector2.zero;
+            mvRt.sizeDelta = new Vector2(400f, 400f);
+
             GameObject joyBaseGO = new GameObject("JoystickBase", typeof(RectTransform), typeof(Image));
-            joyBaseGO.transform.SetParent(canvasGO.transform, false);
+            joyBaseGO.transform.SetParent(hudMoveGO.transform, false);
             var jbRt = joyBaseGO.GetComponent<RectTransform>();
             jbRt.anchorMin = Vector2.zero; jbRt.anchorMax = Vector2.zero;
             jbRt.pivot = new Vector2(0.5f, 0.5f);
-            jbRt.anchoredPosition = new Vector2(210f, 210f);
-            jbRt.sizeDelta = new Vector2(180f, 180f);
+            jbRt.anchoredPosition = new Vector2(190f, 190f);
+            jbRt.sizeDelta = new Vector2(205f, 205f);
             var jbImg = joyBaseGO.GetComponent<Image>();
-            jbImg.color = new Color(0.04f, 0.08f, 0.16f, 0.65f);
-            var jbOutline = joyBaseGO.AddComponent<Outline>();
-            jbOutline.effectColor = new Color(0.2f, 0.85f, 1f, 0.8f);
-            jbOutline.effectDistance = new Vector2(3f, 3f);
+            jbImg.sprite = spJoyBase;
+            jbImg.color = Color.white;
+            jbImg.raycastTarget = true;
 
             GameObject joyHandleGO = new GameObject("JoystickHandle", typeof(RectTransform), typeof(Image));
             joyHandleGO.transform.SetParent(joyBaseGO.transform, false);
             var jhRt = joyHandleGO.GetComponent<RectTransform>();
             jhRt.anchorMin = new Vector2(0.5f, 0.5f); jhRt.anchorMax = new Vector2(0.5f, 0.5f);
-            jhRt.sizeDelta = new Vector2(75f, 75f);
+            jhRt.pivot = new Vector2(0.5f, 0.5f);
+            jhRt.anchoredPosition = Vector2.zero;
+            jhRt.sizeDelta = new Vector2(80f, 80f);
             var jhImg = joyHandleGO.GetComponent<Image>();
-            jhImg.color = new Color(0.2f, 0.9f, 1f, 0.95f);
+            jhImg.sprite = spJoyHandle;
+            jhImg.color = Color.white;
+            jhImg.raycastTarget = false;
 
-            // 4. Cụm nút hành động góc dưới bên phải (Ergonomic Cyberpunk RPG Layout)
-            Sprite circleSprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+            // ================= 5. HUD_ACTIONS (ACTION BUTTONS CLUSTER - GỌN GÀNG, THOÁNG ĐÃNG) ================= //
+            GameObject hudActGO = new GameObject("HUD_Actions", typeof(RectTransform));
+            hudActGO.transform.SetParent(canvasGO.transform, false);
+            var actRt = hudActGO.GetComponent<RectTransform>();
+            actRt.anchorMin = new Vector2(1f, 0f); actRt.anchorMax = new Vector2(1f, 0f);
+            actRt.pivot = new Vector2(1f, 0f);
+            actRt.anchoredPosition = Vector2.zero;
+            actRt.sizeDelta = new Vector2(460f, 420f);
 
-            if (jhImg != null && circleSprite != null) { jhImg.sprite = circleSprite; }
+            // Nút 1: Bắn Súng (Lớn nhất 140px, Cam Đỏ Neon rực rỡ #FF3D00, icon tâm ngắm/bắn) - CHỈ BẮN KHI BẤM NÚT NÀY
+            var btnFire = CreateModernActionButton(hudActGO.transform, "Fire_Button", "BẮN", spBtnFire, spIconGunFire, new Vector2(-125f, 125f), 140f, 68f, font, 14);
 
-            // Nút 1: BẮN SÚNG PLASMA CHÍNH [Fire / Attack] (To nhất, màu đỏ cam rực lửa)
-            var btnFire = CreateLandscapeActionButton(canvasGO.transform, "BtnFire", "🔫\n<size=15>BẮN</size>", new Vector2(-125f, 160f), 115f, new Color(1f, 0.25f, 0.12f, 0.95f), new Color(1f, 0.85f, 0.3f, 1f), circleSprite, font);
+            // Nút 2: Tương tác [E] (120px, Cam Vàng Neon, icon bàn tay - Lên khinh khí cầu / Trận đấu / NPC)
+            var btnInt = CreateModernActionButton(hudActGO.transform, "Interact_Button", "Tương tác\n[E]", spBtnInteract, spIconHand, new Vector2(-265f, 135f), 120f, 54f, font, 13);
 
-            // Nút 2: NGẮM ADS CAMERA [Aim / Scope] (Màu xanh neon hologram)
-            var btnAim = CreateLandscapeActionButton(canvasGO.transform, "BtnAim", "🎯\n<size=13>NGẮM</size>", new Vector2(-125f, 290f), 85f, new Color(0.05f, 0.72f, 0.95f, 0.92f), new Color(0.6f, 0.95f, 1f, 1f), circleSprite, font);
+            // Nút 3: Pháo hoa (84px, Tím Neon, icon pháo hoa)
+            var btnFireworks = CreateModernActionButton(hudActGO.transform, "Firework_Button", "Pháo hoa", spBtnFireworks, spIconFireworks, new Vector2(-155f, 260f), 84f, 40f, font, 12);
 
-            // Nút 3: TÊN LỬA CAO XẠ PHÒNG KHÔNG [Q] (Màu vàng cam lửa)
-            var btnMissile = CreateLandscapeActionButton(canvasGO.transform, "BtnMissile", "🚀\n<size=12>TÊN LỬA</size>", new Vector2(-240f, 250f), 82f, new Color(1f, 0.65f, 0.05f, 0.92f), new Color(1f, 0.9f, 0.4f, 1f), circleSprite, font);
-
-            // Nút 4: Tương tác [E] (Vào trận Match-3 / Dị tượng / Trò chuyện - Xanh dương điện tử)
-            var btnInt = CreateLandscapeActionButton(canvasGO.transform, "BtnInteract", "⚔️ [E]\n<size=12>MATCH-3</size>", new Vector2(-240f, 125f), 92f, new Color(0.12f, 0.55f, 1f, 0.95f), new Color(0.5f, 0.85f, 1f, 1f), circleSprite, font);
-
-            // Nút 5: Nhảy [Space] (Xanh ngọc lục bảo)
-            var btnJump = CreateLandscapeActionButton(canvasGO.transform, "BtnJump", "🦘\n<size=12>NHẢY</size>", new Vector2(-345f, 95f), 85f, new Color(0.05f, 0.82f, 0.4f, 0.92f), new Color(0.6f, 1f, 0.8f, 1f), circleSprite, font);
-
-            // Nút 6: Chạy nhanh [Shift / Turbo] (Tím neon sấm sét)
-            var btnSprint = CreateLandscapeActionButton(canvasGO.transform, "BtnSprint", "⚡\n<size=12>CHẠY</size>", new Vector2(-345f, 200f), 80f, new Color(0.85f, 0.12f, 0.95f, 0.92f), new Color(1f, 0.6f, 1f, 1f), circleSprite, font);
-
-            // Nút 7: Lên/xuống xe máy & Khinh khí cầu [V] (Tím đậm công nghệ)
-            var btnVeh = CreateLandscapeActionButton(canvasGO.transform, "BtnVehicle", "🛵\n<size=12>XE / BAY</size>", new Vector2(-445f, 95f), 76f, new Color(0.45f, 0.2f, 0.95f, 0.92f), new Color(0.8f, 0.6f, 1f, 1f), circleSprite, font);
-
-            // Nút 8: Kỹ năng Bắn Pháo Hoa Lễ Hội [K/B] (Hồng neon rực rỡ)
-            var btnFireworks = CreateLandscapeActionButton(canvasGO.transform, "BtnFireworks", "🎆\n<size=12>PHÁO HOA</size>", new Vector2(-440f, 195f), 76f, new Color(1f, 0.15f, 0.55f, 0.92f), new Color(1f, 0.65f, 0.85f, 1f), circleSprite, font);
-
-            // Gán các tham chiếu an toàn vào script IUHMobileControlsUI
+            // Gán SerializedObject vào IUHMobileControlsUI
             var so = new SerializedObject(mobileCtrl);
             SetSerializedRef(so, "m_JoystickBase", jbRt);
             SetSerializedRef(so, "m_JoystickHandle", jhRt);
             SetSerializedRef(so, "m_TouchLookZone", lookRt);
             SetSerializedRef(so, "m_BtnFire", btnFire.GetComponent<Button>());
-            SetSerializedRef(so, "m_BtnAim", btnAim.GetComponent<Button>());
-            SetSerializedRef(so, "m_BtnMissile", btnMissile.GetComponent<Button>());
             SetSerializedRef(so, "m_BtnInteract", btnInt.GetComponent<Button>());
-            SetSerializedRef(so, "m_BtnJump", btnJump.GetComponent<Button>());
-            SetSerializedRef(so, "m_BtnSprint", btnSprint.GetComponent<Button>());
-            SetSerializedRef(so, "m_BtnVehicle", btnVeh.GetComponent<Button>());
             SetSerializedRef(so, "m_BtnFireworks", btnFireworks.GetComponent<Button>());
+
+            SetSerializedRef(so, "m_BtnInventory", btnInv.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnUpgrade", btnUpg.GetComponent<Button>());
+            SetSerializedRef(so, "m_BtnSettings", btnSet.GetComponent<Button>());
+
+            SetSerializedRef(so, "m_HealthBarFill", fillImg);
+            SetSerializedRef(so, "m_HealthText", hpText);
+            SetSerializedRef(so, "m_LevelText", lvText);
+            SetSerializedRef(so, "m_AvatarImage", afImg);
             so.ApplyModifiedProperties();
         }
 
-        private static void SetSerializedRef(SerializedObject so, string propName, UnityEngine.Object target)
+        private static GameObject CreateModernActionButton(
+            Transform parent, 
+            string name, 
+            string text, 
+            Sprite bgSprite, 
+            Sprite iconSprite, 
+            Vector2 anchoredPos, 
+            float size, 
+            float iconSize, 
+            Font font, 
+            int fontSize)
         {
-            var prop = so.FindProperty(propName);
-            if (prop != null) prop.objectReferenceValue = target;
-        }
-
-        private static GameObject CreateLandscapeActionButton(Transform parent, string name, string text, Vector2 anchoredPos, float size, Color col, Color glowCol, Sprite sprite, Font font)
-        {
-            GameObject btnGO = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+            GameObject btnGO = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
             btnGO.transform.SetParent(parent, false);
             var rt = btnGO.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(1f, 0f);
@@ -409,35 +599,130 @@ namespace IUHCampus.Editor
             rt.sizeDelta = new Vector2(size, size);
 
             var img = btnGO.GetComponent<Image>();
-            img.sprite = sprite;
-            img.color = col;
+            img.sprite = bgSprite;
+            img.color = Color.white;
             img.raycastTarget = true;
-
-            var outline = btnGO.AddComponent<Outline>();
-            outline.effectColor = glowCol;
-            outline.effectDistance = new Vector2(2.5f, -2.5f);
 
             var btn = btnGO.GetComponent<Button>();
             var colors = btn.colors;
             colors.normalColor = Color.white;
-            colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f, 1f);
-            colors.pressedColor = new Color(0.75f, 0.75f, 0.75f, 1f);
+            colors.highlightedColor = new Color(1.1f, 1.1f, 1.1f, 1f);
+            colors.pressedColor = new Color(0.85f, 0.85f, 0.85f, 1f);
             btn.colors = colors;
 
-            GameObject textGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
+            // Icon Image
+            if (iconSprite != null)
+            {
+                GameObject iconGO = new GameObject("Icon", typeof(RectTransform), typeof(Image));
+                iconGO.transform.SetParent(btnGO.transform, false);
+                var icRt = iconGO.GetComponent<RectTransform>();
+                icRt.anchorMin = new Vector2(0.5f, 0.5f); icRt.anchorMax = new Vector2(0.5f, 0.5f);
+                icRt.pivot = new Vector2(0.5f, 0.5f);
+                icRt.anchoredPosition = new Vector2(0f, size * 0.12f);
+                icRt.sizeDelta = new Vector2(iconSize, iconSize);
+
+                var icImg = iconGO.GetComponent<Image>();
+                icImg.sprite = iconSprite;
+                icImg.color = Color.white;
+                icImg.raycastTarget = false;
+            }
+
+            // Text Label
+            GameObject textGO = new GameObject("Text", typeof(RectTransform), typeof(Text), typeof(Outline));
             textGO.transform.SetParent(btnGO.transform, false);
             var tRt = textGO.GetComponent<RectTransform>();
-            tRt.anchorMin = Vector2.zero; tRt.anchorMax = Vector2.one; tRt.sizeDelta = Vector2.zero;
+            tRt.anchorMin = new Vector2(0f, 0f); tRt.anchorMax = new Vector2(1f, 0.45f);
+            tRt.pivot = new Vector2(0.5f, 0f);
+            tRt.anchoredPosition = new Vector2(0f, 6f);
+            tRt.sizeDelta = Vector2.zero;
+
             var t = textGO.GetComponent<Text>();
             t.font = font;
             t.text = text;
-            t.fontSize = (int)(size * 0.22f);
+            t.fontSize = fontSize;
             t.fontStyle = FontStyle.Bold;
             t.alignment = TextAnchor.MiddleCenter;
             t.color = Color.white;
             t.raycastTarget = false;
 
+            var outl = textGO.GetComponent<Outline>();
+            outl.effectColor = new Color(0.02f, 0.05f, 0.12f, 0.9f);
+            outl.effectDistance = new Vector2(1.5f, -1.5f);
+
             return btnGO;
+        }
+
+        private static GameObject CreateModernTopButton(
+            Transform parent, 
+            string name, 
+            string label, 
+            Sprite bgSprite, 
+            Sprite iconSprite, 
+            Vector2 anchoredPos, 
+            Font font)
+        {
+            GameObject btnGO = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
+            btnGO.transform.SetParent(parent, false);
+            var rt = btnGO.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(1f, 1f); rt.anchorMax = new Vector2(1f, 1f);
+            rt.pivot = new Vector2(1f, 1f);
+            rt.anchoredPosition = anchoredPos;
+            rt.sizeDelta = new Vector2(68f, 68f);
+
+            var img = btnGO.GetComponent<Image>();
+            img.sprite = bgSprite;
+            img.color = Color.white;
+            img.raycastTarget = true;
+
+            var btn = btnGO.GetComponent<Button>();
+            var colors = btn.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f, 1f);
+            colors.pressedColor = new Color(0.8f, 0.8f, 0.8f, 1f);
+            btn.colors = colors;
+
+            // Icon
+            GameObject iconGO = new GameObject("Icon", typeof(RectTransform), typeof(Image));
+            iconGO.transform.SetParent(btnGO.transform, false);
+            var icRt = iconGO.GetComponent<RectTransform>();
+            icRt.anchorMin = new Vector2(0.5f, 0.5f); icRt.anchorMax = new Vector2(0.5f, 0.5f);
+            icRt.pivot = new Vector2(0.5f, 0.5f);
+            icRt.anchoredPosition = new Vector2(0f, 4f);
+            icRt.sizeDelta = new Vector2(34f, 34f);
+            var icImg = iconGO.GetComponent<Image>();
+            icImg.sprite = iconSprite;
+            icImg.color = Color.white;
+            icImg.raycastTarget = false;
+
+            // Label Text under button
+            GameObject textGO = new GameObject("Text", typeof(RectTransform), typeof(Text), typeof(Outline));
+            textGO.transform.SetParent(btnGO.transform, false);
+            var tRt = textGO.GetComponent<RectTransform>();
+            tRt.anchorMin = new Vector2(0.5f, 0f); tRt.anchorMax = new Vector2(0.5f, 0f);
+            tRt.pivot = new Vector2(0.5f, 1f);
+            tRt.anchoredPosition = new Vector2(0f, -4f);
+            tRt.sizeDelta = new Vector2(90f, 22f);
+
+            var t = textGO.GetComponent<Text>();
+            t.font = font;
+            t.text = label;
+            t.fontSize = 12;
+            t.fontStyle = FontStyle.Bold;
+            t.alignment = TextAnchor.MiddleCenter;
+            t.color = Color.white;
+            t.raycastTarget = false;
+
+            var outl = textGO.GetComponent<Outline>();
+            outl.effectColor = new Color(0.05f, 0.1f, 0.2f, 0.95f);
+            outl.effectDistance = new Vector2(1.2f, -1.2f);
+
+            return btnGO;
+        }
+
+        private static void SetSerializedRef(SerializedObject so, string propName, UnityEngine.Object target)
+        {
+            var prop = so.FindProperty(propName);
+            if (prop != null) prop.objectReferenceValue = target;
         }
 
         public static (GameObject reticleRoot, Transform outerRing, Transform innerRing) CreateHologramReticle(Transform parent)
