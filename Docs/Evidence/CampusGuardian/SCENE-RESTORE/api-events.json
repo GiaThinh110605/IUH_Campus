@@ -1,0 +1,36 @@
+﻿[
+    {
+        "status":  201,
+        "event":  {
+                      "event_id":  "e4f7ceab-c858-4ef0-8ece-496e388cc15a",
+                      "session_id":  "e0bfe525-0ac3-4f4e-ae8b-358ce950c3f1",
+                      "quest_id":  "campus",
+                      "milestone_id":  "campus_cong_chinh",
+                      "event_type":  "combat_won",
+                      "occurred_at":  "2026-11-11T17:49:51.3483194Z"
+                  },
+        "response":  {
+                         "cloud":  "disabled",
+                         "core_awarded":  10,
+                         "event_id":  "e4f7ceab-c858-4ef0-8ece-496e388cc15a",
+                         "status":  "recorded"
+                     }
+    },
+    {
+        "status":  201,
+        "event":  {
+                      "event_id":  "858d7814-aa51-4f20-93b7-9cb804ba8a88",
+                      "session_id":  "e0bfe525-0ac3-4f4e-ae8b-358ce950c3f1",
+                      "quest_id":  "campus",
+                      "milestone_id":  "CAMPUS_CORRUPTED_CANTEEN",
+                      "event_type":  "combat_won",
+                      "occurred_at":  "2026-11-11T17:50:26.6965832Z"
+                  },
+        "response":  {
+                         "cloud":  "disabled",
+                         "core_awarded":  10,
+                         "event_id":  "858d7814-aa51-4f20-93b7-9cb804ba8a88",
+                         "status":  "recorded"
+                     }
+    }
+]
