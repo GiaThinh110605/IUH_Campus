@@ -1,0 +1,6 @@
+m_TabSkinsContent=Tab_Skins rect=(x:-404.20, y:-190.40, width:808.40, height:380.80) anchors=(0.03, 0.03)/(0.97, 0.71) pivot=(0.50, 0.50) components=RectTransform parent=Card
+m_SkinsContainer=SkinsList rect=(x:-404.20, y:-300.00, width:808.40, height:300.00) anchors=(0.00, 1.00)/(1.00, 1.00) pivot=(0.50, 1.00) components=RectTransform,VerticalLayoutGroup,ContentSizeFitter parent=ScrollSkinsContainer
+m_TabInventoryContent=Tab_Inventory rect=(x:-404.20, y:-190.40, width:808.40, height:380.80) anchors=(0.03, 0.03)/(0.97, 0.71) pivot=(0.50, 0.50) components=RectTransform parent=Card
+m_ItemsContainer=ItemsList rect=(x:-404.20, y:-300.00, width:808.40, height:300.00) anchors=(0.00, 1.00)/(1.00, 1.00) pivot=(0.50, 1.00) components=RectTransform,VerticalLayoutGroup,ContentSizeFitter parent=ScrollContainer
+m_SkinsContainer scroll viewport=null content=SkinsList vertical=True horizontal=False movement=Elastic rect=(x:-404.20, y:-190.40, width:808.40, height:380.80) spacing=8 controlHeight=False expandHeight=False fitter=PreferredSize children=10
+m_ItemsContainer scroll viewport=null content=ItemsList vertical=True horizontal=False movement=Elastic rect=(x:-404.20, y:-190.40, width:808.40, height:380.80) spacing=8 controlHeight=False expandHeight=False fitter=PreferredSize children=11

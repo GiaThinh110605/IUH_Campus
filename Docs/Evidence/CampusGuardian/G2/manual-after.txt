@@ -1,0 +1,5 @@
+Bình Dược Liệu Nano (+50 HP)=1
+Mảnh Tinh Thể Dữ Liệu Lam=1
+Potion G2=2
+Gold=200
+Matches=True

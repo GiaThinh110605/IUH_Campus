@@ -1,0 +1,6 @@
+﻿61209988 m_MinSize: 7 -> m_MinSize: 10
+67384194 m_MaxSize: 78 -> m_MaxSize: 40
+79469629 m_MinSize: 6 -> m_MinSize: 10
+1239612661 m_MinSize: 9 -> m_MinSize: 10
+1638599336 m_MaxSize: 46 -> m_MaxSize: 40
+1814179841 m_MinSize: 6 -> m_MinSize: 10

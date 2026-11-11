@@ -1,0 +1,249 @@
+diff --git a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+index d56f6f1..cf2df4f 100644
+--- a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
++++ b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+@@ -3458,10 +3458,10 @@ RectTransform:
+   m_Children: []
+   m_Father: {fileID: 703143948}
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+-  m_AnchorMin: {x: 0.04, y: 0.5}
+-  m_AnchorMax: {x: 0.04, y: 0.5}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 450, y: 30}
++  m_SizeDelta: {x: -24, y: 0}
+   m_Pivot: {x: 0.5, y: 0.5}
+ --- !u!114 &47662524
+ MonoBehaviour:
+@@ -3496,7 +3496,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F4B0 V\xC0NG C\u1EE6A B\u1EA0N: 0 IUH Gold"
++  m_Text: "V\xC0NG C\u1EE6A B\u1EA0N: 0 IUH Gold"
+ --- !u!222 &47662525
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -7665,7 +7665,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.03, y: 0.72}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 340, y: 24}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &130256018
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -7699,7 +7699,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\u2694\uFE0F S\xE1t Th\u01B0\u01A1ng G\u1EA1ch Ki\u1EBFm"
++  m_Text: "S\xE1t Th\u01B0\u01A1ng G\u1EA1ch Ki\u1EBFm"
+ --- !u!222 &130256019
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -31745,7 +31745,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.33, y: 0.32}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 220, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &271432811
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -37388,7 +37388,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F3EA TR\u1EA0M N\xC2NG C\u1EA4P & KHO \u0110\u1ED2 IUH"
++  m_Text: "TR\u1EA0M N\xC2NG C\u1EA4P & KHO \u0110\u1ED2 IUH"
+ --- !u!222 &366320323
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -52437,7 +52437,7 @@ MonoBehaviour:
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "\u0110\u1EA0I MA V\u01AF\u01A0NG H\u1EAEC \xC1M (\u0110\u1EA0I
+     BOSS)"
+-  m_MilestoneId: 
++  m_MilestoneId: campus_dau_truong_bac
+   m_MonsterHp: 1000
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -61069,7 +61069,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.33, y: 0.32}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 220, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &731672768
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -61811,8 +61811,8 @@ RectTransform:
+   m_AnchorMin: {x: 0.03, y: 0.32}
+   m_AnchorMax: {x: 0.03, y: 0.32}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 220, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_SizeDelta: {x: 200, y: 22}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &743953881
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -74875,8 +74875,8 @@ RectTransform:
+   m_AnchorMin: {x: 0.03, y: 0.32}
+   m_AnchorMax: {x: 0.03, y: 0.32}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 220, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_SizeDelta: {x: 200, y: 22}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &911284094
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -75859,7 +75859,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "B\xD3NG MA GLITCH FESTIVAL (KH\xC1)"
+-  m_MilestoneId: 
++  m_MilestoneId: campus_le_hoi
+   m_MonsterHp: 800
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -88615,7 +88615,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "TI\u1EC2U QU\u1EF6 BALO NHI\u1EC4M \u0110\u1ED8C (AR)"
+-  m_MilestoneId: 
++  m_MilestoneId: campus_cong_ar
+   m_MonsterHp: 70
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -92856,7 +92856,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.33, y: 0.32}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 220, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1140694336
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -94062,7 +94062,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "TI\u1EC2U QU\u1EF6 B\u0102NG LAM (D\u1EC4)"
+-  m_MilestoneId: 
++  m_MilestoneId: campus_cong_chinh
+   m_MonsterHp: 550
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -100214,7 +100214,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\u2699\uFE0F N\xC2NG C\u1EA4P"
++  m_Text: "N\xC2NG C\u1EA4P"
+ --- !u!222 &1260655047
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -104912,7 +104912,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.03, y: 0.72}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 340, y: 24}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1332124428
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -104946,7 +104946,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F6E1\uFE0F Kh\u1EA3 N\u0103ng H\u1EA5p Th\u1EE5 Khi\xEAn"
++  m_Text: "Kh\u1EA3 N\u0103ng H\u1EA5p Th\u1EE5 Khi\xEAn"
+ --- !u!222 &1332124429
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -110515,7 +110515,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHGuardianBackendReporter
+   m_Service: {fileID: 1439380600}
+-  m_CombatManager: {fileID: 0}
++  m_CombatManager: {fileID: 1374202037}
+   m_QuestId: campus
+   m_FontSize: 20
+ --- !u!114 &1439380600
+@@ -110616,7 +110616,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F392 KHO \u0110\u1ED2"
++  m_Text: "KHO \u0110\u1ED2"
+ --- !u!222 &1440086859
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -152637,7 +152637,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "Ti\u1EC3u Qu\u1EF7 D\u1EEF Li\u1EC7u - Balo IUH"
+-  m_MilestoneId: CAMPUS_CORRUPTED_FOUNTAIN
++  m_MilestoneId: CAMPUS_CORRUPTED_SPORTS
+   m_MonsterHp: 800
+   m_RevealRadius: 16
+   m_TriggerRadius: 4.8
+@@ -158033,8 +158033,8 @@ RectTransform:
+   m_AnchorMin: {x: 0.03, y: 0.32}
+   m_AnchorMax: {x: 0.03, y: 0.32}
+   m_AnchoredPosition: {x: 0, y: 0}
+-  m_SizeDelta: {x: 220, y: 22}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_SizeDelta: {x: 200, y: 22}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1748009246
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -164431,7 +164431,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F457 NGO\u1EA0I TRANG"
++  m_Text: "NGO\u1EA0I TRANG"
+ --- !u!222 &1762956563
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -164859,7 +164859,7 @@ RectTransform:
+   m_AnchorMax: {x: 0.03, y: 0.72}
+   m_AnchoredPosition: {x: 0, y: 0}
+   m_SizeDelta: {x: 340, y: 24}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 0, y: 0.5}
+ --- !u!114 &1778721375
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -164893,7 +164893,7 @@ MonoBehaviour:
+     m_HorizontalOverflow: 0
+     m_VerticalOverflow: 0
+     m_LineSpacing: 1
+-  m_Text: "\U0001F49A Sinh L\u1EF1c T\u1ED1i \u0110a (Max HP)"
++  m_Text: "Sinh L\u1EF1c T\u1ED1i \u0110a (Max HP)"
+ --- !u!222 &1778721376
+ CanvasRenderer:
+   m_ObjectHideFlags: 0
+@@ -167344,7 +167344,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "CHI\u1EBEN BINH QU\u1EF6 D\u1EEE LI\u1EC6U (V\u1EEAA)"
+-  m_MilestoneId: 
++  m_MilestoneId: campus_cantin
+   m_MonsterHp: 700
+   m_RevealRadius: 16
+   m_TriggerRadius: 10
+@@ -181811,7 +181811,7 @@ MonoBehaviour:
+   m_Name: 
+   m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.IUHMonsterEncounter
+   m_MonsterName: "Ti\u1EC3u Qu\u1EF7 D\u1EEF Li\u1EC7u - Balo IUH"
+-  m_MilestoneId: CAMPUS_CORRUPTED_FOUNTAIN
++  m_MilestoneId: CAMPUS_CORRUPTED_CANTEEN
+   m_MonsterHp: 800
+   m_RevealRadius: 16
+   m_TriggerRadius: 4.8

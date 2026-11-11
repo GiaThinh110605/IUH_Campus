@@ -1,0 +1,55 @@
+﻿			StyleCatalogPostProcessor.OnPostprocessAllAssets 0.736ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.660ms
+			AssetEvents.OnPostprocessAllAssets 0.605ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.604ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.566ms
+			SampleDependencyImporterPostProcessor.OnPostprocessAllAssets 0.534ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.441ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.345ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.323ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.287ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.063ms
+	PostAssetChangesProfiler: 21.863ms
+	GatherAllCurrentPrimaryImportResultRevisions: 2.273ms
+	UnloadStreamsBegin: 1.638ms
+	PersistCurrentRevisions: 0.387ms
+	Untracked: 93.535ms
+
+Asset Pipeline Refresh (id=950492cddef025d40b11b3a37e8e29aa): Total: 0.007 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=139143cc795182642a124980233d59ab): Total: 0.007 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+<b><color=#cc7a00>MCP-FOR-UNITY</color></b>: [TestJobManager] Job b5560c4c1b46486b9589b78da4a7f806 failed to initialize within 180000ms, auto-failing
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+MCPForUnity.Editor.Helpers.McpLog:Warn (string) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Helpers/McpLog.cs:45)
+MCPForUnity.Editor.Services.TestJobManager:GetJob (string) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/TestJobManager.cs:507)
+MCPForUnity.Editor.Tools.GetTestJob:HandleCommand (Newtonsoft.Json.Linq.JObject) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/GetTestJob.cs:26)
+MCPForUnity.Editor.Tools.CommandRegistry:ExecuteCommand (string,Newtonsoft.Json.Linq.JObject,System.Threading.Tasks.TaskCompletionSource`1<string>) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/CommandRegistry.cs:295)
+MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessCommand (string,MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/PendingCommand) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:366)
+MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessQueue () (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:262)
+MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:<RequestMainThreadPump>g__Pump|11_0 () (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:184)
+MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/<>c:<RequestMainThreadPump>b__11_1 (object) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:189)
+UnityEngine.UnitySynchronizationContext/WorkRequest:Invoke ()
+UnityEngine.UnitySynchronizationContext:Exec ()
+UnityEngine.UnitySynchronizationContext:ExecuteTasks ()
+
+(Filename: ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Helpers/McpLog.cs Line: 45)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            80.387 ms
+	Integration:            590.641 ms
+	Integration of assets:  0.266 ms
+	Thread Wait Time:       -0.056 ms
+	Total Operation Time:   671.239 ms
+Unloading 29 unused Assets / (0.9 MB). Loaded Objects now: 16664.
+Memory consumption went from 1.15 GB to 1.15 GB.
+Total: 108.355200 ms (FindLiveObjects: 1.310800 ms CreateObjectMapping: 1.906800 ms MarkObjects: 103.706700 ms  DeleteObjects: 1.426700 ms)
+
+Default GameObject Tag: Player already registered
+Default GameObject Tag: MainCamera already registered
+[Licensing::Client] Successfully resolved entitlement details
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server

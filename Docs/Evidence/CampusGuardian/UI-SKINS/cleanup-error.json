@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "Retrieved 1 log entries.",
+  "data": [
+    {
+      "type": "Error",
+      "message": "Invalid index 5 7 7",
+      "file": "./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/ExecuteCode.cs",
+      "line": 275,
+      "stackTrace": "System.Reflection.MethodBase:Invoke (object,object[])\nMCPDynamicCode:Execute ()\nSystem.Reflection.MethodBase:Invoke (object,object[])\nMCPForUnity.Editor.Tools.ExecuteCode:InvokeCompiled (System.Reflection.Assembly,string) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/ExecuteCode.cs:275)\nMCPForUnity.Editor.Tools.ExecuteCode:CompileAndExecute (string,string) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/ExecuteCode.cs:257)\nMCPForUnity.Editor.Tools.ExecuteCode:HandleExecute (Newtonsoft.Json.Linq.JObject) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/ExecuteCode.cs:130)\nMCPForUnity.Editor.Tools.ExecuteCode:HandleCommand (Newtonsoft.Json.Linq.JObject) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/ExecuteCode.cs:95)\nMCPForUnity.Editor.Tools.CommandRegistry:ExecuteCommand (string,Newtonsoft.Json.Linq.JObject,System.Threading.Tasks.TaskCompletionSource`1<string>) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Tools/CommandRegistry.cs:295)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessCommand (string,MCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/PendingCommand) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:366)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:ProcessQueue () (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:262)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher:<RequestMainThreadPump>g__Pump|11_0 () (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:184)\nMCPForUnity.Editor.Services.Transport.TransportCommandDispatcher/<>c:<RequestMainThreadPump>b__11_1 (object) (at ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Services/Transport/TransportCommandDispatcher.cs:189)\nUnityEngine.UnitySynchronizationContext:ExecuteTasks ()\n"
+    }
+  ]
+}

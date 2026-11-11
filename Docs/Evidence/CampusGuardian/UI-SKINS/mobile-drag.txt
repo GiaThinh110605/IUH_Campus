@@ -1,0 +1,1 @@
+dragNormalized=0.4858085 shopOpen=True TouchLookZone active=False self=True

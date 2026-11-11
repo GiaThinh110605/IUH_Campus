@@ -1,0 +1,241 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "719761ecc8714652a2bf040f2d95d8be",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794415530059,
+      "finished_unix_ms": 1794415541993,
+      "last_update_unix_ms": 1794415541993,
+      "progress": {
+        "completed": 22,
+        "total": 22,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": 1794415541950,
+        "last_finished_test_full_name": "VictoryRewardTests.ZeroGoldRewardStillClaimsAndNotifiesOnce",
+        "last_finished_unix_ms": 1794415541950,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 22,
+          "passed": 22,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 5.4464565,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "ExitDuringLoadCleansScene",
+            "fullName": "ArenaLifecycleTests.ExitDuringLoadCleansScene",
+            "state": "Passed",
+            "durationSeconds": 2.025781,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ImmediateReentryHasOneArena",
+            "fullName": "ArenaLifecycleTests.ImmediateReentryHasOneArena",
+            "state": "Passed",
+            "durationSeconds": 0.036882,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NormalExitCleansScene",
+            "fullName": "ArenaLifecycleTests.NormalExitCleansScene",
+            "state": "Passed",
+            "durationSeconds": 0.0254108,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReentryDuringUnloadWaitsForUnload",
+            "fullName": "ArenaLifecycleTests.ReentryDuringUnloadWaitsForUnload",
+            "state": "Passed",
+            "durationSeconds": 0.0393739,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConsumedEscapeDoesNotAlsoPauseGameFlow",
+            "fullName": "CombatEntryTests.ConsumedEscapeDoesNotAlsoPauseGameFlow",
+            "state": "Passed",
+            "durationSeconds": 0.004158,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FreeCursorStopsPendingMovementOnFirstApply",
+            "fullName": "CombatEntryTests.FreeCursorStopsPendingMovementOnFirstApply",
+            "state": "Passed",
+            "durationSeconds": 0.0084904,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "HudFadesBeforeUnlockAndFleeRestoresLayout",
+            "fullName": "CombatEntryTests.HudFadesBeforeUnlockAndFleeRestoresLayout",
+            "state": "Passed",
+            "durationSeconds": 1.2055802,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "IntroBlocksCombatAndFleeCancelsIt",
+            "fullName": "CombatEntryTests.IntroBlocksCombatAndFleeCancelsIt",
+            "state": "Passed",
+            "durationSeconds": 0.0103204,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "IntroFinishesBeforeCombatUnlocks",
+            "fullName": "CombatEntryTests.IntroFinishesBeforeCombatUnlocks",
+            "state": "Passed",
+            "durationSeconds": 2.0052512,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AddedItemSurvivesRestartWithExactCount",
+            "fullName": "InventoryPersistenceTests.AddedItemSurvivesRestartWithExactCount",
+            "state": "Passed",
+            "durationSeconds": 0.009962,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConsumedLastItemDoesNotGrantStarterItemsAgain",
+            "fullName": "InventoryPersistenceTests.ConsumedLastItemDoesNotGrantStarterItemsAgain",
+            "state": "Passed",
+            "durationSeconds": 0.0023017,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CorruptJsonWarnsOnceAndKeepsStartersWithoutException",
+            "fullName": "InventoryPersistenceTests.CorruptJsonWarnsOnceAndKeepsStartersWithoutException",
+            "state": "Passed",
+            "durationSeconds": 0.0045161,
+            "message": null,
+            "stackTrace": null,
+            "output": "[IUH Guardian] Saved inventory items are invalid; keeping starter inventory.\r\n"
+          },
+          {
+            "name": "InvalidEntriesAreSkippedWhileValidEntryKeepsItsIdentity",
+            "fullName": "InventoryPersistenceTests.InvalidEntriesAreSkippedWhileValidEntryKeepsItsIdentity",
+            "state": "Passed",
+            "durationSeconds": 0.0012189,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "MilestoneGoldFlagAndItemsSurviveRestartTogether",
+            "fullName": "InventoryPersistenceTests.MilestoneGoldFlagAndItemsSurviveRestartTogether",
+            "state": "Passed",
+            "durationSeconds": 0.0016431,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "MissingItemsKeyGrantsExactlyTwoStartersAndSavesImmediately",
+            "fullName": "InventoryPersistenceTests.MissingItemsKeyGrantsExactlyTwoStartersAndSavesImmediately",
+            "state": "Passed",
+            "durationSeconds": 0.001413,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EmptyMilestoneDoesNotChangeSave(null)",
+            "fullName": "VictoryRewardTests.EmptyMilestoneDoesNotChangeSave(null)",
+            "state": "Passed",
+            "durationSeconds": 0.0039898,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EmptyMilestoneDoesNotChangeSave(\"\")",
+            "fullName": "VictoryRewardTests.EmptyMilestoneDoesNotChangeSave(\"\")",
+            "state": "Passed",
+            "durationSeconds": 0.0007826,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FirstClaimAddsGoldAndItemsAndNotifiesOnce",
+            "fullName": "VictoryRewardTests.FirstClaimAddsGoldAndItemsAndNotifiesOnce",
+            "state": "Passed",
+            "durationSeconds": 0.0009803,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NegativeGoldDoesNotClaimMilestone",
+            "fullName": "VictoryRewardTests.NegativeGoldDoesNotClaimMilestone",
+            "state": "Passed",
+            "durationSeconds": 0.0006409,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NewInventoryRemembersGoldAndClaimedMilestone",
+            "fullName": "VictoryRewardTests.NewInventoryRemembersGoldAndClaimedMilestone",
+            "state": "Passed",
+            "durationSeconds": 0.0010463,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SecondClaimDoesNotChangeGoldItemsOrNotifications",
+            "fullName": "VictoryRewardTests.SecondClaimDoesNotChangeGoldItemsOrNotifications",
+            "state": "Passed",
+            "durationSeconds": 0.0007942,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ZeroGoldRewardStillClaimsAndNotifiesOnce",
+            "fullName": "VictoryRewardTests.ZeroGoldRewardStillClaimsAndNotifiesOnce",
+            "state": "Passed",
+            "durationSeconds": 0.0007157,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

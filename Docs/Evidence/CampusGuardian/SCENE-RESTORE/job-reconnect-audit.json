@@ -1,0 +1,56 @@
+{
+  "current_job_id": null,
+  "recent_jobs": [
+    {
+      "job_id": "0382ddeb55d34b7d899a647c84957a28",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794418924037,
+      "finished_unix_ms": 1794418937063,
+      "last_update_unix_ms": 1794418937063,
+      "total_tests": 22,
+      "completed_tests": 22,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": 1794418937002,
+      "last_finished_test_full_name": "VictoryRewardTests.ZeroGoldRewardStillClaimsAndNotifiesOnce",
+      "last_finished_unix_ms": 1794418937002,
+      "failures_so_far": [],
+      "error": null,
+      "init_timeout_ms": 180000
+    },
+    {
+      "job_id": "752aa5e786d344c991c623627bd46093",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794418588468,
+      "finished_unix_ms": 1794418600428,
+      "last_update_unix_ms": 1794418600428,
+      "total_tests": 22,
+      "completed_tests": 22,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": 1794418600381,
+      "last_finished_test_full_name": "VictoryRewardTests.ZeroGoldRewardStillClaimsAndNotifiesOnce",
+      "last_finished_unix_ms": 1794418600381,
+      "failures_so_far": [],
+      "error": null,
+      "init_timeout_ms": 180000
+    },
+    {
+      "job_id": "b5560c4c1b46486b9589b78da4a7f806",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1794418089285,
+      "finished_unix_ms": 1794418269347,
+      "last_update_unix_ms": 1794418269347,
+      "total_tests": null,
+      "completed_tests": 0,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": null,
+      "last_finished_unix_ms": null,
+      "failures_so_far": [],
+      "error": "Test job failed to initialize (tests did not start within timeout)",
+      "init_timeout_ms": 180000
+    }
+  ]
+}

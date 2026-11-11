@@ -1,0 +1,1 @@
+root=Album_Modal_Window rect=(x:-550.00, y:-310.00, width:1100.00, height:620.00) content=Cards_Container rect=(x:-530.00, y:-230.00, width:1060.00, height:460.00) spacing=24 controlWidth=False expandWidth=True children=0
