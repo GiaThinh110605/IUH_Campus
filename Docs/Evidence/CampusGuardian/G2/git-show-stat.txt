@@ -1,0 +1,14 @@
+﻿commit c2eb497c6b109b4ee4a566521ebf0f8e7ad97550
+Author: minhat2502 <khuunhat05@gmail.com>
+Date:   Wed Nov 11 23:26:37 2026 +0700
+
+    fix(mobile): remove duplicate isDroneActive declaration in mobile controls
+    
+    Update() declared `bool isDroneActive` twice (lines 292 and 376), causing
+    CS0128 and putting the project into Safe Mode after merging #33.
+    The second declaration is now a reassignment; behaviour is unchanged.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+ Assets/IUH_Campus/Scripts/UI/IUHMobileControlsUI.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)

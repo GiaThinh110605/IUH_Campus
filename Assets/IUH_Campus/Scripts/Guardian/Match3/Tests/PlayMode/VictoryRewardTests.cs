@@ -8,6 +8,8 @@ using UnityEngine;
 public class VictoryRewardTests
 {
     private const string GoldKey = "IUH_Guardian_Gold";
+    private const string ItemsKey = "IUH_Guardian_Items";
+    private string savedItems;
     private const string Milestone = "test_g1_victory";
     private const string MilestoneKey = "IUH_Guardian_Milestone_" + Milestone;
     private const string ItemName = "test_g1_item";
@@ -23,6 +25,8 @@ public class VictoryRewardTests
     public void SetUp()
     {
         notifications = 0;
+        savedItems = PlayerPrefs.HasKey(ItemsKey) ? PlayerPrefs.GetString(ItemsKey) : null;
+        PlayerPrefs.DeleteKey(ItemsKey);
         foreach (string key in new[] { GoldKey, MilestoneKey, "IUH_Guardian_SwordLv",
             "IUH_Guardian_ShieldLv", "IUH_Guardian_MaxHpLv" })
             savedPrefs[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null;
@@ -52,6 +56,8 @@ public class VictoryRewardTests
             if (pair.Value.HasValue) PlayerPrefs.SetInt(pair.Key, pair.Value.Value);
             else PlayerPrefs.DeleteKey(pair.Key);
         }
+        if (savedItems != null) PlayerPrefs.SetString(ItemsKey, savedItems);
+        else PlayerPrefs.DeleteKey(ItemsKey);
         PlayerPrefs.Save();
         savedPrefs.Clear();
     }

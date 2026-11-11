@@ -1,0 +1,28 @@
+﻿ M Assembly-CSharp-Editor.csproj
+ M Assembly-CSharp.csproj
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaCircuit.mat
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaFloor.mat
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaGlowCyan.mat
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaGlowMagenta.mat
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaPillar.mat
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaPlatform.mat
+ M Assets/IUH_Campus/Materials/CombatArena/ArenaRim.mat
+ M Assets/IUH_Campus/Materials/M_IUH_Sign_Dark.mat
+ M Assets/IUH_Campus/Materials/M_Mascot_GradCap.mat
+ M Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+ M Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
+ M Assets/IUH_Campus/Scripts/Guardian/Match3/Tests/PlayMode/VictoryRewardTests.cs
+ M "Assets/IUH_Campus/SharedCampusConcept/Materials/Festival LED.mat"
+ M IUH_Campus.slnx
+ M Logs/AssetImportWorkerHW0.log
+ M Logs/AssetImportWorkerHW1.log
+ M Logs/Editor.log
+ M Logs/shadercompiler-AssetImportWorkerHW0-0.log
+ M Logs/shadercompiler-AssetImportWorkerHW1-0.log
+ M Logs/upm.log
+?? .vsconfig
+?? Assets/IUH_Campus/Scripts/Guardian/Match3/Tests/PlayMode/InventoryPersistenceTests.cs
+?? Assets/IUH_Campus/Scripts/Guardian/Match3/Tests/PlayMode/InventoryPersistenceTests.cs.meta
+?? Assets/Screenshots/
+?? Docs/Evidence/CampusGuardian/G2/
+?? match3-combat-revamp.patch
