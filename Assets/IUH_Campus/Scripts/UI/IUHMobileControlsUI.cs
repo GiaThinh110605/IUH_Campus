@@ -373,7 +373,7 @@ namespace IUHCampus.UI
             }
 
             // 7. Đồng bộ giao diện điều khiển Drone khi đang bay
-            bool isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
+            isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
             if (isDroneActive != m_LastDroneActiveState)
             {
                 m_LastDroneActiveState = isDroneActive;
