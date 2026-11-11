@@ -49,6 +49,8 @@ namespace IUHCampus.Guardian
 
         [Header("Skins Container")]
         [SerializeField] private Transform m_SkinsContainer;
+        [SerializeField] private ScrollRect m_SkinsScrollRect;
+        [SerializeField] private ScrollRect m_ItemsScrollRect;
 
         private ThirdPersonController m_PlayerController;
         private StarterAssetsInputs m_PlayerInputs;
@@ -285,6 +287,16 @@ namespace IUHCampus.Guardian
 
             // Skins & Trails
             RefreshSkinsTab(inv);
+            ResetScrollToTop(m_CurrentTab == 1 ? m_ItemsScrollRect :
+                m_CurrentTab == 2 ? m_SkinsScrollRect : null);
+        }
+
+        private static void ResetScrollToTop(ScrollRect scroll)
+        {
+            if (scroll == null || !scroll.gameObject.activeInHierarchy) return;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(scroll.content);
+            scroll.StopMovement();
+            scroll.verticalNormalizedPosition = 1f;
         }
 
         private void RefreshSkinsTab(IUHGuardianInventory inv)
@@ -295,7 +307,9 @@ namespace IUHCampus.Guardian
 
             for (int i = m_SkinsContainer.childCount - 1; i >= 0; i--)
             {
-                Destroy(m_SkinsContainer.GetChild(i).gameObject);
+                var child = m_SkinsContainer.GetChild(i);
+                child.SetParent(null, false);
+                Destroy(child.gameObject);
             }
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
@@ -419,7 +433,7 @@ namespace IUHCampus.Guardian
                 () => { customizer.UnlockSkin(PlayerSkinType.Cyber); customizer.ApplySkin(PlayerSkinType.Cyber); });
 
             // Section 2: Trails
-            AddHeader("⚡ HIỆU ỨNG VỆT CHÂN KHI DI CHUYỂN");
+            AddHeader("HIỆU ỨNG VỆT CHÂN KHI DI CHUYỂN");
 
             AddRow("Không Dùng Vệt Chân", "Tắt hiệu ứng bước chân", true,
                 customizer.CurrentTrail == PlayerTrailType.None, 0, () => customizer.ApplyTrail(PlayerTrailType.None));
@@ -444,7 +458,9 @@ namespace IUHCampus.Guardian
             // Clear old items
             for (int i = m_ItemsContainer.childCount - 1; i >= 0; i--)
             {
-                Destroy(m_ItemsContainer.GetChild(i).gameObject);
+                var child = m_ItemsContainer.GetChild(i);
+                child.SetParent(null, false);
+                Destroy(child.gameObject);
             }
 
             var items = inv.Items;
