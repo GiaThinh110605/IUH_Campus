@@ -305,7 +305,7 @@ namespace IUHCampus.Combat
             }
 
             // Floating Combat Text
-            IUHCombatFloatingText.Spawn(blastPoint + Vector3.up * 1.5f, $"💥 OANH TẠC BOM HẸN GIỜ (4S)!\n-{m_Damage} SÁT THƯƠNG DIỆN RỘNG!", new Color(1f, 0.6f, 0.1f), 2.2f);
+            IUHCombatFloatingText.Spawn(blastPoint + Vector3.up * 1.5f, $"OANH TẠC BOM HẸN GIỜ (4S)!\n-{m_Damage} SÁT THƯƠNG DIỆN RỘNG!", new Color(1f, 0.6f, 0.1f), 2.2f);
 
             // Destroy grenade GameObject
             Destroy(gameObject);

@@ -1,0 +1,190 @@
+﻿diff --git a/Assets/IUH_Campus/Scripts/Combat/IUHFlyingPlasmaBomb.cs b/Assets/IUH_Campus/Scripts/Combat/IUHFlyingPlasmaBomb.cs
+index 7748816..c2210b9 100644
+--- a/Assets/IUH_Campus/Scripts/Combat/IUHFlyingPlasmaBomb.cs
++++ b/Assets/IUH_Campus/Scripts/Combat/IUHFlyingPlasmaBomb.cs
+@@ -76,7 +76,7 @@ namespace IUHCampus.Combat
+                 if (health != null && !health.IsDead)
+                 {
+                     health.TakeDamage(m_Damage, point);
+-                    IUHCombatFloatingText.Spawn(health.transform.position + Vector3.up * 2.2f, $"💥 OANH TẠC: -{m_Damage} HP!", new Color(1f, 0.3f, 0.1f), 1.5f);
++                    IUHCombatFloatingText.Spawn(health.transform.position + Vector3.up * 2.2f, $"OANH TẠC: -{m_Damage} HP!", new Color(1f, 0.3f, 0.1f), 1.5f);
+                     break;
+                 }
+             }
+diff --git a/Assets/IUH_Campus/Scripts/Combat/IUHTimedGrenade.cs b/Assets/IUH_Campus/Scripts/Combat/IUHTimedGrenade.cs
+index 784ac15..350eb7c 100644
+--- a/Assets/IUH_Campus/Scripts/Combat/IUHTimedGrenade.cs
++++ b/Assets/IUH_Campus/Scripts/Combat/IUHTimedGrenade.cs
+@@ -305,7 +305,7 @@ namespace IUHCampus.Combat
+             }
+ 
+             // Floating Combat Text
+-            IUHCombatFloatingText.Spawn(blastPoint + Vector3.up * 1.5f, $"💥 OANH TẠC BOM HẸN GIỜ (4S)!\n-{m_Damage} SÁT THƯƠNG DIỆN RỘNG!", new Color(1f, 0.6f, 0.1f), 2.2f);
++            IUHCombatFloatingText.Spawn(blastPoint + Vector3.up * 1.5f, $"OANH TẠC BOM HẸN GIỜ (4S)!\n-{m_Damage} SÁT THƯƠNG DIỆN RỘNG!", new Color(1f, 0.6f, 0.1f), 2.2f);
+ 
+             // Destroy grenade GameObject
+             Destroy(gameObject);
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHCombatFloatingText.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHCombatFloatingText.cs
+index 5ed2e5a..ab84680 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHCombatFloatingText.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHCombatFloatingText.cs
+@@ -1,4 +1,5 @@
+ using UnityEngine;
++using System.Collections.Generic;
+ using UnityEngine.UI;
+ using IUHCampus.Minigames.GreenCampus;
+ 
+@@ -6,6 +7,15 @@ namespace IUHCampus.Guardian
+ {
+     public class IUHCombatFloatingText : MonoBehaviour
+     {
++        private const float MaxScreenHeight = 0.08f;
++        private const float NearbySpawnWindow = 0.3f;
++        private const float NearbySpawnRadius = 1.5f;
++        private static readonly List<IUHCombatFloatingText> s_Active = new List<IUHCombatFloatingText>();
++        private Camera m_Camera;
++        private RectTransform m_Rect;
++        private float m_BaseScale;
++        private float m_SpawnTime;
++        private Vector3 m_Origin;
+         private Text m_Text;
+         private CanvasGroup m_CanvasGroup;
+         private Vector3 m_Velocity;
+@@ -44,12 +54,23 @@ namespace IUHCampus.Guardian
+ 
+             var comp = go.GetComponent<IUHCombatFloatingText>();
+             comp.Init(txt, go.GetComponent<CanvasGroup>());
++            comp.m_Origin = worldPos;
++            comp.m_SpawnTime = Time.unscaledTime;
++            comp.ClampScale();
++            comp.OffsetNearbyNotices();
++            s_Active.Add(comp);
+         }
+ 
+         public void Init(Text text, CanvasGroup canvasGroup)
+         {
+             m_Text = text;
+             m_CanvasGroup = canvasGroup;
++            m_Camera = Camera.main;
++            if (m_Camera == null)
++                foreach (var candidate in Camera.allCameras)
++                    if (candidate.isActiveAndEnabled) { m_Camera = candidate; break; }
++            m_Rect = (RectTransform)transform;
++            m_BaseScale = transform.localScale.x;
+             m_Velocity = new Vector3(Random.Range(-0.2f, 0.2f), 1.25f, Random.Range(-0.2f, 0.2f));
+         }
+ 
+@@ -73,6 +94,35 @@ namespace IUHCampus.Guardian
+                 Destroy(gameObject);
+             }
+         }
++
++        private void LateUpdate() => ClampScale();
++
++        private void OffsetNearbyNotices()
++        {
++            if (m_Camera == null) return;
++            Vector3 screen = m_Camera.WorldToScreenPoint(transform.position);
++            foreach (var other in s_Active)
++            {
++                if (other == null || m_SpawnTime - other.m_SpawnTime > NearbySpawnWindow ||
++                    Vector3.Distance(m_Origin, other.m_Origin) > NearbySpawnRadius) continue;
++                Vector3 previous = m_Camera.WorldToScreenPoint(other.transform.position);
++                screen.y = Mathf.Max(screen.y, previous.y + m_Camera.pixelHeight * MaxScreenHeight * 1.1f);
++            }
++            transform.position = m_Camera.ScreenToWorldPoint(screen);
++        }
++
++        private void ClampScale()
++        {
++            if (m_Camera == null || m_Rect == null) return;
++            float depth = Mathf.Max(m_Camera.nearClipPlane,
++                Vector3.Dot(transform.position - m_Camera.transform.position, m_Camera.transform.forward));
++            float viewHeight = m_Camera.orthographic ? 2f * m_Camera.orthographicSize :
++                2f * depth * Mathf.Tan(m_Camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
++            float scale = Mathf.Min(m_BaseScale, viewHeight * MaxScreenHeight / m_Rect.rect.height);
++            transform.localScale = Vector3.one * scale;
++        }
++
++        private void OnDestroy() => s_Active.Remove(this);
+     }
+ }
+ 
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs
+index 66230de..c7cff8b 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianBackendReporter.cs
+@@ -15,8 +15,8 @@ namespace IUHCampus.Guardian
+         [SerializeField] private int m_FontSize = 20;
+         private const int OverlayOrder = 1000;
+         private static readonly Vector2 ReferenceResolution = new Vector2(1920f, 1080f);
+-        private static readonly Vector2 StatusSize = new Vector2(640f, 40f);
+-        private static readonly Vector2 StatusInset = new Vector2(-24f, -18f);
++        private static readonly Vector2 StatusSize = new Vector2(560f, 26f);
++        private static readonly Vector2 StatusInset = new Vector2(24f, 12f);
+         private readonly HashSet<IUHMonsterEncounter> m_WarnedEncounters = new HashSet<IUHMonsterEncounter>();
+         private readonly HashSet<string> m_AcceptedEvents = new HashSet<string>();
+         private GuardianEventOutbox m_Outbox;
+@@ -102,12 +102,15 @@ namespace IUHCampus.Guardian
+             label.transform.SetParent(parent, false);
+             m_StatusText = label.GetComponent<Text>();
+             m_StatusText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+-            m_StatusText.fontSize = m_FontSize;
+-            m_StatusText.alignment = TextAnchor.UpperRight;
++            m_StatusText.fontSize = Mathf.Min(m_FontSize, 16);
++            m_StatusText.alignment = TextAnchor.LowerLeft;
+             m_StatusText.raycastTarget = false;
+             m_StatusText.text = "Máy chủ: đang khởi tạo";
+             var rect = m_StatusText.rectTransform;
+-            rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.one;
++            Rect safeArea = Screen.safeArea;
++            rect.anchorMin = rect.anchorMax = new Vector2(
++                safeArea.xMin / Mathf.Max(1, Screen.width), safeArea.yMin / Mathf.Max(1, Screen.height));
++            rect.pivot = Vector2.zero;
+             rect.sizeDelta = StatusSize;
+             rect.anchoredPosition = StatusInset;
+         }
+diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
+index 6cf3b7d..4f108ec 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
+@@ -58,6 +58,9 @@ namespace IUHCampus.Guardian
+         private int m_CurrentTab = 0; // 0 = Upgrades, 1 = Inventory, 2 = Skins
+ 
+         public bool IsOpen => m_IsOpen;
++        private static bool IsCombatBlocked =>
++            IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null &&
++            IUHCampus.Guardian.Match3.Match3CombatManager.Instance.BlocksExplorationInput;
+ 
+         private void Awake()
+         {
+@@ -105,6 +108,12 @@ namespace IUHCampus.Guardian
+ 
+         private void Update()
+         {
++            if (IsCombatBlocked)
++            {
++                IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed = false;
++                if (m_IsOpen) CloseShop();
++                return;
++            }
+             // Toggle with key 'B' or 'I' or mobile VirtualBackpackPressed
+             if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I) || IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed)
+             {
+@@ -126,6 +135,7 @@ namespace IUHCampus.Guardian
+ 
+         public void OpenShop(int tabIndex = 0)
+         {
++            if (IsCombatBlocked) return;
+             m_IsOpen = true;
+             if (m_ShopPanel != null) m_ShopPanel.SetActive(true);
+ 
+@@ -144,7 +154,7 @@ namespace IUHCampus.Guardian
+         {
+             m_IsOpen = false;
+             if (m_ShopPanel != null) m_ShopPanel.SetActive(false);
+-            SetPlayerControl(true);
++            SetPlayerControl(!IsCombatBlocked);
+         }
+ 
+         private void SetPlayerControl(bool enabled)

@@ -58,6 +58,9 @@ namespace IUHCampus.Guardian
         private int m_CurrentTab = 0; // 0 = Upgrades, 1 = Inventory, 2 = Skins
 
         public bool IsOpen => m_IsOpen;
+        private static bool IsCombatBlocked =>
+            IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null &&
+            IUHCampus.Guardian.Match3.Match3CombatManager.Instance.BlocksExplorationInput;
 
         private void Awake()
         {
@@ -105,6 +108,12 @@ namespace IUHCampus.Guardian
 
         private void Update()
         {
+            if (IsCombatBlocked)
+            {
+                IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed = false;
+                if (m_IsOpen) CloseShop();
+                return;
+            }
             // Toggle with key 'B' or 'I' or mobile VirtualBackpackPressed
             if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I) || IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed)
             {
@@ -126,6 +135,7 @@ namespace IUHCampus.Guardian
 
         public void OpenShop(int tabIndex = 0)
         {
+            if (IsCombatBlocked) return;
             m_IsOpen = true;
             if (m_ShopPanel != null) m_ShopPanel.SetActive(true);
 
@@ -144,7 +154,7 @@ namespace IUHCampus.Guardian
         {
             m_IsOpen = false;
             if (m_ShopPanel != null) m_ShopPanel.SetActive(false);
-            SetPlayerControl(true);
+            SetPlayerControl(!IsCombatBlocked);
         }
 
         private void SetPlayerControl(bool enabled)
