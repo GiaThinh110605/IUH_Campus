@@ -1,0 +1,49 @@
+{
+  "waitSecondsAtEachCenter": 1.2,
+  "checks": [
+    {
+      "ambush": "BUILDING_E_AMBUSH",
+      "result": {
+        "success": true,
+        "message": "Code executed successfully.",
+        "data": {
+          "result": "ground=0 flying=0 player=(18.00, 0.10, -15.00)",
+          "compiler": "codedom"
+        }
+      }
+    },
+    {
+      "ambush": "CANTEEN_AMBUSH",
+      "result": {
+        "success": true,
+        "message": "Code executed successfully.",
+        "data": {
+          "result": "ground=0 flying=0 player=(-24.00, 0.10, -18.00)",
+          "compiler": "codedom"
+        }
+      }
+    },
+    {
+      "ambush": "CENTRAL_PLAZA_AMBUSH",
+      "result": {
+        "success": true,
+        "message": "Code executed successfully.",
+        "data": {
+          "result": "ground=0 flying=0 player=(0.00, 0.50, -12.00)",
+          "compiler": "codedom"
+        }
+      }
+    },
+    {
+      "ambush": "GARDEN_AMBUSH",
+      "result": {
+        "success": true,
+        "message": "Code executed successfully.",
+        "data": {
+          "result": "ground=0 flying=0 player=(-15.00, 0.10, 6.00)",
+          "compiler": "codedom"
+        }
+      }
+    }
+  ]
+}

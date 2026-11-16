@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": "Active encounters=CORRUPTED_ENCOUNTER_SPORTS,CORRUPTED_ENCOUNTER_BUILDING_E",
+    "compiler": "codedom"
+  }
+}

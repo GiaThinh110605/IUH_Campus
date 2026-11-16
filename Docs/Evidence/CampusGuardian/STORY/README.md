@@ -1,83 +1,74 @@
-﻿# STORY — tiến độ thực hiện
+﻿# STORY — bằng chứng và trạng thái kiểm thử
 
-Ngày: 16/11/2026. Môi trường: Windows, Unity 6000.5.8f1, MCP unityMCP.
-Nhánh: minhnhat/story-dem-glitch. Base: dcff45e.
-Kế hoạch: Docs/superpowers/plans/2026-11-16-dem-glitch-story.md.
+Ngày: 16/11/2026. Môi trường: Windows, Unity 6000.5.8f1, URP, Unity MCP.
+Nhánh: `minhnhat/story-dem-glitch`. Base trước bản sửa ambush: `63a959b`.
+Task 6 đã dừng theo yêu cầu; lượt mới chỉ tái hiện và kiểm chứng bản sửa ambush.
 
-- Task 1 hoàn tất: fdd32fd — feat(story): add StoryProgress chapter state machine with tests.
-  RED: CS0246 thiếu StoryChapterDef/StoryProgress. GREEN: 13/13 EditMode Pass, job d73b8878cd104589af84f2d658ad0880. Console 0 error, Missing Script 0.
-- Task 2 hoàn tất: 6c4ad92 — feat(story): add Dem Glitch story script data and materials.
-  RED: CS0246 thiếu IUHStoryScript. GREEN: 16/16 EditMode Pass, job 9fd8a4526e634cadbe926c8306ea8827. Console 0 error. Test scene dùng scene hiện tại nếu đã mở, chỉ mở additive/đóng không lưu nếu chưa mở để không đóng scene người dùng.
-- Task 3 đang làm, chưa commit: IUHStoryDialogueUI, IUHStoryIntroCamera, IUHStoryBeacon và .meta.
-  Compile không lỗi. Thử Play trong scene tạm mặc định (Camera + Directional Light), tạo UI/intro/beacon qua MCP.
-  Quan sát khung thoại tiếng Việt đủ dấu, click thực sự chuyển sang dòng thứ hai; ảnh ui-pc.png (Game view 1920x1080).
-  Camera tự kết thúc, log timescale=1. Chưa kiểm chứng skip bằng chạm/Esc và Enter/Space.
-  Device Simulator chỉ có 11 profile chung. Không có profile tên iPhone 12; gần nhất iOS Notch Device (1170x2532). Chưa ghi Pass kiểm tra iPhone 12. Một truy vấn reflection trạng thái Simulator báo NullReferenceException; không phải compile/gameplay error.
-  Scene tạm không có GUID tham chiếu ngoài, đã xóa; thoát Play và mở lại campus, isDirty=false.
-- Task 4–6 chưa thực hiện. Chưa thêm STORY_DIRECTOR, chưa sửa scene, chưa push/PR.
+## Các commit trước bản sửa ambush
 
-## Quyết định đã được người dùng cho phép
+| Commit | Nội dung |
+|---|---|
+| fdd32fd | StoryProgress và 13 EditMode test |
+| 6c4ad92 | Kịch bản, material, nâng tổng test lên 16 |
+| 90634ff | Định dạng script và asmdef, không đổi logic |
+| 9d7328c | UI thoại, camera giới thiệu, beacon |
+| df2a08a | Director, WorldLock, vùng nhiễm, chuyển đêm |
+| 61db2be | Đổi m_Script thành m_StoryScript, tránh trùng field native MonoBehaviour |
+| 06633f3 | Chỉ thêm STORY_DIRECTOR và root, 46 dòng scene |
+| 63a959b | Bằng chứng ban đầu và lỗi screenshot MCP |
 
-Giữ nguyên 6 thay đổi font m_MinSize/m_MaxSize có sẵn, không revert, không stage.
-Task 5 phải xuất scene_full.patch và lọc scene_story.patch trong TEMP, chỉ giữ hunk STORY_DIRECTOR + SceneRoots.m_Roots.
-Dùng git apply --cached --recount, không dùng git add -p.
-Trước commit, cached chỉ có STORY_DIRECTOR, unstaged đúng 6 dòng font; lỗi CRLF hoặc thay đổi khác phải dừng.
+## Bản sửa ambush — RED → GREEN qua MCP
 
-## Kiểm tay Task 6
+**Mục 2 Fail ở lần đầu.** WorldLock chỉ đặt `IUHBuildingMonsterSpawner.enabled=false`, nhưng Unity vẫn gửi `OnTriggerEnter` đến MonoBehaviour đã tắt. GameObject/collider còn hoạt động nên ambush có thể bật lại quái. Không sửa file spawner của Thịnh.
 
-Cả 11 mục chưa chạy toàn truyện. Không ghi Pass. Các trận thắng/thua thật cần người dùng chơi thử nếu không tự thao tác được qua MCP.
+Trước sửa: Play scene campus, WorldLock đã khóa; spawner Nhà E có GameObject active và component disabled. Đặt Campus Student vào tâm BUILDING_E_AMBUSH (18,0.1,-15), chờ 1,2 s. Kết quả: **2 IUHMonsterAI activeInHierarchy**; vị trí sau chờ (18.53,0.10,-15.53). Xem `ambush-red.json`. Lượt setup trước đó cũng đã quan sát 4 quái đang hoạt động, nhưng kết quả tái hiện chính là 2 quái sau chờ tại Nhà E.
 
-## Cập nhật Task 3 — 16/11/2026
+Sửa: mọi GameObject của IUHBuildingMonsterSpawner đi qua `Capture`, sau đó vòng khóa gọi `SetActive(false)`. Không đưa spawner vào CaptureBehaviours nữa. RestoreAll khôi phục activeSelf gốc qua cùng dictionary GameObject. Kế hoạch Task 4 đã cập nhật.
 
-- Commit style riêng: 90634ff, 16/16 EditMode Pass (job 5b1a10a30eff4c64b1ba794101183558), không đổi logic.
-- Được phép dùng **iOS Notch Device (1170×2532)** thay iPhone 12; xoay ngang cả tai thỏ bên trái/phải.
-- SafeArea con của Canvas chứa Objective, Dialogue, Caption và Skip. Cập nhật khi Screen.safeArea hoặc kích thước màn hình thay đổi, kể cả khi không có thoại.
-- Kiểm layout thật trên Simulator: 2532×1170, safeArea=(141,63,2250,1107). Objective/Dialogue/Skip đều nằm trong safeArea; ảnh ui-notch-right.png và ui-notch-left.png.
-- Xoay phải → dọc → trái ngay trong Play, khung UI cập nhật; chữ tiếng Việt đủ dấu, các phần trên không bị tai thỏ che.
-- PC: đã quan sát click chuyển thoại (ui-pc.png). Simulator: click đã chuyển tới dòng thứ hai; do timer cũng chạy nên không dùng riêng quan sát này làm bằng chứng chạm.
-- Chẩn đoán input: click tự động quá nhanh báo down tại (0,0), up tại tọa độ nút; chưa coi lần click đó là Pass. Sau đó inject TouchState Began/Ended tại (2103,468) qua hai frame trên Device Simulator Touchscreen: nút Skip hoạt động, timescale=1 và intro cameras=0. Đây là kiểm thử cảm ứng bằng Input System qua MCP, không phải chạm ngón tay trên thiết bị thật.
-- Camera hoàn tất tự nhiên cũng trả timescale=1. Enter/Space/Esc chưa kiểm tay; không ghi Pass các mục này.
-- Thoát Play, trở lại scene campus: isDirty=false, Missing Script=0. Xóa scene tạm sau khi tìm GUID không có tham chiếu ngoài.
-- Chưa kiểm mobile controls trên campus (Task 6).
+Sau sửa: vào Play mới, giữ director đã khóa thế giới; dừng coroutine truyện và tạm tắt MonoBehaviour điều khiển trên Campus Student trong runtime để không chuyển chương hoặc di chuyển ngoài ý muốn. Di chuyển bằng MCP/CharacterController tới mỗi tâm và chờ 1,2 s; không gọi trực tiếp TriggerAmbush, không giả lập thắng/thua. Không lưu scene.
 
-## Tiến độ mới nhất — dừng tại Task 5
+| Ambush | Tâm kiểm tra | IUHMonsterAI activeInHierarchy | IUHFlyingMonsterAI activeInHierarchy | Kết quả hồi quy |
+|---|---|---:|---:|---|
+| BUILDING_E_AMBUSH | (18,0.1,-15) | 0 | 0 | Pass |
+| CANTEEN_AMBUSH | (-24,0.1,-18) | 0 | 0 | Pass |
+| CENTRAL_PLAZA_AMBUSH | (0,0.5,-12) | 0 | 0 | Pass |
+| GARDEN_AMBUSH | (-15,0.1,6) | 0 | 0 | Pass |
 
-- Task 3 đã commit: 9d7328c. 16/16 EditMode Pass, job 79e8be831fd5480a8267af8ee1fc60ec. Console 0 error, Missing Script 0.
-- Task 4 đã commit: df2a08a. 16/16 EditMode Pass, job b196eeba80924ab4b4b21a9a3c19b17b. Compile không lỗi, Missing Script 0. Cả 7 encounter có MilestoneId, không cần thêm Gold.
-- Task 5 fetch origin/main: không có commit mới sửa scene từ dcff45e.
-- Đã thử thêm một root STORY_DIRECTOR, AddComponent IUHStoryDirector và gán asset bằng SerializedObject.FindProperty("m_Script"). Sau save, diff chứa hai khóa m_Script: {fileID: 0}; không có GUID MonoScript hoặc tham chiếu asset kịch bản. Field m_Script của kế hoạch trùng tên serialized property native của MonoBehaviour. Bằng chứng: task5-invalid-serialization.patch (chẩn đoán, KHÔNG áp dụng patch này).
-- Không stage/commit scene lỗi. Đã gỡ riêng object STORY_DIRECTOR vừa thêm và save. Diff scene trở lại đúng 6 dòng font có sẵn; index trống. Không revert các thay đổi gốc.
-- Cần người dùng cho phép đổi field private serialized từ m_Script thành m_StoryScript và cập nhật chỗ gán ở Task 5 (vì prompt bắt buộc giữ nguyên tên field). Sau đó chạy lại test, kiểm serialization sau reload trước khi stage patch scene.
-- Task 6 chưa chạy toàn truyện, 11 mục vẫn chưa có kết luận; không ghi Pass toàn truyện.
-- Console xác nhận nguyên nhân tại Task 5: `The same field name is serialized multiple times in the class or its parent class. This is not supported: Base(MonoBehaviour) m_Script`. Đây là lỗi runtime/serialization mới ở Task 5, không phải 0 error. Sau gỡ object: isDirty=false, Missing Script=0; giữ log lỗi làm bằng chứng, không xóa Console để che lỗi.
+Chi tiết kết quả MCP: `ambush-green.json`. Dùng FindObjectsByType không IncludeInactive để đếm object đang activeInHierarchy.
 
-## Cập nhật cuối lượt — Task 5 xong, Task 6 bị chặn
+- Compile xong, Console **0 error**.
+- EditMode **16/16 Pass**, job `73d06a3fec1d4b04b7446694f02c6d9f`; `ambush-editmode.json`.
+- Lượt Play hồi quy không dùng screenshot MCP: Console **0 error**.
+- Đã thoát Play, khôi phục PlayerPrefs từ `ambush-progress-backup.txt`; STORY_DIRECTOR bật, scene isDirty=false, Missing Script=0.
+- Scene chỉ còn đúng 6 thay đổi font có sẵn, không revert và không stage. Không sửa code của Thịnh. Không push.
+- Một số lệnh MCP bị timeout ở bước duyệt công cụ hoặc lỗi mạng và không thực thi. Các lệnh đó không được ghi Pass; bảng trên chỉ dùng những lệnh trả kết quả thực tế.
 
-Ngày 16/11/2026, Windows, Unity 6000.5.8f1, nhánh minhnhat/story-dem-glitch.
+## Bảng Task 6 để người dùng điền
 
-- 61db2be — fix(story): rename director script field to avoid MonoBehaviour m_Script clash. Commit chỉ có IUHStoryDirector.cs và kế hoạch đã sửa. Compile không lỗi, 16/16 EditMode Pass (job 78216f92b47443659aa1647d6d3e8c43).
-- 06633f3 — feat(story): place STORY_DIRECTOR in campus scene. Gồm đúng 46 dòng thêm: GameObject, MonoBehaviour, Transform và root. m_StoryScript trỏ asset 40da2969dc7ba7c4da1d527201cadfd0; script GUID 35470b6b535211f4e862754953754b14. Mở lại scene xác nhận giữ nguyên hai tham chiếu. Missing Script=0, isDirty=false, Console 0 error trước Play.
-- Stage bằng TEMP/scene_story.patch với git apply --cached --recount. Cached chỉ có STORY_DIRECTOR; unstaged đúng 6 thay đổi font. Bản patch đúng lưu ở scene_story.patch. Git cảnh báo trailing whitespace của dòng m_Name trống do Unity serialize; apply thành công, không có lỗi CRLF.
-- Task 5 EditMode: lần đầu timeout khởi tạo (job 4e1d0e468abd413d8811073cbc8844bc, chưa chạy test); thử lại với init_timeout=120000: 16/16 Pass (job 97d532cc526d41b293f933daec478cf6).
-- Task 6: sao lưu khóa IUH_Story_Progress trong playerprefs-before.txt rồi xóa để chạy từ đầu. Đã Play và xác nhận progress=v1|Prologue|0|0|, UI được tạo; 0 encounter, 0 IUHMonsterAI, 0 IUHFlyingMonsterAI activeSelf.
-- Khi gọi manage_camera screenshot, MCP phát sinh 5 error PlayerLoop đệ quy. Stack trace thuộc Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Runtime/Helpers/ScreenshotUtility.cs:197 (CaptureCompositedAfterFrame), qua ManageScene/ManageCamera. Lưu task6-mcp-errors.json; task6-mcp-capture.png là ảnh lỗi/không đủ overlay, KHÔNG dùng làm bằng chứng prologue Pass.
-- Dừng Task 6 theo luật lỗi ngoài phạm vi, không sửa package MCP. Đã thoát Play. Cần quyết định dùng chụp màn hình desktop thay công cụ screenshot MCP và tiếp tục chơi thử.
-- Lệch kế hoạch được người dùng cho phép: field m_StoryScript, thêm commit style và fix riêng, profile iOS Notch Device thay iPhone 12, stage scene bằng patch tách font.
+Các mục 3–8 và 10 do người dùng chơi thử; cột kết quả để trống. Bản sửa hồi quy ambush không thay thế kiểm thử toàn truyện.
 
-### Bảng 11 mục Task 6 (chưa hoàn tất)
+| Mục | Người kiểm / phạm vi | Kết quả | Ghi chú |
+|---|---|---|---|
+| 1. Camera, caption IUH, Bỏ qua | Agent — desktop | Pass | Caption/camera được quan sát trong campus; click Bỏ qua về người chơi, introCameraCount=0, timescale=1. desktop-intro-caption.png. |
+| 2. Không quái, không bắn, không khinh khí cầu trước biến cố | Agent — kiểm ambush | Fail lần đầu; hồi quy ambush Pass | Nguyên nhân trigger trên component disabled như trên. Sau sửa cả 4 tâm không còn quái mặt đất/bay. Chưa kết luận toàn bộ K/F/click và khinh khí cầu sau sửa. |
+| 3. Check-in đúng thứ tự | Người dùng chơi thử | | |
+| 4. Biến cố, chớp đèn, đêm, LED | Người dùng chơi thử | | |
+| 5. Quái từng chương, beacon, đếm | Người dùng chơi thử | | |
+| 6. Thua không đổi chương | Người dùng chơi thử | | |
+| 7. Resume chương 2 sau thắng 1 quái | Người dùng chơi thử | | |
+| 8. Trùm, kết, khôi phục tự do | Người dùng chơi thử | | |
+| 9. Tắt STORY_DIRECTOR thì game như cũ | Agent — Play riêng | Pass | Không có UI truyện, 10 encounter, 3 quái bay; combat enabled và khinh khí cầu active. Đã thoát Play, bật lại director, không lưu scene. |
+| 10. Simulator ngang thao tác 1/3/5 | Người dùng chơi thử | | |
+| 11. Console, Missing Script | Agent — lượt không dùng screenshot MCP | Pass | Console 0 error trong lượt desktop đã đọc và lượt Play hồi quy mới; Missing Script=0 sau khi thoát. 5 lỗi screenshot MCP cũ ghi riêng bên dưới. |
 
-| Mục | Kết quả | Bằng chứng / còn thiếu |
-|---|---|---|
-| 1. Camera, caption, bỏ qua | Chưa xác nhận — cần chơi thử | Play đã bắt đầu; screenshot MCP lỗi. Skip cảm ứng đã thử riêng ở Task 3. |
-| 2. Không quái/bắn/khinh khí cầu trước biến cố | Chưa xác nhận toàn bộ | Đo được 0 encounter/ground/flying active; chưa đi qua 4 ambush và nhấn K/F/click. |
-| 3. Check-in đúng thứ tự | Cần người dùng chơi thử | Logic đã có EditMode test; chưa kiểm hành vi campus. |
-| 4. Đêm, chớp đèn, LED, thoại | Cần người dùng chơi thử | Chưa tới biến cố. |
-| 5. Quái từng chương, beacon, đếm | Cần người dùng chơi thử | Chưa tới chương 1. |
-| 6. Thua không đổi chương | Cần người dùng chơi thử | Phải thua trận match-3 thật; chưa chạy. |
-| 7. Resume chương 2 sau thắng 1 quái | Cần người dùng chơi thử | Chưa có trận thắng thật. |
-| 8. Trùm, kết, phục hồi tự do | Cần người dùng chơi thử | Chưa phá đảo. |
-| 9. Tắt director game như cũ | Cần người dùng chơi thử | Chưa thử trong campus. |
-| 10. Simulator ngang thao tác 1/3/5 | Chưa xác nhận toàn bộ | Task 3 đã có ảnh safe area cả hai chiều, chưa chơi luồng campus. |
-| 11. Console 0 error, Missing Script 0 | Fail trong lượt Play | 5 error từ screenshot MCP; trước Play Console 0 error, Missing Script 0. |
+Quan sát desktop trước lượt hồi quy có input người dùng xen vào và tiến độ đã sang Chương 1. `desktop-ambush-observation.json` chỉ là dữ liệu quan sát encounter ở thời điểm đó, không dùng làm bằng chứng FAIL trước biến cố. Tiến độ sau người dùng chơi đã ghi ở `playerprefs-after-user-play.txt`.
 
-Không có mục nào trong bảng được ghi Pass toàn bộ; không giả lập thắng/thua để thay trận thật.
+## Screenshot và các giới hạn
+
+- **5 lỗi screenshot MCP cũ là ngoài phạm vi:** PlayerLoop đệ quy tại package MCP ScreenshotUtility.cs:197. Stack trace lưu trong `task6-mcp-errors.json`; không tính vào lượt Play mới. Không sửa package và không gọi lại manage_camera screenshot.
+- Đã xóa `task6-mcp-capture.png` bằng `git rm`: ảnh lỗi, không dùng làm bằng chứng.
+- Dùng desktop theo cho phép của người dùng. `desktop-intro-caption.png` là bằng chứng caption thật trong campus.
+- Task 3 dùng profile **iOS Notch Device (1170×2532)** thay iPhone 12, xoay ngang cả hai chiều. Ảnh `ui-notch-left.png`, `ui-notch-right.png`, `ui-pc.png`. Safe area đo ở 2532×1170: (141,63,2250,1107), khung thoại/mục tiêu/Skip nằm trong vùng an toàn.
+- Skip cảm ứng Task 3 đã thử bằng TouchState Began/Ended ở hai frame qua Input System; click desktop quá nhanh từng cho down ở (0,0) nên không dùng lần click đó làm bằng chứng cảm ứng. Chưa kiểm Enter/Space/Esc độc lập.
+- `task5-invalid-serialization.patch` chỉ là bằng chứng lỗi m_Script cũ, **không áp dụng**. `scene_story.patch` là patch Task 5 hợp lệ đã stage riêng STORY_DIRECTOR.
+- Các thay đổi kế hoạch được cho phép: m_StoryScript, commit style/fix riêng, profile thay thế, stage scene bằng patch để loại 6 hunk font; sửa khóa spawner theo GameObject.

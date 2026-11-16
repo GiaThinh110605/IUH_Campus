@@ -30,7 +30,10 @@ namespace IUHCampus.Guardian.Story
                     Capture(transform.gameObject);
             }
 
-            CaptureBehaviours<IUHBuildingMonsterSpawner>();
+            foreach (var spawner in Find<IUHBuildingMonsterSpawner>())
+            {
+                Capture(spawner.gameObject);
+            }
             CaptureBehaviours<IUHCampusZoneDirector>();
             CaptureBehaviours<IUHEmergencyDroneSupplyManager>();
             CaptureBehaviours<IUHCampusCombatManager>();

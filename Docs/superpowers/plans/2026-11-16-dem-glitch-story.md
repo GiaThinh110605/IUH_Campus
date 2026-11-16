@@ -179,8 +179,8 @@ Encounter **không** thuộc chương nào (giữ tắt trong truyện, bật l�
 - Produces:
   - `IUHStoryWorldLock` (lớp thường):
     - `void CaptureAndLock()` — gom (kể cả inactive) và **ghi lại trạng thái gốc** rồi khóa:
-      - `GameObject.SetActive(false)`: GameObject của mọi `IUHMonsterEncounter`, `IUHMonsterAI`, `IUHFlyingMonsterAI`, và GameObject `IUH_HOT_AIR_BALLOON`.
-      - `Behaviour.enabled = false`: mọi `IUHBuildingMonsterSpawner`, `IUHCampusZoneDirector`, `IUHEmergencyDroneSupplyManager`, `IUHCampusCombatManager`, `IUHHotAirBalloonController`, `IUHAerialFlightController` (giữ GameObject bật để `Instance` của chúng vẫn hợp lệ).
+      - `GameObject.SetActive(false)`: GameObject của mọi `IUHMonsterEncounter`, `IUHMonsterAI`, `IUHFlyingMonsterAI`, `IUHBuildingMonsterSpawner`, và GameObject `IUH_HOT_AIR_BALLOON`. Spawner phải dùng `Capture` + `SetActive(false)` để collider không còn phát `OnTriggerEnter`; chỉ `enabled=false` vẫn nhận trigger. `RestoreAll` khôi phục trạng thái GameObject đã capture.
+      - `Behaviour.enabled = false`: mọi `IUHCampusZoneDirector`, `IUHEmergencyDroneSupplyManager`, `IUHCampusCombatManager`, `IUHHotAirBalloonController`, `IUHAerialFlightController` (giữ GameObject bật để `Instance` của chúng vẫn hợp lệ).
     - `GameObject FindEncounter(string name)`
     - `void Release(GameObject encounter)` — `SetActive(true)` một encounter của chương.
     - `void RestoreAll(Func<string,bool> isDefeated)` — trả mọi thứ về trạng thái gốc, **trừ** encounter có `isDefeated(name)==true` (giữ tắt).
