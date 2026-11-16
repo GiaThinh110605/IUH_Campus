@@ -1,1 +1,13 @@
-﻿{"name":"IUHCampus.Guardian.Story.Tests","includePlatforms":["Editor"],"optionalUnityReferences":["TestAssemblies"],"references":["IUHCampus.Guardian.Story.Core","IUHCampus.Guardian.Story.Data"]}
+﻿{
+    "name": "IUHCampus.Guardian.Story.Tests",
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "references": [
+        "IUHCampus.Guardian.Story.Core",
+        "IUHCampus.Guardian.Story.Data"
+    ]
+}
