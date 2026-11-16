@@ -96,8 +96,8 @@ namespace IUHCampus.Guardian.Match3
             else if (Instance != this) { Destroy(gameObject); return; }
 
             if (m_SkillButton != null) m_SkillButton.onClick.AddListener(OnSkillButtonClicked);
-            if (m_BtnRetryVictory != null) m_BtnRetryVictory.onClick.AddListener(StartNewCombat);
-            if (m_BtnRetryDefeat != null) m_BtnRetryDefeat.onClick.AddListener(StartNewCombat);
+            if (m_BtnRetryVictory != null) m_BtnRetryVictory.onClick.AddListener(RetryCombat);
+            if (m_BtnRetryDefeat != null) m_BtnRetryDefeat.onClick.AddListener(RetryCombat);
             if (m_BtnCloseVictory != null) m_BtnCloseVictory.onClick.AddListener(OnCloseVictoryClicked);
             if (m_BtnFleeDefeat != null) m_BtnFleeDefeat.onClick.AddListener(Flee);
             if (m_Stage == null) m_Stage = GetComponent<Match3BattleStage>();
@@ -158,6 +158,13 @@ namespace IUHCampus.Guardian.Match3
             m_IsEngaged = true;
             gameObject.SetActive(true);
             StartCoroutine(BeginCombatRoutine());
+        }
+
+        private void RetryCombat()
+        {
+            if (m_OutcomeReported && !m_IsCombatActive)
+                m_IsEngaged = false;
+            StartNewCombat();
         }
 
         private IEnumerator BeginCombatRoutine()
