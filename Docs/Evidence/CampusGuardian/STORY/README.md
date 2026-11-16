@@ -89,3 +89,19 @@ Console 0 error trong các lượt xác nhận sau sửa; Missing Script=0. Ản
 Giữ nguyên file AR, không push. Các mục 3–8 và 10 trong bảng chơi thử vẫn dành cho người dùng.
 
 Rà soát phát hiện thêm hồi quy nút Thử lại do guard mới; đã sửa bằng đường retry chỉ dành cho trận đã kết thúc, có test Button.onClick. Vì vậy có thêm một commit sửa hồi quy ngoài bốn commit yêu cầu. Lượt kiểm chứng cuối: **32/32 EditMode, 27/27 PlayMode, Console 0 error**; Backend đã chạy **58/58 Pass** ở mục 3. Không sửa file AR.
+
+## Cập nhật 17/11/2026 — Claude Code làm trực tiếp (người dùng vắng)
+
+Môi trường: Windows, Unity 6000.5.8f1, MCP unityMCP, nhánh minhnhat/story-dem-glitch.
+
+- **AR (Thịnh đồng ý 17/11/2026)** — `IUHARCorruptedObjectEncounter.cs`, đúng 2 chỗ:
+  (a) `StartCombatEncounter` bỏ qua khi `Match3CombatManager.Instance.BlocksExplorationInput`;
+  (b) `OnMatch3CombatFinished` bỏ qua kết quả của encounter khác (vẫn giữ đăng ký).
+  Kiểm trong Play bằng `execute_code` (Garden bật tạm trong Play, không lưu):
+  - Đang đánh `MONSTER_02_ORC` → gọi `StartCombatEncounter` của Garden: `gardenInCombat=False`, trận hiện tại vẫn là ORC. Flee → `engaged=False`.
+  - Garden tự vào trận → phát giả `CombatFinished(ORC, true)`: Garden vẫn `inCombat=True`, `purified=False`. Garden tự Flee → `inCombat=False`.
+- **Xe Grab** — `IUHGrabMotorbike.cs`: xe đậu ở (398, 0.6, -18), nơi không có collider nào (raycast chỉ trúng chính xe) nên rơi → "Auto-recovered" → rơi lại mỗi khung hình. Sửa: khi đứng yên, kiểm một lần có mặt đất bên dưới không (bỏ qua collider của chính xe); không có thì giữ xe tại chỗ. Kiểm lại khi lên/xuống xe. Sau sửa: 3,6 s Play không còn cảnh báo, xe đứng yên ở y=0.6.
+  Lưu ý cho Thịnh: khu đường Grab quanh x≈400 hiện không có mặt đất trong scene campus, nên minigame Grab (dịch người chơi tới (410, -18)) có thể hỏng — chưa xử lý trong lượt này.
+- `ProjectSettings/EditorSettings.asset`: trả `Enter Play Mode Options` về tắt (Reload Domain and Scene) qua API Editor; không commit vì chỉ còn khác CRLF.
+- Kiểm chứng: compile 0 error; **EditMode 90/90, PlayMode 27/27 Pass** (toàn dự án). Console sau Play: 0 error; còn 4 cảnh báo "The referenced script (Unknown) on this Behaviour is missing!" lúc vào Play — không có GameObject nào trong scene thiếu script (`GetMonoBehavioursWithMissingScriptCount` = 0); nghi từ asset bên thứ ba/XR có sẵn trên main, chưa xử lý.
+- Mục 3–8 và 10 vẫn chờ người dùng chơi thử.
