@@ -25,3 +25,6 @@ Mục 1: thêm ReportOutcome(false) đầu Flee. RED test FleeReportsLossExactly
 
 Mục 1 đã commit d08d633. Mục 2: test RED EngagedFightIgnoresRepeatedStart xác nhận rules bị tạo lại (d42f906096094743944d08702303d956). Đã thêm guard m_IsEngaged + warning, không sửa AR. EditMode 32/32 Pass (d4bf665eee9848c9843f360a42ea1c44).
 Mục 2: PlayMode 25/25 Pass (4c5b2c111dbc49c8bd6ebe28e097f893), Console 0 error. Kiểm tay Garden còn cần xác nhận bằng lượt campus sau khi xử lý backend.
+
+Mục 2 đã commit 8c85f96. Mục 3: bỏ DontDestroyOnLoad trong GuardianBackendService, giữ sẵn OnDestroy owner==this -> null. Reporter giữ log error.Message, gỡ Environment.StackTrace chẩn đoán khỏi manager. EditMode Match3+Story+Backend 90/90 Pass (980978d6a2064ec7bb0dbe918b6dd2e9), trong đó Backend 58 test. Kiểm runtime qua MCP: Play + KeyboardState F9, reporter=1, service=1, m_Service assigned=True, outbox=True. Gọi luồng vào Garden rồi Flee: PendingCount 15 -> 16, Console 0 error, không InvalidOperationException. Đây là kiểm luồng gameplay bằng API runtime qua MCP, không phải thao tác thắng trận bằng bàn cờ. Một lượt PlayMode cc79317727124b59b3be25e29eb63159 chưa khởi tạo, không tính Pass; đã chạy lại.
+Mục 3: PlayMode Match3+Story 25/25 Pass (8044557dcfaa4b66b39a9b830b7c0123), Console 0 error.

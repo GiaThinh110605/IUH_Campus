@@ -66,7 +66,7 @@ namespace IUHCampus.Guardian
             {
                 if (m_ErrorLogged) return;
                 m_ErrorLogged = true;
-                Debug.LogError("[IUH Guardian] Combat report could not be queued: " + error.GetType().Name, this);
+                Debug.LogError("[IUH Guardian] Combat report could not be queued: " + error.GetType().Name + ": " + error.Message, this);
             }
         }
 
