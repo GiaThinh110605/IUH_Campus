@@ -15,6 +15,10 @@ namespace IUHCampus.Guardian.Story
         Color dayColor;
         Color dayAmbient;
         Coroutine transition;
+        Material originalSkybox;
+        Material nightSkybox;
+        float dayExposure;
+        Color dayTint;
         public void Initialize(string festivalLedMaterialName)
         {
             foreach (var light in FindObjectsByType<Light>(FindObjectsSortMode.None))
@@ -28,6 +32,16 @@ namespace IUHCampus.Guardian.Story
             }
 
             dayAmbient = RenderSettings.ambientLight;
+            originalSkybox = RenderSettings.skybox;
+            if (originalSkybox != null)
+            {
+                nightSkybox = new Material(originalSkybox);
+                nightSkybox.name = originalSkybox.name + " (Story Runtime)";
+                if (originalSkybox.HasProperty("_Exposure"))
+                    dayExposure = originalSkybox.GetFloat("_Exposure");
+                if (originalSkybox.HasProperty("_Tint"))
+                    dayTint = originalSkybox.GetColor("_Tint");
+            }
             foreach (var renderer in FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
                 if (renderer.sharedMaterial != null && renderer.sharedMaterial.name.StartsWith(festivalLedMaterialName, System.StringComparison.Ordinal))
@@ -61,6 +75,36 @@ namespace IUHCampus.Guardian.Story
             }
 
             RenderSettings.ambientLight = Color.Lerp(dayAmbient, dayAmbient * NightIntensity, fraction);
+            ApplySkybox(fraction);
+        }
+
+        void ApplySkybox(float fraction)
+        {
+            if (nightSkybox == null) return;
+            if (fraction <= 0)
+            {
+                RenderSettings.skybox = originalSkybox;
+                return;
+            }
+            if (nightSkybox.HasProperty("_Exposure"))
+            {
+                nightSkybox.SetFloat("_Exposure", Mathf.Lerp(dayExposure, dayExposure * NightIntensity, fraction));
+            }
+            else if (nightSkybox.HasProperty("_Tint"))
+            {
+                var tint = dayTint * NightIntensity;
+                tint.a = dayTint.a;
+                nightSkybox.SetColor("_Tint", Color.Lerp(dayTint, tint, fraction));
+            }
+            RenderSettings.skybox = nightSkybox;
+        }
+
+        void OnDestroy()
+        {
+            if (nightSkybox == null) return;
+            if (RenderSettings.skybox == nightSkybox)
+                RenderSettings.skybox = originalSkybox;
+            Destroy(nightSkybox);
         }
 
         void SetLeds(bool night)

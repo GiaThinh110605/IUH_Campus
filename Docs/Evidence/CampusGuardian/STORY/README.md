@@ -72,3 +72,20 @@ Quan sát desktop trước lượt hồi quy có input người dùng xen vào v
 - Skip cảm ứng Task 3 đã thử bằng TouchState Began/Ended ở hai frame qua Input System; click desktop quá nhanh từng cho down ở (0,0) nên không dùng lần click đó làm bằng chứng cảm ứng. Chưa kiểm Enter/Space/Esc độc lập.
 - `task5-invalid-serialization.patch` chỉ là bằng chứng lỗi m_Script cũ, **không áp dụng**. `scene_story.patch` là patch Task 5 hợp lệ đã stage riêng STORY_DIRECTOR.
 - Các thay đổi kế hoạch được cho phép: m_StoryScript, commit style/fix riêng, profile thay thế, stage scene bằng patch để loại 6 hunk font; sửa khóa spawner theo GameObject.
+
+## Bước 2 Match3 / backend / skybox
+
+Chi tiết và job IDs: [diag-step1.md](diag-step1.md), phần kết quả cuối thay thế các ghi chú chưa xác nhận trước đó.
+
+| Sửa | EditMode | PlayMode | Kiểm runtime |
+|---|---:|---:|---|
+| Flee báo thua đúng một lần (d08d633) | 32/32 | 24/24 | Garden ESC về AR=False/engaged=False, sau đó E vào lại active=True |
+| Guard StartNewCombat (8c85f96) | 32/32 | 25/25 | Click/Space không reset rules/timer; gọi lặp trực tiếp chỉ warning |
+| Backend scene-local (5812ed7) | 90/90, gồm Backend 58 | 25/25 | Sau F9 chỉ 1 service/reporter hợp lệ; loss tăng Outbox 15 -> 16 |
+| Skybox runtime clone | 32/32 | 26/26 | Exposure 0.85 -> 0.2125 -> 0.85, asset gốc không đổi |
+
+Console 0 error trong các lượt xác nhận sau sửa; Missing Script=0. Ảnh [ngày](skybox-day.png) và [đêm](skybox-night.png) là desktop Scene view cùng góc campus. Các lượt kiểm input qua MCP tạm dừng timer để tránh timeout và đã trả lại timeScale=1; không coi đây là bằng chứng chơi hết truyện. Save gốc đã khôi phục, không lưu scene.
+
+Giữ nguyên file AR, không push. Các mục 3–8 và 10 trong bảng chơi thử vẫn dành cho người dùng.
+
+Rà soát phát hiện thêm hồi quy nút Thử lại do guard mới; đã sửa bằng đường retry chỉ dành cho trận đã kết thúc, có test Button.onClick. Vì vậy có thêm một commit sửa hồi quy ngoài bốn commit yêu cầu. Lượt kiểm chứng cuối: **32/32 EditMode, 27/27 PlayMode, Console 0 error**; Backend đã chạy **58/58 Pass** ở mục 3. Không sửa file AR.

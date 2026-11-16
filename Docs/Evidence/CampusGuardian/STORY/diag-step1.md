@@ -28,3 +28,35 @@ Mục 2: PlayMode 25/25 Pass (4c5b2c111dbc49c8bd6ebe28e097f893), Console 0 error
 
 Mục 2 đã commit 8c85f96. Mục 3: bỏ DontDestroyOnLoad trong GuardianBackendService, giữ sẵn OnDestroy owner==this -> null. Reporter giữ log error.Message, gỡ Environment.StackTrace chẩn đoán khỏi manager. EditMode Match3+Story+Backend 90/90 Pass (980978d6a2064ec7bb0dbe918b6dd2e9), trong đó Backend 58 test. Kiểm runtime qua MCP: Play + KeyboardState F9, reporter=1, service=1, m_Service assigned=True, outbox=True. Gọi luồng vào Garden rồi Flee: PendingCount 15 -> 16, Console 0 error, không InvalidOperationException. Đây là kiểm luồng gameplay bằng API runtime qua MCP, không phải thao tác thắng trận bằng bàn cờ. Một lượt PlayMode cc79317727124b59b3be25e29eb63159 chưa khởi tạo, không tính Pass; đã chạy lại.
 Mục 3: PlayMode Match3+Story 25/25 Pass (8044557dcfaa4b66b39a9b830b7c0123), Console 0 error.
+
+## Bước 2 — kết quả cuối (thay thế các ghi chú chưa xác nhận bên trên)
+
+- d08d633 — fix(match3): report a loss when the player flees. Flee gọi ReportOutcome(false) trước thoát; test gọi Flee hai lần xác nhận chỉ một CombatFinished(false). EditMode 32/32, PlayMode 24/24, Console 0 error.
+- 8c85f96 — fix(match3): ignore StartNewCombat while a fight is in progress. Test chứng minh rules và timer không reset khi gọi lặp; warning được kiểm đúng nội dung. EditMode 32/32, PlayMode 25/25, Console 0 error.
+- 5812ed7 — fix(guardian): keep backend service scene-local so reloads do not orphan the reporter. Bỏ DontDestroyOnLoad; OnDestroy đã có owner==this -> null và giữ nguyên. Reporter giữ error.Message, không giữ StackTrace log tạm. EditMode Match3+Story+Backend 90/90 (Backend 58), PlayMode 25/25, Console 0 error.
+- Mục skybox: clone new Material(originalSkybox), giảm exposure về 25% hoặc dùng Tint nếu không có Exposure. ToDay trả reference gốc; OnDestroy trả reference gốc khi bản clone đang được dùng và hủy clone. Không sửa material asset.
+
+### Kiểm lại Garden sau mục 1–3
+
+Checkpoint chương 2 được người dùng cho phép; đi vào qua IUHMonsterEncounter.TriggerCombat (MCP setup tương đương entry proximity), gửi E/ESC qua KeyboardState của Input System. Lượt đầu chưa xác nhận do AR chưa đủ điều kiện hiển thị quái; không sửa field AR để ép kết quả.
+
+Lượt cuối: sau ESC, AR m_InCombat=False, manager m_IsEngaged=False. Sau khi tiếp tục runtime, quan sát Garden IsPlaced=True, IsMonsterActive=True, IsPurified=False, khoảng cách người chơi 2.0009. E mở lại được: m_IsEngaged=True, IsCombatActive=True. Không còn trạng thái kẹt của lượt chẩn đoán đầu.
+
+Trong trận Garden, tạm timeScale=0 để cô lập input khỏi timeout khi các lệnh MCP chờ; click desktop 4 lần vào cùng ô bàn cờ và gửi Space down/up hai lần bằng Input System. Rules hash giữ -883787424, remainingTime giữ 46.17806, không mở lại/reset trận. Sau đó gọi trực tiếp StartNewCombat khi engaged để kiểm riêng nhánh guard: rules và remainingTime giữ nguyên, xuất đúng warning `[IUH Guardian] StartNewCombat ignored: a fight is already in progress.`. Click/Space trong lượt này không tự tạo warning; warning được xác nhận bằng lần gọi kiểm guard trực tiếp. Console 0 error. Đã trả timeScale=1.
+
+Kiểm backend: Play -> Keyboard F9 -> 1 reporter, 1 service, m_Service assigned=True, Outbox=True. Luồng vào Garden rồi Flee qua MCP làm PendingCount tăng 15 -> 16; không InvalidOperationException. Sự kiện thử được giữ trong outbox theo cơ chế lưu sẵn có.
+
+### Skybox — test và ảnh
+
+RED: NightUsesPrivateSkyboxAndDayRestoresOriginal thất bại vì vẫn cùng material gốc (job a773e82a59104d16bc8f9fb5089c104f).
+GREEN: EditMode Match3+Story 32/32 (17db82f6ca2f43b2b31b75fcc03fdd7c); PlayMode 26/26 (c169c4096c5741e78b9c80b78d02d45f), gồm test clone, không đổi Exposure gốc, ToDay restore và OnDestroy restore. Job d9bb015c22f34ac88b48b8b46d50ae8f không khởi tạo được; đã clear stuck rồi chạy lại, không tính job đó là Pass.
+
+Ảnh desktop Scene view cùng góc nhìn: skybox-day.png / skybox-night.png, runtime tạm dừng để giữ cảnh. Skybox campus `Photographic campus sky`, Exposure gốc 0.85; khi đêm dùng `Photographic campus sky (Story Runtime)`, Exposure 0.2125; ToDay(0) khôi phục tên gốc và Exposure 0.85. Đây là ảnh kiểm helper chuyển sáng/tối trên campus, không phải ảnh hoàn tất toàn truyện. Console 0 error, không dùng screenshot MCP.
+
+Kết thúc: thoát Play, khôi phục save từ diag-progress-original.txt, scene isDirty=False, Missing Script=0, 6 dòng font vẫn không stage. Không sửa IUHARCorruptedObjectEncounter.cs; không push. Hai log chẩn đoán tạm đã gỡ. Bộ Story PlayMode mới có 2 test; Match3 PlayMode 24 test.
+
+### Rà soát và sửa hồi quy Retry
+
+Rà soát độc lập phát hiện guard mới khiến cả nút RetryVictory/RetryDefeat bị chặn sau khi trận đã kết thúc nhưng modal còn hiện. Đã thêm RetryCombat cho hai nút: chỉ clear m_IsEngaged khi m_OutcomeReported && !m_IsCombatActive, rồi qua StartNewCombat. Không bỏ guard giữa trận. Đây là commit bổ sung cần thiết để không làm hỏng chức năng retry sẵn có; không amend ba commit trước.
+
+Test RED RetryCanRestartAFinishedFight (9a9f7c272fae417085a6b095bdf522cd) xác nhận thiếu đường retry. Test cuối thao tác Button.onClick thật; một lượt fixture sai tên assembly UI gây TypeLoadException, đã đổi sang tìm type trong assemblies được nạp. Lượt cuối: EditMode 32/32 Pass (3b034ad59f7448dc8b3a63c70efecb48), PlayMode 27/27 Pass (46be40daae884a53a788f5e02eb71b4f); Console 0 error. Tổng cuối Match3 PlayMode 25 + Story PlayMode 2. Rà soát lại không còn phát hiện chặn. Các job lỗi kết nối/khởi tạo/fixture không được tính Pass.
