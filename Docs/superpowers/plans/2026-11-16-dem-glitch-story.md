@@ -186,7 +186,7 @@ Encounter **không** thuộc chương nào (giữ tắt trong truyện, bật l�
     - `void RestoreAll(Func<string,bool> isDefeated)` — trả mọi thứ về trạng thái gốc, **trừ** encounter có `isDefeated(name)==true` (giữ tắt).
   - `IUHStoryCorruptionZone` — `static IUHStoryCorruptionZone Create(IReadOnlyList<Vector3> encounterPositions, Material fog)`: vòm (Sphere dẹt, không collider) đặt ở trọng tâm các vị trí, bán kính = khoảng cách xa nhất tới trọng tâm + 6 m; `void Purify()` thu nhỏ & mờ trong 2 s rồi tự hủy, phát `IUHCombatFloatingText.Spawn(..., "KHU VỰC ĐÃ ĐƯỢC THANH TẨY", cyan, 1.4f)`.
   - `IUHStoryNightShift` — `void ToNight(float seconds)`, `void ToDay(float seconds)`, `void SetNightImmediate()`: đổi `intensity`/`color` của Directional Light đầu tiên tìm thấy (đêm: ×0.25, màu `#6A5ACD`), `RenderSettings.ambientLight` tương ứng, và LED Ngày hội: mọi `Renderer` có `sharedMaterial.name` bắt đầu bằng `festivalLedMaterialName` ⇒ `MaterialPropertyBlock` `_EmissionColor = #B000FF × 4` (đêm) / xóa block (ngày). **Không** sửa asset vật liệu. Lúc biến cố: chớp tắt đèn 3 lần (0.15 s) trước khi chuyển.
-  - `IUHStoryDirector : MonoBehaviour`, `[DefaultExecutionOrder(-500)]`, field `[SerializeField] IUHStoryScript m_Script;`, khóa lưu `IUH_Story_Progress`:
+  - `IUHStoryDirector : MonoBehaviour`, `[DefaultExecutionOrder(-500)]`, field `[SerializeField] IUHStoryScript m_StoryScript;` (không dùng `m_Script` — trùng field nội bộ của MonoBehaviour), khóa lưu `IUH_Story_Progress`:
     - `Start()`: đọc tiến độ (`StoryProgress.Deserialize`). Nếu `Completed` ⇒ không làm gì (game như cũ). Ngược lại `CaptureAndLock()` rồi vào đúng phase: `Prologue` (CheckInsDone==0 ⇒ chạy camera giới thiệu + `prologueLines`; >0 ⇒ tiếp check-in đang dở), `Incident` ⇒ chạy biến cố, `Chapter` ⇒ `SetNightImmediate()` và mở chương hiện tại, `Ending` ⇒ chạy kết.
     - Check-in: mỗi 0.25 s (coroutine, không phải `Update`) đo khoảng cách ngang người chơi (cache `GameObject.Find("Campus Student") ?? FindGameObjectWithTag("Player")` một lần) tới object check-in; ≤ `checkInRadius` ⇒ `CompleteCheckIn`, thoại, lưu.
     - Mở chương: `Release` các encounter của chương chưa thắng; ghi nhận "đã bật"; tạo vùng nhiễm; beacon tới trọng tâm; `SetObjective("<objective> (còn N quái)")`; thoại `introLines`.
@@ -206,7 +206,7 @@ Encounter **không** thuộc chương nào (giữ tắt trong truyện, bật l�
 - Modify: `Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity` (chỉ thêm 1 GameObject gốc)
 
 - [ ] **Step 1:** Thịnh đã đồng ý (người dùng xác nhận 16/11/2026). Trước khi mở scene: `git fetch` và kiểm `origin/main` không có commit mới sửa scene campus kể từ lúc tạo nhánh; nếu có ⇒ DỪNG, báo người dùng (có thể Thịnh đang sửa scene).
-- [ ] **Step 2:** Mở scene, kiểm `isDirty=false`. Tạo GameObject gốc `STORY_DIRECTOR`, thêm `IUHStoryDirector`, gán `m_Script = StoryScript_DemGlitch.asset`. Lưu scene.
+- [ ] **Step 2:** Mở scene, kiểm `isDirty=false`. Tạo GameObject gốc `STORY_DIRECTOR`, thêm `IUHStoryDirector`, gán `m_StoryScript = StoryScript_DemGlitch.asset`. Lưu scene.
 - [ ] **Step 3:** Kiểm diff scene chỉ chứa các khối của `STORY_DIRECTOR` (GameObject, Transform, MonoBehaviour) và thay đổi danh sách root; nếu có khác (do Unity serialize lại) thì báo người dùng thay vì commit. Missing Script = 0, Console 0 error.
 - [ ] **Step 4: Commit** — `git add Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity`; `git commit -m "feat(story): place STORY_DIRECTOR in campus scene"`.
 

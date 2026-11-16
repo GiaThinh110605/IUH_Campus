@@ -15,7 +15,7 @@ namespace IUHCampus.Guardian.Story
     {
         const string ProgressKey = "IUH_Story_Progress";
         [SerializeField]
-        IUHStoryScript m_Script;
+        IUHStoryScript m_StoryScript;
         StoryProgress progress;
         IUHStoryWorldLock world;
         IUHStoryDialogueUI ui;
@@ -25,13 +25,13 @@ namespace IUHCampus.Guardian.Story
         readonly Dictionary<string, Transform> targets = new Dictionary<string, Transform>();
         void Start()
         {
-            if (m_Script == null)
+            if (m_StoryScript == null)
             {
                 Debug.LogError("[Story] Missing story script");
                 return;
             }
 
-            progress = StoryProgress.Deserialize(PlayerPrefs.GetString(ProgressKey), m_Script.checkIns.Length, m_Script.ToChapterDefs());
+            progress = StoryProgress.Deserialize(PlayerPrefs.GetString(ProgressKey), m_StoryScript.checkIns.Length, m_StoryScript.ToChapterDefs());
             if (progress.Phase == StoryPhase.Completed)
                 return;
             world = new IUHStoryWorldLock();
@@ -45,9 +45,9 @@ namespace IUHCampus.Guardian.Story
             var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
             player = student != null ? student.transform : null;
             ui = IUHStoryDialogueUI.Create();
-            beacon = IUHStoryBeacon.Create(m_Script.beaconMaterial);
+            beacon = IUHStoryBeacon.Create(m_StoryScript.beaconMaterial);
             night = gameObject.AddComponent<IUHStoryNightShift>();
-            night.Initialize(m_Script.festivalLedMaterialName);
+            night.Initialize(m_StoryScript.festivalLedMaterialName);
             StartCoroutine(Run());
         }
 
@@ -60,7 +60,7 @@ namespace IUHCampus.Guardian.Story
                 beacon.MoveTo(null);
                 ui.SetObjective(null);
                 night.ToNight(3);
-                yield return Say(m_Script.incidentLines);
+                yield return Say(m_StoryScript.incidentLines);
                 progress.FinishIncident();
                 Save();
             }
@@ -78,15 +78,15 @@ namespace IUHCampus.Guardian.Story
             if (progress.CheckInsDone == 0)
             {
                 bool done = false;
-                IUHStoryIntroCamera.Play(m_Script.introShots, m_Script.introCaption, ui, () => done = true);
+                IUHStoryIntroCamera.Play(m_StoryScript.introShots, m_StoryScript.introCaption, ui, () => done = true);
                 yield return new WaitUntil(() => done);
-                yield return Say(m_Script.prologueLines);
+                yield return Say(m_StoryScript.prologueLines);
             }
 
             var delay = new WaitForSeconds(.25f);
             while (progress.Phase == StoryPhase.Prologue)
             {
-                var step = m_Script.checkIns[progress.CheckInsDone];
+                var step = m_StoryScript.checkIns[progress.CheckInsDone];
                 if (!targets.TryGetValue(step.checkInObjectName, out var target) || player == null)
                 {
                     Debug.LogError("[Story] Missing check-in target or player: " + step.checkInObjectName);
@@ -95,7 +95,7 @@ namespace IUHCampus.Guardian.Story
 
                 beacon.MoveTo(target.position);
                 ui.SetObjective(step.objective);
-                while (HorizontalDistance(player.position, target.position) > m_Script.checkInRadius)
+                while (HorizontalDistance(player.position, target.position) > m_StoryScript.checkInRadius)
                     yield return delay;
                 progress.CompleteCheckIn(progress.CheckInsDone);
                 Save();
@@ -112,7 +112,7 @@ namespace IUHCampus.Guardian.Story
         IEnumerator Chapter()
         {
             int index = progress.ChapterIndex;
-            var chapter = m_Script.chapters[index];
+            var chapter = m_StoryScript.chapters[index];
             var active = new Dictionary<string, GameObject>();
             var positions = new List<Vector3>();
             foreach (var name in chapter.encounterObjectNames)
@@ -135,7 +135,7 @@ namespace IUHCampus.Guardian.Story
                     active.Add(name, encounter);
             }
 
-            var zone = IUHStoryCorruptionZone.Create(positions, m_Script.fogMaterial);
+            var zone = IUHStoryCorruptionZone.Create(positions, m_StoryScript.fogMaterial);
             beacon.MoveTo(zone.transform.position);
             UpdateObjective(chapter);
             yield return Say(chapter.introLines);
@@ -181,8 +181,8 @@ namespace IUHCampus.Guardian.Story
             night.ToDay(3);
             yield return new WaitForSecondsRealtime(3);
             IUHCampusFireworksManager.Instance?.TriggerVictoryCelebration();
-            ui.ShowCaption(m_Script.endingCaption, 5);
-            yield return Say(m_Script.endingLines);
+            ui.ShowCaption(m_StoryScript.endingCaption, 5);
+            yield return Say(m_StoryScript.endingLines);
             progress.FinishEnding();
             Save();
             world.RestoreAll(progress.IsDefeated);
