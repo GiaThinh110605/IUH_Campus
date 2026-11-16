@@ -143,6 +143,11 @@ namespace IUHCampus.Guardian.Match3
 
         public void StartNewCombat()
         {
+            if (m_IsEngaged)
+            {
+                Debug.LogWarning("[IUH Guardian] StartNewCombat ignored: a fight is already in progress.");
+                return;
+            }
             m_OutcomeReported = false;
             m_VictoryRewardProcessed = false;
             m_VictoryRewardClaimed = false;

@@ -22,3 +22,6 @@ Runtime query: có hai IUHGuardianBackendReporter cùng tên GUARDIAN_BACKEND; m
 ## Bước 2 — đang thực hiện
 
 Mục 1: thêm ReportOutcome(false) đầu Flee. RED test FleeReportsLossExactlyOnce: expected 1, actual 0 (785e14a24c0344afb47292c18088d97b). Sau sửa: EditMode Match3+Story 32/32 Pass (a8fbad02b98d414198b5e9db3a6644e5), PlayMode 24/24 Pass (4aa66c0888734dc994a7f10d4c1b9077), Console 0 error. Bổ sung bộ Story.PlayModeTests kiểm khóa/khôi phục spawner. Lượt Garden qua MCP còn m_InCombat=True nên chưa ghi Pass ESC→E; không sửa AR. Hai log tạm đã gỡ, reporter sẽ giữ Message trong commit backend riêng.
+
+Mục 1 đã commit d08d633. Mục 2: test RED EngagedFightIgnoresRepeatedStart xác nhận rules bị tạo lại (d42f906096094743944d08702303d956). Đã thêm guard m_IsEngaged + warning, không sửa AR. EditMode 32/32 Pass (d4bf665eee9848c9843f360a42ea1c44).
+Mục 2: PlayMode 25/25 Pass (4c5b2c111dbc49c8bd6ebe28e097f893), Console 0 error. Kiểm tay Garden còn cần xác nhận bằng lượt campus sau khi xử lý backend.
