@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd114fb6da3f6f248a51ea768c51a7a3, type: 3}
+  m_Name: StoryScript_DemGlitch
+  m_EditorClassIdentifier: IUHCampus.Guardian.Story.Data::IUHCampus.Guardian.Story.IUHStoryScript
+  introCaption: "\u0110\u1EA1i h\u1ECDc C\xF4ng nghi\u1EC7p TP.HCM (IUH) \u2014 3
+    ng\xE0y tr\u01B0\u1EDBc Ng\xE0y h\u1ED9i IUH"
+  introShots:
+  - position: {x: 12, y: 22, z: -50}
+    lookAt: {x: 0, y: 0, z: -32}
+    seconds: 4
+  - position: {x: 12, y: 22, z: -22}
+    lookAt: {x: 0, y: 0, z: -4}
+    seconds: 4
+  - position: {x: 28, y: 22, z: -15}
+    lookAt: {x: 16, y: 0, z: 3}
+    seconds: 4
+  - position: {x: 12, y: 22, z: 4}
+    lookAt: {x: 0, y: 0, z: 22}
+    seconds: 4
+  prologueLines:
+  - "Ch\xE0o Guardian! M\xECnh l\xE0 Core-Bot, tr\u1EE3 l\xFD c\u1EE7a IUH Core \u2014
+    h\u1EC7 th\u1ED1ng AI v\u1EEBa \u0111\u01B0\u1EE3c l\u1EAFp \u0111\u1EC3 qu\u1EA3n
+    l\xFD \u0111\xE8n, c\u1ED5ng v\xE0 m\u1EA1ng to\xE0n tr\u01B0\u1EDDng."
+  - "Ba ng\xE0y n\u1EEFa l\xE0 Ng\xE0y h\u1ED9i IUH. Ca tr\u1EF1c h\xF4m nay: \u0111i
+    m\u1ED9t v\xF2ng ki\u1EC3m tra campus c\xF9ng m\xECnh nh\xE9."
+  checkIns:
+  - checkInObjectName: CHECKIN_SPOT_GATE
+    objective: "Check-in t\u1EA1i C\u1ED5ng ch\xEDnh"
+    lines:
+    - "\u0110\xE2y l\xE0 c\u1ED5ng ch\xEDnh c\u1EE7a IUH. M\u1ED7i ng\xE0y h\xE0ng
+      ngh\xECn sinh vi\xEAn \u0111i qua \u0111\xE2y."
+  - checkInObjectName: CHECKIN_SPOT_FOUNTAIN
+    objective: "Check-in t\u1EA1i \u0110\xE0i phun n\u01B0\u1EDBc"
+    lines:
+    - "\u0110\xE0i phun n\u01B0\u1EDBc \u2014 ch\u1ED7 h\u1EB9n quen thu\u1ED9c c\u1EE7a
+      sinh vi\xEAn IUH. M\u1ECDi ch\u1EC9 s\u1ED1 \u0111\u1EC1u b\xECnh th\u01B0\u1EDDng."
+  - checkInObjectName: CHECKIN_SPOT_FESTIVAL
+    objective: "Check-in t\u1EA1i Khu Ng\xE0y h\u1ED9i"
+    lines:
+    - "S\xE2n kh\u1EA5u Ng\xE0y h\u1ED9i \u0111\xE3 d\u1EF1ng xong. IUH Core \u0111ang
+      t\u1EA3i b\u1EA3n c\u1EADp nh\u1EADt cu\u1ED1i c\xF9ng cho h\u1EC7 th\u1ED1ng
+      \u0111\xE8n..."
+  checkInRadius: 4
+  incidentLines:
+  - "Khoan... b\u1EA3n c\u1EADp nh\u1EADt n\xE0y kh\xF4ng c\xF3 ch\u1EEF k\xFD c\u1EE7a
+    tr\u01B0\u1EDDng!"
+  - "C\xF3 th\u1EE9 g\xEC \u0111\xF3 \u0111ang chi\u1EBFm IUH Core. N\xF3 t\u1EF1
+    g\u1ECDi m\xECnh l\xE0 GLITCH."
+  - "D\u1EEF li\u1EC7u h\u1ECFng \u0111ang tr\xE0n ra, b\xE1m v\xE0o \u0111\u1ED3
+    \u0111i\u1EC7n t\u1EED v\xE0 \u0111\u1ED3 v\u1EADt quanh tr\u01B0\u1EDDng \u2014
+    ch\xFAng \u0111ang bi\u1EBFn th\xE0nh Data Monster!"
+  - "Guardian, ch\xFAng ta ph\u1EA3i gi\xE0nh l\u1EA1i t\u1EEBng khu. B\u1EAFt \u0111\u1EA7u
+    t\u1EEB Nh\xE0 E!"
+  chapters:
+  - id: building_e
+    title: "Ch\u01B0\u01A1ng 1 \u2014 Nh\xE0 E"
+    objective: "Thanh t\u1EA9y Nh\xE0 E"
+    introLines:
+    - "Nh\xE0 E b\u1ECB nhi\u1EC5m n\u1EB7ng nh\u1EA5t. H\u1EA1 h\u1EBFt Data Monster
+      \u1EDF \u0111\xF3!"
+    encounterObjectNames:
+    - CORRUPTED_ENCOUNTER_BUILDING_E
+    - CORRUPTED_ENCOUNTER_SPORTS
+    purifiedLines:
+    - "Nh\xE0 E s\u1EA1ch r\u1ED3i! \u0110\xE8n \u0111\xE3 s\xE1ng l\u1EA1i. GLITCH
+      \u0111ang chuy\u1EC3n sang Canteen."
+  - id: canteen_garden
+    title: "Ch\u01B0\u01A1ng 2 \u2014 Canteen & V\u01B0\u1EDDn"
+    objective: "Thanh t\u1EA9y Canteen v\xE0 V\u01B0\u1EDDn"
+    introLines:
+    - "C\xE2y trong v\u01B0\u1EDDn \u0111ang h\xE9o v\xEC d\u1EEF li\u1EC7u h\u1ECFng.
+      Nhanh l\xEAn!"
+    encounterObjectNames:
+    - MONSTER_02_ORC
+    - CORRUPTED_ENCOUNTER_GARDEN
+    purifiedLines:
+    - "Hoa n\u1EDF l\u1EA1i r\u1ED3i! T\xEDn hi\u1EC7u GLITCH d\u1ED3n v\u1EC1 s\xE2n
+      ch\xEDnh."
+  - id: main_plaza
+    title: "Ch\u01B0\u01A1ng 3 \u2014 S\xE2n ch\xEDnh"
+    objective: "Thanh t\u1EA9y S\xE2n ch\xEDnh"
+    introLines:
+    - "GLITCH chi\u1EBFm c\u1EA3 c\u1ED5ng v\xE0 khu l\u1EC5 h\u1ED9i. Gi\u1EEF v\u1EEFng
+      nh\xE9, Guardian!"
+    encounterObjectNames:
+    - MONSTER_01_BLUEDEMON
+    - MONSTER_03_PHANTOM
+    purifiedLines:
+    - "S\xE2n ch\xEDnh \u0111\xE3 an to\xE0n. L\xF5i c\u1EE7a GLITCH l\u1ED9 ra \u1EDF
+      s\xE2n \u0111\u1EA5u ph\xEDa b\u1EAFc!"
+  - id: boss
+    title: "Ch\u01B0\u01A1ng cu\u1ED1i \u2014 GLITCH"
+    objective: "\u0110\xE1nh b\u1EA1i GLITCH \u1EDF s\xE2n \u0111\u1EA5u ph\xEDa
+      b\u1EAFc"
+    introLines:
+    - "\u0110\xF3 l\xE0 h\xECnh d\u1EA1ng th\u1EADt c\u1EE7a GLITCH \u2014 \u0110\u1EA1i
+      Ma V\u01B0\u01A1ng H\u1EAFc \xC1m. Tr\u1EADn cu\u1ED1i!"
+    encounterObjectNames:
+    - MONSTER_04_DEMON_BOSS
+    purifiedLines:
+    - "GLITCH \u0111\xE3 b\u1ECB x\xF3a. IUH Core \u0111ang kh\u1EDFi \u0111\u1ED9ng
+      l\u1EA1i..."
+  endingLines:
+  - "IUH Core \u0111\xE3 tr\u1EDF l\u1EA1i b\xECnh th\u01B0\u1EDDng. Ng\xE0y h\u1ED9i
+    IUH \u0111\u01B0\u1EE3c c\u1EE9u r\u1ED3i!"
+  - "C\u1EA3m \u01A1n Guardian. Campus gi\u1EDD l\xE0 c\u1EE7a b\u1EA1n \u2014 ch\u0103m
+    s\xF3c khu v\u01B0\u1EDDn, n\xE2ng c\u1EA5p trang b\u1ECB, v\xE0 c\u1EA3nh gi\xE1c:
+    m\u1EA3nh v\u1EE5n c\u1EE7a GLITCH v\u1EABn c\xF3 th\u1EC3 l\u1EA9n trong \u0111\u1ED3
+    v\u1EADt quanh ta."
+  endingCaption: "HO\xC0N TH\xC0NH \u2014 IUH Guardian: \u0110\xEAm Glitch"
+  fogMaterial: {fileID: 2100000, guid: 855f98e952b6c8d46bf7e4bfc7135129, type: 2}
+  beaconMaterial: {fileID: 2100000, guid: 60419096a7fe39144bdf753e64533ea6, type: 2}
+  festivalLedMaterialName: Festival LED
