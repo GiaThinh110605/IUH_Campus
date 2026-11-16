@@ -200,6 +200,7 @@ namespace IUHCampus.Guardian.Match3
         /// <summary>Leave the fight without winning (Esc, or the defeat modal's button).</summary>
         public void Flee()
         {
+            ReportOutcome(false);
             StopAllCoroutines();
             m_IsCombatActive = false;
             m_IsEngaged = false;
