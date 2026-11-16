@@ -1,0 +1,13 @@
+﻿diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
+index a17ad95..6cf3b7d 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHUpgradeShopUI.cs
+@@ -488,7 +488,7 @@ namespace IUHCampus.Guardian
+                 nameRt.pivot = new Vector2(0f, 0.5f);
+                 nameRt.sizeDelta = new Vector2(330f, 36f);
+                 var nameTxt = nameGo.GetComponent<Text>();
+-                nameTxt.text = $"✨ <b>{item.name}</b> <color=#FDE047>x{item.count}</color>\n<size=11><color=#94A3B8>{item.description}</color></size>";
++                nameTxt.text = $"<b>{item.name}</b> <color=#FDE047>x{item.count}</color>\n<size=11><color=#94A3B8>{item.description}</color></size>";
+                 nameTxt.font = font;
+                 nameTxt.fontSize = 13;
+                 nameTxt.color = Color.white;

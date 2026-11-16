@@ -76,7 +76,7 @@ namespace IUHCampus.Combat
                 if (health != null && !health.IsDead)
                 {
                     health.TakeDamage(m_Damage, point);
-                    IUHCombatFloatingText.Spawn(health.transform.position + Vector3.up * 2.2f, $"💥 OANH TẠC: -{m_Damage} HP!", new Color(1f, 0.3f, 0.1f), 1.5f);
+                    IUHCombatFloatingText.Spawn(health.transform.position + Vector3.up * 2.2f, $"OANH TẠC: -{m_Damage} HP!", new Color(1f, 0.3f, 0.1f), 1.5f);
                     break;
                 }
             }

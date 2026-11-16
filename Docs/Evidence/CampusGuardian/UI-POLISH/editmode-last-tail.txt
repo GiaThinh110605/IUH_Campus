@@ -1,0 +1,35 @@
+﻿
+(Filename: ./Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/Editor/Helpers/McpLog.cs Line: 40)
+
+Saving results to: C:/Users/Admin/AppData/LocalLow/DefaultCompany/IUH_Campus\TestResults.xml
+Executing IPostBuildCleanup for: Unity.PerformanceTesting.Editor.TestRunBuilder.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<ExecuteMethods>d__8<UnityEngine.TestTools.IPostBuildCleanup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@1405238725ab/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:48)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<Execute>d__7<UnityEngine.TestTools.IPostBuildCleanup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@1405238725ab/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:34)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteStep () (at ./Library/PackageCache/com.unity.test-framework@1405238725ab/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:194)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteCallback () (at ./Library/PackageCache/com.unity.test-framework@1405238725ab/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:129)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.unity.test-framework@1405238725ab/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs Line: 48)
+
+Unloading 37 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity'
+	Deserialize:            114.579 ms
+	Integration:            1014.963 ms
+	Integration of assets:  1.137 ms
+	Thread Wait Time:       0.029 ms
+	Total Operation Time:   1130.707 ms
+Unloading 1 unused Assets / (276.5 KB). Loaded Objects now: 16667.
+Memory consumption went from 1.23 GB to 1.23 GB.
+Total: 19.955000 ms (FindLiveObjects: 1.466300 ms CreateObjectMapping: 1.524000 ms MarkObjects: 16.889000 ms  DeleteObjects: 0.074300 ms)
+
+[Licensing::Client] Successfully resolved entitlement details
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2033 ms: Could not connect to server
+Asset Pipeline Refresh (id=6c337bdb27038a449981827ba4ea2621): Total: 0.029 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2023 ms: Could not connect to server

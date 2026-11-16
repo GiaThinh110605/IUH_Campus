@@ -1,0 +1,2 @@
+combatBlocked=True shopOpen=False virtualConsumed=True
+openedOutside=True closedOnCombatStart=True

@@ -1,0 +1,3 @@
+CAMPUS_CORRUPTED_CANTEEN before=365 after=465 delta=100 modal=True title=🏆 ĐÃ ĐÁNH BẠI TIỂU QUỶ DỮ LIỆU - BALO IUH! rewards=<color=#FDE047><b>💰 +100 Vàng & Bạc IUH</b></color>
+<color=#67E8F9>✨ Bình Dược Liệu Nano (+50 HP)</color>
+<color=#67E8F9>✨ Tinh Thể Dữ Liệu</color>

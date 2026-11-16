@@ -1,0 +1,83 @@
+﻿diff --git a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
+index aebdd0a..2bff01c 100644
+--- a/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
++++ b/Assets/IUH_Campus/Scripts/Guardian/IUHGuardianInventory.cs
+@@ -26,7 +26,20 @@ namespace IUHCampus.Guardian
+     public class IUHGuardianInventory : MonoBehaviour
+     {
+         public static IUHGuardianInventory Instance { get; private set; }
+-        private const string MilestoneKeyPrefix = "IUH_Guardian_Milestone_";
++        private const string PrefsPrefix = "IUH_Guardian_";
++        private const string GoldKey = PrefsPrefix + "Gold";
++        private const string SwordKey = PrefsPrefix + "SwordLv";
++        private const string ShieldKey = PrefsPrefix + "ShieldLv";
++        private const string MaxHpKey = PrefsPrefix + "MaxHpLv";
++        private const string ItemsKey = PrefsPrefix + "Items";
++        private const string MilestoneKeyPrefix = PrefsPrefix + "Milestone_";
++
++        [Serializable]
++        private class InventorySave
++        {
++            public int version = 1;
++            public List<InventoryItem> items;
++        }
+         private bool m_IsBatchingReward;
+ 
+         [Header("Currencies")]
+@@ -245,24 +258,48 @@ namespace IUHCampus.Guardian
+ 
+         private void WritePlayerPrefs()
+         {
+-            PlayerPrefs.SetInt("IUH_Guardian_Gold", m_Gold);
+-            PlayerPrefs.SetInt("IUH_Guardian_SwordLv", m_SwordLevel);
+-            PlayerPrefs.SetInt("IUH_Guardian_ShieldLv", m_ShieldLevel);
+-            PlayerPrefs.SetInt("IUH_Guardian_MaxHpLv", m_MaxHpLevel);
++            PlayerPrefs.SetInt(GoldKey, m_Gold);
++            PlayerPrefs.SetInt(SwordKey, m_SwordLevel);
++            PlayerPrefs.SetInt(ShieldKey, m_ShieldLevel);
++            PlayerPrefs.SetInt(MaxHpKey, m_MaxHpLevel);
++            PlayerPrefs.SetString(ItemsKey, JsonUtility.ToJson(new InventorySave { items = m_Items }));
+         }
+ 
+         private void LoadData()
+         {
+-            m_Gold = PlayerPrefs.GetInt("IUH_Guardian_Gold", 100);
+-            m_SwordLevel = PlayerPrefs.GetInt("IUH_Guardian_SwordLv", 1);
+-            m_ShieldLevel = PlayerPrefs.GetInt("IUH_Guardian_ShieldLv", 1);
+-            m_MaxHpLevel = PlayerPrefs.GetInt("IUH_Guardian_MaxHpLv", 1);
++            m_Gold = PlayerPrefs.GetInt(GoldKey, 100);
++            m_SwordLevel = PlayerPrefs.GetInt(SwordKey, 1);
++            m_ShieldLevel = PlayerPrefs.GetInt(ShieldKey, 1);
++            m_MaxHpLevel = PlayerPrefs.GetInt(MaxHpKey, 1);
++
++            bool hasSavedItems = PlayerPrefs.HasKey(ItemsKey);
++            if (hasSavedItems && TryLoadItems()) return;
+ 
+             if (m_Items.Count == 0)
+             {
+                 m_Items.Add(new InventoryItem("init_potion", "Bình Dược Liệu Nano (+50 HP)", 1, "Dược phẩm khẩn cấp cấp phát cho sinh viên.", true));
+                 m_Items.Add(new InventoryItem("init_crystal", "Mảnh Tinh Thể Dữ Liệu Lam", 1, "Mảnh tinh thể nghiên cứu ban đầu.", false));
+             }
++            if (!hasSavedItems) SaveData();
++        }
++
++        private bool TryLoadItems()
++        {
++            try
++            {
++                var saved = JsonUtility.FromJson<InventorySave>(PlayerPrefs.GetString(ItemsKey));
++                if (saved == null || saved.items == null)
++                    throw new ArgumentException("Inventory items list is missing.");
++
++                m_Items = saved.items.FindAll(item => item != null &&
++                    !string.IsNullOrWhiteSpace(item.name) && item.count > 0);
++                return true;
++            }
++            catch (ArgumentException)
++            {
++                Debug.LogWarning("[IUH Guardian] Saved inventory items are invalid; keeping starter inventory.");
++                return false;
++            }
+         }
+     }
+ }

@@ -15,8 +15,8 @@ namespace IUHCampus.Guardian
         [SerializeField] private int m_FontSize = 20;
         private const int OverlayOrder = 1000;
         private static readonly Vector2 ReferenceResolution = new Vector2(1920f, 1080f);
-        private static readonly Vector2 StatusSize = new Vector2(640f, 40f);
-        private static readonly Vector2 StatusInset = new Vector2(-24f, -18f);
+        private static readonly Vector2 StatusSize = new Vector2(560f, 26f);
+        private static readonly Vector2 StatusInset = new Vector2(24f, 12f);
         private readonly HashSet<IUHMonsterEncounter> m_WarnedEncounters = new HashSet<IUHMonsterEncounter>();
         private readonly HashSet<string> m_AcceptedEvents = new HashSet<string>();
         private GuardianEventOutbox m_Outbox;
@@ -102,12 +102,15 @@ namespace IUHCampus.Guardian
             label.transform.SetParent(parent, false);
             m_StatusText = label.GetComponent<Text>();
             m_StatusText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            m_StatusText.fontSize = m_FontSize;
-            m_StatusText.alignment = TextAnchor.UpperRight;
+            m_StatusText.fontSize = Mathf.Min(m_FontSize, 16);
+            m_StatusText.alignment = TextAnchor.LowerLeft;
             m_StatusText.raycastTarget = false;
             m_StatusText.text = "Máy chủ: đang khởi tạo";
             var rect = m_StatusText.rectTransform;
-            rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.one;
+            Rect safeArea = Screen.safeArea;
+            rect.anchorMin = rect.anchorMax = new Vector2(
+                safeArea.xMin / Mathf.Max(1, Screen.width), safeArea.yMin / Mathf.Max(1, Screen.height));
+            rect.pivot = Vector2.zero;
             rect.sizeDelta = StatusSize;
             rect.anchoredPosition = StatusInset;
         }

@@ -1,0 +1,17 @@
+diff --git a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+index 9cbcd5f..35d4a73 100644
+--- a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
++++ b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+@@ -86918,10 +86918,10 @@ MonoBehaviour:
+     m_Top: 0
+     m_Bottom: 0
+   m_ChildAlignment: 4
+-  m_Spacing: 24
++  m_Spacing: 12
+   m_ChildForceExpandWidth: 1
+   m_ChildForceExpandHeight: 1
+-  m_ChildControlWidth: 0
++  m_ChildControlWidth: 1
+   m_ChildControlHeight: 0
+   m_ChildScaleWidth: 0
+   m_ChildScaleHeight: 0

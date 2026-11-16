@@ -1,0 +1,20 @@
+Title|🏪 TRẠM NÂNG CẤP & KHO ĐỒ IUH
+Text|✕
+TxtGold|💰 VÀNG CỦA BẠN: 0 IUH Gold
+Text|⚙️ NÂNG CẤP
+Text|🎒 KHO ĐỒ
+Text|👗 NGOẠI TRANG
+Title|⚔️ Sát Thương Gạch Kiếm
+Cur|Hiện tại: Lv.1
+Next|Tiếp theo: Lv.2
+Text|NÂNG CẤP
+Title|🛡️ Khả Năng Hấp Thụ Khiên
+Cur|Hiện tại: Lv.1
+Next|Tiếp theo: Lv.2
+Text|NÂNG CẤP
+Title|💚 Sinh Lực Tối Đa (Max HP)
+Cur|Hiện tại: Lv.1
+Next|Tiếp theo: Lv.2
+Text|NÂNG CẤP
+TxtEmpty|Kho đồ trống.
+Hãy tiêu diệt quái vật dữ liệu trên khuôn viên để nhận bảo vật!

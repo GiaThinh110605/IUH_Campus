@@ -49,6 +49,8 @@ namespace IUHCampus.Guardian
 
         [Header("Skins Container")]
         [SerializeField] private Transform m_SkinsContainer;
+        [SerializeField] private ScrollRect m_SkinsScrollRect;
+        [SerializeField] private ScrollRect m_ItemsScrollRect;
 
         private ThirdPersonController m_PlayerController;
         private StarterAssetsInputs m_PlayerInputs;
@@ -56,6 +58,9 @@ namespace IUHCampus.Guardian
         private int m_CurrentTab = 0; // 0 = Upgrades, 1 = Inventory, 2 = Skins
 
         public bool IsOpen => m_IsOpen;
+        private static bool IsCombatBlocked =>
+            IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null &&
+            IUHCampus.Guardian.Match3.Match3CombatManager.Instance.BlocksExplorationInput;
 
         private void Awake()
         {
@@ -103,6 +108,12 @@ namespace IUHCampus.Guardian
 
         private void Update()
         {
+            if (IsCombatBlocked)
+            {
+                IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed = false;
+                if (m_IsOpen) CloseShop();
+                return;
+            }
             // Toggle with key 'B' or 'I' or mobile VirtualBackpackPressed
             if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.I) || IUHCampus.Core.IUHInputHelper.VirtualBackpackPressed)
             {
@@ -124,6 +135,7 @@ namespace IUHCampus.Guardian
 
         public void OpenShop(int tabIndex = 0)
         {
+            if (IsCombatBlocked) return;
             m_IsOpen = true;
             if (m_ShopPanel != null) m_ShopPanel.SetActive(true);
 
@@ -142,7 +154,7 @@ namespace IUHCampus.Guardian
         {
             m_IsOpen = false;
             if (m_ShopPanel != null) m_ShopPanel.SetActive(false);
-            SetPlayerControl(true);
+            SetPlayerControl(!IsCombatBlocked);
         }
 
         private void SetPlayerControl(bool enabled)
@@ -285,6 +297,16 @@ namespace IUHCampus.Guardian
 
             // Skins & Trails
             RefreshSkinsTab(inv);
+            ResetScrollToTop(m_CurrentTab == 1 ? m_ItemsScrollRect :
+                m_CurrentTab == 2 ? m_SkinsScrollRect : null);
+        }
+
+        private static void ResetScrollToTop(ScrollRect scroll)
+        {
+            if (scroll == null || !scroll.gameObject.activeInHierarchy) return;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(scroll.content);
+            scroll.StopMovement();
+            scroll.verticalNormalizedPosition = 1f;
         }
 
         private void RefreshSkinsTab(IUHGuardianInventory inv)
@@ -295,7 +317,9 @@ namespace IUHCampus.Guardian
 
             for (int i = m_SkinsContainer.childCount - 1; i >= 0; i--)
             {
-                Destroy(m_SkinsContainer.GetChild(i).gameObject);
+                var child = m_SkinsContainer.GetChild(i);
+                child.SetParent(null, false);
+                Destroy(child.gameObject);
             }
 
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
@@ -419,7 +443,7 @@ namespace IUHCampus.Guardian
                 () => { customizer.UnlockSkin(PlayerSkinType.Cyber); customizer.ApplySkin(PlayerSkinType.Cyber); });
 
             // Section 2: Trails
-            AddHeader("⚡ HIỆU ỨNG VỆT CHÂN KHI DI CHUYỂN");
+            AddHeader("HIỆU ỨNG VỆT CHÂN KHI DI CHUYỂN");
 
             AddRow("Không Dùng Vệt Chân", "Tắt hiệu ứng bước chân", true,
                 customizer.CurrentTrail == PlayerTrailType.None, 0, () => customizer.ApplyTrail(PlayerTrailType.None));
@@ -444,7 +468,9 @@ namespace IUHCampus.Guardian
             // Clear old items
             for (int i = m_ItemsContainer.childCount - 1; i >= 0; i--)
             {
-                Destroy(m_ItemsContainer.GetChild(i).gameObject);
+                var child = m_ItemsContainer.GetChild(i);
+                child.SetParent(null, false);
+                Destroy(child.gameObject);
             }
 
             var items = inv.Items;
@@ -472,7 +498,7 @@ namespace IUHCampus.Guardian
                 nameRt.pivot = new Vector2(0f, 0.5f);
                 nameRt.sizeDelta = new Vector2(330f, 36f);
                 var nameTxt = nameGo.GetComponent<Text>();
-                nameTxt.text = $"✨ <b>{item.name}</b> <color=#FDE047>x{item.count}</color>\n<size=11><color=#94A3B8>{item.description}</color></size>";
+                nameTxt.text = $"<b>{item.name}</b> <color=#FDE047>x{item.count}</color>\n<size=11><color=#94A3B8>{item.description}</color></size>";
                 nameTxt.font = font;
                 nameTxt.fontSize = 13;
                 nameTxt.color = Color.white;

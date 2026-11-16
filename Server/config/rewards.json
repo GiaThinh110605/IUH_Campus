@@ -5,5 +5,10 @@
   "campus_cantin": 10,
   "campus_le_hoi": 10,
   "campus_dau_truong_bac": 10,
-  "campus_cong_ar": 10
+  "campus_cong_ar": 10,
+  "CAMPUS_CORRUPTED_FOUNTAIN": 10,
+  "CAMPUS_CORRUPTED_GARDEN": 10,
+  "CAMPUS_CORRUPTED_BUILDING_E": 10,
+  "CAMPUS_CORRUPTED_CANTEEN": 10,
+  "CAMPUS_CORRUPTED_SPORTS": 10
 }

@@ -1,0 +1,3 @@
+campus_cong_chinh before=305 after=365 delta=60 modal=True title=🏆 ĐÃ ĐÁNH BẠI TIỂU QUỶ BĂNG LAM (DỄ)! rewards=<color=#FDE047><b>💰 +60 Vàng & Bạc IUH</b></color>
+<color=#67E8F9>✨ Bình Dược Liệu Nano (+50 HP)</color>
+<color=#67E8F9>✨ 1x Mảnh Tinh Thể Dữ Liệu Lam</color>
