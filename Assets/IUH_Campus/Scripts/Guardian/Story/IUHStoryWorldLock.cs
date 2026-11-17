@@ -75,6 +75,21 @@ namespace IUHCampus.Guardian.Story
                 encounter.SetActive(true);
         }
 
+        public void RestoreToys()
+        {
+            foreach (var entry in objects)
+            {
+                if (entry.Key != null && entry.Key.name == "IUH_HOT_AIR_BALLOON")
+                    entry.Key.SetActive(entry.Value);
+            }
+            foreach (var entry in behaviours)
+            {
+                if (entry.Key is IUHCampusCombatManager || entry.Key is IUHHotAirBalloonController ||
+                    entry.Key is IUHAerialFlightController || entry.Key is IUHEmergencyDroneSupplyManager)
+                    entry.Key.enabled = entry.Value;
+            }
+        }
+
         public void RestoreAll(Func<string, bool> isDefeated)
         {
             foreach (var entry in objects)

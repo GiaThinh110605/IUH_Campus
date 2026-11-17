@@ -112,3 +112,9 @@ Base: 30e107a; Windows Unity 6000.5.8f1. Console ban đầu có 4 warning refere
 Task 7: 4db7ac9, RED CS0246 thiếu AftershockSchedule; GREEN Story EditMode 22/22 (14464afc1100450d88007a0ee3c6e2b4), Console 0 error sau compile.
 Task 8: test RED thiếu ResetForAftershock (e516061d487f446ca195ae0d6cc65fb9), GREEN Match3+Story PlayMode 28/28 (d2e80eef02b04617b5db034a75d4b0b3). Chỉ thêm hai hàm reset và lưu màu/intensity đèn ở Awake AR.
 Kiểm runtime qua MCP: vào Garden, Flee rồi giả thắng bằng OnCombatVictory -> object tắt; SetActive(true) và reset cả hai component -> object bật; dịch người chơi lại gần, E qua Input System -> engaged=True (đang bắt đầu trận), không error. Chưa ghi Pass thắng trận thật; đây là giả thắng được kế hoạch cho phép. aftershock-reset-play.json. Save đã sao lưu ở aftershock-save-backup.txt để khôi phục sau lượt.
+
+## Aftershock Task 9
+
+Story EditMode 22/22 (493b2bcd233d4ea2902e8622af447698); Match3+Story PlayMode 29/29 (7aa06d721d114a9798c4d01fd8fa2419), gồm CompletedSaveKeepsMonstersLockedAndToysOn. Test RED trước sửa: save Completed vẫn để encounter/spawner bật (4e8cd234576d4f27a93ce232a178f9ed).
+Mở Play với save Completed: ground=0/flying=0/encounter=0, combat manager enabled=True và balloon active=True. Chưa kiểm thao tác bắn/lái khinh khí cầu bằng bàn phím, không ghi Pass riêng hai thao tác đó.
+Rút ngắn runtime schedule xuống firstDelay=1 (không đổi code 120): khu 0 Nhà E có 1 encounter SPORTS; Gold=1738. Giả thắng OnCombatVictory -> encounter tắt, Gold=1768 (+30) và ổn định qua lượt kiểm sau, không cộng lặp. Rút ngắn runtime lần tiếp -> khu 2 Sân chính, 2 encounter BACKPACK/FOUNTAIN, Gold vẫn1768. aftershock-second-play.json. Đây là kiểm fake victory qua MCP theo lượt test, không phải thắng bằng bàn cờ. Console 0 error.

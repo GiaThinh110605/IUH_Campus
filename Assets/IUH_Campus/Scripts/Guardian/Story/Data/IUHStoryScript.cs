@@ -34,6 +34,20 @@ namespace IUHCampus.Guardian.Story
             public string[] purifiedLines;
         }
 
+        [Serializable]
+        public sealed class AftershockZone
+        {
+            public string id;
+            public string title;
+            public string[] encounterObjectNames;
+        }
+
+        public AftershockZone[] aftershockZones;
+        public string aftershockWarningFormat;
+        public string aftershockObjectiveFormat;
+        public string aftershockClearedLine;
+        public int aftershockGold = 30;
+
         public string introCaption;
         public CameraShot[] introShots;
         public string[] prologueLines;

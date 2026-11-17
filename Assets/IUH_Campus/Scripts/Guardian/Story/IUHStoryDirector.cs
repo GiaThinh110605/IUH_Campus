@@ -22,6 +22,9 @@ namespace IUHCampus.Guardian.Story
         IUHStoryBeacon beacon;
         IUHStoryNightShift night;
         Transform player;
+        IUHUpgradeShopUI shop;
+        AftershockSchedule aftershockSchedule;
+        int lastAftershockZone = -1;
         readonly Dictionary<string, Transform> targets = new Dictionary<string, Transform>();
         void Start()
         {
@@ -32,8 +35,6 @@ namespace IUHCampus.Guardian.Story
             }
 
             progress = StoryProgress.Deserialize(PlayerPrefs.GetString(ProgressKey), m_StoryScript.checkIns.Length, m_StoryScript.ToChapterDefs());
-            if (progress.Phase == StoryPhase.Completed)
-                return;
             world = new IUHStoryWorldLock();
             world.CaptureAndLock();
             foreach (var target in FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -48,7 +49,16 @@ namespace IUHCampus.Guardian.Story
             beacon = IUHStoryBeacon.Create(m_StoryScript.beaconMaterial);
             night = gameObject.AddComponent<IUHStoryNightShift>();
             night.Initialize(m_StoryScript.festivalLedMaterialName);
-            StartCoroutine(Run());
+            shop = IUHUpgradeShopUI.Instance ?? FindAnyObjectByType<IUHUpgradeShopUI>(FindObjectsInactive.Include);
+            if (progress.Phase == StoryPhase.Completed)
+            {
+                world.RestoreToys();
+                StartCoroutine(Aftershocks());
+            }
+            else
+            {
+                StartCoroutine(Run());
+            }
         }
 
         IEnumerator Run()
@@ -185,7 +195,73 @@ namespace IUHCampus.Guardian.Story
             yield return Say(m_StoryScript.endingLines);
             progress.FinishEnding();
             Save();
-            world.RestoreAll(progress.IsDefeated);
+            world.RestoreToys();
+            yield return Aftershocks();
+        }
+
+        bool CanCountAftershock()
+        {
+            return Time.timeScale > 0 && !ui.IsBusy && (shop == null || !shop.IsOpen) &&
+                (Match3CombatManager.Instance == null || !Match3CombatManager.Instance.BlocksExplorationInput);
+        }
+
+        IEnumerator Aftershocks()
+        {
+            aftershockSchedule = new AftershockSchedule(() => Random.value);
+            var delay = new WaitForSecondsRealtime(.5f);
+            while (true)
+            {
+                yield return delay;
+                if (!aftershockSchedule.Tick(.5f, CanCountAftershock())) continue;
+                var zones = m_StoryScript.aftershockZones;
+                if (zones == null || zones.Length == 0)
+                {
+                    aftershockSchedule.Complete();
+                    continue;
+                }
+                lastAftershockZone = AftershockSchedule.PickZone(() => Random.value, zones.Length, lastAftershockZone);
+                yield return RunAftershock(zones[lastAftershockZone]);
+                aftershockSchedule.Complete();
+            }
+        }
+
+        IEnumerator RunAftershock(IUHStoryScript.AftershockZone zone)
+        {
+            var names = new List<string>();
+            foreach (var name in zone.encounterObjectNames)
+            {
+                if (world.FindEncounter(name) != null) names.Add(name);
+            }
+            var picked = AftershockSchedule.PickEncounters(() => Random.value, names);
+            if (picked.Count == 0) yield break;
+            var active = new List<GameObject>();
+            var positions = new List<Vector3>();
+            foreach (var name in picked)
+            {
+                var encounter = world.FindEncounter(name);
+                encounter.SetActive(true);
+                encounter.GetComponent<IUHMonsterEncounter>()?.ResetForAftershock();
+                encounter.GetComponent<AR.IUHARCorruptedObjectEncounter>()?.ResetForAftershock();
+                active.Add(encounter);
+                positions.Add(encounter.transform.position);
+            }
+            var corruption = IUHStoryCorruptionZone.Create(positions, m_StoryScript.fogMaterial);
+            beacon.MoveTo(corruption.transform.position);
+            ui.SetObjective(string.Format(m_StoryScript.aftershockObjectiveFormat, zone.title, active.Count));
+            yield return Say(new[] { string.Format(m_StoryScript.aftershockWarningFormat, zone.title) });
+            var delay = new WaitForSecondsRealtime(.5f);
+            while (active.Count > 0)
+            {
+                yield return delay;
+                if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput) continue;
+                active.RemoveAll(encounter => encounter == null || !encounter.activeSelf);
+                ui.SetObjective(string.Format(m_StoryScript.aftershockObjectiveFormat, zone.title, active.Count));
+            }
+            corruption.Purify();
+            IUHGuardianInventory.Instance?.AddGold(m_StoryScript.aftershockGold);
+            yield return Say(new[] { m_StoryScript.aftershockClearedLine });
+            beacon.MoveTo(null);
+            ui.SetObjective(null);
         }
 
         IEnumerator Say(IReadOnlyList<string> lines)

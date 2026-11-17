@@ -12,6 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd114fb6da3f6f248a51ea768c51a7a3, type: 3}
   m_Name: StoryScript_DemGlitch
   m_EditorClassIdentifier: IUHCampus.Guardian.Story.Data::IUHCampus.Guardian.Story.IUHStoryScript
+  aftershockZones:
+  - id: building_e
+    title: "Nh\xE0 E"
+    encounterObjectNames:
+    - CORRUPTED_ENCOUNTER_BUILDING_E
+    - CORRUPTED_ENCOUNTER_SPORTS
+  - id: canteen_garden
+    title: "Canteen & V\u01B0\u1EDDn"
+    encounterObjectNames:
+    - MONSTER_02_ORC
+    - CORRUPTED_ENCOUNTER_GARDEN
+    - CORRUPTED_ENCOUNTER_CANTEEN
+  - id: main_plaza
+    title: "S\xE2n ch\xEDnh"
+    encounterObjectNames:
+    - MONSTER_01_BLUEDEMON
+    - MONSTER_03_PHANTOM
+    - CORRUPTED_ENCOUNTER_FOUNTAIN
+    - MONSTER_05_CORRUPTED_BACKPACK
+  aftershockWarningFormat: "Ph\xE1t hi\u1EC7n t\xEDn hi\u1EC7u GLITCH c\xF2n s\xF3t
+    \u1EDF {0}! \u0110\u1EBFn \u0111\xF3 thanh t\u1EA9y ngay."
+  aftershockObjectiveFormat: "D\u01B0 ch\u1EA5n: thanh t\u1EA9y {0} (c\xF2n {1} qu\xE1i)"
+  aftershockClearedLine: "D\u01B0 ch\u1EA5n \u0111\xE3 \u0111\u01B0\u1EE3c d\u1EADp
+    t\u1EAFt. +30 Gold cho Guardian!"
+  aftershockGold: 30
   introCaption: "\u0110\u1EA1i h\u1ECDc C\xF4ng nghi\u1EC7p TP.HCM (IUH) \u2014 3
     ng\xE0y tr\u01B0\u1EDBc Ng\xE0y h\u1ED9i IUH"
   introShots:

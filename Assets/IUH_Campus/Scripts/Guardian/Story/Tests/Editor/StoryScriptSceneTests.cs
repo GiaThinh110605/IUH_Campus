@@ -20,7 +20,9 @@ namespace IUHCampus.Guardian.Story.Tests
             try
             {
                 var names = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<Transform>(true)).Select(t => t.name).ToArray();
-                foreach (var name in Script.checkIns.Select(c => c.checkInObjectName).Concat(Script.chapters.SelectMany(c => c.encounterObjectNames)))
+                foreach (var name in Script.checkIns.Select(c => c.checkInObjectName)
+                    .Concat(Script.chapters.SelectMany(c => c.encounterObjectNames))
+                    .Concat(Script.aftershockZones.SelectMany(c => c.encounterObjectNames)))
                     Assert.AreEqual(1, names.Count(n => n == name), name);
             }
             finally { if (opened) EditorSceneManager.CloseScene(scene, true); }

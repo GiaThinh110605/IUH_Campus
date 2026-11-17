@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": "second zone=2 active=2 names=MONSTER_05_CORRUPTED_BACKPACK,CORRUPTED_ENCOUNTER_FOUNTAIN gold=1768",
+    "compiler": "codedom"
+  }
+}
