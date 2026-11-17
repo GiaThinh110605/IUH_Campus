@@ -118,3 +118,9 @@ Kiểm runtime qua MCP: vào Garden, Flee rồi giả thắng bằng OnCombatVic
 Story EditMode 22/22 (493b2bcd233d4ea2902e8622af447698); Match3+Story PlayMode 29/29 (7aa06d721d114a9798c4d01fd8fa2419), gồm CompletedSaveKeepsMonstersLockedAndToysOn. Test RED trước sửa: save Completed vẫn để encounter/spawner bật (4e8cd234576d4f27a93ce232a178f9ed).
 Mở Play với save Completed: ground=0/flying=0/encounter=0, combat manager enabled=True và balloon active=True. Chưa kiểm thao tác bắn/lái khinh khí cầu bằng bàn phím, không ghi Pass riêng hai thao tác đó.
 Rút ngắn runtime schedule xuống firstDelay=1 (không đổi code 120): khu 0 Nhà E có 1 encounter SPORTS; Gold=1738. Giả thắng OnCombatVictory -> encounter tắt, Gold=1768 (+30) và ổn định qua lượt kiểm sau, không cộng lặp. Rút ngắn runtime lần tiếp -> khu 2 Sân chính, 2 encounter BACKPACK/FOUNTAIN, Gold vẫn1768. aftershock-second-play.json. Đây là kiểm fake victory qua MCP theo lượt test, không phải thắng bằng bàn cờ. Console 0 error.
+
+## Task 10 — z-fighting
+
+Quét 43 MeshRenderer active/enabled của campus có bounds.size.y<0.05: đúng1 cặp chồng XZ/top gap<0.003: CAMPUS_ADVENTURE_SHARED_WORLD/Plaza paving_0/Sandstone paving và Paving pale. Mesh khác nhau; nâng Sandstone +0.01m. Top separation sau sửa=0.009999998m. Không sửa mesh/material asset. Patch z-fighting-fix.patch chỉ thay localPosition.y 0 -> 0.01 của GameObject fileID419868310. Cached chỉ1 hunk này, unstaged vẫn đúng6 thay đổi font.
+Lỗi patch đầu do thêm thừa dòng trống cuối hunk (CRCount=0, trailingLF=2), không phải CRLF. Đã trim dòng thừa, check --cached --check --recount Pass, rồi apply cùng quy trình. Bản patch lỗi giữ ở z-fighting-fix-unapplied.patch để đối chiếu, không áp dụng.
+EditMode toàn dự án 96/96 Pass (e92eba7eb31f465bbbed2578de2f3024), gồm Backend58 và Story22. AABB chưa kết luận.

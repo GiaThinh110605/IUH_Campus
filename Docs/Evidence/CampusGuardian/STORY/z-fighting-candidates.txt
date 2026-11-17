@@ -1,0 +1,1 @@
+CAMPUS_ADVENTURE_SHARED_WORLD/Plaza paving_0/Sandstone paving @(0.00, 0.00, 0.00) <> CAMPUS_ADVENTURE_SHARED_WORLD/Plaza paving_0/Paving pale @(0.00, 0.00, 0.00)
