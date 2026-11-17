@@ -37,7 +37,13 @@ namespace IUHCampus.Combat
 
         private void Start()
         {
-            if (m_BtnOpenGuide != null) m_BtnOpenGuide.onClick.AddListener(OpenGuide);
+            // Ẩn triệt để nút thô cũ "HƯỚNG DẪN [H]" nếu còn sót lại từ scene
+            if (m_BtnOpenGuide != null)
+            {
+                m_BtnOpenGuide.gameObject.SetActive(false);
+                Destroy(m_BtnOpenGuide.gameObject);
+                m_BtnOpenGuide = null;
+            }
             if (m_BtnCloseGuide != null) m_BtnCloseGuide.onClick.AddListener(CloseGuide);
 
             if (m_GuideModalRoot != null) m_GuideModalRoot.SetActive(false);

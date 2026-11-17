@@ -157,6 +157,7 @@ namespace IUHCampus.Guardian.Match3
             RestoreHudLayout();
             m_IsEngaged = true;
             gameObject.SetActive(true);
+            EnsureInCombatExitButton();
             StartCoroutine(BeginCombatRoutine());
         }
 
@@ -165,6 +166,41 @@ namespace IUHCampus.Guardian.Match3
             if (m_OutcomeReported && !m_IsCombatActive)
                 m_IsEngaged = false;
             StartNewCombat();
+        }
+
+        private void EnsureInCombatExitButton()
+        {
+            Transform hudParent = m_VictoryModal != null ? m_VictoryModal.transform.parent : transform;
+            if (hudParent != null && hudParent.Find("Btn_InCombat_Flee") == null)
+            {
+                Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") 
+                    ?? Resources.GetBuiltinResource<Font>("Arial.ttf")
+                    ?? Font.CreateDynamicFontFromOSFont("Helvetica", 14)
+                    ?? Font.CreateDynamicFontFromOSFont("Arial", 14);
+
+                GameObject fleeBtnGO = new GameObject("Btn_InCombat_Flee", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
+                fleeBtnGO.transform.SetParent(hudParent, false);
+                var rt = fleeBtnGO.GetComponent<RectTransform>();
+                rt.anchorMin = new Vector2(1f, 1f); rt.anchorMax = new Vector2(1f, 1f);
+                rt.pivot = new Vector2(1f, 1f);
+                rt.anchoredPosition = new Vector2(-25f, -25f);
+                rt.sizeDelta = new Vector2(140f, 48f);
+
+                var img = fleeBtnGO.GetComponent<Image>();
+                img.color = new Color(0.85f, 0.15f, 0.2f, 0.92f);
+                img.raycastTarget = true;
+
+                GameObject txtGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
+                txtGO.transform.SetParent(fleeBtnGO.transform, false);
+                var txtRt = txtGO.GetComponent<RectTransform>();
+                txtRt.anchorMin = Vector2.zero; txtRt.anchorMax = Vector2.one; txtRt.sizeDelta = Vector2.zero;
+                var txt = txtGO.GetComponent<Text>();
+                txt.font = font; txt.text = "✕ THOÁT TRẬN"; txt.fontSize = 14; txt.fontStyle = FontStyle.Bold;
+                txt.alignment = TextAnchor.MiddleCenter; txt.color = Color.white;
+                txt.raycastTarget = false;
+
+                fleeBtnGO.GetComponent<Button>().onClick.AddListener(Flee);
+            }
         }
 
         private IEnumerator BeginCombatRoutine()
@@ -221,6 +257,18 @@ namespace IUHCampus.Guardian.Match3
             RestoreHudLayout();
             ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
+            if (m_VictoryModal != null) m_VictoryModal.SetActive(false);
+            if (m_DefeatModal != null) m_DefeatModal.SetActive(false);
+
+            // Khôi phục UI điều khiển Mobile và camera khi thoát
+            if (IUHCampus.UI.IUHMobileControlsUI.Instance != null)
+            {
+                IUHCampus.UI.IUHMobileControlsUI.Instance.gameObject.SetActive(true);
+            }
+
+            var mainCam = Camera.main ?? GameObject.Find("MainCamera")?.GetComponent<Camera>();
+            if (mainCam != null) mainCam.gameObject.SetActive(true);
+
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatDefeat();
             else gameObject.SetActive(false);
         }
@@ -393,6 +441,18 @@ namespace IUHCampus.Guardian.Match3
             RestoreHudLayout();
             ExitStage();
             if (m_BoardView != null) m_BoardView.gameObject.SetActive(false);
+            if (m_VictoryModal != null) m_VictoryModal.SetActive(false);
+            if (m_DefeatModal != null) m_DefeatModal.SetActive(false);
+
+            // Khôi phục UI điều khiển Mobile và camera khi kết thúc trận
+            if (IUHCampus.UI.IUHMobileControlsUI.Instance != null)
+            {
+                IUHCampus.UI.IUHMobileControlsUI.Instance.gameObject.SetActive(true);
+            }
+
+            var mainCam = Camera.main ?? GameObject.Find("MainCamera")?.GetComponent<Camera>();
+            if (mainCam != null) mainCam.gameObject.SetActive(true);
+
             if (m_CurrentEncounter != null) m_CurrentEncounter.OnCombatVictory();
             else gameObject.SetActive(false);
         }

@@ -11,6 +11,7 @@ namespace IUHCampus.Core
     {
 
         public static Vector2 VirtualMoveAxis = Vector2.zero;
+        public static bool VirtualJumpPressed = false;
         public static bool VirtualVehiclePressed = false;
         public static bool VirtualInteractPressed = false;
         public static bool VirtualTurboHeld = false;

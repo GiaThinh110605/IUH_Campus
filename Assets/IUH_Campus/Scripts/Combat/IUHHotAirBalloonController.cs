@@ -168,11 +168,19 @@ namespace IUHCampus.Combat
             bool inInteractRange = dist <= m_InteractionRadius || m_IsPlayerOnBoard;
             if (!inInteractRange) return;
 
-            bool interactPressed = Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E) || IUHCampus.Core.IUHInputHelper.VirtualInteractPressed;
+            bool interactPressed = Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E) || IUHCampus.Core.IUHInputHelper.VirtualInteractPressed || IUHCampus.Core.IUHInputHelper.VirtualVehiclePressed;
+            bool jumpPressed = Input.GetKeyDown(KeyCode.Space) || IUHCampus.Core.IUHInputHelper.VirtualJumpPressed;
+
             if (interactPressed)
             {
                 IUHCampus.Core.IUHInputHelper.VirtualInteractPressed = false;
+                IUHCampus.Core.IUHInputHelper.VirtualVehiclePressed = false;
                 ToggleBoardOrLaunch();
+            }
+            else if (m_IsPlayerOnBoard && jumpPressed)
+            {
+                IUHCampus.Core.IUHInputHelper.VirtualJumpPressed = false;
+                JumpDownFromBalloon();
             }
         }
 
@@ -197,15 +205,15 @@ namespace IUHCampus.Combat
             if (!m_IsPlayerOnBoard || m_PlayerTransform == null) return;
             m_IsPlayerOnBoard = false;
 
-            Vector3 exitDir = m_PlayerTransform.forward;
-            exitDir.y = 0.35f;
+            Vector3 exitDir = m_BasketTransform != null ? m_BasketTransform.forward : m_PlayerTransform.forward;
+            exitDir.y = 0.2f;
 
             if (m_PlayerCC != null) m_PlayerCC.enabled = false;
-            m_PlayerTransform.position += exitDir.normalized * 2.8f;
+            m_PlayerTransform.position += exitDir.normalized * 3.2f;
             if (m_PlayerCC != null) m_PlayerCC.enabled = true;
 
-            // Kích hoạt chế độ bay tự do bằng cánh phản lực (Aero Wings)
-            if (IUHAerialFlightController.Instance != null)
+            // Kích hoạt chế độ bay tự do bằng cánh phản lực (Aero Wings) nếu đang trên cao
+            if (m_State != BalloonFlightState.Grounded && IUHAerialFlightController.Instance != null)
             {
                 IUHAerialFlightController.Instance.StartFlight();
             }
@@ -220,6 +228,9 @@ namespace IUHCampus.Combat
         private void EnforceAntiFallBasketConstraint()
         {
             if (!m_IsPlayerOnBoard || m_PlayerTransform == null || m_BasketTransform == null) return;
+
+            // Khi khinh khí cầu đang ở mặt đất, cho phép người chơi tự do đi lại và bước ra ngoài
+            if (m_State == BalloonFlightState.Grounded) return;
 
             // Nếu người chơi đang bật chế độ bay tự do bằng cánh, không khóa vị trí
             if (IUHAerialFlightController.Instance != null && IUHAerialFlightController.Instance.IsFlying)

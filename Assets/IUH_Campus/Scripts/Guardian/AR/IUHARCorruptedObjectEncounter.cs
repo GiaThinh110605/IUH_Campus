@@ -66,6 +66,8 @@ namespace IUHCampus.Guardian.AR
         private Transform m_PlayerTransform;
         private Color m_AftershockLightColor;
         private float m_AftershockLightIntensity;
+        private float m_ProximityTimer = 0f;
+        private const float PROXIMITY_TRIGGER_SECONDS = 5.0f;
 
         public bool IsPlaced => m_IsPlaced;
         public bool IsMonsterActive => m_IsMonsterActive;
@@ -89,6 +91,7 @@ namespace IUHCampus.Guardian.AR
         {
             StopAllCoroutines();
             m_InCombat = false;
+            m_ProximityTimer = 0f;
             m_IsPurified = false;
             m_IsMonsterActive = false;
             m_IsPlaced = false;
@@ -126,7 +129,7 @@ namespace IUHCampus.Guardian.AR
         private void FindReferences()
         {
             if (m_ARCamera == null) m_ARCamera = Camera.main;
-            var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
+            var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
             if (student != null) m_PlayerTransform = student.transform;
 
             if (m_CombatManager == null)
@@ -156,6 +159,27 @@ namespace IUHCampus.Guardian.AR
             bool tapRequested = false;
             Vector2 tapPos = Vector2.zero;
 
+            // Kiểm tra cự ly: Nếu đứng sát trong vòng 5 giây sẽ tự động vào trận Match-3
+            if (m_PlayerTransform == null) FindReferences();
+            float playerDist = m_PlayerTransform != null 
+                ? Vector3.Distance(m_PlayerTransform.position, transform.position)
+                : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 999f);
+
+            if (playerDist <= m_InteractionDistance)
+            {
+                m_ProximityTimer += Time.deltaTime;
+                if (m_ProximityTimer >= PROXIMITY_TRIGGER_SECONDS)
+                {
+                    m_ProximityTimer = 0f;
+                    StartCombatEncounter();
+                    return;
+                }
+            }
+            else
+            {
+                m_ProximityTimer = 0f;
+            }
+
             // 1. Cảm ứng chạm màn hình điện thoại (Touch)
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == UnityEngine.TouchPhase.Began)
             {
@@ -174,11 +198,12 @@ namespace IUHCampus.Guardian.AR
 
             if (keyRequested)
             {
+                if (m_PlayerTransform == null) FindReferences();
                 float dist = m_PlayerTransform != null 
                     ? Vector3.Distance(m_PlayerTransform.position, transform.position)
-                    : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 0f);
+                    : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 999f);
 
-                if (dist <= m_InteractionDistance || dist < 0.1f)
+                if (dist <= m_InteractionDistance)
                 {
                     StartCombatEncounter();
                     return;
