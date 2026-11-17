@@ -64,6 +64,8 @@ namespace IUHCampus.Guardian.AR
         private GameObject m_ActiveCorruptedObject;
         private Camera m_ARCamera;
         private Transform m_PlayerTransform;
+        private Color m_AftershockLightColor;
+        private float m_AftershockLightIntensity;
 
         public bool IsPlaced => m_IsPlaced;
         public bool IsMonsterActive => m_IsMonsterActive;
@@ -74,7 +76,31 @@ namespace IUHCampus.Guardian.AR
             if (Instance == null) Instance = this;
             m_ARCamera = Camera.main;
 
+            if (m_PurpleAuraLight != null)
+            {
+                m_AftershockLightColor = m_PurpleAuraLight.color;
+                m_AftershockLightIntensity = m_PurpleAuraLight.intensity;
+            }
+
             InitializeObjectSlots();
+        }
+
+        public void ResetForAftershock()
+        {
+            StopAllCoroutines();
+            m_InCombat = false;
+            m_IsPurified = false;
+            m_IsMonsterActive = false;
+            m_IsPlaced = false;
+            if (m_MonsterObject != null)
+                m_MonsterObject.SetActive(false);
+            if (m_PurpleAuraLight != null)
+            {
+                m_PurpleAuraLight.color = m_AftershockLightColor;
+                m_PurpleAuraLight.intensity = m_AftershockLightIntensity;
+            }
+            if (m_AutoPlaceOnStart)
+                PlaceCorruptedObject(transform.position, transform.rotation);
         }
 
         private void Start()

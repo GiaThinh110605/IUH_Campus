@@ -105,3 +105,10 @@ Môi trường: Windows, Unity 6000.5.8f1, MCP unityMCP, nhánh minhnhat/story-d
 - `ProjectSettings/EditorSettings.asset`: trả `Enter Play Mode Options` về tắt (Reload Domain and Scene) qua API Editor; không commit vì chỉ còn khác CRLF.
 - Kiểm chứng: compile 0 error; **EditMode 90/90, PlayMode 27/27 Pass** (toàn dự án). Console sau Play: 0 error; còn 4 cảnh báo "The referenced script (Unknown) on this Behaviour is missing!" lúc vào Play — không có GameObject nào trong scene thiếu script (`GetMonoBehavioursWithMissingScriptCount` = 0); nghi từ asset bên thứ ba/XR có sẵn trên main, chưa xử lý.
 - Mục 3–8 và 10 vẫn chờ người dùng chơi thử.
+
+## Aftershock 17/11/2026 — Task 7–8
+
+Base: 30e107a; Windows Unity 6000.5.8f1. Console ban đầu có 4 warning referenced script Unknown và các assert AABB có sẵn; ghi riêng, không coi là lỗi mới của task.
+Task 7: 4db7ac9, RED CS0246 thiếu AftershockSchedule; GREEN Story EditMode 22/22 (14464afc1100450d88007a0ee3c6e2b4), Console 0 error sau compile.
+Task 8: test RED thiếu ResetForAftershock (e516061d487f446ca195ae0d6cc65fb9), GREEN Match3+Story PlayMode 28/28 (d2e80eef02b04617b5db034a75d4b0b3). Chỉ thêm hai hàm reset và lưu màu/intensity đèn ở Awake AR.
+Kiểm runtime qua MCP: vào Garden, Flee rồi giả thắng bằng OnCombatVictory -> object tắt; SetActive(true) và reset cả hai component -> object bật; dịch người chơi lại gần, E qua Input System -> engaged=True (đang bắt đầu trận), không error. Chưa ghi Pass thắng trận thật; đây là giả thắng được kế hoạch cho phép. aftershock-reset-play.json. Save đã sao lưu ở aftershock-save-backup.txt để khôi phục sau lượt.
