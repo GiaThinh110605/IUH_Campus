@@ -229,3 +229,54 @@ Encounter **không** thuộc chương nào (giữ tắt trong truyện, bật l�
   11. Console 0 error suốt quá trình; Missing Script = 0.
 - [ ] **Step 2:** Ghi `README.md` (commit, ngày, Unity 6000.5.8f1, Windows, kết quả 11 mục, ảnh: `prologue.png`, `incident-night.png`, `chapter1-zone.png`, `purified.png`, `ending-fireworks.png`, `iphone12-dialogue.png`). Mục Fail ⇒ sửa (tối đa 3 vòng cho lỗi do code mới), lỗi ngoài phạm vi ⇒ dừng và báo.
 - [ ] **Step 3: Commit** — `git add Docs/Evidence/CampusGuardian/STORY`; `git commit -m "docs(story): add Dem Glitch playthrough evidence"`. **Không push** — báo người dùng để duyệt.
+
+---
+
+## Bổ sung 17/11/2026 — Dư chấn, z-fighting, AABB
+
+Spec: mục 10 của `Docs/superpowers/specs/2026-11-16-dem-glitch-story-design.md`. Ràng buộc chung giữ nguyên, trừ: được sửa `IUHMonsterEncounter.cs`, `IUHARCorruptedObjectEncounter.cs` (chỉ thêm hàm reset) và scene campus (chỉ phần z-fighting), vì Thịnh đã đồng ý.
+
+### Task 7: Lịch dư chấn thuần + test
+
+**Files:** Create `Scripts/Guardian/Story/Core/AftershockSchedule.cs`; Test `Scripts/Guardian/Story/Tests/Editor/AftershockScheduleTests.cs`.
+
+**Interfaces (namespace `IUHCampus.Guardian.Story`):**
+- `public sealed class AftershockSchedule`
+  - `AftershockSchedule(Func<double> random01, float firstDelay = 120f, float minDelay = 240f, float maxDelay = 360f)`
+  - `bool IsActive { get; }`, `float SecondsUntilNext { get; }`
+  - `bool Tick(float deltaSeconds, bool canCount)` — chỉ trừ thời gian khi `canCount && !IsActive`; trả `true` đúng một lần khi tới hạn và đặt `IsActive = true`.
+  - `void Complete()` — `IsActive = false`, hẹn lần sau = `minDelay + random01() * (maxDelay - minDelay)`.
+  - `static int PickZone(Func<double> random01, int zoneCount, int lastZone)` — khác `lastZone` khi `zoneCount > 1`.
+  - `static IReadOnlyList<string> PickEncounters(Func<double> random01, IReadOnlyList<string> names)` — 1 hoặc 2 tên khác nhau (1 nếu `names.Count == 1`).
+
+- [ ] Test (thất bại trước): `FirstAftershockAfter120Seconds` (Tick 119 ⇒ false, Tick 1 ⇒ true); `DoesNotCountWhenBlocked` (Tick 500 với canCount=false ⇒ false, `SecondsUntilNext` vẫn 120); `NoNewAftershockWhileActive`; `CompleteSchedulesWithinRange` (random 0 ⇒ 240, random 0.999 ⇒ < 360); `PickZoneAvoidsLast` (zoneCount 3, lastZone 1, random trả lần lượt 0, 0.34, 0.67, 0.99 ⇒ không bao giờ 1); `PickEncountersReturnsOneOrTwoDistinct`.
+- [ ] Cài đặt, test Pass, commit `feat(story): add aftershock schedule with tests` (kèm spec, plan, prompt `Docs/Prompts/Prompt_Story_Aftershock.md`).
+
+### Task 8: Hồi sinh encounter (code của Thịnh, đã được phép)
+
+**Files:** Modify `Scripts/Guardian/IUHMonsterEncounter.cs`, `Scripts/Guardian/AR/IUHARCorruptedObjectEncounter.cs`.
+
+- `IUHMonsterEncounter.ResetForAftershock()`: `m_IsDefeated = false; m_IsEncounterActive = false; m_TriggerCooldown = 0; m_RequireLeaveRange = true;` ẩn overhead/prompt; **không** tự `SetActive`.
+- `IUHARCorruptedObjectEncounter.ResetForAftershock()`: `StopAllCoroutines()`; `m_InCombat = m_IsPurified = m_IsMonsterActive = m_IsPlaced = false`; ẩn `m_MonsterObject`; trả màu/cường độ `m_PurpleAuraLight` về giá trị ghi lại ở `Awake`; nếu `m_AutoPlaceOnStart` thì gọi lại `PlaceCorruptedObject(transform.position, transform.rotation)` (chạy lại chuỗi khói → thức tỉnh khi người chơi lại gần). Chỉ gọi khi GameObject đã active.
+- Không đổi hành vi nào khác. Kiểm trong Play (execute_code): thắng hoặc giả thắng một encounter ⇒ `SetActive(true)` + `ResetForAftershock()` ⇒ lại gần/bấm E vào trận được; thắng thì encounter tắt như bình thường. Commit `feat(guardian): allow encounters to be reset for aftershocks`.
+
+### Task 9: Chế độ dư chấn trong director
+
+**Files:** Modify `IUHStoryScript.cs` + `StoryScript_DemGlitch.asset`, `IUHStoryWorldLock.cs`, `IUHStoryDirector.cs`; Test PlayMode trong `Story/Tests/PlayMode`, EditMode `StoryScriptSceneTests`.
+
+- `IUHStoryScript`: thêm `[Serializable] class AftershockZone { string id; string title; string[] encounterObjectNames; }`, `AftershockZone[] aftershockZones`, `string aftershockWarningFormat` (`{0}` = title), `string aftershockObjectiveFormat` (`Dư chấn: thanh tẩy {0} (còn {1} quái)`), `string aftershockClearedLine`, `int aftershockGold = 30`. Điền đúng bảng và lời thoại ở spec mục 10. Mở rộng `StoryScript_AllNamesExistInScene` cho tên trong `aftershockZones`.
+- `IUHStoryWorldLock.RestoreToys()`: trả trạng thái gốc chỉ cho `IUHCampusCombatManager`, `IUHHotAirBalloonController`, `IUHAerialFlightController`, `IUHEmergencyDroneSupplyManager`, GameObject `IUH_HOT_AIR_BALLOON`.
+- Director: kết truyện gọi `RestoreToys()` thay `RestoreAll(...)`, rồi vào chế độ dư chấn. `Start()` với save `Completed`: `CaptureAndLock()` → `RestoreToys()` → chế độ dư chấn (thay cho "không làm gì").
+- Chế độ dư chấn: coroutine 0.5 s gọi `schedule.Tick(0.5f, canCount)` (`canCount` theo spec mục 10). Tới hạn ⇒ `PickZone` → `PickEncounters` (bỏ tên thiếu trong scene) → mỗi encounter: `SetActive(true)` rồi `ResetForAftershock()` của cả hai component (nếu có) → vùng nhiễm, beacon, mục tiêu, thoại báo. Phát hiện thắng như chương (encounter đã bật mà `activeSelf == false` và không còn trận) ⇒ còn 0 ⇒ `Purify()`, `AddGold(aftershockGold)` **đúng một lần**, thoại xong, ẩn beacon/mục tiêu, `schedule.Complete()`.
+- Tắt `STORY_DIRECTOR` ⇒ game như `main` (giữ tiêu chí).
+- PlayMode test: `CompletedSaveKeepsMonstersLockedAndToysOn` (dựng như các test WorldLock hiện có).
+- Kiểm tay qua MCP (được tạm rút ngắn `firstDelay` bằng execute_code, không commit giá trị rút ngắn): sau kết truyện không có `IUHMonsterAI`/`IUHFlyingMonsterAI` active, bắn súng + khinh khí cầu dùng được; dư chấn xuất hiện đúng 1 khu, 1–2 quái; thắng ⇒ +30 Gold đúng một lần; dư chấn kế tiếp ở khu khác.
+- Commit `feat(story): add controlled GLITCH aftershocks after the ending`.
+
+### Task 10: Mặt đất nhấp nháy + lỗi AABB
+
+- **Z-fighting:** lệnh dò (execute_code, không commit) quét `MeshRenderer` của scene campus có bounds dẹt (`size.y < 0.05`), tìm các cặp chồng nhau trên XZ với chênh lệch mặt trên `< 0.003 m`. Báo danh sách cặp (đường dẫn, vị trí). Ưu tiên khu kết truyện (ảnh người dùng: sân lát gạch cạnh bồn hoa trắng và ghế, gần sân đấu phía bắc). Sửa: bản trùng hoàn toàn (cùng mesh, cùng transform) ⇒ tắt GameObject trùng; khác mesh ⇒ nâng mặt nằm trên +0.01 m. Lưu scene; stage **chỉ** các hunk này bằng patch như Task 5 (6 dòng font giữ nguyên). Quá 10 cặp ⇒ sửa cặp ở khu kết truyện, ghi phần còn lại vào README và báo. Commit `fix(scene): remove ground z-fighting near the north plaza`.
+- **AABB:** tạm gắn `Application.logMessageReceived` (không commit): khi gặp `Invalid worldAABB`/`Invalid localAABB`, quét mọi `Renderer` có `transform.position`/`lossyScale` hoặc `bounds` không hữu hạn, log đường dẫn + component một lần. Tái hiện bằng cách chơi tới kết truyện (được dùng execute_code để thắng nhanh các chương). Tìm nơi gán NaN, sửa tại gốc (commit riêng, tối thiểu). Nguồn nằm ngoài code đã được phép sửa ⇒ dừng và báo.
+
+### Kiểm chứng cuối
+EditMode + PlayMode toàn dự án Pass, Backend tests Pass, Console 0 error (ghi riêng 4 cảnh báo "referenced script (Unknown)" có sẵn từ trước), Missing Script = 0. Cập nhật README bằng chứng. Không push.

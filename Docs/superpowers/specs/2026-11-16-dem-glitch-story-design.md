@@ -135,3 +135,27 @@ Tắt object `STORY_DIRECTOR` → director không chạy → mọi thứ như hi
 - PlayMode thủ công có ghi bằng chứng (`Docs/Evidence/CampusGuardian/STORY/`): ảnh từng giai đoạn; xác nhận
   không quái nào trước biến cố; thắng → chuyển chương; thoát giữa chương → vào lại đúng chương; tắt
   `STORY_DIRECTOR` → game như cũ. Console 0 error, Missing Script = 0.
+
+## 10. Bổ sung 17/11/2026 — "Dư chấn GLITCH" sau khi phá đảo (người dùng duyệt)
+
+**Vì sao:** chơi thử cho thấy "trả mọi thứ về như cũ" sau kết truyện (mục 6.2 bước 6) làm quái spawn tràn lan. Thay bằng dư chấn có kiểm soát.
+
+**Thay đổi mục 6.2 bước 6:** sau màn kết, **không** `RestoreAll`. Chỉ bật lại "đồ chơi": `IUHCampusCombatManager`, `IUHHotAirBalloonController`, `IUHAerialFlightController`, GameObject `IUH_HOT_AIR_BALLOON`, `IUHEmergencyDroneSupplyManager`. Vẫn khóa: mọi `IUHMonsterAI`, `IUHFlyingMonsterAI`, `IUHBuildingMonsterSpawner`, `IUHCampusZoneDirector`, và mọi encounter match-3 (trừ khi dư chấn bật).
+
+**Nhịp:** dư chấn đầu 120 s sau kết (hoặc sau khi mở game với save `Completed`); các lần sau ngẫu nhiên 240–360 s. Đồng hồ chỉ chạy khi không đánh match-3 (`BlocksExplorationInput == false`), shop đóng (`IUHUpgradeShopUI.IsOpen == false`), `Time.timeScale > 0`, khung thoại không bận. Mỗi lúc tối đa 1 dư chấn; chưa xong thì không đếm.
+
+**Một dư chấn:** chọn ngẫu nhiên 1 khu (khác khu lần trước) → chọn ngẫu nhiên 1–2 encounter của khu → hồi sinh chúng → Core-Bot báo, sương tím, beacon, mục tiêu "Dư chấn: thanh tẩy <khu> (còn N quái)" → thắng hết ⇒ sương tan, **+30 Gold** qua `IUHGuardianInventory.AddGold(30)`, thoại xong. Kết quả trận vẫn gửi backend như thường.
+
+| Khu | Encounter |
+|---|---|
+| Nhà E | `CORRUPTED_ENCOUNTER_BUILDING_E`, `CORRUPTED_ENCOUNTER_SPORTS` |
+| Canteen & Vườn | `MONSTER_02_ORC`, `CORRUPTED_ENCOUNTER_GARDEN`, `CORRUPTED_ENCOUNTER_CANTEEN` |
+| Sân chính | `MONSTER_01_BLUEDEMON`, `MONSTER_03_PHANTOM`, `CORRUPTED_ENCOUNTER_FOUNTAIN`, `MONSTER_05_CORRUPTED_BACKPACK` |
+
+Trùm không dùng cho dư chấn. Dư chấn không lưu: thoát giữa chừng thì lần mở sau đếm lại từ 120 s.
+
+**Hồi sinh encounter:** thêm hàm công khai vào code của Thịnh (Thịnh đồng ý sửa phần của Thịnh): `IUHMonsterEncounter.ResetForAftershock()` và `IUHARCorruptedObjectEncounter.ResetForAftershock()`, đưa encounter về trạng thái như lúc mới vào scene.
+
+**Lời thoại:** báo `Phát hiện tín hiệu GLITCH còn sót ở {khu}! Đến đó thanh tẩy ngay.` · xong `Dư chấn đã được dập tắt. +30 Gold cho Guardian!`
+
+**Kèm lượt này:** sửa mặt đất nhấp nháy (z-fighting) ở khu kết truyện; tìm và sửa nguồn lỗi `Invalid worldAABB / localAABB` (transform NaN).
