@@ -139,6 +139,10 @@ namespace StarterAssets
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                if (_mainCamera == null && Camera.main != null)
+                {
+                    _mainCamera = Camera.main.gameObject;
+                }
             }
         }
 
@@ -255,21 +259,46 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
+        private float _ungroundedTimer = 0f;
+
         private void GroundedCheck()
         {
-            // set sphere position, with offset ensuring it checks near the base of the character
-            float effectiveOffset = Mathf.Abs(GroundedOffset);
-            if (effectiveOffset < 0.05f) effectiveOffset = 0.14f;
+            // Kiểm tra tiếp xúc mặt đất vững chắc từ độ cao 0.40m trên chân xuống dưới 0.45m dưới chân (tổng chiều dài quét 0.85m)
+            Vector3 startPos = transform.position + Vector3.up * 0.40f;
+            float checkDist = 0.85f;
+            
+            bool rayHit = Physics.Raycast(startPos, Vector3.down, checkDist, ~0, QueryTriggerInteraction.Ignore);
+            bool ccHit = (_controller != null && _controller.isGrounded);
+            
+            // SphereCast hình cầu bán kính 0.22m để bao quát bề mặt gồ ghề, rãnh gạch và bậc hè
+            bool sphereHit = Physics.SphereCast(startPos, 0.22f, Vector3.down, out RaycastHit _, 0.55f, ~0, QueryTriggerInteraction.Ignore);
 
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - effectiveOffset,
-                transform.position.z);
-            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-                QueryTriggerInteraction.Ignore);
+            bool physicallyOnGround = rayHit || ccHit || sphereHit;
 
-            // Robust fallback if character is on stairs, ramps, or slightly uneven ground
-            if (!Grounded && _controller != null)
+            // Cơ chế Hysteresis chống giật/rung (Grounded flicker):
+            // Giữ Grounded khi nhân vật bước qua gờ nhỏ, cầu thang, dốc nhẹ
+            // Chỉ mất Grounded khi nhân vật thực sự rời đất liên tục > 0.25s HOẶC đang chủ động nhảy vút lên cao (_verticalVelocity > 0.5f)
+            if (physicallyOnGround)
             {
-                Grounded = _controller.isGrounded || Physics.Raycast(transform.position + Vector3.up * 0.25f, Vector3.down, 0.45f, GroundLayers, QueryTriggerInteraction.Ignore);
+                _ungroundedTimer = 0f;
+                Grounded = true;
+            }
+            else if (_verticalVelocity > 0.5f) // Đang chủ động nhảy
+            {
+                Grounded = false;
+            }
+            else
+            {
+                _ungroundedTimer += Time.deltaTime;
+                if (_ungroundedTimer > 0.25f)
+                {
+                    Grounded = false;
+                }
+                else
+                {
+                    // Giữ nguyên Grounded khi bước qua gờ nhỏ / cầu thang / mặt đường dốc nhẹ để không giật rung animation
+                    Grounded = true;
+                }
             }
 
             // update animator if using character
@@ -281,6 +310,13 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            // Trên Mobile: CHỈ xoay camera khi người chơi đang chủ động vuốt trên TouchLookZone
+            // Loại bỏ hoàn toàn mọi rung chuyển vi cảm ứng hoặc chạm nhầm khi ngón tay nghỉ / chạm nút
+            if (Application.isMobilePlatform && !StarterAssetsInputs.IsTouchLookActive)
+            {
+                if (_input != null) _input.look = Vector2.zero;
+            }
+
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -297,8 +333,11 @@ namespace StarterAssets
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
             // Cinemachine will follow this target
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            if (CinemachineCameraTarget != null)
+            {
+                CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+                    _cinemachineTargetYaw, 0.0f);
+            }
         }
 
         private void Move()
@@ -328,8 +367,14 @@ namespace StarterAssets
             }
             catch {}
 
+            // Deadzone nhạy: 0.005f (~7% bán kính joystick) loại bỏ rung cảm ứng vi mô nhưng phản hồi tức thì, không bị khựng giữa chừng
+            if (moveDir.sqrMagnitude < 0.005f)
+            {
+                moveDir = Vector2.zero;
+            }
+
             // Track continuous movement for Hold-to-Run
-            if (moveDir.sqrMagnitude > 0.04f)
+            if (moveDir != Vector2.zero)
             {
                 _moveHoldTimer += Time.deltaTime;
             }
@@ -353,69 +398,67 @@ namespace StarterAssets
 
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = shouldSprint ? SprintSpeed : MoveSpeed;
-
-            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
-            // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is no input, set the target speed to 0
             if (moveDir == Vector2.zero) targetSpeed = 0.0f;
 
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float speedOffset = 0.1f;
             float inputMagnitude = (_input != null && _input.analogMovement) ? moveDir.magnitude : 1f;
+            float desiredSpeed = targetSpeed * inputMagnitude;
 
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * SpeedChangeRate);
-
-                // round speed to 3 decimal places
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
-
-            // Zero movement speeds are an explicit lock (for example, Photo Hunter aiming).
+            // Tăng giảm tốc độ mượt mà, tốc độ chuyển đổi nhanh hơn giúp nhân vật lướt tự nhiên
+            _speed = Mathf.MoveTowards(_speed, desiredSpeed, Time.deltaTime * SpeedChangeRate * 4.0f);
             if (MoveSpeed <= 0f && SprintSpeed <= 0f) _speed = 0f;
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            // normalise input direction
-            Vector3 inputDirection = new Vector3(moveDir.x, 0.0f, moveDir.y).normalized;
+            _animationBlend = Mathf.MoveTowards(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate * 3.0f);
 
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
+            // Hướng di chuyển tính toán theo camera yaw
+            Vector3 targetDirection = Vector3.zero;
+
+            // Xoay nhân vật mượt mà theo hướng camera khi có input di chuyển
             if (moveDir != Vector2.zero)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+                Vector3 inputDirection = new Vector3(moveDir.x, 0.0f, moveDir.y).normalized;
+
+                // Sử dụng _cinemachineTargetYaw ổn định để loại bỏ hoàn toàn vòng lặp rung trễ 1-frame giữa Camera và Player
+                float camYaw = _cinemachineTargetYaw;
+                if (Mathf.Abs(camYaw) < 0.001f && _mainCamera != null)
+                {
+                    camYaw = _mainCamera.transform.eulerAngles.y;
+                }
+
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + camYaw;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
-                // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
             }
 
+            // Luôn giữ CinemachineCameraTarget cố định theo góc nhìn Camera (dù đứng yên hay di chuyển),
+            // triệt tiêu hoàn toàn rung giật 1-frame do quan hệ cha-con giữa PlayerArmature và CameraTarget
+            if (CinemachineCameraTarget != null)
+            {
+                CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+                    _cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+            }
 
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            // Khi đứng yên hoàn toàn trên mặt đất (không chạm cần di chuyển, vận tốc = 0, đã tiếp đất vững):
+            // TUYỆT ĐỐI KHÔNG GỌI _controller.Move() để capsule và camera tĩnh tuyệt đối 100%, không bị PhysX depenetration rung 60Hz!
+            bool isCompletelyStationary = (moveDir == Vector2.zero && _speed < 0.005f && Grounded && Mathf.Abs(_verticalVelocity) < 0.001f);
+            if (!isCompletelyStationary)
+            {
+                // Khi di chuyển, sử dụng targetDirection trực tiếp để nhân vật phản hồi tức thì và không bị khựng vào vật cản khi quay đầu
+                Vector3 moveVector = (moveDir != Vector2.zero && targetDirection.sqrMagnitude > 0.001f)
+                    ? targetDirection.normalized * (_speed * Time.deltaTime)
+                    : transform.forward * (_speed * Time.deltaTime);
 
-            // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+                moveVector.y = _verticalVelocity * Time.deltaTime;
+                _controller.Move(moveVector);
+            }
 
-            // update animator if using character
+            // Cập nhật animator ổn định không giật bước chân
             if (_hasAnimator)
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetFloat(_animIDMotionSpeed, moveDir == Vector2.zero ? 0f : 1f);
             }
         }
 
@@ -446,10 +489,21 @@ namespace StarterAssets
                     _animator.SetBool(_animIDFreeFall, false);
                 }
 
-                // stop our velocity dropping infinitely when grounded
+                // Khi chạm đất:
+                // Nếu đang đứng yên (không di chuyển): triệt tiêu hoàn toàn vận tốc âm (_verticalVelocity = 0f)
+                // để CharacterController không dập capsule liên tục xuống sàn gây rung lắc vi mô!
+                // Khi đang di chuyển: nén bám mặt đất (-2.5f) để bám chặt mọi dốc, bậc thang, lề đường mà không bị mất tiếp xúc làm đứng khựng lại!
                 if (_verticalVelocity < 0.0f)
                 {
-                    _verticalVelocity = -2f;
+                    Vector2 curMove = _input != null ? _input.move : Vector2.zero;
+                    if (curMove.sqrMagnitude < 0.005f && _speed < 0.01f)
+                    {
+                        _verticalVelocity = 0.0f;
+                    }
+                    else
+                    {
+                        _verticalVelocity = -2.5f;
+                    }
                 }
 
                 // Jump
@@ -495,8 +549,9 @@ namespace StarterAssets
                 if (_input != null) _input.jump = false;
             }
 
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (_verticalVelocity < _terminalVelocity)
+            // CHỈ áp dụng gia tốc trọng trường khi nhân vật THỰC SỰ ở trên không (!Grounded),
+            // Không dồn tích lũy trọng lực khi đang tiếp đất để tránh làm kẹt PhysX slope limit khiến nhân vật tự dừng đột ngột
+            if (!Grounded && _verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }

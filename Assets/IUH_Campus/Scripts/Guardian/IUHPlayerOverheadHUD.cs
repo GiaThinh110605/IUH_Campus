@@ -25,6 +25,12 @@ namespace IUHCampus.Guardian
         private void Awake()
         {
             Instance = this;
+            gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            gameObject.SetActive(false);
         }
 
         public void SetHp(int current, int max)
