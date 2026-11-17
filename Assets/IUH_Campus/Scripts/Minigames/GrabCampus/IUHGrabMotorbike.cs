@@ -46,6 +46,8 @@ namespace IUHCampus.Minigames.GrabCampus
         private bool m_IsBraking = false;
         private bool m_IsTurbo = false;
         private float m_GhostSlowdownTimer = 0f;
+        private bool m_IdleGroundChecked = false;
+        private bool m_ParkedWithoutGround = false;
 
         private GameObject m_PlayerOriginal;
 
@@ -223,6 +225,7 @@ namespace IUHCampus.Minigames.GrabCampus
         {
             m_PlayerOriginal = player;
             m_IsMounted = true;
+            m_IdleGroundChecked = false;
 
             if (m_PlayerOriginal != null)
             {
@@ -258,6 +261,7 @@ namespace IUHCampus.Minigames.GrabCampus
         public void DismountVehicle()
         {
             m_IsMounted = false;
+            m_IdleGroundChecked = false;
 
             if (m_EngineAudio != null && m_EngineAudio.isPlaying)
             {
@@ -408,6 +412,15 @@ namespace IUHCampus.Minigames.GrabCampus
 
         private void ApplyGravityWhenIdle()
         {
+            // A parked bike with no collider beneath it (e.g. the Grab road area is not loaded)
+            // would fall, get recovered and fall again every frame. Hold it in place instead.
+            if (!m_IdleGroundChecked)
+            {
+                m_IdleGroundChecked = true;
+                m_ParkedWithoutGround = !HasGroundBelow();
+            }
+            if (m_ParkedWithoutGround) return;
+
             if (transform.position.y < -0.2f)
             {
                 RecoverToSafety();
@@ -419,6 +432,16 @@ namespace IUHCampus.Minigames.GrabCampus
                 float yVel = m_CharController.isGrounded ? -2.0f : -9.81f;
                 m_CharController.Move(new Vector3(0f, yVel * Time.deltaTime, 0f));
             }
+        }
+
+        private bool HasGroundBelow()
+        {
+            Vector3 origin = transform.position + Vector3.up * 2f;
+            foreach (var hit in Physics.RaycastAll(origin, Vector3.down, 60f, ~0, QueryTriggerInteraction.Ignore))
+            {
+                if (!hit.transform.IsChildOf(transform)) return true;
+            }
+            return false;
         }
 
         private void UpdateVisualsAndLeaning()

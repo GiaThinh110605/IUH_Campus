@@ -96,8 +96,8 @@ namespace IUHCampus.Guardian.Match3
             else if (Instance != this) { Destroy(gameObject); return; }
 
             if (m_SkillButton != null) m_SkillButton.onClick.AddListener(OnSkillButtonClicked);
-            if (m_BtnRetryVictory != null) m_BtnRetryVictory.onClick.AddListener(StartNewCombat);
-            if (m_BtnRetryDefeat != null) m_BtnRetryDefeat.onClick.AddListener(StartNewCombat);
+            if (m_BtnRetryVictory != null) m_BtnRetryVictory.onClick.AddListener(RetryCombat);
+            if (m_BtnRetryDefeat != null) m_BtnRetryDefeat.onClick.AddListener(RetryCombat);
             if (m_BtnCloseVictory != null) m_BtnCloseVictory.onClick.AddListener(OnCloseVictoryClicked);
             if (m_BtnFleeDefeat != null) m_BtnFleeDefeat.onClick.AddListener(Flee);
             if (m_Stage == null) m_Stage = GetComponent<Match3BattleStage>();
@@ -143,6 +143,11 @@ namespace IUHCampus.Guardian.Match3
 
         public void StartNewCombat()
         {
+            if (m_IsEngaged)
+            {
+                Debug.LogWarning("[IUH Guardian] StartNewCombat ignored: a fight is already in progress.");
+                return;
+            }
             m_OutcomeReported = false;
             m_VictoryRewardProcessed = false;
             m_VictoryRewardClaimed = false;
@@ -154,6 +159,13 @@ namespace IUHCampus.Guardian.Match3
             gameObject.SetActive(true);
             EnsureInCombatExitButton();
             StartCoroutine(BeginCombatRoutine());
+        }
+
+        private void RetryCombat()
+        {
+            if (m_OutcomeReported && !m_IsCombatActive)
+                m_IsEngaged = false;
+            StartNewCombat();
         }
 
         private void EnsureInCombatExitButton()
@@ -236,6 +248,7 @@ namespace IUHCampus.Guardian.Match3
         /// <summary>Leave the fight without winning (Esc, or the defeat modal's button).</summary>
         public void Flee()
         {
+            ReportOutcome(false);
             StopAllCoroutines();
             m_IsCombatActive = false;
             m_IsEngaged = false;

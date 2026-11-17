@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "Retrieved 1 log entries.",
+  "data": [
+    {
+      "type": "Log",
+      "message": "[Diag] StartNewCombat engaged=False enc=MONSTER_02_ORC",
+      "file": "Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs",
+      "line": 146,
+      "stackTrace": "  at System.Environment.get_StackTrace () [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 \n  at IUHCampus.Guardian.Match3.Match3CombatManager.StartNewCombat () [0x00000] in D:\\IUH\\CongNgheMoi\\CK\\IUH_Campus\\Assets\\IUH_Campus\\Scripts\\Guardian\\Match3\\Match3CombatManager.cs:146 \n  at IUHCampus.Guardian.IUHMonsterEncounter.TriggerCombat () [0x000c6] in D:\\IUH\\CongNgheMoi\\CK\\IUH_Campus\\Assets\\IUH_Campus\\Scripts\\Guardian\\IUHMonsterEncounter.cs:243 \n  at IUHCampus.Guardian.IUHMonsterEncounter.Update () [0x001eb] in D:\\IUH\\CongNgheMoi\\CK\\IUH_Campus\\Assets\\IUH_Campus\\Scripts\\Guardian\\IUHMonsterEncounter.cs:214 \nUnityEngine.Debug:Log (object)\nIUHCampus.Guardian.Match3.Match3CombatManager:StartNewCombat () (at Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs:146)\nIUHCampus.Guardian.IUHMonsterEncounter:TriggerCombat () (at Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs:243)\nIUHCampus.Guardian.IUHMonsterEncounter:Update () (at Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs:214)\n"
+    }
+  ]
+}

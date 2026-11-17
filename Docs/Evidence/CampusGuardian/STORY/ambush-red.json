@@ -1,0 +1,1 @@
+﻿{"stage":"before fix","waitSeconds":1.2,"groundActiveInHierarchy":2,"playerAfterWait":"(18.53,0.10,-15.53)","ambushCenter":"(18,0.1,-15)","result":"FAIL: monsters active while story world lock is applied","environment":"Windows Unity 6000.5.8f1 MCP, 2026-11-16"}

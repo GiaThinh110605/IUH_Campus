@@ -1,0 +1,10 @@
+{
+    "name": "IUHCampus.Guardian.Story.PlayModeTests",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "references": [
+        "IUHCampus.Guardian.Story.Core",
+        "IUHCampus.Guardian.Story.Data"
+    ]
+}

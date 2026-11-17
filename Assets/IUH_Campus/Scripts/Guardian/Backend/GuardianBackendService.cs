@@ -18,7 +18,6 @@ namespace IUHCampus.Guardian.Backend
         {
             if (owner != null && owner != this) { Destroy(this); return; }
             owner = this;
-            DontDestroyOnLoad(gameObject);
             if (config == null) { config = ScriptableObject.CreateInstance<GuardianBackendConfig>(); ownsConfig = true; }
             Client = new GuardianApiClient(config);
             Outbox = new GuardianEventOutbox(config, Client);

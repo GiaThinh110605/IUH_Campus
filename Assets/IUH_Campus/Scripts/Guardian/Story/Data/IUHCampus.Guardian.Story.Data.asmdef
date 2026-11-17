@@ -1,0 +1,6 @@
+﻿{
+    "name": "IUHCampus.Guardian.Story.Data",
+    "references": [
+        "IUHCampus.Guardian.Story.Core"
+    ]
+}

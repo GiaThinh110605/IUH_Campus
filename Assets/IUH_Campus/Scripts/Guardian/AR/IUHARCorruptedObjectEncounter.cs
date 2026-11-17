@@ -64,6 +64,8 @@ namespace IUHCampus.Guardian.AR
         private GameObject m_ActiveCorruptedObject;
         private Camera m_ARCamera;
         private Transform m_PlayerTransform;
+        private Color m_AftershockLightColor;
+        private float m_AftershockLightIntensity;
         private float m_ProximityTimer = 0f;
         private const float PROXIMITY_TRIGGER_SECONDS = 5.0f;
 
@@ -76,7 +78,32 @@ namespace IUHCampus.Guardian.AR
             if (Instance == null) Instance = this;
             m_ARCamera = Camera.main;
 
+            if (m_PurpleAuraLight != null)
+            {
+                m_AftershockLightColor = m_PurpleAuraLight.color;
+                m_AftershockLightIntensity = m_PurpleAuraLight.intensity;
+            }
+
             InitializeObjectSlots();
+        }
+
+        public void ResetForAftershock()
+        {
+            StopAllCoroutines();
+            m_InCombat = false;
+            m_ProximityTimer = 0f;
+            m_IsPurified = false;
+            m_IsMonsterActive = false;
+            m_IsPlaced = false;
+            if (m_MonsterObject != null)
+                m_MonsterObject.SetActive(false);
+            if (m_PurpleAuraLight != null)
+            {
+                m_PurpleAuraLight.color = m_AftershockLightColor;
+                m_PurpleAuraLight.intensity = m_AftershockLightIntensity;
+            }
+            if (m_AutoPlaceOnStart)
+                PlaceCorruptedObject(transform.position, transform.rotation);
         }
 
         private void Start()
@@ -330,6 +357,8 @@ namespace IUHCampus.Guardian.AR
         public void StartCombatEncounter()
         {
             if (m_InCombat || m_IsPurified) return;
+            // Another fight (or this monster's own IUHMonsterEncounter) already owns the board.
+            if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput) return;
             m_InCombat = true;
 
             if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(false);
@@ -358,6 +387,9 @@ namespace IUHCampus.Guardian.AR
 
         private void OnMatch3CombatFinished(IUHMonsterEncounter encounter, bool victory)
         {
+            // Only react to this monster's own fight; keep listening otherwise.
+            if (encounter != GetComponent<IUHMonsterEncounter>()) return;
+
             if (m_CombatManager != null)
             {
                 m_CombatManager.CombatFinished -= OnMatch3CombatFinished;

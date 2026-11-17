@@ -95,6 +95,18 @@ namespace IUHCampus.Guardian
             return sb.ToString().TrimEnd();
         }
 
+        public void ResetForAftershock()
+        {
+            m_IsDefeated = false;
+            m_IsEncounterActive = false;
+            m_TriggerCooldown = 0f;
+            m_RequireLeaveRange = true;
+            if (m_MonsterOverheadCanvas != null)
+                m_MonsterOverheadCanvas.SetActive(false);
+            if (m_ActionPromptObject != null)
+                m_ActionPromptObject.SetActive(false);
+        }
+
         private void Start()
         {
             FindPlayer();

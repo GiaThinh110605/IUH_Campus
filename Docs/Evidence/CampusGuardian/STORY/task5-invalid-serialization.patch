@@ -1,0 +1,115 @@
+diff --git a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+index 0d5e6eb..e94411c 100644
+--- a/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
++++ b/Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity
+@@ -4036,7 +4036,7 @@ MonoBehaviour:
+     m_FontSize: 7
+     m_FontStyle: 0
+     m_BestFit: 0
+-    m_MinSize: 10
++    m_MinSize: 7
+     m_MaxSize: 40
+     m_Alignment: 4
+     m_AlignByGeometry: 0
+@@ -4313,7 +4313,7 @@ MonoBehaviour:
+     m_FontStyle: 3
+     m_BestFit: 0
+     m_MinSize: 10
+-    m_MaxSize: 40
++    m_MaxSize: 78
+     m_Alignment: 4
+     m_AlignByGeometry: 0
+     m_RichText: 1
+@@ -4933,7 +4933,7 @@ MonoBehaviour:
+     m_FontSize: 6
+     m_FontStyle: 0
+     m_BestFit: 0
+-    m_MinSize: 10
++    m_MinSize: 6
+     m_MaxSize: 40
+     m_Alignment: 4
+     m_AlignByGeometry: 0
+@@ -99276,7 +99276,7 @@ MonoBehaviour:
+     m_FontSize: 9
+     m_FontStyle: 0
+     m_BestFit: 0
+-    m_MinSize: 10
++    m_MinSize: 9
+     m_MaxSize: 40
+     m_Alignment: 4
+     m_AlignByGeometry: 0
+@@ -103565,6 +103565,51 @@ SphereCollider:
+   serializedVersion: 3
+   m_Radius: 1.8
+   m_Center: {x: 0, y: 1, z: 0}
++--- !u!1 &1318671349
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 1318671351}
++  - component: {fileID: 1318671350}
++  m_Layer: 0
++  m_Name: STORY_DIRECTOR
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!114 &1318671350
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1318671349}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 0}
++  m_Name: 
++  m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.Story.IUHStoryDirector
++  m_Script: {fileID: 0}
++--- !u!4 &1318671351
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1318671349}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children: []
++  m_Father: {fileID: 0}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+ --- !u!1 &1318959054
+ GameObject:
+   m_ObjectHideFlags: 0
+@@ -146560,7 +146605,7 @@ MonoBehaviour:
+     m_FontStyle: 3
+     m_BestFit: 0
+     m_MinSize: 10
+-    m_MaxSize: 40
++    m_MaxSize: 46
+     m_Alignment: 4
+     m_AlignByGeometry: 0
+     m_RichText: 1
+@@ -166879,7 +166924,7 @@ MonoBehaviour:
+     m_FontSize: 6
+     m_FontStyle: 0
+     m_BestFit: 0
+-    m_MinSize: 10
++    m_MinSize: 6
+     m_MaxSize: 40
+     m_Alignment: 4
+     m_AlignByGeometry: 0
+@@ -191215,3 +191260,4 @@ SceneRoots:
+   - {fileID: 2070369838}
+   - {fileID: 2080727151}
+   - {fileID: 1729400722}
++  - {fileID: 1318671351}

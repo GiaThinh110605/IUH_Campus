@@ -1,0 +1,19 @@
+﻿[Diag] StartNewCombat engaged=True enc=CORRUPTED_ENCOUNTER_GARDEN
+  at System.Environment.get_StackTrace () [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at IUHCampus.Guardian.Match3.Match3CombatManager.StartNewCombat () [0x00000] in D:\IUH\CongNgheMoi\CK\IUH_Campus\Assets\IUH_Campus\Scripts\Guardian\Match3\Match3CombatManager.cs:146 
+  at IUHCampus.Guardian.AR.IUHARCorruptedObjectEncounter.StartCombatEncounter () [0x000a9] in D:\IUH\CongNgheMoi\CK\IUH_Campus\Assets\IUH_Campus\Scripts\Guardian\AR\IUHARCorruptedObjectEncounter.cs:331 
+  at IUHCampus.Guardian.AR.IUHARCorruptedObjectEncounter.HandleEngagementInput () [0x0017c] in D:\IUH\CongNgheMoi\CK\IUH_Campus\Assets\IUH_Campus\Scripts\Guardian\AR\IUHARCorruptedObjectEncounter.cs:171 
+  at IUHCampus.Guardian.AR.IUHARCorruptedObjectEncounter.Update () [0x0006b] in D:\IUH\CongNgheMoi\CK\IUH_Campus\Assets\IUH_Campus\Scripts\Guardian\AR\IUHARCorruptedObjectEncounter.cs:122 
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+IUHCampus.Guardian.Match3.Match3CombatManager:StartNewCombat () (at Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs:146)
+IUHCampus.Guardian.AR.IUHARCorruptedObjectEncounter:StartCombatEncounter () (at Assets/IUH_Campus/Scripts/Guardian/AR/IUHARCorruptedObjectEncounter.cs:331)
+IUHCampus.Guardian.AR.IUHARCorruptedObjectEncounter:HandleEngagementInput () (at Assets/IUH_Campus/Scripts/Guardian/AR/IUHARCorruptedObjectEncounter.cs:171)
+IUHCampus.Guardian.AR.IUHARCorruptedObjectEncounter:Update () (at Assets/IUH_Campus/Scripts/Guardian/AR/IUHARCorruptedObjectEncounter.cs:122)
+
+(Filename: Assets/IUH_Campus/Scripts/Guardian/Match3/Match3CombatManager.cs Line: 146)
+
