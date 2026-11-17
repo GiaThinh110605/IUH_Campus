@@ -124,3 +124,40 @@ Rút ngắn runtime schedule xuống firstDelay=1 (không đổi code 120): khu 
 Quét 43 MeshRenderer active/enabled của campus có bounds.size.y<0.05: đúng1 cặp chồng XZ/top gap<0.003: CAMPUS_ADVENTURE_SHARED_WORLD/Plaza paving_0/Sandstone paving và Paving pale. Mesh khác nhau; nâng Sandstone +0.01m. Top separation sau sửa=0.009999998m. Không sửa mesh/material asset. Patch z-fighting-fix.patch chỉ thay localPosition.y 0 -> 0.01 của GameObject fileID419868310. Cached chỉ1 hunk này, unstaged vẫn đúng6 thay đổi font.
 Lỗi patch đầu do thêm thừa dòng trống cuối hunk (CRCount=0, trailingLF=2), không phải CRLF. Đã trim dòng thừa, check --cached --check --recount Pass, rồi apply cùng quy trình. Bản patch lỗi giữ ở z-fighting-fix-unapplied.patch để đối chiếu, không áp dụng.
 EditMode toàn dự án 96/96 Pass (e92eba7eb31f465bbbed2578de2f3024), gồm Backend58 và Story22. AABB chưa kết luận.
+
+## Kết quả cuối lượt Aftershock — 17/11/2026
+
+| Task | Commit | Kết quả |
+|---|---|---|
+| 7 — lịch dư chấn | 4db7ac9 | Story EditMode 22/22 Pass, gồm 6 test lịch mới |
+| 8 — reset encounter | 724cb4d | PlayMode Match3+Story 28/28 Pass; fake victory tắt encounter, reset bật lại, E đưa manager vào engaged |
+| 9 — director/dữ liệu dư chấn | b71a704 | Story EditMode22, PlayMode29 Pass; Completed khóa quái, toys bật; 1 khu/1–2 encounter; fake clear +30 một lần; khu sau khác |
+| 10 — z-fighting | 8a7eb68 | Chỉ nâng Sandstone paving +0.01m; 6 hunk font vẫn không stage |
+
+Test cuối toàn dự án: **EditMode 96/96 Pass** (e92eba7eb31f465bbbed2578de2f3024), **PlayMode 29/29 Pass** (62d21af92cdf47a382006da3b2687570); Backend **58/58** nằm trong EditMode96. Không có lỗi compile mới. Console cuối 0 error; 4 warning `referenced script (Unknown)` có sẵn được ghi riêng, không xóa asset để xử lý cảnh báo. Sau thoát Play: Missing Script=0, isDirty=false. Rà soát độc lập tĩnh không phát hiện lỗi mới quan trọng/chặn.
+
+### Bảng kiểm tay Task 8–9
+
+| Kiểm tra | Kết quả | Phạm vi |
+|---|---|---|
+| Fake thắng -> encounter tắt | Pass | Gọi OnCombatVictory trong Play qua MCP |
+| Bật object/reset hai component -> E vào lại | Pass | Manager engaged=True; kiểm trong pha bắt đầu trận, chưa thắng bằng bàn cờ |
+| Completed không còn quái mặt đất/bay hay encounter bật | Pass | Đếm runtime ground0/flying0/encounter0 |
+| Combat manager/balloon được bật | Pass | enabled=True, balloon active=True |
+| Thực sự bắn/lái khinh khí cầu bằng bàn phím/chạm | Chưa kiểm | Không dùng trạng thái enabled để kết luận thao tác đã Pass |
+| Dư chấn một khu, 1–2 encounter | Pass | Khu0 có1 SPORTS; khu2 có2 BACKPACK/FOUNTAIN |
+| Clear +30 Gold đúng một lần | Pass với fake victory | 1738 ->1768 và ổn định; không đánh thắng bàn cờ |
+| Khu sau khác khu trước | Pass | 0 ->2 |
+| Thắng AR thực tế/backend toàn luồng dư chấn | Chưa kiểm toàn bộ | Không giả định fake victory đã xác nhận toàn luồng AR |
+
+### AABB — chưa tái hiện, CHƯA SỬA
+
+Trước lượt có sẵn Invalid worldAABB/localAABB và Invalid AABB a/aabb/b0. Đã gắn Application.logMessageReceived tạm bằng execute_code (không tạo/commit script), chỉ khi gặp AABB mới quét Transform position/lossyScale và Renderer bounds không hữu hạn; có guard chống callback đệ quy và deduplicate đường dẫn. Handler sẽ ghi aabb-runtime.txt nếu có lỗi; lượt này không có file vì không phát sinh AABB.
+
+Đã thử checkpoint trùm -> fake victory -> ending/Completed (UI hết bận), rồi mở Garden và gọi VictoryRoutine để chạy sự kiện thắng cùng coroutine AR, chờ >10s; đưa Unity ra trước để render Game view. Console không phát sinh AABB. Audit sau đó: **0 Renderer có transform/bounds không hữu hạn**. Chưa tìm được nguồn gán NaN; không sửa phỏng đoán, không tạo commit giả nhận là fix AABB. Phần AABB của Task10 còn mở, cần tình huống tái hiện thực tế để tiếp tục.
+
+### Bàn giao
+
+Đã thoát Play và khôi phục IUH_Story_Progress từ aftershock-save-backup.txt; không lưu giá trị firstDelay=1 đã dùng thử, code vẫn120/240/360. Gold thử nghiệm +30 được ghi như trên, không tự xóa tiền/kho đồ của người dùng. Không push, không amend. Không chỉnh mesh nguồn, material asset, Starter Assets hay code người khác ngoài hai reset được duyệt.
+
+Lệch/giới hạn: thêm các PlayMode test reset/Completed để bảo vệ lifecycle; patch đầu có dòng trống thừa do agent tạo, đã sửa chính định dạng patch (không phải CRLF) và --check trước apply; chưa sửa AABB do không tái hiện; thao tác bắn/lái và thắng AR thật còn cần người dùng kiểm. Không có cặp z-fighting khác theo bộ lọc đã chốt (43 flat renderers,1 cặp).
