@@ -49,6 +49,8 @@ namespace IUHCampus.Guardian
         private bool m_IsDefeated;
         private bool m_RequireLeaveRange;
         private float m_TriggerCooldown = 0f;
+        private float m_ProximityTimer = 0f;
+        private const float PROXIMITY_TRIGGER_SECONDS = 5.0f;
 
         public string MonsterName => m_MonsterName;
         public string MilestoneId => m_MilestoneId;
@@ -97,6 +99,9 @@ namespace IUHCampus.Guardian
         {
             FindPlayer();
 
+            m_TriggerCooldown = 3.0f;
+            m_RequireLeaveRange = true;
+
             if (m_CombatManager == null)
             {
                 m_CombatManager = FindAnyObjectByType<Match3CombatManager>(FindObjectsInactive.Include);
@@ -121,21 +126,12 @@ namespace IUHCampus.Guardian
                 m_MotorbikeController = FindAnyObjectByType<IUHGrabMotorbike>(FindObjectsInactive.Include);
             }
 
-            var student = GameObject.Find("Campus Student");
+            var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
             if (student != null)
             {
                 m_PlayerTransform = student.transform;
                 m_ThirdPersonController = student.GetComponent<ThirdPersonController>();
                 m_StarterInputs = student.GetComponent<StarterAssetsInputs>();
-                return;
-            }
-
-            var playerByTag = GameObject.FindGameObjectWithTag("Player");
-            if (playerByTag != null)
-            {
-                m_PlayerTransform = playerByTag.transform;
-                m_ThirdPersonController = playerByTag.GetComponent<ThirdPersonController>();
-                m_StarterInputs = playerByTag.GetComponent<StarterAssetsInputs>();
                 return;
             }
 
@@ -199,22 +195,48 @@ namespace IUHCampus.Guardian
             bool inCombatRange = dist <= m_TriggerRadius;
             if (!inCombatRange) m_RequireLeaveRange = false;
 
-            if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf != inCombatRange)
+            bool inProximity = inCombatRange || inRevealRange;
+            if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf != inProximity)
             {
-                m_MonsterOverheadCanvas.SetActive(inCombatRange);
+                m_MonsterOverheadCanvas.SetActive(inProximity);
             }
 
-            if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf != (inRevealRange && !inCombatRange))
+            if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf != inProximity)
             {
-                m_ActionPromptObject.SetActive(inRevealRange && !inCombatRange);
+                m_ActionPromptObject.SetActive(inProximity);
             }
 
-            if (inCombatRange && !m_RequireLeaveRange && m_TriggerCooldown <= 0f)
+            // Cơ chế tiếp cận: Nếu người chơi đứng sát quái vật (~m_TriggerRadius) khoảng 5 giây sẽ tự động vào trận
+            if (inCombatRange)
             {
-                TriggerCombat();
+                m_ProximityTimer += Time.deltaTime;
+                float remaining = Mathf.Max(0f, PROXIMITY_TRIGGER_SECONDS - m_ProximityTimer);
+                if (m_BossIntentText != null)
+                {
+                    m_BossIntentText.text = $"⚡ Vào trận sau {remaining:F1}s (hoặc nhấn [E])";
+                }
+
+                if (m_ProximityTimer >= PROXIMITY_TRIGGER_SECONDS && m_TriggerCooldown <= 0f)
+                {
+                    m_ProximityTimer = 0f;
+                    TriggerCombat();
+                    return;
+                }
             }
-            else if (inRevealRange && Input.GetKeyDown(m_InteractKey))
+            else
             {
+                m_ProximityTimer = 0f;
+                if (m_BossIntentText != null)
+                {
+                    m_BossIntentText.text = $"⚔️ Ý định: Tấn công {m_BossMinDmg}-{m_BossMaxDmg} DMG";
+                }
+            }
+
+            // Người chơi có thể bấm phím [E] hoặc nút Tương Tác bất cứ lúc nào để vào trận ngay không cần chờ 5s
+            bool interactRequested = Input.GetKeyDown(m_InteractKey) || IUHCampus.Core.IUHInputHelper.IsInteractKeyDown();
+            if (inProximity && interactRequested && m_TriggerCooldown <= 0f)
+            {
+                m_ProximityTimer = 0f;
                 TriggerCombat();
             }
         }

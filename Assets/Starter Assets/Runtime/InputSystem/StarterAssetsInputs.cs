@@ -12,6 +12,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public static bool IsTouchLookActive = false;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;

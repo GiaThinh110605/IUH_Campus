@@ -60,6 +60,7 @@ namespace IUHCampus.UI
         [SerializeField] private Button m_BtnInventory;
         [SerializeField] private Button m_BtnUpgrade;
         [SerializeField] private Button m_BtnSettings;
+        private Button m_BtnAR;
 
         [Header("Utility Key Buttons [H] & [B]")]
         [SerializeField] private Button m_BtnKeyH;
@@ -164,6 +165,11 @@ namespace IUHCampus.UI
             {
                 m_TouchLookZone = transform.Find("TouchLookZone")?.GetComponent<RectTransform>();
             }
+            if (m_TouchLookZone != null)
+            {
+                // Chừa 120px phía trên góc phải để không nuốt touch của cụm nút HUD_TopRight (Camera AR, Kho đồ, Nâng cấp, Cài đặt)
+                m_TouchLookZone.offsetMax = new Vector2(0f, -120f);
+            }
 
             // 3. Action Buttons
             if (m_BtnFire == null)
@@ -240,16 +246,74 @@ namespace IUHCampus.UI
                     ?? transform.Find("Settings_Button")?.GetComponent<Button>();
             }
 
-            // Utility Key Buttons [H] & [B]
-            if (m_BtnKeyH == null)
+            // AR Camera Button
+            if (m_BtnAR == null)
             {
-                m_BtnKeyH = transform.Find("HUD_UtilityKeys/BtnKeyH")?.GetComponent<Button>()
-                    ?? transform.Find("BtnKeyH")?.GetComponent<Button>();
+                m_BtnAR = transform.Find("HUD_Top/HUD_TopRight/AR_Button")?.GetComponent<Button>()
+                    ?? transform.Find("AR_Button")?.GetComponent<Button>();
             }
-            if (m_BtnKeyB == null)
+            if (m_BtnAR == null)
             {
-                m_BtnKeyB = transform.Find("HUD_UtilityKeys/BtnKeyB")?.GetComponent<Button>()
-                    ?? transform.Find("BtnKeyB")?.GetComponent<Button>();
+                var tr = transform.Find("HUD_Top/HUD_TopRight");
+                if (tr != null)
+                {
+                    // Mở rộng HUD_TopRight để chứa đủ 4 nút (Cài đặt, Nâng cấp, Kho đồ, Camera AR)
+                    var trRt = tr.GetComponent<RectTransform>();
+                    if (trRt != null) trRt.sizeDelta = new Vector2(380f, 90f);
+
+                    if (m_BtnSettings != null)
+                    {
+                        var arGo = Instantiate(m_BtnSettings.gameObject, tr, false);
+                        arGo.name = "AR_Button";
+                        var rt = arGo.GetComponent<RectTransform>();
+                        rt.anchoredPosition = new Vector2(-270f, 0f);
+                        var bgImg = arGo.GetComponent<Image>();
+                        if (bgImg != null) bgImg.raycastTarget = true;
+
+                        var txt = arGo.GetComponentInChildren<Text>();
+                        if (txt != null)
+                        {
+                            txt.text = "Camera AR";
+                            txt.raycastTarget = false;
+                        }
+
+                        var icon = arGo.transform.Find("Icon")?.GetComponent<Image>();
+                        if (icon != null) icon.raycastTarget = false;
+
+                        m_BtnAR = arGo.GetComponent<Button>();
+                    }
+                }
+            }
+
+            // Khởi tạo Live AR Controller nếu chưa có
+            if (IUHCampus.Guardian.AR.IUHLiveARController.Instance == null)
+            {
+                var liveArObj = new GameObject("IUH_LIVE_AR_CONTROLLER", typeof(IUHCampus.Guardian.AR.IUHLiveARController));
+            }
+
+            // Xóa triệt để 2 nút thô hình chữ nhật cũ: "HƯỚNG DẪN [H]" và "KHO ĐỒ & NÂNG CẤP [B]"
+            // nếu còn sót lại từ scene cũ, tránh đè lên cụm nút tròn icon neon hiện đại.
+            string[] legacyUglyNames = { "Btn_OpenControlsGuide", "Btn_HUD_OpenShop", "BtnKeyH", "BtnKeyB", "HUD_UtilityKeys" };
+            foreach (var legName in legacyUglyNames)
+            {
+                var legT = transform.Find(legName) ?? transform.Find("HUD_UtilityKeys/" + legName);
+                if (legT != null)
+                {
+                    legT.gameObject.SetActive(false);
+                    Destroy(legT.gameObject);
+                }
+            }
+            if (m_BtnKeyH != null)
+            {
+                m_BtnKeyH.gameObject.SetActive(false);
+                Destroy(m_BtnKeyH.gameObject);
+                m_BtnKeyH = null;
+            }
+            if (m_BtnKeyB != null)
+            {
+                m_BtnKeyB.gameObject.SetActive(false);
+                Destroy(m_BtnKeyB.gameObject);
+                m_BtnKeyB = null;
             }
 
             // 5. Player Status Widgets
@@ -281,15 +345,32 @@ namespace IUHCampus.UI
         {
             if (m_StarterInputs == null || m_ThirdPersonController == null)
             {
-                var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
+                var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
                 if (student != null)
                 {
                     m_StarterInputs = student.GetComponent<StarterAssetsInputs>();
                     m_ThirdPersonController = student.GetComponent<ThirdPersonController>();
                 }
+                else
+                {
+                    m_ThirdPersonController = FindAnyObjectByType<ThirdPersonController>();
+                    if (m_ThirdPersonController != null)
+                    {
+                        m_StarterInputs = m_ThirdPersonController.GetComponent<StarterAssetsInputs>();
+                    }
+                }
             }
 
             bool isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
+
+            // Đảm bảo controller di chuyển luôn được bật khi ở chế độ khám phá bình thường
+            if (m_ThirdPersonController != null && !isDroneActive && !m_ThirdPersonController.enabled)
+            {
+                if (!IUHCampus.World.IUHConceptPreviewController.IsAnyUIOpen())
+                {
+                    m_ThirdPersonController.enabled = true;
+                }
+            }
 
             // 1. Đồng bộ di chuyển từ Joystick vào Player controller & Tự động Chạy (Auto-Sprint)
             if (m_StarterInputs != null)
@@ -310,10 +391,14 @@ namespace IUHCampus.UI
                     bool autoSprint = m_InputVector.magnitude >= 0.65f || m_IsSprinting;
                     m_StarterInputs.SprintInput(autoSprint);
                 }
-                else if (!m_IsDraggingJoystick && IUHInputHelper.VirtualMoveAxis.sqrMagnitude < 0.001f && Application.isMobilePlatform)
+                else if (!m_IsDraggingJoystick)
                 {
-                    m_StarterInputs.MoveInput(Vector2.zero);
-                    m_StarterInputs.SprintInput(false);
+                    m_InputVector = Vector2.zero;
+                    if (Application.isMobilePlatform && IUHInputHelper.VirtualMoveAxis.sqrMagnitude < 0.001f)
+                    {
+                        m_StarterInputs.MoveInput(Vector2.zero);
+                        m_StarterInputs.SprintInput(false);
+                    }
                 }
             }
 
@@ -368,6 +453,7 @@ namespace IUHCampus.UI
                 {
                     m_LookPointerId = -999;
                     IsTouchLookActive = false;
+                    StarterAssets.StarterAssetsInputs.IsTouchLookActive = false;
                     m_AccumulatedLookDelta = Vector2.zero;
                 }
             }
@@ -597,6 +683,26 @@ namespace IUHCampus.UI
                     if (IUHCombatHUD.Instance != null)
                     {
                         IUHCombatHUD.Instance.ToggleGuide();
+                    }
+                });
+            }
+
+            // ===== 8.B. TOP RIGHT: MỞ CHẾ ĐỘ THỰC TẾ ẢO CAMERA AR ===== //
+            if (m_BtnAR != null)
+            {
+                m_BtnAR.onClick.RemoveAllListeners();
+                m_BtnAR.onClick.AddListener(() => {
+                    Debug.Log("[IUH] Bấm nút Camera AR!");
+                    IUHCombatAudio.PlayShield();
+                    var arCtrl = IUHCampus.Guardian.AR.IUHLiveARController.Instance;
+                    if (arCtrl == null)
+                    {
+                        var liveObj = new GameObject("IUH_LIVE_AR_CONTROLLER", typeof(IUHCampus.Guardian.AR.IUHLiveARController));
+                        arCtrl = liveObj.GetComponent<IUHCampus.Guardian.AR.IUHLiveARController>();
+                    }
+                    if (arCtrl != null)
+                    {
+                        arCtrl.OpenARMode();
                     }
                 });
             }
@@ -842,6 +948,7 @@ namespace IUHCampus.UI
                     m_LookPointerId = ped.pointerId;
                     m_PreviousLookTouchPos = ped.position;
                     IsTouchLookActive = true;
+                    StarterAssets.StarterAssetsInputs.IsTouchLookActive = true;
                     m_AccumulatedLookDelta = Vector2.zero;
                 }
             });
@@ -870,6 +977,7 @@ namespace IUHCampus.UI
                 {
                     m_LookPointerId = -999;
                     IsTouchLookActive = false;
+                    StarterAssets.StarterAssetsInputs.IsTouchLookActive = false;
                     m_AccumulatedLookDelta = Vector2.zero;
                     if (m_StarterInputs != null)
                     {
