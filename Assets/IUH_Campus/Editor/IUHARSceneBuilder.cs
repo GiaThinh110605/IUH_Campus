@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using IUHCampus.Guardian;
 using IUHCampus.Guardian.AR;
 using IUHCampus.Guardian.Match3;
-using IUHCampus.Minigames.GreenCampus;
+using IUHCampus.Core;
 
 namespace IUHCampus.Editor
 {

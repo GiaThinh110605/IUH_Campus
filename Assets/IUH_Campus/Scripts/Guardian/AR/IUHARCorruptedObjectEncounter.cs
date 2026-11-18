@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using IUHCampus.Core;
 using IUHCampus.Guardian.Match3;
-using IUHCampus.Minigames.GreenCampus;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace IUHCampus.Minigames.GreenCampus
+namespace IUHCampus.Core
 {
     public class IUHGreenBillboard : MonoBehaviour
     {
