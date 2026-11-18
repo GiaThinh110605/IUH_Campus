@@ -6,8 +6,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using IUHCampus.World;
-using IUHCampus.Minigames.GreenCampus;
-using IUHCampus.Minigames.PhotoHunter;
 
 namespace IUHCampus.Editor
 {
@@ -42,16 +40,6 @@ namespace IUHCampus.Editor
                 BuildPhotoForecourt();
                 UpdatePhotoLighting();
                 Group("PHOTO_REFERENCE_R2",root,Vector3.zero);
-                Place("GAMEPLAY_GRAB_CAMPUS/NIGHT_FOOD_SHOPS/Shop_02_FishBall_Cart_79",IUHReferenceLayout.Pickups[1]+new Vector3(-3,0,1.3f));
-                var green=UnityEngine.Object.FindFirstObjectByType<IUHGreenCampusManager>(FindObjectsInactive.Include);
-                var item=green.items.First(i=>i.itemId=="green_item_0_0");
-                Undo.RecordObject(item.transform,"Keep litter outside shade-tree planter");item.transform.position=new Vector3(372.6f,.65f,-81.7f);
-                foreach(var target in UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>(FindObjectsInactive.Include))
-                {
-                    if(target.TargetId.Contains("block_a"))target.SetStructureReferences(root.Find("Block_A"),null);
-                    if(target.TargetId.Contains("central_courtyard"))target.SetStructureReferences(root.Find("Block_E"),null);
-                    EditorUtility.SetDirty(target);
-                }
                 AssetDatabase.SaveAssets();EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);
                 Selection.activeGameObject=root.Find("Block_E").gameObject;
             }

@@ -1720,7 +1720,6 @@ namespace IUHCampus.Editor
             camObj.tag = "MainCamera";
             Camera cam = camObj.AddComponent<Camera>();
             camObj.AddComponent<AudioListener>();
-            camObj.AddComponent<IUHInteractiveTourController>();
             cam.fieldOfView = 65.0f;
             camObj.transform.position = new Vector3(0, 95.0f, -55.0f);
             camObj.transform.rotation = Quaternion.Euler(48, 0, 0);

@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using IUHCampus.Guardian.Match3;
-using IUHCampus.Minigames.GrabCampus;
 using StarterAssets;
 
 namespace IUHCampus.Guardian
@@ -43,8 +42,6 @@ namespace IUHCampus.Guardian
         private Transform m_PlayerTransform;
         private ThirdPersonController m_ThirdPersonController;
         private StarterAssetsInputs m_StarterInputs;
-        private IUHGrabMotorbike m_MotorbikeController;
-        private bool m_MotorbikeWasEnabled = true;
         private bool m_IsEncounterActive;
         private bool m_IsDefeated;
         private bool m_RequireLeaveRange;
@@ -132,13 +129,7 @@ namespace IUHCampus.Guardian
 
         private void FindPlayer()
         {
-            // The bike keeps reading input even while the student rides it, so it must be paused in combat too.
-            if (m_MotorbikeController == null)
-            {
-                m_MotorbikeController = FindAnyObjectByType<IUHGrabMotorbike>(FindObjectsInactive.Include);
-            }
-
-            var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
+            var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
             if (student != null)
             {
                 m_PlayerTransform = student.transform;
@@ -147,16 +138,6 @@ namespace IUHCampus.Guardian
                 return;
             }
 
-            m_MotorbikeController = FindAnyObjectByType<IUHGrabMotorbike>(FindObjectsInactive.Include);
-            if (m_MotorbikeController != null)
-            {
-                m_PlayerTransform = m_MotorbikeController.transform;
-            }
-            else
-            {
-                var mainCam = Camera.main;
-                if (mainCam != null) m_PlayerTransform = mainCam.transform;
-            }
         }
 
         private void Update()
@@ -292,19 +273,6 @@ namespace IUHCampus.Guardian
                 m_StarterInputs.cursorInputForLook = enabled;
                 m_StarterInputs.move = Vector2.zero;
                 m_StarterInputs.look = Vector2.zero;
-            }
-
-            if (m_MotorbikeController != null)
-            {
-                if (!enabled)
-                {
-                    m_MotorbikeWasEnabled = m_MotorbikeController.enabled;
-                    m_MotorbikeController.enabled = false;
-                }
-                else
-                {
-                    m_MotorbikeController.enabled = m_MotorbikeWasEnabled;
-                }
             }
 
             Cursor.lockState = enabled ? CursorLockMode.Locked : CursorLockMode.None;

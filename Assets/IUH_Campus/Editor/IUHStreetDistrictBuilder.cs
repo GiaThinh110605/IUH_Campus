@@ -44,7 +44,6 @@ namespace IUHCampus.Editor
 
             BuildStreetInfrastructure(streetRoot.transform);
 
-            BuildStreetLocationPins(streetRoot.transform);
 
             EditorSceneManager.MarkSceneDirty(activeScene);
             EditorSceneManager.SaveScene(activeScene);
@@ -596,38 +595,6 @@ namespace IUHCampus.Editor
         #endregion
 
         #region 8. 3D World Location Pins
-
-        private static void BuildStreetLocationPins(Transform root)
-        {
-            var pinsRoot = new GameObject("StreetLocationPins");
-            pinsRoot.transform.SetParent(root, false);
-
-            CreatePin(pinsRoot.transform, "Pin_Street_PhoBo", new Vector3(-13.5f, 0.5f, -95.5f), "QUÁN PHỞ SINH VIÊN", "Nhận đơn Grab Campus 2.1", "🍜", new Color(1.0f, 0.65f, 0.1f), 0, 4.2f);
-
-            CreatePin(pinsRoot.transform, "Pin_Street_Highlands", new Vector3(13.5f, 0.5f, -95.5f), "HIGHLANDS COFFEE", "Cà phê & Check-in góc phố", "☕", new Color(0.85f, 0.25f, 0.2f), 3, 4.5f);
-
-            CreatePin(pinsRoot.transform, "Pin_Street_BusStop", new Vector3(13.5f, 0.5f, -138.0f), "BẾN XE BUÝT IUH", "Xe buýt xanh & Điểm check-in", "🚏", new Color(0.1f, 0.85f, 0.45f), 2, 4.2f);
-
-            CreatePin(pinsRoot.transform, "Pin_Street_Parking", new Vector3(25.0f, 0.5f, -152.0f), "BÃI XE NGOÀI CỔNG", "Bãi giữ xe máy sinh viên", "🛵", new Color(0.2f, 0.75f, 1.0f), -1, 4.5f);
-
-            CreatePin(pinsRoot.transform, "Pin_Street_FamilyMart", new Vector3(-13.5f, 0.5f, -141.0f), "CỬA HÀNG TIỆN LỢI", "FamilyMart 24/7 & Nhà Sách", "🏪", new Color(0.0f, 0.85f, 0.55f), 2, 4.5f);
-
-            CreatePin(pinsRoot.transform, "Pin_Street_PocketPark", new Vector3(0f, 0.5f, -178.0f), "CÔNG VIÊN GÓC PHỐ", "Trạm phân loại rác & Nghỉ ngơi", "🌳", new Color(0.25f, 0.85f, 0.25f), 4, 4.6f);
-        }
-
-        private static void CreatePin(Transform parent, string name, Vector3 pos, string title, string sub, string emoji, Color col, int gameIdx, float height)
-        {
-            var pinGO = new GameObject(name);
-            pinGO.transform.SetParent(parent, false);
-            pinGO.transform.position = pos;
-
-            var pin = pinGO.AddComponent<IUHWorldLocationPin>();
-            pin.Setup(title, sub, emoji, col, gameIdx, height);
-        }
-
-        #endregion
-
-        #region Helpers
 
         private static GameObject CreateCube(Transform parent, string name, Vector3 localPos, Vector3 localScale, Material mat)
         {

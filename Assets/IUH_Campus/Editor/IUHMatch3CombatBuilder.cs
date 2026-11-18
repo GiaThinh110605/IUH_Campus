@@ -32,10 +32,10 @@ namespace IUHCampus.Editor
             // The duel is filmed in its own scene; (re)build it first so the stage can load it.
             IUHCombatArenaSceneBuilder.BuildArenaScene();
 
-            var canvasGO = GameObject.Find("IUH_Minigame_Canvas");
+            var canvasGO = GameObject.Find("GUARDIAN_UI_CANVAS");
             if (canvasGO == null)
             {
-                canvasGO = new GameObject("IUH_Minigame_Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+                canvasGO = new GameObject("GUARDIAN_UI_CANVAS", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
                 var c = canvasGO.GetComponent<Canvas>();
                 c.renderMode = RenderMode.ScreenSpaceOverlay;
                 var cs = canvasGO.GetComponent<CanvasScaler>();

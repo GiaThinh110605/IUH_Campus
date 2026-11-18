@@ -6,7 +6,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using IUHCampus.Minigames.PhotoHunter;
 using IUHCampus.World;
 
 namespace IUHCampus.Editor
@@ -75,10 +74,6 @@ namespace IUHCampus.Editor
                 var marker=Group(ConnectionMarker,root,Vector3.zero);
                 AddRouteMarkers(marker);
 
-                foreach(var target in UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>(FindObjectsInactive.Include))
-                    if(target.TargetId.Contains("block_a"))
-                    {Undo.RecordObject(target,"Bind Photo Hunter to connected A");target.SetStructureReferences(root.Find("Block_A"),null);EditorUtility.SetDirty(target);}
-                RemoveHallObstacles();
                 AssetDatabase.SaveAssets();EditorSceneManager.MarkSceneDirty(scene);
                 if(!EditorSceneManager.SaveScene(scene))throw new IOException("Could not save connected campus.");
                 Selection.activeGameObject=root.Find("Block_B").gameObject;
@@ -192,12 +187,6 @@ namespace IUHCampus.Editor
                 ("Clinic",new Vector3(443,.50f,-25)),("A7",new Vector3(443,.50f,-54)),
                 ("X_Rear",new Vector3(376,.50f,-178)),("X_Front",new Vector3(376,.50f,-132))})
                 Group(pair.Item1,marker,pair.Item2);
-        }
-        static void RemoveHallObstacles()
-        {
-
-            var station=GameObject.Find("GAMEPLAY_GRAB_CAMPUS/DELIVERY_DROPOFF_STATIONS/Station_02_Block_V");
-            if(station!=null){Undo.RecordObject(station.transform,"Keep V doorway clear");station.transform.position=new Vector3(399,.49f,-134.5f);}
         }
     }
 }

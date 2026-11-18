@@ -5,7 +5,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine.UI;
 using IUHCampus.Core;
 using IUHCampus.UI;
-using IUHCampus.Minigames.GrabCampus;
 
 namespace IUHCampus.Editor
 {
@@ -43,11 +42,8 @@ namespace IUHCampus.Editor
             BuildZoneF_GreenCampus(hubRoot.transform);
             BuildZoneG_FestivalStage(hubRoot.transform);
 
-            Build6WorldLocationPins(hubRoot.transform);
 
-            SetupMasterCampusHubHUD();
 
-            IUHGameFlowRefactorSetup.EnsureGameFlowSetup();
 
             EditorSceneManager.MarkSceneDirty(activeScene);
             EditorSceneManager.SaveScene(activeScene);
@@ -338,46 +334,6 @@ namespace IUHCampus.Editor
             sl2.range = 14.0f;
             sl2.spotAngle = 45f;
             spotR.transform.rotation = Quaternion.Euler(45f, -25f, 0f);
-        }
-
-        private static void Build6WorldLocationPins(Transform parent)
-        {
-            var pinsRoot = new GameObject("WorldLocationPins");
-            pinsRoot.transform.SetParent(parent);
-
-            CreatePin(pinsRoot.transform, "Pin_A_MainGate", new Vector3(0f, 0.05f, -70f), "CỔNG TRƯỜNG", "Bắt đầu hành trình", "🏛️", new Color(0.0f, 0.75f, 1.0f), -1, 4.5f);
-
-            CreatePin(pinsRoot.transform, "Pin_B_CentralPlaza", new Vector3(0f, 0.05f, 15f), "SÂN TRƯỜNG", "Quảng trường & Đài phun nước", "⛲", new Color(0.1f, 0.85f, 0.45f), -1, 4.8f);
-
-            CreatePin(pinsRoot.transform, "Pin_C_Canteen_Grab", new Vector3(20f, 0.05f, -20f), "CĂN TIN & BÃI XE", "Nhận đơn Grab Campus 2.1", "🛵", new Color(1.0f, 0.65f, 0.1f), 0, 4.2f);
-
-            CreatePin(pinsRoot.transform, "Pin_D_KTX_Horror", new Vector3(-35f, 0.05f, 25f), "KÝ TÚC XÁ", "Trốn tìm với ma 2.2", "👻", new Color(0.7f, 0.35f, 0.95f), 1, 4.5f);
-
-            CreatePin(pinsRoot.transform, "Pin_E_Library", new Vector3(24f, 0.05f, 30f), "THƯ VIỆN TRUNG TÂM", "AI Object 2.3 & Chụp ảnh 2.4", "📚", new Color(0.2f, 0.85f, 1.0f), 2, 4.8f);
-
-            CreatePin(pinsRoot.transform, "Pin_G_Festival", new Vector3(0f, 0.05f, -10f), "SÂN LỄ HỘI", "Campus Festival 2026", "🎪", new Color(0.95f, 0.3f, 0.65f), 5, 4.6f);
-        }
-
-        private static void CreatePin(Transform parent, string name, Vector3 pos, string title, string sub, string emoji, Color col, int gameIdx, float height)
-        {
-            var pinGO = new GameObject(name);
-            pinGO.transform.SetParent(parent);
-            pinGO.transform.position = pos;
-
-            var pin = pinGO.AddComponent<IUHWorldLocationPin>();
-            pin.Setup(title, sub, emoji, col, gameIdx, height);
-        }
-
-        private static void SetupMasterCampusHubHUD()
-        {
-            var canvasGO = GameObject.Find("IUH_Minigame_Canvas");
-            if (canvasGO == null) return;
-
-            var hubHUD = canvasGO.GetComponent<IUHCampusHubHUD>();
-            if (hubHUD == null)
-            {
-                hubHUD = canvasGO.AddComponent<IUHCampusHubHUD>();
-            }
         }
 
         private static GameObject CreateCube(Transform parent, string name, Vector3 localPos, Vector3 localScale, Material mat)

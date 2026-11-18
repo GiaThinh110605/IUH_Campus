@@ -8,8 +8,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 using IUHCampus.World;
-using IUHCampus.Minigames.GreenCampus;
-using IUHCampus.Minigames.PhotoHunter;
 
 namespace IUHCampus.Editor
 {
@@ -396,86 +394,11 @@ namespace IUHCampus.Editor
         }
         static void Place(string path,Vector3 position)
         { var go=GameObject.Find(path);if(go!=null){Undo.RecordObject(go.transform,"Relink campus landmark");go.transform.position=position;} }
-        public static void ConfigureGreenForReferenceLayout(IUHGreenCampusManager green)
-        {
-            if(green!=null)
-            {
-                Undo.RecordObject(green,"Move Green Campus to new courtyard");green.spawnPoint=IUHReferenceLayout.GreenSpawn;
-
-                if(green.gameWorld!=null&&green.gameWorld.transform.position==Vector3.zero)
-                {
-                    foreach(var name in new[]{"Round_Objects","Restored_Green_Corners"})
-                    {
-                        var t=green.transform.Find(name);if(t==null)continue;
-                        var ts=t.GetComponentsInChildren<Transform>(true);var positions=ts.Select(v=>v.position).ToArray();
-                        for(int i=0;i<ts.Length;i++){Undo.RecordObject(ts[i],"Move Green Campus props");var v=positions[i];v.z=v.z*.72f-49.34f;ts[i].position=v;}
-                    }
-                    if(IUHReferenceLayout.HasPhotoForecourt)
-                    {
-                        var litter=green.items.FirstOrDefault(i=>i!=null&&i.itemId=="green_item_0_0");
-                        if(litter!=null)litter.transform.position=new Vector3(372.6f,.65f,-81.7f);
-                    }
-                }
-                EditorUtility.SetDirty(green);
-                foreach(var text in green.GetComponentsInChildren<TextMesh>(true))
-                {
-                    Undo.RecordObject(text,"Fit courtyard activity labels");
-                    text.characterSize=text.name=="Station_Title"?.045f:text.name=="Label"?.04f:.035f;
-                    var depth=text.GetComponent<IUHDepthLabel>();
-                    if(depth==null)depth=Undo.AddComponent<IUHDepthLabel>(text.gameObject);
-                    depth.BindShader(Shader.Find("IUH/Depth World Text"));EditorUtility.SetDirty(depth);
-                }
-            }
-        }
         public static void RelinkGames(bool relocateWorld=true)
         {
-            ConfigureGreenForReferenceLayout(UnityEngine.Object.FindAnyObjectByType<IUHGreenCampusManager>(FindObjectsInactive.Include));
-            var targets=UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>(FindObjectsInactive.Include,FindObjectsSortMode.None);
-            foreach(var target in targets)
-            {
-                Undo.RecordObject(target,"Relink Photo Hunter target");Undo.RecordObject(target.transform,"Move Photo Hunter target");
-                if(target.TargetId.Contains("gate_01"))
-                {
-                    target.transform.position=new Vector3(409,3.6f,-6);
-                    target.Configure(target.TargetId,target.DisplayName,target.Description,IUHReferenceLayout.Entrance,new Vector3(0,1.5f,22),6,44,GameObject.Find(IUHReferenceLayout.RootName+"/Gate_01").transform);
-                    target.SetKeyFeatureOffsets(new List<Vector3>{new Vector3(-4.5f,0,0),new Vector3(4.5f,0,0),new Vector3(0,1,0)});
-                }
-                else if(target.TargetId.Contains("central_courtyard"))
-                {
-                    target.transform.position=new Vector3(385,1.5f,-85);
-                    var structure=GameObject.Find(IUHReferenceLayout.RootName+(IUHReferenceLayout.HasPhotoForecourt?"/Block_E":"/Gardens_Trees_Plaza"));
-                    target.Configure(target.TargetId,target.DisplayName,target.Description,new Vector3(385,.65f,-73),Vector3.back,5,58,structure!=null?structure.transform:null);
-                    target.SetKeyFeatureOffsets(new List<Vector3>{new Vector3(-6,0,0),new Vector3(6,0,0),new Vector3(0,.5f,2)});
-                }
-                else if(target.TargetId.Contains("block_a"))
-                {
-                    target.transform.position=new Vector3(425,4.8f,-13.2f);
-                    target.Configure(target.TargetId,target.DisplayName,target.Description,new Vector3(425,.65f,5),Vector3.back,5,45,GameObject.Find(IUHReferenceLayout.RootName+"/Block_A").transform);
-                    target.SetKeyFeatureOffsets(new List<Vector3>{new Vector3(-5,0,0),new Vector3(5,0,0),new Vector3(0,1.5f,0)});
-                }
-                target.SetStructureReferences(target.StructureRoot,null);EditorUtility.SetDirty(target);
-            }
             if(!relocateWorld)return;
             Place("PlayerArmature",IUHReferenceLayout.Entrance);
             var player=GameObject.Find("PlayerArmature");if(player!=null)player.transform.rotation=Quaternion.Euler(0,180,0);
-            Place("GAMEPLAY_GRAB_CAMPUS/IUH_Grab_Motorbike",new Vector3(412,.6f,-29));
-            var pickups=IUHReferenceLayout.Pickups;var drops=IUHReferenceLayout.Dropoffs;
-            string gp="GAMEPLAY_GRAB_CAMPUS/";
-            var shops=GameObject.Find(gp+"NIGHT_FOOD_SHOPS");
-            if(shops!=null)for(int i=0;i<Mathf.Min(3,shops.transform.childCount);i++)Place(gp+"NIGHT_FOOD_SHOPS/"+shops.transform.GetChild(i).name,pickups[i]+(i==1&&IUHReferenceLayout.HasPhotoForecourt?new Vector3(-3,0,1.3f):new Vector3(3,0,-2)));
-            var stations=GameObject.Find(gp+"DELIVERY_DROPOFF_STATIONS");
-            if(stations!=null)for(int i=0;i<Mathf.Min(3,stations.transform.childCount);i++)Place(gp+"DELIVERY_DROPOFF_STATIONS/"+stations.transform.GetChild(i).name,drops[i]+Vector3.right*2.5f);
-            Place(gp+"DELIVERY_WAYPOINTS/PickupWaypoint",pickups[0]);Place(gp+"DELIVERY_WAYPOINTS/DropoffWaypoint",drops[0]);
-            var ghosts=GameObject.Find(gp+"GHOST_HAZARDS");if(ghosts!=null)
-                for(int i=0;i<ghosts.transform.childCount;i++)Place(gp+"GHOST_HAZARDS/"+ghosts.transform.GetChild(i).name,new Vector3(i%2==0?409:357,1.6f,-40-i*18));
-            var grab=GameObject.Find("GAMEPLAY_GRAB_CAMPUS");if(grab!=null)
-            {
-                var manager=grab.GetComponent<IUHCampus.Minigames.GrabCampus.IUHGrabCampusManager>();
-                var so=new SerializedObject(manager);var orders=so.FindProperty("m_Orders");
-                for(int i=0;i<Mathf.Min(3,orders.arraySize);i++)
-                {var o=orders.GetArrayElementAtIndex(i);o.FindPropertyRelative("pickupPosition").vector3Value=pickups[i];o.FindPropertyRelative("dropoffPosition").vector3Value=drops[i];}
-                so.ApplyModifiedProperties();
-            }
         }
     }
 }
