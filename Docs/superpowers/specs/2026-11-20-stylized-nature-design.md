@@ -65,7 +65,11 @@ Ngày: 20/11/2026. Trạng thái: **nháp, chờ pack và Thịnh đồng ý**. 
 - `Ultimate Monsters`: dự án đã dùng (`Assets/IUH_Campus/Models/Monsters`), không cần nhập lại.
 - **Ultimate Modular Men (02/2022) và Women (04/2022)** (đã tải 20/11, CC0 1.0): 11 + 10 nhân vật, mỗi nhân vật chia đầu/thân/chân/giày, có thư mục **Humanoid Rig**, kèm `Animations.fbx`. Low-poly mặt phẳng, tô màu khối.
   - Đồ thường ngày: nam `Casual_2` (áo thun, quần dài), `Casual_Hoodie`, `Suit`; nữ `Casual` (áo thun trắng, quần dài), `Formal`, `Suit`.
-  - **Đề xuất cho người chơi:** nam `Casual_2` và nữ `Casual`, tô lại thành **áo trắng + quần xanh đậm** (đồng phục sinh viên). Người chơi chọn nam/nữ ở `IUHPlayerCustomizer` nếu dễ làm.
+  - **Đề xuất cho người chơi:** nam `Casual_2` hoặc nữ `Casual`, tô lại thành **áo trắng + quần xanh đậm** (đồng phục sinh viên). Chỉ 1 nhân vật, không có màn chọn.
+  - **Người dùng chốt 20/11: bỏ toàn bộ đồ trang trí.** Gồm ba lô, mũ tốt nghiệp, hào quang Cyber, vệt sáng dưới chân, và **bỏ hẳn tab "Trang phục"** trong cửa hàng (4 bộ: Mặc định / Sinh viên IUH 80 / Tốt nghiệp 150 / Cyber 250, cùng 3 kiểu vệt sáng). Cửa hàng còn Nâng cấp + Kho đồ.
+    - Code liên quan: `Scripts/Guardian/IUHPlayerCustomizer.cs` (xóa class và component trên người chơi trong scene); `IUHUpgradeShopUI.cs` (bỏ tab 2 `m_TabSkinsContent`/`m_BtnTabSkins`/`RefreshSkinsTab`, tab và nút trong scene); `Editor/IUHMatch3CombatBuilder.cs` (builder cũ đã khóa, chỉ sửa tham chiếu cho compile được).
+    - PlayerPrefs cũ `IUH_EQUIPPED_SKIN`, `IUH_EQUIPPED_TRAIL`, `IUH_OWNED_*`: bỏ qua, không hoàn vàng.
+    - Bằng chứng cũ `Docs/Evidence/CampusGuardian/UI-SKINS/` giữ nguyên làm lịch sử.
   - NPC sinh viên: các biến thể Casual/Hoodie/Suit còn lại, đổi màu áo.
   - Bỏ: Horse, King, SpaceSuit, Swat, Witch, Medieval, SciFi, Soldier, Adventurer (lệch chủ đề campus).
 - Phương án khác nếu bộ Peasant không hợp: [Kenney Character Assets](https://kenney.itch.io/kenney-character-assets) (CC0, 4 model, 75 skin, 17 animation; kiểu khối vuông, dễ thương nhưng khác phong cách cây Quaternius).
