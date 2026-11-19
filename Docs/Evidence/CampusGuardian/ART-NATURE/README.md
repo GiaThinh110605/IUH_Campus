@@ -70,3 +70,13 @@ Chạy riêng EditMode 123/123 (`39805ec8fde5429e9b47ce4ffcda7ce6`) và PlayMode
 Console 0 lỗi, Missing Script = 0. Trong Play, CharacterController đi đủ 4 m qua cạnh cây và 8 m qua khoảnh thử. Mở được luống 3. Cờ Tương tác qua cùng đường xử lý với E không vào trận ở 8 m và vào trận ở 4 m. Tiến độ cốt truyện đã được khôi phục.
 
 Task 5 tại cùng góc sảnh trong 20 giây đạt 204,56 FPS, 368,0 draw calls và 4.994.796 tris. FPS giảm 12,8% so với Task 4 và giảm 4,6% so với mốc gốc. Draw calls tăng từ 260,0 ở Task 4 lên 368,0.
+
+## Chỉnh sửa sau duyệt Task 5
+
+- Khoảnh thử có 30 bụi, 16 cụm hoa chen giữa bụi và 8 cụm cỏ/ba lá. Seed `20112026` xác định độ lệch X/Z tối đa 0,3 m, góc xoay và hệ số scale 0,8–1,2. Hình học được gom theo vật liệu thành năm mesh dưới `NATURE_PLANTERS`, với cờ Batching Static.
+- Đo lại cùng camera sảnh trong 20 giây. Kết quả 223,68 FPS, 277,0 draw calls và 5.024.969 tris. So với Task 4, tăng 17 draw calls, đạt giới hạn tăng tối đa 20.
+- `Stage_Bloom` dùng chín cụm `Flower_3_Group` mỗi luống, scale 0,435 (gấp 1,5 lần mẫu cũ 0,29). Luống 1–4 có cánh đỏ, cam, vàng, trắng. Vật liệu cánh dùng atlas dẫn xuất giữ alpha; phần lá dùng atlas lá.
+
+[Khoảnh thử sau chỉnh sửa, ban ngày](pilot-refined-day.png) · [Bốn luống giai đoạn Nở, ban ngày](garden-bloom-colored-day.png).
+
+EditMode Vườn và Nature 19/19 (`1f633016582142be986dbbea59e11c37`). PlayMode Vườn 5/5 (`5394c57a45e04958af00cde76442cac9`).
