@@ -103,7 +103,10 @@ Shader "IUH/Stylized Foliage"
                 output.positionCS = TransformWorldToHClip(output.positionWS);
                 output.normalWS = TransformObjectToWorldNormal(input.normalOS);
                 output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
-                output.fog = ComputeFogFactor(output.positionCS.z);
+                float viewDepth = -TransformWorldToView(output.positionWS).z;
+                output.fog = unity_OrthoParams.w > 0.5
+                    ? ComputeFogFactorZ0ToFar(max(0, viewDepth - _ProjectionParams.y))
+                    : ComputeFogFactor(output.positionCS.z);
                 #if defined(_MAIN_LIGHT_SHADOWS_SCREEN)
                 output.screenShadow = ComputeScreenPos(output.positionCS);
                 #endif
