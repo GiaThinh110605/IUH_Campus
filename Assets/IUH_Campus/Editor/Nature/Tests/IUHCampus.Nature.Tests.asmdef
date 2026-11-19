@@ -1,0 +1,9 @@
+{
+    "name": "IUHCampus.Nature.Tests",
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
