@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using IUHCampus.Guardian.Match3;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -155,6 +156,7 @@ namespace IUHCampus.Guardian.Story
         void Update()
         {
             ApplySafeArea();
+            UpdateObjectiveVisibility();
             if (!IsBusy)
                 return;
             remaining -= Time.unscaledDeltaTime;
@@ -172,7 +174,15 @@ namespace IUHCampus.Guardian.Story
         public void SetObjective(string text)
         {
             objective.text = text;
-            objective.gameObject.SetActive(!string.IsNullOrEmpty(text));
+            UpdateObjectiveVisibility();
+        }
+
+        void UpdateObjectiveVisibility()
+        {
+            var combat = Match3CombatManager.Instance;
+            bool visible = !string.IsNullOrEmpty(objective.text) && (combat == null || !combat.BlocksExplorationInput);
+            if (objective.gameObject.activeSelf != visible)
+                objective.gameObject.SetActive(visible);
         }
 
         public void ShowCaption(string text, float seconds)

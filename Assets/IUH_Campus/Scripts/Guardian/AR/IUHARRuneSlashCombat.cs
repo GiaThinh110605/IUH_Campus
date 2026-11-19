@@ -1341,7 +1341,7 @@ namespace IUHCampus.Guardian.AR
 
             if (IUHCampus.UI.IUHMobileControlsUI.Instance != null)
             {
-                IUHCampus.UI.IUHMobileControlsUI.Instance.gameObject.SetActive(true);
+                IUHCampus.UI.IUHMobileControlsUI.Instance.CheckPlatformVisibility();
             }
 
             var mainCam = Camera.main ?? GameObject.Find("MainCamera")?.GetComponent<Camera>();
