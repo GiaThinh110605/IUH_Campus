@@ -320,6 +320,7 @@ namespace IUHCampus.DailyActivities
             if (spot == null) return false;
 
             bool isFirstTime = !spot.isUnlocked;
+            if (!isFirstTime) return false;
             spot.isUnlocked = true;
             spot.unlockDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
 
@@ -343,7 +344,7 @@ namespace IUHCampus.DailyActivities
             OnActivityBannerNotification?.Invoke($"📸 CHECK-IN THÀNH CÔNG: {spot.spotName}!", $"Đã lưu vào Album Kỷ Niệm IUH!\nNhận thưởng: +{rewardGold} Vàng & {spot.badgeName}.");
             OnActivitiesStateChanged?.Invoke();
 
-            return isFirstTime;
+            return true;
         }
 
         // ================= 5. LUCKY STAR ================= //

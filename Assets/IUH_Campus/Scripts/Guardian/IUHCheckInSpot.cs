@@ -1,4 +1,5 @@
 using System;
+using IUHCampus.Guardian.Match3;
 using UnityEngine;
 
 namespace IUHCampus.Guardian
@@ -52,13 +53,19 @@ namespace IUHCampus.Guardian
                 m_BillboardPrompt.SetActive(isInside);
             }
 
+            var combat = Match3CombatManager.Instance;
+            if (m_HasCompleted || (combat != null && combat.BlocksExplorationInput))
+            {
+                m_CurrentDwell = 0f;
+                return;
+            }
+
             if (isInside)
             {
                 m_CurrentDwell += Time.deltaTime;
                 if (m_CurrentDwell >= m_DwellTimeRequired)
                 {
                     TriggerCheckIn();
-                    m_CurrentDwell = -5.0f; // delay before next re-trigger
                 }
             }
             else
