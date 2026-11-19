@@ -70,4 +70,54 @@ public class UpgradeStatsTests
         SetLevels(inventory, 9, 9, 9);
         AssertInventoryStats(40, 30, 1500);
     }
+
+    [Test]
+    public void CombatUsesInventoryUpgradeLevels()
+    {
+        AssertCombatUpgradeStats(false);
+    }
+
+    [Test]
+    public void CombatFallsBackToBaseStatsWithoutInventory()
+    {
+        AssertCombatUpgradeStats(true);
+    }
+
+    void AssertCombatUpgradeStats(bool removeInventory)
+    {
+        var managerType = Type.GetType("IUHCampus.Guardian.Match3.Match3CombatManager, Assembly-CSharp", true);
+        var instance = InventoryType.GetProperty("Instance");
+        var original = instance.GetValue(null);
+        var setter = instance.GetSetMethod(true);
+        var battle = new GameObject("UpgradeCombatTest");
+        try
+        {
+            var manager = battle.AddComponent(managerType);
+            SetLevels(inventory, 3, 2, 4);
+            setter.Invoke(null, new object[] { inventory });
+            var apply = managerType.GetMethod("ApplyPlayerUpgradeStats", Fields);
+            Assert.IsNotNull(apply);
+            apply.Invoke(manager, null);
+            var config = managerType.GetField("m_Config", Fields).GetValue(manager);
+            AssertConfig(config, 29, 18, 1360);
+            if (removeInventory)
+            {
+                setter.Invoke(null, new object[] { null });
+                apply.Invoke(manager, null);
+                AssertConfig(config, 22, 15, 1000);
+            }
+        }
+        finally
+        {
+            setter.Invoke(null, new[] { original });
+            UnityEngine.Object.DestroyImmediate(battle);
+        }
+    }
+
+    static void AssertConfig(object config, int sword, int shield, int hp)
+    {
+        Assert.AreEqual(sword, ConfigType.GetField("DmgPerSword").GetValue(config));
+        Assert.AreEqual(shield, ConfigType.GetField("ShieldPerTile").GetValue(config));
+        Assert.AreEqual(hp, ConfigType.GetField("PlayerMaxHp").GetValue(config));
+    }
 }
