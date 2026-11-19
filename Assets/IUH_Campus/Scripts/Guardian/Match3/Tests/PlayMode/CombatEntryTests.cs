@@ -34,22 +34,6 @@ public class CombatEntryTests
         }
         finally { UnityEngine.Object.DestroyImmediate(go); }
     }
-    [Test] public void ConsumedEscapeDoesNotAlsoPauseGameFlow()
-    {
-        var go = new GameObject("EscapeOwnershipTest"); go.SetActive(false);
-        var previewType = FindType("IUHCampus.World.IUHConceptPreviewController");
-        var field = previewType.GetField("escapeHandledFrame", BindingFlags.Static | BindingFlags.NonPublic);
-        var saved = field.GetValue(null);
-        try
-        {
-            field.SetValue(null, Time.frameCount);
-            var flowType = FindType("IUHCampus.Core.IUHGameFlowManager"); var flow = go.AddComponent(flowType);
-            var before = flowType.GetProperty("CurrentState").GetValue(flow);
-            flowType.GetMethod("HandleEscapeKey", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(flow, null);
-            Assert.AreEqual(before, flowType.GetProperty("CurrentState").GetValue(flow));
-        }
-        finally { field.SetValue(null, saved); UnityEngine.Object.DestroyImmediate(go); }
-    }
     [UnityTest] public IEnumerator IntroBlocksCombatAndFleeCancelsIt()
     {
         var type = Type.GetType("IUHCampus.Guardian.Match3.Match3CombatManager, Assembly-CSharp", true);

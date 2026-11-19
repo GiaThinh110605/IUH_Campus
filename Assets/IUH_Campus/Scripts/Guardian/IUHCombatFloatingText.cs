@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using IUHCampus.Minigames.GreenCampus;
+using IUHCampus.Core;
 
 namespace IUHCampus.Guardian
 {

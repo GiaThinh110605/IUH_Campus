@@ -179,7 +179,6 @@ namespace IUHCampus.Editor
         private static void BuildSystems(GameObject parent)
         {
             GameObject gm = CreateChild(parent, "GameManager");
-            gm.AddComponent<GameManager>();
 
             GameObject ws = CreateChild(parent, "SaveSystem");
             ws.AddComponent<SaveSystem>();

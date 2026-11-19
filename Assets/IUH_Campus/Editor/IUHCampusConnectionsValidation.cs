@@ -59,8 +59,6 @@ namespace IUHCampus.Editor
         public static void Walk()
         {
             if(!Application.isPlaying||Result.running)throw new InvalidOperationException("Run in Play Mode after other tests finish.");
-            IUHCampus.Minigames.GreenCampus.IUHGreenCampusManager.Instance.CancelMission();
-            IUHCampus.Minigames.PhotoHunter.IUHPhotoHunterManager.Instance.CancelMission();
             player=UnityEngine.Object.FindFirstObjectByType<ThirdPersonController>();cc=player.GetComponent<CharacterController>();
             oldPosition=player.transform.position;oldRotation=player.transform.rotation;oldController=player.enabled;
             oldBackground=Application.runInBackground;Application.runInBackground=true;player.enabled=false;

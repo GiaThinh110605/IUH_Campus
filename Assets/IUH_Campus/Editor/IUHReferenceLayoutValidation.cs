@@ -7,8 +7,6 @@ using UnityEditor;
 using UnityEngine;
 using StarterAssets;
 using IUHCampus.World;
-using IUHCampus.Minigames.GreenCampus;
-using IUHCampus.Minigames.PhotoHunter;
 
 namespace IUHCampus.Editor
 {
@@ -18,15 +16,6 @@ namespace IUHCampus.Editor
         [Serializable] public class Report
         { public int passed,failed;public bool running;public List<string> checks=new List<string>(); }
         public static Report Current {get;private set;}=new Report();
-        static IEnumerator<float> sequence;
-        static double next;
-        static float gameNext;
-        static IUHGreenCampusManager green;
-        static IUHPhotoHunterManager photo;
-        static ThirdPersonController player;
-        static string oldGreenPath,isolated;
-        static bool oldBackground;
-
         static void Check(bool condition,string description)
         {if(condition)Current.passed++;else Current.failed++;Current.checks.Add((condition?"PASS ":"FAIL ")+description);}
         static void Save(string filename)
@@ -58,13 +47,6 @@ namespace IUHCampus.Editor
             Route("Gate 5 from rear to E",new[]{P(385,-185),P(385,-178),P(376,-178),P(376,-131),P(409,-131),P(407,-123),P(407,-111),P(409,-105),P(409,-89),P(399,-89),P(399,-85)});
             Check(Clear(IUHReferenceLayout.Entrance),"Entrance player spawn has full standing clearance");
             Check(Clear(IUHReferenceLayout.GreenSpawn),"Green spawn has full standing clearance");
-            green=UnityEngine.Object.FindFirstObjectByType<IUHGreenCampusManager>(FindObjectsInactive.Include);
-            foreach(var item in green.items)Check(Clear(item.transform.position),"Litter reachable: "+item.itemId);
-            foreach(var target in UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>(FindObjectsInactive.Include))
-            {
-                Check(Clear(target.ScoutVantagePoint),"Photo standing clearance: "+target.TargetId);
-                Check(target.StructureRoot!=null&&target.StructureRoot.IsChildOf(root.transform),"Photo bound to active new structure: "+target.TargetId);
-            }
             Save("exterior-audit.json");Debug.Log("[Layout Audit] "+Current.passed+" passed, "+Current.failed+" failed");
         }
         static Vector3 P(float x,float z)=>new Vector3(x,.50f,z);
@@ -84,79 +66,7 @@ namespace IUHCampus.Editor
             Check(blockers.Count==0,name+(blockers.Count>0?": "+string.Join("; ",blockers):" has continuous capsule clearance"));
         }
 
-        [MenuItem("IUH Campus/Reference Layout/Verify Both Games (Play Mode)")]
-        public static void PlayTest()
-        {
-            if(!Application.isPlaying||Current.running)throw new InvalidOperationException("Open the new campus in Play Mode.");
-            Current=new Report{running=true};
-            green=IUHGreenCampusManager.Instance;photo=IUHPhotoHunterManager.Instance;
-            player=UnityEngine.Object.FindFirstObjectByType<ThirdPersonController>();
-            oldBackground=Application.runInBackground;Application.runInBackground=true;
-            oldGreenPath=GreenCampusStorage.DirectoryOverride;
-            isolated=Path.GetFullPath(Evidence+"/FullRound");Directory.CreateDirectory(isolated);
-
-            isolated=Path.Combine(isolated,Guid.NewGuid().ToString("N"));Directory.CreateDirectory(isolated);
-            GreenCampusStorage.DirectoryOverride=Path.Combine(isolated,"Green");
-            IUHPhotoHunterStorage.SetCustomStorageDirectoryForTest(Path.Combine(isolated,"Photo"));
-            sequence=Exercise();next=EditorApplication.timeSinceStartup;gameNext=0;EditorApplication.update+=Tick;
-        }
-        static void Teleport(Vector3 pos,Vector3 look)
-        {
-            var cc=player.GetComponent<CharacterController>();cc.enabled=false;player.transform.position=pos;cc.enabled=true;
-            player.ResetMotion();player.SetCameraOrientation(look);
-            Physics.SyncTransforms();
-        }
-        static IEnumerator<float> Exercise()
-        {
-            photo.CancelMission();green.Initialize();green.OpenBriefing();green.BeginRound(true);yield return 1;
-            Check(green.State==IUHGreenCampusManager.GameState.Playing,"Green starts at relocated courtyard");
-            ScreenCapture.CaptureScreenshot(Path.GetFullPath(Evidence+"/green-campus.png"));yield return .3f;
-            foreach(var item in green.items)
-            {
-                Teleport(item.transform.position+Vector3.back*.8f,Vector3.forward);yield return .15f;
-                Check(green.TryPickup(item),"Pick up "+item.itemId+" in new courtyard");
-                var bin=green.bins.First(b=>b.category==item.category);
-                Teleport(bin.transform.position+Vector3.back*1.8f,Vector3.forward);yield return .15f;
-                Check(green.TrySort(item.category),"Sort "+item.itemId+" at relocated station");yield return .1f;
-            }
-            Check(green.State==IUHGreenCampusManager.GameState.Victory && green.CurrentScore==270 && green.CleanZoneCount==3,"Green reaches 9/9, 3 restored corners, 270 points");
-            ScreenCapture.CaptureScreenshot(Path.GetFullPath(Evidence+"/green-victory.png"));yield return .3f;
-            green.CancelMission();photo.RestartMission();photo.StartMission(true);yield return 1;
-            foreach(var target in UnityEngine.Object.FindObjectsByType<IUHPhotoTarget>().OrderBy(t=>t.TargetId))
-            {
-                photo.ExitViewfinderMode();Teleport(target.ScoutVantagePoint,target.ScoutLookDirection);yield return .8f;
-                photo.EnterViewfinderMode();yield return .5f;
-                player.SetCameraOrientation(target.GetWorldCenter()-(player.transform.position+Vector3.up*1.4f));yield return .5f;
-                string reason;bool valid=target.ValidatePhoto(Camera.main,player.transform,photo.ObstacleLayerMask,out reason);
-                Check(valid,"Actual camera validates "+target.TargetId+": "+reason);
-                int before=photo.CompletedCount;photo.TriggerCapturePhoto();yield return 2;
-                Check(photo.CompletedCount==before+1,"Actual JPEG capture awards "+target.TargetId);
-            }
-            Check(photo.CompletedCount==3&&photo.CurrentScore==300,"Photo Hunter completes all 3 new locations, 300 points");
-            Check(Directory.GetFiles(Path.Combine(isolated,"Photo"),"*.jpg",SearchOption.AllDirectories).Length==3,"Three real landmark JPEGs exist");
-            ScreenCapture.CaptureScreenshot(Path.GetFullPath(Evidence+"/photo-complete.png"));yield return .5f;
-        }
-        static void Tick()
-        {
-            try
-            {
-                if(!Application.isPlaying)throw new InvalidOperationException("Play Mode stopped during validation.");
-                if(EditorApplication.timeSinceStartup<next||Time.time<gameNext)return;
-                if(sequence.MoveNext()){next=EditorApplication.timeSinceStartup+sequence.Current;gameNext=Time.time+sequence.Current;}
-                else Finish();
-            }
-            catch(Exception ex){Check(false,ex.ToString());Finish();}
-        }
-        static void Finish()
-        {
-            EditorApplication.update-=Tick;
-            if(Application.isPlaying){green.CancelMission();photo.CancelMission();}
-            GreenCampusStorage.DirectoryOverride=oldGreenPath;IUHPhotoHunterStorage.SetCustomStorageDirectoryForTest(null);
-            Application.runInBackground=oldBackground;Current.running=false;Save("full-round-playmode.json");
-            Debug.Log("[Layout Full Round] "+Current.passed+" passed; "+Current.failed+" failed");
-        }
-
-        [MenuItem("IUH Campus/Reference Layout/Capture Exterior Views")]
+        [MenuItem("IUH Campus/Reference Layout/Capture")]
         public static void Capture()
         {
             if(Application.isPlaying)throw new InvalidOperationException("Capture in Edit Mode for deterministic render state.");

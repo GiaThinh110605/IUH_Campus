@@ -1,0 +1,343 @@
+{
+  "targets": [
+    "Assets/IUH_Campus/Editor/IUHGrabCampusBuilder.cs",
+    "Assets/IUH_Campus/Editor/IUHGameFlowRefactorSetup.cs",
+    "Assets/IUH_Campus/Editor/IUHGrabCampusGameplaySetup.cs",
+    "Assets/IUH_Campus/Editor/IUHSixGameMenuDesign.cs",
+    "Assets/IUH_Campus/Scripts/Hub/IUHGameHubManager.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHWorldLocationPin.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHMiniGamePrepUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHMainMenuUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHDeliveryDialogueUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHCustomizationUI.cs",
+    "Assets/IUH_Campus/Scripts/UI/IUHCampusHubHUD.cs",
+    "Assets/IUH_Campus/Scripts/Player/IUHUniformManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoTarget.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoHunterUI.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoHunterSaveData.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoHunterManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/IUHPhotoCaptureService.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/Editor/Tests/IUHPhotoHunterTests.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/PhotoHunter/Editor/IUHPhotoHunterSetup.cs",
+    "Assets/IUH_Campus/Scripts/Core/PlayerLoadout.cs",
+    "Assets/IUH_Campus/Scripts/Core/IUHGameFlowManager.cs",
+    "Assets/IUH_Campus/Scripts/Core/GameManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/IUHGreenLitter.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/IUHGreenCampusUI.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/IUHGreenCampusManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/IUHGreenBin.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/IUHGreenBillboard.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/GreenCampusProgress.cs",
+    "Assets/IUH_Campus/Scripts/IUHInteractiveTourController.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHCustomizationManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/GreenCampusTests.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGhostHazard.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/MinigameMovementPlayTests.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/Editor/IUHGreenCampusSetup.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHDeliveryWaypoint.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusHUD.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCargoVisual.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabDeliveryObjectives.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabSurvivalItem.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs",
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHHumanoidMotorbikeRider.cs"
+  ],
+  "types": [
+    "BrandTheme",
+    "CachedLightInfo",
+    "DeliveryOrder",
+    "FlowState",
+    "GameManager",
+    "GameState",
+    "GhostBehaviorType",
+    "GhostState",
+    "GrabFlareInstance",
+    "GreenCampusProgress",
+    "GreenCampusStorage",
+    "GreenCampusTests",
+    "GreenItemDefinition",
+    "GreenZoneView",
+    "IUHCampusHubHUD",
+    "IUHCustomizationManager",
+    "IUHCustomizationUI",
+    "IUHDeliveryDialogueUI",
+    "IUHDeliveryWaypoint",
+    "IUHGameFlowManager",
+    "IUHGameFlowRefactorSetup",
+    "IUHGameHubManager",
+    "IUHGhostHazard",
+    "IUHGrabCampusBuilder",
+    "IUHGrabCampusGameplaySetup",
+    "IUHGrabCampusHUD",
+    "IUHGrabCampusManager",
+    "IUHGrabCargoVisual",
+    "IUHGrabDeliveryObjectives",
+    "IUHGrabInventoryManager",
+    "IUHGrabMotorbike",
+    "IUHGrabSurvivalItem",
+    "IUHGreenBillboard",
+    "IUHGreenBin",
+    "IUHGreenCampusManager",
+    "IUHGreenCampusSetup",
+    "IUHGreenCampusUI",
+    "IUHGreenLitter",
+    "IUHHorrorPursuitUI",
+    "IUHHumanoidMotorbikeRider",
+    "IUHInteractiveTourController",
+    "IUHMainMenuUI",
+    "IUHMiniGamePortalUI",
+    "IUHMiniGamePrepUI",
+    "IUHMinimapUI",
+    "IUHPhotoCaptureService",
+    "IUHPhotoHunterManager",
+    "IUHPhotoHunterSetup",
+    "IUHPhotoHunterStorage",
+    "IUHPhotoHunterTests",
+    "IUHPhotoHunterUI",
+    "IUHPhotoTarget",
+    "IUHSharedSceneMenu",
+    "IUHUniformManager",
+    "IUHWorldLocationPin",
+    "ItemType",
+    "MinigameMovementPlayTests",
+    "MissionPhase",
+    "PhotoHunterSaveContainer",
+    "PhotoHunterState",
+    "PhotoRecord",
+    "PlayerLoadout",
+    "PointOfInterest",
+    "Report",
+    "TestReport",
+    "ThemeConfig",
+    "UniformOutfit",
+    "WasteCategory",
+    "WaypointType"
+  ],
+  "guidCount": 52,
+  "code": {
+    "IUHGreenCampusManager": [
+      "Assets/IUH_Campus/Editor/IUHCampusPhotoRefinement.cs:46",
+      "Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs:62",
+      "Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs:399",
+      "Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs:432",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:24",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:61",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:92",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:112",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:122",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:102",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:118",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:133",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:139",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:155"
+    ],
+    "IUHPhotoTarget": [
+      "Assets/IUH_Campus/Editor/IUHCampusPhotoRefinement.cs:49",
+      "Assets/IUH_Campus/Editor/IUHReferenceCampusConnections.cs:78",
+      "Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs:433",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:63",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:125",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:111"
+    ],
+    "IUHInteractiveTourController": [
+      "Assets/IUH_Campus/Editor/IUHCampusMasterBuilder.cs:1723"
+    ],
+    "IUHGameFlowRefactorSetup": [
+      "Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs:50"
+    ],
+    "IUHWorldLocationPin": [
+      "Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs:367",
+      "Assets/IUH_Campus/Editor/IUHStreetDistrictBuilder.cs:624"
+    ],
+    "IUHCampusHubHUD": [
+      "Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs:376",
+      "Assets/IUH_Campus/Editor/IUHCampusEnvironmentBuilder.cs:379"
+    ],
+    "Report": [
+      "Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs:16",
+      "Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs:18",
+      "Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs:35",
+      "Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs:67",
+      "Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs:17",
+      "Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs:18",
+      "Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs:19",
+      "Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs:21",
+      "Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs:38",
+      "Assets/IUH_Campus/Editor/IUHPhotoReferenceValidation.cs:41",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:18",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:20",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:38",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:91",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:23",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:24",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:25",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:26",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:33",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:36",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:96",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:99",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:138",
+      "Assets/IUH_Campus/Scripts/Guardian/IUHDroneHUD.cs:38",
+      "Assets/IUH_Campus/Scripts/Guardian/Backend/Editor/GuardianScanSmoke.cs:11",
+      "Assets/IUH_Campus/Scripts/Guardian/Backend/Editor/GuardianScanSmoke.cs:24",
+      "Assets/IUH_Campus/Scripts/Guardian/Backend/Editor/GuardianBackendSmoke.cs:12",
+      "Assets/IUH_Campus/Scripts/Guardian/Backend/Editor/GuardianBackendSmoke.cs:31"
+    ],
+    "IUHPhotoHunterManager": [
+      "Assets/IUH_Campus/Editor/IUHCampusConnectionsValidation.cs:63",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:25",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:92",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:40",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:133",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:139"
+    ],
+    "IUHGreenBillboard": [
+      "Assets/IUH_Campus/Editor/IUHARSceneBuilder.cs:965",
+      "Assets/IUH_Campus/Editor/IUHMatch3CombatBuilder.cs:296",
+      "Assets/IUH_Campus/Editor/IUHMatch3CombatBuilder.cs:548",
+      "Assets/IUH_Campus/Editor/IUHMatch3CombatBuilder.cs:1152",
+      "Assets/IUH_Campus/Editor/IUHMatch3CombatBuilder.cs:1271",
+      "Assets/IUH_Campus/Editor/IUHMatch3CombatBuilder.cs:1361",
+      "Assets/IUH_Campus/Scripts/Guardian/IUHCombatFloatingText.cs:27"
+    ],
+    "GameManager": [
+      "Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs:181",
+      "Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs:182",
+      "Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs:1077",
+      "Assets/IUH_Campus/Editor/IUHGameSystemsMasterBuilder.cs:1080",
+      "Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs:181",
+      "Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs:182",
+      "Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs:1548",
+      "Assets/IUH_Campus/Editor/IUHMultiFloorMasterBuilder.cs:1551"
+    ],
+    "IUHMiniGamePortalUI": [
+      "Assets/IUH_Campus/Editor/IUHCleanMenus.cs:70",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:133",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:138",
+      "Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs:26"
+    ],
+    "IUHGameFlowManager": [
+      "Assets/IUH_Campus/Editor/IUHCleanMenus.cs:81",
+      "Assets/IUH_Campus/Editor/IUHCleanMenus.cs:85",
+      "Assets/IUH_Campus/Scripts/Guardian/Match3/Tests/PlayMode/CombatEntryTests.cs:46"
+    ],
+    "FlowState": [
+      "Assets/IUH_Campus/Editor/IUHCleanMenus.cs:85"
+    ],
+    "IUHGrabCampusManager": [
+      "Assets/IUH_Campus/Editor/IUHReferenceCampusBuilder.cs:473"
+    ],
+    "GreenCampusStorage": [
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:95",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:99",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:154",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:140",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:142",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:189"
+    ],
+    "IUHPhotoHunterStorage": [
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:100",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:154",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:36",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:39",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:51",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:58",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:59",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:60",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:65",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:88",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:140",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:142",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:189"
+    ],
+    "GameState": [
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:112",
+      "Assets/IUH_Campus/Editor/IUHReferenceLayoutValidation.cs:122",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:155"
+    ],
+    "PhotoHunterSaveContainer": [
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:46",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:61",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:63",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:143"
+    ],
+    "IUHPhotoHunterUI": [
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:66",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:70",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:71"
+    ],
+    "IUHPhotoCaptureService": [
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:75",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:77"
+    ],
+    "IUHPhotoHunterSetup": [
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:105",
+      "Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs:20",
+      "Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs:24"
+    ],
+    "IUHGreenCampusSetup": [
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:106",
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:117",
+      "Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs:25"
+    ],
+    "IUHGrabMotorbike": [
+      "Assets/IUH_Campus/Editor/IUHSystemAuditTests.cs:161",
+      "Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs:46",
+      "Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs:138",
+      "Assets/IUH_Campus/Scripts/Guardian/IUHMonsterEncounter.cs:150"
+    ],
+    "IUHSharedSceneMenu": [
+      "Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs:14"
+    ],
+    "IUHCustomizationUI": [
+      "Assets/IUH_Campus/Editor/IUHSharedSceneMenu.cs:41"
+    ]
+  },
+  "assets": {
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHDeliveryWaypoint.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 2
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GreenCampus/IUHGreenBillboard.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 25,
+      "Assets/IUH_Campus/Scenes/IUH_Campus_AR_Encounter.unity": 2
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabSurvivalItem.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 8
+    },
+    "Assets/IUH_Campus/Scripts/UI/IUHDeliveryDialogueUI.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/UI/IUHMinimapUI.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGhostHazard.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 6
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabMotorbike.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/UI/IUHHorrorPursuitUI.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 2
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusHUD.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/UI/IUHMiniGamePortalUI.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabInventoryManager.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHGrabCampusManager.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    },
+    "Assets/IUH_Campus/Scripts/Minigames/GrabCampus/IUHCustomizationManager.cs": {
+      "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity": 1
+    }
+  }
+}
