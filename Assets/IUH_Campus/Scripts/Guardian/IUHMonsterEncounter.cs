@@ -55,6 +55,7 @@ namespace IUHCampus.Guardian
         public int BossMinDmg => m_BossMinDmg;
         public int BossMaxDmg => m_BossMaxDmg;
         public float CombatDuration => m_CombatDuration;
+        private int DisplayMonsterHp => m_CombatManager != null ? m_CombatManager.ScaleMonsterHp(m_MonsterHp) : m_MonsterHp;
         public int RewardGold => m_RewardGold;
         public string[] RewardItems => m_RewardItems;
         public Transform PlayerTransform => m_PlayerTransform;
@@ -114,6 +115,11 @@ namespace IUHCampus.Guardian
             if (m_CombatManager == null)
             {
                 m_CombatManager = FindAnyObjectByType<Match3CombatManager>(FindObjectsInactive.Include);
+            }
+
+            if (m_BossHpText != null)
+            {
+                m_BossHpText.text = $"{DisplayMonsterHp} HP";
             }
 
             if (m_MonsterOverheadCanvas != null)
@@ -221,7 +227,9 @@ namespace IUHCampus.Guardian
                 m_ProximityTimer = 0f;
                 if (m_BossIntentText != null)
                 {
-                    m_BossIntentText.text = $"⚔️ Ý định: Tấn công {m_BossMinDmg}-{m_BossMaxDmg} DMG";
+                    int min = m_CombatManager != null ? m_CombatManager.ScaleMonsterDamage(m_BossMinDmg) : m_BossMinDmg;
+                    int max = m_CombatManager != null ? m_CombatManager.ScaleMonsterDamage(m_BossMaxDmg) : m_BossMaxDmg;
+                    m_BossIntentText.text = $"⚔️ Ý định: Tấn công {min}-{Mathf.Max(min, max)} DMG";
                 }
             }
 
@@ -324,7 +332,7 @@ namespace IUHCampus.Guardian
 
             if (m_BossHpText != null)
             {
-                m_BossHpText.text = $"{m_MonsterHp} HP (STUNNED!)";
+                m_BossHpText.text = $"{DisplayMonsterHp} HP (STUNNED!)";
             }
             if (m_BossHpFill != null)
             {

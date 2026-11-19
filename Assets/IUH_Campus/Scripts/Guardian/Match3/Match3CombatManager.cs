@@ -21,6 +21,9 @@ namespace IUHCampus.Guardian.Match3
         [Header("Balance (boss values are overridden by the encounter)")]
         [SerializeField] private Match3CombatConfig m_Config = new Match3CombatConfig();
         [SerializeField] private float m_CombatDuration = 90f;
+        [SerializeField, Min(0f)] private float m_MonsterHpScale = 0.6f;
+        [SerializeField, Min(0f)] private float m_MonsterDamageScale = 0.7f;
+        [SerializeField, Min(0f)] private float m_ExtraCombatSeconds = 30f;
         [SerializeField] private string m_PlayerName = "SINH VIÊN IUH";
 
         [Header("HUD - Player (left)")]
@@ -135,11 +138,15 @@ namespace IUHCampus.Guardian.Match3
             m_CurrentEncounter = encounter;
             if (encounter == null) return;
 
-            m_Config.BossMaxHp = encounter.MonsterHp;
-            m_Config.BossMinDmg = encounter.BossMinDmg;
-            m_Config.BossMaxDmg = Mathf.Max(encounter.BossMinDmg, encounter.BossMaxDmg);
-            m_CombatDuration = encounter.CombatDuration;
+            m_Config.BossMaxHp = ScaleMonsterHp(encounter.MonsterHp);
+            m_Config.BossMinDmg = ScaleMonsterDamage(encounter.BossMinDmg);
+            m_Config.BossMaxDmg = Mathf.Max(m_Config.BossMinDmg, ScaleMonsterDamage(encounter.BossMaxDmg));
+            m_CombatDuration = encounter.CombatDuration + m_ExtraCombatSeconds;
         }
+
+        internal int ScaleMonsterHp(int hp) => Mathf.Max(1, Mathf.RoundToInt(hp * m_MonsterHpScale));
+
+        internal int ScaleMonsterDamage(int damage) => Mathf.Max(1, Mathf.RoundToInt(damage * m_MonsterDamageScale));
 
         public void StartNewCombat()
         {

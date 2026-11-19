@@ -135,6 +135,14 @@ Phác bảng:
 - Kiểm bảng UI trên Device Simulator iPhone (cỡ màn hình có tai thỏ, xoay ngang) nếu kịp; nếu không thì ghi "chờ Thịnh thử trên máy".
 - Bằng chứng: `Docs/Evidence/CampusGuardian/GARDEN/`.
 
+## 8. Điều chỉnh 19/11/2026 sau khi người dùng chơi thử (thay cho các mục tương ứng ở trên)
+- **4 luống** thay vì 6 (`BedCount = 4`), đặt đúng 4 bồn hoa trên bãi cỏ cạnh khu bàn ô dù Căn tin; bỏ 6 luống trước Căn tin. Save đổi lên `v2`; save `v1` cũ thành 4 luống trống.
+- Đất phải sáng, đọc rõ cả ban đêm; luống ôm theo hình bồn; mở bảng khi đứng trong 2 m của bất kỳ điểm nào trên bồn.
+- **Dựng lại bồn:** gỡ 4 bồn trang trí cũ. Hoa trong mesh gộp được xử lý bằng một bản sao mesh đã lọc; asset gốc không sửa. Thay bằng 4 bồn mới từ prefab vườn, đặt đúng chỗ cũ.
+- Tạm dùng asset có sẵn. Prefab có 3 ô `Stage_Seed`/`Stage_Sprout`/`Stage_Bloom` để sau này thay mô hình mà không sửa code, và có hiệu ứng lớn dần khi đổi giai đoạn. Giữ nguyên cả vòng gieo, tưới, bón, hái.
+- Quái: tầm E và tự vào trận còn 5 m (tầm 16 m chỉ để hiện thông tin), và chỉ đọc nút Tương tác khi người chơi đã trong tầm, để không nuốt nút của vườn trên điện thoại.
+- Cân bằng (người dùng duyệt): máu quái ×0.6, sát thương quái ×0.7, thời gian trận +30 giây, áp chung trong `Match3CombatManager`.
+
 ## 7. Để người thực hiện quyết
 - Hình dạng cụ thể của mô hình 3 giai đoạn và màu hoa từng luống, miễn dùng asset có sẵn và nhìn rõ khác nhau.
 - Bảng UI đặt trên canvas nào; cỡ chữ và bố cục, miễn giống phong cách shop nâng cấp.
