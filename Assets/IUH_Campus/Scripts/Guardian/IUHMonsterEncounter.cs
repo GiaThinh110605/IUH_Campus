@@ -17,6 +17,7 @@ namespace IUHCampus.Guardian
         [SerializeField] private int m_MonsterHp = 800;
         [SerializeField] private float m_RevealRadius = 16.0f;
         [SerializeField] private float m_TriggerRadius = 10.0f;
+        [SerializeField, Min(0f)] private float m_InteractRadius = 5f;
         [SerializeField] private KeyCode m_InteractKey = KeyCode.E;
 
         [Header("Combat Balance")]
@@ -181,9 +182,10 @@ namespace IUHCampus.Guardian
                 if (m_PlayerTransform == null) return;
             }
 
+            float combatRadius = Mathf.Min(m_TriggerRadius, m_InteractRadius);
             if (Match3CombatManager.Instance != null && Match3CombatManager.Instance.BlocksExplorationInput)
             {
-                if (Vector3.Distance(transform.position, m_PlayerTransform.position) <= m_TriggerRadius) m_RequireLeaveRange = true;
+                if (Vector3.Distance(transform.position, m_PlayerTransform.position) <= combatRadius) m_RequireLeaveRange = true;
                 return;
             }
             var preview = m_PlayerTransform.GetComponent<IUHCampus.World.IUHConceptPreviewController>();
@@ -191,18 +193,17 @@ namespace IUHCampus.Guardian
             if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown()) return;
             float dist = Vector3.Distance(transform.position, m_PlayerTransform.position);
             bool inRevealRange = dist <= m_RevealRadius;
-            bool inCombatRange = dist <= m_TriggerRadius;
+            bool inCombatRange = dist <= combatRadius;
             if (!inCombatRange) m_RequireLeaveRange = false;
 
-            bool inProximity = inCombatRange || inRevealRange;
-            if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf != inProximity)
+            if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf != inRevealRange)
             {
-                m_MonsterOverheadCanvas.SetActive(inProximity);
+                m_MonsterOverheadCanvas.SetActive(inRevealRange);
             }
 
-            if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf != inProximity)
+            if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf != inCombatRange)
             {
-                m_ActionPromptObject.SetActive(inProximity);
+                m_ActionPromptObject.SetActive(inCombatRange);
             }
 
             // Cơ chế tiếp cận: Nếu người chơi đứng sát quái vật (~m_TriggerRadius) khoảng 5 giây sẽ tự động vào trận
@@ -234,8 +235,8 @@ namespace IUHCampus.Guardian
             }
 
             // Người chơi có thể bấm phím [E] hoặc nút Tương Tác bất cứ lúc nào để vào trận ngay không cần chờ 5s
-            bool interactRequested = Input.GetKeyDown(m_InteractKey) || IUHCampus.Core.IUHInputHelper.IsInteractKeyDown();
-            if (inProximity && interactRequested && m_TriggerCooldown <= 0f)
+            if (inCombatRange && m_TriggerCooldown <= 0f &&
+                (Input.GetKeyDown(m_InteractKey) || IUHCampus.Core.IUHInputHelper.IsInteractKeyDown()))
             {
                 m_ProximityTimer = 0f;
                 TriggerCombat();
@@ -348,7 +349,7 @@ namespace IUHCampus.Guardian
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, m_RevealRadius);
             Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, m_TriggerRadius);
+            Gizmos.DrawWireSphere(transform.position, Mathf.Min(m_TriggerRadius, m_InteractRadius));
         }
     }
 }
