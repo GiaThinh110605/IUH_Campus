@@ -1,4 +1,5 @@
 using UnityEngine;
+using IUHCampus.Core;
 using IUHCampus.Guardian;
 
 namespace IUHCampus.Combat
@@ -11,8 +12,14 @@ namespace IUHCampus.Combat
         [SerializeField] private float m_FlySpeed = 8f;
 
         private Transform m_PlayerTransform;
+        private Rigidbody m_Body;
         private bool m_IsCollected = false;
         private float m_SpawnTime;
+
+        private void Awake()
+        {
+            m_Body = GetComponent<Rigidbody>();
+        }
 
         public void Initialize(int gold)
         {
@@ -28,11 +35,12 @@ namespace IUHCampus.Combat
             Destroy(gameObject, 20f); // auto cleanup if not picked up
         }
 
-        private void FindPlayer()
+        private void FindPlayer(bool deferRetry = false)
         {
-            var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
-            if (student != null) m_PlayerTransform = student.transform;
-            else if (Camera.main != null) m_PlayerTransform = Camera.main.transform;
+            m_PlayerTransform = deferRetry
+                ? IUHPlayerLocator.Player
+                : (GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player"))?.transform;
+            if (m_PlayerTransform == null && Camera.main != null) m_PlayerTransform = Camera.main.transform;
         }
 
         private void Update()
@@ -42,7 +50,7 @@ namespace IUHCampus.Combat
 
             if (m_PlayerTransform == null)
             {
-                FindPlayer();
+                FindPlayer(deferRetry: true);
                 if (m_PlayerTransform == null) return;
             }
 
@@ -52,8 +60,7 @@ namespace IUHCampus.Combat
             if (dist <= m_MagnetRadius)
             {
                 // Turn off physics and fly to player
-                var rb = GetComponent<Rigidbody>();
-                if (rb != null) rb.isKinematic = true;
+                if (m_Body != null) m_Body.isKinematic = true;
 
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, m_FlySpeed * Time.deltaTime);
 

@@ -1,0 +1,6 @@
+{
+    "name": "IUHCampus.Core.PlayModeTests",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}

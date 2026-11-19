@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using IUHCampus.Core;
 using IUHCampus.Guardian;
 
 namespace IUHCampus.Combat
@@ -119,8 +120,7 @@ namespace IUHCampus.Combat
             // 2. Proximity pickup check
             if (m_PlayerTransform == null)
             {
-                var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
-                if (student != null) m_PlayerTransform = student.transform;
+                m_PlayerTransform = IUHPlayerLocator.Player;
             }
 
             if (m_PlayerTransform != null)

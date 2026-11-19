@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using IUHCampus.Core;
 using IUHCampus.Guardian.Match3;
+using IUHCampus.World;
 using StarterAssets;
 
 namespace IUHCampus.Guardian
@@ -41,6 +43,7 @@ namespace IUHCampus.Guardian
         [SerializeField] private Match3CombatManager m_CombatManager;
 
         private Transform m_PlayerTransform;
+        private IUHConceptPreviewController m_PlayerPreview;
         private ThirdPersonController m_ThirdPersonController;
         private StarterAssetsInputs m_StarterInputs;
         private bool m_IsEncounterActive;
@@ -134,17 +137,17 @@ namespace IUHCampus.Guardian
             }
         }
 
-        private void FindPlayer()
+        private void FindPlayer(bool deferRetry = false)
         {
-            var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
-            if (student != null)
-            {
-                m_PlayerTransform = student.transform;
-                m_ThirdPersonController = student.GetComponent<ThirdPersonController>();
-                m_StarterInputs = student.GetComponent<StarterAssetsInputs>();
-                return;
-            }
+            var player = deferRetry
+                ? IUHPlayerLocator.Player
+                : (GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player"))?.transform;
+            if (player == null) return;
 
+            m_PlayerTransform = player;
+            m_PlayerPreview = player.GetComponent<IUHConceptPreviewController>();
+            m_ThirdPersonController = player.GetComponent<ThirdPersonController>();
+            m_StarterInputs = player.GetComponent<StarterAssetsInputs>();
         }
 
         private void Update()
@@ -178,7 +181,7 @@ namespace IUHCampus.Guardian
 
             if (m_PlayerTransform == null)
             {
-                FindPlayer();
+                FindPlayer(deferRetry: true);
                 if (m_PlayerTransform == null) return;
             }
 
@@ -188,8 +191,7 @@ namespace IUHCampus.Guardian
                 if (Vector3.Distance(transform.position, m_PlayerTransform.position) <= combatRadius) m_RequireLeaveRange = true;
                 return;
             }
-            var preview = m_PlayerTransform.GetComponent<IUHCampus.World.IUHConceptPreviewController>();
-            if (preview != null && preview.IsExplorationPaused) return;
+            if (m_PlayerPreview != null && m_PlayerPreview.IsExplorationPaused) return;
             if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown()) return;
             float dist = Vector3.Distance(transform.position, m_PlayerTransform.position);
             bool inRevealRange = dist <= m_RevealRadius;
