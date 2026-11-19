@@ -193,20 +193,10 @@ namespace IUHCampus.Guardian.AR
             }
 
             // 3. Phím tắt [E] hoặc [Space] hoặc nút ảo Interact trên Mobile Controls UI
-            bool keyRequested = IUHInputHelper.IsInteractKeyDown();
-
-            if (keyRequested)
+            if (playerDist <= m_InteractionDistance && IUHInputHelper.IsInteractKeyDown())
             {
-                if (m_PlayerTransform == null) FindReferences();
-                float dist = m_PlayerTransform != null 
-                    ? Vector3.Distance(m_PlayerTransform.position, transform.position)
-                    : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 999f);
-
-                if (dist <= m_InteractionDistance)
-                {
-                    StartCombatEncounter();
-                    return;
-                }
+                StartCombatEncounter();
+                return;
             }
 
             if (tapRequested && m_ARCamera != null)
