@@ -23,11 +23,12 @@ namespace IUHCampus.Garden
         [TestCase("abc")]
         [TestCase("v9|0,0,0")]
         [TestCase("v1|0,0,0;1,0,0;3,0,1")]
+        [TestCase("v1|0,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0")]
         [TestCase("v1|9,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0")]
         public void InvalidSaveReturnsEmptyBeds(string data)
         {
             var beds = GardenSave.Deserialize(data);
-            Assert.AreEqual(6, beds.Count);
+            Assert.AreEqual(4, beds.Count);
             Assert.IsTrue(beds.TrueForAll(bed => bed.Stage == GardenStage.Empty));
         }
     }

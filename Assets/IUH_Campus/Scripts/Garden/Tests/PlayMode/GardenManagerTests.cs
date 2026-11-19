@@ -62,7 +62,7 @@ namespace IUHCampus.Garden
                 int value = PlayerPrefs.GetInt(key);
                 restore.Add(() => { if (had) PlayerPrefs.SetInt(key, value); else PlayerPrefs.DeleteKey(key); });
             }
-            foreach (var key in new[] { "IUH_Guardian_Items", "IUH_Garden_v1" })
+            foreach (var key in new[] { "IUH_Guardian_Items", "IUH_Garden_v2" })
             {
                 bool had = PlayerPrefs.HasKey(key);
                 string value = PlayerPrefs.GetString(key);
@@ -77,7 +77,7 @@ namespace IUHCampus.Garden
                 var inventory = stock.AddComponent(inventoryType);
                 inventoryType.GetField("m_Gold", Private).SetValue(inventory, gold);
                 setter.Invoke(null, new object[] { inventory });
-                PlayerPrefs.DeleteKey("IUH_Garden_v1");
+                PlayerPrefs.DeleteKey("IUH_Garden_v2");
                 var manager = garden.AddComponent(managerType);
                 SetTime(manager, Start);
                 garden.SetActive(true);

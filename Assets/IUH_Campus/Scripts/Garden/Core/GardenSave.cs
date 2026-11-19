@@ -6,12 +6,12 @@ namespace IUHCampus.Garden
 {
     public static class GardenSave
     {
-        const string Version = "v1|";
+        const string Version = "v2|";
 
         public static string Serialize(IReadOnlyList<GardenBed> beds)
         {
             if (beds == null || beds.Count != GardenRules.BedCount)
-                throw new ArgumentException("Expected six garden beds.", nameof(beds));
+                throw new ArgumentException("Unexpected garden bed count.", nameof(beds));
             var rows = new string[beds.Count];
             for (int i = 0; i < beds.Count; i++)
             {

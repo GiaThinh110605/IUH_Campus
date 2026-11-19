@@ -49,6 +49,22 @@ Sửa đổi spec (mục 8, chưa commit) và file prompt này vào commit của
   - Hiệu ứng **lớn dần** khi đổi giai đoạn: scale từ ~0.3 lên 1 trong ~0.6 s (unscaled time). Lúc load scene hiện ngay đúng giai đoạn, không chạy hiệu ứng.
 - Phần còn lại của Việc 3 bên dưới vẫn áp dụng: 4 luống, save `v2`, mở bảng trong 2 m của bất kỳ điểm nào trên bồn, khoảng cách với quái, xóa 6 luống cũ. Câu "hoa trang trí trồi qua lớp đất ⇒ dừng" không còn áp dụng vì bồn cũ đã bị gỡ.
 
+### Chốt vị trí 19/11 (thay mọi chỗ nói về tìm/đo bồn bên dưới)
+- Lượt trước đo nhầm: 6 hình 17 × 13 m là **khoảnh cỏ**, không phải bồn. "Bồn hoa" là **dải hàng rào thấp + hoa** chạy dọc mép bắc và nam của mỗi khoảnh cỏ (các mesh `Trimmed hedge foliage`, `White flowers`, `Marigold`, `Pink flowers` trong `Layered planting and clipped hedges_405`).
+- Dùng khoảnh cỏ cạnh Căn tin (tâm khoảng (-20, -29)). Có 2 dải, mỗi dải dài khoảng 12 m, rộng khoảng 1,5 m:
+  - **Dải bắc** (sát khu ô dù): x ≈ -27…-15, z ≈ -25.
+  - **Dải nam**: x ≈ -26…-15, z ≈ -34.
+  - Tọa độ trên là ước lượng theo đỉnh mesh. Hãy đo lại hộp bao chính xác và ghi vào README.
+- **Mỗi dải chia đôi thành 2 luống**, tổng 4 luống dài khoảng 6 m: luống 1–2 ở dải bắc (tây → đông), luống 3–4 ở dải nam.
+- Gỡ hàng rào và hoa trang trí của cả 2 dải bằng bản sao mesh đã lọc (bỏ tam giác trong hộp bao của 2 dải, áp cho cả 4 mesh nêu trên). Các khoảnh cỏ khác giữ nguyên.
+- **Dời quái Căn tin** (người dùng cho phép):
+  - Object gốc `CORRUPTED_ENCOUNTER_CANTEEN`, hiện ở khoảng (-22, -36), cách dải nam khoảng 2 m. Dời **cả object gốc** về phía nam để mọi điểm của dải nam cách quái **> 4,8 + 2 = 6,8 m**, dự kiến z ≈ -42. X giữ nguyên nếu được.
+  - Chỗ mới phải là nền đi được: không nằm trong tòa nhà, cây hay vật cản, không chồng lên đường/biển. Kiểm thêm khoảng cách tới quái khác và các điểm check-in.
+  - Tìm mọi chỗ khác tham chiếu vị trí quái này: tọa độ cứng trong code/cốt truyện, waypoint/mũi tên nhiệm vụ, bản đồ, `IUHMonsterRegistry`, minimap. Cập nhật theo, hoặc liệt kê nếu không cần đổi.
+  - Không có chỗ hợp lý ⇒ dừng, gửi ảnh 2–3 phương án.
+  - Ghi vị trí cũ/mới vào README. Đây là thay đổi scene ngoài `GARDEN` được phép thêm.
+- Kiểm lại khoảng cách mọi luống tới mọi quái (E 5 m với `IUHMonsterEncounter`, 4,8 m với quái AR/nhiễm độc) cộng 2 m. Bỏ qua bảng 6 khoảnh cỏ cũ và ảnh `planter-clearance-map.png` (xóa ảnh đó, hoặc thay bằng sơ đồ mới cho đúng).
+
 ### Nội dung gốc của Việc 3 (vẫn dùng, trừ chỗ đã thay ở trên)
 - Người dùng muốn **4 luống** đặt đúng **4 bồn hoa trên bãi cỏ** trong ảnh: bãi cỏ cạnh khu bàn ô dù của Căn tin, các dải bồn hoa đỏ/cam/trắng chạy chéo hai bên bãi cỏ.
   - Bước 1: tìm 4 bồn bằng scene (collider/mesh bồn, ví dụ object trong `Layered planting and clipped hedges_405` hoặc khu `Garden beds…`) và chụp màn hình để xác nhận.
@@ -65,7 +81,7 @@ Sửa đổi spec (mục 8, chưa commit) và file prompt này vào commit của
   - Hoa trang trí vẫn trồi qua lớp đất làm rối (không phân biệt được bồn trống với bồn đã trồng) ⇒ **dừng và gửi ảnh**, không sửa mesh gộp.
 - Xóa 6 bản luống cũ trước Căn tin khỏi `GARDEN`. Scene chỉ được đổi trong `GARDEN`, cộng với việc gỡ 4 bồn cũ và đổi mesh hoa gộp ở phần đầu Việc 3. Liệt kê mọi object ngoài `GARDEN` bị đụng.
 - Khoảng cách với quái: sau Việc 2 tầm E của quái là 5 m. Mỗi bồn phải cách mọi quái quá 5 m + 2 m. Không đủ ⇒ ghi lại và hỏi.
-- Không sửa mesh/collider bồn có sẵn, không di chuyển quái.
+- Không sửa file asset mesh gốc. Chỉ di chuyển đúng quái `CORRUPTED_ENCOUNTER_CANTEEN` như mục "Chốt vị trí", các quái khác giữ nguyên.
 
 ## Kiểm chứng cuối
 - EditMode + PlayMode toàn bộ Pass (ghi số trước/sau); Console 0 error; Missing Script = 0 ở 3 scene và mọi prefab.

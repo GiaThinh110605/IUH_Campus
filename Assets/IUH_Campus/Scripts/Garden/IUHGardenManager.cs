@@ -7,7 +7,7 @@ namespace IUHCampus.Garden
 {
     public sealed class IUHGardenManager : MonoBehaviour
     {
-        const string SaveKey = "IUH_Garden_v1";
+        const string SaveKey = "IUH_Garden_v2";
         List<GardenBed> beds;
         bool applying;
         public static IUHGardenManager Instance { get; private set; }

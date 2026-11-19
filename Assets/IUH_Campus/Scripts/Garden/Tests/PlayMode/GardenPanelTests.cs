@@ -12,9 +12,14 @@ namespace IUHCampus.Garden
         {
             var type = Type.GetType("IUHCampus.Garden.IUHGardenPanelUI, Assembly-CSharp", true);
             var find = type.GetMethod("FindNearestBed");
-            var beds = new[] { Vector3.right, Vector3.right * 1.5f };
-            Assert.AreEqual(0, find.Invoke(null, new object[] { Vector3.zero, beds, 2f }));
-            Assert.AreEqual(-1, find.Invoke(null, new object[] { Vector3.right * 5, beds, 2f }));
+            var beds = new[]
+            {
+                new Bounds(Vector3.zero, new Vector3(6f, .3f, 1f)),
+                new Bounds(Vector3.forward * 4f, new Vector3(6f, .3f, 1f))
+            };
+            Assert.AreEqual(0, find.Invoke(null, new object[] { new Vector3(4.5f, 0, 0), beds, 2f }));
+            Assert.AreEqual(1, find.Invoke(null, new object[] { new Vector3(2.5f, 0, 3), beds, 2f }));
+            Assert.AreEqual(-1, find.Invoke(null, new object[] { Vector3.right * 5.1f, beds, 2f }));
         }
 
         [Test]

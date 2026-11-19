@@ -17,6 +17,7 @@ namespace IUHCampus.Garden
         const float CloseDistance = 3f;
         IUHGardenManager manager;
         IUHGardenBedView[] views;
+        Bounds[] footprints;
         IUHStoryDialogueUI story;
         Transform player;
         RectTransform safe;
@@ -38,6 +39,7 @@ namespace IUHCampus.Garden
         {
             manager = GetComponent<IUHGardenManager>();
             views = GetComponentsInChildren<IUHGardenBedView>();
+            footprints = new Bounds[views.Length];
             var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
             player = student != null ? student.transform : null;
             story = FindFirstObjectByType<IUHStoryDialogueUI>();
@@ -56,13 +58,13 @@ namespace IUHCampus.Garden
             if (IsOpen) Close();
         }
 
-        public static int FindNearestBed(Vector3 playerPos, IReadOnlyList<Vector3> beds, float maxDist)
+        public static int FindNearestBed(Vector3 playerPos, IReadOnlyList<Bounds> beds, float maxDist)
         {
             float best = maxDist * maxDist;
             int index = -1;
             for (int i = 0; i < beds.Count; i++)
             {
-                var distance = (playerPos - beds[i]).sqrMagnitude;
+                var distance = beds[i].SqrDistance(playerPos);
                 if (distance > best || (index >= 0 && distance == best)) continue;
                 index = i;
                 best = distance;
@@ -87,7 +89,7 @@ namespace IUHCampus.Garden
             if (IsOpen)
             {
                 var view = FindView(SelectedBed);
-                if (view == null || !CanOpenNow() || Vector3.Distance(player.position, view.transform.position) > CloseDistance)
+                if (view == null || !CanOpenNow() || view.InteractionBounds.SqrDistance(player.position) > CloseDistance * CloseDistance)
                     Close();
                 else if (IUHInputHelper.IsGardenInteractKeyDown())
                     Close();
@@ -107,16 +109,9 @@ namespace IUHCampus.Garden
 
         int NearbyBed()
         {
-            float best = OpenDistance * OpenDistance;
-            int result = -1;
-            foreach (var view in views)
-            {
-                float distance = (player.position - view.transform.position).sqrMagnitude;
-                if (distance > best || (result >= 0 && distance == best)) continue;
-                best = distance;
-                result = view.BedIndex;
-            }
-            return result;
+            for (int i = 0; i < views.Length; i++) footprints[i] = views[i].InteractionBounds;
+            int result = FindNearestBed(player.position, footprints, OpenDistance);
+            return result >= 0 ? views[result].BedIndex : -1;
         }
 
         IUHGardenBedView FindView(int index) => Array.Find(views, view => view.BedIndex == index);

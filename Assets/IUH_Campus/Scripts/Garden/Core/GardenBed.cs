@@ -11,7 +11,7 @@ namespace IUHCampus.Garden
         public const int HarvestGold = 30;
         public const int FertilizedHarvestGold = 45;
         public const int StageSeconds = 60;
-        public const int BedCount = 6;
+        public const int BedCount = 4;
     }
 
     public sealed class GardenBed
