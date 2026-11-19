@@ -67,6 +67,9 @@ namespace IUHCampus.Guardian.Match3
         private static readonly Color PurifyColor = new Color(0.8f, 0.6f, 1f);
 
         private IUHMonsterEncounter m_CurrentEncounter;
+        private int m_BaseDmgPerSword;
+        private int m_BaseShieldPerTile;
+        private int m_BasePlayerMaxHp;
         private Match3CombatRules m_Rules;
         private float m_RemainingTime;
         private bool m_IsCombatActive;
@@ -94,6 +97,10 @@ namespace IUHCampus.Guardian.Match3
         {
             if (Instance == null) Instance = this;
             else if (Instance != this) { Destroy(gameObject); return; }
+
+            m_BaseDmgPerSword = m_Config.DmgPerSword;
+            m_BaseShieldPerTile = m_Config.ShieldPerTile;
+            m_BasePlayerMaxHp = m_Config.PlayerMaxHp;
 
             if (m_SkillButton != null) m_SkillButton.onClick.AddListener(OnSkillButtonClicked);
             if (m_BtnRetryVictory != null) m_BtnRetryVictory.onClick.AddListener(RetryCombat);
@@ -203,8 +210,17 @@ namespace IUHCampus.Guardian.Match3
             }
         }
 
+        private void ApplyPlayerUpgradeStats()
+        {
+            var inventory = IUHGuardianInventory.Instance;
+            m_Config.DmgPerSword = inventory != null ? inventory.GetSwordDamage() : m_BaseDmgPerSword;
+            m_Config.ShieldPerTile = inventory != null ? inventory.GetShieldValue() : m_BaseShieldPerTile;
+            m_Config.PlayerMaxHp = inventory != null ? inventory.GetMaxHp() : m_BasePlayerMaxHp;
+        }
+
         private IEnumerator BeginCombatRoutine()
         {
+            ApplyPlayerUpgradeStats();
             m_Rules = new Match3CombatRules(m_Config);
             m_ShownPlayerHp = m_Rules.PlayerHp;
             m_ShownBossHp = m_Rules.BossHp;

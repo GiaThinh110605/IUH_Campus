@@ -61,13 +61,14 @@ namespace IUHCampus.Guardian
         public int MaxHpLevel => m_MaxHpLevel;
         public IReadOnlyList<InventoryItem> Items => m_Items;
 
-        private static readonly int[] s_SwordDamages = { 6, 8, 11, 14, 18 };
+        private static readonly int[] s_SwordDamages = { 22, 25, 29, 34, 40 };
         private static readonly int[] s_SwordCosts = { 80, 150, 250, 400, 0 };
 
-        private static readonly int[] s_ShieldValues = { 5, 8, 11, 15, 20 };
+        private static readonly int[] s_ShieldValues = { 15, 18, 21, 25, 30 };
         private static readonly int[] s_ShieldCosts = { 80, 150, 250, 400, 0 };
 
-        private static readonly int[] s_MaxHps = { 100, 125, 155, 190, 240 };
+        private static readonly int[] s_MaxHps = { 1000, 1100, 1220, 1360, 1500 };
+        private static readonly int[] s_OverheadMaxHps = { 100, 125, 155, 190, 240 };
         private static readonly int[] s_MaxHpCosts = { 100, 180, 300, 500, 0 };
 
         private void Awake()
@@ -92,6 +93,7 @@ namespace IUHCampus.Guardian
         public int GetShieldUpgradeCost() => s_ShieldCosts[Mathf.Clamp(m_ShieldLevel - 1, 0, s_ShieldCosts.Length - 1)];
 
         public int GetMaxHp() => s_MaxHps[Mathf.Clamp(m_MaxHpLevel - 1, 0, s_MaxHps.Length - 1)];
+        private int GetOverheadMaxHp() => s_OverheadMaxHps[Mathf.Clamp(m_MaxHpLevel - 1, 0, s_OverheadMaxHps.Length - 1)];
         public int GetNextMaxHp() => m_MaxHpLevel < 5 ? s_MaxHps[m_MaxHpLevel] : GetMaxHp();
         public int GetMaxHpUpgradeCost() => s_MaxHpCosts[Mathf.Clamp(m_MaxHpLevel - 1, 0, s_MaxHpCosts.Length - 1)];
 
@@ -184,7 +186,7 @@ namespace IUHCampus.Guardian
         {
             if (IUHPlayerOverheadHUD.Instance != null)
             {
-                int maxHp = GetMaxHp();
+                int maxHp = GetOverheadMaxHp();
                 IUHPlayerOverheadHUD.Instance.SetHp(maxHp, maxHp);
             }
             OnDataChanged?.Invoke();
@@ -222,7 +224,7 @@ namespace IUHCampus.Guardian
                 // Heal player overhead HUD if active
                 if (IUHPlayerOverheadHUD.Instance != null)
                 {
-                    int maxHp = GetMaxHp();
+                    int maxHp = GetOverheadMaxHp();
                     IUHPlayerOverheadHUD.Instance.SetHp(maxHp, maxHp);
                 }
 
