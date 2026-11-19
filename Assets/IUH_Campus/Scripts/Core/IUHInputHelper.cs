@@ -81,6 +81,23 @@ namespace IUHCampus.Core
             try { return Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space); } catch { return false; }
         }
 
+        public static bool IsGardenInteractKeyDown()
+        {
+            if (VirtualInteractPressed)
+            {
+                VirtualInteractPressed = false;
+                return true;
+            }
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame) return true;
+#endif
+#if ENABLE_LEGACY_INPUT_MANAGER
+            return Input.GetKeyDown(KeyCode.E);
+#else
+            return false;
+#endif
+        }
+
         public static bool IsVehicleKeyDown()
         {
             if (VirtualVehiclePressed)
