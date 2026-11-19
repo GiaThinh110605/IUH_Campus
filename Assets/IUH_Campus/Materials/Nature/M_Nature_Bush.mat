@@ -13,7 +13,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _WIND_ON
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _USEVERTEXWIND_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -33,7 +34,7 @@ Material:
     - _Cutoff: 0.42
     - _RampMax: 0.72
     - _RampMin: 0.36
-    - _UseVertexWind: 0
+    - _UseVertexWind: 1
     - _Wind: 1
     - _WindSpeed: 1.5
     - _WindStrength: 0.028
