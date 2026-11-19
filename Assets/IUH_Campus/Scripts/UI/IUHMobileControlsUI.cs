@@ -91,6 +91,7 @@ namespace IUHCampus.UI
         private bool m_IsSprinting = false;
         private StarterAssetsInputs m_StarterInputs;
         private ThirdPersonController m_ThirdPersonController;
+        private float m_NextPlayerSearch;
 
         // Touch Look internal state
         private int m_LookPointerId = -999;
@@ -343,8 +344,10 @@ namespace IUHCampus.UI
 
         private void Update()
         {
-            if (m_StarterInputs == null || m_ThirdPersonController == null)
+            if ((m_StarterInputs == null || m_ThirdPersonController == null) &&
+                Time.unscaledTime >= m_NextPlayerSearch)
             {
+                m_NextPlayerSearch = Time.unscaledTime + IUHPlayerLocator.RetryInterval;
                 var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
                 if (student != null)
                 {

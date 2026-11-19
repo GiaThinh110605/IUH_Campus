@@ -1,4 +1,5 @@
 using UnityEngine;
+using IUHCampus.Core;
 using IUHCampus.Guardian;
 
 namespace IUHCampus.DailyActivities
@@ -35,8 +36,7 @@ namespace IUHCampus.DailyActivities
 
             if (m_PlayerTransform == null)
             {
-                var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
-                if (student != null) m_PlayerTransform = student.transform;
+                m_PlayerTransform = IUHPlayerLocator.Player;
                 return;
             }
 
