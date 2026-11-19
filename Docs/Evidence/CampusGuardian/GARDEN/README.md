@@ -1,57 +1,67 @@
-﻿# GARDEN — bằng chứng đang thực hiện
+# Vườn hoa Căn tin
 
-19/11/2026 · Windows Editor · Unity 6000.5.8f1 · minhnhat/flower-garden · base 73d05da.
+Kiểm chứng ngày 19/11/2026 trong Unity 6000.5.8f1, Windows Editor qua Unity MCP. Cân bằng `f7f5a62`, tầm E `01659bd`, bố trí vườn và cập nhật prompt `31bc72f`.
 
-- Baseline EditMode 104/104 Pass (3c44557a2b0a4bf2aacbca6067e26420) và PlayMode 30/30 Pass (b6bb371083de4498b37142f79fb1ae06). Scene ban đầu isDirty=false, Console 0 error.
-- Task 1: 97e51e9. RED lỗi compile thiếu GardenSave/GardenBed. GREEN EditMode 10/10 (b087ef3ef5e14ae19156b6e7d7dcf5c5).
-- Task 2: 5fbccba. RED 3 ca thiếu manager (847d2da55e55479b80eb28915c865b69). GREEN PlayMode 3/3 (12492d56fbf24ceab7102ab4208416ea). Kiểm thiếu vàng, đủ vàng, bón phân, lưu/nạp và giờ tua.
-- Task 3 chưa commit: test RED 2 ca do thiếu IUHGardenPanelUI (1c5bbf522de94f3f902bf6155a1a0581). Đã có prefab, UI, sáu instance trong scene. Compile sạch. EditMode toàn dự án 114/114 Pass (8f9fd6bd2b3c44edaaac259185a0bea2). Sau lọc scene, đã mở lại trong Unity, xác nhận GARDEN có 6 con, Missing Script campus 0, isDirty=false.
-- PlayMode toàn dự án sau Task 3 chưa có kết quả. Lệnh chạy TimeoutError, các lần kiểm editor state và Console báo ping not answered. Dừng theo prompt, chưa stage/commit Task 3.
-- Task 4 chưa chạy: chưa thao tác qua Play trên scene, chưa chụp ảnh, chưa kiểm Device Simulator hay Missing Script toàn bộ 3 scene và prefab sau thay đổi. Chưa tạo checkpoint PlayerPrefs thủ công. Test manager tự sao lưu/khôi phục những khóa nó ghi trong finally.
+## Bố trí bốn luống
 
-## Tọa độ và phạm vi
+Đo theo đỉnh mesh ở tọa độ thế giới, đơn vị mét. Hàng rào bo tròn dài hơn phần trồng hoa cũ, nên kích thước luống lấy theo hộp bao của cả dải.
 
-SPOT_GARDEN có trong dữ liệu album nhưng không có IUHCheckInSpot trong scene. Dùng CORRUPTED_ENCOUNTER_GARDEN (-16,0.05,-14) làm mốc. Khinh khí cầu (6,0.2,-10), linh vật (4.5,0.1,-6). Các encounter: Boss (0,0,22), Canteen (-22,.05,-36), Nhà E (-6,.05,6), Orc (-18,0,-8), Garden (-16,.05,-14), Backpack (4,0,-28), Phantom (18,0,-6), Fountain (4,.05,-28), Sports (20,.05,-10), Blue Demon (0,0,-24). Bán kính kích hoạt tự động trong nhóm là 4.8 hoặc 10 m; bán kính E thực tế 16 m. Dùng ngưỡng tâm luống 19 m cho mọi encounter, có đệm 2 m cho vùng mở bảng.
+| Dải | X của cả dải | Z của cả dải | Rộng |
+|---|---:|---:|---:|
+| Bắc, cạnh ô dù | −27,7478 đến −12,2522 | −24,9593 đến −22,9750 | 1,9843 m |
+| Nam | −27,7478 đến −12,2522 | −35,0250 đến −33,0587 | 1,9663 m |
 
-Cụm phía tây ở z=-19.1 và -16.9, mỗi hàng có x=-39.2, -37.0, -34.8; cả sáu y=0. Raycast cho Campus ground, vùng quanh tâm không chồng collider ở độ cao người đi theo phép CheckBox, xa khinh khí cầu/linh vật. Cụm nằm xa hơn 10 m vì quanh mốc có nhiều vùng E chồng nhau. Scene cuối được tái lập bằng bản gốc cộng đúng 16 block thuộc GARDEN và một mục SceneRoots. Các block Unity tự serialize lại được bỏ khỏi bản ghi.
+Mỗi dải dài 15,4956 m. Bốn luống chạy theo trục X ở y = 0,36 m, dài 7,7078 m mỗi luống và có khe 4 cm giữa hai luống cùng dải.
 
-Bảng dùng canvas riêng và có anchor safe area. ESC giữ hành vi hiện tại của game, đóng bảng bằng E/X hoặc đi xa theo phương án dự phòng của spec. Chưa xác nhận tương tác bàn phím/chạm trong Play trên campus.
-
-## Hoàn tất Task 3 và Task 4
-
-MCP hoạt động lại, PlayMode toàn dự án 35/35 Pass (21773bc15f404f56b7834e4f237af329). EditMode cuối 114/114 Pass, so với baseline 104/104 và 30/30. Task 3 commit bdd339f. Scene trong commit chỉ thêm block của GARDEN và mục root. Compile sạch. Console 0 error sau lượt kiểm runtime. Missing Script = 0 ở campus, AR, arena và 84 prefab.
-
-| Mục kiểm tay | Kết quả | Bằng chứng |
-|---|---|---|
-| Chu kỳ hai luống | Pass qua MCP | Gieo qua nút UI 100 → 90, bón 90 → 80. Dùng Clock giả để qua hai giai đoạn. Hai lần hái 30 → 75 (+45) và 75 → 105 (+30). Hái lặp false. Các luống phụ cũng được gieo để chụp ảnh. |
-| Thiếu Vàng | Pass | 5 Vàng, nút Gieo hạt bị khóa, nhãn Cần 10 Vàng. |
-| Không tưới | Pass | Tua 10 phút, vẫn ở Hạt. |
-| Space, E, Tương tác và khoảng cách | Pass qua Input System và input giả định | Space không mở, E mở luống 1, VirtualInteractPressed mở bảng. Khi dời người chơi 6 m, bảng tự đóng. |
-| Combat | Pass qua MCP | Match3 khóa khám phá, CanOpenNow=False, nhấn E không mở bảng. |
-| E tại vườn | Pass trong lượt thử | E chỉ hiện bảng vườn, khinh khí cầu không lên và game vẫn ở khám phá. Vị trí còn có đệm với mọi quái và linh vật như phần đo khoảng cách. |
-| Thoát và mở lại Play | Pass | Chuỗi save khớp, luống thứ ba vẫn Nở. |
-| Reset cốt truyện | Pass cho handler | F9 mô phỏng chưa kích hoạt tải lại. Gọi ResetStory() trực tiếp, save vườn khớp và luống thứ ba vẫn Nở. |
-| Ảnh PC | Pass | Xem seed-panel.png, sprout.png và bloom-four-colors.png. Ảnh Nở dùng camera runtime cô lập để mái hiên không che luống, không lưu camera/layer vào scene. |
-| iPhone Device Simulator | Chờ Thịnh thử trên máy | Chưa chạy trong lượt này. |
-
-Đã thoát Play và đối chiếu 7/7 khóa đã khôi phục (IUH_Garden_v1, IUH_Story_Progress, Gold, SwordLv, ShieldLv, MaxHpLv và Items của kho Guardian). Không có checkpoint kiểm thử còn được áp dụng. Không push.
-
-## Cân bằng match-3 và tầm tương tác E — 19/11/2026
-
-- f7f5a62: HP quái ×0,6, sát thương ×0,7, thêm 30 giây mỗi trận match-3. HUD ngoài trận dùng chung hàm làm tròn. Test 1000 HP, 65–90 DMG, 90 s thành 600 HP, 46–63 DMG, 120 s. Test 8–12 thành 6–8, và 12–8 thành 8–8. RED trước sửa (6c10d532af9c42ea8c226511b2bf2485), GREEN 3/3 (d6bc3187c1d1482695dcbd65177dbcfd).
-- 01659bd: E và tự vào trận chỉ chạy trong min(bán kính trigger, 5 m), 16 m dành cho bảng thông tin. Quái AR chỉ đọc cờ Tương tác ở khoảng cách đã có 4,8 m. Test 8 m giữ cờ và không mở trận, 3 m dùng cờ và bắt đầu trận. RED ở 8 m trước sửa (50996504a2c54903abe9fda4f3ed0c45), GREEN trong suite sau sửa.
-- Kiểm đường vào trận: 5 encounter AR trong campus có IUHMonsterEncounter và đi qua SetActiveEncounter. Hai object AR ở scene riêng không có manager match-3. Rune Slash có luật riêng.
-
-| Bộ test toàn dự án | Trước | Sau |
+| Luống | Tâm X | Tâm Z |
 |---|---:|---:|
-| EditMode | 114/114 (417adab8e5554234b14bc8ae5bf90704) | 114/114 (b1fd25f4643440c89402fe136de256ba) |
-| PlayMode | 35/35 (48ae93e2b55b45928365f67b3e924d58) | 40/40 (7315534ed29546bd9b2195ea8e2c96fe) |
+| 1, bắc tây | −23,8739 | −23,9672 |
+| 2, bắc đông | −16,1261 | −23,9672 |
+| 3, nam tây | −23,8739 | −34,0419 |
+| 4, nam đông | −16,1261 | −34,0419 |
 
-| Kiểm runtime trên Windows Editor | Kết quả |
-|---|---|
-| E ở 8 m | Pass, đo khoảng cách 8, manager không bị engaged sau phím E. |
-| E ở 4 m | Pass, manager chuyển engaged. Lượt đầu hết giờ trong lúc chuẩn bị bộ gửi nước đi. |
-| Một trận Chương 1, cấp 1/1/1 | Pass ở lượt Thử lại: thắng sau 10 nước đổi ô, còn 899/1000 HP và 110,1 giây. MCP chọn nước hợp lệ trên bản sao bàn cờ và đưa qua TryPerformSwap, dùng nút skill khi khả dụng. Không gọi giả thắng. [Ảnh kết quả](balance-match3-result.png). |
-| Dọn trạng thái sau lượt thử | Pass, thoát Play, đối chiếu 13/13 khóa PlayerPrefs đã khôi phục gồm kho đồ, mốc thưởng Nhà E, cốt truyện và check-in. Console 0 error. Missing Script 0 ở campus, AR, arena và 84 prefab. Kết quả trận chạy qua đường báo cáo thông thường, nên có sự kiện test trong outbox. |
+Scene thay sáu prefab instance cũ trong `GARDEN` bằng bốn luống. Ngoài `GARDEN`, scene chỉ thay vị trí root `CORRUPTED_ENCOUNTER_CANTEEN` và năm tham chiếu MeshFilter sau. Hàng rào thuộc mesh gộp, không có object khung hay collider riêng của hai dải để xóa.
 
-Lượt này chỉ thực hiện Việc 1 và 2. Tên commit tài liệu bỏ phần dời bồn vì mục đó nằm ngoài phạm vi lần này.
+| Đường dẫn object trong scene | GUID mesh nguồn | GUID bản lọc | Tam giác bỏ / giữ |
+|---|---|---|---:|
+| `Layered planting and clipped hedges_405/Trimmed hedge foliage` | `ebcd60e235546864098fa4dd2ff910fb` | `100b2e35c6ae20a449f25c2db6060cdd` | 73.560 / 383.600 |
+| `Layered planting and clipped hedges_405/White flowers` | `41c067555bbd35940acba6e106ce17fd` | `16acd5d4b2984974c9881e0c25da91bd` | 18.432 / 153.600 |
+| `Layered planting and clipped hedges_405/Marigold` | `09dfdf3b11a56704ab0d9d37c1b7d647` | `8eb1354cc451aae4cb83d28c94074395` | 36.096 / 288.000 |
+| `Layered planting and clipped hedges_405/Pink flowers` | `9fdcc986d7067c446b72bf27c3be3c90` | `e71ec4c7097d16049a29959262c9bb55` | 18.432 / 92.160 |
+| `Garden beds and furniture_11/Hedge` | `709468282709cf54bb5b30474485060f` | `9f446709478ee4d4998bd052e1c04819` | 33.792 / 168.960 |
+
+Quét GUID chỉ thấy tham chiếu mesh nguồn trong scene campus. Bản lọc ở `Assets/IUH_Campus/Meshes/Garden/` giữ nguyên dữ liệu đỉnh và thứ tự chỉ số của mọi tam giác ngoài hai dải. Vì vậy các cụm hoa và hàng rào khác giữ nguyên hình học. [Trước khi thay](canteen-planters-before.png) · [Sau khi thay, cùng góc](canteen-planters-after.png).
+
+Quái Căn tin dời từ `(-22, 0.05, -36)` sang `(-22, 0.05, -43)`. Raycast chạm `Campus ground` ở y = 0. Hộp kiểm ở điểm mới chỉ chạm hai collider con của chính encounter. Điểm check-in gần nhất là Cổng chính, cách 24,60 m. Kiểm 10 encounter trong campus, gồm năm encounter có thêm đường AR. Khoảng cách ngang ngắn nhất từ viền bất kỳ luống nào đến quái là 7,975 m, tại Căn tin. Bồn hoa nhiễm độc là kế tiếp ở 8,975 m. Story và beacon tra theo tên object rồi dùng Transform hiện tại. Tọa độ cũ trong `IUHARSceneBuilder.cs` thuộc builder legacy và bản đồ runtime hiện hành không có tọa độ riêng cho Căn tin.
+
+### Thay mô hình sau này
+
+1. Mở `Assets/IUH_Campus/Prefabs/Garden/IUH_GardenBed.prefab` ở Prefab Mode.
+2. Thay các con bên trong `Stage_Seed`, `Stage_Sprout`, `Stage_Bloom` và giữ gốc mỗi nhóm ở scale 1.
+3. Rải mô hình dọc trục X phía trên đất, giữ viền đá và BoxCollider của prefab. Có thể đổi vật liệu cánh hoa riêng cho mỗi instance.
+4. Xem lại cả bốn instance ở ngày và đêm. Khi chuyển giai đoạn, nhóm mô hình tăng từ 0,3 lên 1 trong 0,6 giây unscaled. Lúc nạp save, nhóm hiện ở scale đầy đủ.
+
+## Cân bằng và tầm E
+
+- HP quái ×0,6, sát thương ×0,7 và thêm 30 giây. Ca 1.000 HP, 65–90 sát thương, 90 giây cho kết quả 600 HP, 46–63 sát thương, 120 giây. HUD ngoài trận hiển thị số đã nhân.
+- Quái thường nhận E hoặc tự mở trận trong tối đa 5 m. Quái AR vẫn dùng 4,8 m. PlayMode kiểm ở 8 m cờ Tương tác được giữ và ở 3 m cờ mở trận.
+- Lượt chơi đã kiểm ở Việc 1–2: phím E ở 8 m không mở trận, ở 4 m mở trận. Chương 1 ở cấp 1/1/1 thắng sau 10 nước đổi ô hợp lệ qua `TryPerformSwap`, còn 899/1.000 HP và 110,1 giây. [Ảnh kết quả trận](balance-match3-result.png).
+
+## Kiểm chứng cuối
+
+| Toàn bộ test | Trước lượt cân bằng | Trước Việc 3 | Sau Việc 3 |
+|---|---:|---:|---:|
+| EditMode | 114/114 | 114/114 | 115/115 |
+| PlayMode | 35/35 | 40/40 | 40/40 |
+
+Job EditMode `4a70f9c7d08e42fd92de739dd7d66034`, PlayMode `8cd9887a53934e4a88a02b77425c39d0`. Console 0 error. Missing Script 0 ở Campus, AR Encounter, Combat Arena và 84 prefab.
+
+- Trong Play, ở cách đầu luống 3 là 1,35 m và cách tâm 5,205 m, nút Tương tác mở đúng bảng. Lùi ra 3,25 m từ đầu luống thì bảng đóng. Đã kiểm qua cờ Tương tác của game.
+- Gieo và tưới cả bốn luống, bón luống 1 và 2, tua đồng hồ vườn qua hai lần 65 giây và tưới lần hai. Hái luống 1, 2 và 3 được 45, 45 và 30 Vàng. Hái lặp trả về false. Vàng 100 → 40 → 160.
+- Save `v2` chứa bốn luống. Test xác nhận dữ liệu `v1` sáu luống cho bốn luống trống. Sau Play đã khôi phục và đối chiếu 8/8 khóa PlayerPrefs của vườn, kho Guardian và cốt truyện. Ảnh đêm dùng thiết lập ánh sáng sau biến cố của `IUHStoryNightShift`.
+
+| Giai đoạn | Ngày | Đêm |
+|---|---|---|
+| Trống | [Ảnh](canteen-empty-day.png) | [Ảnh](canteen-empty-night.png) |
+| Mầm | [Ảnh](canteen-sprout-day.png) | [Ảnh](canteen-sprout-night.png) |
+| Nở | [Ảnh](canteen-bloom-day.png) | [Ảnh](canteen-bloom-night.png) |
