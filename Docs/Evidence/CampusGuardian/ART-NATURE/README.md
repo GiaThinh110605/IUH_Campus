@@ -80,3 +80,20 @@ Task 5 tại cùng góc sảnh trong 20 giây đạt 204,56 FPS, 368,0 draw call
 [Khoảnh thử sau chỉnh sửa, ban ngày](pilot-refined-day.png) · [Bốn luống giai đoạn Nở, ban ngày](garden-bloom-colored-day.png).
 
 EditMode Vườn và Nature 19/19 (`1f633016582142be986dbbea59e11c37`). PlayMode Vườn 5/5 (`5394c57a45e04958af00cde76442cac9`).
+
+## Task 6 — Bốn khoảnh còn lại
+
+Bốn khoảnh có tâm `(−20, −1)`, `(20, −1)`, `(−20, 29)` và `(20, 29)`, với seed 20112027–20112030 tương ứng. Mỗi cụm có độ lệch X/Z tối đa 0,3 m, góc xoay ngẫu nhiên và hệ số scale 0,8–1,2 như khoảnh thử. Đặt 204 cụm và bỏ qua 12 điểm đặt để chừa khoảng cách với quái, check-in hoặc thân cây. Hai dải vùng gần và xa gom theo vật liệu thành 10 mesh mới. Cả `NATURE_PLANTERS` có 15 renderer và 0 collider.
+
+Năm bản sao mesh cũ bỏ tổng cộng 721.248 tam giác ở tám dải. Không có tam giác cắt ngang biên lọc. Các tam giác giữ lại đã được đối chiếu thứ tự chỉ số sau khi ghi.
+
+Đo 20 giây cùng góc sảnh đạt **231,23 FPS, 290 draw calls, 1.781.881 tris**. So với Task 4, FPS giảm 1,4% và tăng 30 draw calls. Đạt cả hai ngưỡng. Missing Script = 0. Trong Play đã di chuyển 8 m qua khoảnh gần phía đông, mở luống 3, xác nhận Tương tác ở 8 m không vào trận và 4 m vào trận. Tiến độ cốt truyện đã được khôi phục.
+
+| Khoảnh | Ngày trước → sau | Đêm trước → sau |
+|---|---|---|
+| Tây gần | [Trước](plots-west-near-before-day.png) · [Sau](plots-west-near-after-day.png) | [Trước](plots-west-near-before-night.png) · [Sau](plots-west-near-after-night.png) |
+| Đông gần | [Trước](plots-east-near-before-day.png) · [Sau](plots-east-near-after-day.png) | [Trước](plots-east-near-before-night.png) · [Sau](plots-east-near-after-night.png) |
+| Tây xa | [Trước](plots-west-far-before-day.png) · [Sau](plots-west-far-after-day.png) | [Trước](plots-west-far-before-night.png) · [Sau](plots-west-far-after-night.png) |
+| Đông xa | [Trước](plots-east-far-before-day.png) · [Sau](plots-east-far-after-day.png) | [Trước](plots-east-far-before-night.png) · [Sau](plots-east-far-after-night.png) |
+
+EditMode 123/123 (`c049c1882ced43a1982c5a83883fcf9e`), PlayMode 47/47 (`a76329dd5bc349d688bc8a16de5305c7`). Chạy riêng từng bộ.
