@@ -1,4 +1,4 @@
-# Cây cỏ stylized — lượt xem trước
+# Cây cỏ stylized và ánh sáng campus
 
 20/11/2026 · Unity 6000.5.8f1, Windows Editor, URP. Mốc scene gốc `f02a8c3`. Tọa độ và thông số camera lưu trong [cameras.json](cameras.json).
 
@@ -97,3 +97,52 @@ Năm bản sao mesh cũ bỏ tổng cộng 721.248 tam giác ở tám dải. Kh�
 | Đông xa | [Trước](plots-east-far-before-day.png) · [Sau](plots-east-far-after-day.png) | [Trước](plots-east-far-before-night.png) · [Sau](plots-east-far-after-night.png) |
 
 EditMode 123/123 (`c049c1882ced43a1982c5a83883fcf9e`), PlayMode 47/47 (`a76329dd5bc349d688bc8a16de5305c7`). Chạy riêng từng bộ.
+
+## Task 7 — Ánh sáng và hậu kỳ
+
+Scene dùng profile `Campus volume` trên `Campus color grading`, camera chính bật HDR và hậu kỳ. Giữ đèn `Warm afternoon sun` ở 43°, tông ấm và bóng mềm. Profile giữ ACES, tăng exposure +0,26 EV, contrast +10, saturation +10, temperature +4. Nâng trung độ bằng gamma 0,19 và lift 0,0025. Bloom có threshold 1,2, intensity 0,18, scatter 0,6 và tối đa bốn vòng. PC giảm tầm bóng 160 → 110 m. Cấu hình URP iOS giữ nguyên.
+
+| Góc | Ngày trước → sau | Đêm trước → sau |
+|---|---|---|
+| Sảnh | [Trước](lighting-lobby-before-day.png) · [Sau](lighting-lobby-after-day.png) | [Trước](lighting-lobby-before-night.png) · [Sau](lighting-lobby-after-night.png) |
+| Đài phun nước | [Trước](lighting-fountain-before-day.png) · [Sau](lighting-fountain-after-day.png) | [Trước](lighting-fountain-before-night.png) · [Sau](lighting-fountain-after-night.png) |
+| Bụi và lối đi | [Trước](lighting-planters-before-day.png) · [Sau](lighting-planters-after-day.png) | [Trước](lighting-planters-before-night.png) · [Sau](lighting-planters-after-night.png) |
+| Vườn đang nở | [Trước](lighting-garden-before-day.png) · [Sau](lighting-garden-after-day.png) | [Trước](lighting-garden-before-night.png) · [Sau](lighting-garden-after-night.png) |
+
+Trong Play, dùng ánh sáng sau biến cố, đã đi 8 m và mở được luống 3. Ảnh cho thấy đường lát, viền luống, bụi và hoa còn phân biệt trong bóng tối. EditMode 123/123 (`f8606d32ec824b989505cb8bf4e2010f`), PlayMode 47/47 (`fc5f7908b78b43639624bd7fb0d753c0`), Console 0 lỗi. Tiến độ truyện đã được khôi phục.
+
+### Vật liệu bóng trên bề mặt lớn
+
+Quét MeshRenderer đang hoạt động trong campus, lấy hai chiều lớn nhất của AABB thế giới nhân nhau ≥25 m² làm bộ lọc bề mặt lớn. Đọc `_Smoothness` hoặc `_Glossiness` lớn hơn 0,5. Danh sách dùng để rà soát, không có sửa vật liệu trong mục này.
+
+| Vật liệu | Giá trị | Object ví dụ |
+|---|---:|---|
+| `M_CyberRifle_Neon` | 0,900 | `Balloon_NeonRing` |
+| `Antique brass` | 0,550 | `Antique brass` |
+| `Blue green glazing` | 0,860 | `Blue green glazing` |
+| `Sky blue window reflections` | 0,880 | `Sky blue window reflections` |
+| `Warm window reflections` | 0,840 | `Warm window reflections` |
+
+## Hiệu năng qua các mốc
+
+Windows Unity Editor, cùng góc `lobby`, ban ngày, khoảng 20 giây/mốc. Draw calls và tris lấy từ UnityStats. Các số này dành cho một góc Editor, chưa đo build iOS.
+
+| Mốc | FPS | Draw calls | Tris |
+|---|---:|---:|---:|
+| Task 1–3, trước sửa scene | 214,46 | 278,5 | 6.645.352 |
+| Task 4, thay 18 cây | 234,47 | 260,0 | 5.798.841 |
+| Task 5, khoảnh thử đầu | 204,56 | 368,0 | 4.994.796 |
+| Sau duyệt Task 5, gom mesh | 223,68 | 277,0 | 5.024.969 |
+| Task 6, đủ năm khoảnh | 231,23 | 290,0 | 1.781.881 |
+| Task 7, ánh sáng và hậu kỳ | 220,52 | 286,0 | 1.782.709 |
+
+Task 1–3 chỉ có một mốc chung do chưa sửa scene. Task 8 chỉ cập nhật bằng chứng, dùng số đo của Task 7.
+
+## Object ngoài `NATURE_PLANTERS`
+
+- `CAMPUS_ADVENTURE_SHARED_WORLD/Shade tree_12` đến `Shade tree_29`: thay 18 cây cũ bằng prefab cùng tên. `Shade tree_12` được dời vào giữa bãi cỏ Căn tin ở Task 5; bảng tọa độ cũ và khoảng hở ở trên.
+- `GARDEN/Flower bed 1` đến `Flower bed 4`: cập nhật hình học trong `Stage_Seed`, `Stage_Sprout`, `Stage_Bloom` qua prefab `IUH_GardenBed`; các instance gán vật liệu cánh theo chỉ số luống. Xóa các mô hình giai đoạn cũ và override vật liệu trỏ đến chúng.
+- Bốn MeshFilter `Trimmed hedge foliage`, `White flowers`, `Marigold`, `Pink flowers` dưới `Layered planting and clipped hedges_405` và `Garden beds and furniture_11/Hedge`: nhận hình học đã lọc từ năm bản sao `CanteenFiltered_*`. Trong Task 5–6 cập nhật dữ liệu các bản sao, không sửa mesh nguồn.
+- `Campus color grading` đọc profile đã chỉnh. Task 7 chỉ đổi asset profile và `PC_RPAsset`, không ghi scene.
+
+Bộ test toàn dự án tại mốc Task 8 chạy riêng, EditMode 123/123 (`36ee1bc2ac2a46eca3fe17eec94fc441`) và PlayMode 47/47 (`94bee61f31d04b1388b9104c6455b641`).

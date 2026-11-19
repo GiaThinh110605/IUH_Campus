@@ -45,6 +45,38 @@
       "eye": [-10, 4.5, -4],
       "at": [0, 3, 4]
     },
+    "lightingGarden": {
+      "eye": [-16, 3.6, -39.5],
+      "at": [-23, 1, -27.7]
+    },
+    "lightingPlanters": {
+      "eye": [10, 3.2, -9],
+      "at": [23, 1.2, -5]
+    },
+    "plotsWestNear": {
+      "eye": [-20, 24, -1],
+      "at": [-20, 0, -1],
+      "ortho": 9,
+      "near": 21.7
+    },
+    "plotsEastNear": {
+      "eye": [20, 24, -1],
+      "at": [20, 0, -1],
+      "ortho": 9,
+      "near": 21.7
+    },
+    "plotsWestFar": {
+      "eye": [-20, 24, 29],
+      "at": [-20, 0, 29],
+      "ortho": 9,
+      "near": 21.7
+    },
+    "plotsEastFar": {
+      "eye": [20, 24, 29],
+      "at": [20, 0, 29],
+      "ortho": 9,
+      "near": 21.7
+    },
     "pilot": {
       "eye": [
         20,
