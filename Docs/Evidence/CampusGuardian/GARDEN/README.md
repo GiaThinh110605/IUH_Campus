@@ -35,3 +35,23 @@ MCP hoạt động lại, PlayMode toàn dự án 35/35 Pass (21773bc15f404f56b7
 | iPhone Device Simulator | Chờ Thịnh thử trên máy | Chưa chạy trong lượt này. |
 
 Đã thoát Play và đối chiếu 7/7 khóa đã khôi phục (IUH_Garden_v1, IUH_Story_Progress, Gold, SwordLv, ShieldLv, MaxHpLv và Items của kho Guardian). Không có checkpoint kiểm thử còn được áp dụng. Không push.
+
+## Cân bằng match-3 và tầm tương tác E — 19/11/2026
+
+- f7f5a62: HP quái ×0,6, sát thương ×0,7, thêm 30 giây mỗi trận match-3. HUD ngoài trận dùng chung hàm làm tròn. Test 1000 HP, 65–90 DMG, 90 s thành 600 HP, 46–63 DMG, 120 s. Test 8–12 thành 6–8, và 12–8 thành 8–8. RED trước sửa (6c10d532af9c42ea8c226511b2bf2485), GREEN 3/3 (d6bc3187c1d1482695dcbd65177dbcfd).
+- 01659bd: E và tự vào trận chỉ chạy trong min(bán kính trigger, 5 m), 16 m dành cho bảng thông tin. Quái AR chỉ đọc cờ Tương tác ở khoảng cách đã có 4,8 m. Test 8 m giữ cờ và không mở trận, 3 m dùng cờ và bắt đầu trận. RED ở 8 m trước sửa (50996504a2c54903abe9fda4f3ed0c45), GREEN trong suite sau sửa.
+- Kiểm đường vào trận: 5 encounter AR trong campus có IUHMonsterEncounter và đi qua SetActiveEncounter. Hai object AR ở scene riêng không có manager match-3. Rune Slash có luật riêng.
+
+| Bộ test toàn dự án | Trước | Sau |
+|---|---:|---:|
+| EditMode | 114/114 (417adab8e5554234b14bc8ae5bf90704) | 114/114 (b1fd25f4643440c89402fe136de256ba) |
+| PlayMode | 35/35 (48ae93e2b55b45928365f67b3e924d58) | 40/40 (7315534ed29546bd9b2195ea8e2c96fe) |
+
+| Kiểm runtime trên Windows Editor | Kết quả |
+|---|---|
+| E ở 8 m | Pass, đo khoảng cách 8, manager không bị engaged sau phím E. |
+| E ở 4 m | Pass, manager chuyển engaged. Lượt đầu hết giờ trong lúc chuẩn bị bộ gửi nước đi. |
+| Một trận Chương 1, cấp 1/1/1 | Pass ở lượt Thử lại: thắng sau 10 nước đổi ô, còn 899/1000 HP và 110,1 giây. MCP chọn nước hợp lệ trên bản sao bàn cờ và đưa qua TryPerformSwap, dùng nút skill khi khả dụng. Không gọi giả thắng. [Ảnh kết quả](balance-match3-result.png). |
+| Dọn trạng thái sau lượt thử | Pass, thoát Play, đối chiếu 13/13 khóa PlayerPrefs đã khôi phục gồm kho đồ, mốc thưởng Nhà E, cốt truyện và check-in. Console 0 error. Missing Script 0 ở campus, AR, arena và 84 prefab. Kết quả trận chạy qua đường báo cáo thông thường, nên có sự kiện test trong outbox. |
+
+Lượt này chỉ thực hiện Việc 1 và 2. Tên commit tài liệu bỏ phần dời bồn vì mục đó nằm ngoài phạm vi lần này.
