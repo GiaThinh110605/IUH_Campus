@@ -263,7 +263,7 @@ namespace IUHCampus.Guardian.Match3
             // Khôi phục UI điều khiển Mobile và camera khi thoát
             if (IUHCampus.UI.IUHMobileControlsUI.Instance != null)
             {
-                IUHCampus.UI.IUHMobileControlsUI.Instance.gameObject.SetActive(true);
+                IUHCampus.UI.IUHMobileControlsUI.Instance.CheckPlatformVisibility();
             }
 
             var mainCam = Camera.main ?? GameObject.Find("MainCamera")?.GetComponent<Camera>();
@@ -447,7 +447,7 @@ namespace IUHCampus.Guardian.Match3
             // Khôi phục UI điều khiển Mobile và camera khi kết thúc trận
             if (IUHCampus.UI.IUHMobileControlsUI.Instance != null)
             {
-                IUHCampus.UI.IUHMobileControlsUI.Instance.gameObject.SetActive(true);
+                IUHCampus.UI.IUHMobileControlsUI.Instance.CheckPlatformVisibility();
             }
 
             var mainCam = Camera.main ?? GameObject.Find("MainCamera")?.GetComponent<Camera>();

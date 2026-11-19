@@ -5,6 +5,38 @@ using UnityEngine;
 
 public class CombatOutcomeTests
 {
+    [Test]
+    public void ClosingVictoryKeepsMobileControlsHiddenOnStandalone()
+    {
+        if (!Application.isEditor &&
+            Application.platform != RuntimePlatform.WindowsPlayer &&
+            Application.platform != RuntimePlatform.OSXPlayer &&
+            Application.platform != RuntimePlatform.LinuxPlayer)
+            Assert.Ignore("Requires desktop Play Mode.");
+        if (Application.isMobilePlatform) Assert.Ignore("Mobile controls are expected on mobile.");
+
+        var controlsType = Type.GetType("IUHCampus.UI.IUHMobileControlsUI, Assembly-CSharp", true);
+        var managerType = Type.GetType("IUHCampus.Guardian.Match3.Match3CombatManager, Assembly-CSharp", true);
+        var controls = new GameObject("DesktopMobileControlsTest");
+        var battle = new GameObject("DesktopVictoryTest");
+        try
+        {
+            controls.SetActive(false);
+            var mobile = controls.AddComponent(controlsType);
+            controlsType.GetField("m_ForceShowOnPC", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(mobile, false);
+            controls.SetActive(true);
+            Assert.IsFalse(controls.activeSelf);
+            var manager = battle.AddComponent(managerType);
+            managerType.GetMethod("OnCloseVictoryClicked", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(manager, null);
+            Assert.IsFalse(controls.activeSelf);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(battle);
+            UnityEngine.Object.DestroyImmediate(controls);
+        }
+    }
+
     sealed class Recorder
     {
         public int Count;

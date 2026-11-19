@@ -725,7 +725,7 @@ namespace IUHCampus.Guardian.AR
             // Khôi phục Mobile Controls của campus
             if (IUHCampus.UI.IUHMobileControlsUI.Instance != null)
             {
-                IUHCampus.UI.IUHMobileControlsUI.Instance.gameObject.SetActive(true);
+                IUHCampus.UI.IUHMobileControlsUI.Instance.CheckPlatformVisibility();
             }
 
             IUHCombatAudio.PlayShield();
