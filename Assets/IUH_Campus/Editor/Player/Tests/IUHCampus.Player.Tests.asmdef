@@ -1,0 +1,9 @@
+{
+    "name": "IUHCampus.Player.Tests",
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
