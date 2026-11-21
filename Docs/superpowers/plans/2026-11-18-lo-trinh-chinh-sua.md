@@ -8,7 +8,7 @@ Mỗi lượt: nhánh `minhnhat/<tên>` → thiết kế ngắn → kế hoạch
 | 1 | Gỡ Grab + menu minigame + code minigame cũ | Không menu 6 game, repo sạch (Unity) | Vừa–lớn | Thiết kế + kế hoạch xong: `2026-11-18-remove-grab-minigames*` |
 | 2 | Nâng cấp kiếm/khiên/sinh lực có tác dụng trong match-3 | Vòng lặp thắng → Gold → nâng cấp (Unity) | Nhỏ | Chưa |
 | 3 | Vườn hoa P2: 6 luống, trồng/tưới/bón, Hạt → Mầm → Nở (1 phút/giai đoạn, giờ thật), hái được Gold | "Chăm sóc khuôn viên" trong thiết kế PC; Thịnh yêu cầu thêm tính năng | Vừa | Chưa — cần bàn chi tiết |
-| 4 | Thay model nhân vật người chơi (Humanoid) | Đồ họa (Unity) | Vừa | Chờ người dùng tự chọn model |
+| 4 | Thay model nhân vật người chơi (Humanoid) | Đồ họa (Unity) | Vừa | Xong. PR #45 nhập Casual2, lượt B gỡ ngoại trang. [Kiểm chứng](../../Evidence/CampusGuardian/CHARACTER/README.md) |
 | 5 | Dò `Invalid AABB` và giảm tra cứu người chơi trong `Update` | Ổn định khi demo | Vừa | Đã dọn A–F, AABB chưa tái hiện. [Kiểm chứng](../../Evidence/CampusGuardian/PERF/README.md) |
 | 6 | Cho bản iPhone cấu hình địa chỉ backend (IP LAN) | Cloud trên mobile (hỗ trợ Thịnh) | Nhỏ | Chưa |
 | 7 | Hồ sơ: README, plan.md (Android = hướng phát triển), báo cáo kỹ thuật, bảng test tổng Pass/Fail, kịch bản + video demo PC | Tránh trừ 20 điểm | Vừa | Tuần cuối |

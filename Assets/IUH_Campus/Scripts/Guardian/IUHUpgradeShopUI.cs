@@ -14,12 +14,10 @@ namespace IUHCampus.Guardian
         [SerializeField] private GameObject m_ShopPanel;
         [SerializeField] private GameObject m_TabUpgradesContent;
         [SerializeField] private GameObject m_TabInventoryContent;
-        [SerializeField] private GameObject m_TabSkinsContent;
 
         [Header("Tabs")]
         [SerializeField] private Button m_BtnTabUpgrades;
         [SerializeField] private Button m_BtnTabInventory;
-        [SerializeField] private Button m_BtnTabSkins;
         [SerializeField] private Button m_BtnClose;
 
         [Header("Currency")]
@@ -47,15 +45,12 @@ namespace IUHCampus.Guardian
         [SerializeField] private Transform m_ItemsContainer;
         [SerializeField] private Text m_TxtEmptyInventory;
 
-        [Header("Skins Container")]
-        [SerializeField] private Transform m_SkinsContainer;
-        [SerializeField] private ScrollRect m_SkinsScrollRect;
         [SerializeField] private ScrollRect m_ItemsScrollRect;
 
         private ThirdPersonController m_PlayerController;
         private StarterAssetsInputs m_PlayerInputs;
         private bool m_IsOpen;
-        private int m_CurrentTab = 0; // 0 = Upgrades, 1 = Inventory, 2 = Skins
+        private int m_CurrentTab;
 
         public bool IsOpen => m_IsOpen;
         private static bool IsCombatBlocked =>
@@ -69,7 +64,6 @@ namespace IUHCampus.Guardian
 
             if (m_BtnTabUpgrades != null) m_BtnTabUpgrades.onClick.AddListener(() => SwitchTab(0));
             if (m_BtnTabInventory != null) m_BtnTabInventory.onClick.AddListener(() => SwitchTab(1));
-            if (m_BtnTabSkins != null) m_BtnTabSkins.onClick.AddListener(() => SwitchTab(2));
             if (m_BtnClose != null) m_BtnClose.onClick.AddListener(CloseShop);
 
             if (m_BtnUpgradeSword != null) m_BtnUpgradeSword.onClick.AddListener(OnUpgradeSwordClicked);
@@ -176,10 +170,10 @@ namespace IUHCampus.Guardian
 
         private void SwitchTab(int tabIndex)
         {
+            tabIndex = tabIndex == 1 ? 1 : 0;
             m_CurrentTab = tabIndex;
             if (m_TabUpgradesContent != null) m_TabUpgradesContent.SetActive(tabIndex == 0);
             if (m_TabInventoryContent != null) m_TabInventoryContent.SetActive(tabIndex == 1);
-            if (m_TabSkinsContent != null) m_TabSkinsContent.SetActive(tabIndex == 2);
 
             Color activeColor = new Color(0.2f, 0.65f, 1f);
             Color idleColor = new Color(0.12f, 0.18f, 0.28f);
@@ -193,11 +187,6 @@ namespace IUHCampus.Guardian
             {
                 var img = m_BtnTabInventory.GetComponent<Image>();
                 if (img != null) img.color = tabIndex == 1 ? activeColor : idleColor;
-            }
-            if (m_BtnTabSkins != null)
-            {
-                var img = m_BtnTabSkins.GetComponent<Image>();
-                if (img != null) img.color = tabIndex == 2 ? activeColor : idleColor;
             }
 
             RefreshAllUI();
@@ -295,10 +284,7 @@ namespace IUHCampus.Guardian
             // Inventory Items
             RefreshInventoryTab(inv);
 
-            // Skins & Trails
-            RefreshSkinsTab(inv);
-            ResetScrollToTop(m_CurrentTab == 1 ? m_ItemsScrollRect :
-                m_CurrentTab == 2 ? m_SkinsScrollRect : null);
+            if (m_CurrentTab == 1) ResetScrollToTop(m_ItemsScrollRect);
         }
 
         private static void ResetScrollToTop(ScrollRect scroll)
@@ -307,158 +293,6 @@ namespace IUHCampus.Guardian
             LayoutRebuilder.ForceRebuildLayoutImmediate(scroll.content);
             scroll.StopMovement();
             scroll.verticalNormalizedPosition = 1f;
-        }
-
-        private void RefreshSkinsTab(IUHGuardianInventory inv)
-        {
-            if (m_SkinsContainer == null) return;
-            var customizer = IUHPlayerCustomizer.Instance;
-            if (customizer == null) return;
-
-            for (int i = m_SkinsContainer.childCount - 1; i >= 0; i--)
-            {
-                var child = m_SkinsContainer.GetChild(i);
-                child.SetParent(null, false);
-                Destroy(child.gameObject);
-            }
-
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
-
-            // Helper to create category header
-            Action<string> AddHeader = (title) =>
-            {
-                GameObject hGo = new GameObject("Header", typeof(RectTransform), typeof(Text));
-                hGo.transform.SetParent(m_SkinsContainer, false);
-                var hRt = hGo.GetComponent<RectTransform>();
-                hRt.sizeDelta = new Vector2(490f, 28f);
-                var hTxt = hGo.GetComponent<Text>();
-                hTxt.text = title;
-                hTxt.font = font;
-                hTxt.fontSize = 13;
-                hTxt.fontStyle = FontStyle.Bold;
-                hTxt.color = new Color(0.35f, 0.9f, 1f);
-                hTxt.alignment = TextAnchor.MiddleLeft;
-            };
-
-            // Helper to create skin/trail row
-            Action<string, string, bool, bool, int, Action> AddRow = (name, desc, isOwned, isEquipped, cost, onAction) =>
-            {
-                GameObject row = new GameObject("CustomRow", typeof(RectTransform), typeof(Image));
-                row.transform.SetParent(m_SkinsContainer, false);
-                var rowRt = row.GetComponent<RectTransform>();
-                rowRt.sizeDelta = new Vector2(490f, 44f);
-                row.GetComponent<Image>().color = new Color(0.08f, 0.12f, 0.2f, 0.9f);
-
-                // Name & Desc
-                GameObject nameGo = new GameObject("Name", typeof(RectTransform), typeof(Text));
-                nameGo.transform.SetParent(row.transform, false);
-                var nameRt = nameGo.GetComponent<RectTransform>();
-                nameRt.anchorMin = new Vector2(0.03f, 0.5f);
-                nameRt.anchorMax = new Vector2(0.03f, 0.5f);
-                nameRt.pivot = new Vector2(0f, 0.5f);
-                nameRt.sizeDelta = new Vector2(330f, 36f);
-                var nameTxt = nameGo.GetComponent<Text>();
-                nameTxt.text = $"<b>{name}</b>\n<size=11><color=#94A3B8>{desc}</color></size>";
-                nameTxt.font = font;
-                nameTxt.fontSize = 13;
-                nameTxt.color = Color.white;
-                nameTxt.alignment = TextAnchor.MiddleLeft;
-
-                // Action Button
-                GameObject btnGo = new GameObject("BtnAction", typeof(RectTransform), typeof(Image), typeof(Button));
-                btnGo.transform.SetParent(row.transform, false);
-                var btnRt = btnGo.GetComponent<RectTransform>();
-                btnRt.anchorMin = new Vector2(0.85f, 0.5f);
-                btnRt.anchorMax = new Vector2(0.85f, 0.5f);
-                btnRt.sizeDelta = new Vector2(100f, 32f);
-
-                GameObject bTxtGo = new GameObject("Text", typeof(RectTransform), typeof(Text));
-                bTxtGo.transform.SetParent(btnGo.transform, false);
-                var bTxtRt = bTxtGo.GetComponent<RectTransform>();
-                bTxtRt.anchorMin = Vector2.zero;
-                bTxtRt.anchorMax = Vector2.one;
-                bTxtRt.sizeDelta = Vector2.zero;
-                var bTxt = bTxtGo.GetComponent<Text>();
-                bTxt.font = font;
-                bTxt.fontSize = 11;
-                bTxt.fontStyle = FontStyle.Bold;
-                bTxt.alignment = TextAnchor.MiddleCenter;
-                bTxt.color = Color.white;
-
-                var btn = btnGo.GetComponent<Button>();
-                var btnImg = btnGo.GetComponent<Image>();
-
-                if (isEquipped)
-                {
-                    bTxt.text = "ĐANG DÙNG";
-                    btnImg.color = new Color(0.3f, 0.35f, 0.45f);
-                    btn.interactable = false;
-                }
-                else if (isOwned)
-                {
-                    bTxt.text = "TRANG BỊ";
-                    btnImg.color = new Color(0.2f, 0.6f, 0.9f);
-                    btn.interactable = true;
-                    btn.onClick.AddListener(() =>
-                    {
-                        onAction?.Invoke();
-                        IUHCombatAudio.PlayShield();
-                        RefreshAllUI();
-                    });
-                }
-                else
-                {
-                    bTxt.text = $"MUA ({cost}g)";
-                    btnImg.color = new Color(0.16f, 0.65f, 0.38f);
-                    btn.interactable = inv.Gold >= cost;
-                    btn.onClick.AddListener(() =>
-                    {
-                        if (inv.TrySpendGold(cost))
-                        {
-                            onAction?.Invoke();
-                            IUHCombatAudio.PlayCoin();
-                            IUHCameraShake.Shake(0.12f, 0.2f);
-                            RefreshAllUI();
-                        }
-                    });
-                }
-            };
-
-            // Section 1: Skins
-            AddHeader("TRANG PHỤC HỌC ĐƯỜNG & CHIẾN BINH");
-
-            AddRow("Người Bảo Vệ Xanh IUH", "Áo khoác xanh rêu truyền thống của đội bảo vệ", true,
-                customizer.CurrentSkin == PlayerSkinType.Default, 0, () => customizer.ApplySkin(PlayerSkinType.Default));
-
-            AddRow("Đồng Phục Sinh Viên IUH", "Áo thun polo xanh IUH & quần jeans trẻ trung",
-                customizer.IsSkinOwned(PlayerSkinType.IUH_Student), customizer.CurrentSkin == PlayerSkinType.IUH_Student, 80,
-                () => { customizer.UnlockSkin(PlayerSkinType.IUH_Student); customizer.ApplySkin(PlayerSkinType.IUH_Student); });
-
-            AddRow("Cử Nhân Tốt Nghiệp IUH", "Áo thụng cử nhân đỏ đô viền vàng & nón cử nhân",
-                customizer.IsSkinOwned(PlayerSkinType.Graduate), customizer.CurrentSkin == PlayerSkinType.Graduate, 150,
-                () => { customizer.UnlockSkin(PlayerSkinType.Graduate); customizer.ApplySkin(PlayerSkinType.Graduate); });
-
-            AddRow("Giáp Cơ Động Cyber Bảo Vệ", "Giáp công nghệ cao phát sáng hào quang neon cyan",
-                customizer.IsSkinOwned(PlayerSkinType.Cyber), customizer.CurrentSkin == PlayerSkinType.Cyber, 250,
-                () => { customizer.UnlockSkin(PlayerSkinType.Cyber); customizer.ApplySkin(PlayerSkinType.Cyber); });
-
-            // Section 2: Trails
-            AddHeader("HIỆU ỨNG VỆT CHÂN KHI DI CHUYỂN");
-
-            AddRow("Không Dùng Vệt Chân", "Tắt hiệu ứng bước chân", true,
-                customizer.CurrentTrail == PlayerTrailType.None, 0, () => customizer.ApplyTrail(PlayerTrailType.None));
-
-            AddRow("Tia Điện Cyber Neon", "Vệt sáng cyan sấm sét lướt theo từng bước chân",
-                customizer.IsTrailOwned(PlayerTrailType.CyberSparks), customizer.CurrentTrail == PlayerTrailType.CyberSparks, 60,
-                () => { customizer.UnlockTrail(PlayerTrailType.CyberSparks); customizer.ApplyTrail(PlayerTrailType.CyberSparks); });
-
-            AddRow("Cánh Hoa Đào Rơi", "Cánh hoa hồng phấn bay bổng thơ mộng khi chạy",
-                customizer.IsTrailOwned(PlayerTrailType.CherryPetals), customizer.CurrentTrail == PlayerTrailType.CherryPetals, 80,
-                () => { customizer.UnlockTrail(PlayerTrailType.CherryPetals); customizer.ApplyTrail(PlayerTrailType.CherryPetals); });
-
-            AddRow("Ánh Sao Hoàng Kim", "Ánh sao vàng hoàng gia lấp lánh rực rỡ",
-                customizer.IsTrailOwned(PlayerTrailType.GoldenStars), customizer.CurrentTrail == PlayerTrailType.GoldenStars, 100,
-                () => { customizer.UnlockTrail(PlayerTrailType.GoldenStars); customizer.ApplyTrail(PlayerTrailType.GoldenStars); });
         }
 
         private void RefreshInventoryTab(IUHGuardianInventory inv)
