@@ -254,9 +254,8 @@ namespace IUHCampus.Editor
             EnsureInventory(canvasGO);
 
             // Setup Player Customizer
-            EnsurePlayerCustomizer();
 
-            // Setup Shop & Inventory & Skins UI
+            // Setup Shop & Inventory UI
             CreateShopUI(canvasGO.transform, defaultFont);
 
             // Spawn In-World Tech Kiosk
@@ -933,12 +932,10 @@ namespace IUHCampus.Editor
             txtGold.alignment = TextAnchor.MiddleLeft;
             txtGold.fontStyle = FontStyle.Bold;
 
-            // 3 Tab Buttons
-            var (btnTabUpgrades, _) = CreateButton(cardObj.transform, "BtnTabUpgrades", "⚙️ NÂNG CẤP", new Vector2(0.19f, 0.77f), new Vector2(240f, 38f), font);
-            var (btnTabInventory, _) = CreateButton(cardObj.transform, "BtnTabInventory", "🎒 KHO ĐỒ", new Vector2(0.50f, 0.77f), new Vector2(240f, 38f), font);
-            var (btnTabSkins, _) = CreateButton(cardObj.transform, "BtnTabSkins", "👗 NGOẠI TRANG", new Vector2(0.81f, 0.77f), new Vector2(240f, 38f), font);
+            // 2 Tab Buttons
+            var (btnTabUpgrades, _) = CreateButton(cardObj.transform, "BtnTabUpgrades", "⚙️ NÂNG CẤP", new Vector2(0.2625f, 0.77f), new Vector2(382.7f, 38f), font);
+            var (btnTabInventory, _) = CreateButton(cardObj.transform, "BtnTabInventory", "🎒 KHO ĐỒ", new Vector2(0.7375f, 0.77f), new Vector2(382.7f, 38f), font);
             btnTabInventory.GetComponent<Image>().color = new Color(0.12f, 0.18f, 0.28f);
-            btnTabSkins.GetComponent<Image>().color = new Color(0.12f, 0.18f, 0.28f);
 
             // Container for Tabs
             GameObject contentUpgrades = new GameObject("Tab_Upgrades", typeof(RectTransform));
@@ -954,13 +951,6 @@ namespace IUHCampus.Editor
             iRt.anchorMin = new Vector2(0.03f, 0.03f);
             iRt.anchorMax = new Vector2(0.97f, 0.71f);
             iRt.sizeDelta = Vector2.zero;
-
-            GameObject contentSkins = new GameObject("Tab_Skins", typeof(RectTransform));
-            contentSkins.transform.SetParent(cardObj.transform, false);
-            var skRt = contentSkins.GetComponent<RectTransform>();
-            skRt.anchorMin = new Vector2(0.03f, 0.03f);
-            skRt.anchorMax = new Vector2(0.97f, 0.71f);
-            skRt.sizeDelta = Vector2.zero;
 
             // 5. Build Upgrades Tab (3 Rows)
             // Row 1: Sword
@@ -1006,42 +996,7 @@ namespace IUHCampus.Editor
 
             Text txtEmpty = CreateText(contentInventory.transform, "TxtEmpty", "Kho đồ trống.\nHãy tiêu diệt quái vật dữ liệu trên khuôn viên để nhận bảo vật!", 15, new Vector2(0.5f, 0.5f), new Vector2(500f, 60f), font, new Color(0.7f, 0.8f, 0.9f, 0.7f));
 
-            // 7. Build Skins Tab
-            GameObject scrollSkinsObj = new GameObject("ScrollSkinsContainer", typeof(RectTransform), typeof(ScrollRect), typeof(Image));
-            scrollSkinsObj.transform.SetParent(contentSkins.transform, false);
-            var skScRt = scrollSkinsObj.GetComponent<RectTransform>();
-            skScRt.anchorMin = Vector2.zero;
-            skScRt.anchorMax = Vector2.one;
-            skScRt.sizeDelta = Vector2.zero;
-            var skScImg = scrollSkinsObj.GetComponent<Image>();
-            skScImg.color = new Color(0.04f, 0.06f, 0.10f, 0.7f);
-
-            GameObject skinsContainer = new GameObject("SkinsList", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
-            skinsContainer.transform.SetParent(scrollSkinsObj.transform, false);
-            var skListRt = skinsContainer.GetComponent<RectTransform>();
-            skListRt.anchorMin = new Vector2(0f, 1f);
-            skListRt.anchorMax = new Vector2(1f, 1f);
-            skListRt.pivot = new Vector2(0.5f, 1f);
-            skListRt.sizeDelta = new Vector2(0f, 300f);
-
-            var skVlg = skinsContainer.GetComponent<VerticalLayoutGroup>();
-            skVlg.padding = new RectOffset(12, 12, 12, 12);
-            skVlg.spacing = 8f;
-            skVlg.childControlWidth = true;
-            skVlg.childControlHeight = false;
-            skVlg.childForceExpandWidth = true;
-            skVlg.childForceExpandHeight = false;
-
-            var skCsf = skinsContainer.GetComponent<ContentSizeFitter>();
-            skCsf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            var skScroll = scrollSkinsObj.GetComponent<ScrollRect>();
-            skScroll.content = skListRt;
-            skScroll.horizontal = false;
-            skScroll.vertical = true;
-
             contentInventory.SetActive(false);
-            contentSkins.SetActive(false);
             panelModal.SetActive(false);
 
             // Serialize into IUHUpgradeShopUI
@@ -1049,10 +1004,8 @@ namespace IUHCampus.Editor
             SetRef(so, "m_ShopPanel", panelModal);
             SetRef(so, "m_TabUpgradesContent", contentUpgrades);
             SetRef(so, "m_TabInventoryContent", contentInventory);
-            SetRef(so, "m_TabSkinsContent", contentSkins);
             SetRef(so, "m_BtnTabUpgrades", btnTabUpgrades);
             SetRef(so, "m_BtnTabInventory", btnTabInventory);
-            SetRef(so, "m_BtnTabSkins", btnTabSkins);
             SetRef(so, "m_BtnClose", btnClose);
             SetRef(so, "m_TxtGold", txtGold);
 
@@ -1072,7 +1025,6 @@ namespace IUHCampus.Editor
             SetRef(so, "m_TxtBtnHp", hpBtnTxt);
 
             SetRef(so, "m_ItemsContainer", itemsContainer.transform);
-            SetRef(so, "m_SkinsContainer", skinsContainer.transform);
             SetRef(so, "m_TxtEmptyInventory", txtEmpty);
             so.ApplyModifiedProperties();
         }
@@ -1180,18 +1132,6 @@ namespace IUHCampus.Editor
             var pKey = so.FindProperty("m_InteractKey"); if (pKey != null) pKey.enumValueIndex = (int)KeyCode.E;
             SetRef(so, "m_PromptObject", promptCanvas);
             so.ApplyModifiedProperties();
-        }
-
-        private static void EnsurePlayerCustomizer()
-        {
-            var playerGO = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
-            if (playerGO != null)
-            {
-                var customizer = playerGO.GetComponent<IUHPlayerCustomizer>();
-                if (customizer == null) customizer = playerGO.AddComponent<IUHPlayerCustomizer>();
-                customizer.FindComponents();
-                Debug.Log("[IUH Guardian] IUHPlayerCustomizer configured on Campus Student!");
-            }
         }
 
         private class ChestConfig
