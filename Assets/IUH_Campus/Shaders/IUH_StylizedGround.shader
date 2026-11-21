@@ -6,9 +6,12 @@ Shader "IUH/Stylized Ground"
         _ColorA ("Base", Color) = (0.28, 0.40, 0.14, 1)
         _ColorB ("Variation", Color) = (0.31, 0.43, 0.16, 1)
         _ColorC ("Highlights", Color) = (0.34, 0.46, 0.18, 1)
-        _TileSize ("Paver Size in Metres", Vector) = (1.12, 0.72, 0, 0)
+        _TileSize ("Paver Size or Grass Patch Width (m)", Vector) = (1.12, 0.72, 0, 0)
         _GroutColor ("Grout", Color) = (0.44, 0.43, 0.37, 1)
         _GroutWidth ("Joint Width in Metres", Range(0.006, 0.06)) = 0.025
+        [NoScaleOffset] _DetailTex ("Grass Detail", 2D) = "white" {}
+        _DetailScale ("Grass Detail Repeat (m)", Float) = 1.5
+        _DetailStrength ("Grass Detail Strength", Range(0, 1)) = 0
     }
     SubShader
     {
@@ -21,6 +24,7 @@ Shader "IUH/Stylized Ground"
             half4 _ColorA, _ColorB, _ColorC, _GroutColor;
             float4 _TileSize;
             float _GroutWidth, _Ground;
+            float _DetailScale, _DetailStrength;
         CBUFFER_END
 
         struct Attributes
@@ -74,6 +78,9 @@ Shader "IUH/Stylized Ground"
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
 
+            TEXTURE2D(_DetailTex);
+            SAMPLER(sampler_DetailTex);
+
             float HashGround(float2 p)
             {
                 float3 p3 = frac(float3(p.xyx) * 0.1031);
@@ -106,10 +113,22 @@ Shader "IUH/Stylized Ground"
                 stone *= lerp(0.96, 1.04, grain);
                 return lerp(_GroutColor.rgb, stone, joint);
                 #else
-                float field = ValueNoise(metres / 11);
+                #if defined(_GROUND_GRASS)
+                float patchSize = max(_TileSize.x, 0.05);
+                #else
+                float patchSize = 11;
+                #endif
+                float field = ValueNoise(metres / patchSize);
                 float tuft = ValueNoise(metres / 1.45);
                 half3 baseGrass = lerp(_ColorA.rgb, _ColorB.rgb, smoothstep(0.15, 0.85, field));
-                return lerp(baseGrass, _ColorC.rgb, smoothstep(0.48, 0.90, tuft) * 0.42);
+                half3 grassColor = lerp(baseGrass, _ColorC.rgb, smoothstep(0.48, 0.90, tuft) * 0.42);
+                #if defined(_GROUND_GRASS)
+                float2 detailUV = metres / max(_DetailScale, 0.05);
+                half3 detailColor = SAMPLE_TEXTURE2D(_DetailTex, sampler_DetailTex, detailUV).rgb;
+                half detailBrightness = dot(detailColor, half3(0.2126h, 0.7152h, 0.0722h));
+                grassColor *= lerp(1.0h, detailBrightness, _DetailStrength);
+                #endif
+                return grassColor;
                 #endif
             }
 

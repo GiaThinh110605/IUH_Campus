@@ -11,6 +11,22 @@ namespace IUHCampus.Nature.Tests
         const string GrassKeyword = "_GROUND_GRASS";
         const string PavingKeyword = "_GROUND_PAVING";
 
+        [Test]
+        public void GrassMaterialUsesCampusLawnDetail()
+        {
+            var material = AssetDatabase.LoadAssetAtPath<Material>(
+                "Assets/IUH_Campus/Materials/Environment/M_Ground_Grass.mat");
+            Assert.That(material, Is.Not.Null);
+            Assert.That(material.HasProperty("_DetailTex"), Is.True);
+            Assert.That(material.HasProperty("_DetailScale"), Is.True);
+            Assert.That(material.HasProperty("_DetailStrength"), Is.True);
+
+            var lawnTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(
+                "Assets/IUH_Campus/SharedCampusConcept/Textures/grass.png");
+            Assert.That(lawnTexture, Is.Not.Null);
+            Assert.That(material.GetTexture("_DetailTex"), Is.SameAs(lawnTexture));
+        }
+
         [TestCase("Grass", GrassKeyword)]
         [TestCase("PavingPale", PavingKeyword)]
         [TestCase("Sandstone", PavingKeyword)]

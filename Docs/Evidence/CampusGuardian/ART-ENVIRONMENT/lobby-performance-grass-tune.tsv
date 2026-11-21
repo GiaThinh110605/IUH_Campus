@@ -1,0 +1,18 @@
+﻿stage	frames	seconds	fps	median_draw_calls	median_triangles
+pipeline=Campus HQ Pipeline
+baseline	600	2.7689	216.69	209	1218051
+grass-tune	600	2.7768	216.08	219	1230467
+baseline	600	2.8192	212.83	209	1218051
+grass-tune	600	3.2089	186.98	219	1230465
+grass-tune	600	2.8582	209.92	219	1230467
+baseline	600	2.9388	204.17	209	1218051
+# date=2026-11-22 (Asia/Bangkok)
+# base_commit=ef934a4
+# environment=Unity 6000.5.8f1 Windows Editor, D3D12, RTX 3060 Laptop GPU, 1280x900
+# method=lobby camera, vSync off, 90 warmup frames and 600 timed frames per phase
+# historical_baseline_fps=217.25; historical_baseline_draw_calls=209
+# paired_baseline_fps=211.10; grass_tune_fps=203.53; grass_tune_draw_calls=219
+# preliminary_grass_tune_fps=190.48; callback failed during teardown; repeat fixes the callback guard
+# editmode=128/128 (b4aea135e35d46ca9d466d0e22f79f2e); playmode=49/49 (aee7a5a681fe4ecb95d9ad357863b4fa)
+# final_console_errors=0; missing_scripts_campus_combat_ar=0,0,0
+# grass_clusters=36; combined_meshes=2; geometry_seed=224
