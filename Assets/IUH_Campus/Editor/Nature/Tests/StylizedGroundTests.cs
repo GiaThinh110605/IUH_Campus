@@ -8,9 +8,12 @@ namespace IUHCampus.Nature.Tests
 {
     public sealed class StylizedGroundTests
     {
-        [TestCase("Grass", "_GROUND_GRASS")]
-        [TestCase("PavingPale", "_GROUND_PAVING")]
-        [TestCase("Sandstone", "_GROUND_PAVING")]
+        const string GrassKeyword = "_GROUND_GRASS";
+        const string PavingKeyword = "_GROUND_PAVING";
+
+        [TestCase("Grass", GrassKeyword)]
+        [TestCase("PavingPale", PavingKeyword)]
+        [TestCase("Sandstone", PavingKeyword)]
         public void GroundMaterialUsesSupportedShaderAndSurfaceMode(string suffix, string keyword)
         {
             var shader = Shader.Find("IUH/Stylized Ground");
@@ -21,6 +24,7 @@ namespace IUHCampus.Nature.Tests
             Assert.That(material, Is.Not.Null);
             Assert.That(material.shader, Is.SameAs(shader));
             Assert.That(material.IsKeywordEnabled(keyword), Is.True);
+            Assert.That(material.IsKeywordEnabled(keyword == GrassKeyword ? PavingKeyword : GrassKeyword), Is.False);
 
             var forwardPass = material.FindPass("ForwardLit");
             Assert.That(forwardPass, Is.GreaterThanOrEqualTo(0));
