@@ -1,0 +1,46 @@
+{
+  "poses": {
+    "player": [
+      8,
+      0,
+      -42
+    ],
+    "playerYaw": 0,
+    "resolution": [
+      960,
+      800
+    ],
+    "fieldOfView": 39,
+    "frontOffset": [
+      2.2,
+      1.4,
+      3.5
+    ],
+    "backOffset": [
+      -2.2,
+      1.4,
+      -3.5
+    ],
+    "targetHeight": 0.94
+  },
+  "lobbyBenchmark": {
+    "eye": [
+      4,
+      4,
+      -39
+    ],
+    "at": [
+      23,
+      5,
+      -31
+    ],
+    "player": [
+      8,
+      0,
+      -37
+    ],
+    "fieldOfView": 57,
+    "seconds": 20
+  },
+  "arena": "Camera sân đấu gốc"
+}
