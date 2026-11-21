@@ -1,5 +1,7 @@
+using System.Linq;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace IUHCampus.Nature.Tests
@@ -14,12 +16,21 @@ namespace IUHCampus.Nature.Tests
             var shader = Shader.Find("IUH/Stylized Ground");
             Assert.That(shader, Is.Not.Null);
             Assert.That(shader.isSupported, Is.True);
-            Assert.That(ShaderUtil.ShaderHasError(shader), Is.False);
             var material = AssetDatabase.LoadAssetAtPath<Material>(
                 $"Assets/IUH_Campus/Materials/Environment/M_Ground_{suffix}.mat");
             Assert.That(material, Is.Not.Null);
             Assert.That(material.shader, Is.SameAs(shader));
             Assert.That(material.IsKeywordEnabled(keyword), Is.True);
+
+            var forwardPass = material.FindPass("ForwardLit");
+            Assert.That(forwardPass, Is.GreaterThanOrEqualTo(0));
+            ShaderUtil.CompilePass(material, forwardPass, forceSync: true);
+
+            var errors = ShaderUtil.GetShaderMessages(shader)
+                .Where(message => message.severity == ShaderCompilerMessageSeverity.Error)
+                .Select(message => message.message);
+            Assert.That(errors, Is.Empty, $"{suffix} ({keyword})");
+            Assert.That(ShaderUtil.ShaderHasError(shader), Is.False);
         }
     }
 }

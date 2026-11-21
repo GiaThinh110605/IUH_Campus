@@ -97,9 +97,9 @@ Shader "IUH/Stylized Ground"
                 tile.x += fmod(abs(floor(tile.y)), 2) * 0.5;
                 float2 local = frac(tile);
                 float2 edge = min(local, 1 - local) * tileSize;
-                float line = min(edge.x, edge.y);
-                float aa = max(fwidth(line), 0.001);
-                float joint = smoothstep(_GroutWidth * 0.5 - aa, _GroutWidth * 0.5 + aa, line);
+                float edgeDist = min(edge.x, edge.y);
+                float aa = max(fwidth(edgeDist), 0.001);
+                float joint = smoothstep(_GroutWidth * 0.5 - aa, _GroutWidth * 0.5 + aa, edgeDist);
                 float variation = HashGround(floor(tile));
                 half3 stone = lerp(_ColorA.rgb, _ColorB.rgb, variation);
                 float grain = ValueNoise(metres * 15);
