@@ -1,0 +1,20 @@
+﻿view	stage	frames	seconds	fps	median_draw_calls	median_triangles
+lobby	baseline	600	2.6540	226.07	209	1218051
+overview	task4	600	3.1817	188.58	923	2328554
+lobby	task4	600	2.6245	228.62	219	1242801
+overview	baseline	600	2.9727	201.84	896	2303798
+lobby	task4	600	2.6534	226.12	219	1242803
+overview	baseline	600	3.1185	192.40	896	2303798
+lobby	baseline	600	2.6236	228.69	209	1218051
+overview	task4	600	3.0844	194.53	923	2328548
+lobby	baseline	600	2.5657	233.85	209	1218051
+overview	task4	600	3.0640	195.82	923	2328552
+lobby	task4	600	2.6814	223.77	219	1242801
+overview	baseline	600	3.0221	198.54	896	2303798
+# date=2026-11-22
+# base_commit=8cef559; before_pass_commit=6aa7997
+# environment=Unity 6000.5.8f1 Windows Editor, D3D12, RTX 3060 Laptop GPU, Campus HQ Pipeline, 1280x900
+# method=cameras.json lobby/overview, vSync off, 90 warmup and 600 timed frames per phase, 3 phases per view and stage
+# baseline=replayed in Play Mode with seven original material slots and old fog; NATURE_GROUND and AMBIENT_PARTICLES disabled
+# historical_before_lobby=217.25 FPS, 209 draws; paired_before_lobby=229.50 FPS, 209 draws; task4_lobby=226.15 FPS, 219 draws
+# paired_before_overview=197.51 FPS, 896 draws; task4_overview=192.92 FPS, 923 draws

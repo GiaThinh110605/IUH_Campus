@@ -1,0 +1,28 @@
+﻿date=2026-11-22
+environment=Unity 6000.5.8f1 Windows Editor, D3D12, RTX 3060 Laptop GPU
+base_commit=8cef559
+editmode_passed=128/128 (139b2cf925cf49e88a46071fab74c0a3)
+playmode_passed=49/49 (f3226ee03ad947549fc194cad1f8110a)
+console_errors=0
+missing_scripts_campus_combat_ar=0,0,0
+new_grass_clusters=36
+total_grass_clusters=72
+combined_meshes=2
+geometry_seed=423
+projected_new_vertices_outside_raised_lawns=0/12696
+method=CharacterController.Move in three routes and scripted E key input through Unity Input System
+
+lobby start=(4.00, 0.43, -38.00) end=(11.00, -0.01, -38.00) grounded_steps=58 of 64 horizontal_error=0.00
+canteen start=(-36.00, 0.65, -25.00) end=(-36.00, -0.01, -30.00) grounded_steps=54 of 64 horizontal_error=0.00
+north start=(14.00, 0.76, 27.00) end=(7.00, -0.01, 27.00) grounded_steps=53 of 64 horizontal_error=0.00
+garden_opened_E=True
+garden_closed_E=True
+night_fog=RGBA(0.150, 0.130, 0.250, 1.000)
+night_exposure=0.2125
+day_fog_restored=True
+E_8m_entered=False
+E_4m_entered=True
+story_save_unchanged=True
+elapsed_seconds=34.08
+keyboard_presses_seen=4
+keyboard_focus=True
