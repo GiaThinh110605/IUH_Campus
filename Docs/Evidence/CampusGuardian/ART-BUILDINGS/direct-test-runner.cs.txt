@@ -1,0 +1,32 @@
+using System.IO;
+using UnityEditor;
+using UnityEditor.TestTools.TestRunner.Api;
+using UnityEngine;
+
+namespace IUHCampus.Guardian.Editor
+{
+    public static class BuildingsVerificationRunner
+    {
+        static TestRunnerApi api;
+        public static string Run()
+        {
+            api = ScriptableObject.CreateInstance<TestRunnerApi>();
+            api.RegisterCallbacks(new ResultWriter());
+            return api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode }));
+        }
+
+        sealed class ResultWriter : ICallbacks
+        {
+            public void RunStarted(ITestAdaptor tests) { }
+            public void TestStarted(ITestAdaptor test) { }
+            public void TestFinished(ITestResultAdaptor result) { }
+            public void RunFinished(ITestResultAdaptor result)
+            {
+                const string folder = "Docs/Evidence/CampusGuardian/ART-BUILDINGS/";
+                TestRunnerApi.SaveResultToFile(result, folder + "EditMode-final.xml");
+                File.WriteAllText(folder + "EditMode-final.txt",
+                    $"{result.ResultState}: passed={result.PassCount}, failed={result.FailCount}, skipped={result.SkipCount}");
+            }
+        }
+    }
+}
