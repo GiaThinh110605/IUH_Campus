@@ -1,0 +1,7 @@
+commit=8a6c034
+Windows Editor Unity 6000.5.8f1
+GPU=NVIDIA GeForce RTX 3060 Laptop GPU
+Camera=(0.200000048, 2.45150971, -41.96107) rotation=(8, 0, 0) FOV=40
+Player=(0, 0.4448172, -38)
+resolution=1280x900
+120 warmup + 3000 samples per run. Gameplay camera unchanged; targetTexture untouched. Spring off: empty Springs + ReconstructSpringBone; remaining VRM runtime enabled. Casual model under player with Starter Assets Animator.
