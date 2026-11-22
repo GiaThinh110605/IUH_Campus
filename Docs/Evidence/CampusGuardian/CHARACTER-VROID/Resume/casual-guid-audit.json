@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-23",
+  "commit": "44171bb",
+  "guids": 16,
+  "externalReferences": [],
+  "targets": [
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen",
+    "Assets/IUH_Campus/Materials/Player",
+    "Assets/IUH_Campus/Prefabs/Player/PF_Student_Casual2.prefab"
+  ],
+  "removedFiles": [
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/License.txt",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/License.txt.meta",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/Models/Casual2.fbx",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/Models/Casual2.fbx.meta",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/Models.meta",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/SOURCE.md",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen/SOURCE.md.meta",
+    "Assets/IUH_Campus/ThirdParty/Quaternius/UltimateModularMen.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Eyebrows.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Eyebrows.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Eyes.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Eyes.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Hair.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Hair.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Pants.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Pants.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Shirt.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Shirt.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Shoes.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Shoes.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Skin.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Skin.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_SkinShade.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_SkinShade.mat.meta",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Sole.mat",
+    "Assets/IUH_Campus/Materials/Player/M_Player_Sole.mat.meta",
+    "Assets/IUH_Campus/Materials/Player.meta",
+    "Assets/IUH_Campus/Prefabs/Player/PF_Student_Casual2.prefab",
+    "Assets/IUH_Campus/Prefabs/Player/PF_Student_Casual2.prefab.meta"
+  ]
+}

@@ -1,0 +1,59 @@
+var p = UnityEngine.GameObject.Find("Campus Student");
+var animator = p.GetComponent<UnityEngine.Animator>();
+var vrm = p.GetComponent<UniVRM10.Vrm10Instance>();
+var springs = vrm.SpringBone.Springs.ToArray();
+var casual = UnityEngine.Object.Instantiate(UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.GameObject>("Assets/IUH_Campus/Prefabs/Player/PF_Student_Casual2.prefab"), p.transform);
+casual.name = "BENCH_Casual2";
+casual.transform.localPosition = UnityEngine.Vector3.zero;
+casual.transform.localRotation = UnityEngine.Quaternion.identity;
+casual.transform.localScale = UnityEngine.Vector3.one * 0.94f;
+var ca = casual.GetComponent<UnityEngine.Animator>();
+ca.runtimeAnimatorController = animator.runtimeAnimatorController;
+var roots = new[]{"Root", "Face", "Body", "secondary"}.Select(n=>p.transform.Find(n).gameObject).ToArray();
+var camera = UnityEngine.Camera.main;
+var dir = "Docs/Evidence/CampusGuardian/CHARACTER-VROID/Resume";
+System.IO.Directory.CreateDirectory(dir);
+System.IO.File.WriteAllText(dir+"/setup.txt", "commit=8a6c034\nWindows Editor Unity "+UnityEngine.Application.unityVersion+"\nGPU="+UnityEngine.SystemInfo.graphicsDeviceName+"\nCamera="+camera.transform.position.ToString("R")+" rotation="+camera.transform.eulerAngles.ToString("R")+" FOV="+camera.fieldOfView+"\nPlayer="+p.transform.position.ToString("R")+"\nresolution="+UnityEngine.Screen.width+"x"+UnityEngine.Screen.height+"\n120 warmup + 3000 samples per run. Gameplay camera unchanged; targetTexture untouched. Spring off: empty Springs + ReconstructSpringBone; remaining VRM runtime enabled. Casual model under player with Starter Assets Animator.\n");
+var oldVsync = UnityEngine.QualitySettings.vSyncCount;
+var oldTarget = UnityEngine.Application.targetFrameRate;
+UnityEngine.QualitySettings.vSyncCount = 0;
+UnityEngine.Application.targetFrameRate = -1;
+var configs = new[]{"Casual2","VRoid","Casual2","VRoid","Casual2","VRoid","VRoid-NoSpring","VRoid-NoSpring","VRoid-NoSpring"};
+int run=0, frame=-120, lastFrame=-1;
+var times=new double[3000]; var draws=new int[3000]; var tris=new int[3000];
+var watch=System.Diagnostics.Stopwatch.StartNew(); double last=0;
+System.Action<int> select = i=>{
+ bool isCasual=configs[i]=="Casual2";
+ vrm.enabled=!isCasual; animator.enabled=!isCasual;
+ foreach(var root in roots) root.SetActive(!isCasual);
+ casual.SetActive(isCasual);
+ vrm.SpringBone.Springs.Clear();
+ if(configs[i]!="VRoid-NoSpring") vrm.SpringBone.Springs.AddRange(springs);
+ vrm.Runtime.SpringBone.ReconstructSpringBone();
+ frame=-120; last=watch.Elapsed.TotalSeconds;
+ UnityEditor.SessionState.SetString("VRoid.Resume.Status", "run "+(i+1)+" "+configs[i]);
+};
+select(0);
+System.Action<UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[]> callback=null;
+callback=(context,cameras)=>{
+ if(!UnityEditor.EditorApplication.isPlaying || !p){UnityEngine.Rendering.RenderPipelineManager.endFrameRendering-=callback; return;}
+ if(!cameras.Contains(camera) || lastFrame==UnityEngine.Time.frameCount) return;
+ lastFrame=UnityEngine.Time.frameCount;
+ double now=watch.Elapsed.TotalSeconds;
+ if(frame>=0){times[frame]=(now-last)*1000; draws[frame]=UnityEditor.UnityStats.drawCalls; tris[frame]=UnityEditor.UnityStats.triangles;}
+ last=now; frame++;
+ if(frame<3000)return;
+ var lines=new string[3001];lines[0]="frame\tframe_ms\tdraw_calls\ttriangles";
+ for(int k=0;k<3000;k++) lines[k+1]=(k+1)+"\t"+times[k].ToString("F6",System.Globalization.CultureInfo.InvariantCulture)+"\t"+draws[k]+"\t"+tris[k];
+ System.IO.File.WriteAllLines(dir+"/run-"+(run+1)+"-"+configs[run]+".tsv",lines);
+ run++;
+ if(run<configs.Length){select(run);return;}
+ UnityEngine.Rendering.RenderPipelineManager.endFrameRendering-=callback;
+ vrm.SpringBone.Springs.Clear();vrm.SpringBone.Springs.AddRange(springs);vrm.Runtime.SpringBone.ReconstructSpringBone();
+ foreach(var root in roots)root.SetActive(true);animator.enabled=true;vrm.enabled=true;
+ UnityEngine.Object.Destroy(casual);
+ UnityEngine.QualitySettings.vSyncCount=oldVsync;UnityEngine.Application.targetFrameRate=oldTarget;
+ UnityEditor.SessionState.SetString("VRoid.Resume.Status","complete");
+};
+UnityEngine.Rendering.RenderPipelineManager.endFrameRendering+=callback;
+return "started";

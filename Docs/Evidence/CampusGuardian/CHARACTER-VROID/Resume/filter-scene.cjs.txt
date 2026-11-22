@@ -1,0 +1,11 @@
+const fs=require('fs'), cp=require('child_process');
+const path='Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity';
+const current=fs.readFileSync(path,'utf8').replace(/\r\n/g,'\n');
+fs.writeFileSync('Temp/vroid-scene-before-filter.unity',current);
+const head=cp.execFileSync('git',['show','HEAD:'+path],{encoding:'utf8',maxBuffer:40e6}).replace(/\r\n/g,'\n');
+function parse(s){const cs=s.split(/(?=^--- !u!)/m);return [cs.shift(),cs.map(c=>[c.match(/^--- !u!\d+ &(-?\d+)/)[1],c])];}
+function subtree(ds){const root=ds.find(([i,c])=>c.includes('\n  m_Name: Campus Student\n'))[0];const gos=new Set([root]),trs=new Set;let changed=true;while(changed){changed=false;for(const [i,c] of ds){if(!c.startsWith('--- !u!4 ')||!c.includes('m_Father:')||!c.includes('m_GameObject:'))continue;const go=c.match(/m_GameObject: \{fileID: (-?\d+)\}/)[1],parent=c.match(/m_Father: \{fileID: (-?\d+)\}/)[1];if((gos.has(go)||trs.has(parent))&&!trs.has(i)){trs.add(i);gos.add(go);changed=true;}}}const ids=new Set(gos);for(const [i,c] of ds){const m=c.match(/m_GameObject: \{fileID: (-?\d+)\}/);if(m&&gos.has(m[1]))ids.add(i);}return ids;}
+const [prefix,old]=parse(head),[,next]=parse(current),oldIds=subtree(old),newIds=subtree(next);let inserted=false,out=[];
+for(const [i,c] of old){if(oldIds.has(i)){if(!inserted){out.push(...next.filter(([i])=>newIds.has(i)).map(([,c])=>c));inserted=true;}continue;}out.push(c);}
+let result=prefix+out.join('');result=result.replace('value: 2.2066925','value: 3.2066925');
+fs.writeFileSync(path,result);console.log({newPlayerDocuments:newIds.size,oldPlayerDocuments:oldIds.size});
