@@ -7,6 +7,42 @@ using UnityEngine.TestTools;
 public class NightShiftPlayModeTests
 {
     [UnityTest]
+    public IEnumerator FogTransitionsToNightAndRestoresDay()
+    {
+        var originalFog = RenderSettings.fogColor;
+        var dayFog = new Color(.7f, .8f, .9f);
+        var go = new GameObject("NightShiftFogTest");
+        var type = Type.GetType("IUHCampus.Guardian.Story.IUHStoryNightShift, Assembly-CSharp", true);
+        var shift = go.AddComponent(type);
+        try
+        {
+            RenderSettings.fogColor = dayFog;
+            type.GetMethod("Initialize").Invoke(shift, new object[] { "UnusedStoryLed" });
+            type.GetMethod("ToNight").Invoke(shift, new object[] { 1f });
+            var deadline = Time.realtimeSinceStartup + 3f;
+            while (RenderSettings.fogColor == dayFog && Time.realtimeSinceStartup < deadline)
+                yield return null;
+            var transitionFog = RenderSettings.fogColor;
+            Assert.That(transitionFog, Is.Not.EqualTo(dayFog));
+
+            type.GetMethod("SetNightImmediate").Invoke(shift, null);
+            var nightFog = RenderSettings.fogColor;
+            Assert.That(nightFog, Is.Not.EqualTo(transitionFog));
+            Assert.That(nightFog.grayscale, Is.LessThan(dayFog.grayscale));
+            Assert.That(nightFog.b, Is.GreaterThan(nightFog.g));
+
+            type.GetMethod("ToDay").Invoke(shift, new object[] { 0f });
+            Assert.That(RenderSettings.fogColor, Is.EqualTo(dayFog));
+        }
+        finally
+        {
+            type.GetMethod("ToDay").Invoke(shift, new object[] { 0f });
+            UnityEngine.Object.DestroyImmediate(go);
+            RenderSettings.fogColor = originalFog;
+        }
+    }
+
+    [UnityTest]
     public IEnumerator NightUsesPrivateSkyboxAndDayRestoresOriginal()
     {
         var original = RenderSettings.skybox;

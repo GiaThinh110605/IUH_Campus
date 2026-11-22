@@ -1,0 +1,34 @@
+﻿environment=Unity 6000.5.8f1 Windows Editor, D3D12, NVIDIA GeForce RTX 3060 Laptop GPU
+task2_commit=00e71ae
+task3_editmode_job=9a9b74fadee2404196ad82b7f5a75295
+task3_editmode_passed=127/127
+task3_playmode_job=c5dfd189e6354c06b2677221722aa313
+task3_playmode_passed=49/49
+console_errors=0
+missing_scripts_campus_combat_ar=0,0,0
+
+walk_start=(4.00, 2.00, -38.00)
+walk_end=(11.00, -0.01, -38.00)
+grounded_steps=56
+paving_collider=Campus ground
+lawn_collider=Campus ground
+
+encounter=CORRUPTED_ENCOUNTER_BUILDING_E
+garden_opened_on_E=True
+garden_available=True
+garden_distance=0.25
+garden_closed_on_E=True
+E_at_8m_started_duel=False
+E_at_4m_started_duel=True
+keyboard_presses_seen=4
+application_focused=True
+
+incident_phase=Incident
+incident_dialogue_open=True
+day_fog=RGBA(0.670, 0.790, 0.870, 1.000)
+incident_fog=RGBA(0.437, 0.495, 0.593, 1.000)
+day_sky_exposure=0.85
+incident_sky_exposure=0.5647657
+story_playerprefs_unchanged=True
+settled_fog=RGBA(0.150, 0.130, 0.250, 1.000)
+settled_sky_exposure=0.2125

@@ -1,0 +1,8 @@
+stage	frames	seconds	fps	median_draw_calls	median_triangles
+pipeline=Campus HQ Pipeline
+baseline	600	2.7533	217.92	209	1218081
+task2	600	2.7821	215.67	218	1222193
+task3	600	2.7518	218.04	219	1222275
+task3	600	2.8643	209.47	219	1222271
+task2	600	2.7537	217.89	218	1222193
+baseline	600	2.7703	216.58	209	1218081

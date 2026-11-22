@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Ground_Sandstone
+  m_Shader: {fileID: 4800000, guid: 0c34d0ece633bcf4ba8c6d2b08cc219d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _GROUND_PAVING
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _Ground: 1
+    - _GroutWidth: 0.025
+    m_Colors:
+    - _ColorA: {r: 0.6141, g: 0.5429, b: 0.42719996, a: 0.89}
+    - _ColorB: {r: 0.7176, g: 0.6344, b: 0.49919993, a: 1.04}
+    - _ColorC: {r: 0.7866, g: 0.6954, b: 0.54719996, a: 1.14}
+    - _GroutColor: {r: 0.46920002, g: 0.41480002, b: 0.32639998, a: 0.68}
+    - _TileSize: {r: 1.05, g: 0.68, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

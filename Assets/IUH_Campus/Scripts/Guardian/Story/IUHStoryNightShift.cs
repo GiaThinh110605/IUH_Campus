@@ -8,12 +8,14 @@ namespace IUHCampus.Guardian.Story
     {
         const float NightIntensity = .25f;
         static readonly Color NightColor = new Color(106f / 255, 90f / 255, 205f / 255);
+        static readonly Color NightFog = new Color(.15f, .13f, .25f);
         static readonly Color LedColor = new Color(176f / 255, 0, 1) * 4;
         readonly List<Renderer> leds = new List<Renderer>();
         Light sun;
         float dayIntensity;
         Color dayColor;
         Color dayAmbient;
+        Color dayFog;
         Coroutine transition;
         Material originalSkybox;
         Material nightSkybox;
@@ -32,6 +34,7 @@ namespace IUHCampus.Guardian.Story
             }
 
             dayAmbient = RenderSettings.ambientLight;
+            dayFog = RenderSettings.fogColor;
             originalSkybox = RenderSettings.skybox;
             if (originalSkybox != null)
             {
@@ -75,6 +78,7 @@ namespace IUHCampus.Guardian.Story
             }
 
             RenderSettings.ambientLight = Color.Lerp(dayAmbient, dayAmbient * NightIntensity, fraction);
+            RenderSettings.fogColor = Color.Lerp(dayFog, NightFog, fraction);
             ApplySkybox(fraction);
         }
 
