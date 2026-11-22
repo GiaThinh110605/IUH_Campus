@@ -72,7 +72,7 @@ namespace IUHCampus.Guardian.Story
 
         void Apply(float fraction)
         {
-            Shader.SetGlobalFloat("_IUH_NightAmount", fraction);
+            Shader.SetGlobalFloat("_IUH_NightAmount", isActiveAndEnabled ? fraction : 0);
             if (sun != null)
             {
                 sun.intensity = Mathf.Lerp(dayIntensity, dayIntensity * NightIntensity, fraction);

@@ -18,6 +18,8 @@ namespace IUHCampus.Guardian.Tests
             var material = new Material(shader);
             try
             {
+                foreach (var mode in new[] { "_FACADE_TEXTURED", "_FACADE_PLAIN", "_FACADE_BRICK", "_FACADE_GLASS" })
+                    material.DisableKeyword(mode);
                 material.EnableKeyword(keyword);
                 foreach (var pass in new[] { "ForwardLit", "ShadowCaster", "DepthOnly", "DepthNormals" })
                 {

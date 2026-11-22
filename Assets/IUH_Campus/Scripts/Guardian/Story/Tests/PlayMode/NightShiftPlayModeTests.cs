@@ -28,7 +28,10 @@ public class NightShiftPlayModeTests
             Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
             type.GetMethod("SetNightImmediate").Invoke(shift, null);
             Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.EqualTo(1));
+            type.GetMethod("ToNight").Invoke(shift, new object[] { 1f });
             shift.enabled = false;
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
+            yield return new WaitForSecondsRealtime(1.3f);
             Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
         }
         finally
