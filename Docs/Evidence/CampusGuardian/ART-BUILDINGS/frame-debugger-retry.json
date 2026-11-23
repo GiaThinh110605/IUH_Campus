@@ -1,0 +1,1562 @@
+[
+  {
+    "index": 2,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "ShadowCaster",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 3,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 38,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 4,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 26,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 5,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "ShadowCaster",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 6,
+    "ok": true,
+    "shader": "IUH/Stylized Foliage",
+    "pass": "ShadowCaster",
+    "draws": 10,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 7,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ShadowCaster",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 8,
+    "ok": true,
+    "shader": "VRM10/Universal Render Pipeline/MToon10",
+    "pass": "ShadowCaster",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 9,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 1,
+    "instances": 4,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 10,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 11,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 80,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 12,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 52,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 13,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "ShadowCaster",
+    "draws": 7,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 14,
+    "ok": true,
+    "shader": "IUH/Stylized Foliage",
+    "pass": "ShadowCaster",
+    "draws": 24,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 15,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ShadowCaster",
+    "draws": 15,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 16,
+    "ok": true,
+    "shader": "VRM10/Universal Render Pipeline/MToon10",
+    "pass": "ShadowCaster",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 17,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 1,
+    "instances": 4,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 18,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 19,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 76,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 20,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ShadowCaster",
+    "draws": 33,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 21,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "ShadowCaster",
+    "draws": 7,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 22,
+    "ok": true,
+    "shader": "IUH/Stylized Foliage",
+    "pass": "ShadowCaster",
+    "draws": 24,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 23,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ShadowCaster",
+    "draws": 15,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 24,
+    "ok": true,
+    "shader": "VRM10/Universal Render Pipeline/MToon10",
+    "pass": "ShadowCaster",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Objects either have different shadow caster shaders, or have different shader properties / keywords that affect the output of the shadow caster pass."
+  },
+  {
+    "index": 25,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/LutBuilderLdr",
+    "pass": "LutBuilderLdr",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 26,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 27,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 9,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 28,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "DepthNormals",
+    "draws": 5,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 29,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 30,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 31,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 39,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 32,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 33,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 34,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Unlit",
+    "pass": "DepthNormalsOnly",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 35,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 36,
+    "ok": true,
+    "shader": "Hidden/InternalErrorShader",
+    "pass": "DepthNormalsOnly",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 37,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 38,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 17,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 39,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "DepthNormals",
+    "draws": 7,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 40,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "DepthNormals",
+    "draws": 8,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 41,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "DepthNormals",
+    "draws": 40,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 42,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 43,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 12,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 44,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 20,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 45,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node material requires device state change"
+  },
+  {
+    "index": 46,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 27,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node material requires device state change"
+  },
+  {
+    "index": 47,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 48,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 49,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "DepthNormals",
+    "draws": 1,
+    "instances": 3,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 50,
+    "ok": true,
+    "shader": "Hidden/InternalErrorShader",
+    "pass": "DepthNormalsOnly",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 51,
+    "ok": true,
+    "shader": "VRM10/Universal Render Pipeline/MToon10",
+    "pass": "DepthNormals",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 52,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/ScreenSpaceAmbientOcclusion",
+    "pass": "SSAO_Occlusion",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 53,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/ScreenSpaceAmbientOcclusion",
+    "pass": "SSAO_Bilateral_HorizontalBlur",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 54,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/ScreenSpaceAmbientOcclusion",
+    "pass": "SSAO_Bilateral_VerticalBlur",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 55,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/ScreenSpaceAmbientOcclusion",
+    "pass": "SSAO_Bilateral_FinalBlur",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 56,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 57,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 9,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 58,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ForwardLit",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 59,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ForwardLit",
+    "draws": 3,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 60,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 61,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 62,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 39,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 63,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 64,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 65,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Unlit",
+    "pass": "Unlit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 66,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 67,
+    "ok": true,
+    "shader": "Hidden/InternalErrorShader",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 68,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 5,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 69,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 70,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 19,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 71,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "ForwardLit",
+    "draws": 3,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 72,
+    "ok": true,
+    "shader": "IUH/Stylized Ground",
+    "pass": "ForwardLit",
+    "draws": 4,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 73,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ForwardLit",
+    "draws": 21,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 74,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ForwardLit",
+    "draws": 5,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 75,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ForwardLit",
+    "draws": 4,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 76,
+    "ok": true,
+    "shader": "IUH/Stylized Facade",
+    "pass": "ForwardLit",
+    "draws": 18,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 77,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 78,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 12,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 79,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 20,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 80,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node material requires device state change"
+  },
+  {
+    "index": 81,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 27,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node material requires device state change"
+  },
+  {
+    "index": 82,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 83,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node use different shader keywords"
+  },
+  {
+    "index": 84,
+    "ok": true,
+    "shader": "IUH/Concept Fountain Water",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 85,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 86,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 87,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 88,
+    "ok": true,
+    "shader": "Hidden/InternalErrorShader",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 89,
+    "ok": true,
+    "shader": "IUH/Stylized Foliage",
+    "pass": "ForwardLit",
+    "draws": 3,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 90,
+    "ok": true,
+    "shader": "VRM10/Universal Render Pipeline/MToon10",
+    "pass": "UniversalForward",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 91,
+    "ok": true,
+    "shader": "IUH/Stylized Foliage",
+    "pass": "ForwardLit",
+    "draws": 32,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 92,
+    "ok": true,
+    "shader": "Skybox/Panoramic",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 93,
+    "ok": true,
+    "shader": "Hidden/Universal/CoreBlit",
+    "pass": "Bilinear",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 94,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 95,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 96,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 97,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 98,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 99,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 100,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 101,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 102,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 103,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 104,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 105,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 106,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 107,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 108,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 109,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 110,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 111,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 112,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 113,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 114,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 115,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 116,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 117,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 118,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 119,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 120,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 3,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 121,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 122,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 123,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 124,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 125,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 126,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Objects have different materials."
+  },
+  {
+    "index": 127,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 128,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 3,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 129,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 130,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Unlit",
+    "pass": "Unlit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 131,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 132,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 133,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 134,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 135,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 136,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 137,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: First call from ScriptableRenderLoopJob"
+  },
+  {
+    "index": 138,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 6,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 139,
+    "ok": true,
+    "shader": "IUH/Depth World Text",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 140,
+    "ok": true,
+    "shader": "Universal Render Pipeline/Lit",
+    "pass": "ForwardLit",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "SRP: Node have different shaders."
+  },
+  {
+    "index": 141,
+    "ok": true,
+    "shader": "IUH/Fountain Particles",
+    "pass": "<Unnamed Pass 0>",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "SRP: Node is not compatible with SRP batcher"
+  },
+  {
+    "index": 142,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Prefilter",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 143,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Blur Horizontal",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 144,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Blur Vertical",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 145,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Blur Horizontal",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 146,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Blur Vertical",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 147,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Blur Horizontal",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 148,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Blur Vertical",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 149,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Upsample",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 150,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Upsample",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 151,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/Bloom",
+    "pass": "Bloom Upsample",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 152,
+    "ok": true,
+    "shader": "Hidden/Universal Render Pipeline/UberPost",
+    "pass": "UberPost",
+    "draws": 1,
+    "instances": 1,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 153,
+    "ok": true,
+    "shader": "Hidden/InternalClear",
+    "pass": "<Unnamed Pass 6>",
+    "draws": 2,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 154,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 155,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 156,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  },
+  {
+    "index": 157,
+    "ok": true,
+    "shader": "UI/Default",
+    "pass": "Default",
+    "draws": 1,
+    "instances": 0,
+    "keywords": "",
+    "cause": "Unknown reason."
+  }
+]

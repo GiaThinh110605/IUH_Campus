@@ -1,5 +1,28 @@
 # Buildings pass — kết quả cuối
 
+## D4 Retry — không đạt, chưa áp vào scene
+
+Đã thực hiện `Prompt_Buildings_D4_Retry.md` trên base `d44c0c0`, nhánh `minhnhat/buildings-pass`. Theo prompt, người dùng duyệt hình ngày **24/11** và nâng ngưỡng draw calls toàn cảnh lên **+70**; FPS vẫn giảm tối đa 10%, p95 tăng tối đa 10%. Ngày thực thi theo client hiện tại là 23/11/2026; mốc duyệt 24/11 ghi theo nguyên văn prompt.
+
+Đã tạo lại đúng 7 vật liệu, kiểm độc lập khớp BaseMap/scale/offset 7/7, đúng màu nguồn, mode độc quyền, instancing bật, noise 0,025, ô cửa 3,8×4,6m, màu đèn (0,55;0,38;0,19). Gán thử 54 slot trong Edit Mode **chưa lưu**, rồi vào Play để static batch đúng cấu hình. Không đổi mesh/transform/collider. 16 ảnh `*-AFTER-day/night.png` là **ảnh của lần thử không đạt**, không phải trạng thái scene được áp.
+
+|Góc|FPS trước → thử lại|Giảm FPS|p95 trước → thử lại ms|Tăng p95|Draw trước → thử lại|
+|---|---:|---:|---:|---:|---:|
+|Sảnh|246,7856 → 174,3421|29,36%|4,8515 → 7,4012|52,56%|287 → 301 (+14)|
+|Toàn cảnh|208,1729 → 165,7633|20,37%|5,7424 → 7,3082|27,27%|899 → 996 (+97)|
+
+Tris trung vị: sảnh 1.847.809 → 1.847.809; toàn cảnh 2.576.670 → 2.582.214. Số là trung vị ba lượt như phương pháp cũ, mỗi lượt 120 frame làm nóng +3000 frame đo, 1280×900, VSync0, targetFrameRate=-1, camera/FOV đúng cameras.json, không thay targetTexture. [TSV lần thử mới](performance-AFTER.tsv); [mốc trước](performance-BEFORE.tsv). [TSV tối ưu1 lịch sử được bảo toàn](performance-OPTIMIZATION1-HISTORY.tsv). Không ghi TSV từng frame. Profiler và Frame Debugger đã tắt trong phép đo chính thức, Play không pause, Console không lỗi. Đây là so với mốc lịch sử được prompt chỉ định, không phải phép đo A/B cùng thời điểm; chưa đủ bằng chứng quy toàn bộ sụt FPS cho facade hoặc xác định thay đổi môi trường máy.
+
+**Kết luận:** không đạt FPS/p95 ở cả hai góc và draw calls toàn cảnh; đã dừng theo prompt, mở lại scene không lưu, quét 7 GUID không còn tham chiếu ngoài rồi xóa toàn bộ vật liệu thử cùng meta. Scene cuối giữ nguyên bản chưa áp, chỉ còn dòng MainCamera có sẵn của người dùng; không stage dòng đó. Không tạo commit `feat(art)` cho lần không đạt, không push. Không chạy lại smoke/test suites sau khi chạm điều kiện dừng; số 133/50 phía dưới là bằng chứng lượt trước, không nhận là test mới của Retry.
+
+### Kết quả kiểm batching
+
+[Frame Debugger](frame-debugger-retry.json) đọc dữ liệu hợp lệ của từng event; shader SRP compatibility code **0**, 54/54 renderer vẫn static batched. Facade có 36 draw trong ShadowCaster, 53 DepthNormals và 53 ForwardLit trong frame khảo sát. Các nhóm tách theo shader/thuộc tính ảnh hưởng ShadowCaster và theo shader/keyword ở ForwardLit. URP/Lit gốc cũng có các pass tương ứng, nên không kết luận “thêm pass gây +55”. Không có Frame Debugger BEFORE cùng điều kiện để phân rã chính xác toàn bộ chênh lệch +55 của lượt trước. Dữ liệu mới không chứng minh mất static batching toàn bộ.
+
+[Một vòng bật/tắt GPU Instancing](instancing-retry.json) cho cùng 996 draw, không giảm. Đã giữ instancing bật trong lần đo chính thức; không thay hình để ép ngưỡng. Shader facade không có thông báo compile Error, không thấy renderer hiện hành dùng InternalErrorShader khi kiểm tra. Capture debugger có một event InternalErrorShader 2 draw chưa xác định nguồn; không suy diễn rằng toàn cảnh không thể có fallback shader. Ảnh cận mặt tiền đã tự kiểm giữ chữ/cờ/cửa sổ, không thấy facade hồng lỗi.
+
+Phần bên dưới là báo cáo **lượt Overnight trước Retry**, giữ làm lịch sử và không thay thế kết luận không đạt ở trên.
+
 Ngày thực hiện 23/11/2026 (Asia/Bangkok). Windows Editor Unity 6000.5.8f1, URP 17, Direct3D12, RTX 3060 Laptop GPU. Nhánh **minhnhat/buildings-pass** nối tiếp PR VRoid chưa merge, base **3274980**. Không push, không build thiết bị.
 
 ## Trạng thái
@@ -28,7 +51,7 @@ Không tải asset. Không sửa mesh/transform/collider/prefab nguồn, volume,
 
 FPS đạt nhưng draw toàn cảnh không đạt. Vì D4 bị bỏ, trạng thái nhà cuối là mốc trước, không phải cấu hình cột “bản thử”. Không đo một mốc “sau triển khai” vì không triển khai.
 
-Lượt đầu đổi sharedMaterials trong Play có draw954; vòng tối ưu1 chuẩn hóa keyword, bật instancing như source, đổi kích thước ô đèn (3,8×4,6m theo nhịp cửa sổ) và giảm màu đèn, vẫn954. Vòng tối ưu2 gán trong Edit Mode chưa lưu, vào Play mới, xác nhận **54/54 renderer isPartOfStaticBatch=true**, vẫn954. Không bỏ shadow/depth hay sửa pipeline để ép ngưỡng. Batching là giả thuyết ban đầu, không kết luận nguyên nhân duy nhất; chưa chạy Frame Debugger xác định chính xác từng batch. [Trước](performance-BEFORE.tsv), [thử đầu](performance-TRIAL1.tsv), [tối ưu1](performance-AFTER.tsv), [tối ưu2](performance-FINAL.tsv). [Script chụp/đo](capture-benchmark.cs.txt).
+Lượt đầu đổi sharedMaterials trong Play có draw954; vòng tối ưu1 chuẩn hóa keyword, bật instancing như source, đổi kích thước ô đèn (3,8×4,6m theo nhịp cửa sổ) và giảm màu đèn, vẫn954. Vòng tối ưu2 gán trong Edit Mode chưa lưu, vào Play mới, xác nhận **54/54 renderer isPartOfStaticBatch=true**, vẫn954. Không bỏ shadow/depth hay sửa pipeline để ép ngưỡng. Batching là giả thuyết ban đầu, không kết luận nguyên nhân duy nhất; chưa chạy Frame Debugger xác định chính xác từng batch. [Trước](performance-BEFORE.tsv), [thử đầu](performance-TRIAL1.tsv), [tối ưu1](performance-OPTIMIZATION1-HISTORY.tsv), [tối ưu2](performance-FINAL.tsv). [Script chụp/đo](capture-benchmark.cs.txt).
 
 ## Ảnh trước và bản thử bị loại
 
@@ -117,3 +140,5 @@ Reviewer độc lập đọc shader, UV, shadow/depth/normals, scope inventory v
 |Rear west wing_4|Warm granite|Rear west wing_4_Warm granite|0|Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Materials/Speckled granite.mat|Universal Render Pipeline/Lit|Assets/IUH_Campus/SharedCampusConcept/VisualPolish/Textures/Speckled granite_Albedo.png|Mesh kính riêng; texture tường không vẽ cửa sổ|
 
 Kiểm cuối: **133/133 EditMode** qua Unity TestRunnerApi trực tiếp, [XML](EditMode-final.xml), [tóm tắt](EditMode-final.txt). Hai job MCP EditMode không khởi tạo (không có test chạy) được ghi là timeout, không tính Pass. Script hỗ trợ tạm đã xóa khỏi Assets, lưu [bản mã kiểm chứng](direct-test-runner.cs.txt). Full PlayMode cuối **50/50**, job ac11376e2b8e4efb999be57b6d563cba. Missing Script=0 cả campus/arena/AR; Console0error; sceneisDirty=false, Edit Mode, compilexong. [Bản ghi](verification.json). Đã trả Game View về preset/phóng lớn cũ.
+
+Kiểm tra sau rollback Retry: Edit Mode, compilation=false, isDirty=false, Console0error; Missing Script0 ởcampus/arena/AR; cả Buildings/ và Buildings.meta không tồn tại sau xóa thành công. Đã khôi phục preset/phóng lớn GameView. [Kết quả Retry](retry-verification.json). Một lệnh xóa asset bị ngắt kết nối trước khi thực thi; đã kiểm thư mục còn tồn tại rồi thử lại thành công và kiểm lại cả folder/meta đều không tồn tại.
