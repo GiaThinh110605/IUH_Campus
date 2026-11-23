@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using System.Linq;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -9,6 +10,21 @@ using UnityEngine.TestTools;
 
 public sealed class FarNpcPoseTests
 {
+    [Test]
+    public void SourceWalkClipEventsHaveReceiversOnNpcRoot()
+    {
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(
+            "Assets/IUH_Campus/Prefabs/NPC/PF_NPC_VRoid_01.prefab");
+        var path = AssetDatabase.GUIDToAssetPath("8269a9f8cf495034c817722ac21f309f");
+        var clip = AssetDatabase.LoadAllAssetsAtPath(path).OfType<AnimationClip>()
+            .First(c => !c.name.StartsWith("__"));
+        foreach (var evt in AnimationUtility.GetAnimationEvents(clip))
+            Assert.That(prefab.GetComponents<MonoBehaviour>().Any(component =>
+                component != null && component.GetType().GetMethod(evt.functionName,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic) != null),
+                Is.True, "Source clip event lacks receiver: " + evt.functionName);
+    }
+
     [UnityTest]
     public IEnumerator InitiallyDistantNpcSamplesIdlePoseBeforeAnimatorIsDisabled()
     {

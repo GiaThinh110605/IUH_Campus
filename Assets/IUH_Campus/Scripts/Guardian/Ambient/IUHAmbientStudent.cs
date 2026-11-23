@@ -177,6 +177,9 @@ namespace IUHCampus.Guardian.Ambient
         private float RandomRange(float minimum, float maximum) =>
             minimum + (maximum - minimum) * (float)random.NextDouble();
 
+        // Starter Assets Walk emits this event; decorative NPCs remain silent.
+        private void OnFootstep(AnimationEvent animationEvent) { }
+
         private void OnValidate()
         {
             walkSpeed = Mathf.Clamp(walkSpeed, 1.2f, 1.5f);
