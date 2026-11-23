@@ -5186,6 +5186,7 @@ GameObject:
   - component: {fileID: 1630992637445890663}
   - component: {fileID: 4864267046565837232}
   - component: {fileID: 6777902888503512376}
+  - component: {fileID: 2903785909603589464}
   m_Layer: 0
   m_Name: PF_NPC_VRoid_02
   m_TagString: Untagged
@@ -5289,7 +5290,7 @@ Animator:
   m_GameObject: {fileID: 6539325741570431122}
   m_Enabled: 1
   m_Avatar: {fileID: -7015762578403652589, guid: 4964f37e5a183d748b2214f3db20e512, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 51a98705acfeef7478642057899cc076, type: 2}
   m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5331,6 +5332,34 @@ MonoBehaviour:
   DrawLookAtGizmo: 1
   LookAtTarget: {fileID: 0}
   LookAtTargetType: 0
+--- !u!114 &2903785909603589464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6539325741570431122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f5ffd971ac487499328120f0cf97e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.Ambient.IUHAmbientStudent
+  animator: {fileID: 0}
+  viewCamera: {fileID: 0}
+  player: {fileID: 0}
+  conversationPartner: {fileID: 0}
+  walkRoute: []
+  pauseRange: {x: 2, y: 5}
+  walkSpeed: 1.35
+  seed: 1
+  populationIndex: 0
+  reducePopulationOnMobile: 1
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundProbeHeight: 2
+  groundProbeDepth: 5
+  turnSpeed: 100
 --- !u!1 &6617305640104343478
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,4 @@
+﻿{
+  "name": "IUHCampus.Guardian.Ambient.PlayModeTests",
+  "optionalUnityReferences": ["TestAssemblies"]
+}

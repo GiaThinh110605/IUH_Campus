@@ -754,7 +754,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348566345807166899}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.027702024, y: -0.19816993, z: 0.0073415143, w: 0.9797486}
+  m_LocalRotation: {x: 0.027702026, y: -0.19816993, z: 0.007341515, w: 0.9797486}
   m_LocalPosition: {x: -0.014174131, y: 0.059747502, z: 0.0204874}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4251,6 +4251,7 @@ GameObject:
   - component: {fileID: 8831799015309430149}
   - component: {fileID: 80389737862648578}
   - component: {fileID: 1503093851882827038}
+  - component: {fileID: 7975624008819086339}
   m_Layer: 0
   m_Name: PF_NPC_VRoid_04
   m_TagString: Untagged
@@ -4354,7 +4355,7 @@ Animator:
   m_GameObject: {fileID: 4785718201878929582}
   m_Enabled: 1
   m_Avatar: {fileID: -7015762578403652589, guid: 508049645439e064d87e56e779edc0e8, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 51a98705acfeef7478642057899cc076, type: 2}
   m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4388,6 +4389,34 @@ MonoBehaviour:
   DrawLookAtGizmo: 1
   LookAtTarget: {fileID: 0}
   LookAtTargetType: 0
+--- !u!114 &7975624008819086339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785718201878929582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f5ffd971ac487499328120f0cf97e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.Ambient.IUHAmbientStudent
+  animator: {fileID: 0}
+  viewCamera: {fileID: 0}
+  player: {fileID: 0}
+  conversationPartner: {fileID: 0}
+  walkRoute: []
+  pauseRange: {x: 2, y: 5}
+  walkSpeed: 1.35
+  seed: 1
+  populationIndex: 0
+  reducePopulationOnMobile: 1
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundProbeHeight: 2
+  groundProbeDepth: 5
+  turnSpeed: 100
 --- !u!1 &4859520826606131849
 GameObject:
   m_ObjectHideFlags: 0
