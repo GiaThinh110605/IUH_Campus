@@ -1,0 +1,53 @@
+{
+  "root": "IUH_MASCOT_ROBOT",
+  "rootPosition": "(4.50, 0.10, -6.00)",
+  "model": "VRoid_Mascot_Visual",
+  "modelLocal": -0.06512587,
+  "scale": 1.08999407,
+  "controller": "AC_AmbientStudent",
+  "rootMotion": false,
+  "parent": "Mascot_Visual",
+  "components": [
+    {
+      "type": "UniHumanoid.Humanoid",
+      "enabled": true
+    },
+    {
+      "type": "UniVRM10.Vrm10Instance",
+      "enabled": false
+    },
+    {
+      "type": "IUHCampus.Guardian.Ambient.IUHAmbientStudent",
+      "enabled": false
+    },
+    {
+      "type": "IUHCampus.Guardian.Visual.IUHVisualFeetGrounder",
+      "enabled": false
+    }
+  ],
+  "hats": [
+    {
+      "name": "GradCap_Base",
+      "parent": "J_Bip_C_Head",
+      "pos": "(0.00, 0.14, 0.00)",
+      "scale": "(0.19, 0.02, 0.19)"
+    },
+    {
+      "name": "GradCap_Diamond",
+      "parent": "J_Bip_C_Head",
+      "pos": "(0.00, 0.17, 0.00)",
+      "scale": "(0.24, 0.01, 0.24)"
+    }
+  ],
+  "nearestFountain": [
+    {
+      "name": "Student_11",
+      "position": "(-30.00, 0.00, 19.41)"
+    },
+    {
+      "name": "Student_06",
+      "position": "(-4.00, 0.00, 46.00)"
+    }
+  ],
+  "dirty": false
+}

@@ -1,0 +1,24 @@
+{
+  "legacy": [
+    {
+      "name": "Body",
+      "position": "(4.50, 0.80, -6.00)",
+      "active": false,
+      "ownerScript": "IUHCampus.DailyActivities.IUHMascotNPC"
+    },
+    {
+      "name": "Head",
+      "position": "(4.50, 1.35, -6.00)",
+      "active": false,
+      "ownerScript": "IUHCampus.DailyActivities.IUHMascotNPC"
+    },
+    {
+      "name": "Visor_Eyes",
+      "position": "(4.50, 1.38, -5.69)",
+      "active": false,
+      "ownerScript": "IUHCampus.DailyActivities.IUHMascotNPC"
+    }
+  ],
+  "ignored": "Students in courtyard_102 already inactive",
+  "otherActiveTemporaryHumans": 0
+}

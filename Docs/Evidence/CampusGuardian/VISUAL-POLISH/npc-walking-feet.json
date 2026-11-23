@@ -1,0 +1,2830 @@
+[
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 90,
+    "foot": -0.0157124586,
+    "ground": 0.0,
+    "gap": -0.0157124586
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 120,
+    "foot": -0.009486465,
+    "ground": 0.0,
+    "gap": -0.009486465
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 150,
+    "foot": -0.0226331465,
+    "ground": 0.0,
+    "gap": -0.0226331465
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 180,
+    "foot": -0.0246404186,
+    "ground": 0.0,
+    "gap": -0.0246404186
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 210,
+    "foot": -0.009617231,
+    "ground": 0.0,
+    "gap": -0.009617231
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 240,
+    "foot": -0.006772719,
+    "ground": 0.0,
+    "gap": -0.006772719
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 270,
+    "foot": -0.00710269576,
+    "ground": 0.0,
+    "gap": -0.00710269576
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 300,
+    "foot": -0.00722938,
+    "ground": 0.0,
+    "gap": -0.00722938
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 330,
+    "foot": -0.00732221268,
+    "ground": 0.0,
+    "gap": -0.00732221268
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 360,
+    "foot": -0.00704105524,
+    "ground": 0.0,
+    "gap": -0.00704105524
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 390,
+    "foot": -0.00695952,
+    "ground": 0.0,
+    "gap": -0.00695952
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 420,
+    "foot": -0.00685177976,
+    "ground": 0.0,
+    "gap": -0.00685177976
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 450,
+    "foot": -0.00669831038,
+    "ground": 0.0,
+    "gap": -0.00669831038
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 480,
+    "foot": -0.00640189648,
+    "ground": 0.0,
+    "gap": -0.00640189648
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 510,
+    "foot": -0.0063841925,
+    "ground": 0.0,
+    "gap": -0.0063841925
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 540,
+    "foot": -0.00640045,
+    "ground": 0.0,
+    "gap": -0.00640045
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 570,
+    "foot": -0.00655234139,
+    "ground": 0.0,
+    "gap": -0.00655234139
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 600,
+    "foot": -0.006565148,
+    "ground": 0.0,
+    "gap": -0.006565148
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 630,
+    "foot": -0.006396107,
+    "ground": 0.0,
+    "gap": -0.006396107
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 660,
+    "foot": -0.00610586675,
+    "ground": 0.0,
+    "gap": -0.00610586675
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 690,
+    "foot": -0.005873728,
+    "ground": 0.0,
+    "gap": -0.005873728
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 720,
+    "foot": -0.0416049361,
+    "ground": 0.0,
+    "gap": -0.0416049361
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 750,
+    "foot": -0.00812549051,
+    "ground": 0.0,
+    "gap": -0.00812549051
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 780,
+    "foot": -0.030318249,
+    "ground": 0.0,
+    "gap": -0.030318249
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 810,
+    "foot": -0.0114151184,
+    "ground": 0.0,
+    "gap": -0.0114151184
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 840,
+    "foot": -0.0177810434,
+    "ground": 0.0,
+    "gap": -0.0177810434
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 870,
+    "foot": -0.0305620637,
+    "ground": 0.0,
+    "gap": -0.0305620637
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 900,
+    "foot": -0.0176219158,
+    "ground": 0.0,
+    "gap": -0.0176219158
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 930,
+    "foot": -0.007817309,
+    "ground": 0.0,
+    "gap": -0.007817309
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 960,
+    "foot": -0.009774583,
+    "ground": 0.0,
+    "gap": -0.009774583
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 990,
+    "foot": -0.01949137,
+    "ground": 0.0,
+    "gap": -0.01949137
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1020,
+    "foot": -0.009244998,
+    "ground": 0.0,
+    "gap": -0.009244998
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1050,
+    "foot": -0.022543272,
+    "ground": 0.0,
+    "gap": -0.022543272
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1080,
+    "foot": -0.02611135,
+    "ground": 0.0,
+    "gap": -0.02611135
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1110,
+    "foot": -0.0109589985,
+    "ground": 0.0,
+    "gap": -0.0109589985
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1140,
+    "foot": -0.008498197,
+    "ground": 0.0,
+    "gap": -0.008498197
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1170,
+    "foot": -0.0268044583,
+    "ground": 0.0,
+    "gap": -0.0268044583
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1200,
+    "foot": -0.010438012,
+    "ground": 0.0,
+    "gap": -0.010438012
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1230,
+    "foot": -0.0200909767,
+    "ground": 0.0,
+    "gap": -0.0200909767
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1260,
+    "foot": -0.0302574,
+    "ground": 0.045,
+    "gap": -0.0752574056
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1290,
+    "foot": -0.0123693673,
+    "ground": 0.045,
+    "gap": -0.05736937
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1320,
+    "foot": -0.008024659,
+    "ground": 0.045,
+    "gap": -0.05302466
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1350,
+    "foot": -0.0277407076,
+    "ground": 0.045,
+    "gap": -0.07274071
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 1380,
+    "foot": -0.02035545,
+    "ground": 0.045,
+    "gap": -0.06535545
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1410,
+    "foot": -0.00700753,
+    "ground": 0.045,
+    "gap": -0.0520075336
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1440,
+    "foot": -0.00717632426,
+    "ground": 0.045,
+    "gap": -0.0521763265
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1470,
+    "foot": -0.007309874,
+    "ground": 0.045,
+    "gap": -0.0523098744
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1500,
+    "foot": -0.007179625,
+    "ground": 0.045,
+    "gap": -0.0521796271
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1530,
+    "foot": -0.006936736,
+    "ground": 0.045,
+    "gap": -0.05193674
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1560,
+    "foot": -0.00679127825,
+    "ground": 0.045,
+    "gap": -0.05179128
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1590,
+    "foot": -0.00682430575,
+    "ground": 0.045,
+    "gap": -0.05182431
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1620,
+    "foot": -0.0063857655,
+    "ground": 0.045,
+    "gap": -0.0513857678
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1650,
+    "foot": -0.00635303231,
+    "ground": 0.045,
+    "gap": -0.0513530336
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1680,
+    "foot": -0.0062662554,
+    "ground": 0.045,
+    "gap": -0.0512662567
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1710,
+    "foot": -0.00659029651,
+    "ground": 0.045,
+    "gap": -0.0515902974
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1740,
+    "foot": -0.00652296236,
+    "ground": 0.045,
+    "gap": -0.0515229627
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1770,
+    "foot": -0.00650485465,
+    "ground": 0.045,
+    "gap": -0.0515048578
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1800,
+    "foot": -0.006299082,
+    "ground": 0.045,
+    "gap": -0.051299084
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1830,
+    "foot": -0.00597562362,
+    "ground": 0.045,
+    "gap": -0.0509756245
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1860,
+    "foot": -0.00579700526,
+    "ground": 0.045,
+    "gap": -0.050797008
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1890,
+    "foot": -0.00573409861,
+    "ground": 0.045,
+    "gap": -0.0507341
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1920,
+    "foot": -0.005577438,
+    "ground": 0.045,
+    "gap": -0.05057744
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1950,
+    "foot": -0.005735933,
+    "ground": 0.045,
+    "gap": -0.0507359356
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 1980,
+    "foot": -0.00564955547,
+    "ground": 0.045,
+    "gap": -0.0506495573
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2010,
+    "foot": -0.005424025,
+    "ground": 0.045,
+    "gap": -0.05042403
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2040,
+    "foot": -0.00523521239,
+    "ground": 0.045,
+    "gap": -0.0502352156
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2070,
+    "foot": -0.004965761,
+    "ground": 0.045,
+    "gap": -0.04996576
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2100,
+    "foot": -0.004974046,
+    "ground": 0.045,
+    "gap": -0.0499740466
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2130,
+    "foot": -0.0055714706,
+    "ground": 0.045,
+    "gap": -0.05057147
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2160,
+    "foot": -0.006417719,
+    "ground": 0.045,
+    "gap": -0.05141772
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": false,
+    "frame": 2190,
+    "foot": -0.0376598239,
+    "ground": 0.045,
+    "gap": -0.0826598257
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2220,
+    "foot": -0.008179144,
+    "ground": 0.045,
+    "gap": -0.0531791449
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2250,
+    "foot": -0.029084241,
+    "ground": 0.045,
+    "gap": -0.0740842447
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2280,
+    "foot": -0.0108833155,
+    "ground": 0.045,
+    "gap": -0.05588332
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2310,
+    "foot": -0.0186264459,
+    "ground": 0.0,
+    "gap": -0.0186264459
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2340,
+    "foot": -0.0320867077,
+    "ground": 0.0,
+    "gap": -0.0320867077
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2370,
+    "foot": -0.0169047825,
+    "ground": 0.0,
+    "gap": -0.0169047825
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walking": true,
+    "frame": 2400,
+    "foot": -0.007654327,
+    "ground": 0.0,
+    "gap": -0.007654327
+  },
+  {
+    "name": "Student_11",
+    "config": "before",
+    "walkingFrames": 1061
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 90,
+    "foot": 0.00201486959,
+    "ground": 0.0,
+    "gap": 0.00201486959
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 120,
+    "foot": 0.00202297675,
+    "ground": 0.0,
+    "gap": 0.00202297675
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 150,
+    "foot": 0.00202669133,
+    "ground": 0.0,
+    "gap": 0.00202669133
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 180,
+    "foot": 0.00201170659,
+    "ground": 0.0,
+    "gap": 0.00201170659
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 210,
+    "foot": 0.00201363186,
+    "ground": 0.0,
+    "gap": 0.00201363186
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 240,
+    "foot": 0.002014491,
+    "ground": 0.0,
+    "gap": 0.002014491
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 270,
+    "foot": 0.00202867412,
+    "ground": 0.0,
+    "gap": 0.00202867412
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 300,
+    "foot": 0.002041611,
+    "ground": 0.0,
+    "gap": 0.002041611
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 330,
+    "foot": 0.00201855064,
+    "ground": 0.0,
+    "gap": 0.00201855064
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 360,
+    "foot": 0.002010865,
+    "ground": 0.0,
+    "gap": 0.002010865
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 390,
+    "foot": 0.0020381622,
+    "ground": 0.0,
+    "gap": 0.0020381622
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 420,
+    "foot": 0.00202554744,
+    "ground": 0.0,
+    "gap": 0.00202554744
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 450,
+    "foot": 0.002009686,
+    "ground": 0.0,
+    "gap": 0.002009686
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 480,
+    "foot": 0.00200986979,
+    "ground": 0.0,
+    "gap": 0.00200986979
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 510,
+    "foot": 0.00201012148,
+    "ground": 0.0,
+    "gap": 0.00201012148
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 540,
+    "foot": 0.00201002927,
+    "ground": 0.0,
+    "gap": 0.00201002927
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 570,
+    "foot": 0.002009659,
+    "ground": 0.0,
+    "gap": 0.002009659
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 600,
+    "foot": 0.00200966513,
+    "ground": 0.0,
+    "gap": 0.00200966513
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 630,
+    "foot": 0.002009507,
+    "ground": 0.0,
+    "gap": 0.002009507
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 660,
+    "foot": 0.0020092607,
+    "ground": 0.0,
+    "gap": 0.0020092607
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 690,
+    "foot": 0.00200886023,
+    "ground": 0.0,
+    "gap": 0.00200886023
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 720,
+    "foot": 0.00200882577,
+    "ground": 0.0,
+    "gap": 0.00200882577
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 750,
+    "foot": 0.00200903369,
+    "ground": 0.0,
+    "gap": 0.00200903369
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 780,
+    "foot": 0.00200912659,
+    "ground": 0.0,
+    "gap": 0.00200912659
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 810,
+    "foot": 0.00200915313,
+    "ground": 0.0,
+    "gap": 0.00200915313
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 840,
+    "foot": 0.0020088905,
+    "ground": 0.0,
+    "gap": 0.0020088905
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 870,
+    "foot": 0.00200861529,
+    "ground": 0.0,
+    "gap": 0.00200861529
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 900,
+    "foot": 0.00200815522,
+    "ground": 0.0,
+    "gap": 0.00200815522
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 930,
+    "foot": 0.002008101,
+    "ground": 0.0,
+    "gap": 0.002008101
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 960,
+    "foot": 0.00200789445,
+    "ground": 0.0,
+    "gap": 0.00200789445
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 990,
+    "foot": 0.00200776476,
+    "ground": 0.0,
+    "gap": 0.00200776476
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1020,
+    "foot": 0.00200775033,
+    "ground": 0.0,
+    "gap": 0.00200775033
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1050,
+    "foot": 0.002007888,
+    "ground": 0.0,
+    "gap": 0.002007888
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1080,
+    "foot": 0.00200775452,
+    "ground": 0.0,
+    "gap": 0.00200775452
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1110,
+    "foot": 0.002007084,
+    "ground": 0.0,
+    "gap": 0.002007084
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1140,
+    "foot": 0.00201802142,
+    "ground": 0.0,
+    "gap": 0.00201802142
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1170,
+    "foot": 0.00201391452,
+    "ground": 0.0,
+    "gap": 0.00201391452
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1200,
+    "foot": 0.00203091372,
+    "ground": 0.0,
+    "gap": 0.00203091372
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1230,
+    "foot": 0.00201350334,
+    "ground": 0.0,
+    "gap": 0.00201350334
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1260,
+    "foot": 0.00203098613,
+    "ground": 0.0,
+    "gap": 0.00203098613
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1290,
+    "foot": 0.00203535543,
+    "ground": 0.0,
+    "gap": 0.00203535543
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1320,
+    "foot": 0.00201465213,
+    "ground": 0.0,
+    "gap": 0.00201465213
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1350,
+    "foot": 0.002012287,
+    "ground": 0.0,
+    "gap": 0.002012287
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1380,
+    "foot": 0.0020364027,
+    "ground": 0.0,
+    "gap": 0.0020364027
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1410,
+    "foot": 0.00201427354,
+    "ground": 0.0,
+    "gap": 0.00201427354
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1440,
+    "foot": 0.00202849554,
+    "ground": 0.0,
+    "gap": 0.00202849554
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1470,
+    "foot": 0.00204189355,
+    "ground": 0.0,
+    "gap": 0.00204189355
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1500,
+    "foot": 0.00201912457,
+    "ground": 0.0,
+    "gap": 0.00201912457
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1530,
+    "foot": 0.00201075245,
+    "ground": 0.0,
+    "gap": 0.00201075245
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1560,
+    "foot": 0.00204428,
+    "ground": 0.0,
+    "gap": 0.00204428
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1590,
+    "foot": 0.00201506121,
+    "ground": 0.0,
+    "gap": 0.00201506121
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1620,
+    "foot": 0.0020282648,
+    "ground": 0.0,
+    "gap": 0.0020282648
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1650,
+    "foot": 0.0470418148,
+    "ground": 0.045,
+    "gap": 0.002041813
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1680,
+    "foot": 0.0470172241,
+    "ground": 0.045,
+    "gap": 0.00201722234
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1710,
+    "foot": 0.0470108166,
+    "ground": 0.045,
+    "gap": 0.00201081485
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1740,
+    "foot": 0.04704415,
+    "ground": 0.045,
+    "gap": 0.00204414874
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": true,
+    "frame": 1770,
+    "foot": 0.04702607,
+    "ground": 0.045,
+    "gap": 0.00202607
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1800,
+    "foot": 0.0470095463,
+    "ground": 0.045,
+    "gap": 0.00200954452
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1830,
+    "foot": 0.0470099822,
+    "ground": 0.045,
+    "gap": 0.00200998038
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1860,
+    "foot": 0.04701014,
+    "ground": 0.045,
+    "gap": 0.00201013684
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1890,
+    "foot": 0.04701003,
+    "ground": 0.045,
+    "gap": 0.00201002881
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1920,
+    "foot": 0.04700981,
+    "ground": 0.045,
+    "gap": 0.002009809
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1950,
+    "foot": 0.0470094867,
+    "ground": 0.045,
+    "gap": 0.002009485
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 1980,
+    "foot": 0.047009483,
+    "ground": 0.045,
+    "gap": 0.00200948119
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2010,
+    "foot": 0.04700889,
+    "ground": 0.045,
+    "gap": 0.00200888887
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2040,
+    "foot": 0.04700886,
+    "ground": 0.045,
+    "gap": 0.002008859
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2070,
+    "foot": 0.04700877,
+    "ground": 0.045,
+    "gap": 0.00200876966
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2100,
+    "foot": 0.04700912,
+    "ground": 0.045,
+    "gap": 0.00200911984
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2130,
+    "foot": 0.04700904,
+    "ground": 0.045,
+    "gap": 0.00200903788
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2160,
+    "foot": 0.0470090359,
+    "ground": 0.045,
+    "gap": 0.00200903416
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2190,
+    "foot": 0.0470085554,
+    "ground": 0.045,
+    "gap": 0.00200855359
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2220,
+    "foot": 0.047008168,
+    "ground": 0.045,
+    "gap": 0.00200816616
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2250,
+    "foot": 0.0470081046,
+    "ground": 0.045,
+    "gap": 0.00200810283
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2280,
+    "foot": 0.0470079519,
+    "ground": 0.045,
+    "gap": 0.00200795
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2310,
+    "foot": 0.0470077619,
+    "ground": 0.045,
+    "gap": 0.00200776
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2340,
+    "foot": 0.04700795,
+    "ground": 0.045,
+    "gap": 0.00200794637
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2370,
+    "foot": 0.04700798,
+    "ground": 0.045,
+    "gap": 0.00200798
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walking": false,
+    "frame": 2400,
+    "foot": 0.0470073745,
+    "ground": 0.045,
+    "gap": 0.00200737268
+  },
+  {
+    "name": "Student_11",
+    "config": "after",
+    "walkingFrames": 1084
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 90,
+    "foot": 0.00514717633,
+    "ground": 0.0,
+    "gap": 0.00514717633
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 120,
+    "foot": -0.02319655,
+    "ground": 0.0,
+    "gap": -0.02319655
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 150,
+    "foot": -0.006266632,
+    "ground": 0.0,
+    "gap": -0.006266632
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 180,
+    "foot": -0.00646151975,
+    "ground": 0.0,
+    "gap": -0.00646151975
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 210,
+    "foot": -0.0294422582,
+    "ground": 0.36,
+    "gap": -0.389442265
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 240,
+    "foot": -0.01415429,
+    "ground": 0.36,
+    "gap": -0.3741543
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 270,
+    "foot": 0.0008589899,
+    "ground": 0.36,
+    "gap": -0.359141022
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 300,
+    "foot": -0.007707298,
+    "ground": 0.36,
+    "gap": -0.3677073
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 330,
+    "foot": -0.015007291,
+    "ground": 0.36,
+    "gap": -0.3750073
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 360,
+    "foot": -0.0017808202,
+    "ground": 0.36,
+    "gap": -0.361780822
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 390,
+    "foot": -0.0100978818,
+    "ground": 0.36,
+    "gap": -0.3700979
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 420,
+    "foot": -0.0242075,
+    "ground": 0.36,
+    "gap": -0.384207517
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 450,
+    "foot": -0.00725491764,
+    "ground": 0.36,
+    "gap": -0.367254943
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 480,
+    "foot": 0.004202021,
+    "ground": 0.36,
+    "gap": -0.355798
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 510,
+    "foot": -0.0279982816,
+    "ground": 0.36,
+    "gap": -0.387998283
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 540,
+    "foot": -0.0102886483,
+    "ground": 0.36,
+    "gap": -0.37028867
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 570,
+    "foot": -0.004182998,
+    "ground": 0.36,
+    "gap": -0.364183
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 600,
+    "foot": -0.01635573,
+    "ground": 0.36,
+    "gap": -0.376355737
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 630,
+    "foot": -0.0187706426,
+    "ground": 0.36,
+    "gap": -0.378770649
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 660,
+    "foot": -0.0135644125,
+    "ground": 0.36,
+    "gap": -0.373564422
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 690,
+    "foot": -0.005823014,
+    "ground": 0.36,
+    "gap": -0.36582303
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 720,
+    "foot": -0.006030727,
+    "ground": 0.36,
+    "gap": -0.366030753
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 750,
+    "foot": -0.00621699169,
+    "ground": 0.36,
+    "gap": -0.366217017
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 780,
+    "foot": -0.00616675569,
+    "ground": 0.36,
+    "gap": -0.36616677
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 810,
+    "foot": -0.005845602,
+    "ground": 0.36,
+    "gap": -0.365845621
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 840,
+    "foot": -0.005776658,
+    "ground": 0.36,
+    "gap": -0.365776658
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 870,
+    "foot": -0.005678487,
+    "ground": 0.36,
+    "gap": -0.3656785
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 900,
+    "foot": -0.005170314,
+    "ground": 0.36,
+    "gap": -0.36517033
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 930,
+    "foot": -0.004864926,
+    "ground": 0.36,
+    "gap": -0.364864945
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 960,
+    "foot": -0.0048683444,
+    "ground": 0.36,
+    "gap": -0.364868373
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 990,
+    "foot": -0.005051961,
+    "ground": 0.36,
+    "gap": -0.365051985
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1020,
+    "foot": -0.005113531,
+    "ground": 0.36,
+    "gap": -0.365113556
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1050,
+    "foot": -0.005143783,
+    "ground": 0.36,
+    "gap": -0.3651438
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1080,
+    "foot": -0.00491014775,
+    "ground": 0.36,
+    "gap": -0.364910156
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1110,
+    "foot": -0.00462949,
+    "ground": 0.36,
+    "gap": -0.3646295
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1140,
+    "foot": -0.004382285,
+    "ground": 0.36,
+    "gap": -0.3643823
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1170,
+    "foot": -0.00424234243,
+    "ground": 0.36,
+    "gap": -0.364242345
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1200,
+    "foot": -0.004040376,
+    "ground": 0.36,
+    "gap": -0.3640404
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1230,
+    "foot": -0.00387583231,
+    "ground": 0.36,
+    "gap": -0.363875836
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1260,
+    "foot": -0.00403423933,
+    "ground": 0.36,
+    "gap": -0.364034265
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1290,
+    "foot": -0.004040177,
+    "ground": 0.36,
+    "gap": -0.3640402
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 1320,
+    "foot": -0.00148415181,
+    "ground": 0.36,
+    "gap": -0.36148417
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1350,
+    "foot": -0.00361998635,
+    "ground": 0.36,
+    "gap": -0.36362
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1380,
+    "foot": -0.0173243918,
+    "ground": 0.36,
+    "gap": -0.3773244
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1410,
+    "foot": -0.00251931022,
+    "ground": 0.36,
+    "gap": -0.362519324
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1440,
+    "foot": -0.00503401132,
+    "ground": 0.36,
+    "gap": -0.365034
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1470,
+    "foot": -0.02617009,
+    "ground": 0.36,
+    "gap": -0.3861701
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1500,
+    "foot": -0.009458907,
+    "ground": 0.36,
+    "gap": -0.3694589
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1530,
+    "foot": 0.00289745815,
+    "ground": 0.36,
+    "gap": -0.357102543
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1560,
+    "foot": -0.03084827,
+    "ground": 0.36,
+    "gap": -0.390848279
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1590,
+    "foot": -0.0124980612,
+    "ground": 0.36,
+    "gap": -0.372498065
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1620,
+    "foot": -0.00168708456,
+    "ground": 0.36,
+    "gap": -0.3616871
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1650,
+    "foot": -0.0182091,
+    "ground": 0.36,
+    "gap": -0.3782091
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1680,
+    "foot": -0.0233663619,
+    "ground": 0.36,
+    "gap": -0.383366376
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1710,
+    "foot": -0.00772631634,
+    "ground": 0.36,
+    "gap": -0.367726326
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1740,
+    "foot": 0.003834765,
+    "ground": 0.36,
+    "gap": -0.35616526
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1770,
+    "foot": -0.0292952117,
+    "ground": 0.0,
+    "gap": -0.0292952117
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1800,
+    "foot": -0.0110304011,
+    "ground": 0.0,
+    "gap": -0.0110304011
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1830,
+    "foot": -0.00241442444,
+    "ground": 0.0,
+    "gap": -0.00241442444
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1860,
+    "foot": -0.019217182,
+    "ground": 0.0,
+    "gap": -0.019217182
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1890,
+    "foot": -0.02222426,
+    "ground": 0.0,
+    "gap": -0.02222426
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1920,
+    "foot": -0.00707275141,
+    "ground": 0.0,
+    "gap": -0.00707275141
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1950,
+    "foot": 0.00423940737,
+    "ground": 0.0,
+    "gap": 0.00423940737
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 1980,
+    "foot": -0.0272826273,
+    "ground": 0.0,
+    "gap": -0.0272826273
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2010,
+    "foot": -0.009476617,
+    "ground": 0.0,
+    "gap": -0.009476617
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2040,
+    "foot": -0.004078544,
+    "ground": 0.0,
+    "gap": -0.004078544
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2070,
+    "foot": -0.02188207,
+    "ground": 0.0,
+    "gap": -0.02188207
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2100,
+    "foot": -0.0182551015,
+    "ground": 0.0,
+    "gap": -0.0182551015
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2130,
+    "foot": -0.00251246174,
+    "ground": 0.0,
+    "gap": -0.00251246174
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2160,
+    "foot": 0.00247140159,
+    "ground": 0.0,
+    "gap": 0.00247140159
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2190,
+    "foot": -0.0217812173,
+    "ground": 0.0,
+    "gap": -0.0217812173
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": true,
+    "frame": 2220,
+    "foot": -0.0222444758,
+    "ground": 0.0,
+    "gap": -0.0222444758
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 2250,
+    "foot": -0.00578096043,
+    "ground": 0.0,
+    "gap": -0.00578096043
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 2280,
+    "foot": -0.006009691,
+    "ground": 0.0,
+    "gap": -0.006009691
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 2310,
+    "foot": -0.00619953359,
+    "ground": 0.0,
+    "gap": -0.00619953359
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 2340,
+    "foot": -0.00621922361,
+    "ground": 0.0,
+    "gap": -0.00621922361
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 2370,
+    "foot": -0.005896539,
+    "ground": 0.0,
+    "gap": -0.005896539
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walking": false,
+    "frame": 2400,
+    "foot": -0.005894641,
+    "ground": 0.0,
+    "gap": -0.005894641
+  },
+  {
+    "name": "Student_12",
+    "config": "before",
+    "walkingFrames": 1593
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 90,
+    "foot": 0.00158891024,
+    "ground": 0.0,
+    "gap": 0.00158891024
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 120,
+    "foot": 0.00159601017,
+    "ground": 0.0,
+    "gap": 0.00159601017
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 150,
+    "foot": 0.00159437372,
+    "ground": 0.0,
+    "gap": 0.00159437372
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 180,
+    "foot": 0.00157666882,
+    "ground": 0.0,
+    "gap": 0.00157666882
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 210,
+    "foot": 0.001579535,
+    "ground": 0.0,
+    "gap": 0.001579535
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 240,
+    "foot": 0.00158834644,
+    "ground": 0.0,
+    "gap": 0.00158834644
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 270,
+    "foot": 0.001614509,
+    "ground": 0.0,
+    "gap": 0.001614509
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 300,
+    "foot": 0.002062183,
+    "ground": 0.0,
+    "gap": 0.002062183
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 330,
+    "foot": 0.000235619184,
+    "ground": 0.0,
+    "gap": 0.000235619184
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 360,
+    "foot": 0.00155069446,
+    "ground": 0.0,
+    "gap": 0.00155069446
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 390,
+    "foot": -0.0007906469,
+    "ground": 0.0,
+    "gap": -0.0007906469
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 420,
+    "foot": -0.0004131076,
+    "ground": 0.0,
+    "gap": -0.0004131076
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 450,
+    "foot": 0.0007583107,
+    "ground": 0.0,
+    "gap": 0.0007583107
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 480,
+    "foot": 0.001998412,
+    "ground": 0.0,
+    "gap": 0.001998412
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 510,
+    "foot": 0.00169722177,
+    "ground": 0.0,
+    "gap": 0.00169722177
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 540,
+    "foot": 0.0005286585,
+    "ground": 0.0,
+    "gap": 0.0005286585
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 570,
+    "foot": 0.00180571724,
+    "ground": 0.0,
+    "gap": 0.00180571724
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 600,
+    "foot": 0.001532186,
+    "ground": 0.0,
+    "gap": 0.001532186
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 630,
+    "foot": 0.3598874,
+    "ground": 0.36,
+    "gap": -0.000112622976
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 660,
+    "foot": 0.00125071674,
+    "ground": 0.0,
+    "gap": 0.00125071674
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 690,
+    "foot": 0.00227667228,
+    "ground": 0.0,
+    "gap": 0.00227667228
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 720,
+    "foot": 0.359533221,
+    "ground": 0.36,
+    "gap": -0.000466793776
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 750,
+    "foot": 0.361080945,
+    "ground": 0.36,
+    "gap": 0.00108093023
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 780,
+    "foot": 0.3616212,
+    "ground": 0.36,
+    "gap": 0.00162118673
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 810,
+    "foot": 0.360503,
+    "ground": 0.36,
+    "gap": 0.0005029738
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 840,
+    "foot": 0.3603383,
+    "ground": 0.36,
+    "gap": 0.000338286161
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 870,
+    "foot": 0.361586183,
+    "ground": 0.36,
+    "gap": 0.001586169
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 900,
+    "foot": 0.362395078,
+    "ground": 0.36,
+    "gap": 0.00239506364
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 930,
+    "foot": 0.359951466,
+    "ground": 0.36,
+    "gap": -4.85479832E-05
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 960,
+    "foot": 0.361415952,
+    "ground": 0.36,
+    "gap": 0.00141593814
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 990,
+    "foot": 0.3604218,
+    "ground": 0.36,
+    "gap": 0.000421792269
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1020,
+    "foot": 0.359506339,
+    "ground": 0.36,
+    "gap": -0.00049367547
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1050,
+    "foot": 0.360764056,
+    "ground": 0.36,
+    "gap": 0.000764042139
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1080,
+    "foot": 0.3619839,
+    "ground": 0.36,
+    "gap": 0.001983881
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1110,
+    "foot": 0.3615058,
+    "ground": 0.36,
+    "gap": 0.00150579214
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1140,
+    "foot": 0.360629022,
+    "ground": 0.36,
+    "gap": 0.0006290078
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1170,
+    "foot": 0.359757543,
+    "ground": 0.36,
+    "gap": -0.0002424717
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1200,
+    "foot": 0.361512929,
+    "ground": 0.36,
+    "gap": 0.0015129149
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1230,
+    "foot": 0.361497641,
+    "ground": 0.36,
+    "gap": 0.0014976263
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1260,
+    "foot": 0.3614858,
+    "ground": 0.36,
+    "gap": 0.00148579478
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1290,
+    "foot": 0.3614934,
+    "ground": 0.36,
+    "gap": 0.00149339437
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1320,
+    "foot": 0.361517,
+    "ground": 0.36,
+    "gap": 0.00151699781
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1350,
+    "foot": 0.361523539,
+    "ground": 0.36,
+    "gap": 0.00152352452
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1380,
+    "foot": 0.3615316,
+    "ground": 0.36,
+    "gap": 0.00153157115
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1410,
+    "foot": 0.361578077,
+    "ground": 0.36,
+    "gap": 0.00157806277
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1440,
+    "foot": 0.361598849,
+    "ground": 0.36,
+    "gap": 0.001598835
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1470,
+    "foot": 0.361601681,
+    "ground": 0.36,
+    "gap": 0.00160166621
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1500,
+    "foot": 0.361576021,
+    "ground": 0.36,
+    "gap": 0.00157600641
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1530,
+    "foot": 0.361578941,
+    "ground": 0.36,
+    "gap": 0.001578927
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1560,
+    "foot": 0.3615788,
+    "ground": 0.36,
+    "gap": 0.001578778
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1590,
+    "foot": 0.361598581,
+    "ground": 0.36,
+    "gap": 0.00159856677
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1620,
+    "foot": 0.3616239,
+    "ground": 0.36,
+    "gap": 0.00162389874
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1650,
+    "foot": 0.3616442,
+    "ground": 0.36,
+    "gap": 0.00164419413
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1680,
+    "foot": 0.36165157,
+    "ground": 0.36,
+    "gap": 0.0016515553
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1710,
+    "foot": 0.361670822,
+    "ground": 0.36,
+    "gap": 0.0016708076
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1740,
+    "foot": 0.361678541,
+    "ground": 0.36,
+    "gap": 0.0016785264
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1770,
+    "foot": 0.361676574,
+    "ground": 0.36,
+    "gap": 0.00167655945
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1800,
+    "foot": 0.361670673,
+    "ground": 0.36,
+    "gap": 0.00167065859
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1830,
+    "foot": 0.361681044,
+    "ground": 0.36,
+    "gap": 0.0016810298
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1860,
+    "foot": 0.361712128,
+    "ground": 0.36,
+    "gap": 0.00171211362
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1890,
+    "foot": 0.361727864,
+    "ground": 0.36,
+    "gap": 0.00172784925
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1920,
+    "foot": 0.361724824,
+    "ground": 0.36,
+    "gap": 0.00172480941
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": false,
+    "frame": 1950,
+    "foot": 0.3592743,
+    "ground": 0.36,
+    "gap": -0.000725716352
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 1980,
+    "foot": 0.362055033,
+    "ground": 0.36,
+    "gap": 0.00205501914
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2010,
+    "foot": 0.361529976,
+    "ground": 0.36,
+    "gap": 0.00152996182
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2040,
+    "foot": 0.36061576,
+    "ground": 0.36,
+    "gap": 0.0006157458
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2070,
+    "foot": 0.361799061,
+    "ground": 0.36,
+    "gap": 0.001799047
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2100,
+    "foot": 0.359371781,
+    "ground": 0.36,
+    "gap": -0.000628232956
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2130,
+    "foot": 0.35974735,
+    "ground": 0.36,
+    "gap": -0.0002526641
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2160,
+    "foot": 0.361156464,
+    "ground": 0.36,
+    "gap": 0.00115644932
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2190,
+    "foot": 0.362224072,
+    "ground": 0.36,
+    "gap": 0.002224058
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2220,
+    "foot": 0.359495759,
+    "ground": 0.36,
+    "gap": -0.0005042553
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2250,
+    "foot": 0.361031771,
+    "ground": 0.36,
+    "gap": 0.0010317564
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2280,
+    "foot": 0.361459076,
+    "ground": 0.36,
+    "gap": 0.0014590621
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2310,
+    "foot": 0.36011076,
+    "ground": 0.36,
+    "gap": 0.00011074543
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2340,
+    "foot": 0.360605359,
+    "ground": 0.36,
+    "gap": 0.0006053448
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2370,
+    "foot": 0.361878574,
+    "ground": 0.36,
+    "gap": 0.00187855959
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walking": true,
+    "frame": 2400,
+    "foot": 0.00190826727,
+    "ground": 0.0,
+    "gap": 0.00190826727
+  },
+  {
+    "name": "Student_12",
+    "config": "after",
+    "walkingFrames": 1331
+  }
+]
