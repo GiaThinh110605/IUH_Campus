@@ -5966,6 +5966,7 @@ Transform:
   - {fileID: 1522442505}
   - {fileID: 1326318448}
   - {fileID: 597222745}
+  - {fileID: 30510105}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148684929
@@ -10841,7 +10842,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17039,7 +17040,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22488,7 +22489,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -40929,7 +40930,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56215,7 +56216,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75680,6 +75681,7 @@ Transform:
   - {fileID: 1719493673}
   - {fileID: 2007583790}
   - {fileID: 1208171322}
+  - {fileID: 1871874826}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1329472388
@@ -92699,7 +92701,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106492,7 +106494,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112945,6 +112947,7 @@ Transform:
   - {fileID: 215830214}
   - {fileID: 498348362}
   - {fileID: 2071604174}
+  - {fileID: 599368322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736207809
@@ -117791,7 +117794,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123119,7 +123122,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123683,6 +123686,7 @@ Transform:
   - {fileID: 450164922}
   - {fileID: 264009949}
   - {fileID: 1374807194}
+  - {fileID: 948087774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1759013319
@@ -134889,6 +134893,7 @@ Transform:
   - {fileID: 1313758192}
   - {fileID: 498623855}
   - {fileID: 437303828}
+  - {fileID: 159500117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2080928631
@@ -142757,7 +142762,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b6e5918531b66e647b4aaaee8096ffe3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -174830,3 +174835,313 @@ SceneRoots:
   - {fileID: 1399670789}
   - {fileID: 890148804}
   - {fileID: 1214370502}
+--- !u!1001 &30510104
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 146005033}
+    m_Modifications:
+    - target: {fileID: 1537593200154216, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_Name
+      value: Guardian Ground Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.19000283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2696314
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+--- !u!4 &30510105 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+  m_PrefabInstance: {fileID: 30510104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &159500116
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2080727151}
+    m_Modifications:
+    - target: {fileID: 1537593200154216, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_Name
+      value: Guardian Ground Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.19000283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2696342
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+--- !u!4 &159500117 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+  m_PrefabInstance: {fileID: 159500116}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &599368321
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1729400722}
+    m_Modifications:
+    - target: {fileID: 1537593200154216, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_Name
+      value: Guardian Ground Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.19000283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2696314
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+--- !u!4 &599368322 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+  m_PrefabInstance: {fileID: 599368321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &948087773
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1758757872}
+    m_Modifications:
+    - target: {fileID: 1537593200154216, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_Name
+      value: Guardian Ground Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.19000283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2696319
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+--- !u!4 &948087774 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+  m_PrefabInstance: {fileID: 948087773}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1871874825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1327722278}
+    m_Modifications:
+    - target: {fileID: 1537593200154216, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_Name
+      value: Guardian Ground Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.19000283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.2696304
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+--- !u!4 &1871874826 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4832750714773668, guid: 8e21113152318a6439e105ed9a45cc78, type: 3}
+  m_PrefabInstance: {fileID: 1871874825}
+  m_PrefabAsset: {fileID: 0}
