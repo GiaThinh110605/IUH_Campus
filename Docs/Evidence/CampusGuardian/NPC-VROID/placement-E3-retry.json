@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Student_01",
+    "model": 1,
+    "position": "(-28, 0, -20)",
+    "scale": 1.08920562,
+    "mode": "standing",
+    "farShadowOff": false
+  },
+  {
+    "name": "Student_02",
+    "model": 2,
+    "position": "(-26.4, 0, -20)",
+    "scale": 0.991338968,
+    "mode": "standing",
+    "farShadowOff": false
+  },
+  {
+    "name": "Student_05",
+    "model": 1,
+    "position": "(-6, 0, 46)",
+    "scale": 1.08920562,
+    "mode": "standing",
+    "farShadowOff": true
+  },
+  {
+    "name": "Student_06",
+    "model": 2,
+    "position": "(-4, 0, 46)",
+    "scale": 0.991338968,
+    "mode": "standing",
+    "farShadowOff": true
+  },
+  {
+    "name": "Student_11",
+    "model": 3,
+    "position": "(-30, 0, 19.4082184)",
+    "scale": 0.9986138,
+    "mode": "walking",
+    "farShadowOff": true
+  },
+  {
+    "name": "Student_12",
+    "model": 4,
+    "position": "(24, 0, -25.9645424)",
+    "scale": 1.08999407,
+    "mode": "walking",
+    "farShadowOff": false
+  }
+]

@@ -1,4 +1,59 @@
-# NPC VRoid — E1/E2 hoàn tất, E3 bị loại theo ngưỡng
+# NPC VRoid — E3 đã áp với 6 NPC
+
+## Kết quả E3 Retry theo ngân sách ms
+
+**Đã áp**, commit `0d2dc92 feat(art): populate campus with VRoid students`. Kết quả cuối mới: **137/137 EditMode**, job `8574a428a1a04ddaa1427d8f61c0f2b6`; **56/56 PlayMode**, job `8ce379df8b7f4653ad53b97bf7bfa0be`. Console **0 error**, Missing Script **0 cả campus/arena/AR**, scene sạch, compile xong và Edit Mode. [Bản ghi mới](verification-E3-retry.json). Không push/amend.
+
+Người dùng duyệt ngày **24/11 theo prompt** dùng 4–6 NPC và thay ngưỡng % bằng ngân sách tuyệt đối: median tăng≤1,0ms, p95 tăng≤1,5ms; draw tăng≤40 sảnh/≤60 toàn cảnh. Lý do: ở khoảng240FPS, mức giảm khoảng10% chỉ tương ứng nửa mili-giây, không phản ánh ngân sách60FPS (16,7ms). Không tự nới ngưỡng: dùng đúng Prompt_NPC_VRoid_E3_Retry.md.
+
+Đã triển khai **6 NPC**, 4 đứng thành 2 cặp (Căn tin và sân trước tòa chính), 2 đi bộ. Đủ4model, số bản lần lượt2/2/1/1, không có cặp đứng cùngmodel. [Vị trí và cấu hình](placement-E3-retry.json). Mobile giữ4NPC với cả4model nhờ index0,1,2,3; hai NPC còn lại index4,5 chỉ giữ trên desktop. Khối Students in courtyard_102 **tắt, không xóa**. Không thay player, mascot, quái, vườn hay codeNPC cũ.
+
+|Tên|Model|Chế độ|Vị trí khởi đầu (x,y,z)|Tuyến / bạn cùng nhóm|
+|---|---:|---|---|---|
+|Student_01|1|Đứng|(-28,0,-20)|Student_02|
+|Student_02|2|Đứng|(-26.4,0,-20)|Student_01|
+|Student_05|1|Đứng|(-6,0,46)|Student_06|
+|Student_06|2|Đứng|(-4,0,46)|Student_05|
+|Student_11|3|Đi|(-30,0,19.4082184)|↔(-30,0,24)|
+|Student_12|4|Đi|(24,0,-25.9645424)|↔(24,0,-20)|
+
+Ba NPC xa từ góc sảnh (05,06,11) tắt cast shadows bằng override scene. Không thay material/prefab đã nhập ởE1/E2. Giữ outline: [đo nhanh on/off](outline-E3-retry.json), 120warmup+600frame mỗi trạng thái: sảnh on4,8801/off4,82915ms (chênh0,05095ms), toàn cảnh on5,55615/off5,57645ms (tắt không nhanh hơn). Đây là chẩn đoán ngắn, có nhiễu/vị trí walker thay đổi, không kết luận lợi ích nhân quả; không thấy chi phí đáng kể để bỏ outline. Phép đo chính thức bên dưới giữ outline.
+
+### A/B cùng một phiên
+
+A=khối tĩnh cũ bật, NPC mới tắt; B=ngược lại. Mỗi góc A,B,A,B,A,B; mỗi lượt120warmup+3000frame,1280×900,VSync0,FOV57 theo cameras.json. Không thay targetTexture camera chính, không chạy test/tác vụ nặng đồng thời. [12 dòng TSV](performance-E3-retry.tsv), [tổng hợp](summary-E3-retry.json). Máy Turbo, nguồn AC, pin100%: [nguồn điện](power-E3-retry.json). FPS/% chỉ tham khảo; không dùng làm ngưỡng.
+
+|Góc|Median ms A→B|Tăng ms|FPS A→B|Giảm FPS tham khảo|p95 ms A→B|Tăng p95 ms|Draw A→B|
+|---|---|---:|---|---:|---|---:|---|
+|lobby|4.45400→4.78825|0.33425|224.52→208.84|6.98%|5.2690→5.6744|0.4054|301→289 (-12)|
+|overview|5.12290→5.44000|0.31710|195.20→183.82|5.83%|6.0139→6.2412|0.2273|997→1021 (+24)|
+
+**Đạt ở cả hai góc**, không cần giảm còn4. Giữ A/B cùngphiên, không dùng số lịch sử làm baseline. Triangles A/B khác nhau vì thay hình học sinh viên: sảnh 1847809→1895411, toàn cảnh 2582216→3036362.
+
+### Hình và gameplay mới
+
+Đã chụp14ảnh ngày/đêm cùng7góc E3, thêm cậnNPC+player và ảnh toàn thân trước nhà chính. [Toàn thân](npc-fullbody-DEPLOYED-day.png) cho thấy Idle bình thường, chân sát nền, không thấy T-pose/lơ lửng rõ rệt. Các ảnh DEPLOYED là sau triển khai; ảnh AFTER cũ phía lịch sử là bản thử đã hủy.
+
+|Góc|Ngày triển khai|Đêm triển khai|
+|---|---|---|
+|lobby|[Ảnh](lobby-DEPLOYED-day.png)|[Ảnh](lobby-DEPLOYED-night.png)|
+|canteen|[Ảnh](canteen-DEPLOYED-day.png)|[Ảnh](canteen-DEPLOYED-night.png)|
+|fountain|[Ảnh](fountain-DEPLOYED-day.png)|[Ảnh](fountain-DEPLOYED-night.png)|
+|overview|[Ảnh](overview-DEPLOYED-day.png)|[Ảnh](overview-DEPLOYED-night.png)|
+|close|[Ảnh](close-DEPLOYED-day.png)|[Ảnh](close-DEPLOYED-night.png)|
+|students-canteen|[Ảnh](students-canteen-DEPLOYED-day.png)|[Ảnh](students-canteen-DEPLOYED-night.png)|
+|students-plaza|[Ảnh](students-plaza-DEPLOYED-day.png)|[Ảnh](students-plaza-DEPLOYED-night.png)|
+
+[Cận NPC và player](npc-player-DEPLOYED-day.png). Tự kiểm không thấy NPC shader hồng hoặc T-pose; đồng phục vẫn trắng theo thiết kế, đêm không thấy tự phát sáng. Không đổi ánh sáng/volume để sửa NPC.
+
+Smoke **40s**: CharacterController đi từx−29 đến−23,9587 xuyên qua cặp Căn tin; NPC có0collider. Chắn walker ở khoảng0,45m làm nó đứng yên (displacement0); tránh ra4m thì walker đi tiếp tối đa4,5547m. Vườn mở được qua APIUIthật, global ngày0/đêm1. [Kết quả](smoke-E3-retry.json). Đây là thao tác qua API/controller, không phải kiểm bàn phím vật lý. Không thử lạiE; không ghiPasschoE hoặc chiến đấu8m/4m.
+
+Review độc lập xác nhận6prefab/override/mobileindex/cặpđứng/tuyếnđi hợp lệ, không có localfileIDđứt; thay đổi scene chỉNPC_STUDENTS, aliascamera cần cho tham chiếu và dòngtắt khốicũ. MainCameraY không stage. Unity đã lưu scene trực tiếp quaMCP. Để loại reorder/noise khi serialize, đã đóng scene đang sạch sang scene trống, lọc block dựa trênHEAD và dữ liệu Unity vừa lưu, rồi nạp lại thành công; không ghi tay trong lúc MCP mất phản hồi. Native xác nhận đủ6NPC, khối cũtắt, mọi camera/playerreference hợp lệ. Workingcopy cuối chỉ còn dòngMainCameraY của người dùng. [Bản mã lọc scope](scene-scope-filter.cjs.txt) là bằng chứng thao tác trênbase9a699ac, không phải lệnh cần chạy lại.
+
+Một lệnh bắt đầuEditMode và một lệnh load scene bị domainreload ngắt trước khi hoàn thành. Đã kiểm tra editor kết nối lại, idle/không cójob chạy, rồi mới chạy lại; không tính lần ngắt làPass. Không có bước cần người dùng khởi động lạiUnity trong lượt này. Đã khôi phục preset/phóng lớn GameView. Không ghi PlayerPrefs trực tiếp; fixture chỉ thay đổi runtime, không lưu tọa độ test của player hay trạng thái ngày/đêm vào scene.
+
+## Lịch sử lượt trước — E3 8/12 NPC bị loại theo ngưỡng phần trăm
+
 
 Ngày thực hiện23/11/2026, Unity6000.5.8f1 Windows Editor, URP17, UniVRM0.131.4, Direct3D12, RTX3060LaptopGPU. Nhánh minhnhat/npc-vroid, base55b07e2. Nguồn điện Turbo, BatteryStatus2 (AC), pin100%: [bản ghi](power.json). Không push/amend; không tải asset.
 

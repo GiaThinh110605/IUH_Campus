@@ -1,0 +1,34 @@
+[
+  {
+    "view": "lobby",
+    "outline": true,
+    "median_ms": 4.8801000000000538,
+    "draw": 288,
+    "tri": 1889052,
+    "frames": 600
+  },
+  {
+    "view": "lobby",
+    "outline": false,
+    "median_ms": 4.8291499999999488,
+    "draw": 289,
+    "tri": 1895415,
+    "frames": 600
+  },
+  {
+    "view": "overview",
+    "outline": true,
+    "median_ms": 5.556150000000315,
+    "draw": 1021,
+    "tri": 3036364,
+    "frames": 600
+  },
+  {
+    "view": "overview",
+    "outline": false,
+    "median_ms": 5.5764500000003991,
+    "draw": 1021,
+    "tri": 3036362,
+    "frames": 600
+  }
+]
