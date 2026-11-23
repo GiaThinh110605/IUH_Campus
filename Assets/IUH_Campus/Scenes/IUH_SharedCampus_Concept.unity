@@ -161636,6 +161636,7 @@ GameObject:
   - component: {fileID: 1739757210}
   - component: {fileID: 6982812147826777235}
   - component: {fileID: 6982812147826777234}
+  - component: {fileID: 6982812147826777236}
   m_Layer: 8
   m_Name: Campus Student
   m_TagString: Player
@@ -173441,6 +173442,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39ba714d6f41ad94184881f9de11ccf4, type: 3}
+--- !u!114 &6982812147826777236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926083458456657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bae3b6ba85efd0499927dbeb1cd6121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.Visual.IUHVisualFeetGrounder
+  surface: {fileID: 11400000, guid: 8348f60e232dca646a02341ab24759ee, type: 2}
+  maximumOffset: 2
+  soleClearance: 0.002
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
