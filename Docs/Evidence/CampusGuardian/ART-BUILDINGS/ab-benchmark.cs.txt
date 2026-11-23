@@ -1,0 +1,38 @@
+var folder="Docs/Evidence/CampusGuardian/ART-BUILDINGS/";
+var inv=Newtonsoft.Json.Linq.JArray.Parse(System.IO.File.ReadAllText(folder+"inventory.json"));
+var map=Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(folder+"material-map.json"));
+var all=UnityEngine.Object.FindObjectsByType<UnityEngine.MeshRenderer>(UnityEngine.FindObjectsInactive.Include,UnityEngine.FindObjectsSortMode.None);
+var renderers=inv.Select(row=>all.Single(r=>r.name==(string)row["renderer"]&&r.transform.parent&&r.transform.parent.name==(string)row["area"])).ToArray();
+var original=renderers.Select(r=>r.sharedMaterials).ToArray();
+var facade=inv.Select(row=>UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Material>((string)map[(string)row["material"]])).ToArray();
+var cam=UnityEngine.Camera.main;
+var player=UnityEngine.GameObject.Find("Campus Student");player.GetComponent<UnityEngine.InputSystem.PlayerInput>().enabled=false;
+UnityEngine.Profiling.Profiler.enabled=false;
+UnityEngine.QualitySettings.vSyncCount=0;UnityEngine.Application.targetFrameRate=-1;
+var cfg=Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(folder+"cameras.json"));
+int run=0,frame=-120,last=-1;
+var ms=new double[3000];var draws=new int[3000];var tris=new int[3000];
+var watch=System.Diagnostics.Stopwatch.StartNew();double previous=0;
+System.Action select=()=>{
+ bool b=run%2==1;
+ for(int i=0;i<renderers.Length;i++){var mats=(UnityEngine.Material[])original[i].Clone();if(b)mats[(int)inv[i]["slot"]]=facade[i];renderers[i].sharedMaterials=mats;}
+ var v=cfg["cameras"][run<6?"lobby":"overview"];var a=v[0].Select(x=>(float)x).ToArray();var at=v[1].Select(x=>(float)x).ToArray();
+ cam.transform.position=new UnityEngine.Vector3(a[0],a[1],a[2]);cam.transform.LookAt(new UnityEngine.Vector3(at[0],at[1],at[2]));cam.fieldOfView=57;
+ frame=-120;previous=watch.Elapsed.TotalSeconds;
+ UnityEditor.SessionState.SetString("AB.Status","run "+(run+1)+" "+(b?"B":"A"));
+};
+System.IO.File.WriteAllText(folder+"performance-AB.tsv","view\tconfig\trun\tmedian_fps\tp95_ms\tdraw_calls\ttriangles\n");
+select();
+System.Action<UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[]> cb=null;
+cb=(ctx,cams)=>{
+ if(!UnityEditor.EditorApplication.isPlaying){UnityEngine.Rendering.RenderPipelineManager.endFrameRendering-=cb;return;}
+ if(last==UnityEngine.Time.frameCount||!cams.Contains(cam))return;last=UnityEngine.Time.frameCount;
+ double now=watch.Elapsed.TotalSeconds;if(frame>=0){ms[frame]=(now-previous)*1000;draws[frame]=UnityEditor.UnityStats.drawCalls;tris[frame]=UnityEditor.UnityStats.triangles;}previous=now;frame++;
+ if(frame<3000)return;
+ System.Array.Sort(ms);System.Array.Sort(draws);System.Array.Sort(tris);
+ System.IO.File.AppendAllText(folder+"performance-AB.tsv",(run<6?"lobby":"overview")+"\t"+(run%2==1?"B":"A")+"\t"+(run%6/2+1)+"\t"+(1000/((ms[1499]+ms[1500])/2)).ToString("F4",System.Globalization.CultureInfo.InvariantCulture)+"\t"+ms[2849].ToString("F4",System.Globalization.CultureInfo.InvariantCulture)+"\t"+draws[1500]+"\t"+tris[1500]+"\n");
+ run++;if(run<12){select();return;}
+ UnityEngine.Rendering.RenderPipelineManager.endFrameRendering-=cb;
+ UnityEditor.SessionState.SetString("AB.Status","complete");
+};
+UnityEngine.Rendering.RenderPipelineManager.endFrameRendering+=cb;return "12 runs started";

@@ -1,0 +1,9 @@
+{
+  "seconds": 40.00457,
+  "distance": 67.56848,
+  "maxSpeed": 6.2,
+  "gardenOpened": true,
+  "day": 0.0,
+  "night": 1.0,
+  "physicalE": "not retested; previous injection edges=0"
+}

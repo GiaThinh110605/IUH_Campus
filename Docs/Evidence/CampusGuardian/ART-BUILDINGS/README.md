@@ -1,10 +1,48 @@
-# Buildings pass — kết quả cuối
+# Buildings pass — D4 đã áp và kiểm chứng
 
-## D4 Retry — không đạt, chưa áp vào scene
+## Retry2 — đã áp D4 theo ngưỡng mới
+
+Commit **7e2dd86 feat(art): stylized facades across campus**: 7 vật liệu và 54 slot renderer. Người dùng duyệt ảnh/ngưỡng mới ngày **24/11** theo prompt: FPS giảm≤10%, p95 tăng≤10%, draw tăng≤30 sảnh/≤70 toàn cảnh. Không push. Nhánh này vẫn nối tiếp VRoid chưa merge.
+
+Base `52b4aae`, nhánh `minhnhat/buildings-pass`. Theo `Prompt_Buildings_D4_Retry2.md`, đã bỏ cách so FPS ở hai thời điểm khác nhau: lần Retry trước so với mốc lịch sử nên không cô lập được thay đổi môi trường máy, không đủ cơ sở quy sụt FPS cho vật liệu.
+
+[Nguồn điện](power-AB.json): chế độ Turbo, BatteryStatus=2 (nguồn AC), pin100%; một Editor, hai asset-import worker; không có Editor khác qua MCP. Profiler tắt. File nguồn điện chỉ giữ vai trò/PID, không giữ CommandLine hay tham số đăng nhập Unity.
+
+Đã tạo lại 7 material đúng cấu hình OPTIMIZATION1, GPU Instancing tắt vì lần chẩn đoán trước không giảm draw calls. Trong **cùng một Play Mode**, mỗi góc chạy **A,B,A,B,A,B**, 120 frame làm nóng +3000 frame đo/lượt, 1280×900, VSync0, FOV57, camera theo cameras.json. Không chạy test hay tác vụ nặng song song. Chỉ ghi một dòng TSV/lượt: [12 lượt A/B](performance-AB.tsv), [script đo](ab-benchmark.cs.txt).
+
+|Góc|FPS A → B|Thay đổi FPS B|p95 A → B ms|Thay đổi p95|Draw A → B|Tam giác A=B|
+|---|---:|---:|---:|---:|---:|---:|
+|Sảnh|239,7593 → 239,2201|−0,225%|4,7829 → 4,8129|+0,627%|286 → 296 (+10)|1.847.729|
+|Toàn cảnh|202,7123 → 203,1921|+0,237%|5,8108 → 5,6172|−3,332%|940 → 994 (+54)|2.582.136|
+
+Tất cả ngưỡng tương đối A/B đạt: giảm FPS≤10%, tăng p95≤10%, draw tăng≤30 sảnh/≤70 toàn cảnh. Bảng lấy trung vị ba số trung vị/p95 mỗi cấu hình, không so lại với FPS lịch sử.
+
+**Giới hạn cấu hình hình học:** trước đo đã tìm thấy `Animated Fountain FX` gồm36ParticleSystem; tắt thử runtime giảm36draw và khoảng1.300tamgiác, sau đó khôi phục bật cho cả A/B. Có các phép dò runtime đối tượng khác, không lưu vào scene hay PlayerPrefs. Sau đó hình học A và B khớp nhau cả12lượt, nhưng tổng toàn cảnh vẫn cao hơn mốc lịch sử2.576.670 khoảng5.466tri (0,21%). Chưa giải thích chính xác phần dư này, không ghi rằng đã tái lập tuyệt đối cấu hình lịch sử OPTIMIZATION1. Đây là giới hạn còn lại của bước đối chiếu tam giác trong prompt; không dùng dữ liệu để kết luận về chênh lệch tuyệt đối với mốc cũ.
+
+Sau khi A/B đạt, đã thoátPlay và **ghi đúng54slotmaterial vào file scene**, giữ nguyên mọi byte ngoài các GUID đó. Review độc lập xác nhận54/54GUIDmapping, BaseMap/ST/màu vàkeyword đúng. Commit chỉ chứa54GUIDrenderer; dòngMainCameraY có sẵn không stage. [Danh sách renderer/slot](inventory.json), [mapping vật liệu](material-map.json); đây hiện là mapping đã triển khai.
+
+Lệnh nạp lại scene từng bịMCPtimeout. Sau người dùng mở lạiUnity+StartServer, đã xác nhận native scene có54renderer facade vàisDirty=false, rồi chụp **16ảnhAFTERmới** trong Play. Các ảnhAFTERcủaRetry1 được ghi đè, không nhận ảnh cũ làm bằng chứng triển khai. Mặt tiền giữ chữ, cờ và khung kính; đêm có ô sáng ấm xen ô tối. Vùng tím/beam/pháo hoa là gameplay hiện có, giữ nguyên ngoài phạm vi.
+
+Smoke controller thực **40,00s**, quãng đường ghi nhận khoảng67,57m, tốc độAnimator tối đa6,2; vườn mở được, chuyển ngày/đêm trảglobal0/1, Consolekhônglỗi. [Tóm tắt smoke](facade-smoke.json), [di chuyển](facade-walking-smoke.png), [vườn](facade-garden-smoke.png). Inputđược cấp vàoStarterAssetsInputs; thao tácvườnquaAPIUIthật, khôngtrồng/tưới/thuhoạch. Không kiểm lại phímEvật lý; lần giả lập trước0cạnhphím nên không ghiPasschoE. Không ghiPlayerPrefs trực tiếp; các fixturecamera/player/daynight chỉ trongPlay, khôngsave vào scene.
+
+Kiểm cuối mới, chạy tách riêng: **EditMode133/133** job `e5f690e846544bc192193916bc3fff02`; **PlayMode50/50** job `c255ecd8cbb440c5a79612a7728b4f0a`. Console0error, MissingScript0cảcampus/arena/AR, isDirty=false, compilefalse, EditMode. Một lệnh bắt đầuEditMode bị ngắt do domainreload trước khi tạojob; xác nhận không cójobactive rồi chạy lại, không tính lần ngắt làPass. GameView đã trả preset/phóng lớn cũ. [Bản ghi kiểm cuối](rollout-verification.json). Không còn công việc chờ MCP trong lượt này; [bàn giao cũ đã đóng](AB-RESUME.md).
+
+|Góc|Ngày sau triển khai|Đêm sau triển khai|
+|---|---|---|
+|Sảnh|[Ảnh](lobby-AFTER-day.png)|[Ảnh](lobby-AFTER-night.png)|
+|Căn tin|[Ảnh](canteen-AFTER-day.png)|[Ảnh](canteen-AFTER-night.png)|
+|Đài phun nước|[Ảnh](fountain-AFTER-day.png)|[Ảnh](fountain-AFTER-night.png)|
+|Toàn cảnh|[Ảnh](overview-AFTER-day.png)|[Ảnh](overview-AFTER-night.png)|
+|Cận cảnh cũ|[Ảnh](close-AFTER-day.png)|[Ảnh](close-AFTER-night.png)|
+|Mặt tiền chính|[Ảnh](main-front-AFTER-day.png)|[Ảnh](main-front-AFTER-night.png)|
+|Tòa gạch đỏ|[Ảnh](brick-close-AFTER-day.png)|[Ảnh](brick-close-AFTER-night.png)|
+|Cận Căn tin|[Ảnh](canteen-close-AFTER-day.png)|[Ảnh](canteen-close-AFTER-night.png)|
+
+## Lịch sử D4 Retry — không đạt theo mốc cũ, trước khi chuyển sang A/B
 
 Đã thực hiện `Prompt_Buildings_D4_Retry.md` trên base `d44c0c0`, nhánh `minhnhat/buildings-pass`. Theo prompt, người dùng duyệt hình ngày **24/11** và nâng ngưỡng draw calls toàn cảnh lên **+70**; FPS vẫn giảm tối đa 10%, p95 tăng tối đa 10%. Ngày thực thi theo client hiện tại là 23/11/2026; mốc duyệt 24/11 ghi theo nguyên văn prompt.
 
-Đã tạo lại đúng 7 vật liệu, kiểm độc lập khớp BaseMap/scale/offset 7/7, đúng màu nguồn, mode độc quyền, instancing bật, noise 0,025, ô cửa 3,8×4,6m, màu đèn (0,55;0,38;0,19). Gán thử 54 slot trong Edit Mode **chưa lưu**, rồi vào Play để static batch đúng cấu hình. Không đổi mesh/transform/collider. 16 ảnh `*-AFTER-day/night.png` là **ảnh của lần thử không đạt**, không phải trạng thái scene được áp.
+Đã tạo lại đúng 7 vật liệu, kiểm độc lập khớp BaseMap/scale/offset 7/7, đúng màu nguồn, mode độc quyền, instancing bật, noise 0,025, ô cửa 3,8×4,6m, màu đèn (0,55;0,38;0,19). Gán thử 54 slot trong Edit Mode **chưa lưu**, rồi vào Play để static batch đúng cấu hình. Không đổi mesh/transform/collider. Ảnh Retry1 lưu tại commit52b4aae; các fileAFTER hiện tại đã được cập nhật bằng ảnh triển khaiRetry2.
 
 |Góc|FPS trước → thử lại|Giảm FPS|p95 trước → thử lại ms|Tăng p95|Draw trước → thử lại|
 |---|---:|---:|---:|---:|---:|
