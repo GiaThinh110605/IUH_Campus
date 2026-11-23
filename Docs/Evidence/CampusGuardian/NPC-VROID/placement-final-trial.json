@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Student_01",
+    "position": "(-28, 0, -20)",
+    "scale": 1.08920562,
+    "mode": "standing"
+  },
+  {
+    "name": "Student_02",
+    "position": "(-26.4, 0, -20)",
+    "scale": 0.991338968,
+    "mode": "standing"
+  },
+  {
+    "name": "Student_05",
+    "position": "(-6, 0, 46)",
+    "scale": 1.08920562,
+    "mode": "standing"
+  },
+  {
+    "name": "Student_06",
+    "position": "(-4, 0, 46)",
+    "scale": 0.991338968,
+    "mode": "standing"
+  },
+  {
+    "name": "Student_07",
+    "position": "(28, 0, -21)",
+    "scale": 0.9986138,
+    "mode": "standing"
+  },
+  {
+    "name": "Student_08",
+    "position": "(30, 0, -21)",
+    "scale": 1.08999407,
+    "mode": "standing"
+  },
+  {
+    "name": "Student_11",
+    "position": "(-30, 0, 19.4082184)",
+    "scale": 0.9986138,
+    "mode": "walking"
+  },
+  {
+    "name": "Student_12",
+    "position": "(24, 0, -25.9645424)",
+    "scale": 1.08999407,
+    "mode": "walking"
+  }
+]

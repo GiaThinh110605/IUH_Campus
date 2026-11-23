@@ -1,0 +1,13 @@
+{
+  "seconds": 40.00055,
+  "crossStartX": -29,
+  "crossEndX": -23.95874,
+  "crossedGroup": true,
+  "npcColliders": 0,
+  "blockedDisplacement": 0.0,
+  "unblockedMaxDisplacement": 4.55465126,
+  "gardenOpened": true,
+  "dayGlobal": 0.0,
+  "nightGlobal": 1.0,
+  "physicalE": "not repeated; no Pass claimed"
+}

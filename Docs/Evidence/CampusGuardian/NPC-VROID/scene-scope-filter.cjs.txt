@@ -1,0 +1,14 @@
+const fs=require('fs'),cp=require('child_process');const path='Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity';
+const base=cp.execFileSync('git',['show','HEAD:'+path],{encoding:'utf8',maxBuffer:30e6}).replace(/\r\n/g,'\n');const saved=fs.readFileSync(path,'utf8').replace(/\r\n/g,'\n');
+const parse=s=>{const c=s.split(/(?=^--- !u!)/m);return [c.shift(),c.map(doc=>[doc.match(/^--- !u!\d+ &(-?\d+)/)[1],doc])];};
+const [prefix,old]=parse(base),[,current]=parse(saved),ids=new Set(old.map(([id])=>id)),added=current.filter(([id])=>!ids.has(id));
+const rootGo=added.find(([,doc])=>doc.includes('\n  m_Name: NPC_STUDENTS\n'));if(!rootGo)throw Error('Missing NPC root');const rootTr=added.find(([,doc])=>doc.startsWith('--- !u!4 ')&&doc.includes('m_GameObject: {fileID: '+rootGo[0]+'}'));
+const prefabIds=new Set([1,2,3,4].map(i=>fs.readFileSync('Assets/IUH_Campus/Prefabs/NPC/PF_NPC_VRoid_0'+i+'.prefab.meta','utf8').match(/^guid: (\w+)/m)[1]));
+const allowed=new Set([rootGo[0],rootTr[0]]);
+for(const [id,doc]of added)if([...prefabIds].some(g=>doc.includes(g)))allowed.add(id);
+let changed=true;while(changed){changed=false;for(const [id,doc]of added){if(allowed.has(id))continue;const owner=doc.match(/m_PrefabInstance: \{fileID: (\d+)\}/);const referenced=added.some(([other,d])=>allowed.has(other)&&d.includes('{fileID: '+id+'}'));if(doc.split('\n')[0].includes('stripped')&&owner&&(allowed.has(owner[1])||(ids.has(owner[1])&&referenced))){allowed.add(id);changed=true;}}}
+for(const [id]of added)if(!allowed.has(id))throw Error('Unrelated new document '+id);
+let rootAdded=false,staticChanged=false;let result=prefix+old.map(([id,doc])=>{if(doc.includes('\n  m_Name: Students in courtyard_102\n')){staticChanged=true;return doc.replace('  m_IsActive: 1','  m_IsActive: 0');}if(doc.startsWith('--- !u!1660057539 ')){rootAdded=true;return added.map(([,d])=>d).join('')+doc.trimEnd()+'\n  - {fileID: '+rootTr[0]+'}\n';}return doc;}).join('');
+if(!rootAdded||!staticChanged)throw Error('Missing scene modifications');
+fs.writeFileSync('Temp/NPC-canonical-index.unity',result);fs.writeFileSync('Temp/NPC-canonical-working.unity',result.replace('value: 2.2066925','value: 3.2066925'));
+console.log(JSON.stringify({addedDocuments:added.length,sceneRoot:rootTr[0],staticChanged,otherOldDocuments:'preserved fromHEAD',newPrefabInstances:added.filter(([,d])=>d.startsWith('--- !u!1001 ')).length}));
