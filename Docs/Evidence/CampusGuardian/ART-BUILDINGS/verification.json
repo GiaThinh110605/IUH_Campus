@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "timezone": "Asia/Bangkok",
+  "base_commit": "3274980",
+  "environment": "Unity 6000.5.8f1 Windows Editor, URP, Direct3D12, RTX3060 Laptop GPU",
+  "EditMode": {"runner": "Unity TestRunnerApi direct", "run_id": "8390863f-b9d1-4bc9-b4b3-925425715172", "passed": 133, "failed": 0, "skipped": 0, "evidence": "EditMode-final.xml"},
+  "PlayMode": {"job": "ac11376e2b8e4efb999be57b6d563cba", "passed": 50, "failed": 0},
+  "MCP_EditMode_initialization_timeouts": ["3f16bb1b03d74bdb8093b8c381c804d1", "25d8d3dea4864a48a43a1105855bfb4b"],
+  "missing_scripts": {"campus": 0, "arena": 0, "AR": 0},
+  "console_errors_final": 0,
+  "scene_dirty": false,
+  "play_mode_final": false,
+  "D4": "Skipped: overview draw calls +55 exceeds +40 after two optimization rounds; scene discarded; all 7 new trial materials deleted",
+  "renderer_slots_changed_in_final_scene": 0,
+  "physical_E_interaction": "Not verified: injected E edges=0; API combat/Flee verified",
+  "review": "Independent static review; exclusive shader modes and disabled transition global issues fixed with tests",
+  "push": false
+}

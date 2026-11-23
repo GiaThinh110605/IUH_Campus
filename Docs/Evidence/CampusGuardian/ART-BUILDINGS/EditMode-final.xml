@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="133" result="Passed" total="133" passed="133" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:20:01Z" duration="2.4191512">
+  <test-suite type="TestSuite" id="1000" name="IUH_Campus" fullname="IUH_Campus" runstate="Runnable" testcasecount="133" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:20:01Z" duration="2.419151" total="133" passed="133" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1010" name="Assembly-CSharp-Editor.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.040082" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1011" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.039273" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1012" name="Editor" fullname="IUHCampus.Editor" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.038812" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="IUHARVisionTests" fullname="IUHCampus.Editor.IUHARVisionTests" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.037414" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1007" name="Test_Backpack_DetectedAsBackpack" fullname="IUHCampus.Editor.IUHARVisionTests.Test_Backpack_DetectedAsBackpack" methodname="Test_Backpack_DetectedAsBackpack" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="265459847" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.015072" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_Backpack_DetectedAsBackpack: ĐÃ KHÓA MỤC TIÊU: BALO THẬT (92%)
+]]></output>
+            </test-case>
+            <test-case id="1004" name="Test_Laptop_DarkThemeIDE_DetectedAsLaptop" fullname="IUHCampus.Editor.IUHARVisionTests.Test_Laptop_DarkThemeIDE_DetectedAsLaptop" methodname="Test_Laptop_DarkThemeIDE_DetectedAsLaptop" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="1564770311" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000902" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_Laptop_DarkThemeIDE: ĐÃ KHÓA MỤC TIÊU: LAPTOP / MÁY TÍNH THẬT (98%)
+]]></output>
+            </test-case>
+            <test-case id="1003" name="Test_Laptop_Keyboard_DetectedAsLaptop" fullname="IUHCampus.Editor.IUHARVisionTests.Test_Laptop_Keyboard_DetectedAsLaptop" methodname="Test_Laptop_Keyboard_DetectedAsLaptop" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="1604716310" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000730" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_Laptop_Keyboard: ĐÃ KHÓA MỤC TIÊU: LAPTOP / MÁY TÍNH THẬT (98%)
+]]></output>
+            </test-case>
+            <test-case id="1002" name="Test_Laptop_ScreenShowingWebOrDocument_DetectedAsLaptop_NotBook" fullname="IUHCampus.Editor.IUHARVisionTests.Test_Laptop_ScreenShowingWebOrDocument_DetectedAsLaptop_NotBook" methodname="Test_Laptop_ScreenShowingWebOrDocument_DetectedAsLaptop_NotBook" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="675276424" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.002387" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_Laptop_ScreenShowingWebOrDocument: ĐÃ KHÓA MỤC TIÊU: LAPTOP / MÁY TÍNH THẬT (94%)
+]]></output>
+            </test-case>
+            <test-case id="1005" name="Test_PhysicalBook_DetectedAsBook_WhenTargetIsBook" fullname="IUHCampus.Editor.IUHARVisionTests.Test_PhysicalBook_DetectedAsBook_WhenTargetIsBook" methodname="Test_PhysicalBook_DetectedAsBook_WhenTargetIsBook" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="393820205" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000630" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_PhysicalBook_DetectedAsBook: ĐÃ KHÓA MỤC TIÊU: SÁCH GIÁO TRÌNH (98%)
+]]></output>
+            </test-case>
+            <test-case id="1006" name="Test_PhysicalBook_RejectedAsLaptop_WhenTargetIsLaptop" fullname="IUHCampus.Editor.IUHARVisionTests.Test_PhysicalBook_RejectedAsLaptop_WhenTargetIsLaptop" methodname="Test_PhysicalBook_RejectedAsLaptop_WhenTargetIsLaptop" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="1402267591" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000805" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_PhysicalBook_RejectedAsLaptop: KHÔNG PHẢI LAPTOP! Đây là Sách / Trang Giấy Trắng. Hãy hướng camera vào Màn hình & Bàn phím Laptop.
+]]></output>
+            </test-case>
+            <test-case id="1008" name="Test_PlainWall_RejectedForAllTargets" fullname="IUHCampus.Editor.IUHARVisionTests.Test_PlainWall_RejectedForAllTargets" methodname="Test_PlainWall_RejectedForAllTargets" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="448772105" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000660" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_PlainWall_RejectedForAllTargets: Đã chặn thành công vách tường trên cả 3 mục tiêu.
+]]></output>
+            </test-case>
+            <test-case id="1009" name="Test_SynthesizedPixels_LaptopScreenWithBezel" fullname="IUHCampus.Editor.IUHARVisionTests.Test_SynthesizedPixels_LaptopScreenWithBezel" methodname="Test_SynthesizedPixels_LaptopScreenWithBezel" classname="IUHCampus.Editor.IUHARVisionTests" runstate="Runnable" seed="1896824699" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.001948" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[PASS] Test_SynthesizedPixels_LaptopScreenWithBezel: ĐÃ KHÓA MỤC TIÊU: LAPTOP / MÁY TÍNH THẬT (98%)
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1028" name="IUHCampus.Garden.Tests.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/IUHCampus.Garden.Tests.dll" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.018890" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1029" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.018169" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1030" name="Garden" fullname="IUHCampus.Garden" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.017748" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1013" name="GardenBedTests" fullname="IUHCampus.Garden.GardenBedTests" classname="IUHCampus.Garden.GardenBedTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.010875" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1017" name="ClockRollbackAndLongAbsenceAdvanceAtMostOneStage" fullname="IUHCampus.Garden.GardenBedTests.ClockRollbackAndLongAbsenceAdvanceAtMostOneStage" methodname="ClockRollbackAndLongAbsenceAdvanceAtMostOneStage" classname="IUHCampus.Garden.GardenBedTests" runstate="Runnable" seed="1478360305" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.006101" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1016" name="FullCycle" fullname="IUHCampus.Garden.GardenBedTests.FullCycle" classname="IUHCampus.Garden.GardenBedTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.002399" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1014" name="FullCycle(False,30)" fullname="IUHCampus.Garden.GardenBedTests.FullCycle(False,30)" methodname="FullCycle" classname="IUHCampus.Garden.GardenBedTests" runstate="Runnable" seed="1844332856" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.001333" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1015" name="FullCycle(True,45)" fullname="IUHCampus.Garden.GardenBedTests.FullCycle(True,45)" methodname="FullCycle" classname="IUHCampus.Garden.GardenBedTests" runstate="Runnable" seed="1737275212" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1018" name="GardenSaveTests" fullname="IUHCampus.Garden.GardenSaveTests" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.006344" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1027" name="InvalidSaveReturnsEmptyBeds" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.002532" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1020" name="InvalidSaveReturnsEmptyBeds(null)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(null)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="986581146" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.001336" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="InvalidSaveReturnsEmptyBeds(&quot;&quot;)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(&quot;&quot;)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="1149577150" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="InvalidSaveReturnsEmptyBeds(&quot;abc&quot;)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(&quot;abc&quot;)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="1184572391" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000036" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="InvalidSaveReturnsEmptyBeds(&quot;v9|0,0,0&quot;)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(&quot;v9|0,0,0&quot;)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="1445140036" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000043" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1024" name="InvalidSaveReturnsEmptyBeds(&quot;v1|0,0,0;1,0,0;3,0,1&quot;)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(&quot;v1|0,0,0;1,0,0;3,0,1&quot;)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="1538026812" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000034" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1025" name="InvalidSaveReturnsEmptyBeds(&quot;v1|0,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0&quot;)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(&quot;v1|0,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0&quot;)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="496996594" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000032" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="InvalidSaveReturnsEmptyBeds(&quot;v1|9,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0&quot;)" fullname="IUHCampus.Garden.GardenSaveTests.InvalidSaveReturnsEmptyBeds(&quot;v1|9,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0&quot;)" methodname="InvalidSaveReturnsEmptyBeds" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="172968006" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.000034" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1019" name="SaveRoundTrip" fullname="IUHCampus.Garden.GardenSaveTests.SaveRoundTrip" methodname="SaveRoundTrip" classname="IUHCampus.Garden.GardenSaveTests" runstate="Runnable" seed="2040143899" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.002750" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1102" name="IUHCampus.Guardian.Backend.Tests.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/IUHCampus.Guardian.Backend.Tests.dll" runstate="Runnable" testcasecount="58" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.667823" total="58" passed="58" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1103" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="58" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.666541" total="58" passed="58" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1104" name="Guardian" fullname="IUHCampus.Guardian" runstate="Runnable" testcasecount="58" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.665681" total="58" passed="58" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1105" name="Backend" fullname="IUHCampus.Guardian.Backend" runstate="Runnable" testcasecount="58" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.664883" total="58" passed="58" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1106" name="Tests" fullname="IUHCampus.Guardian.Backend.Tests" runstate="Runnable" testcasecount="58" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.664004" total="58" passed="58" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1031" name="BackendAvailabilityTests" fullname="IUHCampus.Guardian.Backend.Tests.BackendAvailabilityTests" classname="IUHCampus.Guardian.Backend.Tests.BackendAvailabilityTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.001991" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1032" name="IndependentRuntimeAssemblyExists" fullname="IUHCampus.Guardian.Backend.Tests.BackendAvailabilityTests.IndependentRuntimeAssemblyExists" methodname="IndependentRuntimeAssemblyExists" classname="IUHCampus.Guardian.Backend.Tests.BackendAvailabilityTests" runstate="Runnable" seed="1651155744" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.001057" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1033" name="GuardianBackendTests" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.296813" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1047" name="BackoffDoublesThenCaps" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.BackoffDoublesThenCaps" methodname="BackoffDoublesThenCaps" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1354260965" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.068439" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1042" name="ClientMapsHttpAndTimeout" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ClientMapsHttpAndTimeout" methodname="ClientMapsHttpAndTimeout" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1325087307" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.006754" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1046" name="ConcurrentFlushDoesNotSendTwice" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ConcurrentFlushDoesNotSendTwice" methodname="ConcurrentFlushDoesNotSendTwice" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="879735780" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:58Z" duration="0.013386" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1049" name="CorruptQueuePreservedAsBackup" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.CorruptQueuePreservedAsBackup" methodname="CorruptQueuePreservedAsBackup" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1912437580" result="Passed" start-time="2026-11-22 19:19:58Z" end-time="2026-11-22 19:19:59Z" duration="0.005249" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[[IUH Guardian] Corrupt backend outbox backed up; starting an empty queue.
+]]></output>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1053" name="EncoderDimensions" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.004842" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1050" name="EncoderDimensions(1920,1080,640,360)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions(1920,1080,640,360)" methodname="EncoderDimensions" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1515366392" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.002341" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1051" name="EncoderDimensions(1080,1920,360,640)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions(1080,1920,360,640)" methodname="EncoderDimensions" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="771687695" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000846" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1052" name="EncoderDimensions(320,160,320,160)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderDimensions(320,160,320,160)" methodname="EncoderDimensions" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1138275655" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000825" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1054" name="EncoderProducesIndependentJpegAndRestoresRenderTarget" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EncoderProducesIndependentJpegAndRestoresRenderTarget" methodname="EncoderProducesIndependentJpegAndRestoresRenderTarget" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="493335730" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.020090" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1034" name="EventSchemasMatchBackendWhitelists" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.EventSchemasMatchBackendWhitelists" methodname="EventSchemasMatchBackendWhitelists" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1700806310" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.014589" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1039" name="InvalidUpgradeRejectedLocally" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.InvalidUpgradeRejectedLocally" methodname="InvalidUpgradeRejectedLocally" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1355924172" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.002453" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1045" name="OutboxRejectedOnlyOnce" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.OutboxRejectedOnlyOnce" methodname="OutboxRejectedOnlyOnce" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1689950514" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.040012" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[[IUH Guardian] Backend event rejected: 1697378f-9ef5-4b6f-b7dd-95b5e72c89ab (Conflict).
+[IUH Guardian] Backend event rejected: 148d434b-5e65-4ebd-bdc3-cd69df5093ea (Invalid).
+]]></output>
+                </test-case>
+                <test-case id="1044" name="OutboxRestartBackoffAndFifo" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.OutboxRestartBackoffAndFifo" methodname="OutboxRestartBackoffAndFifo" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="640669556" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.046099" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1043" name="PredictionAndHealthMapping" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.PredictionAndHealthMapping" methodname="PredictionAndHealthMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="2016681533" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.013483" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1040" name="ScanConfidenceAtThresholdDoesNotRoundBelowBackendMinimum" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ScanConfidenceAtThresholdDoesNotRoundBelowBackendMinimum" methodname="ScanConfidenceAtThresholdDoesNotRoundBelowBackendMinimum" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="216140539" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.003744" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1048" name="TransientRetriesAndCancellation" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.TransientRetriesAndCancellation" methodname="TransientRetriesAndCancellation" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="549433515" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.046800" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1041" name="UrlOverrideAndValidation" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.UrlOverrideAndValidation" methodname="UrlOverrideAndValidation" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1935493542" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001594" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1038" name="ValidUpgrade" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.003947" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1035" name="ValidUpgrade(&quot;attack&quot;,1)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade(&quot;attack&quot;,1)" methodname="ValidUpgrade" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="534401477" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001201" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1036" name="ValidUpgrade(&quot;defense&quot;,2)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade(&quot;defense&quot;,2)" methodname="ValidUpgrade" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1767488540" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000904" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1037" name="ValidUpgrade(&quot;vitality&quot;,1)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests.ValidUpgrade(&quot;vitality&quot;,1)" methodname="ValidUpgrade" classname="IUHCampus.Guardian.Backend.Tests.GuardianBackendTests" runstate="Runnable" seed="1191889387" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001026" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+              <test-suite type="TestFixture" id="1055" name="GuardianCombatReportTests" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" testcasecount="14" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.005927" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1072" name="EachCallCreatesANewEventId" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.EachCallCreatesANewEventId" methodname="EachCallCreatesANewEventId" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1226736400" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000943" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1071" name="IdentifierLengthBoundariesAreEnforced" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.IdentifierLengthBoundariesAreEnforced" methodname="IdentifierLengthBoundariesAreEnforced" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="681222243" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000406" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1065" name="InvalidMilestoneReturnsNull" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001329" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1059" name="InvalidMilestoneReturnsNull(null)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(null)" methodname="InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1019889691" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000221" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1060" name="InvalidMilestoneReturnsNull(&quot;&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(&quot;&quot;)" methodname="InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1666652878" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000034" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1061" name="InvalidMilestoneReturnsNull(&quot;campus d&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(&quot;campus d&quot;)" methodname="InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="128075471" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000028" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1062" name="InvalidMilestoneReturnsNull(&quot;campus/d&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(&quot;campus/d&quot;)" methodname="InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="154878619" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000025" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1063" name="InvalidMilestoneReturnsNull(&quot;campus_d\n&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(&quot;campus_d\n&quot;)" methodname="InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1463166361" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000027" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1064" name="InvalidMilestoneReturnsNull(&quot;khu_đ&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidMilestoneReturnsNull(&quot;khu_đ&quot;)" methodname="InvalidMilestoneReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1047259464" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000027" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1070" name="InvalidQuestReturnsNull" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000914" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1066" name="InvalidQuestReturnsNull(null)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(null)" methodname="InvalidQuestReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="679752511" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000119" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1067" name="InvalidQuestReturnsNull(&quot;&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(&quot;&quot;)" methodname="InvalidQuestReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1225454804" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000029" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1068" name="InvalidQuestReturnsNull(&quot;invalid quest&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(&quot;invalid quest&quot;)" methodname="InvalidQuestReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="667839450" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000026" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1069" name="InvalidQuestReturnsNull(&quot;campus\n&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.InvalidQuestReturnsNull(&quot;campus\n&quot;)" methodname="InvalidQuestReturnsNull" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="879685061" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000027" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1058" name="OutcomeCreatesEventWithoutRewardPayload" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.OutcomeCreatesEventWithoutRewardPayload" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000933" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1056" name="OutcomeCreatesEventWithoutRewardPayload(True,&quot;combat_won&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.OutcomeCreatesEventWithoutRewardPayload(True,&quot;combat_won&quot;)" methodname="OutcomeCreatesEventWithoutRewardPayload" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1717326792" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000396" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1057" name="OutcomeCreatesEventWithoutRewardPayload(False,&quot;combat_lost&quot;)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests.OutcomeCreatesEventWithoutRewardPayload(False,&quot;combat_lost&quot;)" methodname="OutcomeCreatesEventWithoutRewardPayload" classname="IUHCampus.Guardian.Backend.Tests.GuardianCombatReportTests" runstate="Runnable" seed="1628106640" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000052" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+              <test-suite type="TestFixture" id="1073" name="GuardianOutboxRetryTests" fullname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests" classname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.320651" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1077" name="InvalidHeadIsRejectedAndNextEventSendsInSameFlush" fullname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests.InvalidHeadIsRejectedAndNextEventSendsInSameFlush" methodname="InvalidHeadIsRejectedAndNextEventSendsInSameFlush" classname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests" runstate="Runnable" seed="1669031746" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.039215" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[[IUH Guardian] Backend event rejected: ad13a749-d307-4afd-a35f-aaabdc07ad41 (Invalid).
+]]></output>
+                </test-case>
+                <test-case id="1076" name="LegacyAttemptEightSnapshotCanDrain" fullname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests.LegacyAttemptEightSnapshotCanDrain" methodname="LegacyAttemptEightSnapshotCanDrain" classname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests" runstate="Runnable" seed="1105594240" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.029319" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1075" name="ServerRetriesKeepPendingAndBackoffCapped" fullname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests.ServerRetriesKeepPendingAndBackoffCapped" methodname="ServerRetriesKeepPendingAndBackoffCapped" classname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests" runstate="Runnable" seed="1702093365" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.113367" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1074" name="TenNetworkErrorsStayPendingThenDrainFifo" fullname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests.TenNetworkErrorsStayPendingThenDrainFifo" methodname="TenNetworkErrorsStayPendingThenDrainFifo" classname="IUHCampus.Guardian.Backend.Tests.GuardianOutboxRetryTests" runstate="Runnable" seed="185300026" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.137339" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1078" name="GuardianScanTests" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.037128" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1101" name="FakeAndToken" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FakeAndToken" methodname="FakeAndToken" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1374166636" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.006390" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1095" name="FrameMapping" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.012020" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1087" name="FrameMapping(200,&quot;{\&quot;scan\&quot;:{\&quot;label\&quot;:\&quot;laptop\&quot;,\&quot;result\&quot;:\&quot;infested\&quot;,\&quot;monster_token\&quot;:\&quot;tok\&quot;,\&quot;monsters_remaining\&quot;:1},\&quot;detections\&quot;:[{\&quot;label\&quot;:\&quot;laptop\&quot;,\&quot;confidence\&quot;:0.9}],\&quot;inference_time_ms\&quot;:12}&quot;,Infested)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,&quot;{\&quot;scan\&quot;:{\&quot;label\&quot;:\&quot;laptop\&quot;,\&quot;result\&quot;:\&quot;infested\&quot;,\&quot;monster_token\&quot;:\&quot;tok\&quot;,\&quot;monsters_remaining\&quot;:1},\&quot;detections\&quot;:[{\&quot;label\&quot;:\&quot;laptop\&quot;,\&quot;confidence\&quot;:0.9}],\&quot;inference_time_ms\&quot;:12}&quot;,Infested)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1262373667" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.004637" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1088" name="FrameMapping(200,&quot;{\&quot;scan\&quot;:{\&quot;label\&quot;:\&quot;chair\&quot;,\&quot;result\&quot;:\&quot;clean\&quot;}}&quot;,Clean)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,&quot;{\&quot;scan\&quot;:{\&quot;label\&quot;:\&quot;chair\&quot;,\&quot;result\&quot;:\&quot;clean\&quot;}}&quot;,Clean)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1227500179" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000892" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1089" name="FrameMapping(200,&quot;{\&quot;scan\&quot;:{\&quot;result\&quot;:\&quot;none\&quot;}}&quot;,NoObject)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,&quot;{\&quot;scan\&quot;:{\&quot;result\&quot;:\&quot;none\&quot;}}&quot;,NoObject)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="865216912" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000853" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1090" name="FrameMapping(404,&quot;{\&quot;error\&quot;:\&quot;scan_session_not_found\&quot;}&quot;,SessionNotFound)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(404,&quot;{\&quot;error\&quot;:\&quot;scan_session_not_found\&quot;}&quot;,SessionNotFound)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1082956985" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000836" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1091" name="FrameMapping(410,&quot;{\&quot;error\&quot;:\&quot;scan_session_expired\&quot;}&quot;,SessionExpired)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(410,&quot;{\&quot;error\&quot;:\&quot;scan_session_expired\&quot;}&quot;,SessionExpired)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="945582612" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000800" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1092" name="FrameMapping(503,&quot;{}&quot;,ServerError)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(503,&quot;{}&quot;,ServerError)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1275989972" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000813" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1093" name="FrameMapping(200,&quot;{}&quot;,ServerError)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(200,&quot;{}&quot;,ServerError)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="514989979" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000897" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1094" name="FrameMapping(0,&quot;&quot;,NetworkError)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.FrameMapping(0,&quot;&quot;,NetworkError)" methodname="FrameMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1713715629" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000826" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1099" name="GetSessionMapping" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.006689" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1096" name="GetSessionMapping(200,&quot;{\&quot;scan_session_id\&quot;:\&quot;id\&quot;,\&quot;expires_at\&quot;:\&quot;date\&quot;,\&quot;monsters_remaining\&quot;:1}&quot;,Found)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping(200,&quot;{\&quot;scan_session_id\&quot;:\&quot;id\&quot;,\&quot;expires_at\&quot;:\&quot;date\&quot;,\&quot;monsters_remaining\&quot;:1}&quot;,Found)" methodname="GetSessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="600350709" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.004330" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1097" name="GetSessionMapping(404,&quot;{\&quot;error\&quot;:\&quot;scan_session_not_found\&quot;}&quot;,SessionNotFound)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping(404,&quot;{\&quot;error\&quot;:\&quot;scan_session_not_found\&quot;}&quot;,SessionNotFound)" methodname="GetSessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="532076121" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000813" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1098" name="GetSessionMapping(410,&quot;{\&quot;error\&quot;:\&quot;scan_session_expired\&quot;}&quot;,SessionExpired)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.GetSessionMapping(410,&quot;{\&quot;error\&quot;:\&quot;scan_session_expired\&quot;}&quot;,SessionExpired)" methodname="GetSessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1680737706" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000782" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1086" name="SessionMapping" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.007265" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1079" name="SessionMapping(201,&quot;{\&quot;scan_session_id\&quot;:\&quot;id\&quot;,\&quot;hint\&quot;:\&quot;h\&quot;,\&quot;expires_at\&quot;:\&quot;date\&quot;,\&quot;max_monsters\&quot;:2}&quot;,Created)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(201,&quot;{\&quot;scan_session_id\&quot;:\&quot;id\&quot;,\&quot;hint\&quot;:\&quot;h\&quot;,\&quot;expires_at\&quot;:\&quot;date\&quot;,\&quot;max_monsters\&quot;:2}&quot;,Created)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="2120413070" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001530" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1080" name="SessionMapping(409,&quot;{\&quot;error\&quot;:\&quot;scan_session_active\&quot;,\&quot;scan_session_id\&quot;:\&quot;id\&quot;}&quot;,ActiveExists)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(409,&quot;{\&quot;error\&quot;:\&quot;scan_session_active\&quot;,\&quot;scan_session_id\&quot;:\&quot;id\&quot;}&quot;,ActiveExists)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1605229671" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000820" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1081" name="SessionMapping(429,&quot;{\&quot;error\&quot;:\&quot;scan_cooldown\&quot;}&quot;,Cooldown)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(429,&quot;{\&quot;error\&quot;:\&quot;scan_cooldown\&quot;}&quot;,Cooldown)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="2045869162" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000778" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1082" name="SessionMapping(429,&quot;{\&quot;error\&quot;:\&quot;scan_limit_reached\&quot;}&quot;,LimitReached)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(429,&quot;{\&quot;error\&quot;:\&quot;scan_limit_reached\&quot;}&quot;,LimitReached)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="246701564" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000744" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1083" name="SessionMapping(500,&quot;{}&quot;,ServerError)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(500,&quot;{}&quot;,ServerError)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1826480946" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000739" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1084" name="SessionMapping(200,&quot;bad json&quot;,ServerError)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(200,&quot;bad json&quot;,ServerError)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="146327082" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000777" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1085" name="SessionMapping(0,&quot;&quot;,NetworkError)" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.SessionMapping(0,&quot;&quot;,NetworkError)" methodname="SessionMapping" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1984565776" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000776" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1100" name="StabilizerAndThrottle" fullname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests.StabilizerAndThrottle" methodname="StabilizerAndThrottle" classname="IUHCampus.Guardian.Backend.Tests.GuardianScanTests" runstate="Runnable" seed="1503699496" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000994" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1125" name="IUHCampus.Guardian.Match3.Tests.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/IUHCampus.Guardian.Match3.Tests.dll" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.020013" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1126" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.019574" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1127" name="Guardian" fullname="IUHCampus.Guardian" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.019165" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1128" name="Match3" fullname="IUHCampus.Guardian.Match3" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.018760" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1129" name="Tests" fullname="IUHCampus.Guardian.Match3.Tests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.018321" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1107" name="Match3BoardModelTests" fullname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" classname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.011894" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1108" name="Board_Is6x5_AndStartsWithoutMatches" fullname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.Board_Is6x5_AndStartsWithoutMatches" methodname="Board_Is6x5_AndStartsWithoutMatches" classname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" runstate="Runnable" seed="1318527444" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.005808" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1109" name="Board_UsesAllFiveTileTypes" fullname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.Board_UsesAllFiveTileTypes" methodname="Board_UsesAllFiveTileTypes" classname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" runstate="Runnable" seed="43171641" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000207" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1112" name="ProcessStep_CountsPurifyInOverlappingBlastAreasOnce" fullname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_CountsPurifyInOverlappingBlastAreasOnce" methodname="ProcessStep_CountsPurifyInOverlappingBlastAreasOnce" classname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" runstate="Runnable" seed="1116559240" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.004124" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1110" name="ProcessStep_CountsPurifyTiles" fullname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_CountsPurifyTiles" methodname="ProcessStep_CountsPurifyTiles" classname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" runstate="Runnable" seed="40828544" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000343" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1111" name="ProcessStep_ReportsLineOfFour" fullname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests.ProcessStep_ReportsLineOfFour" methodname="ProcessStep_ReportsLineOfFour" classname="IUHCampus.Guardian.Match3.Tests.Match3BoardModelTests" runstate="Runnable" seed="680624010" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000192" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1113" name="Match3CombatRulesTests" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.005793" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1122" name="BossAtZero_IsVictory_AndStopsBossTurn" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.BossAtZero_IsVictory_AndStopsBossTurn" methodname="BossAtZero_IsVictory_AndStopsBossTurn" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="734552860" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001280" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1116" name="ComboMultiplier_IsCapped" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.ComboMultiplier_IsCapped" methodname="ComboMultiplier_IsCapped" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="1861787648" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000657" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1120" name="Heal_AndEnergy_AreClamped" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Heal_AndEnergy_AreClamped" methodname="Heal_AndEnergy_AreClamped" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="1826953102" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000241" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1123" name="PlayerAtZero_IsDefeat" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.PlayerAtZero_IsDefeat" methodname="PlayerAtZero_IsDefeat" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="637230171" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000165" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1118" name="Purify_ReducesIntent_AndDealsSmallDamage" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Purify_ReducesIntent_AndDealsSmallDamage" methodname="Purify_ReducesIntent_AndDealsSmallDamage" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="1674699738" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000185" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1117" name="Shield_AbsorbsBossHit_ThenResets" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Shield_AbsorbsBossHit_ThenResets" methodname="Shield_AbsorbsBossHit_ThenResets" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="800260024" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000194" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1121" name="Skill_SpendsEnergy_AndHitsBoss" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.Skill_SpendsEnergy_AndHitsBoss" methodname="Skill_SpendsEnergy_AndHitsBoss" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="1553667845" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000240" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1114" name="StartsAt1000vs800" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.StartsAt1000vs800" methodname="StartsAt1000vs800" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="566153666" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000164" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1115" name="SwordDamage_ScalesWithCombo_AndBigMatch" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.SwordDamage_ScalesWithCombo_AndBigMatch" methodname="SwordDamage_ScalesWithCombo_AndBigMatch" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="424897675" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000232" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1119" name="ThirdBossTurn_IsCharged" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.ThirdBossTurn_IsCharged" methodname="ThirdBossTurn_IsCharged" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="85628760" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000185" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1124" name="TimeOut_IsDefeat" fullname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests.TimeOut_IsDefeat" methodname="TimeOut_IsDefeat" classname="IUHCampus.Guardian.Match3.Tests.Match3CombatRulesTests" runstate="Runnable" seed="403120862" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000159" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1156" name="IUHCampus.Guardian.Story.Tests.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/IUHCampus.Guardian.Story.Tests.dll" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.520813" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1157" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.520272" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1158" name="Guardian" fullname="IUHCampus.Guardian" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.519801" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1159" name="Story" fullname="IUHCampus.Guardian.Story" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.519317" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1160" name="Tests" fullname="IUHCampus.Guardian.Story.Tests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.518785" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1130" name="AftershockScheduleTests" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.005094" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1134" name="CompleteSchedulesWithinRange" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests.CompleteSchedulesWithinRange" methodname="CompleteSchedulesWithinRange" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" seed="189641790" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001747" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1132" name="DoesNotCountWhenBlocked" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests.DoesNotCountWhenBlocked" methodname="DoesNotCountWhenBlocked" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" seed="538668354" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000496" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1131" name="FirstAftershockAfter120Seconds" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests.FirstAftershockAfter120Seconds" methodname="FirstAftershockAfter120Seconds" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" seed="2083844402" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000160" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1133" name="NoNewAftershockWhileActive" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests.NoNewAftershockWhileActive" methodname="NoNewAftershockWhileActive" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" seed="1117343875" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000129" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1136" name="PickEncountersReturnsOneOrTwoDistinct" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests.PickEncountersReturnsOneOrTwoDistinct" methodname="PickEncountersReturnsOneOrTwoDistinct" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" seed="255887498" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000950" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1135" name="PickZoneAvoidsLast" fullname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests.PickZoneAvoidsLast" methodname="PickZoneAvoidsLast" classname="IUHCampus.Guardian.Story.Tests.AftershockScheduleTests" runstate="Runnable" seed="2097261414" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000365" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1137" name="StoryProgressTests" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.006131" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1142" name="Chapter_CompletesOnlyWhenAllDefeated" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Chapter_CompletesOnlyWhenAllDefeated" methodname="Chapter_CompletesOnlyWhenAllDefeated" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="195081135" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000917" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1138" name="CheckIns_MustBeInOrder" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.CheckIns_MustBeInOrder" methodname="CheckIns_MustBeInOrder" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="574403316" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000143" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1151" name="Deserialize_DropsUnknownIds" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_DropsUnknownIds" methodname="Deserialize_DropsUnknownIds" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="1449206300" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001262" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1150" name="Deserialize_GarbageReturnsFresh" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_GarbageReturnsFresh" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.001163" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1145" name="Deserialize_GarbageReturnsFresh(null)" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_GarbageReturnsFresh(null)" methodname="Deserialize_GarbageReturnsFresh" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="1510601909" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000244" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1146" name="Deserialize_GarbageReturnsFresh(&quot;&quot;)" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_GarbageReturnsFresh(&quot;&quot;)" methodname="Deserialize_GarbageReturnsFresh" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="188750443" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000047" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1147" name="Deserialize_GarbageReturnsFresh(&quot;garbage&quot;)" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_GarbageReturnsFresh(&quot;garbage&quot;)" methodname="Deserialize_GarbageReturnsFresh" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="1531735655" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000032" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1148" name="Deserialize_GarbageReturnsFresh(&quot;v1|Chapter|99|3|&quot;)" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_GarbageReturnsFresh(&quot;v1|Chapter|99|3|&quot;)" methodname="Deserialize_GarbageReturnsFresh" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="1956307094" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000034" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1149" name="Deserialize_GarbageReturnsFresh(&quot;v9|Ending|0|0|&quot;)" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_GarbageReturnsFresh(&quot;v9|Ending|0|0|&quot;)" methodname="Deserialize_GarbageReturnsFresh" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="750805494" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000030" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1144" name="Deserialize_RestoresDefeatedIds" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Deserialize_RestoresDefeatedIds" methodname="Deserialize_RestoresDefeatedIds" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="2050827135" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000451" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1141" name="Encounter_FromOtherChapter_Ignored" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Encounter_FromOtherChapter_Ignored" methodname="Encounter_FromOtherChapter_Ignored" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="453735419" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000118" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1140" name="Encounters_IgnoredBeforeChapters" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.Encounters_IgnoredBeforeChapters" methodname="Encounters_IgnoredBeforeChapters" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="613927299" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000103" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1143" name="LastChapter_GoesToEnding_ThenCompleted" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.LastChapter_GoesToEnding_ThenCompleted" methodname="LastChapter_GoesToEnding_ThenCompleted" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="1888089302" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1139" name="LastCheckIn_GoesToIncident" fullname="IUHCampus.Guardian.Story.Tests.StoryProgressTests.LastCheckIn_GoesToIncident" methodname="LastCheckIn_GoesToIncident" classname="IUHCampus.Guardian.Story.Tests.StoryProgressTests" runstate="Runnable" seed="71980545" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:19:59Z" duration="0.000118" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1152" name="StoryScriptSceneTests" fullname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests" classname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.506811" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1153" name="StoryScript_AllNamesExistInScene" fullname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests.StoryScript_AllNamesExistInScene" methodname="StoryScript_AllNamesExistInScene" classname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests" runstate="Runnable" seed="980338476" result="Passed" start-time="2026-11-22 19:19:59Z" end-time="2026-11-22 19:20:01Z" duration="1.504009" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1154" name="StoryScript_ChapterIdsUniqueAndEncounterNamesUnique" fullname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests.StoryScript_ChapterIdsUniqueAndEncounterNamesUnique" methodname="StoryScript_ChapterIdsUniqueAndEncounterNamesUnique" classname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests" runstate="Runnable" seed="510571224" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.001699" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1155" name="StoryScript_MaterialsAssigned" fullname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests.StoryScript_MaterialsAssigned" methodname="StoryScript_MaterialsAssigned" classname="IUHCampus.Guardian.Story.Tests.StoryScriptSceneTests" runstate="Runnable" seed="70296170" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.000175" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1184" name="IUHCampus.Nature.Tests.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/IUHCampus.Nature.Tests.dll" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.121485" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1185" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.114947" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1186" name="Guardian" fullname="IUHCampus.Guardian" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.009659" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1187" name="Tests" fullname="IUHCampus.Guardian.Tests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.009159" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1161" name="StylizedFacadeTests" fullname="IUHCampus.Guardian.Tests.StylizedFacadeTests" classname="IUHCampus.Guardian.Tests.StylizedFacadeTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.008692" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1166" name="FacadeVariantCompilesWithDepthAndShadowPasses" fullname="IUHCampus.Guardian.Tests.StylizedFacadeTests.FacadeVariantCompilesWithDepthAndShadowPasses" classname="IUHCampus.Guardian.Tests.StylizedFacadeTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.007810" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1162" name="FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_TEXTURED&quot;)" fullname="IUHCampus.Guardian.Tests.StylizedFacadeTests.FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_TEXTURED&quot;)" methodname="FacadeVariantCompilesWithDepthAndShadowPasses" classname="IUHCampus.Guardian.Tests.StylizedFacadeTests" runstate="Runnable" seed="1946906702" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.005641" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1163" name="FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_PLAIN&quot;)" fullname="IUHCampus.Guardian.Tests.StylizedFacadeTests.FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_PLAIN&quot;)" methodname="FacadeVariantCompilesWithDepthAndShadowPasses" classname="IUHCampus.Guardian.Tests.StylizedFacadeTests" runstate="Runnable" seed="1367473736" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.000461" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1164" name="FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_BRICK&quot;)" fullname="IUHCampus.Guardian.Tests.StylizedFacadeTests.FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_BRICK&quot;)" methodname="FacadeVariantCompilesWithDepthAndShadowPasses" classname="IUHCampus.Guardian.Tests.StylizedFacadeTests" runstate="Runnable" seed="1190121841" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.000375" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1165" name="FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_GLASS&quot;)" fullname="IUHCampus.Guardian.Tests.StylizedFacadeTests.FacadeVariantCompilesWithDepthAndShadowPasses(&quot;_FACADE_GLASS&quot;)" methodname="FacadeVariantCompilesWithDepthAndShadowPasses" classname="IUHCampus.Guardian.Tests.StylizedFacadeTests" runstate="Runnable" seed="2011798402" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.000324" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+        <test-suite type="TestSuite" id="1188" name="Nature" fullname="IUHCampus.Nature" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.103472" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1189" name="Tests" fullname="IUHCampus.Nature.Tests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.102774" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1167" name="NatureMaterialTests" fullname="IUHCampus.Nature.Tests.NatureMaterialTests" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.055154" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1168" name="FoliageShaderSupportsForwardShadowAndDepthPasses" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.FoliageShaderSupportsForwardShadowAndDepthPasses" methodname="FoliageShaderSupportsForwardShadowAndDepthPasses" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="1672875871" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.001425" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1175" name="MaterialHasSupportedShaderAndTexture" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.052887" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1169" name="MaterialHasSupportedShaderAndTexture(&quot;Leaves&quot;,&quot;IUH/Stylized Foliage&quot;)" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture(&quot;Leaves&quot;,&quot;IUH/Stylized Foliage&quot;)" methodname="MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="807821217" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.007287" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1170" name="MaterialHasSupportedShaderAndTexture(&quot;Bush&quot;,&quot;IUH/Stylized Foliage&quot;)" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture(&quot;Bush&quot;,&quot;IUH/Stylized Foliage&quot;)" methodname="MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="655519108" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.004632" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1171" name="MaterialHasSupportedShaderAndTexture(&quot;LeafAtlas&quot;,&quot;IUH/Stylized Foliage&quot;)" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture(&quot;LeafAtlas&quot;,&quot;IUH/Stylized Foliage&quot;)" methodname="MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="1096787500" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.004405" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1172" name="MaterialHasSupportedShaderAndTexture(&quot;Flowers&quot;,&quot;IUH/Stylized Foliage&quot;)" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture(&quot;Flowers&quot;,&quot;IUH/Stylized Foliage&quot;)" methodname="MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="1708458406" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.004553" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1173" name="MaterialHasSupportedShaderAndTexture(&quot;Grass&quot;,&quot;IUH/Stylized Foliage&quot;)" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture(&quot;Grass&quot;,&quot;IUH/Stylized Foliage&quot;)" methodname="MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="1984772402" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.003164" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1174" name="MaterialHasSupportedShaderAndTexture(&quot;Bark&quot;,&quot;Universal Render Pipeline/Lit&quot;)" fullname="IUHCampus.Nature.Tests.NatureMaterialTests.MaterialHasSupportedShaderAndTexture(&quot;Bark&quot;,&quot;Universal Render Pipeline/Lit&quot;)" methodname="MaterialHasSupportedShaderAndTexture" classname="IUHCampus.Nature.Tests.NatureMaterialTests" runstate="Runnable" seed="296943167" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.027305" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1176" name="NaturePrefabTests" fullname="IUHCampus.Nature.Tests.NaturePrefabTests" classname="IUHCampus.Nature.Tests.NaturePrefabTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.033759" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1177" name="PrefabsHaveMaterialsAndOnlyTreesHaveTrunkColliders" fullname="IUHCampus.Nature.Tests.NaturePrefabTests.PrefabsHaveMaterialsAndOnlyTreesHaveTrunkColliders" methodname="PrefabsHaveMaterialsAndOnlyTreesHaveTrunkColliders" classname="IUHCampus.Nature.Tests.NaturePrefabTests" runstate="Runnable" seed="19692563" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.032639" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1178" name="StylizedGroundTests" fullname="IUHCampus.Nature.Tests.StylizedGroundTests" classname="IUHCampus.Nature.Tests.StylizedGroundTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.013136" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1179" name="GrassMaterialUsesCampusLawnDetail" fullname="IUHCampus.Nature.Tests.StylizedGroundTests.GrassMaterialUsesCampusLawnDetail" methodname="GrassMaterialUsesCampusLawnDetail" classname="IUHCampus.Nature.Tests.StylizedGroundTests" runstate="Runnable" seed="1332945788" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.003083" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1183" name="GroundMaterialUsesSupportedShaderAndSurfaceMode" fullname="IUHCampus.Nature.Tests.StylizedGroundTests.GroundMaterialUsesSupportedShaderAndSurfaceMode" classname="IUHCampus.Nature.Tests.StylizedGroundTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.008859" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1180" name="GroundMaterialUsesSupportedShaderAndSurfaceMode(&quot;Grass&quot;,&quot;_GROUND_GRASS&quot;)" fullname="IUHCampus.Nature.Tests.StylizedGroundTests.GroundMaterialUsesSupportedShaderAndSurfaceMode(&quot;Grass&quot;,&quot;_GROUND_GRASS&quot;)" methodname="GroundMaterialUsesSupportedShaderAndSurfaceMode" classname="IUHCampus.Nature.Tests.StylizedGroundTests" runstate="Runnable" seed="1038780857" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.005454" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1181" name="GroundMaterialUsesSupportedShaderAndSurfaceMode(&quot;PavingPale&quot;,&quot;_GROUND_PAVING&quot;)" fullname="IUHCampus.Nature.Tests.StylizedGroundTests.GroundMaterialUsesSupportedShaderAndSurfaceMode(&quot;PavingPale&quot;,&quot;_GROUND_PAVING&quot;)" methodname="GroundMaterialUsesSupportedShaderAndSurfaceMode" classname="IUHCampus.Nature.Tests.StylizedGroundTests" runstate="Runnable" seed="1742188481" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.001036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1182" name="GroundMaterialUsesSupportedShaderAndSurfaceMode(&quot;Sandstone&quot;,&quot;_GROUND_PAVING&quot;)" fullname="IUHCampus.Nature.Tests.StylizedGroundTests.GroundMaterialUsesSupportedShaderAndSurfaceMode(&quot;Sandstone&quot;,&quot;_GROUND_PAVING&quot;)" methodname="GroundMaterialUsesSupportedShaderAndSurfaceMode" classname="IUHCampus.Nature.Tests.StylizedGroundTests" runstate="Runnable" seed="1510147313" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.001310" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1194" name="IUHCampus.Player.Tests.dll" fullname="D:/IUH/CongNgheMoi/CK/IUH_Campus/Library/ScriptAssemblies/IUHCampus.Player.Tests.dll" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.016448" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1195" name="IUHCampus" fullname="IUHCampus" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.015890" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1196" name="Player" fullname="IUHCampus.Player" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.015524" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1197" name="Tests" fullname="IUHCampus.Player.Tests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.015148" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1190" name="StudentModelTests" fullname="IUHCampus.Player.Tests.StudentModelTests" classname="IUHCampus.Player.Tests.StudentModelTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.012135" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1191" name="StudentPrefabHasHumanoidAvatarAndCompleteMaterials" fullname="IUHCampus.Player.Tests.StudentModelTests.StudentPrefabHasHumanoidAvatarAndCompleteMaterials" methodname="StudentPrefabHasHumanoidAvatarAndCompleteMaterials" classname="IUHCampus.Player.Tests.StudentModelTests" runstate="Runnable" seed="1104981802" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.011367" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1192" name="VroidStudentTests" fullname="IUHCampus.Player.Tests.VroidStudentTests" classname="IUHCampus.Player.Tests.VroidStudentTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.002539" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1193" name="VroidPrefabHasHumanoidAvatarAndCompilableUrpMaterials" fullname="IUHCampus.Player.Tests.VroidStudentTests.VroidPrefabHasHumanoidAvatarAndCompilableUrpMaterials" methodname="VroidPrefabHasHumanoidAvatarAndCompilableUrpMaterials" classname="IUHCampus.Player.Tests.VroidStudentTests" runstate="Runnable" seed="1988501368" result="Passed" start-time="2026-11-22 19:20:01Z" end-time="2026-11-22 19:20:01Z" duration="0.001470" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/Admin/AppData/LocalLow/DefaultCompany/IUH_Campus\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

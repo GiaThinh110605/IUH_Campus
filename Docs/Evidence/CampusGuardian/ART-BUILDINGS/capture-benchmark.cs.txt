@@ -1,0 +1,34 @@
+var folder="Docs/Evidence/CampusGuardian/ART-BUILDINGS";
+var phase="BEFORE";
+var cfg=Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(folder+"/cameras.json"));
+var views=((Newtonsoft.Json.Linq.JObject)cfg["cameras"]).Properties().ToArray();
+var camera=UnityEngine.Camera.main;
+var player=UnityEngine.GameObject.Find("Campus Student");
+player.GetComponent<IUHCampus.World.IUHConceptPreviewController>().enabled=false;
+player.GetComponent<StarterAssets.ThirdPersonController>().enabled=false;
+player.GetComponent<UnityEngine.InputSystem.PlayerInput>().enabled=false;
+camera.GetComponent<Unity.Cinemachine.CinemachineBrain>().enabled=false;
+camera.GetComponent<IUHCampus.Guardian.IUHCameraShake>().enabled=false;
+var story=UnityEngine.Object.FindAnyObjectByType<IUHCampus.Guardian.Story.IUHStoryDirector>();story.StopAllCoroutines();story.enabled=false;
+var night=UnityEngine.Object.FindAnyObjectByType<IUHCampus.Guardian.Story.IUHStoryNightShift>();night.ToDay(0);
+UnityEngine.QualitySettings.vSyncCount=0;UnityEngine.Application.targetFrameRate=-1;
+System.Action<string> pose=name=>{var v=cfg["cameras"][name];var a=v[0].Select(x=>(float)x).ToArray();var b=v[1].Select(x=>(float)x).ToArray();camera.transform.position=new UnityEngine.Vector3(a[0],a[1],a[2]);camera.transform.LookAt(new UnityEngine.Vector3(b[0],b[1],b[2]));camera.fieldOfView=57;};
+int shot=0,tick=0,run=0,frame=-120,last=-1;bool images=true;
+var ms=new double[3000];var draws=new int[3000];var tris=new int[3000];
+var watch=System.Diagnostics.Stopwatch.StartNew();double previous=0;
+pose(views[0].Name);
+System.IO.File.WriteAllText(folder+"/performance-"+phase+".tsv","view\trun\tmedian_fps\tp95_ms\tdraw_calls\ttriangles\n");
+System.Action<UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[]> cb=null;
+cb=(ctx,cams)=>{
+ if(!UnityEditor.EditorApplication.isPlaying){UnityEngine.Rendering.RenderPipelineManager.endFrameRendering-=cb;return;}
+ if(last==UnityEngine.Time.frameCount||!cams.Contains(camera))return;last=UnityEngine.Time.frameCount;
+ if(images){tick++;if(tick==15)UnityEngine.ScreenCapture.CaptureScreenshot(folder+"/"+views[shot%8].Name+"-"+phase+"-"+(shot<8?"day":"night")+".png");if(tick<40)return;tick=0;shot++;if(shot==8)night.SetNightImmediate();if(shot<16){pose(views[shot%8].Name);return;}images=false;night.ToDay(0);pose("lobby");previous=watch.Elapsed.TotalSeconds;return;}
+ double now=watch.Elapsed.TotalSeconds;if(frame>=0){ms[frame]=(now-previous)*1000;draws[frame]=UnityEditor.UnityStats.drawCalls;tris[frame]=UnityEditor.UnityStats.triangles;}previous=now;frame++;if(frame<3000)return;
+ System.Array.Sort(ms);System.Array.Sort(draws);System.Array.Sort(tris);
+ System.IO.File.AppendAllText(folder+"/performance-"+phase+".tsv",(run<3?"lobby":"overview")+"\t"+(run%3+1)+"\t"+(1000/((ms[1499]+ms[1500])/2)).ToString("F4",System.Globalization.CultureInfo.InvariantCulture)+"\t"+ms[2849].ToString("F4",System.Globalization.CultureInfo.InvariantCulture)+"\t"+draws[1500]+"\t"+tris[1500]+"\n");
+ run++;frame=-120;UnityEditor.SessionState.SetString("Buildings.Status",phase+" run "+run);
+ if(run==3)pose("overview");if(run<6)return;
+ UnityEngine.Rendering.RenderPipelineManager.endFrameRendering-=cb;UnityEditor.SessionState.SetString("Buildings.Status",phase+" complete");
+};
+UnityEngine.Rendering.RenderPipelineManager.endFrameRendering+=cb;
+return "started "+phase;

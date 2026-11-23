@@ -1,0 +1,54 @@
+{
+  "combatAt8m": false,
+  "combatAt4m": false,
+  "arena": {
+    "camera": "ArenaCamera",
+    "position": "(0, -1989.56628, -32.3987923)",
+    "euler": "(1.767893, 0, 0)",
+    "fov": 40.0,
+    "resolution": [
+      1280,
+      900
+    ],
+    "studentHeightWorld": 1.72998047,
+    "studentHeightPixels": 64.87752,
+    "monsterRenderers": [
+      {
+        "name": "Laptop_Chassis",
+        "bounds": "Center: (11.07, -1999.80, 0.00), Extents: (0.42, 0.02, 0.46)"
+      },
+      {
+        "name": "Keyboard_Area",
+        "bounds": "Center: (11.05, -1999.77, -0.01), Extents: (0.31, 0.01, 0.36)"
+      },
+      {
+        "name": "Screen_Frame",
+        "bounds": "Center: (11.48, -1999.88, 0.25), Extents: (0.39, 0.12, 0.44)"
+      },
+      {
+        "name": "Matrix_Display",
+        "bounds": "Center: (11.48, -1999.86, 0.25), Extents: (0.35, 0.10, 0.40)"
+      },
+      {
+        "name": "default",
+        "bounds": "Center: (9.78, -1997.18, -0.79), Extents: (4.02, 2.68, 4.79)"
+      },
+      {
+        "name": "Beacon_Pillar_Beam",
+        "bounds": "Center: (11.07, -1992.85, 0.00), Extents: (0.34, 7.00, 0.34)"
+      }
+    ]
+  },
+  "fleeReturned": true,
+  "zone": {
+    "position": "(7, 0.05, -2)",
+    "scale": "(42.5286751, 3, 42.5286751)",
+    "material": "M_Story_CorruptionFog"
+  },
+  "gardenOpen": true,
+  "dayGlobal": 0.0,
+  "nightGlobal": 1.0,
+  "seconds": 30.0020943,
+  "EKeyEdges": 0,
+  "date": "2026-11-23"
+}

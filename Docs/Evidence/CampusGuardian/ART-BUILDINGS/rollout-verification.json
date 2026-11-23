@@ -1,0 +1,21 @@
+{
+  "feature_commit": "7e2dd86",
+  "branch": "minhnhat/buildings-pass",
+  "environment": "Unity6000.5.8f1 WindowsEditor URP Direct3D12",
+  "material_assets": 7,
+  "renderer_slots": 54,
+  "fresh_after_screenshots": 16,
+  "AB": {"file": "performance-AB.tsv", "runs": 12, "warmup_frames": 120, "frames_each": 3000, "same_play_session": true, "threshold_result": "passed"},
+  "EditMode": {"job_id": "e5f690e846544bc192193916bc3fff02", "passed": 133, "failed": 0, "skipped": 0},
+  "PlayMode": {"job_id": "c255ecd8cbb440c5a79612a7728b4f0a", "passed": 50, "failed": 0, "skipped": 0},
+  "missing_scripts": {"campus": 0, "arena": 0, "AR": 0},
+  "console_errors": 0,
+  "scene_dirty": false,
+  "compiling": false,
+  "playing": false,
+  "smoke": "facade-smoke.json:40seconds;controller/garden/day-night",
+  "review": "Independent static review verified54GUIDs,7material properties and AB thresholds; no critical finding",
+  "limitations": ["Historic triangle count not reproduced exactly: common AB overview count is5466triangles higher", "Physical E interaction not retested", "No iOS/device build"],
+  "excluded_from_commit": "MainCamera pre-existing Y2.2066925->3.2066925 and unrelated dirty files",
+  "push": false
+}

@@ -1,0 +1,17 @@
+{
+  "base_commit": "d44c0c0",
+  "result": "STOPPED: FPS, p95 and overview draw calls exceed approved thresholds",
+  "formal_runs": "performance-AFTER.tsv: 3 lobby + 3 overview, 120 warmup + 3000 recorded frames each, 1280x900",
+  "median_of_three_runs": {
+    "lobby": {"fps": 174.3421, "p95_ms": 7.4012, "draw_calls": 301, "triangles": 1847809},
+    "overview": {"fps": 165.7633, "p95_ms": 7.3082, "draw_calls": 996, "triangles": 2582214}
+  },
+  "frame_debugger": "Disabled before formal measurements; shader/property/keyword batch breaks captured; exact historical +55 decomposition not proven",
+  "instancing_diagnostic": {"off_draw_calls": 996, "on_draw_calls": 996, "static_batched_facade_renderers": 54, "srp_compatibility_code": 0},
+  "cleanup": {"scene_saved": false, "trial_materials_deleted": 7, "external_GUID_references_before_delete": 0, "Buildings_folder_exists_after_cleanup": false},
+  "final": {"scene_dirty": false, "playing": false, "compiling": false, "console_errors": 0, "missing_scripts": {"campus": 0, "arena": 0, "AR": 0}},
+  "new_EditMode_or_PlayMode_tests_run": false,
+  "reason_tests_not_run": "Explicit prompt stop condition reached; all trial assets removed and no production changes retained",
+  "MainCamera_change": "Pre-existing y 2.2066925 to 3.2066925 remains unstaged",
+  "push": false
+}

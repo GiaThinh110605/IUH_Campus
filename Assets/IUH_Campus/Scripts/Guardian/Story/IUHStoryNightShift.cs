@@ -23,6 +23,7 @@ namespace IUHCampus.Guardian.Story
         Color dayTint;
         public void Initialize(string festivalLedMaterialName)
         {
+            Shader.SetGlobalFloat("_IUH_NightAmount", 0);
             foreach (var light in FindObjectsByType<Light>(FindObjectsSortMode.None))
             {
                 if (light.type != LightType.Directional)
@@ -71,6 +72,7 @@ namespace IUHCampus.Guardian.Story
 
         void Apply(float fraction)
         {
+            Shader.SetGlobalFloat("_IUH_NightAmount", isActiveAndEnabled ? fraction : 0);
             if (sun != null)
             {
                 sun.intensity = Mathf.Lerp(dayIntensity, dayIntensity * NightIntensity, fraction);
@@ -102,6 +104,8 @@ namespace IUHCampus.Guardian.Story
             }
             RenderSettings.skybox = nightSkybox;
         }
+
+        void OnDisable() => Shader.SetGlobalFloat("_IUH_NightAmount", 0);
 
         void OnDestroy()
         {

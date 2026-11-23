@@ -7,6 +7,43 @@ using UnityEngine.TestTools;
 public class NightShiftPlayModeTests
 {
     [UnityTest]
+    public IEnumerator FacadeNightGlobalTracksTransitionsAndResetsOnDisable()
+    {
+        float previous = Shader.GetGlobalFloat("_IUH_NightAmount");
+        var originalSkybox = RenderSettings.skybox;
+        var go = new GameObject("FacadeNightGlobalTest");
+        var type = Type.GetType("IUHCampus.Guardian.Story.IUHStoryNightShift, Assembly-CSharp", true);
+        var shift = (Behaviour)go.AddComponent(type);
+        try
+        {
+            Shader.SetGlobalFloat("_IUH_NightAmount", .5f);
+            type.GetMethod("Initialize").Invoke(shift, new object[] { "UnusedStoryLed" });
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
+            type.GetMethod("ToNight").Invoke(shift, new object[] { 0f });
+            float deadline = Time.realtimeSinceStartup + 4;
+            while (Shader.GetGlobalFloat("_IUH_NightAmount") < 1 && Time.realtimeSinceStartup < deadline)
+                yield return null;
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.EqualTo(1));
+            type.GetMethod("ToDay").Invoke(shift, new object[] { 0f });
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
+            type.GetMethod("SetNightImmediate").Invoke(shift, null);
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.EqualTo(1));
+            type.GetMethod("ToNight").Invoke(shift, new object[] { 1f });
+            shift.enabled = false;
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
+            yield return new WaitForSecondsRealtime(1.3f);
+            Assert.That(Shader.GetGlobalFloat("_IUH_NightAmount"), Is.Zero);
+        }
+        finally
+        {
+            type.GetMethod("ToDay").Invoke(shift, new object[] { 0f });
+            UnityEngine.Object.DestroyImmediate(go);
+            RenderSettings.skybox = originalSkybox;
+            Shader.SetGlobalFloat("_IUH_NightAmount", previous);
+        }
+    }
+
+    [UnityTest]
     public IEnumerator FogTransitionsToNightAndRestoresDay()
     {
         var originalFog = RenderSettings.fogColor;
