@@ -1,0 +1,10 @@
+﻿{
+    "scheme":  "Power Scheme GUID: 6fecc5ae-f350-48a5-b669-b472cb895ccf  (Turbo)",
+    "battery":  [
+                    {
+                        "BatteryStatus":  2,
+                        "EstimatedChargeRemaining":  100,
+                        "Status":  "OK"
+                    }
+                ]
+}

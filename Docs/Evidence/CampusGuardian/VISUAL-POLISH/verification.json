@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-23",
+  "timezone": "Asia/Bangkok",
+  "branch": "minhnhat/visual-polish",
+  "baseCommit": "1a55512",
+  "P1": "041864d",
+  "P2": "840470b",
+  "P4": "1a84162",
+  "P3": "skipped per user; production reverted",
+  "unity": "6000.5.8f1",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "graphics": "Direct3D12",
+  "playing": false,
+  "compiling": false,
+  "scene": "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity",
+  "sceneDirty": false,
+  "fogMaterial": "M_Story_CorruptionFog",
+  "EditMode": {
+    "job": "4c4d9a70dab644e2b99ca3dff6ffecdf",
+    "passed": 137,
+    "failed": 0,
+    "skipped": 0
+  },
+  "PlayMode": {
+    "job": "ca7e090b6a1c48af9a711f1d493466e9",
+    "passed": 59,
+    "failed": 0,
+    "skipped": 0
+  },
+  "missingScripts": {
+    "campus": 0,
+    "arena": 0,
+    "AR": 0
+  },
+  "consoleErrors": 0,
+  "physicalE": "API fallback; not tested physical key",
+  "deviceBuild": "not run",
+  "push": false
+}
