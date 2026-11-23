@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Student_01",
+    "model": 1,
+    "mode": "standing",
+    "position": "(-28, 0, -20)",
+    "end": null,
+    "scale": 1.08920562
+  },
+  {
+    "name": "Student_02",
+    "model": 2,
+    "mode": "standing",
+    "position": "(-26.4, 0, -20)",
+    "end": null,
+    "scale": 0.991338968
+  },
+  {
+    "name": "Student_03",
+    "model": 3,
+    "mode": "standing",
+    "position": "(7, 0, 31)",
+    "end": null,
+    "scale": 0.9986138
+  },
+  {
+    "name": "Student_04",
+    "model": 4,
+    "mode": "standing",
+    "position": "(9, 0, 31)",
+    "end": null,
+    "scale": 1.08999407
+  },
+  {
+    "name": "Student_05",
+    "model": 1,
+    "mode": "standing",
+    "position": "(-6, 0, 46)",
+    "end": null,
+    "scale": 1.08920562
+  },
+  {
+    "name": "Student_06",
+    "model": 2,
+    "mode": "standing",
+    "position": "(-4, 0, 46)",
+    "end": null,
+    "scale": 0.991338968
+  },
+  {
+    "name": "Student_07",
+    "model": 3,
+    "mode": "standing",
+    "position": "(28, 0, -21)",
+    "end": null,
+    "scale": 0.9986138
+  },
+  {
+    "name": "Student_08",
+    "model": 4,
+    "mode": "standing",
+    "position": "(30, 0, -21)",
+    "end": null,
+    "scale": 1.08999407
+  },
+  {
+    "name": "Student_09",
+    "model": 1,
+    "mode": "walking",
+    "position": "(-8, 0, -15)",
+    "end": "(-8, 0, -7)",
+    "scale": 1.08920562
+  },
+  {
+    "name": "Student_10",
+    "model": 2,
+    "mode": "walking",
+    "position": "(16, 0, 30)",
+    "end": "(21, 0, 30)",
+    "scale": 0.991338968
+  },
+  {
+    "name": "Student_11",
+    "model": 3,
+    "mode": "walking",
+    "position": "(-30, 0, 18)",
+    "end": "(-30, 0, 24)",
+    "scale": 0.9986138
+  },
+  {
+    "name": "Student_12",
+    "model": 4,
+    "mode": "walking",
+    "position": "(24, 0, -26)",
+    "end": "(24, 0, -20)",
+    "scale": 1.08999407
+  }
+]

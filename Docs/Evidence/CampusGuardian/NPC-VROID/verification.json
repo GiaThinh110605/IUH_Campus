@@ -1,0 +1,22 @@
+{
+  "base_commit": "55b07e2",
+  "branch": "minhnhat/npc-vroid",
+  "E1": "Complete:4VRM sources unchanged,4Humanoid prefabs,8MToon materials,render textures<=1024,Spring disabled",
+  "E2": "Complete:ambient behavior,sourceIdle/Walk controller,6regression tests",
+  "E3": "Skipped after12NPC then2optimization rounds; final8NPC trial still exceeds FPS/p95; no scene saved",
+  "EditMode": {"job_id": "31b2c8b240b0429682c10184ffd916d2", "passed": 137, "failed": 0, "skipped": 0},
+  "PlayMode": {"job_id": "12dbbd4ffb444e2e98acde412242332f", "passed": 56, "failed": 0, "skipped": 0},
+  "missing_scripts": {"campus": 0, "arena": 0, "AR": 0},
+  "console_errors": 0,
+  "scene_dirty": false,
+  "playing": false,
+  "compiling": false,
+  "original_students_active": true,
+  "NPC_STUDENTS_exists_in_final_scene": false,
+  "VRoid_NPCs_deployed": 0,
+  "final_trial_NPCs": 8,
+  "trial_material_optimizations_restored_to_committed_state": true,
+  "physical_E_and_full_E3_smoke": "Not completed after performance stop; not markedPass",
+  "MainCamera": "Existing Y change left unstaged",
+  "push": false
+}
