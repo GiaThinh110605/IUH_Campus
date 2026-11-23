@@ -5187,6 +5187,7 @@ GameObject:
   - component: {fileID: 4864267046565837232}
   - component: {fileID: 6777902888503512376}
   - component: {fileID: 2903785909603589464}
+  - component: {fileID: 5068242447760280658}
   m_Layer: 0
   m_Name: PF_NPC_VRoid_02
   m_TagString: Untagged
@@ -5360,6 +5361,21 @@ MonoBehaviour:
   groundProbeHeight: 2
   groundProbeDepth: 5
   turnSpeed: 100
+--- !u!114 &5068242447760280658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6539325741570431122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bae3b6ba85efd0499927dbeb1cd6121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IUHCampus.Guardian.Visual.IUHVisualFeetGrounder
+  surface: {fileID: 11400000, guid: 8348f60e232dca646a02341ab24759ee, type: 2}
+  maximumOffset: 2
+  soleClearance: 0.002
 --- !u!1 &6617305640104343478
 GameObject:
   m_ObjectHideFlags: 0

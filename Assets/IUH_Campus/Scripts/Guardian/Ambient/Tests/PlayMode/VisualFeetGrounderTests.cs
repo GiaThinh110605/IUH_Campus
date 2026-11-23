@@ -1,4 +1,5 @@
-﻿using System;
+#if UNITY_EDITOR
+using System;
 using System.Linq;
 using NUnit.Framework;
 using UnityEditor;
@@ -36,7 +37,7 @@ namespace IUHCampus.Guardian.Visual.Tests
                         "Assets/IUH_Campus/Prefabs/NPC/AC_AmbientStudent.controller");
                 var clip = animator.runtimeAnimatorController.animationClips.First(c => c.name.IndexOf(motion, StringComparison.OrdinalIgnoreCase) >= 0);
                 var renderer = npc.GetComponentsInChildren<SkinnedMeshRenderer>().First(r => r.name == "Body");
-                var component = npc.AddComponent(grounderType);
+                var component = npc.GetComponent(grounderType) ?? npc.AddComponent(grounderType);
                 grounderType.GetMethod("Configure").Invoke(component, new object[] { data });
                 var align = grounderType.GetMethod("AlignNow");
                 var originalColliderBounds = floor.GetComponent<Collider>().bounds;
@@ -61,3 +62,5 @@ namespace IUHCampus.Guardian.Visual.Tests
         }
     }
 }
+
+#endif
