@@ -1,5 +1,7 @@
 # Procedural Fire
 
+Phiên bản đầu vào xác minh từ `AssetOrigin` trong meta: **1.1.0**. Phiên bản trang nguồn bên dưới là thông tin đối chiếu, không phải phiên bản import.
+
 - Nhà phát hành: Hovl Studio.
 - Nguồn: [Unity Asset Store](https://assetstore.unity.com/packages/vfx/particles/fire-explosions/procedural-fire-141496).
 - Phiên bản trang nguồn kiểm tra 24/11/2026: 1.1.1; CFX xác nhận thêm trong readme import. Không suy ra phiên bản import Fire/Smoke chỉ từ tên file.

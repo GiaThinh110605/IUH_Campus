@@ -1,5 +1,7 @@
 # Cartoon FX Remaster Free
 
+Đầu vào có chênh lệch metadata: readme ghi **R 1.5.1**, `CFXR_Effect.cs.meta` ghi **R 1.5.0**; giữ nguyên nội dung nhà phát hành, không khẳng định mọi file cùng phiên bản.
+
 - Nhà phát hành: Jean Moreno.
 - Nguồn: [Unity Asset Store](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565).
 - Phiên bản trang nguồn kiểm tra 24/11/2026: R 1.5.1; CFX xác nhận thêm trong readme import. Không suy ra phiên bản import Fire/Smoke chỉ từ tên file.

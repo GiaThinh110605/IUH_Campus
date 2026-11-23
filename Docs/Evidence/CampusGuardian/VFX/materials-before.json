@@ -1,0 +1,1244 @@
+[
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr aura rays hdr ab nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr aura runic hdr ab nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood splash dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble 2 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card club ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card diamond ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card heart ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card spade ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr cloud blur add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3 ab lit emission.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3 ab lit.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris flat unlit 3x3 ab hdr.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris flat unlit 3x3 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris ice 2x2 ab lit.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris unlit 3x3 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood 3x3 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood unlit 3x3 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arc anim x4.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arcs fade x4 hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arcs x4 hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric small anim 4x2 hdr.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric small anim2 7x2 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric sparks ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric sparks hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ember blur hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire blur fade hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle blur hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle crisp hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle drawn blurred hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle drawn hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle plain hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire crisp fade hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire crisp fade nosp hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire edge hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire full blurred fade hdr add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire plain fade hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire small anim blurred hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire small anim hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire stepped fade hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur mid fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur mid hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur stable fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur stable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur unstable fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur unstable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme candle hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme candle unstable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp mid fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp mid hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp stable fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp stable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp unstable fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp unstable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain mid fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain mid hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain stable fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain stable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain unstable fine hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain unstable hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flare add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fly anim.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ghost trail add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart break dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart break parts ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hidden.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave a ab lit normal.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave b ab lit normal.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr line loop electric ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr line loop electric hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr magic star hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr no texture hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr petal pink x4 ab lit normal.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow crisp ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft ground nosp add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft hdr p4 add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert add nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft nosp add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft p4 add nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft p4 add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft p8 add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Glow",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring electric hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring ice hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space partial ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring water ripple local space ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring water ripple local space arc ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Procedural Ring",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle dissolve soft ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring spikes revert hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion debug.mat",
+    "shader": "Cartoon FX/Remaster/Particle Screen Distortion",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion perlin.mat",
+    "shader": "Cartoon FX/Remaster/Particle Screen Distortion",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion ring nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Screen Distortion",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion ring.mat",
+    "shader": "Cartoon FX/Remaster/Particle Screen Distortion",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion sphere.mat",
+    "shader": "Cartoon FX/Remaster/Particle Screen Distortion",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull 2 dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull distort hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull outer outline ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley angry ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley frown ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley happy ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley smile ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud corner ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab blurred.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit crisp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit normal.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft individual bright shadow.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft individual mid shadow.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft individual.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 crisp dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 mult blurred.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 second color ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 second color underlit ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes half impact hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve invert ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr star ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr star blurred add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr steam blur dissolve hdr add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch fire crisp fade hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch inv spike fade ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch inv spike fade add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rain blur ab nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rain blur ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch ray blur add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch ray blur hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray blur add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray blur hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch skull dissolve ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke arc ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke fume blur ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spike fade add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spikes smooth x2 hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spikes x2 hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait blur ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait blur add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait hdr ab nosp.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle fade ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle smooth add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle smooth nosp ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle smooth nosp add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle to diamond ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle to diamond add.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail bubbles hit.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail bubbles.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail flames hit.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail flames.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail ice hit.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail ice thin.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail ice.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail light.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail plain.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail slash.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail tech hit.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail tech thin.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail tech.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water drop blur anim ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water drop blur anim hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water foam ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch nosp ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch nosp hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash stretch nosp ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash stretch nosp hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke bright hdr ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke glow ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke second color ab.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Meshes/cfxr mesh donut.fbx",
+    "shader": "Universal Render Pipeline/Lit",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Meshes/cfxr mesh leave.fbx",
+    "shader": "Universal Render Pipeline/Lit",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Misc/cfxr particle font.mat",
+    "shader": "Cartoon FX/Remaster/Particle Ubershader",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground URP.mat",
+    "shader": "Universal Render Pipeline/Lit",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground.mat",
+    "shader": "Standard",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Floor3.mat",
+    "shader": "Standard",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/FireSphere1.mat",
+    "shader": "EGA/Particles/FireSphere",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/FireSphere2.mat",
+    "shader": "EGA/Particles/FireSphere",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/Smoke26.mat",
+    "shader": "Legacy Shaders/Particles/Alpha Blended",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/SparkSphere.mat",
+    "shader": "EGA/Particles/FireSphere",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/Trail67.mat",
+    "shader": "EGA/Particles/FireSphere",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shadergraph",
+    "shader": "Shader Graphs/FireSphere",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Demo/Ground Material.mat",
+    "shader": "Universal Render Pipeline/Lit",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Demo/Skybox.mat",
+    "shader": "Skybox/6 Sided",
+    "supported": true,
+    "error": false
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Materials/msVFX_Stylized Smoke 1_Material.mat",
+    "shader": "Legacy Shaders/Particles/Additive",
+    "supported": true,
+    "error": false
+  }
+]

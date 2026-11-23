@@ -1,0 +1,7 @@
+phase	condition	frames	median_ms	p95_ms	median_draw_calls	max_rendered_cameras	width	height	vsync	measurement
+1	A	3000	4.9599	5.9543	296	1	1280	900	0	Editor_unscaled_frame_time
+2	B	3000	6.4562	7.8905	308	1	1280	900	0	Editor_unscaled_frame_time
+3	A	3000	4.9117	5.7651	296	1	1280	900	0	Editor_unscaled_frame_time
+4	B	3000	6.6892	8.4960	308	1	1280	900	0	Editor_unscaled_frame_time
+5	A	3000	4.9420	5.8501	296	1	1280	900	0	Editor_unscaled_frame_time
+6	B	3000	6.6426	8.2913	308	1	1280	900	0	Editor_unscaled_frame_time

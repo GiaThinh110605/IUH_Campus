@@ -1,0 +1,3 @@
+Actual arena=Assets/IUH_Campus/Scenes/IUH_CombatArena.unity camera=ArenaCamera
+QA freezes resolving timer/input after completed intro/HUD reveal. Static production pool emissions simulate VFX; no real damaging moves and no victory reward. Flee final may emit defeat event. Screenshots need human HUD review.
+Power=Full CPU=AMD Ryzen 7 6800H with Radeon Graphics  GPU=NVIDIA GeForce RTX 3060 Laptop GPU

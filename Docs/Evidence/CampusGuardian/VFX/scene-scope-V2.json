@@ -1,0 +1,252 @@
+{
+  "mode": "V2",
+  "source": "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity",
+  "baseRef": "HEAD",
+  "output": "Temp/VFX-scene-index.unity",
+  "changedFields": [
+    {
+      "id": "146005033",
+      "field": "m_Children"
+    },
+    {
+      "id": "151120464",
+      "field": "m_Materials"
+    },
+    {
+      "id": "174609528",
+      "field": "m_Materials"
+    },
+    {
+      "id": "202466952",
+      "field": "m_Materials"
+    },
+    {
+      "id": "519279131",
+      "field": "m_Materials"
+    },
+    {
+      "id": "820793936",
+      "field": "m_Materials"
+    },
+    {
+      "id": "1327722278",
+      "field": "m_Children"
+    },
+    {
+      "id": "1504348916",
+      "field": "m_Materials"
+    },
+    {
+      "id": "1592807286",
+      "field": "m_Materials"
+    },
+    {
+      "id": "1729400722",
+      "field": "m_Children"
+    },
+    {
+      "id": "1739282821",
+      "field": "m_Materials"
+    },
+    {
+      "id": "1750318217",
+      "field": "m_Materials"
+    },
+    {
+      "id": "1758757872",
+      "field": "m_Children"
+    },
+    {
+      "id": "2080727151",
+      "field": "m_Children"
+    },
+    {
+      "id": "2144739570",
+      "field": "m_Materials"
+    }
+  ],
+  "newDocumentIds": [
+    "30510104",
+    "30510105",
+    "159500116",
+    "159500117",
+    "599368321",
+    "599368322",
+    "948087773",
+    "948087774",
+    "1871874825",
+    "1871874826"
+  ],
+  "excludedChangedDocuments": [
+    {
+      "id": "19670455",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "146005032",
+      "type": "114",
+      "name": "CORRUPTED_ENCOUNTER_GARDEN"
+    },
+    {
+      "id": "345915085",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "390085428",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "567246629",
+      "type": "114",
+      "name": "MONSTER_04_DEMON_BOSS"
+    },
+    {
+      "id": "693507698",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "878859439",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "934375199",
+      "type": "114",
+      "name": "MONSTER_03_PHANTOM"
+    },
+    {
+      "id": "1057343355",
+      "type": "114",
+      "name": "MONSTER_05_CORRUPTED_BACKPACK"
+    },
+    {
+      "id": "1139314004",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "1154660249",
+      "type": "114",
+      "name": "MONSTER_01_BLUEDEMON"
+    },
+    {
+      "id": "1327722277",
+      "type": "114",
+      "name": "CORRUPTED_ENCOUNTER_FOUNTAIN"
+    },
+    {
+      "id": "1333281728",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "1374202037",
+      "type": "114",
+      "name": "CombatArena_Match3"
+    },
+    {
+      "id": "1473762729",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "1523437429",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "1551571485",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "1729400721",
+      "type": "114",
+      "name": "CORRUPTED_ENCOUNTER_SPORTS"
+    },
+    {
+      "id": "1758757871",
+      "type": "114",
+      "name": "CORRUPTED_ENCOUNTER_BUILDING_E"
+    },
+    {
+      "id": "1770471353",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "1813991608",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "1817619791",
+      "type": "114",
+      "name": "MONSTER_02_ORC"
+    },
+    {
+      "id": "1894422950",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "2052123784",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "2080727150",
+      "type": "114",
+      "name": "CORRUPTED_ENCOUNTER_CANTEEN"
+    },
+    {
+      "id": "2098857109",
+      "type": "21",
+      "removedByNative": true
+    },
+    {
+      "id": "890148801",
+      "type": "114",
+      "name": "AMBIENT_PARTICLES"
+    },
+    {
+      "id": "496162773",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "544541490",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "972064080",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "1581591700",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "2079792253",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "2146623960",
+      "type": "1001",
+      "name": null
+    },
+    {
+      "id": "324057916",
+      "type": "1001",
+      "name": null
+    }
+  ]
+}

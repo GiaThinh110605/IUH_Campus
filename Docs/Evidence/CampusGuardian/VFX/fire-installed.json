@@ -1,0 +1,30 @@
+{
+  "records": [
+    {
+      "name": "CORRUPTED_ENCOUNTER_SPORTS",
+      "position": "(20.00, 0.24, -8.73)",
+      "meshCount": 1
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_BUILDING_E",
+      "position": "(-6.00, 0.24, 7.27)",
+      "meshCount": 1
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_CANTEEN",
+      "position": "(-22.00, 0.24, -41.73)",
+      "meshCount": 1
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_GARDEN",
+      "position": "(-16.00, 0.24, -12.73)",
+      "meshCount": 1
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_FOUNTAIN",
+      "position": "(4.00, 0.24, -26.73)",
+      "meshCount": 1
+    }
+  ],
+  "repaired": 10
+}

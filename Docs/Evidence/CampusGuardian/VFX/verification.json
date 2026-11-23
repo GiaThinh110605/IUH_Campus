@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-24",
+  "timezone": "Asia/Bangkok",
+  "baseCommit": "1061a44",
+  "branch": "minhnhat/vfx-pass",
+  "V0": "7a21cd4",
+  "V2": "43e6210",
+  "V3b": "a189750",
+  "V1": "skipped: visual threshold after two rounds; production reverted",
+  "V3": "skipped: performance threshold after two rounds; production reverted",
+  "unity": "6000.5.8f1",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "EditMode": {
+    "job": "166474bca24644eaa1e4368188b95276",
+    "passed": 138,
+    "failed": 0,
+    "skipped": 0
+  },
+  "PlayMode": {
+    "job": "f7913cd204f949d1b645d0c7f79cf801",
+    "passed": 61,
+    "failed": 0,
+    "skipped": 0
+  },
+  "missingScripts": {
+    "campus": 0,
+    "arena": 0,
+    "AR": 0
+  },
+  "consoleErrors": 0,
+  "playing": false,
+  "compiling": false,
+  "sceneDirty": false,
+  "fireCount": 5,
+  "missingEncounterParticleMaterials": 0,
+  "mascotLight": {
+    "intensity": 0.22,
+    "range": 1.6
+  },
+  "encounters": [
+    {
+      "name": "CORRUPTED_ENCOUNTER_SPORTS",
+      "reveal": 16.0,
+      "trigger": 4.8,
+      "interact": 5.0
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_FOUNTAIN",
+      "reveal": 16.0,
+      "trigger": 4.8,
+      "interact": 5.0
+    },
+    {
+      "name": "MONSTER_04_DEMON_BOSS",
+      "reveal": 16.0,
+      "trigger": 10.0,
+      "interact": 5.0
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_GARDEN",
+      "reveal": 16.0,
+      "trigger": 4.8,
+      "interact": 5.0
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_CANTEEN",
+      "reveal": 16.0,
+      "trigger": 4.8,
+      "interact": 5.0
+    },
+    {
+      "name": "MONSTER_02_ORC",
+      "reveal": 16.0,
+      "trigger": 10.0,
+      "interact": 5.0
+    },
+    {
+      "name": "MONSTER_05_CORRUPTED_BACKPACK",
+      "reveal": 16.0,
+      "trigger": 10.0,
+      "interact": 5.0
+    },
+    {
+      "name": "CORRUPTED_ENCOUNTER_BUILDING_E",
+      "reveal": 16.0,
+      "trigger": 4.8,
+      "interact": 5.0
+    },
+    {
+      "name": "MONSTER_01_BLUEDEMON",
+      "reveal": 16.0,
+      "trigger": 10.0,
+      "interact": 5.0
+    },
+    {
+      "name": "MONSTER_03_PHANTOM",
+      "reveal": 16.0,
+      "trigger": 10.0,
+      "interact": 5.0
+    }
+  ],
+  "physicalE": "not repeated; original mascot API and serialized references unchanged",
+  "deviceBuild": "not run",
+  "push": false
+}

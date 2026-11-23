@@ -1,5 +1,7 @@
 # Free Stylized Smoke Effects Pack
 
+Phiên bản đầu vào xác minh từ `AssetOrigin` trong meta: **1.0** (product ID 226406).
+
 - Nhà phát hành: Maiami Studio.
 - Nguồn: [Unity Asset Store](https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylized-smoke-effects-pack-226406).
 - Phiên bản trang nguồn kiểm tra 24/11/2026: 1.0.1; CFX xác nhận thêm trong readme import. Không suy ra phiên bản import Fire/Smoke chỉ từ tên file.

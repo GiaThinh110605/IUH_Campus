@@ -1,0 +1,11 @@
+{
+  "sourceMaterials": [
+    {"path":"ProceduralFire/Materials/FireSphere1.mat","before":"Shader Graphs/FireSphere","after":"Universal Render Pipeline/Particles/Unlit"},
+    {"path":"ProceduralFire/Materials/SparkSphere.mat","before":"Shader Graphs/FireSphere","after":"Universal Render Pipeline/Particles/Unlit"}
+  ],
+  "runtimeMaterial":"Resources/Guardian/VFX/M_CampusGroundFire.mat",
+  "blend":"SrcAlpha One; transparent additive; ZWrite off",
+  "texture":"ProceduralFire/Textures/FireSphere1.png",
+  "legacyRepair":"10 PurpleSmoke/GlitchPixels renderers, null material to M_CampusGroundFire; beam unchanged",
+  "V1":"Smoke material experimentation reverted to V0"
+}
