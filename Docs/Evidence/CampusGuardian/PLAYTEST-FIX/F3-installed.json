@@ -1,0 +1,52 @@
+[
+  {
+    "encounter": "CORRUPTED_ENCOUNTER_CANTEEN",
+    "oldMesh": "Assets/IUH_Campus/Models/Monsters/BlueDemon.obj",
+    "oldActive": false,
+    "newVisual": "default_GuardianIdle",
+    "position": "(-21.93, 0.31, -41.99)",
+    "scale": "(0.94, 0.94, 0.94)",
+    "bones": 43,
+    "controller": "AC_BlueDemon_Idle"
+  },
+  {
+    "encounter": "CORRUPTED_ENCOUNTER_GARDEN",
+    "oldMesh": "Assets/IUH_Campus/Models/Monsters/BlueDemon.obj",
+    "oldActive": false,
+    "newVisual": "default_GuardianIdle",
+    "position": "(-15.93, 0.31, -12.99)",
+    "scale": "(0.94, 0.94, 0.94)",
+    "bones": 43,
+    "controller": "AC_BlueDemon_Idle"
+  },
+  {
+    "encounter": "CORRUPTED_ENCOUNTER_BUILDING_E",
+    "oldMesh": "Assets/IUH_Campus/Models/Monsters/BlueDemon.obj",
+    "oldActive": false,
+    "newVisual": "default_GuardianIdle",
+    "position": "(-5.93, 0.31, 7.01)",
+    "scale": "(0.94, 0.94, 0.94)",
+    "bones": 43,
+    "controller": "AC_BlueDemon_Idle"
+  },
+  {
+    "encounter": "CORRUPTED_ENCOUNTER_FOUNTAIN",
+    "oldMesh": "Assets/IUH_Campus/Models/Monsters/BlueDemon.obj",
+    "oldActive": false,
+    "newVisual": "default_GuardianIdle",
+    "position": "(4.07, 0.31, -26.99)",
+    "scale": "(0.94, 0.94, 0.94)",
+    "bones": 43,
+    "controller": "AC_BlueDemon_Idle"
+  },
+  {
+    "encounter": "CORRUPTED_ENCOUNTER_SPORTS",
+    "oldMesh": "Assets/IUH_Campus/Models/Monsters/BlueDemon.obj",
+    "oldActive": false,
+    "newVisual": "default_GuardianIdle",
+    "position": "(20.07, 0.31, -8.99)",
+    "scale": "(0.94, 0.94, 0.94)",
+    "bones": 43,
+    "controller": "AC_BlueDemon_Idle"
+  }
+]

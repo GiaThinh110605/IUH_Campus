@@ -1,0 +1,728 @@
+F5-monster1-day-before capture UTC=2026-11-24T12:57:41.8924843Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=20 worldTop=0.5823866 worldBottom=0.06571986 topAboveFeet=0.8338773 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=20 worldTop=0.5823866 worldBottom=0.06571984 topAboveFeet=0.8338777 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=5 worldTop=0.5823866 worldBottom=0.06571984 topAboveFeet=0.8338773 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=20 worldTop=0.5823866 worldBottom=0.06571984 topAboveFeet=0.8338773 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=5 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=5 worldTop=0.5823866 worldBottom=0.06571986 topAboveFeet=0.8338773 foot=(-22.12, -0.25, -42.00)
+F5-monster1-day-before hold UTC=2026-11-24T12:57:42.6909121Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.6885736 worldBottom=0.08857344 topAboveFeet=0.9400643 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6885736 worldBottom=0.08857344 topAboveFeet=0.9400647 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=7 worldTop=0.6885736 worldBottom=0.08857347 topAboveFeet=0.9400643 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.6885736 worldBottom=0.08857344 topAboveFeet=0.9400643 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=7 worldTop=0.6885736 worldBottom=0.08857347 topAboveFeet=0.9400643 foot=(-22.12, -0.25, -42.00)
+F5-monster1-day-after capture UTC=2026-11-24T12:57:43.4954133Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=12 worldTop=0.6006725 worldBottom=0.0006724298 topAboveFeet=0.8521632 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=12 worldTop=0.6006725 worldBottom=0.0006724298 topAboveFeet=0.8521636 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=3 worldTop=0.6006725 worldBottom=0.0006724596 topAboveFeet=0.8521632 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=12 worldTop=0.6006725 worldBottom=0.0006724298 topAboveFeet=0.8521632 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=3 worldTop=0.6006725 worldBottom=0.0006724596 topAboveFeet=0.8521632 foot=(-22.12, -0.25, -42.00)
+F5-monster1-day-after hold UTC=2026-11-24T12:57:44.3012084Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=20 worldTop=0.7060329 worldBottom=0.006032825 topAboveFeet=0.9575236 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.7060329 worldBottom=0.006032825 topAboveFeet=0.9575239 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=5 worldTop=0.7060329 worldBottom=0.006032884 topAboveFeet=0.9575236 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=20 worldTop=0.7060329 worldBottom=0.006032795 topAboveFeet=0.9575236 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=5 worldTop=0.7060329 worldBottom=0.006032914 topAboveFeet=0.9575236 foot=(-22.12, -0.25, -42.00)
+F5-monster1-night-before capture UTC=2026-11-24T12:57:45.1085449Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=16 worldTop=0.5752226 worldBottom=0.1002226 topAboveFeet=0.8267133 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=16 worldTop=0.5752226 worldBottom=0.1002226 topAboveFeet=0.8267137 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=4 worldTop=0.5752226 worldBottom=0.1002226 topAboveFeet=0.8267133 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=16 worldTop=0.5752226 worldBottom=0.1002226 topAboveFeet=0.8267133 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=4 worldTop=0.5752226 worldBottom=0.1002226 topAboveFeet=0.8267133 foot=(-22.12, -0.25, -42.00)
+F5-monster1-night-before hold UTC=2026-11-24T12:57:45.9108232Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.6874581 worldBottom=0.087458 topAboveFeet=0.9389488 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6874581 worldBottom=0.087458 topAboveFeet=0.9389492 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=7 worldTop=0.687458 worldBottom=0.08745806 topAboveFeet=0.9389488 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.6874581 worldBottom=0.087458 topAboveFeet=0.9389488 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=7 worldTop=0.6874581 worldBottom=0.08745803 topAboveFeet=0.9389488 foot=(-22.12, -0.25, -42.00)
+F5-monster1-night-after capture UTC=2026-11-24T12:57:46.7148058Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=12 worldTop=0.6007445 worldBottom=0.0007444024 topAboveFeet=0.8522352 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=12 worldTop=0.6007444 worldBottom=0.0007444024 topAboveFeet=0.8522355 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=3 worldTop=0.6007444 worldBottom=0.000744462 topAboveFeet=0.8522351 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=12 worldTop=0.6007445 worldBottom=0.0007444322 topAboveFeet=0.8522352 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=3 worldTop=0.6007444 worldBottom=0.000744462 topAboveFeet=0.8522351 foot=(-22.12, -0.25, -42.00)
+F5-monster1-night-after hold UTC=2026-11-24T12:57:47.5211698Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=20 worldTop=0.7078875 worldBottom=0.007887453 topAboveFeet=0.9593782 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.7078875 worldBottom=0.007887453 topAboveFeet=0.9593786 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=5 worldTop=0.7078875 worldBottom=0.007887483 topAboveFeet=0.9593782 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=20 worldTop=0.7078875 worldBottom=0.007887423 topAboveFeet=0.9593782 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=5 worldTop=0.7078875 worldBottom=0.007887483 topAboveFeet=0.9593782 foot=(-22.12, -0.25, -42.00)
+F5-monster2-day-before capture UTC=2026-11-24T12:57:48.3226900Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=4 worldTop=0.5738214 worldBottom=0.09882136 topAboveFeet=0.8253121 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=16 worldTop=0.5738214 worldBottom=0.09882136 topAboveFeet=0.8253124 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=4 worldTop=0.5738214 worldBottom=0.09882136 topAboveFeet=0.8253121 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=4 worldTop=0.5738214 worldBottom=0.09882136 topAboveFeet=0.8253121 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=4 worldTop=0.5738214 worldBottom=0.09882136 topAboveFeet=0.8253121 foot=(-22.12, -0.25, -42.00)
+F5-monster2-day-before hold UTC=2026-11-24T12:57:49.1269696Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=7 worldTop=0.6866947 worldBottom=0.08669476 topAboveFeet=0.9381854 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6866947 worldBottom=0.0866947 topAboveFeet=0.9381858 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=7 worldTop=0.6866947 worldBottom=0.08669479 topAboveFeet=0.9381854 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=7 worldTop=0.6866947 worldBottom=0.08669476 topAboveFeet=0.9381854 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=7 worldTop=0.6866947 worldBottom=0.08669476 topAboveFeet=0.9381854 foot=(-22.12, -0.25, -42.00)
+F5-monster2-day-after capture UTC=2026-11-24T12:57:49.9335259Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=3 worldTop=0.6013741 worldBottom=0.001374066 topAboveFeet=0.8528648 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=12 worldTop=0.6013741 worldBottom=0.001374066 topAboveFeet=0.8528652 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=3 worldTop=0.601374 worldBottom=0.001374066 topAboveFeet=0.8528647 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=3 worldTop=0.6013741 worldBottom=0.001374066 topAboveFeet=0.8528648 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=3 worldTop=0.601374 worldBottom=0.001374066 topAboveFeet=0.8528647 foot=(-22.12, -0.25, -42.00)
+F5-monster2-day-after hold UTC=2026-11-24T12:57:50.7393538Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=5 worldTop=0.707724 worldBottom=0.007723927 topAboveFeet=0.9592147 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.707724 worldBottom=0.007723957 topAboveFeet=0.959215 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=5 worldTop=0.707724 worldBottom=0.007723957 topAboveFeet=0.9592147 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=5 worldTop=0.707724 worldBottom=0.007723927 topAboveFeet=0.9592147 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=5 worldTop=0.707724 worldBottom=0.007723957 topAboveFeet=0.9592147 foot=(-22.12, -0.25, -42.00)
+F5-monster2-night-before capture UTC=2026-11-24T12:57:51.5404346Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=4 worldTop=0.573917 worldBottom=0.09891696 topAboveFeet=0.8254077 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=16 worldTop=0.573917 worldBottom=0.09891693 topAboveFeet=0.825408 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=4 worldTop=0.573917 worldBottom=0.09891696 topAboveFeet=0.8254077 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=4 worldTop=0.573917 worldBottom=0.09891693 topAboveFeet=0.8254077 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=4 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=4 worldTop=0.573917 worldBottom=0.09891696 topAboveFeet=0.8254077 foot=(-22.12, -0.25, -42.00)
+F5-monster2-night-before hold UTC=2026-11-24T12:57:52.3437573Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=7 worldTop=0.6864325 worldBottom=0.08643241 topAboveFeet=0.9379232 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6864325 worldBottom=0.08643241 topAboveFeet=0.9379236 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=7 worldTop=0.6864325 worldBottom=0.08643244 topAboveFeet=0.9379232 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=7 worldTop=0.6864325 worldBottom=0.08643244 topAboveFeet=0.9379232 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=7 worldTop=0.6864325 worldBottom=0.08643238 topAboveFeet=0.9379232 foot=(-22.12, -0.25, -42.00)
+F5-monster2-night-after capture UTC=2026-11-24T12:57:53.1485365Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=3 worldTop=0.6008446 worldBottom=0.0008446276 topAboveFeet=0.8523353 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=12 worldTop=0.6008446 worldBottom=0.0008445978 topAboveFeet=0.8523357 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=3 worldTop=0.6008446 worldBottom=0.0008446276 topAboveFeet=0.8523353 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=3 worldTop=0.6008446 worldBottom=0.0008446276 topAboveFeet=0.8523353 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=3 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=3 worldTop=0.6008446 worldBottom=0.0008446276 topAboveFeet=0.8523353 foot=(-22.12, -0.25, -42.00)
+F5-monster2-night-after hold UTC=2026-11-24T12:57:53.9504950Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=5 worldTop=0.7070574 worldBottom=0.007057339 topAboveFeet=0.9585481 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.7070574 worldBottom=0.007057309 topAboveFeet=0.9585484 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=5 worldTop=0.7070574 worldBottom=0.007057339 topAboveFeet=0.9585481 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=5 worldTop=0.7070574 worldBottom=0.007057339 topAboveFeet=0.9585481 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=5 worldTop=0.7070574 worldBottom=0.007057339 topAboveFeet=0.9585481 foot=(-22.12, -0.25, -42.00)
+footClose run1 UTC=2026-11-24T12:58:13.3670770Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.6846868 worldBottom=0.08468623 topAboveFeet=0.9361775 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6846867 worldBottom=0.0846862 topAboveFeet=0.9361778 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=7 worldTop=0.6846867 worldBottom=0.08468644 topAboveFeet=0.9361774 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.6846867 worldBottom=0.0846862 topAboveFeet=0.9361774 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=7 worldTop=0.6846868 worldBottom=0.08468647 topAboveFeet=0.9361775 foot=(-22.12, -0.25, -42.00)
+footClose run2 UTC=2026-11-24T12:58:32.5888686Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=16 worldTop=0.6849995 worldBottom=0.0349991 topAboveFeet=0.9364902 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=16 worldTop=0.6849995 worldBottom=0.0349991 topAboveFeet=0.9364905 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=4 worldTop=0.6849994 worldBottom=0.03499937 topAboveFeet=0.9364901 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=16 worldTop=0.6849995 worldBottom=0.0349991 topAboveFeet=0.9364902 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=4 worldTop=0.6849994 worldBottom=0.03499937 topAboveFeet=0.9364901 foot=(-22.12, -0.25, -42.00)
+footClose run3 UTC=2026-11-24T12:58:51.9527505Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=32 worldTop=0.7143311 worldBottom=0.07266404 topAboveFeet=0.9658218 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=32 worldTop=0.7143311 worldBottom=0.07266402 topAboveFeet=0.9658222 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=8 worldTop=0.714331 worldBottom=0.07266459 topAboveFeet=0.9658217 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=32 worldTop=0.7143311 worldBottom=0.07266402 topAboveFeet=0.9658218 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=8 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=8 worldTop=0.714331 worldBottom=0.07266463 topAboveFeet=0.9658217 foot=(-22.12, -0.25, -42.00)
+footClose run4 UTC=2026-11-24T12:59:11.1045792Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=20 worldTop=0.7202006 worldBottom=0.02019903 topAboveFeet=0.9716913 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.7202007 worldBottom=0.02019903 topAboveFeet=0.9716917 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=5 worldTop=0.7201991 worldBottom=0.02019903 topAboveFeet=0.9716898 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=20 worldTop=0.7202007 worldBottom=0.02019903 topAboveFeet=0.9716914 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=5 worldTop=0.7201991 worldBottom=0.02019906 topAboveFeet=0.9716898 foot=(-22.12, -0.25, -42.00)
+footClose run5 UTC=2026-11-24T12:59:30.2678743Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.7060507 worldBottom=0.1060501 topAboveFeet=0.9575414 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.7060507 worldBottom=0.1060501 topAboveFeet=0.9575418 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=7 worldTop=0.7060503 worldBottom=0.1060501 topAboveFeet=0.957541 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.7060507 worldBottom=0.1060501 topAboveFeet=0.9575414 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=0 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=7 worldTop=0.7060503 worldBottom=0.1060501 topAboveFeet=0.957541 foot=(-22.12, -0.25, -42.00)
+footClose run6 UTC=2026-11-24T12:59:49.5903709Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=20 worldTop=0.7042999 worldBottom=0.004299879 topAboveFeet=0.9557906 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.7042999 worldBottom=0.004299879 topAboveFeet=0.955791 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=5 worldTop=0.7042996 worldBottom=0.004299998 topAboveFeet=0.9557903 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=20 worldTop=0.7042999 worldBottom=0.004299849 topAboveFeet=0.9557906 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=0 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=5 worldTop=0.7042997 worldBottom=0.004299998 topAboveFeet=0.9557904 foot=(-22.12, -0.25, -42.00)
+overviewART run1 UTC=2026-11-24T13:00:09.1752424Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.6863517 worldBottom=0.08635168 topAboveFeet=0.9378424 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6863517 worldBottom=0.08635168 topAboveFeet=0.9378428 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=28 worldTop=0.6863518 worldBottom=0.08635171 topAboveFeet=0.9378425 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.6863518 worldBottom=0.08635168 topAboveFeet=0.9378425 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=28 worldTop=0.6863518 worldBottom=0.08635168 topAboveFeet=0.9378425 foot=(-22.12, -0.25, -42.00)
+overviewART run2 UTC=2026-11-24T13:00:28.7791948Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=20 worldTop=0.7106788 worldBottom=0.01067722 topAboveFeet=0.9621695 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.7106788 worldBottom=0.01067722 topAboveFeet=0.9621699 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=20 worldTop=0.7106788 worldBottom=0.01067719 topAboveFeet=0.9621695 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=20 worldTop=0.7106788 worldBottom=0.01067719 topAboveFeet=0.9621695 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=20 worldTop=0.7106788 worldBottom=0.01067722 topAboveFeet=0.9621695 foot=(-22.12, -0.25, -42.00)
+overviewART run3 UTC=2026-11-24T13:00:48.4866627Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.6754918 worldBottom=0.07549165 topAboveFeet=0.9269825 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6754918 worldBottom=0.07549165 topAboveFeet=0.9269829 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=28 worldTop=0.6754918 worldBottom=0.07549165 topAboveFeet=0.9269825 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.6754918 worldBottom=0.07549165 topAboveFeet=0.9269825 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=28 worldTop=0.6754918 worldBottom=0.07549165 topAboveFeet=0.9269825 foot=(-22.12, -0.25, -42.00)
+overviewART run4 UTC=2026-11-24T13:01:08.5029844Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=20 worldTop=0.6933677 worldBottom=-0.006633416 topAboveFeet=0.9448584 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=20 worldTop=0.6933677 worldBottom=-0.006633431 topAboveFeet=0.9448587 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=20 worldTop=0.6933677 worldBottom=-0.006633416 topAboveFeet=0.9448584 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=20 worldTop=0.6933677 worldBottom=-0.006633416 topAboveFeet=0.9448584 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=5 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=20 worldTop=0.6933677 worldBottom=-0.006633416 topAboveFeet=0.9448584 foot=(-22.12, -0.25, -42.00)
+overviewART run5 UTC=2026-11-24T13:01:28.6385405Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=48 live=28 worldTop=0.6987364 worldBottom=0.09873502 topAboveFeet=0.9502271 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=48 live=28 worldTop=0.6987364 worldBottom=0.09873502 topAboveFeet=0.9502275 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=48 live=28 worldTop=0.6987364 worldBottom=0.09873505 topAboveFeet=0.9502271 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=48 live=28 worldTop=0.6987364 worldBottom=0.09873505 topAboveFeet=0.9502271 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Sparks color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Fire color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+system=Smoke color=RGBA(0.480, 0.290, 0.530, 0.350) max=12 live=7 size=0.35 radius=0.45
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=48 live=28 worldTop=0.6987364 worldBottom=0.09873502 topAboveFeet=0.9502271 foot=(-22.12, -0.25, -42.00)
+overviewART run6 UTC=2026-11-24T13:01:48.3724108Z GroundAuraOnly
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_FOUNTAIN totalMax=24 live=16 worldTop=0.6867439 worldBottom=0.03674391 topAboveFeet=0.9382346 foot=(3.88, -0.25, -27.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_BUILDING_E totalMax=24 live=16 worldTop=0.6867439 worldBottom=0.03674394 topAboveFeet=0.9382349 foot=(-6.12, -0.25, 7.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_SPORTS totalMax=24 live=16 worldTop=0.6867439 worldBottom=0.03674391 topAboveFeet=0.9382346 foot=(19.88, -0.25, -9.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_GARDEN totalMax=24 live=16 worldTop=0.6867439 worldBottom=0.03674391 topAboveFeet=0.9382346 foot=(-16.12, -0.25, -13.00)
+system=Guardian Ground Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Sparks color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Fire color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+system=Smoke color=RGBA(0.420, 0.300, 0.460, 0.700) max=6 live=4 size=0.5 radius=0.48
+aura=CORRUPTED_ENCOUNTER_CANTEEN totalMax=24 live=16 worldTop=0.6867439 worldBottom=0.03674391 topAboveFeet=0.9382346 foot=(-22.12, -0.25, -42.00)

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "CORRUPTED_ENCOUNTER_FOUNTAIN",
+    "aura": "(4.00, 0.24, -26.73)",
+    "feet": "(3.96, 0.11, -27.70)",
+    "horizontalGap": 0.9741807
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_BUILDING_E",
+    "aura": "(-6.00, 0.24, 7.27)",
+    "feet": "(-6.04, 0.11, 6.30)",
+    "horizontalGap": 0.974183559
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_SPORTS",
+    "aura": "(20.00, 0.24, -8.73)",
+    "feet": "(19.96, 0.11, -9.70)",
+    "horizontalGap": 0.9741844
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_GARDEN",
+    "aura": "(-16.00, 0.24, -12.73)",
+    "feet": "(-16.04, 0.11, -13.70)",
+    "horizontalGap": 0.9741845
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_CANTEEN",
+    "aura": "(-22.00, 0.24, -41.73)",
+    "feet": "(-22.04, 0.11, -42.70)",
+    "horizontalGap": 0.9741845
+  }
+]

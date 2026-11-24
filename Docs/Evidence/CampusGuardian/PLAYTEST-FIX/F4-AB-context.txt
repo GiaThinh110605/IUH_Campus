@@ -1,0 +1,5 @@
+UTC=2026-11-24T11:40:12.7398794Z
+Real loaded arena/proxies/current arena camera; no added camera, RT or UI compositor. Main manager resolving=true and board locked only in runtime fixture; no damaging move/reward.
+Phase1: three visual-only effects at actual body: monster hit,player hit,monster defeat, capture0.1s after emission with minimum2renderedframes.
+Phase2: ABABAB120warm+3000measure actual1280x900/VSync0/target-1; A=EffectsEnabledfalse B=true; bothinvoke identical cadence .5shit alternatingbody,2sskill. Stopwatch mainarena endFrame guard; UnityStats.drawCalls.
+Power source and commit recorded separately by parent. Exit Play Mode after completion restores fixture.
