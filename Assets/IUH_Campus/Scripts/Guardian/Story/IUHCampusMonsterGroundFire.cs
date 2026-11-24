@@ -1,20 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace IUHCampus.Guardian.Story
 {
     public sealed class IUHCampusMonsterGroundFire : MonoBehaviour
     {
-        const int DesktopParticleLimit = 12;
-        const int MobileParticleLimit = 6;
-        const float DesktopEmissionRate = 6f;
-        const float MobileEmissionRate = 3f;
+        const int DesktopParticleLimit = 24;
+        const int MobileParticleLimit = 12;
+        const float DesktopEmissionRate = 16f;
+        const float MobileEmissionRate = 8f;
         const float ParticleLifetime = 1.2f;
-        const float ParticleSize = .35f;
-        const float GroundRadius = .45f;
-        const float RiseSpeed = .25f;
+        const float ParticleSize = .50f;
+        const float GroundRadius = .48f;
+        const float RiseSpeed = .20f;
         const float FadeInFraction = .15f;
-        static readonly Color FireColor = new Color(.48f, .29f, .53f, .35f);
+        static readonly Color FireColor = new Color(.42f, .30f, .46f, .70f);
         static readonly Vector3 GroundShapeRotation = new Vector3(90f, 0f, 0f);
         ParticleSystem[] systems;
 
@@ -29,36 +29,40 @@ namespace IUHCampus.Guardian.Story
         public void ConfigureForPlatform(bool mobile)
         {
             if (systems == null) systems = GetComponentsInChildren<ParticleSystem>(true);
-            foreach (var ps in systems)
+            for (int index = 0; index < systems.Length; index++)
             {
+                var ps = systems[index];
                 if (ps.transform != transform)
                 {
                     ps.transform.localPosition = Vector3.zero;
                     ps.transform.localRotation = Quaternion.identity;
                     ps.transform.localScale = Vector3.one;
                 }
-                Configure(ps, mobile);
+                int budget = mobile ? MobileParticleLimit : DesktopParticleLimit;
+                int capacity = budget / systems.Length + (index < budget % systems.Length ? 1 : 0);
+                float rate = (mobile ? MobileEmissionRate : DesktopEmissionRate) * capacity / budget;
+                Configure(ps, capacity, rate);
             }
         }
 
-        static void Configure(ParticleSystem ps, bool mobile)
+        static void Configure(ParticleSystem ps, int capacity, float rate)
         {
             ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
-            ConfigureMain(ps, mobile);
-            ConfigureEmission(ps, mobile);
+            ConfigureMain(ps, capacity);
+            ConfigureEmission(ps, rate);
             ConfigureMotion(ps);
             ConfigureModules(ps);
             ConfigureColor(ps);
             ConfigureRenderer(ps);
         }
 
-        static void ConfigureMain(ParticleSystem ps, bool mobile)
+        static void ConfigureMain(ParticleSystem ps, int capacity)
         {
             var main = ps.main;
             main.loop = true;
             main.playOnAwake = false;
             main.stopAction = ParticleSystemStopAction.None;
-            main.maxParticles = mobile ? MobileParticleLimit : DesktopParticleLimit;
+            main.maxParticles = Mathf.Max(1, capacity);
             main.startLifetime = ParticleLifetime;
             main.startSpeed = 0f;
             main.startSize3D = false;
@@ -72,12 +76,12 @@ namespace IUHCampus.Guardian.Story
             main.scalingMode = ParticleSystemScalingMode.Hierarchy;
         }
 
-        static void ConfigureEmission(ParticleSystem ps, bool mobile)
+        static void ConfigureEmission(ParticleSystem ps, float rate)
         {
             var emission = ps.emission;
-            emission.enabled = true;
+            emission.enabled = rate > 0f;
             emission.SetBursts(new ParticleSystem.Burst[0]);
-            emission.rateOverTime = mobile ? MobileEmissionRate : DesktopEmissionRate;
+            emission.rateOverTime = rate;
             emission.rateOverDistance = 0f;
         }
 
@@ -148,3 +152,5 @@ namespace IUHCampus.Guardian.Story
         }
     }
 }
+
+

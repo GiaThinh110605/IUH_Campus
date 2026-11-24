@@ -49,9 +49,10 @@ public sealed class IUHCampusMonsterGroundFirePlayModeTests
             foreach (var p in sample.Take(count))
             {
                 Vector3 world = ps.transform.TransformPoint(p.position);
-                Assert.That(world.y + .175f, Is.LessThanOrEqualTo(1f));
-                Assert.That(world.y - .175f, Is.GreaterThanOrEqualTo(0f));
-                Assert.That(new Vector2(world.x, world.z).magnitude + .175f, Is.LessThanOrEqualTo(.65f));
+                float halfSize = p.GetCurrentSize(ps) * .5f;
+                Assert.That(world.y + halfSize, Is.LessThanOrEqualTo(1.0001f));
+                Assert.That(world.y - halfSize, Is.GreaterThanOrEqualTo(-.0501f));
+                Assert.That(new Vector2(world.x, world.z).magnitude + halfSize, Is.LessThanOrEqualTo(.7501f));
             }
         }
     }
@@ -77,3 +78,4 @@ public sealed class IUHCampusMonsterGroundFirePlayModeTests
 }
 
 #endif
+
