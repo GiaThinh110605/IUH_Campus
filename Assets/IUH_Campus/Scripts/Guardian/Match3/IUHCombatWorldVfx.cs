@@ -154,5 +154,41 @@ namespace IUHCampus.Guardian.Match3
             foreach (var s in slots) if (s != null) Release(s);
         }
         private void OnDisable() => Clear();
+
+        // Body bounds of an arena proxy, ignoring beacon/pillar/beam decorations and particle children.
+        public static bool TryGetBodyBounds(GameObject proxy, out Bounds bounds, out int layer)
+        {
+            bounds = default;
+            layer = proxy.layer;
+            bool found = false;
+            foreach (var skin in proxy.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {
+                if (!skin.enabled || !skin.gameObject.activeInHierarchy) continue;
+                if (!found) { bounds = skin.bounds; layer = skin.gameObject.layer; found = true; }
+                else bounds.Encapsulate(skin.bounds);
+            }
+            if (found) return true;
+            foreach (var mesh in proxy.GetComponentsInChildren<MeshRenderer>())
+            {
+                if (!mesh.enabled || !mesh.gameObject.activeInHierarchy || IsEffectDecoration(mesh.transform, proxy.transform)) continue;
+                if (!found) { bounds = mesh.bounds; layer = mesh.gameObject.layer; found = true; }
+                else bounds.Encapsulate(mesh.bounds);
+            }
+            return found;
+        }
+
+        private static bool IsEffectDecoration(Transform node, Transform root)
+        {
+            while (node != null && node != root)
+            {
+                string name = node.name;
+                if (name.IndexOf("Beacon", System.StringComparison.OrdinalIgnoreCase) >= 0
+                    || name.IndexOf("Pillar", System.StringComparison.OrdinalIgnoreCase) >= 0
+                    || name.IndexOf("Beam", System.StringComparison.OrdinalIgnoreCase) >= 0
+                    || node.GetComponent<ParticleSystem>() != null) return true;
+                node = node.parent;
+            }
+            return false;
+        }
     }
 }

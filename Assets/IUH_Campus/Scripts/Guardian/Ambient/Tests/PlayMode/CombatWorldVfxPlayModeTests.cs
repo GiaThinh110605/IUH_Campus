@@ -14,8 +14,8 @@ namespace IUHCampus.Guardian.Tests
         [Test]
         public void BodyBoundsPreferSkinAndRejectBeaconMeshFallback()
         {
-            Type stage = Type.GetType("IUHCampus.Guardian.Match3.Match3BattleStage, Assembly-CSharp", true);
-            MethodInfo method = stage.GetMethod("TryGetBodyEffectBounds", BindingFlags.Static | BindingFlags.NonPublic);
+            Type vfx = Type.GetType("IUHCampus.Guardian.Match3.IUHCombatWorldVfx, Assembly-CSharp", true);
+            MethodInfo method = vfx.GetMethod("TryGetBodyBounds", BindingFlags.Static | BindingFlags.Public);
             var proxy = new GameObject("ArenaBodyBoundsTest");
             try
             {
