@@ -73,6 +73,51 @@ namespace IUHCampus.Guardian.Match3
         private Vector3 m_PlayerHome;
         private Vector3 m_MonsterHome;
 
+﻿        private IUHCombatWorldVfx m_WorldVfx;
+        public void PlayWorldEffect(int kind)
+        {
+            if (!IsActive) return;
+            GameObject proxy = kind == IUHCombatWorldVfx.PlayerHit ? m_PlayerProxy : m_MonsterProxy;
+            if (proxy == null || !TryGetBodyEffectBounds(proxy, out Bounds body, out int layer)) return;
+            if (m_WorldVfx == null) m_WorldVfx = gameObject.AddComponent<IUHCombatWorldVfx>();
+            m_WorldVfx.Emit(kind, body.center, body.size.y, layer);
+        }
+
+        private static bool TryGetBodyEffectBounds(GameObject proxy, out Bounds bounds, out int layer)
+        {
+            bounds = default;
+            layer = proxy.layer;
+            bool found = false;
+            foreach (var skin in proxy.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {
+                if (!skin.enabled || !skin.gameObject.activeInHierarchy) continue;
+                if (!found) { bounds = skin.bounds; layer = skin.gameObject.layer; found = true; }
+                else bounds.Encapsulate(skin.bounds);
+            }
+            if (found) return true;
+            foreach (var mesh in proxy.GetComponentsInChildren<MeshRenderer>())
+            {
+                if (!mesh.enabled || !mesh.gameObject.activeInHierarchy || IsEffectDecoration(mesh.transform, proxy.transform)) continue;
+                if (!found) { bounds = mesh.bounds; layer = mesh.gameObject.layer; found = true; }
+                else bounds.Encapsulate(mesh.bounds);
+            }
+            return found;
+        }
+
+        private static bool IsEffectDecoration(Transform node, Transform root)
+        {
+            while (node != null && node != root)
+            {
+                string name = node.name;
+                if (name.IndexOf("Beacon", StringComparison.OrdinalIgnoreCase) >= 0
+                    || name.IndexOf("Pillar", StringComparison.OrdinalIgnoreCase) >= 0
+                    || name.IndexOf("Beam", StringComparison.OrdinalIgnoreCase) >= 0
+                    || node.GetComponent<ParticleSystem>() != null) return true;
+                node = node.parent;
+            }
+            return false;
+        }
+
         public bool IsActive { get; private set; }
         public GameObject FadeOverlayObject => m_FadeOverlay != null ? m_FadeOverlay.gameObject : null;
 
@@ -106,6 +151,7 @@ namespace IUHCampus.Guardian.Match3
                 IsActive = true;
             }
 
+            if (m_WorldVfx != null) m_WorldVfx.Clear();
             DestroyProxies();
             m_PlayerProxy = player != null ? CreateProxy(player.gameObject, "Arena_Student") : null;
             m_MonsterProxy = CreateProxy(monster.gameObject, "Arena_Monster");
@@ -118,6 +164,7 @@ namespace IUHCampus.Guardian.Match3
         public void Exit()
         {
             StopAllCoroutines();
+            if (m_WorldVfx != null) m_WorldVfx.Clear();
             SetFade(0f);
             ++m_EntryVersion;
             if (m_PendingLoad != null && !m_PendingLoad.isDone) m_CancelPendingLoad = true;
