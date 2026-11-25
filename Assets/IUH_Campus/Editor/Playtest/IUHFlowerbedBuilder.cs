@@ -269,6 +269,39 @@ namespace IUHCampus.EditorTools
             return removed;
         }
 
+        // Moves every vertex whose world XZ lies in `region` by `worldDelta` (mesh asset edited in place; unshared meshes only).
+        public static int ShiftVerticesInRegion(MeshFilter mf, Rect region, Vector3 worldDelta)
+        {
+            var mesh = mf.sharedMesh;
+            var v = mesh.vertices; var m = mf.transform.localToWorldMatrix; var inv = mf.transform.worldToLocalMatrix;
+            int moved = 0;
+            for (int i = 0; i < v.Length; i++)
+            {
+                var w = m.MultiplyPoint3x4(v[i]);
+                if (!region.Contains(new Vector2(w.x, w.z))) continue;
+                v[i] = inv.MultiplyPoint3x4(w + worldDelta);
+                moved++;
+            }
+            if (moved == 0) return 0;
+            mesh.vertices = v;
+            mesh.RecalculateBounds();
+            EditorUtility.SetDirty(mesh);
+            return moved;
+        }
+
+        // Invisible boundary wall around the upward faces of `surface`, under a new root (no planting).
+        public static GameObject BuildWallOnly(string rootName, MeshFilter surface, float height)
+        {
+            var old = GameObject.Find(rootName);
+            if (old != null) UnityEngine.Object.DestroyImmediate(old);
+            Directory.CreateDirectory(MeshFolder);
+            var root = new GameObject(rootName);
+            AddWall(root.transform, rootName, surface, BoundaryEdges(surface), height);
+            GameObjectUtility.SetStaticEditorFlags(root, StaticEditorFlags.BatchingStatic);
+            AssetDatabase.SaveAssets();
+            return root;
+        }
+
         static void AddWall(Transform parent, string name, MeshFilter surface, List<Vector3[]> edges, float height)
         {
             var verts = new List<Vector3>(); var tris = new List<int>();
