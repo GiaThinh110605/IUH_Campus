@@ -47,6 +47,13 @@ Người dùng báo: vẫn vào được luống (viền đá và cỏ), có câ
 - `CHECKIN_SPOT_FESTIVAL` (16; 3) nằm trong luống sân khấu (bị tường chặn) ⇒ dời ra lối lát (16; 8).
 - Thử Play (CharacterController.Move): đi và nhảy (+1,5 m) vào luống căn tin dừng ở x −11,2; nhảy vào luống sân khấu từ bắc dừng ở z 5,8; vách sau sân khấu dừng ở z −1,7; bậc trước vẫn lên sân khấu được; trong đài phun nước dừng ở bồn cong (x −7,9); tới check-in Ngày hội (16; 8) được.
 
+## H7 — Quái chương truyện bị T-pose
+Người dùng báo quái vẫn T-pose (ảnh "Chiến binh quỷ dữ liệu" cạnh căn tin, "Bóng ma glitch festival"). Đó là 5 quái `MONSTER_01..05` (không phải `CORRUPTED_ENCOUNTER_*` đã sửa ở F4): vẫn dùng mesh tĩnh `.obj` (tư thế T).
+- Sinh thêm `PF_Orc_GuardianIdle`, `PF_Demon_GuardianIdle` (+ `Orc_Idle.anim`, `Demon_Idle.anim`, `AC_Orc_Idle`, `AC_Demon_Idle`) bằng `IUHMonsterIdleAssets.GenerateAssets` từ clip `Idle` của GLTF gốc (vật liệu atlas cũ).
+- `IUHMonsterIdleAssets.InstallVisual` cho cả 5: BlueDemon (01, 03, 05), Orc (02), Demon (04); mesh `.obj` cũ chỉ tắt, chiều cao/chân khớp mesh cũ.
+- Play: cả 5 Animator chạy idle, tay buông. [Orc](H7-orc-idle-after.png) · [Phantom](H7-phantom-idle-after.png). Test `MonsterIdleGenerated*` tự kiểm thêm 2 prefab mới (cánh tay thấp hơn vai).
+- Ghi chú: `MONSTER_03_PHANTOM` (18; −6) đứng trong luống sân khấu; vẫn tương tác được từ lối đi (bán kính 5 m, mép luống cách ~1,8 m).
+
 ## Kiểm thử
 - EditMode **150/150**, PlayMode **75/75**. Missing Script = 0 ở 3 scene. Console 0 error, scene `isDirty=false`.
 - Scene commit bằng script ghép block theo cây con (thêm/sửa/xóa, gồm prefab instance và block stripped); kiểm 0 fileID trùng, 0 tham chiếu treo. Không commit thay đổi Unity tự ghi (vật liệu nhúng, `UniversalAdditionalLightData` của đèn drone, override prefab, dòng `MainCamera`).
