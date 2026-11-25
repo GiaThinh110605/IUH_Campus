@@ -328,6 +328,7 @@ namespace IUHCampus.Guardian.Match3
 
             if (r.Damage > 0)
             {
+                if (m_Stage != null && m_UsingStage) m_Stage.PlayWorldEffect(step.ComboIndex >= 1 || step.HasMegaBomb ? IUHCombatWorldVfx.Skill : IUHCombatWorldVfx.MonsterHit);
                 Popup(m_BossPopupAnchor, $"-{r.Damage}", DamageColor, r.Multiplier > 1.01f ? 52 : 42);
                 if (m_Stage != null && m_UsingStage) { m_Stage.PlayPlayerAttack(); m_Stage.PlayMonsterHit(); }
             }
@@ -371,6 +372,7 @@ namespace IUHCampus.Guardian.Match3
             yield return new WaitForSeconds(0.14f);
 
             BossTurnResult turn = m_Rules.ResolveBossTurn();
+            if (turn.Damage > 0 && m_Stage != null && m_UsingStage) m_Stage.PlayWorldEffect(IUHCombatWorldVfx.PlayerHit);
             if (turn.Blocked > 0) Popup(m_PlayerPopupAnchor, $"Chặn {turn.Blocked}", ShieldColor, 30, 50f);
             if (turn.Damage > 0) Popup(m_PlayerPopupAnchor, $"-{turn.Damage}", HurtColor, charged ? 54 : 44);
             UpdateAllUI();
@@ -395,6 +397,7 @@ namespace IUHCampus.Guardian.Match3
             int dmg = m_Rules.CastSkill();
             if (dmg <= 0) return;
 
+            if (m_Stage != null && m_UsingStage) m_Stage.PlayWorldEffect(IUHCombatWorldVfx.Skill);
             Popup(m_BossPopupAnchor, $"⚡ -{dmg}", EnergyColor, 60);
             if (m_Stage != null && m_UsingStage) { m_Stage.PlayPlayerAttack(); m_Stage.PlayMonsterHit(); }
             UpdateAllUI();
@@ -411,6 +414,7 @@ namespace IUHCampus.Guardian.Match3
             LockBoard(true);
             UpdateAllUI();
 
+            if (m_Stage != null && m_UsingStage) m_Stage.PlayWorldEffect(IUHCombatWorldVfx.Defeat);
             if (m_Stage != null && m_UsingStage) yield return m_Stage.PlayMonsterDefeat();
             else yield return new WaitForSeconds(0.4f);
 

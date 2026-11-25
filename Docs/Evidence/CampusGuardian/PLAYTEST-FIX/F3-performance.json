@@ -1,0 +1,28 @@
+[
+  {
+    "view": "campusClose",
+    "medianA": 5.3447,
+    "medianB": 5.3962,
+    "p95A": 6.278,
+    "p95B": 6.3231,
+    "drawA": 487,
+    "drawB": 487,
+    "delta": 0.05150000000000077,
+    "deltaP95": 0.045100000000000584,
+    "deltaDraw": 0,
+    "pass": true
+  },
+  {
+    "view": "overviewART",
+    "medianA": 6.0152,
+    "medianB": 6.1336,
+    "p95A": 6.9639,
+    "p95B": 7.0977,
+    "drawA": 1098,
+    "drawB": 1098,
+    "delta": 0.11840000000000028,
+    "deltaP95": 0.13379999999999992,
+    "deltaDraw": 0,
+    "pass": true
+  }
+]

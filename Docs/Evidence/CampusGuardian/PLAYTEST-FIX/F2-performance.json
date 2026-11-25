@@ -1,0 +1,28 @@
+[
+  {
+    "view": "plazaUser",
+    "medianA": 5.3939,
+    "medianB": 5.4966,
+    "p95A": 6.2439,
+    "p95B": 6.3059,
+    "drawA": 638,
+    "drawB": 645,
+    "delta": 0.10269999999999957,
+    "deltaP95": 0.06200000000000028,
+    "deltaDraw": 7,
+    "pass": true
+  },
+  {
+    "view": "overviewART",
+    "medianA": 5.6234,
+    "medianB": 5.6585,
+    "p95A": 6.5306,
+    "p95B": 6.5849,
+    "drawA": 938,
+    "drawB": 947,
+    "delta": 0.03509999999999991,
+    "deltaP95": 0.05430000000000046,
+    "deltaDraw": 9,
+    "pass": true
+  }
+]

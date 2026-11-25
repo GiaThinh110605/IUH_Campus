@@ -11,6 +11,16 @@ namespace IUHCampus.Guardian.Visual
         private const int MaxSamples = 128;
         private const float SoleBand = .035f;
         private const float ProbeHeight = 3f;
+        private const float MaximumVisibleGroundSeparation = .4f;
+        private const float MaximumCalibrationDrift = .15f;
+        private const float OffsetSpeed = 1f;
+        private const float AirborneRiseSpeed = .15f;
+        private const float JumpHoldSeconds = .3f;
+        private const float SupportProbeLift = .2f;
+        private const float SupportProbeDistance = .85f;
+        private const float MinimumSupportNormalY = .65f;
+        private const float MaximumVisibleGroundUndershoot = .03f;
+        private const float PositionEpsilon = .0001f;
         [SerializeField] private IUHVisualGroundSurface surface;
         [SerializeField, Min(0f)] private float maximumOffset = 2f;
         [SerializeField] private float soleClearance = .002f;
@@ -24,11 +34,15 @@ namespace IUHCampus.Guardian.Visual
         private int[] samples;
         private Animator animator;
         private ThirdPersonController controller;
-        private bool hasJump, hasFreeFall, initialized;
+        private bool initialized;
         private float lastOffset;
+        private bool calibrated, playerOffsetApplied;
+        private float calibrationOffset, calibratedSoleLocalY, visualGroundGap;
+        private float previousRootY, jumpUntil;
+        private float[] appliedLocalY;
+        private StarterAssetsInputs inputs;
+        private CharacterController capsule;
         private readonly RaycastHit[] hits = new RaycastHit[16];
-        private static readonly int Jump = Animator.StringToHash("Jump");
-        private static readonly int FreeFall = Animator.StringToHash("FreeFall");
 
         public void Configure(IUHVisualGroundSurface groundSurface)
         {
@@ -46,6 +60,8 @@ namespace IUHCampus.Guardian.Visual
             if (initialized) return;
             animator = GetComponent<Animator>();
             controller = GetComponent<ThirdPersonController>();
+            inputs = GetComponent<StarterAssetsInputs>();
+            capsule = GetComponent<CharacterController>();
             if (animator == null || !animator.isHuman) return;
             var renderers = GetComponentsInChildren<SkinnedMeshRenderer>(true);
             SkinnedMeshRenderer body = null;
@@ -66,11 +82,6 @@ namespace IUHCampus.Guardian.Visual
             samples = SelectSamples(footBones);
             CacheUsedBones();
             CacheBranches(renderers, footBones);
-            foreach (var parameter in animator.parameters)
-            {
-                if (parameter.nameHash == Jump) hasJump = true;
-                if (parameter.nameHash == FreeFall) hasFreeFall = true;
-            }
             initialized = samples.Length > 0 && visualBranches.Length > 0;
         }
 
@@ -144,18 +155,15 @@ namespace IUHCampus.Guardian.Visual
             }
             visualBranches = branches.ToArray();
             baseY = new float[visualBranches.Length];
+            appliedLocalY = new float[visualBranches.Length];
             for (int i = 0; i < visualBranches.Length; i++) baseY[i] = visualBranches[i].localPosition.y;
         }
 
         public void AlignNow()
         {
             if (!initialized) return;
+            if (controller != null) { AlignPlayer(); return; }
             RestoreBranches();
-            if (controller != null && (!controller.Grounded || (hasJump && animator.GetBool(Jump)) || (hasFreeFall && animator.GetBool(FreeFall))))
-            {
-                ApplyOffset(lastOffset);
-                return;
-            }
             foreach (int index in usedBones) matrices[index] = bones[index].localToWorldMatrix * bindPoses[index];
             Vector3 contact = new Vector3(0f, float.PositiveInfinity, 0f);
             foreach (int index in samples)
@@ -174,6 +182,93 @@ namespace IUHCampus.Guardian.Visual
             ApplyOffset(lastOffset);
         }
 
+        private void AlignPlayer()
+        {
+            RemovePlayerOffset();
+            float rootY = transform.position.y;
+            float riseSpeed = (rootY - previousRootY) / Mathf.Max(Time.deltaTime, PositionEpsilon);
+            previousRootY = rootY;
+            if ((inputs != null && inputs.jump) || (calibrated && riseSpeed > AirborneRiseSpeed))
+                jumpUntil = Time.time + JumpHoldSeconds;
+            bool supported = TryPlayerSupport(out float physicalGround);
+            bool airborne = !supported || Time.time < jumpUntil;
+            if (!calibrated && !airborne) CalibratePlayer(rootY, physicalGround);
+            if (calibrated && !airborne)
+            {
+                float visible = SelectSupportedVisibleGround(physicalGround, visualGroundGap);
+                float target = Mathf.Clamp(visible + soleClearance - rootY - calibratedSoleLocalY,
+                    calibrationOffset - MaximumCalibrationDrift, calibrationOffset + MaximumCalibrationDrift);
+                lastOffset = Mathf.MoveTowards(lastOffset, target, OffsetSpeed * Time.deltaTime);
+            }
+            ApplyOffset(lastOffset);
+            for (int i = 0; i < visualBranches.Length; i++) appliedLocalY[i] = visualBranches[i].localPosition.y;
+            playerOffsetApplied = true;
+        }
+
+        private void CalibratePlayer(float rootY, float physicalGround)
+        {
+            float sole = FindSoleHeight();
+            float visible = SelectSupportedVisibleGround(physicalGround, 0f);
+            calibratedSoleLocalY = sole - rootY;
+            visualGroundGap = visible - physicalGround;
+            calibrationOffset = Mathf.Clamp(visible + soleClearance - sole, -maximumOffset, maximumOffset);
+            lastOffset = calibrationOffset;
+            calibrated = true;
+        }
+
+        private float SelectSupportedVisibleGround(float physicalGround, float fallbackGap)
+        {
+            Vector3 probe = new Vector3(transform.position.x,
+                physicalGround + MaximumVisibleGroundSeparation, transform.position.z);
+            if (surface != null && surface.TryGetHeight(probe, out float candidate)
+                && candidate >= physicalGround - MaximumVisibleGroundUndershoot
+                && candidate <= physicalGround + MaximumVisibleGroundSeparation) return candidate;
+            return physicalGround + fallbackGap;
+        }
+
+        private float FindSoleHeight()
+        {
+            foreach (int index in usedBones) matrices[index] = bones[index].localToWorldMatrix * bindPoses[index];
+            float sole = float.PositiveInfinity;
+            foreach (int index in samples)
+            {
+                BoneWeight w = weights[index];
+                Vector3 v = vertices[index];
+                Vector3 point = matrices[w.boneIndex0].MultiplyPoint3x4(v) * w.weight0
+                    + matrices[w.boneIndex1].MultiplyPoint3x4(v) * w.weight1
+                    + matrices[w.boneIndex2].MultiplyPoint3x4(v) * w.weight2
+                    + matrices[w.boneIndex3].MultiplyPoint3x4(v) * w.weight3;
+                sole = Mathf.Min(sole, point.y);
+            }
+            return sole;
+        }
+        private bool TryPlayerSupport(out float height)
+        {
+            height = float.NegativeInfinity;
+            float footY = capsule != null ? transform.TransformPoint(capsule.center).y - capsule.height * Mathf.Abs(transform.lossyScale.y) * .5f : transform.position.y;
+            Vector3 probe = new Vector3(transform.position.x, footY + SupportProbeLift, transform.position.z);
+            int count = Physics.RaycastNonAlloc(probe, Vector3.down, hits, SupportProbeDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            for (int i = 0; i < count; i++)
+            {
+                var hit = hits[i];
+                if (hit.transform == transform || hit.transform.IsChildOf(transform) || hit.normal.y < MinimumSupportNormalY) continue;
+                height = Mathf.Max(height, hit.point.y);
+            }
+            return !float.IsNegativeInfinity(height);
+        }
+
+        private void RemovePlayerOffset()
+        {
+            if (!playerOffsetApplied) return;
+            for (int i = 0; i < visualBranches.Length; i++)
+            {
+                // UniVRM may already have replaced actual hips from its normalized control rig.
+                if (Mathf.Abs(visualBranches[i].localPosition.y - appliedLocalY[i]) < PositionEpsilon)
+                    visualBranches[i].position -= Vector3.up * lastOffset;
+            }
+            playerOffsetApplied = false;
+        }
+
         private bool TryGround(Vector3 probe, out float height)
         {
             if (surface != null) return surface.TryGetHeight(probe, out height);
@@ -189,6 +284,7 @@ namespace IUHCampus.Guardian.Visual
 
         private void RestoreBranches()
         {
+            if (controller != null) { RemovePlayerOffset(); return; }
             for (int i = 0; i < visualBranches.Length; i++)
             {
                 Vector3 position = visualBranches[i].localPosition;
@@ -205,7 +301,13 @@ namespace IUHCampus.Guardian.Visual
         private void OnDisable()
         {
             if (initialized) RestoreBranches();
-            lastOffset = 0f;
+            if (controller == null) lastOffset = 0f;
         }
     }
 }
+
+
+
+
+
+

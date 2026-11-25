@@ -1,0 +1,13 @@
+view	run	variant	warmup_frames	measured_frames	median_ms	p95_ms	median_drawcalls	p95_drawcalls
+campusClose	1	A	120	3000	5.3588	6.6826	487	488
+campusClose	2	B	120	3000	5.3868	6.2912	487	487
+campusClose	3	A	120	3000	5.3447	6.2616	487	487
+campusClose	4	B	120	3000	5.4697	6.4024	487	487
+campusClose	5	A	120	3000	5.3396	6.2780	487	487
+campusClose	6	B	120	3000	5.3962	6.3231	487	487
+overviewART	1	A	120	3000	6.0182	6.9726	1098	1098
+overviewART	2	B	120	3000	6.2608	7.3097	1098	1098
+overviewART	3	A	120	3000	6.0152	6.9375	1098	1098
+overviewART	4	B	120	3000	6.1336	7.0954	1098	1098
+overviewART	5	A	120	3000	5.9793	6.9639	1098	1098
+overviewART	6	B	120	3000	6.1118	7.0977	1098	1098

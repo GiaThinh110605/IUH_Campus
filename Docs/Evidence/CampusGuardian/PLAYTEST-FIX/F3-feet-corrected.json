@@ -1,0 +1,42 @@
+[
+  {
+    "name": "CORRUPTED_ENCOUNTER_FOUNTAIN",
+    "oldFoot": 0.0400028229,
+    "newFoot": 0.0400028937,
+    "footGap": 7.07805157E-08,
+    "oldHeight": 3.8348763,
+    "newHeight": 3.8348763
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_SPORTS",
+    "oldFoot": 0.0400028229,
+    "newFoot": 0.0400028937,
+    "footGap": 7.07805157E-08,
+    "oldHeight": 3.8348763,
+    "newHeight": 3.8348763
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_BUILDING_E",
+    "oldFoot": 0.0400028229,
+    "newFoot": 0.0400028229,
+    "footGap": 0.0,
+    "oldHeight": 3.8348763,
+    "newHeight": 3.83487582
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_GARDEN",
+    "oldFoot": 0.0400028229,
+    "newFoot": 0.0400028937,
+    "footGap": 7.07805157E-08,
+    "oldHeight": 3.8348763,
+    "newHeight": 3.8348763
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_CANTEEN",
+    "oldFoot": 0.0400028229,
+    "newFoot": 0.0400028974,
+    "footGap": 7.4505806E-08,
+    "oldHeight": 3.8348763,
+    "newHeight": 3.8348763
+  }
+]

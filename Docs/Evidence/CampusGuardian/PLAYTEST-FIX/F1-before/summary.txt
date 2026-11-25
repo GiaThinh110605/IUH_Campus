@@ -1,0 +1,9 @@
+phase=0 grounder=True stage=0 frames=292 maxAdjacentHipMinusRootDelta=0.0738461 invisibleInFrustum=0
+phase=1 grounder=True stage=1 frames=353 maxAdjacentHipMinusRootDelta=1.73280311 invisibleInFrustum=0
+phase=2 grounder=True stage=2 frames=292 maxAdjacentHipMinusRootDelta=0.3618071 invisibleInFrustum=0
+phase=3 grounder=False stage=0 frames=300 maxAdjacentHipMinusRootDelta=0.01790762 invisibleInFrustum=0
+phase=4 grounder=False stage=1 frames=361 maxAdjacentHipMinusRootDelta=0.170641422 invisibleInFrustum=0
+phase=5 grounder=False stage=2 frames=300 maxAdjacentHipMinusRootDelta=0.0179582834 invisibleInFrustum=0
+
+frames=1898
+ConceptPreview kept enabled; story frozen until Play Mode exits.

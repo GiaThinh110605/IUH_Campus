@@ -21,6 +21,7 @@ namespace IUHCampus.Guardian.Story
         IUHStoryDialogueUI ui;
         IUHStoryBeacon beacon;
         IUHStoryNightShift night;
+        IUHStoryPeaceCrowd crowd;
         Transform player;
         IUHUpgradeShopUI shop;
         AftershockSchedule aftershockSchedule;
@@ -49,6 +50,8 @@ namespace IUHCampus.Guardian.Story
             beacon = IUHStoryBeacon.Create(m_StoryScript.beaconMaterial);
             night = gameObject.AddComponent<IUHStoryNightShift>();
             night.Initialize(m_StoryScript.festivalLedMaterialName);
+            crowd = gameObject.AddComponent<IUHStoryPeaceCrowd>();
+            crowd.SetDisaster(StoryDisaster.IsDisasterAtStart(progress.Phase));
             shop = IUHUpgradeShopUI.Instance ?? FindAnyObjectByType<IUHUpgradeShopUI>(FindObjectsInactive.Include);
             if (progress.Phase == StoryPhase.Completed)
             {
@@ -69,6 +72,7 @@ namespace IUHCampus.Guardian.Story
             {
                 beacon.MoveTo(null);
                 ui.SetObjective(null);
+                crowd.SetDisaster(true);
                 night.ToNight(3);
                 yield return Say(m_StoryScript.incidentLines);
                 progress.FinishIncident();
@@ -190,6 +194,7 @@ namespace IUHCampus.Guardian.Story
             night.SetNightImmediate();
             night.ToDay(3);
             yield return new WaitForSecondsRealtime(3);
+            crowd.SetDisaster(false);
             IUHCampusFireworksManager.Instance?.TriggerVictoryCelebration();
             ui.ShowCaption(m_StoryScript.endingCaption, 5);
             yield return Say(m_StoryScript.endingLines);
@@ -234,6 +239,7 @@ namespace IUHCampus.Guardian.Story
             }
             var picked = AftershockSchedule.PickEncounters(() => Random.value, names);
             if (picked.Count == 0) yield break;
+            crowd.SetDisaster(true);
             var active = new List<GameObject>();
             var positions = new List<Vector3>();
             foreach (var name in picked)
@@ -260,6 +266,7 @@ namespace IUHCampus.Guardian.Story
             corruption.Purify();
             IUHGuardianInventory.Instance?.AddGold(m_StoryScript.aftershockGold);
             yield return Say(new[] { m_StoryScript.aftershockClearedLine });
+            crowd.SetDisaster(false);
             beacon.MoveTo(null);
             ui.SetObjective(null);
         }

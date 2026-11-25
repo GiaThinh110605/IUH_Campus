@@ -1,0 +1,72 @@
+[
+  {
+    "task": "V2",
+    "view": "lobby",
+    "medianA": 4.9291,
+    "medianB": 4.948,
+    "p95A": 5.9505,
+    "p95B": 6.2372,
+    "drawA": 286,
+    "drawB": 284,
+    "deltaMedian": 0.01890000000000036,
+    "deltaP95": 0.28669999999999973,
+    "deltaDraw": -2,
+    "pass": true
+  },
+  {
+    "task": "V2",
+    "view": "overview",
+    "medianA": 5.7421,
+    "medianB": 5.8073,
+    "p95A": 6.7221,
+    "p95B": 6.8599,
+    "drawA": 999,
+    "drawB": 1010,
+    "deltaMedian": 0.06519999999999992,
+    "deltaP95": 0.13779999999999948,
+    "deltaDraw": 11,
+    "pass": true
+  },
+  {
+    "task": "V2",
+    "view": "region",
+    "medianA": 5.6598,
+    "medianB": 5.7397,
+    "p95A": 6.6849,
+    "p95B": 6.8348,
+    "drawA": 770,
+    "drawB": 776,
+    "deltaMedian": 0.0799000000000003,
+    "deltaP95": 0.1499000000000006,
+    "deltaDraw": 6,
+    "pass": true
+  },
+  {
+    "task": "V2",
+    "view": "monsternear",
+    "medianA": 5.2915,
+    "medianB": 5.3614,
+    "p95A": 6.2144,
+    "p95B": 6.2076,
+    "drawA": 469,
+    "drawB": 471,
+    "deltaMedian": 0.06989999999999963,
+    "deltaP95": -0.006800000000000139,
+    "deltaDraw": 2,
+    "pass": true
+  },
+  {
+    "task": "V3",
+    "view": "arena",
+    "medianA": 4.942,
+    "medianB": 6.6426,
+    "p95A": 5.8501,
+    "p95B": 8.2913,
+    "drawA": 296,
+    "drawB": 308,
+    "deltaMedian": 1.7005999999999997,
+    "deltaP95": 2.4411999999999994,
+    "deltaDraw": 12,
+    "pass": false
+  }
+]

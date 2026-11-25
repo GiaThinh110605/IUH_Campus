@@ -6,3 +6,9 @@
 - Quaternius tạo Stylized Nature MegaKit. Dự án dùng một phần mô hình và texture của bản Standard theo CC0 1.0. [Nguồn chính thức](https://quaternius.com/packs/stylizednaturemegakit.html) · [Giấy phép đi kèm](../Assets/IUH_Campus/ThirdParty/Quaternius/StylizedNatureMegaKit/License_Standard.txt).
 
 - pixiv VRoid Project: 4 model NPC sinh viên do người dùng xuất từ VRoid Studio ngày23/11/2026. VRM1.0 credit required; cho phép phân phối/chỉnh sửa theo metadata. [Nguồn và toàn bộ license](../Assets/IUH_Campus/ThirdParty/VRoid/NPC/SOURCE.md).
+
+## VFX Asset Store (24/11/2026)
+
+- Procedural Fire — Hovl Studio, [nguồn](https://assetstore.unity.com/packages/vfx/particles/fire-explosions/procedural-fire-141496), [chi tiết](../Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/SOURCE.md); Unity Asset Store Standard EULA.
+- Cartoon FX Remaster Free — Jean Moreno, [nguồn](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565), [chi tiết](../Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/SOURCE.md); Unity Asset Store Standard EULA.
+- Free Stylized Smoke Effects Pack — Maiami Studio, [nguồn](https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylized-smoke-effects-pack-226406), [chi tiết](../Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/SOURCE.md); Unity Asset Store Standard EULA.

@@ -1,0 +1,28 @@
+[
+  {
+    "view": "lobby",
+    "medianA": 4.9419,
+    "medianB": 4.8999,
+    "p95A": 5.6768,
+    "p95B": 5.5711,
+    "drawA": 338,
+    "drawB": 338,
+    "delta": -0.0420000000000007,
+    "deltaP95": -0.10569999999999968,
+    "deltaDraw": 0,
+    "pass": true
+  },
+  {
+    "view": "overview",
+    "medianA": 5.4468,
+    "medianB": 5.4613,
+    "p95A": 6.0416,
+    "p95B": 6.0816,
+    "drawA": 940,
+    "drawB": 940,
+    "delta": 0.014499999999999957,
+    "deltaP95": 0.040000000000000036,
+    "deltaDraw": 0,
+    "pass": true
+  }
+]

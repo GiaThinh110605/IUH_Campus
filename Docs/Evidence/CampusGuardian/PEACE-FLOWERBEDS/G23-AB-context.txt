@@ -1,0 +1,3 @@
+UTC=2026-11-24T16:43:06.6411985Z
+A=NATURE_FOUNTAIN_BEDS+NATURE_FLOWERBEDS_FILL inactive; B=both active. G4 triangle removal applied in both (reduces cost). Story frozen (save in Chapter: NPC/mascot hidden in both).
+1280x900 asserted; VSync0; targetFrameRate=-1; same session ABABAB per view; 120 warm + 3000 measured; endFrameRendering main-camera guard; Stopwatch. UnityStats.drawCalls. Cameras lobby/overview/fountain from ART-ENVIRONMENT/cameras.json, FOV57.

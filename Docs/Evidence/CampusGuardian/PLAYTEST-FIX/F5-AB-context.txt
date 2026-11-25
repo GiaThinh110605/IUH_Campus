@@ -1,0 +1,2 @@
+UTC=2026-11-24T12:57:41.0786192Z
+GroundAuraOnly:5actualcomponents/4PSpermonster; legacy encounterPS excluded. A=4xmax12/rate6,size.35,tint(.48,.29,.53,.35),radius.45,up.25;B=ConfigureForPlatform(false) currentcandidate24total/rate16total,size.5,tint(.42,.30,.46,.7),radius.48,up.2. Same materials/modules. Story/AI/input/brain frozen;5revealedmonsters,Animators running;no collider/beam/save changes. 8daynightshots2monsters thenDAYABABAB2views120warm3000measure,1280x900assert,Stopwatch/mainframeguard,UnityStatsdraws,VSync0,target-1. ExitPlayrestores.

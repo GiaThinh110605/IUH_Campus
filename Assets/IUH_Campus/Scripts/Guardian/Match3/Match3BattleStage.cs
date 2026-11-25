@@ -73,6 +73,16 @@ namespace IUHCampus.Guardian.Match3
         private Vector3 m_PlayerHome;
         private Vector3 m_MonsterHome;
 
+        private IUHCombatWorldVfx m_WorldVfx;
+        public void PlayWorldEffect(int kind)
+        {
+            if (!IsActive) return;
+            GameObject proxy = kind == IUHCombatWorldVfx.PlayerHit ? m_PlayerProxy : m_MonsterProxy;
+            if (proxy == null || !IUHCombatWorldVfx.TryGetBodyBounds(proxy, out Bounds body, out int layer)) return;
+            if (m_WorldVfx == null) m_WorldVfx = gameObject.AddComponent<IUHCombatWorldVfx>();
+            m_WorldVfx.Emit(kind, body.center, body.size.y, layer);
+        }
+
         public bool IsActive { get; private set; }
         public GameObject FadeOverlayObject => m_FadeOverlay != null ? m_FadeOverlay.gameObject : null;
 
@@ -106,6 +116,7 @@ namespace IUHCampus.Guardian.Match3
                 IsActive = true;
             }
 
+            if (m_WorldVfx != null) m_WorldVfx.Clear();
             DestroyProxies();
             m_PlayerProxy = player != null ? CreateProxy(player.gameObject, "Arena_Student") : null;
             m_MonsterProxy = CreateProxy(monster.gameObject, "Arena_Monster");
@@ -118,6 +129,7 @@ namespace IUHCampus.Guardian.Match3
         public void Exit()
         {
             StopAllCoroutines();
+            if (m_WorldVfx != null) m_WorldVfx.Clear();
             SetFade(0f);
             ++m_EntryVersion;
             if (m_PendingLoad != null && !m_PendingLoad.isDone) m_CancelPendingLoad = true;

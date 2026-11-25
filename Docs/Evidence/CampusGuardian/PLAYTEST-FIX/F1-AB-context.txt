@@ -1,0 +1,5 @@
+UTC=2026-11-24T02:58:58.9539320Z
+A=player grounder disabled; B=fixed player grounder enabled; conservative added-component overhead, not old-code vs new-code.
+NPC grounders unchanged. Player TPC/input disabled; Animator idle and UniVRM remain enabled. Root=(14,.45,-36). Camera ART-ENVIRONMENT/cameras.json lobby/overview; FOV57.
+1280x900 asserted; VSync0; targetFrameRate=-1; same session ABABAB x2 views; each120warm+3000measure; endFrameRendering main-camera guard; Stopwatch wall interval. UnityStats.drawCalls. No raw frame dump.
+Power source must be recorded separately by parent.

@@ -1,0 +1,13 @@
+view	run	variant	warmup_frames	measured_frames	median_ms	p95_ms	median_drawcalls	p95_drawcalls
+plazaUser	1	A	120	3000	5.3514	6.7356	638	638
+plazaUser	2	B	120	3000	5.4292	6.1932	645	645
+plazaUser	3	A	120	3000	5.3939	6.2234	638	638
+plazaUser	4	B	120	3000	5.4966	6.3059	645	645
+plazaUser	5	A	120	3000	5.4738	6.2439	638	638
+plazaUser	6	B	120	3000	5.5234	6.3497	645	645
+overviewART	1	A	120	3000	5.7006	6.7865	938	938
+overviewART	2	B	120	3000	5.6692	6.6903	947	947
+overviewART	3	A	120	3000	5.6234	6.4459	938	938
+overviewART	4	B	120	3000	5.6322	6.5849	947	947
+overviewART	5	A	120	3000	5.5996	6.5306	938	938
+overviewART	6	B	120	3000	5.6585	6.5043	947	947

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "CORRUPTED_ENCOUNTER_SPORTS",
+    "oldFoot": 0.0400028229,
+    "lbsFoot": 0.04227942,
+    "lbsHeight": 3.02027488,
+    "bakedFoot": 0.0410995632,
+    "worldScale": "(1.14, 1.14, 1.14)",
+    "renderer": "Center: (19.90, 1.53, -9.06), Extents: (2.00, 1.72, 1.43)"
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_BUILDING_E",
+    "oldFoot": 0.0400028229,
+    "lbsFoot": 0.041317232,
+    "lbsHeight": 3.36456537,
+    "bakedFoot": 0.0387811959,
+    "worldScale": "(1.27, 1.27, 1.27)",
+    "renderer": "Center: (-6.11, 1.70, 6.97), Extents: (2.23, 1.92, 1.59)"
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_FOUNTAIN",
+    "oldFoot": 0.0400028229,
+    "lbsFoot": 0.04227942,
+    "lbsHeight": 3.02027488,
+    "bakedFoot": 0.0410995632,
+    "worldScale": "(1.14, 1.14, 1.14)",
+    "renderer": "Center: (3.90, 1.53, -27.06), Extents: (2.00, 1.72, 1.43)"
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_GARDEN",
+    "oldFoot": 0.0400028229,
+    "lbsFoot": 0.04227942,
+    "lbsHeight": 3.02027488,
+    "bakedFoot": 0.0410995632,
+    "worldScale": "(1.14, 1.14, 1.14)",
+    "renderer": "Center: (-16.10, 1.53, -13.06), Extents: (2.00, 1.72, 1.43)"
+  },
+  {
+    "name": "CORRUPTED_ENCOUNTER_CANTEEN",
+    "oldFoot": 0.0400028229,
+    "lbsFoot": 0.0422793,
+    "lbsHeight": 3.02027464,
+    "bakedFoot": 0.04109945,
+    "worldScale": "(1.14, 1.14, 1.14)",
+    "renderer": "Center: (-22.10, 1.53, -42.06), Extents: (2.00, 1.72, 1.43)"
+  }
+]

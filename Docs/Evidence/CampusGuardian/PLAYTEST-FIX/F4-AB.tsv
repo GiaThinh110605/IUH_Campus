@@ -1,0 +1,7 @@
+view	run	variant	warmup_frames	measured_frames	median_ms	p95_ms	median_drawcalls	p95_drawcalls
+arena	1	A	120	3000	5.1270	6.3932	281	281
+arena	2	B	120	3000	4.9090	6.0620	282	287
+arena	3	A	120	3000	4.8612	5.8119	281	281
+arena	4	B	120	3000	4.9394	5.9881	282	287
+arena	5	A	120	3000	4.9136	6.0117	281	281
+arena	6	B	120	3000	4.8735	6.0165	282	287

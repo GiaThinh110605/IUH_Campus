@@ -1,0 +1,42 @@
+[
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground.mat",
+    "before": "Standard",
+    "after": "Universal Render Pipeline/Lit"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Floor3.mat",
+    "before": "Standard",
+    "after": "Universal Render Pipeline/Lit"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/FireSphere1.mat",
+    "before": "EGA/Particles/FireSphere",
+    "after": "Shader Graphs/FireSphere"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/FireSphere2.mat",
+    "before": "EGA/Particles/FireSphere",
+    "after": "Shader Graphs/FireSphere"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/Smoke26.mat",
+    "before": "Legacy Shaders/Particles/Alpha Blended",
+    "after": "Universal Render Pipeline/Particles/Unlit"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/SparkSphere.mat",
+    "before": "EGA/Particles/FireSphere",
+    "after": "Shader Graphs/FireSphere"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/Trail67.mat",
+    "before": "EGA/Particles/FireSphere",
+    "after": "Shader Graphs/FireSphere"
+  },
+  {
+    "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Materials/msVFX_Stylized Smoke 1_Material.mat",
+    "before": "Legacy Shaders/Particles/Additive",
+    "after": "Universal Render Pipeline/Particles/Unlit"
+  }
+]

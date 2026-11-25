@@ -1,0 +1,1870 @@
+[
+  {
+    "pack": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire",
+    "bytesWithMeta": 64696492,
+    "files": 78,
+    "prefabs": [
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Explosion.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire 0.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire 1.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire 2.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire 3.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire pro blue.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire pro green.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire pro orange.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire pro red.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/Magic fire pro yellow.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/RotatorPS1.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Prefabs/RotatorPS2.prefab"
+    ],
+    "shaders": [
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shader",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shadergraph"
+    ],
+    "scripts": [],
+    "materials": [
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Floor3.mat",
+        "shader": "{fileID: 46, guid: 0000000000000000f000000000000000, type: 0}",
+        "dependencies": [
+          "0000000000000000f000000000000000",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Concrete slab_Normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Concrete slab.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Concrete slab_MetallicSmoothness.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Demo scene/Concrete slab_Height.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/FireSphere1.mat",
+        "shader": "{fileID: 4800000, guid: 1d4a9c916d62a324e90c32798caf3f13, type: 3}",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Textures/FireSphere1.png",
+          "c8ada4fdced7c07409542d983b96835e"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/FireSphere2.mat",
+        "shader": "{fileID: 4800000, guid: 1d4a9c916d62a324e90c32798caf3f13, type: 3}",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Textures/FireSphere2.png",
+          "8f9ce7aa3bb079041ab85dc13fee6252"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/Smoke26.mat",
+        "shader": "{fileID: 203, guid: 0000000000000000f000000000000000, type: 0}",
+        "dependencies": [
+          "0000000000000000f000000000000000",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Textures/Smoke26.png",
+          "c8ada4fdced7c07409542d983b96835e"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/SparkSphere.mat",
+        "shader": "{fileID: 4800000, guid: 1d4a9c916d62a324e90c32798caf3f13, type: 3}",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Textures/FireSphere1.png",
+          "c8ada4fdced7c07409542d983b96835e"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Materials/Trail67.mat",
+        "shader": "{fileID: 4800000, guid: 1d4a9c916d62a324e90c32798caf3f13, type: 3}",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Shaders/FireSphere.shader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/ProceduralFire/Textures/Trail67.png",
+          "c8ada4fdced7c07409542d983b96835e"
+        ]
+      }
+    ]
+  },
+  {
+    "pack": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster",
+    "bytesWithMeta": 37367201,
+    "files": 995,
+    "prefabs": [
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Eerie/CFXR2 Skull Head Alt.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Eerie/CFXR2 Souls Escape.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Eerie/CFXR2 WW Enemy Explosion.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Electric/CFXR Electrified 3.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Electric/CFXR2 Sparks Rain.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Electric/CFXR3 Hit Electric C (Air).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Explosions/CFXR Explosion 1.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Explosions/CFXR Explosion Smoke 2 Solo (HDR).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Explosions/CFXR2 WW Explosion.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Explosions/CFXR3 Fire Explosion B.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Explosions/CFXR4 Firework 1 Cyan-Purple (HDR).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Explosions/CFXR4 Firework HDR Shoot Single (Random Color).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Fire/CFXR Fire Breath.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Fire/CFXR Fire.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Fire/CFXR2 Firewall A.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Fire/CFXR3 Hit Fire B (Air).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Fire/CFXR4 Sun.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Ice/CFXR3 Hit Ice B (Air).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Impacts/CFXR Hit A (Red).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Impacts/CFXR Hit D 3D (Yellow).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Impacts/CFXR Impact Glowing HDR (Blue).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Impacts/CFXR2 Ground Hit.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Light/CFXR3 Hit Light B (Air).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Light/CFXR3 LightGlow A (Loop).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Liquids/CFXR Water Ripples.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Liquids/CFXR Water Splash (Smaller).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Liquids/CFXR2 Blood (Directional).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Liquids/CFXR2 Blood Shape Splash.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Liquids/CFXR4 Bubbles Breath Underwater Loop.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Magic Misc/CFXR3 Magic Aura A (Runic).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Magic Misc/CFXR4 Bouncing Glows Bubble (Blue Purple).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Magic Misc/CFXR4 Falling Stars.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR Flash.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR Magic Poof.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR Smoke Source 3D.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR2 Broken Heart.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR2 Cartoon Fight (Loop).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR2 Poison Cloud.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR2 Shiny Item (Loop).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR3 Ambient Glows.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR3 Hit Misc A.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Misc/CFXR3 Hit Misc F Smoke.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Nature/CFXR3 Hit Leaves A (Lit).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Nature/CFXR3 Shield Leaves A (Lit).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Nature/CFXR4 Rain Falling.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Nature/CFXR4 Rain Splashes.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Nature/CFXR4 Wind Trails.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Fire/CFXR4 Sword Hit FIRE (Cross).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Fire/CFXR4 Sword Trail FIRE (360 Spiral).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Fire/CFXR4 Sword Trail FIRE (360 Thin Spiral).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Ice/CFXR4 Sword Hit ICE (Cross).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Ice/CFXR4 Sword Trail ICE (360 Spiral).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Ice/CFXR4 Sword Trail ICE (360 Thin Spiral).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Plain/CFXR4 Sword Hit PLAIN (Cross).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Plain/CFXR4 Sword Trail PLAIN (360 Spiral).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Sword Trails/Plain/CFXR4 Sword Trail PLAIN (360 Thin Spiral).prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR _BOING_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR _BOOM_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR _POW_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR _SLASH_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR2 _CURSED_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR2 _WHAM_ 3.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR3 _WOW_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR4 _FROZEN_.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Prefabs/Texts/CFXR4 _POISONED_.prefab"
+    ],
+    "shaders": [
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR.cginc",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR_PASSES.cginc",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR_SETTINGS.cginc",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR_URP.cginc",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/Kino Bloom/Shader/Bloom.cginc",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/Kino Bloom/Shader/Bloom.shader"
+    ],
+    "scripts": [
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Editor/CFXR_ExpressionParser.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Editor/CFXR_MaterialInspector.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Editor/CFXR_ShaderImporter.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Editor/CFXR_ShaderPostProcessor.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Editor/CFXR_Styles.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Scripts/CFXR_Effect.CameraShake.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Scripts/CFXR_Effect.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Scripts/CFXR_EmissionBySurface.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Scripts/CFXR_ParticleText.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Scripts/CFXR_ParticleTextFontAsset.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR_Demo.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR_Demo_Rotate.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR_Demo_Translate.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/Kino Bloom/Bloom.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/Kino Bloom/Editor/BloomEditor.cs",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/Kino Bloom/Editor/BloomGraphDrawer.cs"
+    ],
+    "materials": [
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr aura rays hdr ab nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr aura rays.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr aura runic hdr ab nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr aura runic.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood splash dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood splash dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr blood splash.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble 2 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble 2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr bubble.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card club ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card club.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card diamond ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card diamond.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card heart ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card heart.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card spade ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr card spade.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr cloud blur add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "c934e911e8386904398e71d6d79bcb84",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr cloud blur.png",
+          "c934e911e8386904398e71d6d79bcb84"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3 ab lit emission.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3 normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3 ab lit.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3 normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris flat unlit 3x3 ab hdr.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris flat unlit 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris flat unlit 3x3 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris flat unlit 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris ice 2x2 ab lit.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris ice 2x2 normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris ice 2x2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris unlit 3x3 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris unlit 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood 3x3 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood 3x3 normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood unlit 3x3 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr debris wood unlit 3x3.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arc anim x4.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arc anim x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arcs fade x4 hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arcs fade x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arcs x4 hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric arcs x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric small anim 4x2 hdr.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric small anim 4x2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric small anim2 7x2 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric small anim2 7x2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric sparks ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric spark.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric sparks hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr electric spark.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ember blur hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ember blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire blur fade hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle blur hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle crisp hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle drawn blurred hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle drawn blurred.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle drawn hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle drawn.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle plain hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire circle plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire crisp fade hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire crisp fade nosp hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire edge hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire edge dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire edge.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire full blurred fade hdr add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme full blurred.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire plain fade hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire small anim blurred hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire small anim blurred.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire small anim hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire small anim.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fire stepped fade hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme stepped.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur mid fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur mid hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur stable fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur stable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur unstable fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur unstable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme candle hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme candle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme candle unstable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme candle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp mid fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp mid hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp stable fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp stable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp unstable fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp unstable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain mid fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain mid hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain stable fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain stable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain unstable fine hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain unstable hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flamme plain.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flare add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr flare.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fly anim.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr fly anim x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ghost trail add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ghost trail.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart break dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart break dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart break parts ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr heart break parts.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hidden.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave a ab lit normal.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave a normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave a.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave b ab lit normal.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave b normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr leave b.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr line loop electric ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr line loop electric.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr line loop electric hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr line loop electric.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr magic star hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr magic star.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr no texture hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr petal pink x4 ab lit normal.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr petal normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr petal pink x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow crisp ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft ground nosp add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft hdr p4 add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert add nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft invert hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft nosp add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft p4 add nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft p4 add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc glow soft p8 add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Glow.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring electric hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring electric.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring ice hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring ice.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring local space partial ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring arc.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring water ripple local space ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring ripple dissolve.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr proc ring water ripple local space arc ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1581eccce46ba384596a1dce7936ab19,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Procedural Ring.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring ripple arc dissolve.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle dissolve soft ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr puddle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring spikes revert hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ring spikes revert.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion debug.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 304630dc6079b47419e5333f284382fd,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Distortion.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion debug.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion perlin.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 304630dc6079b47419e5333f284382fd,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Distortion.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion perlin.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion ring nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 304630dc6079b47419e5333f284382fd,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Distortion.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion ring.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion ring.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 304630dc6079b47419e5333f284382fd,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Distortion.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion ring.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion sphere.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 304630dc6079b47419e5333f284382fd,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Distortion.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr screen distortion sphere.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull 2 dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull 2 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull 2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull distort hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull dissolve alt.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull outer outline ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr skull outer outline.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley angry ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley angry.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley frown ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley frown.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley happy ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley happy.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley smile ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smiley smile.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud corner ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud corner dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud corner.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab blurred.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 blurred.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit crisp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit normal.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 normal.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 white.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft individual bright shadow.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 white.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft individual mid shadow.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 white.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft individual.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 white.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab lit soft.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 crisp dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 mult blurred.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 blurred.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 second color ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr explosion smoke dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr explosion smoke alpha.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr explosion second color map.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 second color underlit ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr smoke cloud x4 second color.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes half impact hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes half impact gradient.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve invert ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr spikes impact.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr star ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr star.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr star blurred add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr star blurred.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr steam blur dissolve hdr add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire perlin.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch steam blur distort.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr noise clouds big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch fire crisp fade hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch flamme crisp dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr uv distortion fire smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch flamme crisp.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch inv spike fade ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch inv spike fade.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch inv spike fade add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch inv spike fade.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rain blur ab nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rain blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rain blur ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rain blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch ray blur add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch ray blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch ray blur hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch ray blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray blur add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray blur hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch rectangle ray.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch skull dissolve ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch skull dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch skull.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke arc ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke arc dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke arc.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke fume blur ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch smoke fume.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spike fade add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spike fade.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spikes smooth x2 hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch sipkes dissolve smooth x2.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch sipkes blur x2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch spikes x2 hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch sipkes dissolve x2.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch sipkes x2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait blur ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait blur add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait blur.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait hdr ab nosp.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch trait.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle fade ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle fade.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle smooth add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle smooth nosp ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle smooth nosp add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle to diamond ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle diamond dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle 2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr stretch triangle to diamond add.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle diamond dissolve.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr hit triangle 2.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail bubbles hit.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise bubbles.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask light.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail bubbles.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise bubbles.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask light.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail flames hit.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail flames.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin smudge.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail ice hit.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise ice.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail ice thin.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise ice.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail ice.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise ice.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail light.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr noise clouds big.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask light.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail plain.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin mid.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask plain.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail slash.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin mid.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail tech hit.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise tech.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail tech thin.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise tech.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail tech.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail noise tech.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr sword trail mask lines.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr perlin big.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water drop blur anim ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water drop blur anim.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water drop blur anim hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water drop blur anim.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water foam ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water foam.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch nosp ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch nosp hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash hollow stretch.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash stretch nosp ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash stretch.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash stretch nosp hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr water small splash stretch.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke bright hdr ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke bright.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke glow ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "1fb08705db49c61459c2beb1c436c5a2",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke glow.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke second color ab.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke first color.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Graphics/cfxr ww smoke second color.png"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Misc/cfxr particle font.mat",
+        "shader": "{fileID: -6465566751694194690, guid: 1a29b4d27eb8b04479ef89c00dea533d,",
+        "dependencies": [
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/CFXR Assets/Shaders/CFXR Particle Ubershader.cfxrshader"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground URP.mat",
+        "shader": "{fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}",
+        "dependencies": [
+          "933532a4fcc9baf4fa0491de14d08ed7",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground.png",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground.png",
+          "d0353a89b1f911e48b9e16bdc9f2e058"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground.mat",
+        "shader": "{fileID: 46, guid: 0000000000000000f000000000000000, type: 0}",
+        "dependencies": [
+          "0000000000000000f000000000000000",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/CartoonFXRemaster/Demo Assets/CFXR Demo Ground.png"
+        ]
+      }
+    ]
+  },
+  {
+    "pack": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke",
+    "bytesWithMeta": 575839,
+    "files": 24,
+    "prefabs": [
+      "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Prefabs/msVFX_Stylized Smoke 1.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Prefabs/msVFX_Stylized Smoke 2.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Prefabs/msVFX_Stylized Smoke 3.prefab",
+      "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Prefabs/msVFX_Stylized Smoke 4.prefab"
+    ],
+    "shaders": [],
+    "scripts": [],
+    "materials": [
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Demo/Ground Material.mat",
+        "shader": "{fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}",
+        "dependencies": [
+          "933532a4fcc9baf4fa0491de14d08ed7",
+          "d0353a89b1f911e48b9e16bdc9f2e058"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Demo/Skybox.mat",
+        "shader": "{fileID: 104, guid: 0000000000000000f000000000000000, type: 0}",
+        "dependencies": [
+          "d0353a89b1f911e48b9e16bdc9f2e058",
+          "0000000000000000f000000000000000"
+        ]
+      },
+      {
+        "path": "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Materials/msVFX_Stylized Smoke 1_Material.mat",
+        "shader": "{fileID: 200, guid: 0000000000000000f000000000000000, type: 0}",
+        "dependencies": [
+          "0000000000000000f000000000000000",
+          "Assets/IUH_Campus/ThirdParty/AssetStore/StylizedSmoke/Textures/msVFX_Stylized Smoke 1_Texture.png"
+        ]
+      }
+    ]
+  }
+]

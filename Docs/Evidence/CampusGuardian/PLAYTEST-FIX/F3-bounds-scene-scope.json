@@ -1,0 +1,280 @@
+{
+  "source": "Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity",
+  "baseRef": "HEAD",
+  "output": "Temp/PlaytestMonster/F3-bounds-scene-projected.unity",
+  "rigPrefabGuid": "e94f8e550489ac247a94ae9de3abff00",
+  "instanceIds": [
+    "167857843",
+    "1144131209",
+    "1153868916",
+    "1485597479",
+    "1651180356"
+  ],
+  "changedRootTransformOverrides": [
+    {
+      "instance": "167857843",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.x",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "167857843",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.y",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "167857843",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.z",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "167857843",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.x",
+      "before": "0.05094034",
+      "after": "-0.028093128"
+    },
+    {
+      "instance": "167857843",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.y",
+      "before": "0.18900077",
+      "after": "0.0005333319"
+    },
+    {
+      "instance": "167857843",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.z",
+      "before": "0.2629772",
+      "after": "0.03860518"
+    },
+    {
+      "instance": "1144131209",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.x",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1144131209",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.y",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1144131209",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.z",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1144131209",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.x",
+      "before": "0.050939634",
+      "after": "-0.02809454"
+    },
+    {
+      "instance": "1144131209",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.y",
+      "before": "0.18900077",
+      "after": "0.0005333319"
+    },
+    {
+      "instance": "1144131209",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.z",
+      "before": "0.2629779",
+      "after": "0.0386073"
+    },
+    {
+      "instance": "1153868916",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.x",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1153868916",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.y",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1153868916",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.z",
+      "before": "0.9405268",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1153868916",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.x",
+      "before": "0.050938927",
+      "after": "-0.02809454"
+    },
+    {
+      "instance": "1153868916",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.y",
+      "before": "0.18900077",
+      "after": "0.0005333319"
+    },
+    {
+      "instance": "1153868916",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.z",
+      "before": "0.2629786",
+      "after": "0.03860518"
+    },
+    {
+      "instance": "1485597479",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.x",
+      "before": "0.94052666",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1485597479",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.y",
+      "before": "0.94052666",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1485597479",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.z",
+      "before": "0.94052666",
+      "after": "1.0719968"
+    },
+    {
+      "instance": "1485597479",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.x",
+      "before": "0.050941754",
+      "after": "-0.02809454"
+    },
+    {
+      "instance": "1485597479",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.y",
+      "before": "0.18900068",
+      "after": "0.0005333347"
+    },
+    {
+      "instance": "1485597479",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.z",
+      "before": "0.26298356",
+      "after": "0.038605887"
+    },
+    {
+      "instance": "1651180356",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.x",
+      "before": "0.9405268",
+      "after": "1.0719967"
+    },
+    {
+      "instance": "1651180356",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.y",
+      "before": "0.9405268",
+      "after": "1.0719967"
+    },
+    {
+      "instance": "1651180356",
+      "target": "1290892726154494099",
+      "path": "m_LocalScale.z",
+      "before": "0.9405268",
+      "after": "1.0719967"
+    },
+    {
+      "instance": "1651180356",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.x",
+      "before": "0.050939985",
+      "after": "-0.02809454"
+    },
+    {
+      "instance": "1651180356",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.y",
+      "before": "0.18900077",
+      "after": "0.0005332795"
+    },
+    {
+      "instance": "1651180356",
+      "target": "1290892726154494099",
+      "path": "m_LocalPosition.z",
+      "before": "0.26297897",
+      "after": "0.038605887"
+    }
+  ],
+  "projectedAddedDocs": [],
+  "projectedRemovedDocs": [],
+  "nativeAddedDocs": [],
+  "nativeRemovedMaterialDocsPreserved": [
+    "19670455",
+    "345915085",
+    "390085428",
+    "693507698",
+    "878859439",
+    "1139314004",
+    "1333281728",
+    "1473762729",
+    "1523437429",
+    "1551571485",
+    "1770471353",
+    "1894422950",
+    "2052123784",
+    "2098857109"
+  ],
+  "excludedNativeChangedDocs": [
+    "19670455",
+    "146005032",
+    "345915085",
+    "390085428",
+    "567246629",
+    "693507698",
+    "878859439",
+    "934375199",
+    "1057343355",
+    "1139314004",
+    "1154660249",
+    "1327722277",
+    "1333281728",
+    "1374202037",
+    "1473762729",
+    "1523437429",
+    "1551571485",
+    "1729400721",
+    "1758757871",
+    "1770471353",
+    "1813991608",
+    "1817619791",
+    "1894422950",
+    "2052123784",
+    "2080727150",
+    "2098857109",
+    "890148801",
+    "496162773",
+    "544541490",
+    "972064080",
+    "1581591700",
+    "2079792253",
+    "2146623960",
+    "324057916"
+  ]
+}
