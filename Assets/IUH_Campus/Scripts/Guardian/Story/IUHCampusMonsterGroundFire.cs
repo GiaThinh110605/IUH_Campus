@@ -24,6 +24,26 @@ namespace IUHCampus.Guardian.Story
             ConfigureForPlatform(Application.isMobilePlatform);
             foreach (var light in GetComponentsInChildren<Light>(true)) light.enabled = false;
             foreach (var collider in GetComponentsInChildren<Collider>(true)) collider.enabled = false;
+            AlignToFeet();
+        }
+
+        // The rigged monster visual stands ~1 m behind the encounter origin: centre the aura between its feet (XZ only).
+        public bool AlignToFeet()
+        {
+            var owner = transform.parent;
+            if (owner == null) return false;
+            Vector3 sum = Vector3.zero;
+            int count = 0;
+            foreach (var bone in owner.GetComponentsInChildren<Transform>(true))
+            {
+                if (bone.IsChildOf(transform) || bone.name.IndexOf("foot", System.StringComparison.OrdinalIgnoreCase) < 0) continue;
+                sum += bone.position;
+                count++;
+            }
+            if (count == 0) return false;
+            var feet = sum / count;
+            transform.position = new Vector3(feet.x, transform.position.y, feet.z);
+            return true;
         }
 
         public void ConfigureForPlatform(bool mobile)

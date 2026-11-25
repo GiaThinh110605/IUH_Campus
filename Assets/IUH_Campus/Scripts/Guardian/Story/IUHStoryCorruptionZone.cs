@@ -7,17 +7,17 @@ namespace IUHCampus.Guardian.Story
 {
     public sealed class IUHStoryCorruptionZone : MonoBehaviour
     {
-        const int PcParticleBudget = 80;
-        const int MobileParticleBudget = 30;
-        const int PcClusters = 8;
-        const int MobileClusters = 4;
-        const int NearMonsterClusters = 2;
+        const int PcParticleBudget = 140;
+        const int MobileParticleBudget = 50;
+        const int PcClusters = 12;
+        const int MobileClusters = 6;
+        const int NearMonsterClusters = 3;
         const float Padding = 6f;
         const float PurifySeconds = 2f;
         const float GoldenAngle = 2.39996323f;
         const float Coverage = .75f;
         const string SmokeResource = "Guardian/VFX/CorruptionSmoke";
-        static readonly Color SmokeTint = new Color(.22f, .17f, .28f, .28f);
+        static readonly Color SmokeTint = new Color(.30f, .21f, .40f, .55f);
         readonly List<ParticleSystem> systems = new List<ParticleSystem>();
         readonly List<Dictionary<uint, byte>> initialAlpha = new List<Dictionary<uint, byte>>();
         readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[PcParticleBudget];

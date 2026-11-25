@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace IUHCampus.Garden
@@ -6,30 +6,37 @@ namespace IUHCampus.Garden
     public class GardenSaveTests
     {
         [Test]
-        public void SaveRoundTrip()
+        public void RoundTripKeepsTicksPerId()
         {
-            var beds = GardenSave.Deserialize(null);
-            beds[1].Plant();
-            beds[1].Water(new DateTime(2026, 11, 19, 8, 0, 0, DateTimeKind.Utc));
-            beds[2] = new GardenBed(GardenStage.Sprout, 0, true);
-            beds[3] = new GardenBed(GardenStage.Bloom, 0, false);
-            var saved = GardenSave.Serialize(beds);
-            Assert.AreEqual(saved, GardenSave.Serialize(GardenSave.Deserialize(saved)));
-            Assert.AreEqual(GardenRules.BedCount, GardenSave.Deserialize(saved).Count);
+            var data = GardenSave.Serialize(new[] { new WateringSpot("bed_-20_-1", 123), new WateringSpot("bed_9_10") });
+            Assert.AreEqual("v3|bed_-20_-1=123;bed_9_10=0", data);
+            var map = GardenSave.Deserialize(data);
+            Assert.AreEqual(123, map["bed_-20_-1"]);
+            Assert.AreEqual(0, map["bed_9_10"]);
         }
 
         [TestCase(null)]
         [TestCase("")]
-        [TestCase("abc")]
-        [TestCase("v9|0,0,0")]
-        [TestCase("v1|0,0,0;1,0,0;3,0,1")]
-        [TestCase("v1|0,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0")]
-        [TestCase("v1|9,0,0;1,0,0;2,0,1;3,0,0;0,0,0;0,0,0")]
-        public void InvalidSaveReturnsEmptyBeds(string data)
+        [TestCase("v2|1,0,0;0,0,0;0,0,0;0,0,0")]
+        [TestCase("v3|bed=abc")]
+        [TestCase("v3|=5")]
+        [TestCase("v3|bed=-1")]
+        public void BadOrOldDataIsEmpty(string data)
         {
-            var beds = GardenSave.Deserialize(data);
-            Assert.AreEqual(4, beds.Count);
-            Assert.IsTrue(beds.TrueForAll(bed => bed.Stage == GardenStage.Empty));
+            Assert.AreEqual(0, GardenSave.Deserialize(data).Count);
+        }
+
+        [Test]
+        public void EmptyListSerializes()
+        {
+            Assert.AreEqual("v3|", GardenSave.Serialize(new List<WateringSpot>()));
+            Assert.AreEqual(0, GardenSave.Deserialize("v3|").Count);
+        }
+
+        [Test]
+        public void InvalidIdThrows()
+        {
+            Assert.Throws<System.ArgumentException>(() => GardenSave.Serialize(new[] { new WateringSpot("a=b") }));
         }
     }
 }

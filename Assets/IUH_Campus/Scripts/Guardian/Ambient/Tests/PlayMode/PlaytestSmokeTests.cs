@@ -30,7 +30,7 @@ public sealed class PlaytestSmokeTests
         Assert.That(root.GetComponentsInChildren<Collider>(true), Is.Empty);
         var systems = root.GetComponentsInChildren<ParticleSystem>(true);
         Assert.That(systems.Length, Is.GreaterThanOrEqualTo(Application.isMobilePlatform ? 6 : 10));
-        Assert.That(systems.Sum(s => s.main.maxParticles), Is.LessThanOrEqualTo(Application.isMobilePlatform ? 30 : 80));
+        Assert.That(systems.Sum(s => s.main.maxParticles), Is.LessThanOrEqualTo(Application.isMobilePlatform ? 50 : 140));
         Assert.That(systems.All(s => !s.collision.enabled), Is.True);
     }
     [TestCase(true)] [TestCase(false)] public void NullOrEmptyIsSafe(bool useNull)

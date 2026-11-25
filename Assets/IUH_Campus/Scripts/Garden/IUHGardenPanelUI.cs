@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using IUHCampus.Core;
 using IUHCampus.Guardian;
@@ -6,56 +5,33 @@ using IUHCampus.Guardian.Match3;
 using IUHCampus.Guardian.Story;
 using IUHCampus.World;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace IUHCampus.Garden
 {
+    // "[E] Tưới hoa" next to a campus flowerbed: waters it, pays gold, shows a water splash.
+    // (Class name kept so the existing component on GARDEN stays bound.)
     [DefaultExecutionOrder(-100)]
     public sealed class IUHGardenPanelUI : MonoBehaviour
     {
-        const float OpenDistance = 2f;
-        const float CloseDistance = 3f;
+        public const float InteractDistance = 1.8f;
+        static readonly Color GoldColor = new Color(1f, .84f, .2f);
         IUHGardenManager manager;
-        IUHGardenBedView[] views;
-        Bounds[] footprints;
         IUHStoryDialogueUI story;
         Transform player;
-        RectTransform safe;
-        RectTransform panel;
-        Rect lastArea;
-        Vector2Int lastSize;
-        Font font;
-        Text title, status, balance;
-        Button plant, water, fertilizer, harvest;
+        TextMesh label;
+        ParticleSystem splash;
         float refreshAt;
-        int nearest = -1;
-        CursorLockMode previousLock;
-        bool previousCursor;
 
-        public int SelectedBed { get; private set; } = -1;
-        public bool IsOpen => SelectedBed >= 0;
+        public int NearestSpot { get; private set; } = -1;
 
         void Start()
         {
             manager = GetComponent<IUHGardenManager>();
-            views = GetComponentsInChildren<IUHGardenBedView>();
-            footprints = new Bounds[views.Length];
             var student = GameObject.Find("Campus Student") ?? GameObject.FindGameObjectWithTag("Player");
             player = student != null ? student.transform : null;
             story = FindFirstObjectByType<IUHStoryDialogueUI>();
-            Build();
-            manager.OnBedChanged += OnBedChanged;
-            foreach (var view in views) OnBedChanged(view.BedIndex);
-        }
-
-        void OnDestroy()
-        {
-            if (manager != null) manager.OnBedChanged -= OnBedChanged;
-        }
-
-        void OnDisable()
-        {
-            if (IsOpen) Close();
+            label = BuildLabel(transform);
+            splash = BuildSplash(transform);
         }
 
         public static int FindNearestBed(Vector3 playerPos, IReadOnlyList<Bounds> beds, float maxDist)
@@ -64,7 +40,10 @@ namespace IUHCampus.Garden
             int index = -1;
             for (int i = 0; i < beds.Count; i++)
             {
-                var distance = beds[i].SqrDistance(playerPos);
+                var flat = beds[i];
+                flat.center = new Vector3(flat.center.x, playerPos.y, flat.center.z);
+                flat.size = new Vector3(flat.size.x, 0f, flat.size.z);
+                var distance = flat.SqrDistance(playerPos);
                 if (distance > best || (index >= 0 && distance == best)) continue;
                 index = i;
                 best = distance;
@@ -83,161 +62,97 @@ namespace IUHCampus.Garden
 
         void Update()
         {
-            if (player == null || panel == null) return;
-            ApplySafeArea();
-            var candidate = NearbyBed();
-            if (IsOpen)
+            if (player == null || manager == null || label == null) return;
+            int candidate = FindNearestBed(player.position, manager.Areas, InteractDistance);
+            bool allowed = candidate >= 0 && CanOpenNow();
+            if (allowed && IUHInputHelper.IsGardenInteractKeyDown()) Water(candidate);
+            if (candidate == NearestSpot && Time.unscaledTime < refreshAt) { FaceCamera(); return; }
+            NearestSpot = candidate;
+            refreshAt = Time.unscaledTime + .2f;
+            label.gameObject.SetActive(allowed);
+            if (!allowed) return;
+            int wait = manager.GetSpot(candidate).SecondsUntilReady(manager.Clock());
+            label.text = wait == 0 ? "[E] Tưới hoa" : $"Tưới lại sau {wait / 60}:{wait % 60:00}";
+            label.transform.position = EdgePoint(manager.GetArea(candidate), player.position) + Vector3.up * 1.4f;
+            FaceCamera();
+        }
+
+        public bool Water(int index)
+        {
+            if (!manager.TryWater(index, out int gold)) return false;
+            var point = EdgePoint(manager.GetArea(index), player != null ? player.position : manager.GetArea(index).center);
+            if (splash != null)
             {
-                var view = FindView(SelectedBed);
-                if (view == null || !CanOpenNow() || view.InteractionBounds.SqrDistance(player.position) > CloseDistance * CloseDistance)
-                    Close();
-                else if (IUHInputHelper.IsGardenInteractKeyDown())
-                    Close();
+                splash.transform.position = point + Vector3.up * .2f;
+                splash.Play(true);
             }
-            else if (candidate >= 0 && CanOpenNow() && IUHInputHelper.IsGardenInteractKeyDown())
-            {
-                Open(candidate);
-            }
-            if (candidate == nearest && Time.unscaledTime < refreshAt) return;
-            nearest = candidate;
-            refreshAt = Time.unscaledTime + .25f;
-            var now = manager.Clock();
-            foreach (var view in views)
-                view.SetPrompt(manager.GetBed(view.BedIndex), now, candidate == view.BedIndex && !IsOpen);
-            if (IsOpen) RefreshPanel();
+            IUHCombatFloatingText.Spawn(point + Vector3.up * 1.8f, $"+{gold} Vàng", GoldColor);
+            refreshAt = 0f;
+            return true;
         }
 
-        int NearbyBed()
+        static Vector3 EdgePoint(Bounds area, Vector3 from)
         {
-            for (int i = 0; i < views.Length; i++) footprints[i] = views[i].InteractionBounds;
-            int result = FindNearestBed(player.position, footprints, OpenDistance);
-            return result >= 0 ? views[result].BedIndex : -1;
+            var p = area.ClosestPoint(new Vector3(from.x, area.max.y, from.z));
+            p.y = area.max.y;
+            return p;
         }
 
-        IUHGardenBedView FindView(int index) => Array.Find(views, view => view.BedIndex == index);
-
-        void OnBedChanged(int index)
+        void FaceCamera()
         {
-            FindView(index)?.Refresh(manager.GetBed(index), manager.Clock());
-            if (index == SelectedBed) RefreshPanel();
+            var cam = Camera.main;
+            if (cam != null && label.gameObject.activeSelf)
+                label.transform.rotation = Quaternion.LookRotation(label.transform.position - cam.transform.position);
         }
 
-        void Open(int index)
+        static TextMesh BuildLabel(Transform parent)
         {
-            previousLock = Cursor.lockState;
-            previousCursor = Cursor.visible;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            SelectedBed = index;
-            panel.gameObject.SetActive(true);
-            RefreshPanel();
-        }
-
-        void Close()
-        {
-            SelectedBed = -1;
-            panel.gameObject.SetActive(false);
-            if (CanOpenNow())
-            {
-                Cursor.lockState = previousLock;
-                Cursor.visible = previousCursor;
-            }
-        }
-
-        void RefreshPanel()
-        {
-            var bed = manager.GetBed(SelectedBed);
-            int gold = IUHGuardianInventory.Instance != null ? IUHGuardianInventory.Instance.Gold : 0;
-            var stage = new[] { "Trống", "Hạt", "Mầm", "Nở" };
-            title.text = $"Luống hoa {SelectedBed + 1}/{manager.BedCount}";
-            string next = IUHGardenBedView.Status(bed, manager.Clock());
-            status.text = stage[(int)bed.Stage] + (bed.Fertilized ? "  ·  Đã bón phân" : "") +
-                (next.Length > 0 ? "\n" + next : "");
-            balance.text = $"Vàng: {gold}";
-            SetButton(plant, bed.CanPlant(), gold >= GardenRules.SeedCost, $"Gieo hạt −{GardenRules.SeedCost}");
-            SetButton(water, bed.CanWater(), true, "Tưới");
-            SetButton(fertilizer, bed.CanFertilize(), gold >= GardenRules.FertilizerCost, $"Bón phân −{GardenRules.FertilizerCost}");
-            int reward = bed.Fertilized ? GardenRules.FertilizedHarvestGold : GardenRules.HarvestGold;
-            SetButton(harvest, bed.CanHarvest(), true, $"Hái +{reward} Vàng");
-        }
-
-        static void SetButton(Button button, bool visible, bool enabled, string text)
-        {
-            button.gameObject.SetActive(visible);
-            button.interactable = enabled;
-            button.GetComponentInChildren<Text>(true).text = enabled ? text : $"Cần {GardenRules.SeedCost} Vàng";
-        }
-
-        void Build()
-        {
-            font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            var root = new GameObject("Garden Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            root.transform.SetParent(transform, false);
-            var canvas = root.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 180;
-            var scaler = root.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1600, 900);
-            scaler.matchWidthOrHeight = .5f;
-            safe = Rect("Safe area", root.transform, Vector2.zero, Vector2.one);
-            panel = Rect("Flower bed", safe, new Vector2(.27f, .26f), new Vector2(.73f, .74f));
-            panel.gameObject.AddComponent<Image>().color = new Color(.035f, .085f, .10f, .96f);
-            title = Label("Title", panel, .08f, .78f, .81f, .98f, 34);
-            status = Label("Status", panel, .08f, .47f, .92f, .80f, 28);
-            balance = Label("Gold", panel, .08f, .04f, .92f, .17f, 24);
-            plant = AddButton(panel, .08f, .24f, .48f, .43f, () => manager.TryPlant(SelectedBed));
-            water = AddButton(panel, .08f, .24f, .48f, .43f, () => manager.TryWater(SelectedBed));
-            harvest = AddButton(panel, .08f, .24f, .48f, .43f, () => manager.TryHarvest(SelectedBed));
-            fertilizer = AddButton(panel, .52f, .24f, .94f, .43f, () => manager.TryFertilize(SelectedBed));
-            var close = AddButton(panel, .84f, .82f, .98f, .98f, Close);
-            close.GetComponentInChildren<Text>().text = "X";
-            panel.gameObject.SetActive(false);
-        }
-
-        Button AddButton(Transform parent, float x1, float y1, float x2, float y2, UnityEngine.Events.UnityAction click)
-        {
-            var r = Rect("Action", parent, new Vector2(x1, y1), new Vector2(x2, y2));
-            var image = r.gameObject.AddComponent<Image>();
-            image.color = new Color(.13f, .35f, .31f);
-            var button = r.gameObject.AddComponent<Button>();
-            button.targetGraphic = image;
-            button.onClick.AddListener(click);
-            Label("Label", r, 0, 0, 1, 1, 24);
-            return button;
-        }
-
-        Text Label(string name, Transform parent, float x1, float y1, float x2, float y2, int size)
-        {
-            var r = Rect(name, parent, new Vector2(x1, y1), new Vector2(x2, y2));
-            var text = r.gameObject.AddComponent<Text>();
+            var go = new GameObject("Water Prompt");
+            go.transform.SetParent(parent, false);
+            var text = go.AddComponent<TextMesh>();
+            var font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             text.font = font;
-            text.fontSize = size;
-            text.alignment = TextAnchor.MiddleCenter;
+            go.GetComponent<MeshRenderer>().sharedMaterial = font.material;
+            text.fontSize = 64;
+            text.characterSize = .045f;
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
             text.color = Color.white;
-            text.raycastTarget = false;
+            go.SetActive(false);
             return text;
         }
 
-        static RectTransform Rect(string name, Transform parent, Vector2 min, Vector2 max)
+        static ParticleSystem BuildSplash(Transform parent)
         {
-            var r = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();
-            r.SetParent(parent, false);
-            r.anchorMin = min;
-            r.anchorMax = max;
-            r.offsetMin = r.offsetMax = Vector2.zero;
-            return r;
-        }
-
-        void ApplySafeArea()
-        {
-            var size = new Vector2Int(Screen.width, Screen.height);
-            var area = Screen.safeArea;
-            if (size.x == 0 || size.y == 0 || (size == lastSize && area == lastArea)) return;
-            lastSize = size;
-            lastArea = area;
-            safe.anchorMin = new Vector2(area.xMin / size.x, area.yMin / size.y);
-            safe.anchorMax = new Vector2(area.xMax / size.x, area.yMax / size.y);
+            var go = new GameObject("Water Splash");
+            go.transform.SetParent(parent, false);
+            var ps = go.AddComponent<ParticleSystem>();
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            var main = ps.main;
+            main.playOnAwake = false;
+            main.loop = false;
+            main.duration = .6f;
+            main.startLifetime = new ParticleSystem.MinMaxCurve(.5f, .9f);
+            main.startSpeed = new ParticleSystem.MinMaxCurve(1.6f, 2.8f);
+            main.startSize = new ParticleSystem.MinMaxCurve(.05f, .11f);
+            main.startColor = new Color(.55f, .82f, 1f, .85f);
+            main.gravityModifier = 1.2f;
+            main.maxParticles = Application.isMobilePlatform ? 18 : 36;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+            var emission = ps.emission;
+            emission.rateOverTime = 0f;
+            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)(Application.isMobilePlatform ? 14 : 28)) });
+            var shape = ps.shape;
+            shape.shapeType = ParticleSystemShapeType.Cone;
+            shape.angle = 28f;
+            shape.radius = .15f;
+            shape.rotation = new Vector3(-90f, 0f, 0f);
+            var renderer = go.GetComponent<ParticleSystemRenderer>();
+            var shader = Shader.Find("Universal Render Pipeline/Particles/Unlit");
+            if (shader != null) renderer.sharedMaterial = new Material(shader) { name = "Water Splash (runtime)" };
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            return ps;
         }
     }
 }
