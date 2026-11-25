@@ -39,6 +39,14 @@ Nhánh `minhnhat/campus-polish` từ `main` `45eb1e6` (sau PR #52). Ngày 25/11/
 ## H2 — Hào quang chân quái
 Model GLTF có rig đứng lùi ~1 m so với gốc encounter. `IUHCampusMonsterGroundFire.AlignToFeet()` (gọi trong `Awake`) đặt hào quang vào trung điểm các xương "foot" của encounter (chỉ X/Z). Play: cả 5 hào quang về local (−0,04; 0,19; 0,30). Không sửa scene. [Ảnh cận chân](H2-aura-feet-after.png) (vòng xanh là hologram AR được bật để chụp).
 
+## H6 — Chơi thử lần 2 (bồn hoa, cây, sân khấu)
+Người dùng báo: vẫn vào được luống (viền đá và cỏ), có cây dính căn tin/sân khấu, đi xuyên sân khấu.
+- Nguyên nhân luống: tường H4 đặt ở mép cỏ, cao 1,2 m (đỉnh ~1,34 m) < độ nhảy `JumpHeight` 1,4 m ⇒ nhảy qua được; viền đá nằm ngoài tường nên đứng lên được. Sửa: `NATURE_LAWN_WALLS` dựng lại theo **mép bệ đá** của cả 6 luống và 2 bồn cong đài phun nước, cao **3 m** (`IUHFlowerbedBuilder.BuildWallOnly(root, height, params surfaces)`).
+- Cây: `Shade tree_13` (−23; −4) sát tường căn tin ⇒ (−23; 1); `Shade tree_17` (23; −4) nằm ngoài luống đã thu, sát sân khấu ⇒ (15; 2). [Căn tin](H6-canteen-tree-after.png) · [sân khấu](H6-stage-tree-after.png).
+- Sân khấu `Campus festival_10` chỉ có collider sàn 0,7 m ⇒ thêm `MeshCollider` cho vách/mái `Festival violet` và khung `Dark bronze`. Mặt trước (bậc lên, hướng nam) vẫn mở.
+- `CHECKIN_SPOT_FESTIVAL` (16; 3) nằm trong luống sân khấu (bị tường chặn) ⇒ dời ra lối lát (16; 8).
+- Thử Play (CharacterController.Move): đi và nhảy (+1,5 m) vào luống căn tin dừng ở x −11,2; nhảy vào luống sân khấu từ bắc dừng ở z 5,8; vách sau sân khấu dừng ở z −1,7; bậc trước vẫn lên sân khấu được; trong đài phun nước dừng ở bồn cong (x −7,9); tới check-in Ngày hội (16; 8) được.
+
 ## Kiểm thử
 - EditMode **150/150**, PlayMode **75/75**. Missing Script = 0 ở 3 scene. Console 0 error, scene `isDirty=false`.
 - Scene commit bằng script ghép block theo cây con (thêm/sửa/xóa, gồm prefab instance và block stripped); kiểm 0 fileID trùng, 0 tham chiếu treo. Không commit thay đổi Unity tự ghi (vật liệu nhúng, `UniversalAdditionalLightData` của đèn drone, override prefab, dòng `MainCamera`).

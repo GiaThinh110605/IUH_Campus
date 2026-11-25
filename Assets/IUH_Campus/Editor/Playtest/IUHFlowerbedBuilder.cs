@@ -289,14 +289,17 @@ namespace IUHCampus.EditorTools
             return moved;
         }
 
-        // Invisible boundary wall around the upward faces of `surface`, under a new root (no planting).
-        public static GameObject BuildWallOnly(string rootName, MeshFilter surface, float height)
+        // Invisible boundary wall around the upward faces of every surface (e.g. the bed curbs), under a new root.
+        // Height must exceed the player's jump (ThirdPersonController.JumpHeight 1.4 m) plus capsule clearance.
+        public static GameObject BuildWallOnly(string rootName, float height, params MeshFilter[] surfaces)
         {
             var old = GameObject.Find(rootName);
             if (old != null) UnityEngine.Object.DestroyImmediate(old);
             Directory.CreateDirectory(MeshFolder);
             var root = new GameObject(rootName);
-            AddWall(root.transform, rootName, surface, BoundaryEdges(surface), height);
+            var edges = new List<Vector3[]>();
+            foreach (var surface in surfaces) edges.AddRange(BoundaryEdges(surface));
+            AddWall(root.transform, rootName, surfaces[0], edges, height);
             GameObjectUtility.SetStaticEditorFlags(root, StaticEditorFlags.BatchingStatic);
             AssetDatabase.SaveAssets();
             return root;
