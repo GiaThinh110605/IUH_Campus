@@ -12,6 +12,13 @@ namespace IUHCampus.Guardian
     {
         private const string AlreadyClaimedMessage = "Đã nhận thưởng khu vực này";
         private const string RewardUnavailableMessage = "Chưa nhận được thưởng";
+        private const float InitialTriggerCooldown = 3.0f;
+        private const float DefeatTriggerCooldown = 3.5f;
+        private const int EmpHpDivisor = 4;
+        private const int EmpMinMonsterHp = 10;
+        private const float EmpShakeIntensity = 0.3f;
+        private const float EmpShakeDuration = 0.4f;
+        private const float EmpHpFillDenominator = 100f;
         private bool m_RewardWarningLogged;
         [Header("Encounter Settings")]
         [SerializeField] private string m_MonsterName = "DATA CORRUPTION";
@@ -113,7 +120,7 @@ namespace IUHCampus.Guardian
         {
             FindPlayer();
 
-            m_TriggerCooldown = 3.0f;
+            m_TriggerCooldown = InitialTriggerCooldown;
             m_RequireLeaveRange = true;
 
             if (m_CombatManager == null)
@@ -161,21 +168,7 @@ namespace IUHCampus.Guardian
 
             if (m_IsEncounterActive)
             {
-                // The combat HUD shows the boss bar during the duel.
-                if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf)
-                {
-                    m_MonsterOverheadCanvas.SetActive(false);
-                }
-                if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf)
-                {
-                    m_ActionPromptObject.SetActive(false);
-                }
-
-                if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown())
-                {
-                    if (m_CombatManager != null) m_CombatManager.Flee();
-                    else OnCombatDefeat();
-                }
+                UpdateActiveEncounter();
                 return;
             }
 
@@ -193,7 +186,31 @@ namespace IUHCampus.Guardian
             }
             if (m_PlayerPreview != null && m_PlayerPreview.IsExplorationPaused) return;
             if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown()) return;
-            float dist = Vector3.Distance(transform.position, m_PlayerTransform.position);
+
+            UpdateExplorationPrompt(Vector3.Distance(transform.position, m_PlayerTransform.position), combatRadius);
+        }
+
+        private void UpdateActiveEncounter()
+        {
+            // The combat HUD shows the boss bar during the duel.
+            if (m_MonsterOverheadCanvas != null && m_MonsterOverheadCanvas.activeSelf)
+            {
+                m_MonsterOverheadCanvas.SetActive(false);
+            }
+            if (m_ActionPromptObject != null && m_ActionPromptObject.activeSelf)
+            {
+                m_ActionPromptObject.SetActive(false);
+            }
+
+            if (IUHCampus.Core.IUHInputHelper.IsEscapeKeyDown())
+            {
+                if (m_CombatManager != null) m_CombatManager.Flee();
+                else OnCombatDefeat();
+            }
+        }
+
+        private void UpdateExplorationPrompt(float dist, float combatRadius)
+        {
             bool inRevealRange = dist <= m_RevealRadius;
             bool inCombatRange = dist <= combatRadius;
             if (!inCombatRange) m_RequireLeaveRange = false;
@@ -208,7 +225,6 @@ namespace IUHCampus.Guardian
                 m_ActionPromptObject.SetActive(inCombatRange);
             }
 
-            // Cơ chế tiếp cận: Nếu người chơi đứng sát quái vật (~m_TriggerRadius) khoảng 5 giây sẽ tự động vào trận
             if (inCombatRange)
             {
                 m_ProximityTimer += Time.deltaTime;
@@ -236,7 +252,6 @@ namespace IUHCampus.Guardian
                 }
             }
 
-            // Người chơi có thể bấm phím [E] hoặc nút Tương Tác bất cứ lúc nào để vào trận ngay không cần chờ 5s
             if (inCombatRange && m_TriggerCooldown <= 0f &&
                 (Input.GetKeyDown(m_InteractKey) || IUHCampus.Core.IUHInputHelper.IsInteractKeyDown()))
             {
@@ -308,7 +323,7 @@ namespace IUHCampus.Guardian
         public void OnCombatDefeat()
         {
             m_IsEncounterActive = false;
-            m_TriggerCooldown = 3.5f;
+            m_TriggerCooldown = DefeatTriggerCooldown;
             m_RequireLeaveRange = true;
 
             SetPlayerControl(true);
@@ -329,9 +344,8 @@ namespace IUHCampus.Guardian
             if (m_IsDefeated) return;
             m_TriggerCooldown = Mathf.Max(m_TriggerCooldown, duration);
 
-            // Reduce monster HP by 25%
-            int damage = Mathf.Max(1, m_MonsterHp / 4);
-            m_MonsterHp = Mathf.Max(10, m_MonsterHp - damage);
+            int damage = Mathf.Max(1, m_MonsterHp / EmpHpDivisor);
+            m_MonsterHp = Mathf.Max(EmpMinMonsterHp, m_MonsterHp - damage);
 
             if (m_BossHpText != null)
             {
@@ -339,10 +353,10 @@ namespace IUHCampus.Guardian
             }
             if (m_BossHpFill != null)
             {
-                m_BossHpFill.fillAmount = (float)m_MonsterHp / 100f;
+                m_BossHpFill.fillAmount = (float)m_MonsterHp / EmpHpFillDenominator;
             }
 
-            IUHCameraShake.Shake(0.3f, 0.4f);
+            IUHCameraShake.Shake(EmpShakeIntensity, EmpShakeDuration);
             IUHCombatAudio.PlayShield();
         }
 
