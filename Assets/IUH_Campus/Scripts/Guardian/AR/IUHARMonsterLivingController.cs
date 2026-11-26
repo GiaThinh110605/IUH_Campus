@@ -79,41 +79,42 @@ namespace IUHCampus.Guardian.AR
 
         private void Update()
         {
-            // Luôn đảm bảo Anchor của quái vật quay thẳng về phía camera người chơi
-            if (ARCamera != null && transform.parent != null)
-            {
-                Vector3 toCam = ARCamera.transform.position - transform.parent.position;
-                toCam.y = 0f;
-                if (toCam.sqrMagnitude > 0.001f)
-                {
-                    transform.parent.rotation = Quaternion.LookRotation(toCam);
-                }
-            }
+            FaceCamera();
 
             float t = Time.time;
-
-            // 1. Nhấp nhô lơ lửng bồng bềnh (Hovering Y)
             float hoverY = Mathf.Sin(t * m_HoverSpeed) * 0.075f;
-
-            // 2. Lắc lư ma quái (Sway Pitch & Roll)
             float swayPitch = Mathf.Cos(t * 1.9f) * 3.8f;
             float swayRoll = Mathf.Sin(t * 1.5f) * 4.5f;
-
-            // 3. Nhịp thở phập phồng (Breathing Pulse)
             float breathe = 1.0f + Mathf.Sin(t * m_BreatheSpeed) * 0.045f;
 
             Vector3 currentPos = BasePosition + new Vector3(0f, hoverY, 0f);
             Vector3 currentScale = new Vector3(BaseScale.x * breathe, BaseScale.y * (2.0f - breathe), BaseScale.z * breathe);
-            // Quái vật quay mặt hướng thẳng ra trước (0 độ Y) đối diện người chơi
             Quaternion currentRot = Quaternion.Euler(swayPitch, 0f, swayRoll);
 
-            // 4. Cử động tấn công: Ngửa người gầm thét, rung lắc rồi lao về phía trước (+Z hướng thẳng camera)
+            ApplyCombatOffsets(ref currentPos, ref currentScale, ref currentRot);
+
+            transform.localPosition = currentPos;
+            transform.localRotation = currentRot;
+            transform.localScale = currentScale;
+        }
+
+        private void FaceCamera()
+        {
+            if (ARCamera == null || transform.parent == null) return;
+            Vector3 toCam = ARCamera.transform.position - transform.parent.position;
+            toCam.y = 0f;
+            if (toCam.sqrMagnitude > 0.001f)
+            {
+                transform.parent.rotation = Quaternion.LookRotation(toCam);
+            }
+        }
+
+        private void ApplyCombatOffsets(ref Vector3 currentPos, ref Vector3 currentScale, ref Quaternion currentRot)
+        {
             if (m_AttackTimer > 0f)
             {
                 m_AttackTimer -= Time.deltaTime;
                 float progress = 1f - Mathf.Clamp01(m_AttackTimer / 0.75f);
-                
-                // Lunge về phía trước người chơi
                 float lungeZ = Mathf.Sin(progress * Mathf.PI) * 0.28f;
                 float shake = Mathf.Sin(progress * 38f) * 0.025f;
                 currentPos += new Vector3(shake, 0.06f, lungeZ);
@@ -121,7 +122,6 @@ namespace IUHCampus.Guardian.AR
                 currentRot *= Quaternion.Euler(Mathf.Sin(progress * Mathf.PI) * 12f, 0f, 0f);
             }
 
-            // 5. Cử động trúng đòn: Giật lùi về sau, co rúm người
             if (m_HitTimer > 0f)
             {
                 m_HitTimer -= Time.deltaTime;
@@ -131,10 +131,6 @@ namespace IUHCampus.Guardian.AR
                 currentPos += new Vector3(recoilX, 0f, -flinchZ);
                 currentScale *= 0.94f;
             }
-
-            transform.localPosition = currentPos;
-            transform.localRotation = currentRot;
-            transform.localScale = currentScale;
         }
     }
 }

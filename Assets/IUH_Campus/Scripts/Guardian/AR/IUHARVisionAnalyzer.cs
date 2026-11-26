@@ -52,85 +52,40 @@ namespace IUHCampus.Guardian.AR
             int regionW = endX - startX;
             int regionH = endY - startY;
 
-            // 1. Phân tích 6x6 lưới cục bộ
-            int gridCols = 6;
-            int gridRows = 6;
+            AnalyzeGridPatches(pixels, w, startX, startY, regionW, regionH, ref f);
+            f.microEdgeFraction = ComputeMicroEdgeFraction(pixels, w, startX, endX, startY, endY, regionW);
+            ComputeScanLineMetrics(pixels, w, startX, endX, startY, endY, regionW, regionH, ref f);
+            return f;
+        }
+
+        private static float ComputeLuma(Color32 c) => 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
+
+        private static void AnalyzeGridPatches(
+            Color32[] pixels, int w, int startX, int startY, int regionW, int regionH, ref VisionFeatures f)
+        {
+            const int gridCols = 6;
+            const int gridRows = 6;
             int cellW = regionW / gridCols;
             int cellH = regionH / gridRows;
 
-            float patchStdDevSum = 0f;
-            float maxStd = 0f;
-            int richPatches = 0;
-            int totalPatches = gridCols * gridRows;
-
-            float minLuma = 255f;
-            float maxLuma = 0f;
-            int brightPaperCount = 0;
-            int darkCount = 0;
-            int totalSamples = 0;
-            float sumSat = 0f;
+            float patchStdDevSum = 0f, maxStd = 0f, minLuma = 255f, maxLuma = 0f, sumSat = 0f;
+            int richPatches = 0, brightPaperCount = 0, darkCount = 0, totalSamples = 0;
 
             for (int gy = 0; gy < gridRows; gy++)
             {
                 for (int gx = 0; gx < gridCols; gx++)
                 {
-                    int cx0 = startX + gx * cellW;
-                    int cy0 = startY + gy * cellH;
-
-                    float cellSumLuma = 0f;
-                    int cellSamples = 0;
-                    int stepX = Mathf.Max(2, cellW / 6);
-                    int stepY = Mathf.Max(2, cellH / 6);
-
-                    List<float> cellLumas = new List<float>(36);
-
-                    for (int py = cy0; py < cy0 + cellH; py += stepY)
-                    {
-                        for (int px = cx0; px < cx0 + cellW; px += stepX)
-                        {
-                            int idx = py * w + px;
-                            if (idx >= 0 && idx < pixels.Length)
-                            {
-                                Color32 c = pixels[idx];
-                                float lum = 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
-                                cellSumLuma += lum;
-                                cellLumas.Add(lum);
-                                cellSamples++;
-
-                                if (lum < minLuma) minLuma = lum;
-                                if (lum > maxLuma) maxLuma = lum;
-
-                                totalSamples++;
-                                if (lum > 155f && Mathf.Abs(c.r - c.g) < 28 && Mathf.Abs(c.g - c.b) < 28)
-                                    brightPaperCount++;
-                                if (lum < 75f)
-                                    darkCount++;
-
-                                float maxC = Mathf.Max(c.r, Mathf.Max(c.g, c.b));
-                                float minC = Mathf.Min(c.r, Mathf.Min(c.g, c.b));
-                                float sat = maxC > 0 ? (maxC - minC) / maxC : 0f;
-                                sumSat += sat;
-                            }
-                        }
-                    }
-
-                    if (cellSamples >= 8)
-                    {
-                        float mean = cellSumLuma / cellSamples;
-                        float variance = 0f;
-                        for (int i = 0; i < cellLumas.Count; i++)
-                        {
-                            float d = cellLumas[i] - mean;
-                            variance += d * d;
-                        }
-                        float std = Mathf.Sqrt(variance / cellSamples);
-                        patchStdDevSum += std;
-                        if (std > maxStd) maxStd = std;
-                        if (std >= 11.5f) richPatches++;
-                    }
+                    float std = SamplePatchStdDev(
+                        pixels, w, startX + gx * cellW, startY + gy * cellH, cellW, cellH,
+                        ref minLuma, ref maxLuma, ref brightPaperCount, ref darkCount, ref totalSamples, ref sumSat);
+                    if (std < 0f) continue;
+                    patchStdDevSum += std;
+                    if (std > maxStd) maxStd = std;
+                    if (std >= 11.5f) richPatches++;
                 }
             }
 
+            int totalPatches = gridCols * gridRows;
             f.globalContrast = maxLuma - minLuma;
             f.avgPatchStdDev = totalPatches > 0 ? (patchStdDevSum / totalPatches) : 0f;
             f.maxPatchStdDev = maxStd;
@@ -138,10 +93,58 @@ namespace IUHCampus.Guardian.AR
             f.brightPaperRatio = totalSamples > 0 ? ((float)brightPaperCount / totalSamples) : 0f;
             f.darkPixelsRatio = totalSamples > 0 ? ((float)darkCount / totalSamples) : 0f;
             f.avgColorSat = totalSamples > 0 ? (sumSat / totalSamples) : 0f;
+        }
 
-            // 2. Vi cạnh vi mô (Micro-edges)
-            int totalEdgeSamples = 0;
-            int sharpEdges = 0;
+        private static float SamplePatchStdDev(
+            Color32[] pixels, int w, int cx0, int cy0, int cellW, int cellH,
+            ref float minLuma, ref float maxLuma, ref int brightPaperCount,
+            ref int darkCount, ref int totalSamples, ref float sumSat)
+        {
+            int stepX = Mathf.Max(2, cellW / 6);
+            int stepY = Mathf.Max(2, cellH / 6);
+            float cellSumLuma = 0f;
+            var cellLumas = new List<float>(36);
+
+            for (int py = cy0; py < cy0 + cellH; py += stepY)
+            {
+                for (int px = cx0; px < cx0 + cellW; px += stepX)
+                {
+                    int idx = py * w + px;
+                    if (idx < 0 || idx >= pixels.Length) continue;
+
+                    Color32 c = pixels[idx];
+                    float lum = ComputeLuma(c);
+                    cellSumLuma += lum;
+                    cellLumas.Add(lum);
+
+                    if (lum < minLuma) minLuma = lum;
+                    if (lum > maxLuma) maxLuma = lum;
+
+                    totalSamples++;
+                    if (lum > 155f && Mathf.Abs(c.r - c.g) < 28 && Mathf.Abs(c.g - c.b) < 28) brightPaperCount++;
+                    if (lum < 75f) darkCount++;
+
+                    float maxC = Mathf.Max(c.r, Mathf.Max(c.g, c.b));
+                    float minC = Mathf.Min(c.r, Mathf.Min(c.g, c.b));
+                    sumSat += maxC > 0 ? (maxC - minC) / maxC : 0f;
+                }
+            }
+
+            if (cellLumas.Count < 8) return -1f;
+            float mean = cellSumLuma / cellLumas.Count;
+            float variance = 0f;
+            for (int i = 0; i < cellLumas.Count; i++)
+            {
+                float d = cellLumas[i] - mean;
+                variance += d * d;
+            }
+            return Mathf.Sqrt(variance / cellLumas.Count);
+        }
+
+        private static float ComputeMicroEdgeFraction(
+            Color32[] pixels, int w, int startX, int endX, int startY, int endY, int regionW)
+        {
+            int totalEdgeSamples = 0, sharpEdges = 0;
             int edgeStep = Mathf.Max(3, regionW / 50);
 
             for (int y = startY; y < endY - 2; y += edgeStep)
@@ -151,64 +154,33 @@ namespace IUHCampus.Guardian.AR
                     int idxC = y * w + x;
                     int idxR = y * w + (x + 2);
                     int idxU = (y + 2) * w + x;
+                    if (idxU >= pixels.Length || idxR >= pixels.Length) continue;
 
-                    if (idxU < pixels.Length && idxR < pixels.Length)
-                    {
-                        Color32 cC = pixels[idxC];
-                        Color32 cR = pixels[idxR];
-                        Color32 cU = pixels[idxU];
-
-                        float lumC = 0.299f * cC.r + 0.587f * cC.g + 0.114f * cC.b;
-                        float lumR = 0.299f * cR.r + 0.587f * cR.g + 0.114f * cR.b;
-                        float lumU = 0.299f * cU.r + 0.587f * cU.g + 0.114f * cU.b;
-
-                        float grad = (Mathf.Abs(lumR - lumC) + Mathf.Abs(lumU - lumC)) * 0.5f;
-                        if (grad >= 20.0f) sharpEdges++;
-                        totalEdgeSamples++;
-                    }
+                    float lumC = ComputeLuma(pixels[idxC]);
+                    float lumR = ComputeLuma(pixels[idxR]);
+                    float lumU = ComputeLuma(pixels[idxU]);
+                    float grad = (Mathf.Abs(lumR - lumC) + Mathf.Abs(lumU - lumC)) * 0.5f;
+                    if (grad >= 20.0f) sharpEdges++;
+                    totalEdgeSamples++;
                 }
             }
-            f.microEdgeFraction = totalEdgeSamples > 0 ? ((float)sharpEdges / totalEdgeSamples) : 0f;
+            return totalEdgeSamples > 0 ? ((float)sharpEdges / totalEdgeSamples) : 0f;
+        }
 
-            // 3. Quét phổ tần số dao động (Scan lines)
-            int lineScanCount = 7;
+        private static void ComputeScanLineMetrics(
+            Color32[] pixels, int w, int startX, int endX, int startY, int endY, int regionW, int regionH, ref VisionFeatures f)
+        {
+            const int lineScanCount = 7;
             int lineStepY = Mathf.Max(2, regionH / (lineScanCount + 1));
             int scanStepX = Mathf.Max(2, regionW / 50);
 
-            int highLines = 0;
-            int medLines = 0;
-            int totalTrans = 0;
-
+            int highLines = 0, medLines = 0, totalTrans = 0;
             for (int l = 1; l <= lineScanCount; l++)
             {
                 int ly = startY + l * lineStepY;
                 if (ly >= endY) break;
 
-                int transitions = 0;
-                float prevVal = -1f;
-                int prevSign = 0;
-
-                for (int lx = startX; lx < endX; lx += scanStepX)
-                {
-                    int pIdx = ly * w + lx;
-                    if (pIdx >= 0 && pIdx < pixels.Length)
-                    {
-                        Color32 pc = pixels[pIdx];
-                        float curVal = 0.299f * pc.r + 0.587f * pc.g + 0.114f * pc.b;
-                        if (prevVal >= 0f)
-                        {
-                            float delta = curVal - prevVal;
-                            if (Mathf.Abs(delta) > 20f)
-                            {
-                                int curSign = delta > 0 ? 1 : -1;
-                                if (prevSign != 0 && curSign != prevSign) transitions++;
-                                prevSign = curSign;
-                            }
-                        }
-                        prevVal = curVal;
-                    }
-                }
-
+                int transitions = CountScanLineTransitions(pixels, w, ly, startX, endX, scanStepX);
                 totalTrans += transitions;
                 if (transitions >= 12) highLines++;
                 else if (transitions >= 4 && transitions <= 11) medLines++;
@@ -217,8 +189,31 @@ namespace IUHCampus.Guardian.AR
             f.highFreqTextLines = highLines;
             f.mediumFreqKeyLines = medLines;
             f.totalScanTransitions = totalTrans;
+        }
 
-            return f;
+        private static int CountScanLineTransitions(Color32[] pixels, int w, int ly, int startX, int endX, int scanStepX)
+        {
+            int transitions = 0, prevSign = 0;
+            float prevVal = -1f;
+            for (int lx = startX; lx < endX; lx += scanStepX)
+            {
+                int pIdx = ly * w + lx;
+                if (pIdx < 0 || pIdx >= pixels.Length) continue;
+
+                float curVal = ComputeLuma(pixels[pIdx]);
+                if (prevVal >= 0f)
+                {
+                    float delta = curVal - prevVal;
+                    if (Mathf.Abs(delta) > 20f)
+                    {
+                        int curSign = delta > 0 ? 1 : -1;
+                        if (prevSign != 0 && curSign != prevSign) transitions++;
+                        prevSign = curSign;
+                    }
+                }
+                prevVal = curVal;
+            }
+            return transitions;
         }
 
         /// <summary>
@@ -236,143 +231,110 @@ namespace IUHCampus.Guardian.AR
         /// </summary>
         public static VisionAnalysisResult Analyze(VisionFeatures f, int targetPropIndex)
         {
-            var res = new VisionAnalysisResult();
-            res.targetPropIndex = targetPropIndex;
-
             bool isWall = IsPlainWall(f);
+            if (targetPropIndex == 1) return AnalyzeLaptop(f, isWall);
+            if (targetPropIndex == 0) return AnalyzeBackpack(f, isWall);
+            return AnalyzeBook(f, targetPropIndex, isWall);
+        }
 
-            // =====================================================================
-            // TAB 1: LAPTOP / MÁY TÍNH
-            // =====================================================================
-            if (targetPropIndex == 1)
+        private static VisionAnalysisResult MakeResult(int targetPropIndex, bool success, float confidence, string message, string details = null)
+        {
+            return new VisionAnalysisResult
             {
-                // A. Chặn tường phẳng / mặt trơn
-                if (isWall || (f.richTexturePatchCount < 2 && f.microEdgeFraction < 0.030f && f.globalContrast < 45f))
-                {
-                    res.isSuccess = false;
-                    res.confidence = 18f;
-                    res.message = "KHÔNG PHẢI LAPTOP! Đây là Vách Tường/Mặt Trơn. Hãy hướng camera vào Laptop thật.";
-                    res.details = $"Tương phản: {f.globalContrast:F0}, Ô chi tiết: {f.richTexturePatchCount}/36";
-                    return res;
-                }
+                targetPropIndex = targetPropIndex,
+                isSuccess = success,
+                confidence = confidence,
+                message = message,
+                details = details
+            };
+        }
 
-                // B. Chỉ chặn nếu là SÁCH GIẤY THẬT (toàn trang giấy trắng chiếm > 75%, không có viền máy tính / bàn phím / dock / bezel)
-                bool isPurePhysicalPaperBook = (f.brightPaperRatio >= 0.75f && f.darkPixelsRatio < 0.05f && f.mediumFreqKeyLines == 0 && f.richTexturePatchCount <= 4);
-                if (isPurePhysicalPaperBook)
-                {
-                    res.isSuccess = false;
-                    res.confidence = 25f;
-                    res.message = "KHÔNG PHẢI LAPTOP! Đây là Sách / Trang Giấy Trắng. Hãy hướng camera vào Màn hình & Bàn phím Laptop.";
-                    res.details = $"Tỉ lệ giấy trắng cao ({f.brightPaperRatio * 100f:F0}%), không thấy viền bezel/bàn phím";
-                    return res;
-                }
-
-                // C. Đặc trưng Laptop thật:
-                // 1) Màn hình Laptop (kể cả khi hiển thị trang web, code, tài liệu văn bản, video):
-                //    Có độ tương phản màn hình (globalContrast >= 45f), có chi tiết UI/nội dung (richTexturePatchCount >= 3 hoặc microEdgeFraction >= 0.032f),
-                //    hoặc có viền màn hình bezel / thanh tiêu đề (darkPixelsRatio >= 0.06f).
-                bool hasLaptopScreen = (f.globalContrast >= 45f && (f.richTexturePatchCount >= 2 || f.microEdgeFraction >= 0.030f) && f.maxPatchStdDev >= 11.0f);
-
-                // 2) Bàn phím Laptop:
-                //    Có các hàng phím bấm chu kỳ (mediumFreqKeyLines >= 1) kết hợp với các ô phím (richTexturePatchCount >= 2 hoặc darkPixelsRatio >= 0.08f).
-                bool hasLaptopKeyboard = (f.mediumFreqKeyLines >= 1 && (f.richTexturePatchCount >= 2 || f.darkPixelsRatio >= 0.08f))
-                                      || (f.totalScanTransitions >= 15 && f.darkPixelsRatio >= 0.08f);
-
-                if (hasLaptopScreen || hasLaptopKeyboard)
-                {
-                    res.isSuccess = true;
-                    float baseConf = hasLaptopKeyboard ? 88f : 86f;
-                    res.confidence = Mathf.Clamp(baseConf + (f.mediumFreqKeyLines * 2.5f) + (f.darkPixelsRatio * 15f) + (f.richTexturePatchCount * 0.8f), 86f, 98f);
-                    res.message = "ĐÃ KHÓA MỤC TIÊU: LAPTOP / MÁY TÍNH THẬT";
-                    res.details = $"Màn hình/Bàn phím: {f.mediumFreqKeyLines} hàng phím, Viền/Vùng tối: {f.darkPixelsRatio * 100f:F0}%, Vi cạnh: {f.microEdgeFraction * 100f:F1}%";
-                    return res;
-                }
-                else
-                {
-                    res.isSuccess = false;
-                    res.confidence = 25f;
-                    res.message = "KHÔNG PHẢI LAPTOP! Hãy đưa camera lại gần Bàn phím & Màn hình máy tính.";
-                    res.details = $"Chưa thấy rõ khung màn hình hoặc bàn phím";
-                    return res;
-                }
-            }
-            // =====================================================================
-            // TAB 0: BALO / TÚI XÁCH
-            // =====================================================================
-            else if (targetPropIndex == 0)
+        private static VisionAnalysisResult AnalyzeLaptop(VisionFeatures f, bool isWall)
+        {
+            if (isWall || (f.richTexturePatchCount < 2 && f.microEdgeFraction < 0.030f && f.globalContrast < 45f))
             {
-                if (isWall)
-                {
-                    res.isSuccess = false;
-                    res.confidence = 18f;
-                    res.message = "KHÔNG PHẢI BALO! Đây là Vách Tường/Mặt Trơn. Hãy hướng camera vào Balo của bạn.";
-                    res.details = $"Độ nhẵn: {f.avgPatchStdDev:F1}, Tương phản: {f.globalContrast:F0}";
-                    return res;
-                }
-
-                if (f.brightPaperRatio > 0.50f && f.darkPixelsRatio < 0.20f)
-                {
-                    res.isSuccess = false;
-                    res.confidence = 22f;
-                    res.message = "KHÔNG PHẢI BALO! Đây là Sách / Trang Giấy Trắng. Hãy hướng camera vào Balo của bạn.";
-                    return res;
-                }
-
-                bool hasBackpackBody = (f.globalContrast >= 45f && f.maxPatchStdDev >= 11.0f)
-                    || (f.richTexturePatchCount >= 2)
-                    || (f.darkPixelsRatio >= 0.15f && f.avgPatchStdDev >= 4.2f);
-
-                if (hasBackpackBody)
-                {
-                    res.isSuccess = true;
-                    res.confidence = Mathf.Clamp(86f + (f.maxPatchStdDev - 11f) * 0.5f + f.darkPixelsRatio * 12f, 86f, 98f);
-                    res.message = "ĐÃ KHÓA MỤC TIÊU: BALO THẬT";
-                    res.details = $"Vải/Quai đeo: {f.maxPatchStdDev:F1}, Vùng vải tối: {f.darkPixelsRatio * 100f:F0}%, Độ nổi khối: {f.globalContrast:F0}";
-                    return res;
-                }
-                else
-                {
-                    res.isSuccess = false;
-                    res.confidence = 20f;
-                    res.message = "KHÔNG PHẢI BALO! Hãy đưa camera lại gần Balo để bắt rõ quai đeo hoặc nếp gấp vải.";
-                    return res;
-                }
+                return MakeResult(1, false, 18f,
+                    "KHÔNG PHẢI LAPTOP! Đây là Vách Tường/Mặt Trơn. Hãy hướng camera vào Laptop thật.",
+                    $"Tương phản: {f.globalContrast:F0}, Ô chi tiết: {f.richTexturePatchCount}/36");
             }
-            // =====================================================================
-            // TAB 2: SÁCH GIÁO TRÌNH
-            // =====================================================================
-            else
+
+            bool isPurePhysicalPaperBook = f.brightPaperRatio >= 0.75f && f.darkPixelsRatio < 0.05f && f.mediumFreqKeyLines == 0 && f.richTexturePatchCount <= 4;
+            if (isPurePhysicalPaperBook)
             {
-                if (isWall || f.richTexturePatchCount < 2)
-                {
-                    res.isSuccess = false;
-                    res.confidence = 18f;
-                    res.message = "KHÔNG PHẢI SÁCH! Đây là Vách Tường/Mặt Trơn. Hãy hướng camera vào Sách giáo trình.";
-                    return res;
-                }
-
-                // Sách thật: các dòng chữ in trang sách (highFreqTextLines >= 1 hoặc transitions >= 20) trên nền giấy sáng
-                bool hasBookFeatures = (f.highFreqTextLines >= 1 && f.brightPaperRatio >= 0.30f)
-                    || (f.totalScanTransitions >= 25 && f.brightPaperRatio >= 0.30f)
-                    || (f.highFreqTextLines >= 2 && f.microEdgeFraction >= 0.040f)
-                    || (f.richTexturePatchCount >= 6 && f.microEdgeFraction >= 0.045f);
-
-                if (hasBookFeatures)
-                {
-                    res.isSuccess = true;
-                    res.confidence = Mathf.Clamp(85f + (f.highFreqTextLines * 3f) + (f.richTexturePatchCount * 1.0f), 85f, 98f);
-                    res.message = "ĐÃ KHÓA MỤC TIÊU: SÁCH GIÁO TRÌNH";
-                    res.details = $"Dòng chữ in: {f.highFreqTextLines} dòng, Giấy: {f.brightPaperRatio * 100f:F0}%";
-                    return res;
-                }
-                else
-                {
-                    res.isSuccess = false;
-                    res.confidence = 22f;
-                    res.message = "KHÔNG PHẢI SÁCH! Hãy đưa camera lại gần trang sách có chữ in rõ nét.";
-                    return res;
-                }
+                return MakeResult(1, false, 25f,
+                    "KHÔNG PHẢI LAPTOP! Đây là Sách / Trang Giấy Trắng. Hãy hướng camera vào Màn hình & Bàn phím Laptop.",
+                    $"Tỉ lệ giấy trắng cao ({f.brightPaperRatio * 100f:F0}%), không thấy viền bezel/bàn phím");
             }
+
+            bool hasLaptopScreen = f.globalContrast >= 45f && (f.richTexturePatchCount >= 2 || f.microEdgeFraction >= 0.030f) && f.maxPatchStdDev >= 11.0f;
+            bool hasLaptopKeyboard = (f.mediumFreqKeyLines >= 1 && (f.richTexturePatchCount >= 2 || f.darkPixelsRatio >= 0.08f))
+                || (f.totalScanTransitions >= 15 && f.darkPixelsRatio >= 0.08f);
+
+            if (hasLaptopScreen || hasLaptopKeyboard)
+            {
+                float baseConf = hasLaptopKeyboard ? 88f : 86f;
+                float conf = Mathf.Clamp(baseConf + (f.mediumFreqKeyLines * 2.5f) + (f.darkPixelsRatio * 15f) + (f.richTexturePatchCount * 0.8f), 86f, 98f);
+                return MakeResult(1, true, conf, "ĐÃ KHÓA MỤC TIÊU: LAPTOP / MÁY TÍNH THẬT",
+                    $"Màn hình/Bàn phím: {f.mediumFreqKeyLines} hàng phím, Viền/Vùng tối: {f.darkPixelsRatio * 100f:F0}%, Vi cạnh: {f.microEdgeFraction * 100f:F1}%");
+            }
+
+            return MakeResult(1, false, 25f,
+                "KHÔNG PHẢI LAPTOP! Hãy đưa camera lại gần Bàn phím & Màn hình máy tính.",
+                "Chưa thấy rõ khung màn hình hoặc bàn phím");
+        }
+
+        private static VisionAnalysisResult AnalyzeBackpack(VisionFeatures f, bool isWall)
+        {
+            if (isWall)
+            {
+                return MakeResult(0, false, 18f,
+                    "KHÔNG PHẢI BALO! Đây là Vách Tường/Mặt Trơn. Hãy hướng camera vào Balo của bạn.",
+                    $"Độ nhẵn: {f.avgPatchStdDev:F1}, Tương phản: {f.globalContrast:F0}");
+            }
+
+            if (f.brightPaperRatio > 0.50f && f.darkPixelsRatio < 0.20f)
+            {
+                return MakeResult(0, false, 22f,
+                    "KHÔNG PHẢI BALO! Đây là Sách / Trang Giấy Trắng. Hãy hướng camera vào Balo của bạn.");
+            }
+
+            bool hasBackpackBody = (f.globalContrast >= 45f && f.maxPatchStdDev >= 11.0f)
+                || f.richTexturePatchCount >= 2
+                || (f.darkPixelsRatio >= 0.15f && f.avgPatchStdDev >= 4.2f);
+
+            if (hasBackpackBody)
+            {
+                float conf = Mathf.Clamp(86f + (f.maxPatchStdDev - 11f) * 0.5f + f.darkPixelsRatio * 12f, 86f, 98f);
+                return MakeResult(0, true, conf, "ĐÃ KHÓA MỤC TIÊU: BALO THẬT",
+                    $"Vải/Quai đeo: {f.maxPatchStdDev:F1}, Vùng vải tối: {f.darkPixelsRatio * 100f:F0}%, Độ nổi khối: {f.globalContrast:F0}");
+            }
+
+            return MakeResult(0, false, 20f,
+                "KHÔNG PHẢI BALO! Hãy đưa camera lại gần Balo để bắt rõ quai đeo hoặc nếp gấp vải.");
+        }
+
+        private static VisionAnalysisResult AnalyzeBook(VisionFeatures f, int targetPropIndex, bool isWall)
+        {
+            if (isWall || f.richTexturePatchCount < 2)
+            {
+                return MakeResult(targetPropIndex, false, 18f,
+                    "KHÔNG PHẢI SÁCH! Đây là Vách Tường/Mặt Trơn. Hãy hướng camera vào Sách giáo trình.");
+            }
+
+            bool hasBookFeatures = (f.highFreqTextLines >= 1 && f.brightPaperRatio >= 0.30f)
+                || (f.totalScanTransitions >= 25 && f.brightPaperRatio >= 0.30f)
+                || (f.highFreqTextLines >= 2 && f.microEdgeFraction >= 0.040f)
+                || (f.richTexturePatchCount >= 6 && f.microEdgeFraction >= 0.045f);
+
+            if (hasBookFeatures)
+            {
+                float conf = Mathf.Clamp(85f + (f.highFreqTextLines * 3f) + (f.richTexturePatchCount * 1.0f), 85f, 98f);
+                return MakeResult(targetPropIndex, true, conf, "ĐÃ KHÓA MỤC TIÊU: SÁCH GIÁO TRÌNH",
+                    $"Dòng chữ in: {f.highFreqTextLines} dòng, Giấy: {f.brightPaperRatio * 100f:F0}%");
+            }
+
+            return MakeResult(targetPropIndex, false, 22f,
+                "KHÔNG PHẢI SÁCH! Hãy đưa camera lại gần trang sách có chữ in rõ nét.");
         }
     }
 }
