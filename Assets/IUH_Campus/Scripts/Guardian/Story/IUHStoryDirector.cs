@@ -16,6 +16,8 @@ namespace IUHCampus.Guardian.Story
         const string ProgressKey = "IUH_Story_Progress";
         [SerializeField]
         IUHStoryScript m_StoryScript;
+        [SerializeField]
+        Material m_NightSkyboxMaterial;
         StoryProgress progress;
         IUHStoryWorldLock world;
         IUHStoryDialogueUI ui;
@@ -50,6 +52,7 @@ namespace IUHCampus.Guardian.Story
             beacon = IUHStoryBeacon.Create(m_StoryScript.beaconMaterial);
             night = gameObject.AddComponent<IUHStoryNightShift>();
             night.Initialize(m_StoryScript.festivalLedMaterialName);
+            night.SetNightSkyboxMaterial(m_NightSkyboxMaterial);
             crowd = gameObject.AddComponent<IUHStoryPeaceCrowd>();
             crowd.SetDisaster(StoryDisaster.IsDisasterAtStart(progress.Phase));
             shop = IUHUpgradeShopUI.Instance ?? FindAnyObjectByType<IUHUpgradeShopUI>(FindObjectsInactive.Include);
