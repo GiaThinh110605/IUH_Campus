@@ -27,6 +27,11 @@ namespace IUHCampus.Guardian.Match3
         [SerializeField] private float m_PopDuration = 0.15f;
         [SerializeField] private float m_DropDuration = 0.22f;
 
+        private const float HighlightPadding = 8f;
+        private const float CascadeStepDelay = 0.06f;
+        private const float MegaBombShakeIntensity = 0.35f;
+        private const float MegaBombShakeDuration = 0.25f;
+
         private Match3BoardModel m_Model;
         private readonly Match3TileView[,] m_Views = new Match3TileView[Match3BoardModel.Width, Match3BoardModel.Height];
         private readonly Queue<Match3TileView> m_TilePool = new Queue<Match3TileView>();
@@ -59,7 +64,7 @@ namespace IUHCampus.Guardian.Match3
             m_SelectionHighlight = new GameObject("SelectionHighlight", typeof(RectTransform), typeof(Image));
             m_SelectionHighlight.transform.SetParent(m_GridRoot, false);
             var rect = m_SelectionHighlight.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(m_TileSize + 8f, m_TileSize + 8f);
+            rect.sizeDelta = new Vector2(m_TileSize + HighlightPadding, m_TileSize + HighlightPadding);
 
             var img = m_SelectionHighlight.GetComponent<Image>();
             img.sprite = m_SpriteTileSelected;
@@ -270,66 +275,20 @@ namespace IUHCampus.Guardian.Match3
                 if (step == null) break;
                 step.ComboIndex = comboIndex++;
 
-                List<Coroutine> popCoroutines = new List<Coroutine>();
-                foreach (var group in step.Matches)
-                {
-                    foreach (var coord in group.Coords)
-                    {
-                        Match3TileView v = m_Views[coord.X, coord.Y];
-                        if (v != null && v.gameObject.activeSelf)
-                        {
-                            popCoroutines.Add(StartCoroutine(v.AnimatePopAndFade(m_PopDuration)));
-                            m_Views[coord.X, coord.Y] = null;
-                            m_TilePool.Enqueue(v);
-                        }
-                    }
-
-                    // Blast wave coords from 5-in-a-row Mega Bomb
-                    foreach (var coord in group.BlastCoords)
-                    {
-                        Match3TileView v = m_Views[coord.X, coord.Y];
-                        if (v != null && v.gameObject.activeSelf)
-                        {
-                            popCoroutines.Add(StartCoroutine(v.AnimatePopAndFade(m_PopDuration)));
-                            m_Views[coord.X, coord.Y] = null;
-                            m_TilePool.Enqueue(v);
-                        }
-                    }
-                }
-
+                List<Coroutine> popCoroutines = StartPopAnimations(step);
                 if (step.HasMegaBomb)
                 {
                     IUHCombatAudio.PlaySkillBurst();
-                    IUHCameraShake.Shake(0.35f, 0.25f);
+                    IUHCameraShake.Shake(MegaBombShakeIntensity, MegaBombShakeDuration);
                 }
 
                 foreach (var c in popCoroutines) yield return c;
-
                 OnStepResolved?.Invoke(step);
 
-                List<Coroutine> dropCoroutines = new List<Coroutine>();
-                foreach (var drop in step.Drops)
-                {
-                    Match3TileView v = m_Views[drop.From.X, drop.From.Y];
-                    if (v != null)
-                    {
-                        m_Views[drop.To.X, drop.To.Y] = v;
-                        m_Views[drop.From.X, drop.From.Y] = null;
-                        v.UpdateCoord(drop.To);
-                        dropCoroutines.Add(StartCoroutine(v.AnimateMoveTo(CoordToLocalPos(drop.To), m_DropDuration)));
-                    }
-                }
-
-                foreach (var spawn in step.Spawns)
-                {
-                    Match3TileView newView = SpawnTileView(spawn.Destination, spawn.Type);
-                    m_Views[spawn.Destination.X, spawn.Destination.Y] = newView;
-                    dropCoroutines.Add(StartCoroutine(newView.AnimateSpawn(CoordToLocalPos(spawn.Destination), m_DropDuration)));
-                }
-
+                List<Coroutine> dropCoroutines = StartDropAndSpawnAnimations(step);
                 foreach (var c in dropCoroutines) yield return c;
 
-                yield return new WaitForSeconds(0.06f);
+                yield return new WaitForSeconds(CascadeStepDelay);
             }
 
             if (!m_Model.HasValidMoves())
@@ -337,6 +296,56 @@ namespace IUHCampus.Guardian.Match3
                 m_Model.Reshuffle();
                 RebuildGridVisuals();
             }
+        }
+
+        private List<Coroutine> StartPopAnimations(CascadeStep step)
+        {
+            List<Coroutine> popCoroutines = new List<Coroutine>();
+            foreach (var group in step.Matches)
+            {
+                foreach (var coord in group.Coords)
+                {
+                    TryPopTileAt(coord, popCoroutines);
+                }
+                foreach (var coord in group.BlastCoords)
+                {
+                    TryPopTileAt(coord, popCoroutines);
+                }
+            }
+            return popCoroutines;
+        }
+
+        private void TryPopTileAt(BoardCoord coord, List<Coroutine> popCoroutines)
+        {
+            Match3TileView view = m_Views[coord.X, coord.Y];
+            if (view == null || !view.gameObject.activeSelf) return;
+
+            popCoroutines.Add(StartCoroutine(view.AnimatePopAndFade(m_PopDuration)));
+            m_Views[coord.X, coord.Y] = null;
+            m_TilePool.Enqueue(view);
+        }
+
+        private List<Coroutine> StartDropAndSpawnAnimations(CascadeStep step)
+        {
+            List<Coroutine> dropCoroutines = new List<Coroutine>();
+            foreach (var drop in step.Drops)
+            {
+                Match3TileView view = m_Views[drop.From.X, drop.From.Y];
+                if (view == null) continue;
+
+                m_Views[drop.To.X, drop.To.Y] = view;
+                m_Views[drop.From.X, drop.From.Y] = null;
+                view.UpdateCoord(drop.To);
+                dropCoroutines.Add(StartCoroutine(view.AnimateMoveTo(CoordToLocalPos(drop.To), m_DropDuration)));
+            }
+
+            foreach (var spawn in step.Spawns)
+            {
+                Match3TileView newView = SpawnTileView(spawn.Destination, spawn.Type);
+                m_Views[spawn.Destination.X, spawn.Destination.Y] = newView;
+                dropCoroutines.Add(StartCoroutine(newView.AnimateSpawn(CoordToLocalPos(spawn.Destination), m_DropDuration)));
+            }
+            return dropCoroutines;
         }
     }
 }

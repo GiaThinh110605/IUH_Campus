@@ -400,38 +400,58 @@ namespace IUHCampus.Guardian.Match3
             }
 
             // Remove everything that isn't visual. Components that others require go in a later pass.
-            for (int pass = 0; pass < 4; pass++)
+            const int MaxStripPasses = 4;
+            for (int pass = 0; pass < MaxStripPasses; pass++)
             {
-                var remaining = new List<Component>();
-                foreach (var c in clone.GetComponentsInChildren<Component>(true))
-                {
-                    if (c != null && !KeepTypes.Contains(c.GetType())) remaining.Add(c);
-                }
+                List<Component> remaining = CollectNonVisualComponents(clone);
                 if (remaining.Count == 0) break;
 
-                var required = new HashSet<Type>();
+                HashSet<Type> required = CollectRequiredTypes(remaining);
+                bool forceDestroy = pass == MaxStripPasses - 1;
                 foreach (var c in remaining)
                 {
-                    foreach (RequireComponent req in Attribute.GetCustomAttributes(c.GetType(), typeof(RequireComponent), true))
+                    if (forceDestroy || !IsRequiredByAny(c.GetType(), required))
                     {
-                        if (req.m_Type0 != null) required.Add(req.m_Type0);
-                        if (req.m_Type1 != null) required.Add(req.m_Type1);
-                        if (req.m_Type2 != null) required.Add(req.m_Type2);
+                        DestroyImmediate(c);
                     }
-                }
-
-                foreach (var c in remaining)
-                {
-                    bool isRequired = false;
-                    foreach (var t in required)
-                    {
-                        if (t.IsAssignableFrom(c.GetType())) { isRequired = true; break; }
-                    }
-                    if (!isRequired || pass == 3) DestroyImmediate(c);
                 }
             }
 
             foreach (var r in clone.GetComponentsInChildren<Renderer>(true)) r.enabled = true;
+        }
+
+        private static List<Component> CollectNonVisualComponents(GameObject clone)
+        {
+            var remaining = new List<Component>();
+            foreach (var c in clone.GetComponentsInChildren<Component>(true))
+            {
+                if (c != null && !KeepTypes.Contains(c.GetType())) remaining.Add(c);
+            }
+            return remaining;
+        }
+
+        private static HashSet<Type> CollectRequiredTypes(List<Component> components)
+        {
+            var required = new HashSet<Type>();
+            foreach (var c in components)
+            {
+                foreach (RequireComponent req in Attribute.GetCustomAttributes(c.GetType(), typeof(RequireComponent), true))
+                {
+                    if (req.m_Type0 != null) required.Add(req.m_Type0);
+                    if (req.m_Type1 != null) required.Add(req.m_Type1);
+                    if (req.m_Type2 != null) required.Add(req.m_Type2);
+                }
+            }
+            return required;
+        }
+
+        private static bool IsRequiredByAny(Type componentType, HashSet<Type> required)
+        {
+            foreach (var t in required)
+            {
+                if (t.IsAssignableFrom(componentType)) return true;
+            }
+            return false;
         }
 
         private void DestroyProxies()
