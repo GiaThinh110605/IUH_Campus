@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IUH Campus Guardian — Kiến Trúc &amp; Giải Thích Source Code</title>
+  <style>
+    :root {
+      --font-scale: 1;
+      --radius: 12px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* THEME 1: LIGHT (Mặc định - Sáng rõ, tương phản chuẩn tài liệu) */
+    [data-theme="light"] {
+      --bg: #f4f6fb;
+      --bg-grad: #eef2ff;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --border: #d7e0ef;
+      --text: #0f172a;
+      --text-soft: #334155;
+      --muted: #475569;
+      --accent: #1d4ed8;
+      --accent-bg: #dbeafe;
+      --accent-border: #93c5fd;
+      --green: #047857;
+      --green-bg: #d1fae5;
+      --green-border: #6ee7b7;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --amber-border: #fcd34d;
+      --purple: #6d28d9;
+      --purple-bg: #ede9fe;
+      --purple-border: #c4b5fd;
+      --red: #b91c1c;
+      --red-bg: #fee2e2;
+      --red-border: #fca5a5;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+      --inline-code-bg: #eef2ff;
+      --inline-code-text: #1e3a8a;
+      --inline-code-border: #c7d2fe;
+      --svg-bg: #f8fafc;
+      --svg-zone: #ffffff;
+      --svg-box: #f1f5f9;
+      --svg-box-alt: #eef2ff;
+      --svg-text: #0f172a;
+      --svg-muted: #475569;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+    }
+
+    /* THEME 2: SEPIA (Dịu mắt - nền giấy ấm) */
+    [data-theme="sepia"] {
+      --bg: #f5efe2;
+      --bg-grad: #efe6d5;
+      --surface: #fbf8f1;
+      --surface-2: #f3ecdd;
+      --border: #ddd0b8;
+      --text: #2b2118;
+      --text-soft: #433426;
+      --muted: #5c4b3b;
+      --accent: #1e40af;
+      --accent-bg: #e0e7ff;
+      --accent-border: #a5b4fc;
+      --green: #065f46;
+      --green-bg: #d1fae5;
+      --green-border: #6ee7b7;
+      --amber: #92400e;
+      --amber-bg: #fde68a;
+      --amber-border: #f59e0b;
+      --purple: #5b21b6;
+      --purple-bg: #ede9fe;
+      --purple-border: #c4b5fd;
+      --red: #991b1b;
+      --red-bg: #fee2e2;
+      --red-border: #fca5a5;
+      --code-bg: #1e1b18;
+      --code-text: #f5efe6;
+      --inline-code-bg: #ede4d3;
+      --inline-code-text: #3b2a1a;
+      --inline-code-border: #d2c1a5;
+      --svg-bg: #f3ecdd;
+      --svg-zone: #fbf8f1;
+      --svg-box: #f5efe2;
+      --svg-box-alt: #ede4d3;
+      --svg-text: #2b2118;
+      --svg-muted: #5c4b3b;
+      --shadow: 0 2px 10px rgba(43, 33, 24, 0.06);
+    }
+
+    /* THEME 3: DARK (Nền tối tương phản tốt) */
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --bg-grad: #111b36;
+      --surface: #131c31;
+      --surface-2: #19243e;
+      --border: #2b3a5c;
+      --text: #f1f5f9;
+      --text-soft: #dbe4f3;
+      --muted: #b0c0de;
+      --accent: #60a5fa;
+      --accent-bg: rgba(59, 130, 246, 0.22);
+      --accent-border: rgba(96, 165, 250, 0.5);
+      --green: #34d399;
+      --green-bg: rgba(16, 185, 129, 0.2);
+      --green-border: rgba(52, 211, 153, 0.45);
+      --amber: #fbbf24;
+      --amber-bg: rgba(245, 158, 11, 0.2);
+      --amber-border: rgba(251, 191, 36, 0.45);
+      --purple: #c4b5fd;
+      --purple-bg: rgba(139, 92, 246, 0.22);
+      --purple-border: rgba(167, 139, 250, 0.5);
+      --red: #fca5a5;
+      --red-bg: rgba(239, 68, 68, 0.2);
+      --red-border: rgba(248, 113, 113, 0.45);
+      --code-bg: #070b14;
+      --code-text: #e2e8f0;
+      --inline-code-bg: #0a1224;
+      --inline-code-text: #93c5fd;
+      --inline-code-border: #2b3a5c;
+      --svg-bg: #090e1a;
+      --svg-zone: #11192e;
+      --svg-box: #182340;
+      --svg-box-alt: #141e38;
+      --svg-text: #f1f5f9;
+      --svg-muted: #b6c4df;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    /* THEME 4: HIGH CONTRAST */
+    [data-theme="contrast"] {
+      --bg: #ffffff;
+      --bg-grad: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #f4f4f5;
+      --border: #18181b;
+      --text: #000000;
+      --text-soft: #09090b;
+      --muted: #27272a;
+      --accent: #0033cc;
+      --accent-bg: #e0ebff;
+      --accent-border: #0033cc;
+      --green: #005a32;
+      --green-bg: #dcfce7;
+      --green-border: #005a32;
+      --amber: #7c2d12;
+      --amber-bg: #ffedd5;
+      --amber-border: #9a3412;
+      --purple: #4c1d95;
+      --purple-bg: #f3e8ff;
+      --purple-border: #4c1d95;
+      --red: #991b1b;
+      --red-bg: #fee2e2;
+      --red-border: #991b1b;
+      --code-bg: #000000;
+      --code-text: #ffffff;
+      --inline-code-bg: #f4f4f5;
+      --inline-code-text: #000000;
+      --inline-code-border: #52525b;
+      --svg-bg: #ffffff;
+      --svg-zone: #ffffff;
+      --svg-box: #f4f4f5;
+      --svg-box-alt: #e4e4e7;
+      --svg-text: #000000;
+      --svg-muted: #27272a;
+      --shadow: none;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: calc(15px * var(--font-scale));
+      background: linear-gradient(180deg, var(--bg-grad) 0%, var(--bg) 280px);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 20px 64px;
+    }
+
+    /* Top Control Bar (Chỉnh màu + Cỡ chữ) */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toolbar-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .theme-btn, .font-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 11px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .theme-btn:hover, .font-btn:hover { border-color: var(--accent); }
+    .theme-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+    .badge.green { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+    .badge.amber { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+    .badge.purple { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-border); }
+
+    h1 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.96em;
+      max-width: 900px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+    }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-lbl {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+      position: sticky;
+      top: 8px;
+      z-index: 20;
+      background: var(--surface);
+      padding: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      padding: 9px 15px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover { color: var(--text); background: var(--surface-2); }
+    .tab-btn.active {
+      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeIn 0.18s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      font-size: 1.15em;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .card h3 {
+      font-size: 1em;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .muted { color: var(--muted); font-size: 0.92em; }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.87em;
+      background: var(--inline-code-bg);
+      color: var(--inline-code-text);
+      padding: 2px 6px;
+      border-radius: 5px;
+      border: 1px solid var(--inline-code-border);
+      font-weight: 600;
+    }
+
+    /* Interactive Node-Graph Canvas */
+    .graph-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 10px;
+    }
+
+    .graph-viewport {
+      position: relative;
+      height: 555px;
+      background-color: var(--svg-bg);
+      background-image: radial-gradient(var(--border) 1.2px, transparent 1.2px);
+      background-size: 20px 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+    .graph-viewport:active { cursor: grabbing; }
+
+    .graph-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1200px;
+      height: 540px;
+      transform-origin: 0 0;
+    }
+
+    .graph-edges {
+      position: absolute;
+      inset: 0;
+      width: 1200px;
+      height: 540px;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .edge-path {
+      fill: none;
+      stroke-width: 2.3;
+      transition: opacity 0.2s ease, stroke-width 0.2s ease;
+    }
+    .edge-path.dimmed { opacity: 0.14; }
+    .edge-path.animated {
+      stroke-dasharray: 8 6;
+      animation: flowDash 0.9s linear infinite;
+      stroke-width: 2.8;
+    }
+    @keyframes flowDash {
+      to { stroke-dashoffset: -28; }
+    }
+
+    .edge-label-pill {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: var(--shadow);
+      z-index: 3;
+      transition: opacity 0.2s ease;
+    }
+    .edge-label-pill.dimmed { opacity: 0.15; }
+
+    .graph-node {
+      position: absolute;
+      width: 224px;
+      background: var(--surface);
+      border: 1.8px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      cursor: move;
+      z-index: 4;
+      transition: box-shadow 0.15s ease, opacity 0.2s ease, border-color 0.15s ease;
+    }
+    .graph-node:hover {
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.16);
+      z-index: 6;
+    }
+    .graph-node.selected {
+      box-shadow: 0 0 0 3px var(--accent-bg), 0 8px 22px rgba(15, 23, 42, 0.18);
+      z-index: 7;
+    }
+    .graph-node.dimmed { opacity: 0.25; }
+
+    .node-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 5px;
+      margin-bottom: 4px;
+    }
+    .node-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 3px;
+    }
+    .node-sub {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .node-inspector {
+      margin-top: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .diagram-box {
+      background: var(--svg-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    svg { display: block; margin: 0 auto; max-width: 100%; height: auto; font-family: var(--font-sans); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+
+    .layer-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .layer-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      border: 1px solid transparent;
+    }
+
+    .tag-blue { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-border); }
+    .tag-green { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+    .tag-amber { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+    .tag-purple { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-border); }
+    .tag-red { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+
+    /* Flows */
+    .flow-step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      color: var(--text-soft);
+    }
+    .flow-step:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num {
+      flex: 0 0 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* Code Walkthrough Cards */
+    .code-split {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+      align-items: start;
+    }
+
+    .code-pane {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+
+    pre {
+      margin: 0;
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--code-text);
+    }
+
+    .kw { color: #93c5fd; font-weight: 600; }
+    .ty { color: #6ee7b7; }
+    .str { color: #fcd34d; }
+    .cmt { color: #94a3b8; font-style: italic; }
+
+    .explain-pane {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .explain-item {
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.92em;
+      color: var(--text-soft);
+    }
+    .explain-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .explain-line {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1 1 260px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--accent); }
+
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .chip.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-border); }
+
+    .module-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .module-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .module-title { font-size: 1.03em; font-weight: 800; color: var(--text); }
+    .module-path { font-size: 11.5px; color: var(--muted); font-family: var(--font-mono); }
+
+    ul.clean {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.91em;
+      color: var(--text-soft);
+    }
+    ul.clean li::before {
+      content: "▸ ";
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.91em;
+      margin-top: 8px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    th {
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--surface-2);
+    }
+
+    .note {
+      background: var(--green-bg);
+      border-left: 4px solid var(--green);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.91em;
+      color: var(--text);
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .code-split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      header { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Thanh chỉnh màu & cỡ chữ -->
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <span class="toolbar-label">Chế độ màu đọc:</span>
+        <button class="theme-btn active" data-set-theme="light">☀️ Sáng rõ</button>
+        <button class="theme-btn" data-set-theme="sepia">📜 Dịu mắt</button>
+        <button class="theme-btn" data-set-theme="dark">🌙 Tối</button>
+        <button class="theme-btn" data-set-theme="contrast">⚡ Tương phản cao</button>
+      </div>
+      <div class="toolbar-group">
+        <span class="toolbar-label">Cỡ chữ:</span>
+        <button class="font-btn" id="fontDown" title="Thu nhỏ chữ">A-</button>
+        <button class="font-btn" id="fontReset" title="Mặc định">100%</button>
+        <button class="font-btn" id="fontUp" title="Phóng to chữ">A+</button>
+      </div>
+    </div>
+
+    <header>
+      <div class="badge-row">
+        <span class="badge">Unity URP (3D + 2D)</span>
+        <span class="badge green">Live AR + YOLOv8 ONNX</span>
+        <span class="badge purple">Flask + SQLite Outbox + Docker</span>
+        <span class="badge amber">Adafruit IO + Prometheus/Grafana</span>
+      </div>
+      <h1>IUH Campus Guardian — Kiến Trúc &amp; Giải Thích Source Code</h1>
+      <p class="subtitle">
+        Bản đồ toàn bộ mã nguồn Unity Client, Pure C# Core, công cụ Editor Automation và cụm Docker Cloud Backend kèm giải thích chi tiết từng đoạn code cốt lõi.
+      </p>
+      <div class="stats-grid">
+        <div class="stat"><div class="stat-val">177</div><div class="stat-lbl">C# Runtime &amp; Tests (<code>Scripts/</code>)</div></div>
+        <div class="stat"><div class="stat-val">60</div><div class="stat-lbl">Editor Builders &amp; Tools (<code>Editor/</code>)</div></div>
+        <div class="stat"><div class="stat-val">18</div><div class="stat-lbl">Python Backend Modules (<code>Server/app/</code>)</div></div>
+        <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Docker Services (API, Sync, Nginx, Prom, Grafana)</div></div>
+        <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Scenes chính (Campus, AR, CombatArena)</div></div>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="overview">1. Toàn cảnh Kiến trúc</button>
+      <button class="tab-btn" data-tab="flows">2. 5 Luồng Chạy Chính</button>
+      <button class="tab-btn" data-tab="codewalk">3. Giải thích Code Thực tế</button>
+      <button class="tab-btn" data-tab="modules">4. Chi tiết 12 Module</button>
+      <button class="tab-btn" data-tab="reference">5. Tra cứu API &amp; Save</button>
+    </nav>
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="overview" class="panel active">
+      <div class="card">
+        <h2>Sơ đồ Kiến trúc Tương tác (Kéo thả Node &amp; Lọc Luồng)</h2>
+        <p class="muted"><strong>Mẹo dùng:</strong> Kéo thả từng khối để sắp xếp theo ý muốn • Click vào 1 khối để xem chi tiết file &amp; nổi bật các đường kết nối • Chọn bộ lọc luồng bên dưới để xem hướng dữ liệu chạy.</p>
+
+        <div class="graph-toolbar">
+          <div class="toolbar-group" id="flowFilters">
+            <button class="chip active" data-flow="all">Tất cả kết nối</button>
+            <button class="chip" data-flow="ar">🎯 Luồng AR &amp; YOLOv8</button>
+            <button class="chip" data-flow="sync">⚔️ Match-3 → Outbox → Cloud</button>
+            <button class="chip" data-flow="monitor">📊 Giám sát (Prometheus)</button>
+            <button class="chip" data-flow="local">🎮 Gameplay Offline</button>
+          </div>
+          <div class="toolbar-group">
+            <button class="font-btn" id="zoomOut">−</button>
+            <button class="font-btn" id="zoomFit">Fit</button>
+            <button class="font-btn" id="zoomIn">+</button>
+            <button class="font-btn" id="resetLayout">↺ Đặt lại bố cục</button>
+          </div>
+        </div>
+
+        <div class="graph-viewport" id="graphViewport">
+          <div class="graph-stage" id="graphStage">
+            <svg class="graph-edges" id="graphEdges" viewBox="0 0 1200 540" width="1200" height="540">
+              <defs>
+                <marker id="m-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="m-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--green)"/>
+                </marker>
+                <marker id="m-amber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--amber)"/>
+                </marker>
+                <marker id="m-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--purple)"/>
+                </marker>
+                <marker id="m-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--red)"/>
+                </marker>
+              </defs>
+              <g id="edgePathsGroup"></g>
+            </svg>
+            <div id="graphLabels"></div>
+            <div id="graphNodes"></div>
+          </div>
+        </div>
+
+        <div class="node-inspector" id="nodeInspector">
+          <div>
+            <strong style="color: var(--accent);">Click vào một khối trên sơ đồ</strong>
+            <span class="muted"> — để xem chi tiết các class, chức năng và làm nổi bật đường dữ liệu đi qua khối đó.</span>
+          </div>
+          <span class="badge">Kéo thả tự do • Tự lưu vị trí</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Kiến trúc Phân tầng Assembly (.asmdef) trong Unity</h2>
+        <p class="muted">Các lõi nghiệp vụ quan trọng được tách khỏi <code>UnityEngine</code> (<code>noEngineReferences: true</code>) để có thể chạy Unit Test thuần C# cực nhanh mà không cần load Scene.</p>
+        <div class="grid-3" style="margin-top: 12px;">
+          <div class="layer-box">
+            <span class="layer-tag tag-green">Pure C# Core (No UnityEngine)</span>
+            <h3>Lõi Thuật toán &amp; Luật chơi</h3>
+            <ul class="clean">
+              <li><code>IUHCampus.Guardian.Match3.Core</code>: Bàn cờ 6×6, cascade, tính sát thương/giáp/ý định Boss.</li>
+              <li><code>IUHCampus.Guardian.Story.Core</code>: State machine 5 pha cốt truyện, lịch dư chấn <code>AftershockSchedule</code>.</li>
+              <li><code>IUHCampus.Garden.Core</code>: Logic luống hoa, cooldown tưới cây, serialize dữ liệu vườn.</li>
+            </ul>
+          </div>
+          <div class="layer-box">
+            <span class="layer-tag tag-blue">Domain &amp; Network Assemblies</span>
+            <h3>Kết nối Scene &amp; Mạng</h3>
+            <ul class="clean">
+              <li><code>IUHCampus.Guardian.Story.Data</code>: ScriptableObject <code>IUHStoryScript</code> chứa thoại &amp; camera intro.</li>
+              <li><code>IUHCampus.Guardian.Backend</code>: <code>GuardianApiClient</code>, <code>GuardianEventOutbox</code>, <code>GuardianScanService</code>.</li>
+              <li><code>Assembly-CSharp</code>: Toàn bộ controller gameplay, UI, AR, Combat, Daily, Player, NPC, Save.</li>
+            </ul>
+          </div>
+          <div class="layer-box">
+            <span class="layer-tag tag-purple">Editor &amp; Test Suites</span>
+            <h3>Tự động hóa &amp; Kiểm thử</h3>
+            <ul class="clean">
+              <li><code>IUHCampus.*.Tests</code> (EditMode): Unit test logic Match-3, Story, Garden, Backend Outbox, Shader/Asset.</li>
+              <li><code>IUHCampus.*.PlayModeTests</code>: Kiểm thử Arena, WorldLock, NightShift, Locator, Crowd.</li>
+              <li><code>Assets/IUH_Campus/Editor/</code>: 60 script dựng Campus, sinh vật liệu, build iOS batchmode.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: CORE FLOWS -->
+    <section id="flows" class="panel">
+      <div class="grid-2">
+        <div class="card">
+          <h2>Luồng 1: Cốt truyện &amp; Khóa Thế giới (Story Director)</h2>
+          <p class="muted"><code>IUHStoryDirector</code> (<code>DefaultExecutionOrder(-500)</code>) điều phối tiến trình ngay khi vào game.</p>
+          <div class="flow-step"><div class="step-num">1</div><div><strong>World Lock khi khởi động:</strong> <code>IUHStoryWorldLock.CaptureAndLock()</code> khóa các encounter và ẩn vật thể chưa mở để tránh nhảy cóc cốt truyện.</div></div>
+          <div class="flow-step"><div class="step-num">2</div><div><strong>Prologue (Check-in):</strong> Chạy camera intro (<code>IUHStoryIntroCamera</code>), đặt cột sáng chỉ đường (<code>IUHStoryBeacon</code>) qua các điểm check-in.</div></div>
+          <div class="flow-step"><div class="step-num">3</div><div><strong>Incident (Biến cố):</strong> Hoàn tất check-in → bật bầu trời đêm (<code>IUHStoryNightShift</code>), đám đông hoảng loạn (<code>IUHStoryPeaceCrowd</code>).</div></div>
+          <div class="flow-step"><div class="step-num">4</div><div><strong>Chapters → Ending → Completed:</strong> Mở khóa từng nhóm <code>IUHMonsterEncounter</code> theo chương. Khi xong <code>Ending</code>, mở lại thế giới và chạy vòng lặp <code>AftershockSchedule</code>.</div></div>
+        </div>
+
+        <div class="card">
+          <h2>Luồng 2: Hành động 3D &amp; Không chiến (Combat &amp; Zones)</h2>
+          <p class="muted">Quản lý bởi <code>IUHCampusZoneDirector</code>, <code>IUHCampusCombatManager</code> và <code>IUHAerialFlightController</code>.</p>
+          <div class="flow-step"><div class="step-num">1</div><div><strong>Kích hoạt theo vùng:</strong> <code>IUHCampusZoneDirector</code> kiểm tra khoảng cách tới 3 vùng nguy hiểm (<em>Tòa E</em>, <em>Căn tin</em>, <em>Sân Bắc</em>) hoặc phím <code>[K]</code> → đánh thức Drone địch &amp; ổ phục kích.</div></div>
+          <div class="flow-step"><div class="step-num">2</div><div><strong>Không chiến 6 hướng:</strong> Double-tap Space bật Jetpack bay (<code>IUHAerialFlightController</code>) tiêu hao Stamina để bám đuổi quái bay.</div></div>
+          <div class="flow-step"><div class="step-num">3</div><div><strong>Vũ khí &amp; Kỹ năng:</strong> <code>IUHCampusCombatManager</code> xử lý súng Plasma, ngắm tên lửa phòng không, 3 Skill (EMP, Laser Barrage, Drone Strike), lựu đạn hẹn giờ.</div></div>
+          <div class="flow-step"><div class="step-num">4</div><div><strong>Nhường quyền Match-3:</strong> Khi <code>Match3CombatManager.IsCombatActive == true</code>, ZoneDirector, CombatManager và <code>IUHPlayerHealth</code> tự động tạm dừng &amp; bất tử.</div></div>
+        </div>
+
+        <div class="card">
+          <h2>Luồng 3: Quét AR &amp; Nhận diện Deep Learning</h2>
+          <p class="muted"><code>IUHLiveARController</code> biến camera thật (<code>WebCamTexture</code>) thành đấu trường AR 3D.</p>
+          <div class="flow-step"><div class="step-num">1</div><div><strong>Dựng không gian AR:</strong> Ẩn campus tạm thời, bật <code>AR_Live_Camera</code> + Quad chiếu video ở <code>z = 9m</code>, vật thể 3D đặt ở <code>z = 2.2m</code>, hỗ trợ Gyroscope xoay 360°.</div></div>
+          <div class="flow-step"><div class="step-num">2</div><div><strong>Nhận diện 2 chế độ:</strong> Gửi ảnh JPEG lên Server <code>POST /predict</code> (YOLOv8n ONNX nhận diện <code>laptop</code>, <code>backpack</code>, <code>book</code>) hoặc phân tích offline qua <code>IUHARVisionAnalyzer</code>.</div></div>
+          <div class="flow-step"><div class="step-num">3</div><div><strong>Triệu hồi &amp; Giao chiến:</strong> Khóa mục tiêu + đếm ngược 5 giây → triệu hồi Cyber Demon &amp; vật phẩm nhiễm độc (<code>IUHARMonsterLivingController</code>).</div></div>
+          <div class="flow-step"><div class="step-num">4</div><div><strong>Chiến đấu kép:</strong> Vuốt chém trực tiếp trên màn hình AR (<code>IUHARRuneSlashCombat</code>) hoặc bước vào trận đấu Match-3 RPG.</div></div>
+        </div>
+
+        <div class="card">
+          <h2>Luồng 4: Đấu bài Match-3 RPG &amp; Nâng cấp</h2>
+          <p class="muted">Cầu nối giữa thám hiểm 3D (<code>IUHMonsterEncounter</code>) và chiến thuật 2D (<code>Match3CombatManager</code>).</p>
+          <div class="flow-step"><div class="step-num">1</div><div><strong>Khởi phát Encounter:</strong> Đến gần quái 3D (đếm ngược 5s hoặc nhấn <code>[E]</code>) → gọi <code>Match3CombatManager.StartNewCombat()</code>, nạp chỉ số từ <code>IUHGuardianInventory</code>.</div></div>
+          <div class="flow-step"><div class="step-num">2</div><div><strong>Giải đố thuần C#:</strong> <code>Match3BoardModel</code> xử lý hoán đổi &amp; cascade; <code>Match3CombatRules</code> quy đổi 5 loại ngọc: <em>Sword</em>, <em>Shield</em>, <em>Energy</em>, <em>Heal</em>, <em>Purify</em>.</div></div>
+          <div class="flow-step"><div class="step-num">3</div><div><strong>Lượt Boss &amp; Sân khấu 3D:</strong> Mỗi lượt xếp ngọc xong, Boss đánh theo <code>BossIntent</code> (mỗi 3 lượt có đòn tụ lực ×1.6). <code>Match3BattleStage</code> diễn hoạt 3D.</div></div>
+          <div class="flow-step"><div class="step-num">4</div><div><strong>Nhận thưởng &amp; Shop:</strong> Thắng trận → nhận Vàng &amp; vật phẩm theo <code>MilestoneId</code> (chống nhận trùng) → nâng cấp Kiếm/Khiên/MaxHP (Lv 1–5) tại <code>IUHUpgradeShopUI</code>.</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Luồng 5: Đồng bộ Cloud Bền vững (Two-Stage Outbox Pattern)</h2>
+        <p class="muted">Đảm bảo <strong>không mất dữ liệu thưởng</strong> khi iPhone mất mạng và tránh bị Adafruit IO chặn vì gửi quá nhanh (HTTP 429).</p>
+        <div class="diagram-box">
+          <svg viewBox="0 0 1080 130" width="1080" height="130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+              </marker>
+            </defs>
+            <rect x="8" y="24" width="160" height="74" rx="8" fill="var(--svg-box)" stroke="var(--purple)" stroke-width="1.5"/>
+            <text x="20" y="48" fill="var(--purple)" font-size="11.5" font-weight="800">1. Match3 Victory</text>
+            <text x="20" y="66" fill="var(--svg-muted)" font-size="10.5">CombatFinished event</text>
+            <text x="20" y="82" fill="var(--svg-muted)" font-size="10.5">BackendReporter</text>
+
+            <rect x="194" y="24" width="190" height="74" rx="8" fill="var(--svg-box-alt)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="206" y="48" fill="var(--accent)" font-size="11.5" font-weight="800">2. Client Outbox</text>
+            <text x="206" y="66" fill="var(--svg-text)" font-size="10.5">guardian_outbox.json</text>
+            <text x="206" y="82" fill="var(--svg-muted)" font-size="10.5">Flush 1s + Exp. Backoff</text>
+
+            <rect x="410" y="24" width="195" height="74" rx="8" fill="var(--svg-box)" stroke="var(--green)" stroke-width="1.5"/>
+            <text x="422" y="48" fill="var(--green)" font-size="11.5" font-weight="800">3. Flask API (:5001)</text>
+            <text x="422" y="66" fill="var(--svg-text)" font-size="10.5">POST /gameplay/events</text>
+            <text x="422" y="82" fill="var(--svg-muted)" font-size="10.5">Check UUID Idempotency</text>
+
+            <rect x="631" y="24" width="185" height="74" rx="8" fill="var(--svg-box)" stroke="var(--amber)" stroke-width="1.5"/>
+            <text x="643" y="48" fill="var(--amber)" font-size="11.5" font-weight="800">4. SQLite Outbox</text>
+            <text x="643" y="66" fill="var(--svg-text)" font-size="10.5">guardian.db (events +</text>
+            <text x="643" y="82" fill="var(--svg-muted)" font-size="10.5">cloud_outbox table)</text>
+
+            <rect x="842" y="24" width="226" height="74" rx="8" fill="var(--svg-box)" stroke="var(--amber)" stroke-width="1.5"/>
+            <text x="854" y="48" fill="var(--amber)" font-size="11.5" font-weight="800">5. Sync Worker → Adafruit IO</text>
+            <text x="854" y="66" fill="var(--svg-text)" font-size="10.5">sync_worker.py (0.5s poll)</text>
+            <text x="854" y="82" fill="var(--svg-muted)" font-size="10.5">Handle HTTP 429 Retry-After</text>
+
+            <path d="M 168 61 L 192 61" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr2)"/>
+            <path d="M 384 61 L 408 61" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr2)"/>
+            <path d="M 605 61 L 629 61" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr2)"/>
+            <path d="M 816 61 L 840 61" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr2)"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CODE WALKTHROUGH -->
+    <section id="codewalk" class="panel">
+      <div class="filter-bar">
+        <input id="codeSearch" class="search-input" type="text" placeholder="Tìm đoạn code giải thích (vd: ZoneDirector, CombatManager, AR, Match3, Garden, ONNX, SaveSystem)..." />
+        <button class="chip active" data-ccat="all">Tất cả (12)</button>
+        <button class="chip" data-ccat="combat-ar">Combat 3D &amp; AR</button>
+        <button class="chip" data-ccat="story-rpg">Story, Match-3 &amp; Daily</button>
+        <button class="chip" data-ccat="world-npc">Player, Garden, Save &amp; NPC</button>
+        <button class="chip" data-ccat="server-build">Backend, ONNX &amp; iOS Build</button>
+      </div>
+
+      <!-- Code 1 -->
+      <div class="card code-card" data-ccat="combat-ar">
+        <h2>1. Điều phối Vùng Chiến Sự 3D (<code>IUHCampusZoneDirector.cs</code>)</h2>
+        <p class="muted">Giải thích cách game kích hoạt quái vật bay &amp; ổ phục kích khi người chơi bước vào từng khu vực trên sân trường.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Assets/IUH_Campus/Scripts/Combat/IUHCampusZoneDirector.cs</span><span>C#</span></div>
+<pre><code><span class="kw">if</span> (Match3CombatManager.Instance != <span class="kw">null</span> &amp;&amp;
+    Match3CombatManager.Instance.IsCombatActive)
+    <span class="kw">return</span>;
+
+<span class="kw">if</span> (isKPressed) SummonSkyMonsterDirectlyOverhead();
+
+UpdateCombatZone(m_BuildingECenter, m_BuildingERadius,
+    m_SkyDroneEast, <span class="str">"TÒA NHÀ KỸ THUẬT E"</span>, <span class="kw">ref</span> m_InBuildingE, <span class="str">"BUILDING_E_AMBUSH"</span>);
+
+<span class="cmt">// Trong UpdateCombatZone():</span>
+<span class="kw">float</span> dist = Vector2.Distance(
+    <span class="kw">new</span> Vector2(m_PlayerTransform.position.x, m_PlayerTransform.position.z),
+    <span class="kw">new</span> Vector2(center.x, center.z));
+<span class="kw">bool</span> isInside = (dist &lt;= radius);
+
+<span class="kw">if</span> (isInside &amp;&amp; !wasInside) {
+    wasInside = <span class="kw">true</span>;
+    <span class="kw">if</span> (hp != <span class="kw">null</span> &amp;&amp; hp.IsDead) hp.ResetHealth();
+    drone.transform.position = center + Vector3.up * 3.6f;
+    drone.SetActive(<span class="kw">true</span>);
+    ai?.SetZoneAnchor(center);
+} <span class="kw">else if</span> (!isInside &amp;&amp; wasInside) {
+    wasInside = <span class="kw">false</span>;
+    drone?.SetActive(<span class="kw">false</span>);
+}</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Dòng 1-3</span><strong>Ngăn xung đột 2D/3D:</strong> Nếu người chơi đang đấu bài Match-3 (<code>IsCombatActive</code>), hàm <code>Update()</code> thoát ngay để quái 3D không đánh lén.</div>
+            <div class="explain-item"><span class="explain-line">Dòng 5</span><strong>Phím test nhanh [K]:</strong> Triệu hồi ngay 1 Sky Drone ngay trước hướng nhìn camera để test bắn súng/tên lửa không cần chạy bộ tới vùng.</div>
+            <div class="explain-item"><span class="explain-line">Dòng 10-14</span><strong>Kiểm tra bán kính phẳng (XZ):</strong> Dùng <code>Vector2.Distance</code> bỏ qua trục Y, nên dù bạn đang bay Jetpack trên cao vẫn tính là đang ở trong vùng chiến sự.</div>
+            <div class="explain-item"><span class="explain-line">Dòng 16-24</span><strong>Edge Trigger (Vào/Ra vùng):</strong> Chỉ bật Drone &amp; hồi máu khi mới bước vào (<code>isInside &amp;&amp; !wasInside</code>), và tự ẩn Drone khi chạy thoát ra ngoài (<code>!isInside &amp;&amp; wasInside</code>) để tiết kiệm hiệu năng.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 2 -->
+      <div class="card code-card" data-ccat="story-rpg">
+        <h2>2. Lõi Tính Sát Thương &amp; Lượt Boss Match-3 (<code>Match3CombatRules.cs</code>)</h2>
+        <p class="muted">Lớp C# thuần (không dùng <code>UnityEngine</code>), quyết định toàn bộ cân bằng chiến đấu và dễ viết Unit Test.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Scripts/Guardian/Match3/Core/Match3CombatRules.cs</span><span>Pure C#</span></div>
+<pre><code><span class="kw">public</span> <span class="ty">StepResult</span> ApplyStep(<span class="ty">CascadeStep</span> step) {
+    <span class="kw">float</span> mult = MultiplierFor(step); <span class="cmt">// Combo + Match &gt;= 4</span>
+    result.Damage = Scale(
+        step.SwordCount * m_Config.DmgPerSword +
+        step.PurifyCount * m_Config.PurifyDmgPerTile, mult);
+
+    PlayerShield = Math.Min(m_Config.PlayerMaxShield,
+        PlayerShield + Scale(step.ShieldCount * m_Config.ShieldPerTile, mult));
+    PlayerEnergy = Math.Min(m_Config.PlayerMaxEnergy,
+        PlayerEnergy + step.EnergyCount * m_Config.EnergyPerTile);
+
+    <span class="kw">int</span> reduce = Math.Min(BossIntent,
+        Scale(step.PurifyCount * m_Config.PurifyIntentPerTile, mult));
+    BossIntent -= reduce;
+    DamageBoss(result.Damage);
+}
+
+<span class="kw">public</span> <span class="ty">BossTurnResult</span> ResolveBossTurn() {
+    result.Blocked = Math.Min(PlayerShield, BossIntent);
+    result.Damage = BossIntent - result.Blocked;
+    PlayerShield = 0; <span class="cmt">// Giáp chỉ đỡ đòn của lượt này</span>
+    PlayerHp = Math.Max(0, PlayerHp - result.Damage);
+    <span class="kw">if</span> (PlayerHp &lt;= 0) Outcome = CombatOutcome.Defeat;
+    <span class="kw">else</span> RollIntent();
+}</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">ApplyStep</span><strong>Hệ số nhân Combo:</strong> Mỗi đợt ngọc rơi nối tiếp (<code>CascadeStep</code>) tăng thêm <code>+0.25x</code> (tối đa <code>2.0x</code>), nếu ăn dây 4+ viên nhân thêm <code>1.5x</code>.</div>
+            <div class="explain-item"><span class="explain-line">Purify</span><strong>Cơ chế Khắc chế Boss:</strong> Viên <code>Purify</code> vừa gây sát thương nhẹ vừa trừ thẳng vào <code>BossIntent</code> (sát thương Boss sắp tung ra ở cuối lượt).</div>
+            <div class="explain-item"><span class="explain-line">ResolveBossTurn</span><strong>Quy tắc Giáp (Shield):</strong> Giáp chặn trước, phần dư trừ vào Máu. Sau đòn đánh, <code>PlayerShield</code> về <code>0</code> (buộc người chơi liên tục ăn Khiên mỗi lượt nếu muốn phòng thủ), rồi Boss bốc <code>Intent</code> mới (mỗi 3 lượt tụ lực ×1.6).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 3 -->
+      <div class="card code-card" data-ccat="story-rpg">
+        <h2>3. Máy Trạng Thái Cốt Truyện &amp; Khóa Thế Giới (<code>IUHStoryDirector.cs</code>)</h2>
+        <p class="muted">Đảm bảo mạch truyện chạy đúng thứ tự từ ban ngày yên bình → biến cố ban đêm → đánh từng chương → dư chấn sau phá đảo.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Scripts/Guardian/Story/IUHStoryDirector.cs</span><span>C#</span></div>
+<pre><code>progress = StoryProgress.Deserialize(
+    PlayerPrefs.GetString(ProgressKey),
+    m_StoryScript.checkIns.Length,
+    m_StoryScript.ToChapterDefs());
+
+world = <span class="kw">new</span> <span class="ty">IUHStoryWorldLock</span>();
+world.CaptureAndLock();
+
+<span class="kw">if</span> (progress.Phase == StoryPhase.Completed) {
+    world.RestoreToys();
+    StartCoroutine(Aftershocks());
+} <span class="kw">else</span> {
+    StartCoroutine(Run());
+}
+
+<span class="cmt">// Trong Run():</span>
+<span class="kw">if</span> (progress.Phase == StoryPhase.Prologue) <span class="kw">yield return</span> Prologue();
+<span class="kw">if</span> (progress.Phase == StoryPhase.Incident) {
+    crowd.SetDisaster(<span class="kw">true</span>);
+    night.ToNight(3);
+    <span class="kw">yield return</span> Say(m_StoryScript.incidentLines);
+    progress.FinishIncident(); Save();
+}
+<span class="kw">while</span> (progress.Phase == StoryPhase.Chapter) <span class="kw">yield return</span> Chapter();</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Deserialize</span><strong>Khôi phục tiến độ:</strong> Đọc chuỗi lưu dạng <code>v1|Phase|ChapterIndex|CheckInsDone|Defeated</code> từ <code>PlayerPrefs</code>; nếu dữ liệu lỗi tự động reset an toàn về đầu.</div>
+            <div class="explain-item"><span class="explain-line">CaptureAndLock</span><strong>Khóa thế giới trước:</strong> Ngay lúc <code>Start()</code> (<code>DefaultExecutionOrder(-500)</code>), toàn bộ quái chương sau bị ẩn đi, chỉ đến đúng <code>Chapter()</code> mới gọi <code>world.Release(encounter)</code> để mở ra.</div>
+            <div class="explain-item"><span class="explain-line">Aftershocks</span><strong>Chơi tiếp sau Ending:</strong> Khi đã hoàn tất cốt truyện (<code>Completed</code>), campus mở lại đồ chơi/tiện ích bình thường nhưng vẫn sinh ra các đợt quái dư chấn định kỳ theo <code>AftershockSchedule</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 4 -->
+      <div class="card code-card" data-ccat="story-rpg">
+        <h2>4. Reset Hoạt Động Hằng Ngày theo Ngày UTC (<code>IUHCampusDailyActivitiesManager.cs</code>)</h2>
+        <p class="muted">Quản lý săn 8 đồng xu, quà bí ẩn, sao may mắn (reset mỗi ngày) và Album Check-in (lưu vĩnh viễn).</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Scripts/DailyActivities/IUHCampusDailyActivitiesManager.cs</span><span>C#</span></div>
+<pre><code>m_TodayKey = DateTime.UtcNow.ToString(<span class="str">"yyyyMMdd"</span>);
+<span class="kw">string</span> savedDate = PlayerPrefs.GetString(<span class="str">"IUH_ACTIVITY_DATE"</span>, <span class="str">""</span>);
+
+<span class="kw">if</span> (savedDate != m_TodayKey) {
+    <span class="cmt">// Sang ngày mới → Reset toàn bộ nhiệm vụ ngày</span>
+    PlayerPrefs.SetString(<span class="str">"IUH_ACTIVITY_DATE"</span>, m_TodayKey);
+    m_CoinsCollectedCount = 0;
+    m_MysteryGiftOpened = <span class="kw">false</span>;
+    m_MascotState = MascotQuestState.NotStarted;
+    ...
+} <span class="kw">else</span> {
+    m_CoinsCollectedCount = PlayerPrefs.GetInt($<span class="str">"IUH_COINS_COLLECTED_{m_TodayKey}"</span>, 0);
+}
+
+<span class="cmt">// Album Check-in lưu vĩnh viễn (không gắn ngày)</span>
+<span class="kw">foreach</span> (<span class="kw">var</span> spot <span class="kw">in</span> m_CheckInSpots)
+    spot.isUnlocked = PlayerPrefs.GetInt(<span class="str">"IUH_CHECKIN_"</span> + spot.spotId, 0) == 1;</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">m_TodayKey</span><strong>Tách dữ liệu theo ngày:</strong> Dùng chuỗi <code>yyyyMMdd</code> (vd: <code>20261126</code>) làm hậu tố key <code>PlayerPrefs</code>. Khi qua ngày mới, mọi trạng thái xu/quà/mascot tự động về 0.</div>
+            <div class="explain-item"><span class="explain-line">Check-in</span><strong>Dữ liệu vĩnh viễn:</strong> 5 địa điểm check-in (Đài phun nước, Cổng chính, Quảng trường lễ hội, Tòa E, Vườn cây) dùng key cố định <code>IUH_CHECKIN_&lt;spotId&gt;</code> nên không bị mất khi sang ngày mới.</div>
+            <div class="explain-item"><span class="explain-line">AddGold</span><strong>Liên thông Kho đồ:</strong> Mỗi đồng xu nhặt được gọi <code>IUHGuardianInventory.Instance.AddGold(15)</code> để dùng chung tiền nâng cấp Match-3.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 5 -->
+      <div class="card code-card" data-ccat="server-build">
+        <h2>5. Hàng đợi Outbox Client &amp; API Server (<code>GuardianEventOutbox.cs</code> + <code>gameplay.py</code>)</h2>
+        <p class="muted">Cặp code phối hợp giữa Unity (iPhone) và Python Flask Server để không bao giờ mất hoặc trùng dữ liệu khi mạng chập chờn.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>GuardianEventOutbox.cs (Client) &amp; routes/gameplay.py (Server)</span><span>C# + Python</span></div>
+<pre><code><span class="cmt">// [Unity Client] GuardianEventOutbox.cs</span>
+<span class="kw">if</span> (result.Outcome == Recorded || result.Outcome == Duplicate) {
+    state.pending.RemoveAt(0); Save();
+    StatusChanged?.Invoke(entry.id, Synced); <span class="kw">return</span>;
+}
+<span class="cmt">// Mất mạng hoặc 5xx → tính Exponential Backoff rồi giữ lại trong file JSON</span>
+entry.attempts++;
+<span class="kw">double</span> sec = Math.Min(maxBackoff, retryBase * Math.Pow(2, entry.attempts - 1));
+entry.nextAttemptTicks = utcNow().AddSeconds(sec).Ticks;
+Save();
+
+<span class="cmt"># [Python Server] Server/app/routes/gameplay.py</span>
+<span class="kw">@gameplay.post</span>(<span class="str">"/gameplay/events"</span>)
+<span class="kw">def</span> record_event():
+    event = validate_event(body, allowed_classes, threshold)
+    result, response = event_store.record(event, cloud_configured)
+    <span class="kw">if</span> result == <span class="str">"conflict"</span>: <span class="kw">return</span> jsonify(error=<span class="str">"event_id_conflict"</span>), 409
+    <span class="kw">return</span> jsonify(status=result, **response), 201 <span class="kw">if</span> result == <span class="str">"recorded"</span> <span class="kw">else</span> 200</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Outbox JSON</span><strong>Bền vững khi tắt app:</strong> Mọi event đều được ghi xuống <code>guardian_outbox.json</code> trước khi gửi. Nếu mất mạng, nó tăng thời gian chờ theo cấp số nhân (2s → 4s → 8s...) và gửi lại sau.</div>
+            <div class="explain-item"><span class="explain-line">Idempotency</span><strong>Chống ghi trùng ở Server:</strong> Client gửi kèm UUID <code>event_id</code>. Nếu mạng lag khiến client gửi lại cùng event đó, Server kiểm tra SQLite và trả <code>200 duplicate</code> (hoặc <code>409 conflict</code> nếu payload khác), client coi như đã sync xong và xóa khỏi hàng đợi.</div>
+            <div class="explain-item"><span class="explain-line">Sync Worker</span><strong>Đẩy Cloud tách riêng:</strong> API trả kết quả cho Unity ngay lập tức, còn việc gọi Adafruit IO do container <code>iuh-guardian-sync</code> chạy ngầm xử lý.</div>
+          </div>
+        </div>
+      </div>
+      <!-- Code 6 -->
+      <div class="card code-card" data-ccat="combat-ar">
+        <h2>6. Combat 3D, Jetpack Bay &amp; Máu/Giáp (<code>IUHCampusCombatManager.cs</code> + <code>IUHAerialFlightController.cs</code>)</h2>
+        <p class="muted">Xử lý bắn súng Plasma, ngắm tên lửa phòng không, 3 kỹ năng, bật/tắt bay phản lực 6 hướng và cơ chế khiên hồi phục.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Combat/IUHCampusCombatManager.cs &amp; IUHAerialFlightController.cs</span><span>C#</span></div>
+<pre><code><span class="cmt">// [IUHCampusCombatManager.cs] PC + Mobile Aim &amp; Skill</span>
+<span class="kw">bool</span> isMobileAim = IUHInputHelper.VirtualAimHeld || IUHInputHelper.VirtualAimToggled;
+m_IsAiming = ((Cursor.lockState == CursorLockMode.Locked) &amp;&amp; Input.GetMouseButton(1)) || isMobileAim;
+UpdateAimCamera(); UpdateAirLockOn();
+
+<span class="kw">if</span> (Input.GetKeyDown(KeyCode.Q) || IUHInputHelper.VirtualMissilePressed) UseAntiAirMissile();
+<span class="kw">if</span> (Input.GetKeyDown(KeyCode.Alpha1)) UseSkill1(); <span class="cmt">// EMP | 2: Laser | 3: Drone Strike</span>
+
+<span class="cmt">// [IUHAerialFlightController.cs] Double-tap Space hoặc [J] để bay</span>
+<span class="kw">float</span> timeSinceLast = Time.time - m_LastSpacePressTime;
+<span class="kw">if</span> (timeSinceLast &lt;= DOUBLE_TAP_WINDOW &amp;&amp; timeSinceLast &gt; 0.02f) ToggleFlight();
+
+<span class="kw">public void</span> StartFlight() {
+    m_IsFlying = <span class="kw">true</span>;
+    <span class="kw">if</span> (m_TPC != <span class="kw">null</span>) m_TPC.LockMovementAndGravity = <span class="kw">true</span>; <span class="cmt">// Tắt trọng lực đi bộ</span>
+    m_Controller?.Move(Vector3.up * 1.5f);
+    SetWingsActive(<span class="kw">true</span>);
+}</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Combat Input</span><strong>Hỗ trợ cả PC &amp; iPhone:</strong> Đọc song song chuột/bàn phím (khi khóa con trỏ) và nút ảo mobile qua <code>IUHInputHelper</code>.</div>
+            <div class="explain-item"><span class="explain-line">Flight</span><strong>Chiếm quyền ThirdPersonController:</strong> Khi bay, set <code>m_TPC.LockMovementAndGravity = true</code> để trọng lực đi bộ không kéo nhân vật rơi xuống, nhưng vẫn giữ camera xoay tự do.</div>
+            <div class="explain-item"><span class="explain-line">PlayerHealth</span><strong>Bảo vệ thông minh:</strong> <code>IUHPlayerHealth.TakeDamage()</code> có i-frames <code>0.35s</code>, trừ Giáp trước Máu, tự hồi Giáp sau <code>5s</code> không trúng đòn và bất tử khi đang đánh Match-3.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 7 -->
+      <div class="card code-card" data-ccat="combat-ar">
+        <h2>7. Live AR Camera &amp; Phân Tích Thị Giác Offline (<code>IUHLiveARController.cs</code> + <code>IUHARVisionAnalyzer.cs</code>)</h2>
+        <p class="muted">Dựng sân khấu AR trên nền camera thật của điện thoại và trích xuất đặc trưng lưới 6×6 nhận diện đồ vật.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Guardian/AR/IUHLiveARController.cs &amp; IUHARVisionAnalyzer.cs</span><span>C#</span></div>
+<pre><code><span class="cmt">// [IUHLiveARController.cs] Chiếu WebCam lên Quad phía sau quái 3D</span>
+m_ARBackgroundQuad.transform.SetParent(m_ARCamera.transform, <span class="kw">false</span>);
+m_ARBackgroundQuad.transform.localPosition = <span class="kw">new</span> Vector3(0f, 0f, 9.0f); <span class="cmt">// Nền ở z=9m</span>
+m_MonsterAnchor.transform.localPosition = <span class="kw">new</span> Vector3(0f, -0.32f, 2.7f); <span class="cmt">// Quái ở z=2.7m</span>
+
+<span class="cmt">// [IUHARVisionAnalyzer.cs] Trích đặc trưng lưới 6x6 vùng trung tâm (20%-80%)</span>
+<span class="kw">float</span> lum = 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
+<span class="kw">if</span> (lum &gt; 155f &amp;&amp; Math.Abs(c.r - c.g) &lt; 28) brightPaperCount++; <span class="cmt">// Giấy sách</span>
+<span class="kw">if</span> (lum &lt; 75f) darkCount++; <span class="cmt">// Viền laptop / balo tối màu</span>
+<span class="cmt">// Tính stdDev mỗi ô → phân loại Laptop / Balo / Sách khi không có mạng</span></code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Z-Layering AR</span><strong>Kỹ thuật không cần ARFoundation nặng máy:</strong> Đặt Quad chiếu video camera ở <code>z = 9m</code> và quái vật 3D ở <code>z = 2.7m</code> trước <code>AR_Live_Camera</code>, tạo hiệu ứng quái vật đứng giữa phòng thật.</div>
+            <div class="explain-item"><span class="explain-line">HideCampus</span><strong>Tối ưu hiệu năng:</strong> Khi bật AR, hàm <code>HideCampusEnvironment()</code> tạm tắt các root GameObject sân trường để iPhone giữ 60 FPS, thoát AR thì bật lại.</div>
+            <div class="explain-item"><span class="explain-line">Fallback CV</span><strong>Offline Vision Analyzer:</strong> Ngoài gọi YOLOv8 trên Server, client có sẵn <code>IUHARVisionAnalyzer</code> đo độ tương phản, tỉ lệ giấy trắng và viền tối trên lưới 6×6 để chạy cả khi mất mạng.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 8 -->
+      <div class="card code-card" data-ccat="story-rpg">
+        <h2>8. Chạm Trán Quái 3D, Kho Đồ &amp; Nâng Cấp (<code>IUHMonsterEncounter.cs</code> + <code>IUHGuardianInventory.cs</code>)</h2>
+        <p class="muted">Cầu nối chuyển từ đi bộ 3D sang trận đấu bài 2D Match-3 và hệ thống thưởng chống nhận trùng.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Guardian/IUHMonsterEncounter.cs &amp; IUHGuardianInventory.cs</span><span>C#</span></div>
+<pre><code><span class="cmt">// [IUHMonsterEncounter.cs] Đứng gần quái 5s hoặc bấm [E] để vào trận</span>
+<span class="kw">if</span> (inCombatRange) {
+    m_ProximityTimer += Time.deltaTime;
+    <span class="kw">if</span> (m_ProximityTimer &gt;= 5.0f &amp;&amp; m_TriggerCooldown &lt;= 0f) TriggerCombat();
+}
+<span class="kw">if</span> (inCombatRange &amp;&amp; (Input.GetKeyDown(m_InteractKey) || IUHInputHelper.IsInteractKeyDown()))
+    TriggerCombat();
+
+<span class="cmt">// [IUHGuardianInventory.cs] Chỉ trao thưởng 1 lần cho mỗi MilestoneId</span>
+<span class="kw">public bool</span> TryClaimMilestoneReward(<span class="kw">string</span> milestoneId, <span class="kw">int</span> gold, IReadOnlyList&lt;<span class="kw">string</span>&gt; items) {
+    <span class="kw">if</span> (HasClaimedMilestone(milestoneId)) <span class="kw">return false</span>;
+    AddGold(gold);
+    <span class="kw">foreach</span> (<span class="kw">string</span> item <span class="kw">in</span> items) AddItem(item);
+    PlayerPrefs.SetInt(<span class="str">"IUH_Guardian_Milestone_"</span> + milestoneId, 1);
+    <span class="kw">return true</span>;
+}</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Reveal/Combat</span><strong>2 vòng bán kính:</strong> Vào vòng ngoài (<code>m_RevealRadius = 16m</code>) hiện thanh máu &amp; ý định Boss trên đầu; vào vòng trong (<code>5m</code>) đếm ngược 5s hoặc nhấn <code>[E]</code> để đấu ngay.</div>
+            <div class="explain-item"><span class="explain-line">Milestone</span><strong>Chống farm vô hạn:</strong> <code>TryClaimMilestoneReward</code> lưu cờ <code>IUH_Guardian_Milestone_&lt;id&gt;</code> vào <code>PlayerPrefs</code>, đánh lại quái cũ sẽ không cộng trùng vàng.</div>
+            <div class="explain-item"><span class="explain-line">Upgrades</span><strong>5 cấp sức mạnh:</strong> <code>IUHGuardianInventory</code> lưu cấp Kiếm (22→40 DMG), Khiên (15→30), MaxHP (1000→1500) cho <code>Match3CombatManager</code> nạp lúc vào trận.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 9 -->
+      <div class="card code-card" data-ccat="world-npc">
+        <h2>9. Tự Động Tìm Luống Hoa &amp; Tưới Cây (<code>IUHGardenManager.cs</code>)</h2>
+        <p class="muted">Thuật toán Union-Find gom tam giác trên mesh sân cỏ để tự nhận diện từng bồn hoa không cần gắn collider thủ công.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Scripts/Garden/IUHGardenManager.cs</span><span>C#</span></div>
+<pre><code><span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; t.Length; i += 3) {
+    Vector3 a = world[t[i]], b = world[t[i+1]], c = world[t[i+2]];
+    <span class="kw">var</span> n = Vector3.Cross(b - a, c - a);
+    <span class="kw">if</span> (n.y &lt;= .5f * n.magnitude) <span class="kw">continue</span>; <span class="cmt">// Chỉ lấy mặt hướng lên trời</span>
+    <span class="kw">int</span> ka = Key(a), kb = Key(b), kc = Key(c);
+    parent[Root(kb)] = Root(ka); parent[Root(kc)] = Root(ka); <span class="cmt">// Union-Find</span>
+}
+<span class="cmt">// Sau đó gom Bounds theo từng cụm liên thông &amp; lọc diện tích &gt;= 1m²</span>
+<span class="kw">public static string</span> SpotId(Bounds area) =&gt;
+    <span class="str">"bed_"</span> + Mathf.RoundToInt(area.center.x) + <span class="str">"_"</span> + Mathf.RoundToInt(area.center.z);</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">DiscoverAreas</span><strong>Không cần đặt marker tay:</strong> Quét các object tên <code>Lawn</code> trong vườn và đài phun nước, đọc trực tiếp đỉnh tam giác từ <code>MeshFilter.sharedMesh</code>.</div>
+            <div class="explain-item"><span class="explain-line">Union-Find</span><strong>Tách từng bồn hoa rời rạc:</strong> Hàn đỉnh theo tọa độ thế giới làm tròn 1cm (<code>Key()</code>), nối các tam giác hướng lên trời chung cạnh thành từng cụm <code>Bounds</code> riêng biệt.</div>
+            <div class="explain-item"><span class="explain-line">TryWater</span><strong>Chống re-entrancy &amp; lưu đĩa:</strong> Dùng cờ <code>applying</code> bảo vệ lúc tưới, cộng vàng vào <code>IUHGuardianInventory</code> và lưu timestamp ticks vào <code>IUH_Garden_v3</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 10 -->
+      <div class="card code-card" data-ccat="world-npc">
+        <h2>10. Event Bus, Tương Tác &amp; Lưu Game JSON (<code>GameEvents.cs</code> + <code>WorldState.cs</code> + <code>SaveSystem.cs</code>)</h2>
+        <p class="muted">Cách kiến trúc tách rời giữa Player bấm nút, Cửa mở, cập nhật trạng thái thế giới và ghi file JSON.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>PlayerInteraction.cs, GameEvents.cs, WorldState.cs, SaveSystem.cs</span><span>C#</span></div>
+<pre><code><span class="cmt">// 1. PlayerInteraction.cs: Dò vật thể không cấp phát bộ nhớ (NonAlloc)</span>
+<span class="kw">int</span> hitCount = Physics.SphereCastNonAlloc(ray, sphereRadius, m_Hits, interactionDistance, interactableLayer);
+<span class="kw">if</span> (m_CurrentTarget != <span class="kw">null</span> &amp;&amp; m_Input.InteractTriggered) m_CurrentTarget.Interact(gameObject);
+
+<span class="cmt">// 2. GameEvents.cs → WorldState.cs tự lắng nghe để ghi nhận trạng thái</span>
+GameEvents.OnDoorStateChanged += HandleDoorStateChanged;
+GameEvents.OnObjectInteracted += HandleObjectInteracted;
+
+<span class="cmt">// 3. SaveSystem.cs: Gom vị trí Player + WorldState xuất ra JSON</span>
+container.player.SetPose(player.transform.position, player.transform.rotation);
+<span class="kw">foreach</span> (<span class="kw">var</span> kvp <span class="kw">in</span> WorldState.Instance.GetAllStates())
+    container.worldObjects.Add(<span class="kw">new</span> WorldObjectRecord(kvp.Key, kvp.Value));
+File.WriteAllText(SaveFilePath, JsonUtility.ToJson(container, <span class="kw">true</span>));</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">SphereCastNonAlloc</span><strong>Không tạo rác GC mỗi frame:</strong> Dùng sẵn mảng <code>m_Hits[8]</code> để quét vật thể có interface <code>IInteractable</code> trước mặt nhân vật.</div>
+            <div class="explain-item"><span class="explain-line">Pub/Sub Bus</span><strong>Giảm phụ thuộc chéo:</strong> Cửa/máy tính không cần biết <code>WorldState</code> là ai; chỉ cần bắn <code>GameEvents.TriggerDoorStateChanged()</code>, <code>WorldState</code> tự bắt và lưu lại.</div>
+            <div class="explain-item"><span class="explain-line">SaveSystem</span><strong>Khôi phục nguyên trạng:</strong> Khi gọi <code>LoadGame()</code>, nhân vật được Teleport về đúng tọa độ cũ và tất cả cửa có <code>WorldObjectID</code> tự mở/đóng đúng trạng thái đã lưu.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 11 -->
+      <div class="card code-card" data-ccat="world-npc">
+        <h2>11. NPC Tuần Tra &amp; Sinh Viên Sân Trường (<code>NPCMovement.cs</code>)</h2>
+        <p class="muted">Điều khiển NPC đi theo tuyến <code>NPCRoute</code> qua NavMesh hoặc tự di chuyển fallback khi không có NavMesh.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Scripts/NPC/NPCMovement.cs</span><span>C#</span></div>
+<pre><code><span class="kw">if</span> (m_Agent != <span class="kw">null</span> &amp;&amp; m_Agent.isActiveAndEnabled &amp;&amp; m_Agent.isOnNavMesh) {
+    <span class="kw">if</span> (!m_Agent.pathPending &amp;&amp; m_Agent.remainingDistance &lt;= arrivalThreshold)
+        OnArrivedAtWaypoint(targetWp);
+} <span class="kw">else</span> {
+    <span class="cmt">// Fallback khi khu vực chưa bake NavMesh</span>
+    Vector3 dir = targetWp.transform.position - transform.position; dir.y = 0;
+    <span class="kw">if</span> (dir.magnitude &gt; arrivalThreshold) {
+        transform.position += dir.normalized * moveSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 8f * Time.deltaTime);
+    } <span class="kw">else</span> OnArrivedAtWaypoint(targetWp);
+}</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">Dual Mode</span><strong>Chạy mượt mọi địa hình:</strong> Ưu tiên <code>NavMeshAgent</code> để tránh chướng ngại vật; nếu vị trí chưa có NavMesh tự động chuyển sang nội suy vector phẳng (<code>dir.y = 0</code>) + xoay <code>Quaternion.Slerp</code>.</div>
+            <div class="explain-item"><span class="explain-line">Ambient</span><strong>Kết hợp đa dạng:</strong> Bên cạnh <code>NPCMovement</code>, thư mục <code>Guardian/Ambient/</code> có <code>IUHAmbientStudent</code> và <code>IUHStoryPeaceCrowd</code> giúp sân trường luôn có sinh viên sinh hoạt và phản ứng khi có biến cố.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code 12 -->
+      <div class="card code-card" data-ccat="server-build">
+        <h2>12. YOLOv8 ONNX Detector, Sync Worker &amp; iOS Batch Build (<code>detector.py</code> + <code>sync_worker.py</code> + <code>IUHIOSCommandLineBuild.cs</code>)</h2>
+        <p class="muted">Ba mảnh ghép cuối cùng vận hành AI trên CPU Docker, đẩy dữ liệu lên Adafruit IO và xuất build iPhone tự động.</p>
+        <div class="code-split">
+          <div class="code-pane">
+            <div class="code-header"><span>Server/app/inference/detector.py, sync_worker.py &amp; Editor/IUHIOSCommandLineBuild.cs</span><span>Python + C#</span></div>
+<pre><code><span class="cmt"># [detector.py] Tiền xử lý letterbox 640x640 → ONNX Runtime CPU → decode</span>
+tensor, transform = letterbox(image, size)
+output = session.run(<span class="kw">None</span>, {input_info.name: tensor})[0]
+detections = decode(output, self.registry.names, self.allowed_classes, threshold, transform)
+
+<span class="cmt"># [sync_worker.py] Tiến trình riêng đẩy SQLite outbox lên Adafruit IO</span>
+job = self.store.claim(now)
+result = self.client.send(job[<span class="str">"feed_key"</span>], job[<span class="str">"value"</span>])
+self.store.finish(job, result[<span class="str">"success"</span>], result.get(<span class="str">"error"</span>), result.get(<span class="str">"retry_after"</span>))
+
+<span class="cmt">// [IUHIOSCommandLineBuild.cs] Xuất Xcode project từ dòng lệnh</span>
+BuildPipeline.BuildPlayer(<span class="kw">new</span> BuildPlayerOptions {
+    scenes = <span class="kw">new</span>[] { <span class="str">"Assets/IUH_Campus/Scenes/IUH_SharedCampus_Concept.unity"</span>, ... },
+    locationPathName = <span class="str">"Build_iOS"</span>, target = BuildTarget.iOS
+});</code></pre>
+          </div>
+          <div class="explain-pane">
+            <h3>Giải thích từng bước</h3>
+            <div class="explain-item"><span class="explain-line">detector.py</span><strong>Đo thời gian thực tế:</strong> Tách riêng <code>inference_time_ms</code> và <code>total_time_ms</code>, gắn mã hash SHA256 của file <code>yolov8n.onnx</code> vào JSON trả về để kiểm chứng model.</div>
+            <div class="explain-item"><span class="explain-line">sync_worker</span><strong>Tôn trọng Rate Limit:</strong> Nếu Adafruit IO trả HTTP <code>429</code>, <code>cloud_client.py</code> đọc header <code>Retry-After</code> và hẹn giờ chạy lại job đó trong SQLite.</div>
+            <div class="explain-item"><span class="explain-line">BuildIOS</span><strong>Đảm bảo Camera trước khi build:</strong> Trước khi gọi <code>BuildPipeline.BuildPlayer</code>, script tự kiểm tra và gắn <code>MainCamera</code> + <code>PlayerFollowCamera</code> để bản chạy trên iPhone không bị màn hình đen.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: MODULES -->
+    <section id="modules" class="panel">
+      <div class="filter-bar">
+        <input id="moduleSearch" class="search-input" type="text" placeholder="Tìm tên class, file hoặc chức năng (vd: Match3, Outbox, Drone, AR, Garden)..." />
+        <button class="chip active" data-cat="all">Tất cả (12)</button>
+        <button class="chip" data-cat="client-core">Nền tảng &amp; Thế giới</button>
+        <button class="chip" data-cat="gameplay">Gameplay &amp; Combat</button>
+        <button class="chip" data-cat="ar-backend">AR &amp; Backend</button>
+        <button class="chip" data-cat="tooling">Editor &amp; Tests</button>
+      </div>
+
+      <div id="moduleGrid" class="grid-3">
+        <div class="module-card" data-cat="client-core">
+          <div class="module-head">
+            <div><div class="module-title">1. Core &amp; Event Bus</div><div class="module-path">Scripts/Core/</div></div>
+            <span class="layer-tag tag-blue">Foundation</span>
+          </div>
+          <ul class="clean">
+            <li><code>GameEvents</code>: Kênh sự kiện tĩnh trung tâm (DoorStateChanged, ObjectInteracted, FloorChanged, RoomEntered, PlayerSpawned).</li>
+            <li><code>IUHPlayerLocator</code>: Tìm nhanh GameObject nhân vật mà không cần gắn tham chiếu tay.</li>
+            <li><code>IUHInputHelper</code>, <code>IUHSoundSynthesizer</code>, <code>IUHGreenBillboard</code>.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="client-core">
+          <div class="module-head">
+            <div><div class="module-title">2. Player, Camera &amp; Tương tác</div><div class="module-path">Scripts/Player/, Interaction/, SharedCampusConcept/</div></div>
+            <span class="layer-tag tag-blue">Controller</span>
+          </div>
+          <ul class="clean">
+            <li><code>IUHConceptPreviewController</code>: Tự khởi tạo MainCamera URP, CinemachineBrain, PlayerFollowCamera &amp; chế độ Overview.</li>
+            <li><code>PlayerMovement</code>, <code>PlayerInput</code>, <code>PlayerState</code>, <code>PlayerSpawnManager</code>, <code>IUHPlayerSittingController</code>.</li>
+            <li><code>PlayerInteraction</code> + <code>IInteractable</code>: SphereCastNonAlloc tương tác với <code>DoorController</code>, <code>ComputerController</code>, <code>InfoBoardController</code>, <code>IUHBenchSeat</code>.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="client-core">
+          <div class="module-head">
+            <div><div class="module-title">3. World, NPC &amp; Save System</div><div class="module-path">Scripts/World/, NPC/, Save/, UI/</div></div>
+            <span class="layer-tag tag-blue">Persistence</span>
+          </div>
+          <ul class="clean">
+            <li><code>WorldState</code>: Lắng nghe <code>GameEvents</code> ghi nhận trạng thái cửa &amp; vật thể theo <code>WorldObjectID</code>.</li>
+            <li><code>SaveSystem</code> + <code>SaveData</code>: Lưu/nạp vị trí Player &amp; WorldState ra <code>IUH_Campus_Save.json</code>.</li>
+            <li><code>NPCMovement</code>, <code>NPCRoute</code>, <code>Waypoint</code>, <code>IUHAmbientStudent</code>, <code>IUHMobileControlsUI</code>.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="gameplay">
+          <div class="module-head">
+            <div><div class="module-title">4. Daily Activities &amp; Vườn Cây</div><div class="module-path">Scripts/DailyActivities/, Garden/</div></div>
+            <span class="layer-tag tag-green">Casual</span>
+          </div>
+          <ul class="clean">
+            <li><code>IUHCampusDailyActivitiesManager</code>: Tự reset theo ngày <code>yyyyMMdd</code>: Săn 8 xu (<code>IUHDailyCoin</code>), quà bí ẩn, sao may mắn, nhiệm vụ Linh vật, 5 điểm Check-in.</li>
+            <li><code>IUHGardenManager</code> + <code>GardenBed</code> + <code>GardenSave</code>: Tự tìm các luống cỏ từ MeshFilter <em>Lawn</em>, tưới hoa nhận Vàng.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="gameplay">
+          <div class="module-head">
+            <div><div class="module-title">5. 3D Action Combat &amp; Flight</div><div class="module-path">Scripts/Combat/</div></div>
+            <span class="layer-tag tag-red">Action</span>
+          </div>
+          <ul class="clean">
+            <li><code>IUHCampusZoneDirector</code>: Kích hoạt Drone địch &amp; phục kích tại Tòa E, Căn tin, Sân Bắc.</li>
+            <li><code>IUHCampusCombatManager</code>: Súng Plasma, cận chiến, khóa mục tiêu phòng không, 3 Skill &amp; Lựu đạn hẹn giờ.</li>
+            <li><code>IUHAerialFlightController</code>, <code>IUHFlyingMonsterAI</code>, <code>IUHMonsterAI</code>, <code>IUHPlayerHealth</code>, <code>IUHCombatHUD</code>.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="gameplay">
+          <div class="module-head">
+            <div><div class="module-title">6. Guardian Drone Đồng hành</div><div class="module-path">Scripts/Guardian/IUHGuardianDroneController.cs</div></div>
+            <span class="layer-tag tag-green">Companion</span>
+          </div>
+          <ul class="clean">
+            <li><code>IUHGuardianDroneController</code>: Bay theo sinh viên hoặc lái 6-DOF (FPV/TPP), bom EMP <code>[B]</code>, tiếp tế <code>[G]</code>, Flycam <code>[C]</code>.</li>
+            <li><code>IUHDroneHUD</code> &amp; <code>IUHRotorSpinner</code>: Hiển thị pin, Vision Mode và quay cánh quạt.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="gameplay">
+          <div class="module-head">
+            <div><div class="module-title">7. Guardian Story Engine</div><div class="module-path">Scripts/Guardian/Story/</div></div>
+            <span class="layer-tag tag-purple">Narrative</span>
+          </div>
+          <ul class="clean">
+            <li><code>StoryProgress</code> (Pure C#): State machine 5 pha (Prologue → Incident → Chapter → Ending → Completed).</li>
+            <li><code>IUHStoryDirector</code>, <code>IUHStoryBeacon</code>, <code>IUHStoryNightShift</code>, <code>IUHStoryDialogueUI</code>.</li>
+            <li><code>AftershockSchedule</code> &amp; <code>IUHStoryWorldLock</code>: Khóa thế giới theo chương và tái sinh dư chấn hậu game.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="gameplay">
+          <div class="module-head">
+            <div><div class="module-title">8. Match-3 RPG &amp; Economy</div><div class="module-path">Scripts/Guardian/Match3/ + Guardian/</div></div>
+            <span class="layer-tag tag-purple">Puzzle RPG</span>
+          </div>
+          <ul class="clean">
+            <li><code>Match3BoardModel</code> &amp; <code>Match3CombatRules</code> (Pure C#): Bảng 6×6, cascade, 5 loại ngọc, AI Boss báo ý định.</li>
+            <li><code>Match3CombatManager</code>, <code>Match3BoardView</code>, <code>Match3BattleStage</code>: Điều phối UI 2D &amp; sân khấu 3D.</li>
+            <li><code>IUHMonsterEncounter</code>, <code>IUHGuardianInventory</code>, <code>IUHUpgradeShopUI</code>: Nâng cấp Lv 1–5.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="ar-backend">
+          <div class="module-head">
+            <div><div class="module-title">9. Live AR &amp; Computer Vision</div><div class="module-path">Scripts/Guardian/AR/</div></div>
+            <span class="layer-tag tag-green">AR / CV</span>
+          </div>
+          <ul class="clean">
+            <li><code>IUHLiveARController</code>: Quản lý <code>WebCamTexture</code>, Background Quad, Gyroscope, UI Radar &amp; khóa mục tiêu.</li>
+            <li><code>IUHARVisionAnalyzer</code>: Trích xuất đặc trưng lưới 6×6 (luma, stdDev, edge, tần số dòng) nhận diện Balo/Laptop/Sách offline.</li>
+            <li><code>IUHARMonsterLivingController</code> &amp; <code>IUHARRuneSlashCombat</code>: Quái AR 3D &amp; cơ chế vuốt chém Neon.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="ar-backend">
+          <div class="module-head">
+            <div><div class="module-title">10. Unity Backend Client</div><div class="module-path">Scripts/Guardian/Backend/ + IUHGuardianBackendReporter</div></div>
+            <span class="layer-tag tag-amber">Network</span>
+          </div>
+          <ul class="clean">
+            <li><code>GuardianBackendService</code>: Flush nền 1 giây/lần &amp; khi app resume từ background.</li>
+            <li><code>GuardianEventOutbox</code>: Hàng đợi lưu đĩa <code>guardian_outbox.json</code>, retry exponential backoff.</li>
+            <li><code>GuardianApiClient</code> &amp; <code>BackendScanService</code>: Gọi REST API qua <code>UnityWebRequestTransport</code>.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="ar-backend">
+          <div class="module-head">
+            <div><div class="module-title">11. Docker Python Backend</div><div class="module-path">Server/app/ (18 modules)</div></div>
+            <span class="layer-tag tag-amber">Server</span>
+          </div>
+          <ul class="clean">
+            <li><code>__init__.py</code> + <code>routes/</code>: Flask App Factory, Blueprint <code>health</code>, <code>predict</code>, <code>scan</code>, <code>gameplay</code> + Prometheus.</li>
+            <li><code>inference/detector.py</code>: Chạy <code>yolov8n.onnx</code> qua ONNX Runtime CPU.</li>
+            <li><code>event_store.py</code>, <code>scan_store.py</code>, <code>sync_worker.py</code>, <code>cloud_client.py</code>: SQLite + Adafruit IO sync.</li>
+          </ul>
+        </div>
+
+        <div class="module-card" data-cat="tooling">
+          <div class="module-head">
+            <div><div class="module-title">12. Editor Automation &amp; Tests</div><div class="module-path">Assets/IUH_Campus/Editor/ (60) + Tests/</div></div>
+            <span class="layer-tag tag-purple">DevOps / QA</span>
+          </div>
+          <ul class="clean">
+            <li><strong>Scene Builders:</strong> <code>IUHCampusMasterBuilder</code>, <code>IUHSharedCampusConceptBuilder</code>, <code>IUHGameReadyMasterBuilder</code> tự dựng campus &amp; hệ thống game.</li>
+            <li><strong>iOS Build CLI:</strong> <code>IUHIOSCommandLineBuild</code> xuất Xcode project batchmode.</li>
+            <li><strong>Tests:</strong> EditMode &amp; PlayMode cho Match-3, Story, Garden, Backend, Ambient, Player + 13 file <code>pytest</code> trong <code>Server/tests/</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: REFERENCE -->
+    <section id="reference" class="panel">
+      <div class="card">
+        <h2>Backend HTTP API Endpoints (<code>Server/app/routes/</code>)</h2>
+        <table>
+          <thead>
+            <tr><th>Method &amp; Route</th><th>Chức năng</th><th>Input / Output chính</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>GET /health</code></td><td>Kiểm tra trạng thái server &amp; ONNX model</td><td>Trả về <code>status</code> (healthy/degraded), <code>model_loaded</code>, <code>db_ok</code>, <code>outbox_pending/failed</code></td></tr>
+            <tr><td><code>POST /predict</code></td><td>Nhận diện vật thể từ ảnh camera AR</td><td>Multipart <code>image</code> (JPG) + <code>target_class</code> + <code>threshold</code> → <code>detections[]</code>, <code>target_found</code>, <code>inference_time_ms</code></td></tr>
+            <tr><td><code>POST /scan/sessions</code><br><code>GET /scan/sessions/&lt;id&gt;</code></td><td>Tạo và theo dõi phiên quét AR</td><td>Quản lý tiến độ quét, <code>monster_token</code>, số quái vật còn lại trong phiên</td></tr>
+            <tr><td><code>POST /gameplay/events</code><br><code>GET /gameplay/events/&lt;id&gt;</code></td><td>Ghi nhận sự kiện chiến thắng &amp; cộng lõi Core</td><td>JSON event với UUID <code>event_id</code> (201 Recorded / 200 Duplicate / 409 Conflict) → đưa vào SQLite Outbox</td></tr>
+            <tr><td><code>GET /metrics</code></td><td>Xuất chỉ số Prometheus</td><td>Độ trễ inference, request HTTP, số lượng job pending/failed trong SQLite</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2>Bản đồ Lưu trữ Dữ liệu (Persistence)</h2>
+          <table>
+            <thead>
+              <tr><th>Thành phần</th><th>Nơi lưu &amp; Khóa / File</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Vị trí Player &amp; Trạng thái cửa</td><td><code>Application.persistentDataPath/IUH_Campus_Save.json</code> (<code>SaveSystem</code>)</td></tr>
+              <tr><td>Hàng đợi Event gửi Backend</td><td><code>Application.persistentDataPath/guardian_outbox.json</code> (<code>GuardianEventOutbox</code>)</td></tr>
+              <tr><td>Tiến trình Cốt truyện</td><td><code>PlayerPrefs["IUH_Story_Progress"]</code> (format <code>v1|Phase|Chapter|CheckIns|Defeated</code>)</td></tr>
+              <tr><td>Vàng, Cấp độ &amp; Túi đồ</td><td><code>PlayerPrefs</code> prefix <code>IUH_Guardian_*</code> (Gold, SwordLv, ShieldLv, MaxHpLv, Items, Milestone_*)</td></tr>
+              <tr><td>Vườn cây &amp; Hoạt động ngày</td><td><code>PlayerPrefs["IUH_Garden_v3"]</code> &amp; <code>IUH_ACTIVITY_*</code> (reset theo <code>yyyyMMdd</code>)</td></tr>
+              <tr><td>Backend Events &amp; Outbox</td><td>SQLite <code>Server/data/guardian.db</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Scenes &amp; Phím tắt Vận hành Nhanh</h2>
+          <table>
+            <thead>
+              <tr><th>Scene / Phím tắt</th><th>Vai trò</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>IUH_SharedCampus_Concept.unity</code></td><td>Scene chính khuôn viên 3D IUH (Story, Combat, Garden, Daily, Match-3)</td></tr>
+              <tr><td><code>IUH_Campus_AR_Encounter.unity</code></td><td>Scene chuyên biệt kiểm thử và chạy AR Encounter</td></tr>
+              <tr><td><code>IUH_CombatArena.unity</code></td><td>Đấu trường Combat biệt lập</td></tr>
+              <tr><td><code>[E]</code> / Nút Tương tác</td><td>Mở cửa, ngồi ghế, nói chuyện Mascot, vào trận quái, mở Shop</td></tr>
+              <tr><td><code>Double-Tap Space</code> / <code>[K]</code></td><td>Bật/tắt bay phản lực (<code>IUHAerialFlightController</code>) / Triệu hồi Sky Monster test (<code>ZoneDirector</code>)</td></tr>
+              <tr><td><code>[B]</code> / <code>[G]</code> / <code>[C]</code> (Drone)</td><td>Thả bom EMP / Thả thùng tiếp tế / Bật Flycam Orbit &amp; Dronie</td></tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <strong>Mẹo sửa code nhanh:</strong> Luật đánh bài → <code>Match3CombatRules.cs</code> • Cốt truyện → <code>IUHStoryDirector.cs</code> • Combat 3D → <code>IUHCampusCombatManager.cs</code> • Kết nối server → <code>GuardianApiClient.cs</code> &amp; <code>Server/app/</code>.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 1. Theme Switcher (lưu vào localStorage)
+    const root = document.documentElement;
+    const themeBtns = document.querySelectorAll('[data-set-theme]');
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.setTheme === theme));
+      try { localStorage.setItem('iuh_arch_theme', theme); } catch {}
+    }
+    themeBtns.forEach(btn => btn.addEventListener('click', () => applyTheme(btn.dataset.setTheme)));
+    try {
+      const savedTheme = localStorage.getItem('iuh_arch_theme');
+      if (savedTheme) applyTheme(savedTheme);
+    } catch {}
+
+    // 2. Font Scale Controls
+    let fontScale = 1;
+    try {
+      const savedScale = parseFloat(localStorage.getItem('iuh_arch_font_scale'));
+      if (savedScale >= 0.85 && savedScale <= 1.3) fontScale = savedScale;
+    } catch {}
+    const fontResetBtn = document.getElementById('fontReset');
+    function applyFontScale() {
+      root.style.setProperty('--font-scale', fontScale.toFixed(2));
+      fontResetBtn.textContent = Math.round(fontScale * 100) + '%';
+      try { localStorage.setItem('iuh_arch_font_scale', fontScale.toFixed(2)); } catch {}
+    }
+    applyFontScale();
+    document.getElementById('fontDown').addEventListener('click', () => { fontScale = Math.max(0.85, fontScale - 0.05); applyFontScale(); });
+    document.getElementById('fontUp').addEventListener('click', () => { fontScale = Math.min(1.30, fontScale + 0.05); applyFontScale(); });
+    fontResetBtn.addEventListener('click', () => { fontScale = 1; applyFontScale(); });
+
+    // 3. Tab Switching
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+        if (btn.dataset.tab === 'overview') {
+          window.dispatchEvent(new Event('resize'));
+        }
+      });
+    });
+
+    // 4. Module Search & Filter
+    const searchInput = document.getElementById('moduleSearch');
+    const chips = document.querySelectorAll('#modules .chip[data-cat]');
+    const cards = document.querySelectorAll('.module-card');
+    let currentCat = 'all';
+
+    function filterModules() {
+      const q = searchInput.value.trim().toLowerCase();
+      cards.forEach(card => {
+        const matchCat = currentCat === 'all' || card.dataset.cat === currentCat;
+        const matchText = !q || card.innerText.toLowerCase().includes(q);
+        card.style.display = (matchCat && matchText) ? 'flex' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filterModules);
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentCat = chip.dataset.cat;
+        filterModules();
+      });
+    });
+
+    // 4b. Code Walkthrough Search & Filter
+    const codeSearch = document.getElementById('codeSearch');
+    const codeChips = document.querySelectorAll('[data-ccat]');
+    const codeCards = document.querySelectorAll('.code-card');
+    let currentCodeCat = 'all';
+
+    function filterCodeCards() {
+      const q = (codeSearch?.value || '').trim().toLowerCase();
+      codeCards.forEach(card => {
+        const matchCat = currentCodeCat === 'all' || card.dataset.ccat === currentCodeCat;
+        const matchText = !q || card.innerText.toLowerCase().includes(q);
+        card.style.display = (matchCat && matchText) ? 'block' : 'none';
+      });
+    }
+
+    if (codeSearch) codeSearch.addEventListener('input', filterCodeCards);
+    document.querySelectorAll('.chip[data-ccat]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip[data-ccat]').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentCodeCat = chip.dataset.ccat;
+        filterCodeCards();
+      });
+    });
+
+    // 5. Interactive Drag & Drop Node Graph
+    (function initNodeGraph() {
+      const defaultNodes = [
+        { id: 'campus', x: 52, y: 24, tag: 'Unity 3D', tone: 'blue', title: '3D Campus & Story', sub: 'IUHStoryDirector, WorldLock, Garden, Daily', flows: ['local'], detail: 'Quản lý cốt truyện 5 pha, khóa khu vực (IUHStoryWorldLock), tưới vườn (IUHGardenManager), săn xu/check-in hằng ngày và NPC.' },
+        { id: 'combat3d', x: 52, y: 148, tag: 'Unity Action', tone: 'red', title: '3D Combat & Flight', sub: 'ZoneDirector, CombatManager, Jetpack', flows: ['local'], detail: 'IUHCampusZoneDirector kích hoạt quái bay ở Tòa E, Căn tin, Sân Bắc. Hỗ trợ bay 6 hướng (IUHAerialFlightController), bắn súng Plasma & tên lửa.' },
+        { id: 'ar', x: 52, y: 274, tag: 'Unity AR / CV', tone: 'green', title: 'Live AR Scanner', sub: 'IUHLiveARController, VisionAnalyzer', flows: ['ar', 'local'], detail: 'Mở WebCamTexture + Gyro 360°, nhận diện Laptop/Balo/Sách qua Server YOLOv8 hoặc offline 6×6 grid, khóa mục tiêu & đấu Rune Slash.' },
+        { id: 'match3', x: 52, y: 400, tag: 'Unity 2D RPG', tone: 'purple', title: '2D Match-3 RPG', sub: 'Match3CombatManager, Rules, Inventory', flows: ['sync', 'local'], detail: 'Giải đố 6×6 thuần C# (Match3BoardModel + Match3CombatRules), nâng cấp 5 cấp độ (IUHGuardianInventory) và phát sự kiện CombatFinished.' },
+
+        { id: 'save', x: 332, y: 54, tag: 'Local Storage', tone: 'amber', title: 'Save & Event Bus', sub: 'GameEvents, SaveSystem, PlayerPrefs', flows: ['local'], detail: 'GameEvents truyền sự kiện trong Scene; SaveSystem ghi vị trí/trạng thái cửa ra IUH_Campus_Save.json; tiến độ Story/Vườn/Xu lưu vào PlayerPrefs.' },
+        { id: 'outbox', x: 332, y: 368, tag: 'Offline-First', tone: 'blue', title: 'Client Outbox & API', sub: 'BackendReporter, Outbox, ApiClient', flows: ['ar', 'sync'], detail: 'IUHGuardianBackendReporter bắt sự kiện thắng trận đưa vào guardian_outbox.json, tự động retry theo exponential backoff qua GuardianApiClient.' },
+
+        { id: 'nginx', x: 626, y: 48, tag: 'Docker :5001', tone: 'green', title: 'Nginx Reverse Proxy', sub: 'Port 5001 → 80 (/nginx-health)', flows: ['ar', 'sync'], detail: 'Cổng vào duy nhất của cụm Docker Backend, chuyển tiếp request từ Unity Client (/predict, /scan, /gameplay/events) vào Flask API.' },
+        { id: 'api', x: 626, y: 170, tag: 'Docker Flask', tone: 'blue', title: 'iuh-guardian-api', sub: 'Gunicorn WSGI + Routes + Metrics', flows: ['ar', 'sync', 'monitor'], detail: 'Ứng dụng Flask trong Server/app/: nhận ảnh scan, validate JSON event UUID chống trùng, ghi SQLite và xuất chỉ số Prometheus /metrics.' },
+        { id: 'onnx', x: 626, y: 292, tag: 'AI Inference', tone: 'green', title: 'YOLOv8n ONNX CPU', sub: 'detector.py → yolov8n.onnx (640×640)', flows: ['ar'], detail: 'Chạy suy luận thị giác máy tính không cần GPU rời (Server/app/inference/detector.py) để phát hiện laptop, backpack, book.' },
+        { id: 'sqlite', x: 626, y: 412, tag: 'Persistence', tone: 'amber', title: 'SQLite (guardian.db)', sub: 'Tables: events, outbox, scans', flows: ['sync', 'ar'], detail: 'Lưu trữ bền vững trên volume ./data: đảm bảo idempotency cho event_id và làm hàng đợi cho Sync Worker.' },
+
+        { id: 'prom', x: 932, y: 92, tag: 'Observability', tone: 'purple', title: 'Prometheus + Grafana', sub: ':9090 Scrape /metrics → :3000 UI', flows: ['monitor'], detail: 'Prometheus thu thập độ trễ ONNX inference & trạng thái outbox mỗi chu kỳ; Grafana hiển thị dashboard trực quan.' },
+        { id: 'sync', x: 932, y: 248, tag: 'Docker Worker', tone: 'green', title: 'iuh-guardian-sync', sub: 'app.sync_worker (poll 0.5s, retry 429)', flows: ['sync'], detail: 'Worker chạy ngầm đọc job từ SQLite outbox và gửi lên Adafruit IO; tự động đọc header Retry-After khi gặp giới hạn tốc độ 429.' },
+        { id: 'cloud', x: 932, y: 396, tag: 'IoT Cloud', tone: 'amber', title: 'Adafruit IO Cloud', sub: '5 Feeds thực tế (HTTPS REST v2)', flows: ['sync'], detail: 'Đồng bộ 5 feed: guardian-quests-completed, guardian-campus-core, guardian-upgrades, lost-found-count, guardian-monsters-revealed.' }
+      ];
+
+      const edges = [
+        { from: 'campus', to: 'save', fp: 'right', tp: 'left', label: 'Save / Events', color: 'var(--amber)', marker: 'm-amber', flows: ['local'] },
+        { from: 'campus', to: 'combat3d', fp: 'bottom', tp: 'top', label: 'Zone Trigger', color: 'var(--red)', marker: 'm-red', flows: ['local'] },
+        { from: 'campus', to: 'match3', fp: 'left', tp: 'left', label: 'Encounter [E]', color: 'var(--purple)', marker: 'm-purple', flows: ['local'], curveBias: -42 },
+        { from: 'ar', to: 'match3', fp: 'bottom', tp: 'top', label: 'AR → Duel', color: 'var(--green)', marker: 'm-green', flows: ['ar', 'local'] },
+        { from: 'match3', to: 'outbox', fp: 'right', tp: 'left', label: 'CombatFinished', color: 'var(--accent)', marker: 'm-blue', flows: ['sync'] },
+        { from: 'ar', to: 'nginx', fp: 'right', tp: 'left', label: 'POST /predict', color: 'var(--green)', marker: 'm-green', flows: ['ar'] },
+        { from: 'outbox', to: 'nginx', fp: 'right', tp: 'left', label: 'POST /events', color: 'var(--accent)', marker: 'm-blue', flows: ['sync'] },
+        { from: 'nginx', to: 'api', fp: 'bottom', tp: 'top', label: 'WSGI :5001', color: 'var(--green)', marker: 'm-green', flows: ['ar', 'sync'] },
+        { from: 'api', to: 'onnx', fp: 'bottom', tp: 'top', label: 'ONNX Predict', color: 'var(--green)', marker: 'm-green', flows: ['ar'] },
+        { from: 'onnx', to: 'sqlite', fp: 'bottom', tp: 'top', label: 'Scan Session', color: 'var(--amber)', marker: 'm-amber', flows: ['ar'] },
+        { from: 'api', to: 'sqlite', fp: 'left', tp: 'left', label: 'Write Event', color: 'var(--amber)', marker: 'm-amber', flows: ['sync'], curveBias: -48 },
+        { from: 'api', to: 'prom', fp: 'right', tp: 'left', label: 'Scrape /metrics', color: 'var(--purple)', marker: 'm-purple', flows: ['monitor'] },
+        { from: 'sqlite', to: 'sync', fp: 'right', tp: 'left', label: 'Claim Job', color: 'var(--green)', marker: 'm-green', flows: ['sync'] },
+        { from: 'sync', to: 'cloud', fp: 'bottom', tp: 'top', label: 'HTTPS Feed', color: 'var(--amber)', marker: 'm-amber', flows: ['sync'] }
+      ];
+
+      const STORAGE_KEY = 'iuh_arch_graph_pos_v2';
+      const viewport = document.getElementById('graphViewport');
+      const stage = document.getElementById('graphStage');
+      const nodesLayer = document.getElementById('graphNodes');
+      const edgesSvg = document.getElementById('graphEdges');
+      const labelsLayer = document.getElementById('graphLabels');
+      const inspector = document.getElementById('nodeInspector');
+
+      let nodes = defaultNodes.map(n => ({ ...n }));
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (saved && typeof saved === 'object') {
+          nodes.forEach(n => {
+            if (saved[n.id]) { n.x = saved[n.id].x; n.y = saved[n.id].y; }
+          });
+        }
+      } catch {}
+
+      let activeFlow = 'all';
+      let selectedId = null;
+      let scale = 1, panX = 0, panY = 0;
+
+      function fitView() {
+        const vw = viewport.clientWidth || 1100;
+        const vh = viewport.clientHeight || 555;
+        scale = Math.min(1.05, Math.max(0.55, Math.min((vw - 24) / 1180, (vh - 20) / 530)));
+        panX = Math.max(8, (vw - 1180 * scale) / 2);
+        panY = Math.max(8, (vh - 530 * scale) / 2);
+        applyTransform();
+      }
+
+      function applyTransform() {
+        stage.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      }
+
+      function savePositions() {
+        try {
+          const map = {};
+          nodes.forEach(n => map[n.id] = { x: Math.round(n.x), y: Math.round(n.y) });
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+        } catch {}
+      }
+
+      const toneStyle = {
+        blue: 'background:var(--accent-bg);color:var(--accent);border-color:var(--accent-border)',
+        green: 'background:var(--green-bg);color:var(--green);border-color:var(--green-border)',
+        amber: 'background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)',
+        purple: 'background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)',
+        red: 'background:var(--red-bg);color:var(--red);border-color:var(--red-border)'
+      };
+
+      const nodeEls = {};
+      function renderNodes() {
+        nodesLayer.innerHTML = '';
+        nodes.forEach(n => {
+          const el = document.createElement('div');
+          el.className = 'graph-node';
+          el.style.left = n.x + 'px';
+          el.style.top = n.y + 'px';
+          el.style.borderColor = `var(--${n.tone === 'blue' ? 'accent' : n.tone})`;
+          el.innerHTML = `
+            <span class="node-badge" style="${toneStyle[n.tone]}">${n.tag}</span>
+            <div class="node-title">${n.title}</div>
+            <div class="node-sub">${n.sub}</div>
+          `;
+          el.addEventListener('pointerdown', e => startNodeDrag(e, n, el));
+          nodesLayer.appendChild(el);
+          nodeEls[n.id] = el;
+        });
+      }
+
+      function getPort(node, side) {
+        const el = nodeEls[node.id];
+        const w = el ? el.offsetWidth : 224;
+        const h = el ? el.offsetHeight : 88;
+        if (side === 'left') return { x: node.x, y: node.y + h / 2 };
+        if (side === 'right') return { x: node.x + w, y: node.y + h / 2 };
+        if (side === 'top') return { x: node.x + w / 2, y: node.y };
+        return { x: node.x + w / 2, y: node.y + h };
+      }
+
+      function bezierPoint(t, p0, p1, p2, p3) {
+        const u = 1 - t;
+        return {
+          x: u*u*u*p0.x + 3*u*u*t*p1.x + 3*u*t*t*p2.x + t*t*t*p3.x,
+          y: u*u*u*p0.y + 3*u*u*t*p1.y + 3*u*t*t*p2.y + t*t*t*p3.y
+        };
+      }
+
+      const edgePathsGroup = document.getElementById('edgePathsGroup');
+      function renderEdges() {
+        let pathsHtml = '';
+        labelsLayer.innerHTML = '';
+
+        const nodeMap = {};
+        nodes.forEach(n => nodeMap[n.id] = n);
+
+        edges.forEach(edge => {
+          const fromN = nodeMap[edge.from];
+          const toN = nodeMap[edge.to];
+          if (!fromN || !toN) return;
+
+          const p0 = getPort(fromN, edge.fp);
+          const p3 = getPort(toN, edge.tp);
+          let c1 = { x: p0.x, y: p0.y };
+          let c2 = { x: p3.x, y: p3.y };
+
+          if (edge.fp === 'left' && edge.tp === 'left') {
+            const bias = edge.curveBias || -54;
+            c1.x = Math.min(p0.x, p3.x) + bias;
+            c2.x = Math.min(p0.x, p3.x) + bias;
+          } else if (edge.fp === 'right' && edge.tp === 'left') {
+            const dx = Math.max(48, Math.abs(p3.x - p0.x) * 0.48);
+            c1.x += dx; c2.x -= dx;
+          } else {
+            const dy = Math.max(32, Math.abs(p3.y - p0.y) * 0.45);
+            if (edge.fp === 'bottom') c1.y += dy;
+            if (edge.fp === 'top') c1.y -= dy;
+            if (edge.tp === 'top') c2.y -= dy;
+            if (edge.tp === 'bottom') c2.y += dy;
+            if (edge.curveBias) { c1.x += edge.curveBias; c2.x += edge.curveBias; }
+          }
+
+          const flowMatch = activeFlow === 'all' || edge.flows.includes(activeFlow);
+          const selMatch = !selectedId || edge.from === selectedId || edge.to === selectedId;
+          const active = flowMatch && selMatch;
+          const animated = (activeFlow !== 'all' && flowMatch) || (selectedId && selMatch);
+
+          pathsHtml += `<path class="edge-path ${active ? '' : 'dimmed'} ${animated ? 'animated' : ''}"
+            d="M ${p0.x} ${p0.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${p3.x} ${p3.y}"
+            stroke="${edge.color}" marker-end="url(#${edge.marker})"/>`;
+
+          const mid = bezierPoint(0.5, p0, c1, c2, p3);
+          const pill = document.createElement('div');
+          pill.className = 'edge-label-pill' + (active ? '' : ' dimmed');
+          pill.style.left = mid.x + 'px';
+          pill.style.top = mid.y + 'px';
+          pill.style.color = edge.color;
+          pill.textContent = edge.label;
+          labelsLayer.appendChild(pill);
+        });
+
+        edgePathsGroup.innerHTML = pathsHtml;
+
+        // Dim unrelated nodes
+        const connectedIds = new Set();
+        if (selectedId) {
+          connectedIds.add(selectedId);
+          edges.forEach(e => {
+            if (e.from === selectedId) connectedIds.add(e.to);
+            if (e.to === selectedId) connectedIds.add(e.from);
+          });
+        }
+
+        nodes.forEach(n => {
+          const el = nodeEls[n.id];
+          if (!el) return;
+          const flowOk = activeFlow === 'all' || n.flows.includes(activeFlow);
+          const selOk = !selectedId || connectedIds.has(n.id);
+          el.classList.toggle('dimmed', !(flowOk && selOk));
+          el.classList.toggle('selected', selectedId === n.id);
+        });
+      }
+
+      function selectNode(n) {
+        selectedId = (selectedId === n.id) ? null : n.id;
+        if (selectedId) {
+          inspector.innerHTML = `
+            <div>
+              <span class="node-badge" style="${toneStyle[n.tone]}">${n.tag}</span>
+              <strong style="margin-left:6px;">${n.title}</strong>
+              <div class="muted" style="margin-top:4px;">${n.detail}</div>
+            </div>
+            <button class="font-btn" id="clearSelBtn">Bỏ chọn</button>
+          `;
+          document.getElementById('clearSelBtn').addEventListener('click', () => {
+            selectedId = null;
+            inspector.innerHTML = `<div><strong style="color: var(--accent);">Click vào một khối trên sơ đồ</strong><span class="muted"> — để xem chi tiết các class, chức năng và làm nổi bật đường dữ liệu đi qua khối đó.</span></div><span class="badge">Kéo thả tự do • Tự lưu vị trí</span>`;
+            renderEdges();
+          });
+        } else {
+          inspector.innerHTML = `<div><strong style="color: var(--accent);">Click vào một khối trên sơ đồ</strong><span class="muted"> — để xem chi tiết các class, chức năng và làm nổi bật đường dữ liệu đi qua khối đó.</span></div><span class="badge">Kéo thả tự do • Tự lưu vị trí</span>`;
+        }
+        renderEdges();
+      }
+
+      function startNodeDrag(e, node, el) {
+        e.stopPropagation();
+        const startX = e.clientX, startY = e.clientY;
+        const origX = node.x, origY = node.y;
+        let moved = false;
+
+        function onMove(ev) {
+          const dx = (ev.clientX - startX) / scale;
+          const dy = (ev.clientY - startY) / scale;
+          if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+          node.x = Math.max(0, Math.min(970, origX + dx));
+          node.y = Math.max(0, Math.min(445, origY + dy));
+          el.style.left = node.x + 'px';
+          el.style.top = node.y + 'px';
+          renderEdges();
+        }
+        function onUp() {
+          window.removeEventListener('pointermove', onMove);
+          window.removeEventListener('pointerup', onUp);
+          if (moved) savePositions();
+          else selectNode(node);
+        }
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onUp);
+      }
+
+      // Pan canvas
+      viewport.addEventListener('pointerdown', e => {
+        if (e.target.closest('.graph-node')) return;
+        const sx = e.clientX, sy = e.clientY;
+        const ox = panX, oy = panY;
+        function onMove(ev) {
+          panX = ox + (ev.clientX - sx);
+          panY = oy + (ev.clientY - sy);
+          applyTransform();
+        }
+        function onUp() {
+          window.removeEventListener('pointermove', onMove);
+          window.removeEventListener('pointerup', onUp);
+        }
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onUp);
+      });
+
+      // Toolbar controls
+      document.getElementById('zoomIn').addEventListener('click', () => { scale = Math.min(1.45, scale + 0.1); applyTransform(); });
+      document.getElementById('zoomOut').addEventListener('click', () => { scale = Math.max(0.5, scale - 0.1); applyTransform(); });
+      document.getElementById('zoomFit').addEventListener('click', fitView);
+      document.getElementById('resetLayout').addEventListener('click', () => {
+        nodes = defaultNodes.map(n => ({ ...n }));
+        selectedId = null;
+        inspector.innerHTML = `<div><strong style="color: var(--accent);">Click vào một khối trên sơ đồ</strong><span class="muted"> — để xem chi tiết các class, chức năng và làm nổi bật đường dữ liệu đi qua khối đó.</span></div><span class="badge">Kéo thả tự do • Tự lưu vị trí</span>`;
+        try { localStorage.removeItem(STORAGE_KEY); } catch {}
+        renderNodes();
+        fitView();
+        renderEdges();
+      });
+
+      document.querySelectorAll('#flowFilters .chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#flowFilters .chip').forEach(c => c.classList.remove('active'));
+          btn.classList.add('active');
+          activeFlow = btn.dataset.flow;
+          renderEdges();
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        if (document.getElementById('overview').classList.contains('active')) fitView();
+      });
+
+      renderNodes();
+      fitView();
+      requestAnimationFrame(renderEdges);
+    })();
+  </script>
+</body>
+</html>
