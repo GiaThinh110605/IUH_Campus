@@ -132,7 +132,6 @@ namespace IUHCampus.Combat
 
         private void Update()
         {
-            // If Match-3 puzzle minigame is active, pause combat input & skills
             if (IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null && IUHCampus.Guardian.Match3.Match3CombatManager.Instance.IsCombatActive)
             {
                 m_IsAiming = false;
@@ -140,98 +139,79 @@ namespace IUHCampus.Combat
                 return;
             }
 
-            // Decrement skill & missile cooldowns
-            if (m_Skill1Timer > 0f) m_Skill1Timer -= Time.deltaTime;
-            if (m_Skill2Timer > 0f) m_Skill2Timer -= Time.deltaTime;
-            if (m_Skill3Timer > 0f) m_Skill3Timer -= Time.deltaTime;
-            if (m_AntiAirMissileTimer > 0f) m_AntiAirMissileTimer -= Time.deltaTime;
-            if (m_GrenadeTimer > 0f) m_GrenadeTimer -= Time.deltaTime;
+            DecrementCooldowns();
 
-            // Handle Aiming State (Holding Right Mouse Button on PC or Virtual Aim on Mobile)
             bool isMobileAim = IUHCampus.Core.IUHInputHelper.VirtualAimHeld || IUHCampus.Core.IUHInputHelper.VirtualAimToggled;
             m_IsAiming = ((Cursor.lockState == CursorLockMode.Locked) && Input.GetMouseButton(1)) || isMobileAim;
             UpdateAimCamera();
             UpdateAirLockOn();
 
-            // Handle Input if not blocked by UI modals
             bool canCombat = (Cursor.lockState == CursorLockMode.Locked) || Application.isMobilePlatform || isMobileAim || IUHCampus.Core.IUHInputHelper.VirtualFireHeld;
-            if (canCombat)
-            {
-                // Switch Weapon Mode: [X] or [Tab] or [0]
-                if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Alpha0))
-                {
-                    ToggleMeleeMode();
-                }
-
-                // Quick Melee Punch: [V]
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    PerformMeleePunch();
-                }
-
-                // Dedicated Anti-Air Missile: [Q] or Mobile Virtual Missile
-                if (Input.GetKeyDown(KeyCode.Q) || IUHCampus.Core.IUHInputHelper.VirtualMissilePressed)
-                {
-                    IUHCampus.Core.IUHInputHelper.VirtualMissilePressed = false;
-                    UseAntiAirMissile();
-                }
-
-                // Timed Plasma Grenade (Explodes after 4s): [G]
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    ThrowTimedGrenade();
-                }
-
-                // Call Drone Emergency Supply: [T]
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                    if (IUHEmergencyDroneSupplyManager.Instance != null)
-                    {
-                        IUHEmergencyDroneSupplyManager.Instance.CallManualSupply();
-                    }
-                }
-
-                // Primary Attack: Trên PC dùng chuột trái / phím F; trên Mobile CHỈ bắn khi bấm/giữ nút Bắn Súng (không tự bắn khi di chuyển hay xoay camera)
-                bool isPcAttack = !Application.isMobilePlatform && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F));
-                bool isMobilePunch = IUHCampus.Core.IUHInputHelper.VirtualFirePressed;
-
-                if (m_IsMeleeOnly)
-                {
-                    if (isPcAttack || isMobilePunch)
-                    {
-                        IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
-                        PerformMeleePunch();
-                    }
-                }
-                else
-                {
-                    bool isPcFire = !Application.isMobilePlatform && (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F));
-                    bool isMobileFire = IUHCampus.Core.IUHInputHelper.VirtualFireHeld || IUHCampus.Core.IUHInputHelper.VirtualFirePressed;
-
-                    if (isPcFire || isMobileFire)
-                    {
-                        IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
-                        TryFireGun();
-                    }
-                }
-
-                // Skills
-                if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
-                {
-                    UseSkill1();
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
-                {
-                    UseSkill2();
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
-                {
-                    UseSkill3();
-                }
-            }
-            else
+            if (!canCombat)
             {
                 m_IsAiming = false;
+                return;
+            }
+
+            HandleCombatInputs();
+        }
+
+        private void DecrementCooldowns()
+        {
+            float dt = Time.deltaTime;
+            if (m_Skill1Timer > 0f) m_Skill1Timer -= dt;
+            if (m_Skill2Timer > 0f) m_Skill2Timer -= dt;
+            if (m_Skill3Timer > 0f) m_Skill3Timer -= dt;
+            if (m_AntiAirMissileTimer > 0f) m_AntiAirMissileTimer -= dt;
+            if (m_GrenadeTimer > 0f) m_GrenadeTimer -= dt;
+        }
+
+        private void HandleCombatInputs()
+        {
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Alpha0))
+                ToggleMeleeMode();
+
+            if (Input.GetKeyDown(KeyCode.V))
+                PerformMeleePunch();
+
+            if (Input.GetKeyDown(KeyCode.Q) || IUHCampus.Core.IUHInputHelper.VirtualMissilePressed)
+            {
+                IUHCampus.Core.IUHInputHelper.VirtualMissilePressed = false;
+                UseAntiAirMissile();
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+                ThrowTimedGrenade();
+
+            if (Input.GetKeyDown(KeyCode.T) && IUHEmergencyDroneSupplyManager.Instance != null)
+                IUHEmergencyDroneSupplyManager.Instance.CallManualSupply();
+
+            HandleAttackInput();
+
+            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) UseSkill1();
+            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) UseSkill2();
+            if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) UseSkill3();
+        }
+
+        private void HandleAttackInput()
+        {
+            if (m_IsMeleeOnly)
+            {
+                bool isPcAttack = !Application.isMobilePlatform && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F));
+                if (isPcAttack || IUHCampus.Core.IUHInputHelper.VirtualFirePressed)
+                {
+                    IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
+                    PerformMeleePunch();
+                }
+                return;
+            }
+
+            bool isPcFire = !Application.isMobilePlatform && (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F));
+            bool isMobileFire = IUHCampus.Core.IUHInputHelper.VirtualFireHeld || IUHCampus.Core.IUHInputHelper.VirtualFirePressed;
+            if (isPcFire || isMobileFire)
+            {
+                IUHCampus.Core.IUHInputHelper.VirtualFirePressed = false;
+                TryFireGun();
             }
         }
 
@@ -267,41 +247,14 @@ namespace IUHCampus.Combat
                 m_PunchComboIndex++;
             }
 
-            // Punch Whoosh Sound
             IUHCombatAudio.PlayPunchWhoosh();
-
-            // Spawn Punch Arc Slash VFX in front of student
             SpawnPunchArcVFX(m_PlayerTransform.position + Vector3.up * 1.1f, m_PlayerTransform.forward);
 
-            // Hit detection: cone / sphere in front of player
             Vector3 center = m_PlayerTransform.position + Vector3.up * 1.0f + m_PlayerTransform.forward * 1.3f;
-            Collider[] hits = Physics.OverlapSphere(center, 1.8f);
             bool hasHitMonster = false;
-
-            foreach (var col in hits)
+            foreach (var col in Physics.OverlapSphere(center, 1.8f))
             {
-                if (col.transform == m_PlayerTransform || col.transform.IsChildOf(m_PlayerTransform)) continue;
-
-                var monster = col.GetComponentInParent<IUHRealtimeMonsterTarget>();
-                if (monster != null && !monster.IsDead)
-                {
-                    hasHitMonster = true;
-                    int baseDmg = UnityEngine.Random.Range(42, 58);
-                    bool isCrit = UnityEngine.Random.value < 0.35f;
-                    int finalDmg = isCrit ? Mathf.RoundToInt(baseDmg * 1.8f) : baseDmg;
-
-                    monster.TakeDamage(finalDmg, isCrit);
-
-                    // Knockback monster slightly
-                    var cc = monster.GetComponent<CharacterController>();
-                    if (cc != null && cc.enabled)
-                    {
-                        cc.Move(m_PlayerTransform.forward * 0.9f);
-                    }
-
-                    // Impact hit VFX
-                    SpawnPunchImpactVFX(col.ClosestPoint(center));
-                }
+                if (TryApplyMeleeHit(col, center)) hasHitMonster = true;
             }
 
             if (hasHitMonster)
@@ -309,6 +262,34 @@ namespace IUHCampus.Combat
                 IUHCombatAudio.PlayPunchHit();
                 IUHCameraShake.Shake(0.12f, 0.08f);
             }
+        }
+
+        private bool TryApplyMeleeHit(Collider col, Vector3 center)
+        {
+            if (col.transform == m_PlayerTransform || col.transform.IsChildOf(m_PlayerTransform)) return false;
+
+            var monster = col.GetComponentInParent<IUHRealtimeMonsterTarget>();
+            if (monster == null || monster.IsDead) return false;
+
+            int baseDmg = UnityEngine.Random.Range(42, 58);
+            bool isCrit = UnityEngine.Random.value < 0.35f;
+            int finalDmg = isCrit ? Mathf.RoundToInt(baseDmg * 1.8f) : baseDmg;
+            monster.TakeDamage(finalDmg, isCrit);
+
+            var cc = monster.GetComponent<CharacterController>();
+            if (cc != null && cc.enabled) cc.Move(m_PlayerTransform.forward * 0.9f);
+
+            SpawnPunchImpactVFX(col.ClosestPoint(center));
+            return true;
+        }
+
+        private static Material CreateEmissiveLitMaterial(Color baseColor, Color emissionColor)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
+            mat.color = baseColor;
+            mat.EnableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", emissionColor);
+            return mat;
         }
 
         private void SpawnPunchArcVFX(Vector3 origin, Vector3 forward)
@@ -322,11 +303,7 @@ namespace IUHCampus.Combat
             lr.startWidth = 0.18f;
             lr.endWidth = 0.02f;
 
-            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            mat.color = new Color(1f, 0.85f, 0.2f);
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", new Color(1f, 0.75f, 0.1f) * 3f);
-            lr.sharedMaterial = mat;
+            lr.sharedMaterial = CreateEmissiveLitMaterial(new Color(1f, 0.85f, 0.2f), new Color(1f, 0.75f, 0.1f) * 3f);
 
             int segments = 12;
             lr.positionCount = segments;
@@ -351,12 +328,8 @@ namespace IUHCampus.Combat
             spark.transform.position = hitPoint;
             spark.transform.localScale = Vector3.one * 0.45f;
 
-            var rend = spark.GetComponent<Renderer>();
-            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            mat.color = new Color(1f, 0.6f, 0.1f);
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", new Color(1f, 0.5f, 0.1f) * 4f);
-            rend.sharedMaterial = mat;
+            spark.GetComponent<Renderer>().sharedMaterial =
+                CreateEmissiveLitMaterial(new Color(1f, 0.6f, 0.1f), new Color(1f, 0.5f, 0.1f) * 4f);
 
             Destroy(spark.GetComponent<Collider>());
             Destroy(spark, 0.2f);
@@ -371,49 +344,37 @@ namespace IUHCampus.Combat
             if (m_MainCamera == null) m_MainCamera = Camera.main;
             if (m_MainCamera == null) return;
 
-            // Aim ray through screen center
             Ray ray = m_MainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            Vector3 aimTarget = ray.origin + ray.direction * m_MaxRange;
-            RaycastHit hit;
+            Vector3 aimTarget = ComputeAimTarget(ray);
 
             bool isCrit = UnityEngine.Random.value <= m_CritChance;
             int damage = m_BaseDamage + UnityEngine.Random.Range(-4, 6);
             if (isCrit) damage = Mathf.RoundToInt(damage * 1.8f);
 
-            if (m_LockedAirTarget != null && !m_LockedAirTarget.IsDead)
-            {
-                aimTarget = m_LockedAirTarget.transform.position;
-            }
-            else if (Physics.Raycast(ray, out hit, m_MaxRange))
-            {
-                aimTarget = hit.point;
-            }
-
-            Vector3 muzzlePos = m_GunMuzzle != null ? m_GunMuzzle.position : (m_PlayerTransform != null ? m_PlayerTransform.position + Vector3.up * 1.2f : ray.origin);
+            Vector3 muzzlePos = m_GunMuzzle != null
+                ? m_GunMuzzle.position
+                : (m_PlayerTransform != null ? m_PlayerTransform.position + Vector3.up * 1.2f : ray.origin);
             Vector3 shootDir = (aimTarget - muzzlePos).normalized;
             if (shootDir.sqrMagnitude < 0.001f) shootDir = ray.direction;
 
-            // Spawn Real Physical Plasma Bullet
             GameObject bullet = CreatePhysicalBullet(muzzlePos, shootDir, damage, isCrit);
-
-            // If an aerial enemy is locked, guide plasma bullet directly into it!
             if (m_LockedAirTarget != null && !m_LockedAirTarget.IsDead)
             {
                 var bulletComp = bullet.GetComponent<IUHPlasmaBullet>();
-                if (bulletComp != null)
-                {
-                    bulletComp.SetHomingTarget(m_LockedAirTarget.transform, 24f);
-                }
+                if (bulletComp != null) bulletComp.SetHomingTarget(m_LockedAirTarget.transform, 24f);
             }
 
-            // Muzzle flash light
-            if (m_MuzzleLight != null)
-            {
-                StartCoroutine(MuzzleFlashRoutine());
-            }
-
-            // Sound
+            if (m_MuzzleLight != null) StartCoroutine(MuzzleFlashRoutine());
             IUHCombatAudio.PlayEnergy();
+        }
+
+        private Vector3 ComputeAimTarget(Ray ray)
+        {
+            if (m_LockedAirTarget != null && !m_LockedAirTarget.IsDead)
+                return m_LockedAirTarget.transform.position;
+            if (Physics.Raycast(ray, out RaycastHit hit, m_MaxRange))
+                return hit.point;
+            return ray.origin + ray.direction * m_MaxRange;
         }
 
         // ================= AIMING & ANTI-AIR TARGETING SYSTEM ================= //
@@ -715,10 +676,33 @@ namespace IUHCampus.Combat
 
         private IEnumerator LaserBarrageRoutine()
         {
+            List<IUHRealtimeMonsterTarget> monsters = GetPrioritizedBarrageMonsters();
+            Vector3 startPos = m_GunMuzzle != null
+                ? m_GunMuzzle.position
+                : (m_PlayerTransform != null ? m_PlayerTransform.position + Vector3.up * 1.5f : transform.position);
+
+            for (int i = 0; i < m_Skill2MissilesCount; i++)
+            {
+                IUHCombatAudio.PlayEnergy();
+                IUHRealtimeMonsterTarget target = FindClosestBarrageTarget(monsters, startPos);
+
+                Vector3 fallbackPos = startPos + (m_MainCamera != null ? m_MainCamera.transform.forward * 20f : Vector3.forward * 20f);
+                Vector3 targetPos = (target != null ? target.transform.position + Vector3.up * 1.2f : fallbackPos) + UnityEngine.Random.insideUnitSphere * 0.5f;
+
+                StartCoroutine(ShowLaserTracer(startPos, targetPos));
+                if (target != null)
+                {
+                    target.TakeDamage(m_Skill2DamagePerShot, isCrit: UnityEngine.Random.value < 0.35f);
+                }
+
+                yield return new WaitForSeconds(0.08f);
+            }
+        }
+
+        private static List<IUHRealtimeMonsterTarget> GetPrioritizedBarrageMonsters()
+        {
             var monsters = new List<IUHRealtimeMonsterTarget>(FindObjectsByType<IUHRealtimeMonsterTarget>(FindObjectsSortMode.None));
             monsters.RemoveAll(m => m.IsDead || !m.gameObject.activeInHierarchy);
-
-            // Prioritize aerial flying monsters so barrage swarms up into the sky!
             monsters.Sort((a, b) =>
             {
                 bool aAir = a.GetComponent<IUHFlyingMonsterAI>() != null || a.transform.position.y > 3.5f;
@@ -727,43 +711,26 @@ namespace IUHCampus.Combat
                 if (!aAir && bAir) return 1;
                 return 0;
             });
+            return monsters;
+        }
 
-            Vector3 startPos = m_GunMuzzle != null ? m_GunMuzzle.position : (m_PlayerTransform != null ? m_PlayerTransform.position + Vector3.up * 1.5f : transform.position);
-
-            for (int i = 0; i < m_Skill2MissilesCount; i++)
+        private static IUHRealtimeMonsterTarget FindClosestBarrageTarget(List<IUHRealtimeMonsterTarget> monsters, Vector3 startPos)
+        {
+            IUHRealtimeMonsterTarget target = null;
+            float closestDist = float.MaxValue;
+            foreach (var m in monsters)
             {
-                IUHCombatAudio.PlayEnergy();
-
-                // Target closest monster (or aerial priority) or forward direction
-                IUHRealtimeMonsterTarget target = null;
-                float closestDist = float.MaxValue;
-
-                foreach (var m in monsters)
+                if (m.IsDead || !m.gameObject.activeInHierarchy) continue;
+                float dist = Vector3.Distance(startPos, m.transform.position);
+                bool isAir = m.GetComponent<IUHFlyingMonsterAI>() != null || m.transform.position.y > 3.5f;
+                float allowedDist = isAir ? 65f : 35f;
+                if (dist < closestDist && dist <= allowedDist)
                 {
-                    if (m.IsDead || !m.gameObject.activeInHierarchy) continue;
-                    float dist = Vector3.Distance(startPos, m.transform.position);
-                    bool isAir = m.GetComponent<IUHFlyingMonsterAI>() != null || m.transform.position.y > 3.5f;
-                    float allowedDist = isAir ? 65f : 35f;
-
-                    if (dist < closestDist && dist <= allowedDist)
-                    {
-                        closestDist = dist;
-                        target = m;
-                    }
+                    closestDist = dist;
+                    target = m;
                 }
-
-                Vector3 targetPos = target != null ? target.transform.position + Vector3.up * 1.2f : startPos + (m_MainCamera != null ? m_MainCamera.transform.forward * 20f : Vector3.forward * 20f);
-                targetPos += UnityEngine.Random.insideUnitSphere * 0.5f;
-
-                StartCoroutine(ShowLaserTracer(startPos, targetPos));
-
-                if (target != null)
-                {
-                    target.TakeDamage(m_Skill2DamagePerShot, isCrit: UnityEngine.Random.value < 0.35f);
-                }
-
-                yield return new WaitForSeconds(0.08f);
             }
+            return target;
         }
 
         private IEnumerator ShowLaserTracer(Vector3 from, Vector3 to)
@@ -810,72 +777,67 @@ namespace IUHCampus.Combat
 
         private IEnumerator DroneStrikeRoutine(Vector3 targetGround)
         {
-            // Red targeting laser beacon
-            GameObject beacon = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            beacon.name = "Targeting_Laser_Beacon";
-            beacon.transform.position = targetGround + Vector3.up * 10f;
-            beacon.transform.localScale = new Vector3(0.25f, 10f, 0.25f);
-            var bRend = beacon.GetComponent<Renderer>();
-            Material bMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            bMat.color = new Color(1f, 0.1f, 0.2f, 0.8f);
-            bMat.EnableKeyword("_EMISSION");
-            bMat.SetColor("_EmissionColor", Color.red * 4f);
-            bRend.sharedMaterial = bMat;
-            Destroy(beacon.GetComponent<Collider>());
-
-            // Siren chime
+            GameObject beacon = CreateStrikeBeacon(targetGround, out Material bMat);
             IUHCombatAudio.PlayBossHit();
-
             yield return new WaitForSeconds(0.9f);
 
-            // EXPLOSION!
             IUHCombatAudio.PlaySkillBurst();
             IUHCombatAudio.PlayBossRoar();
-
             Destroy(beacon);
             Destroy(bMat);
 
-            // Mega shockwave explosion sphere
-            GameObject boom = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            boom.name = "Ultimate_Nuke_Sphere";
-            boom.transform.position = targetGround + Vector3.up * 1f;
-            boom.transform.localScale = Vector3.one * 2f;
-            var boomRend = boom.GetComponent<Renderer>();
-            Material boomMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            boomMat.color = new Color(1f, 0.9f, 0.2f, 0.9f);
-            boomMat.EnableKeyword("_EMISSION");
-            boomMat.SetColor("_EmissionColor", new Color(1f, 0.6f, 0.1f) * 6f);
-            boomRend.sharedMaterial = boomMat;
-            Destroy(boom.GetComponent<Collider>());
+            GameObject boom = CreateStrikeExplosionSphere(targetGround, out Material boomMat);
+            DamageMonstersInRadius(targetGround, m_Skill3Radius, m_Skill3Damage, 4.0f);
 
-            // Damage all monsters in radius
-            var monsters = FindObjectsByType<IUHRealtimeMonsterTarget>(FindObjectsSortMode.None);
-            foreach (var m in monsters)
+            const float duration = 0.6f;
+            for (float elapsed = 0f; elapsed < duration; elapsed += Time.deltaTime)
             {
-                if (m.IsDead) continue;
-                float d = Vector3.Distance(targetGround, m.transform.position);
-                if (d <= m_Skill3Radius)
-                {
-                    m.TakeDamage(m_Skill3Damage, isCrit: true);
-                    m.ApplyStun(4.0f);
-                }
-            }
-
-            // Animate blast expansion & screen shake
-            float elapsed = 0f;
-            float dur = 0.6f;
-            while (elapsed < dur)
-            {
-                elapsed += Time.deltaTime;
-                float p = elapsed / dur;
+                float p = elapsed / duration;
                 float s = Mathf.Lerp(2f, m_Skill3Radius * 2f, p);
                 boom.transform.localScale = Vector3.one * s;
-                boomMat.color = new Color(1f, 0.8f, 0.2f, (1f - p));
+                boomMat.color = new Color(1f, 0.8f, 0.2f, 1f - p);
                 yield return null;
             }
 
             Destroy(boom);
             Destroy(boomMat);
+        }
+
+        private static GameObject CreateStrikeBeacon(Vector3 targetGround, out Material mat)
+        {
+            GameObject beacon = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            beacon.name = "Targeting_Laser_Beacon";
+            beacon.transform.position = targetGround + Vector3.up * 10f;
+            beacon.transform.localScale = new Vector3(0.25f, 10f, 0.25f);
+            mat = CreateEmissiveLitMaterial(new Color(1f, 0.1f, 0.2f, 0.8f), Color.red * 4f);
+            beacon.GetComponent<Renderer>().sharedMaterial = mat;
+            Destroy(beacon.GetComponent<Collider>());
+            return beacon;
+        }
+
+        private static GameObject CreateStrikeExplosionSphere(Vector3 targetGround, out Material mat)
+        {
+            GameObject boom = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            boom.name = "Ultimate_Nuke_Sphere";
+            boom.transform.position = targetGround + Vector3.up * 1f;
+            boom.transform.localScale = Vector3.one * 2f;
+            mat = CreateEmissiveLitMaterial(new Color(1f, 0.9f, 0.2f, 0.9f), new Color(1f, 0.6f, 0.1f) * 6f);
+            boom.GetComponent<Renderer>().sharedMaterial = mat;
+            Destroy(boom.GetComponent<Collider>());
+            return boom;
+        }
+
+        private static void DamageMonstersInRadius(Vector3 origin, float radius, int damage, float stunDuration)
+        {
+            foreach (var m in FindObjectsByType<IUHRealtimeMonsterTarget>(FindObjectsSortMode.None))
+            {
+                if (m.IsDead) continue;
+                if (Vector3.Distance(origin, m.transform.position) <= radius)
+                {
+                    m.TakeDamage(damage, isCrit: true);
+                    m.ApplyStun(stunDuration);
+                }
+            }
         }
     }
 }

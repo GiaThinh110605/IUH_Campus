@@ -32,56 +32,47 @@ namespace IUHCampus.Combat
 
         private void BuildVisuals()
         {
-            // 1. Crate Body
             var rend = GetComponent<Renderer>();
-            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            mat.color = new Color(0.1f, 0.95f, 0.4f);
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", new Color(0.1f, 0.95f, 0.4f) * 3f);
-            if (rend != null) rend.sharedMaterial = mat;
+            if (rend != null) rend.sharedMaterial = CreateEmissiveMat(new Color(0.1f, 0.95f, 0.4f), new Color(0.1f, 0.95f, 0.4f) * 3f);
 
-            // 2. Glowing Beacon Light
             m_BeaconLight = gameObject.AddComponent<Light>();
             m_BeaconLight.type = LightType.Point;
             m_BeaconLight.color = new Color(0.2f, 1f, 0.5f);
             m_BeaconLight.intensity = 3.5f;
             m_BeaconLight.range = 6.0f;
 
-            // 3. Parachute Canopy
             m_Parachute = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             m_Parachute.name = "Supply_Parachute";
             m_Parachute.transform.SetParent(transform, false);
             m_Parachute.transform.localPosition = new Vector3(0f, 1.4f, 0f);
             m_Parachute.transform.localScale = new Vector3(2.0f, 0.55f, 2.0f);
             Destroy(m_Parachute.GetComponent<Collider>());
+            m_Parachute.GetComponent<Renderer>().sharedMaterial =
+                CreateEmissiveMat(new Color(0.85f, 1f, 0.85f, 0.95f), new Color(0.2f, 0.9f, 0.4f) * 1.5f);
 
-            var pMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            pMat.color = new Color(0.85f, 1f, 0.85f, 0.95f);
-            pMat.EnableKeyword("_EMISSION");
-            pMat.SetColor("_EmissionColor", new Color(0.2f, 0.9f, 0.4f) * 1.5f);
-            m_Parachute.GetComponent<Renderer>().sharedMaterial = pMat;
+            var crossMat = CreateEmissiveMat(Color.white, Color.white * 2f);
+            CreateCrossBar("Cross_H", new Vector3(0.55f, 0.05f, 0.2f), crossMat);
+            CreateCrossBar("Cross_V", new Vector3(0.2f, 0.05f, 0.55f), crossMat);
+        }
 
-            // 4. White Medical Cross on top of crate
-            GameObject crossH = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            crossH.name = "Cross_H";
-            crossH.transform.SetParent(transform, false);
-            crossH.transform.localPosition = new Vector3(0f, 0.51f, 0f);
-            crossH.transform.localScale = new Vector3(0.55f, 0.05f, 0.2f);
-            Destroy(crossH.GetComponent<Collider>());
+        private static Material CreateEmissiveMat(Color color, Color emission)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
+            mat.color = color;
+            mat.EnableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", emission);
+            return mat;
+        }
 
-            GameObject crossV = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            crossV.name = "Cross_V";
-            crossV.transform.SetParent(transform, false);
-            crossV.transform.localPosition = new Vector3(0f, 0.51f, 0f);
-            crossV.transform.localScale = new Vector3(0.2f, 0.05f, 0.55f);
-            Destroy(crossV.GetComponent<Collider>());
-
-            var crossMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            crossMat.color = Color.white;
-            crossMat.EnableKeyword("_EMISSION");
-            crossMat.SetColor("_EmissionColor", Color.white * 2f);
-            crossH.GetComponent<Renderer>().sharedMaterial = crossMat;
-            crossV.GetComponent<Renderer>().sharedMaterial = crossMat;
+        private void CreateCrossBar(string barName, Vector3 scale, Material mat)
+        {
+            GameObject bar = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            bar.name = barName;
+            bar.transform.SetParent(transform, false);
+            bar.transform.localPosition = new Vector3(0f, 0.51f, 0f);
+            bar.transform.localScale = scale;
+            Destroy(bar.GetComponent<Collider>());
+            bar.GetComponent<Renderer>().sharedMaterial = mat;
         }
 
         private void Update()

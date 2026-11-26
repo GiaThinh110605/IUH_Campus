@@ -71,11 +71,8 @@ namespace IUHCampus.Combat
         private void Update()
         {
             if (m_TargetStats != null && (m_TargetStats.IsDead || m_TargetStats.IsStunned))
-            {
                 return;
-            }
 
-            // If Match-3 puzzle minigame is active, stop attacking and play Idle
             if (IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null && IUHCampus.Guardian.Match3.Match3CombatManager.Instance.IsCombatActive)
             {
                 PlayAnim("Idle", 0.2f);
@@ -92,50 +89,47 @@ namespace IUHCampus.Combat
             toPlayer.y = 0;
             float dist = toPlayer.magnitude;
 
-            if (dist <= m_AggroRadius)
+            if (dist > m_AggroRadius)
             {
-                // Look towards player
-                if (toPlayer.sqrMagnitude > 0.01f)
-                {
-                    Quaternion targetRot = Quaternion.LookRotation(toPlayer.normalized);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
-                }
+                PlayAnim("Idle", 0.2f);
+                return;
+            }
 
-                if (dist > m_AttackDistance)
-                {
-                    // Run towards player with full running animation
-                    Vector3 moveDelta = toPlayer.normalized * (m_MoveSpeed * Time.deltaTime);
-                    moveDelta.y = -9.81f * Time.deltaTime; // gravity
+            FacePlayer(toPlayer);
+            if (dist > m_AttackDistance) ChasePlayer(toPlayer);
+            else TryMeleeAttack();
+        }
 
-                    if (m_CharacterController != null && m_CharacterController.enabled)
-                    {
-                        m_CharacterController.Move(moveDelta);
-                    }
-                    else
-                    {
-                        transform.position += new Vector3(moveDelta.x, 0, moveDelta.z);
-                    }
+        private void FacePlayer(Vector3 toPlayer)
+        {
+            if (toPlayer.sqrMagnitude <= 0.01f) return;
+            Quaternion targetRot = Quaternion.LookRotation(toPlayer.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
+        }
 
-                    PlayAnim("Run", 0.15f);
-                }
-                else
-                {
-                    // Attack range
-                    if (Time.time >= m_NextAttackTime)
-                    {
-                        m_NextAttackTime = Time.time + m_AttackCooldown;
-                        PlayAnim(UnityEngine.Random.value < 0.5f ? "Attack01" : "Attack02", 0.1f);
-                        StartCoroutine(PerformMonsterAttackDamage());
-                    }
-                    else
-                    {
-                        PlayAnim("Idle", 0.2f);
-                    }
-                }
+        private void ChasePlayer(Vector3 toPlayer)
+        {
+            Vector3 moveDelta = toPlayer.normalized * (m_MoveSpeed * Time.deltaTime);
+            moveDelta.y = -9.81f * Time.deltaTime;
+
+            if (m_CharacterController != null && m_CharacterController.enabled)
+                m_CharacterController.Move(moveDelta);
+            else
+                transform.position += new Vector3(moveDelta.x, 0, moveDelta.z);
+
+            PlayAnim("Run", 0.15f);
+        }
+
+        private void TryMeleeAttack()
+        {
+            if (Time.time >= m_NextAttackTime)
+            {
+                m_NextAttackTime = Time.time + m_AttackCooldown;
+                PlayAnim(UnityEngine.Random.value < 0.5f ? "Attack01" : "Attack02", 0.1f);
+                StartCoroutine(PerformMonsterAttackDamage());
             }
             else
             {
-                // Idle when not aggroed
                 PlayAnim("Idle", 0.2f);
             }
         }
