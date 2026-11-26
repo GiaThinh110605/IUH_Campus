@@ -116,48 +116,44 @@ namespace IUHCampus.DailyActivities
                     title: "🤖 LINH VẬT IUH CHÀO BẠN!",
                     message: "Xin chào bạn! Mình là Linh Vật IUH! Hôm nay mình đang chế tạo Thiết Bị Tự Động Hóa Khuôn Viên nhưng lỡ làm rơi mất 3 Vi Mạch Năng Lượng ở quanh trường!\n\nBạn có thể giúp mình nhặt lại 3 Vi Mạch không? Mình sẽ tặng bạn 150 Vàng và Huy Hiệu Bạn Thân Linh Vật!",
                     actionButtonText: "Nhận Thử Thách Ngay!",
-                    onAction: () =>
-                    {
-                        mgr.AcceptMascotQuest();
-                    }
+                    onAction: () => mgr.AcceptMascotQuest()
                 );
+                return;
             }
-            else if (mgr.MascotState == MascotQuestState.InProgress)
+
+            if (mgr.MascotState == MascotQuestState.InProgress)
             {
-                if (mgr.MascotItemsCollected >= mgr.MascotItemsTarget)
-                {
-                    IUHCampusActivitiesHUD.Instance?.OpenMascotDialog(
-                        title: "🎉 HOÀN THÀNH THỬ THÁCH!",
-                        message: "Woa! Bạn đã tìm đủ 3 Vi Mạch Năng Lượng rồi! Cảm ơn bạn rất nhiều, bạn thật là một sinh viên IUH tuyệt vời!\n\nĐây là phần thưởng dành cho bạn!",
-                        actionButtonText: "Nhận 150 Vàng & Huy Hiệu",
-                        onAction: () =>
-                        {
-                            mgr.CompleteMascotQuest(() =>
-                            {
-                                PlayCelebration();
-                            });
-                        }
-                    );
-                }
-                else
-                {
-                    IUHCampusActivitiesHUD.Instance?.OpenMascotDialog(
-                        title: "🤖 LINH VẬT ĐANG CHỜ BẠN...",
-                        message: $"Bạn đã tìm được {mgr.MascotItemsCollected}/{mgr.MascotItemsTarget} Vi Mạch Năng Lượng.\n\nHãy quan sát các luồng sáng phát ra quanh sân trường để nhặt đủ nhé!",
-                        actionButtonText: "Tiếp Tục Tìm Kiếm",
-                        onAction: null
-                    );
-                }
+                ShowInProgressDialog(mgr);
+                return;
             }
-            else // Completed
+
+            IUHCampusActivitiesHUD.Instance?.OpenMascotDialog(
+                title: "✨ CẢM ƠN BẠN THÂN LINH VẬT!",
+                message: "Cảm ơn bạn đã giúp đỡ mình hôm nay! Thiết bị đã hoạt động trơn tru rồi. Hãy tiếp tục khám phá các sự kiện khác trong trường và quay lại vào ngày mai nhé!",
+                actionButtonText: "Tuyệt Vời!",
+                onAction: null
+            );
+        }
+
+        private void ShowInProgressDialog(IUHCampusDailyActivitiesManager mgr)
+        {
+            if (mgr.MascotItemsCollected >= mgr.MascotItemsTarget)
             {
                 IUHCampusActivitiesHUD.Instance?.OpenMascotDialog(
-                    title: "✨ CẢM ƠN BẠN THÂN LINH VẬT!",
-                    message: "Cảm ơn bạn đã giúp đỡ mình hôm nay! Thiết bị đã hoạt động trơn tru rồi. Hãy tiếp tục khám phá các sự kiện khác trong trường và quay lại vào ngày mai nhé!",
-                    actionButtonText: "Tuyệt Vời!",
-                    onAction: null
+                    title: "🎉 HOÀN THÀNH THỬ THÁCH!",
+                    message: "Woa! Bạn đã tìm đủ 3 Vi Mạch Năng Lượng rồi! Cảm ơn bạn rất nhiều, bạn thật là một sinh viên IUH tuyệt vời!\n\nĐây là phần thưởng dành cho bạn!",
+                    actionButtonText: "Nhận 150 Vàng & Huy Hiệu",
+                    onAction: () => mgr.CompleteMascotQuest(() => PlayCelebration())
                 );
+                return;
             }
+
+            IUHCampusActivitiesHUD.Instance?.OpenMascotDialog(
+                title: "🤖 LINH VẬT ĐANG CHỜ BẠN...",
+                message: $"Bạn đã tìm được {mgr.MascotItemsCollected}/{mgr.MascotItemsTarget} Vi Mạch Năng Lượng.\n\nHãy quan sát các luồng sáng phát ra quanh sân trường để nhặt đủ nhé!",
+                actionButtonText: "Tiếp Tục Tìm Kiếm",
+                onAction: null
+            );
         }
 
         public void PlayCelebration()
