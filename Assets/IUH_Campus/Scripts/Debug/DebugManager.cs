@@ -23,21 +23,13 @@ namespace IUHCampus.Debugging
 
         private void OnDrawGizmos()
         {
-            if (!showGizmos) return;
+            if (!showGizmos || !showSpawnPoints || PlayerSpawnManager.Instance == null) return;
 
-            if (showSpawnPoints)
+            Gizmos.color = Color.magenta;
+            foreach (var sp in PlayerSpawnManager.Instance.spawnPoints)
             {
-                Gizmos.color = Color.magenta;
-                if (PlayerSpawnManager.Instance != null)
-                {
-                    foreach (var sp in PlayerSpawnManager.Instance.spawnPoints)
-                    {
-                        if (sp.spawnTransform != null)
-                        {
-                            Gizmos.DrawWireCube(sp.spawnTransform.position + Vector3.up * 1f, new Vector3(0.8f, 2f, 0.8f));
-                        }
-                    }
-                }
+                if (sp.spawnTransform == null) continue;
+                Gizmos.DrawWireCube(sp.spawnTransform.position + Vector3.up * 1f, new Vector3(0.8f, 2f, 0.8f));
             }
         }
     }
