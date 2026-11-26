@@ -329,66 +329,79 @@ namespace IUHCampus.DailyActivities
             outline.effectColor = spot.isUnlocked ? new Color(0f, 0.85f, 1f, 0.8f) : new Color(0.4f, 0.4f, 0.4f, 0.4f);
             outline.effectDistance = new Vector2(2f, -2f);
 
-            // Title
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            CreateCardTitle(card.transform, spot, font);
+            CreateCardPhotoBox(card.transform, spot, font);
+            CreateCardDescription(card.transform, spot, font);
+            return card;
+        }
+
+        private static void CreateCardTitle(Transform parent, CheckInRecord spot, Font font)
+        {
             GameObject titleGo = new GameObject("Title", typeof(RectTransform), typeof(Text));
-            titleGo.transform.SetParent(card.transform, false);
+            titleGo.transform.SetParent(parent, false);
             var titleTxt = titleGo.GetComponent<Text>();
-            titleTxt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            titleTxt.font = font;
             titleTxt.text = spot.spotName;
             titleTxt.fontSize = 15;
             titleTxt.fontStyle = FontStyle.Bold;
             titleTxt.alignment = TextAnchor.MiddleCenter;
             titleTxt.color = spot.isUnlocked ? new Color(1f, 0.9f, 0.3f) : new Color(0.6f, 0.6f, 0.6f);
+
             var titleRt = titleGo.GetComponent<RectTransform>();
             titleRt.anchorMin = new Vector2(0f, 1f);
             titleRt.anchorMax = new Vector2(1f, 1f);
             titleRt.pivot = new Vector2(0.5f, 1f);
             titleRt.anchoredPosition = new Vector2(0f, -12f);
             titleRt.sizeDelta = new Vector2(-16f, 34f);
+        }
 
-            // Photo Placeholder Image Box
+        private static void CreateCardPhotoBox(Transform parent, CheckInRecord spot, Font font)
+        {
             GameObject photoBox = new GameObject("PhotoBox", typeof(RectTransform), typeof(Image));
-            photoBox.transform.SetParent(card.transform, false);
+            photoBox.transform.SetParent(parent, false);
             var photoImg = photoBox.GetComponent<Image>();
             photoImg.color = spot.isUnlocked ? new Color(0.15f, 0.35f, 0.5f, 1f) : new Color(0.2f, 0.2f, 0.2f, 0.8f);
+
             var photoRt = photoBox.GetComponent<RectTransform>();
             photoRt.anchorMin = new Vector2(0.5f, 0.5f);
             photoRt.anchorMax = new Vector2(0.5f, 0.5f);
             photoRt.sizeDelta = new Vector2(210f, 130f);
             photoRt.anchoredPosition = new Vector2(0f, 30f);
 
-            // Photo Icon / Stamp
             GameObject stampGo = new GameObject("Stamp", typeof(RectTransform), typeof(Text));
             stampGo.transform.SetParent(photoBox.transform, false);
             var stampTxt = stampGo.GetComponent<Text>();
-            stampTxt.font = titleTxt.font;
+            stampTxt.font = font;
             stampTxt.text = spot.isUnlocked ? "📸 ĐÃ CHECK-IN" : "🔒 CHƯA KHÁM PHÁ";
             stampTxt.fontSize = 14;
             stampTxt.fontStyle = FontStyle.Bold;
             stampTxt.alignment = TextAnchor.MiddleCenter;
             stampTxt.color = spot.isUnlocked ? new Color(0.3f, 1f, 0.5f) : new Color(0.7f, 0.7f, 0.7f);
+
             var stampRt = stampGo.GetComponent<RectTransform>();
             stampRt.anchorMin = Vector2.zero;
             stampRt.anchorMax = Vector2.one;
             stampRt.sizeDelta = Vector2.zero;
+        }
 
-            // Description
+        private static void CreateCardDescription(Transform parent, CheckInRecord spot, Font font)
+        {
             GameObject descGo = new GameObject("Desc", typeof(RectTransform), typeof(Text));
-            descGo.transform.SetParent(card.transform, false);
+            descGo.transform.SetParent(parent, false);
             var descTxt = descGo.GetComponent<Text>();
-            descTxt.font = titleTxt.font;
+            descTxt.font = font;
             descTxt.text = spot.isUnlocked ? $"{spot.description}\n\n<i>{spot.badgeName}</i>" : "Hãy tìm đến địa điểm này trong khuôn viên để chụp ảnh và mở khóa kỷ niệm!";
             descTxt.fontSize = 11;
             descTxt.color = spot.isUnlocked ? new Color(0.9f, 0.95f, 1f, 0.9f) : new Color(0.5f, 0.5f, 0.5f, 0.8f);
             descTxt.alignment = TextAnchor.UpperLeft;
+
             var descRt = descGo.GetComponent<RectTransform>();
             descRt.anchorMin = new Vector2(0f, 0f);
             descRt.anchorMax = new Vector2(1f, 0.5f);
             descRt.pivot = new Vector2(0.5f, 0.5f);
             descRt.anchoredPosition = new Vector2(0f, -50f);
             descRt.sizeDelta = new Vector2(-20f, 75f);
-
-            return card;
         }
 
         // ================= SHUTTER FLASH ================= //

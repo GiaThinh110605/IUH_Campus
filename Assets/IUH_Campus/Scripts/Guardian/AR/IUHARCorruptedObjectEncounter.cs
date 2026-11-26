@@ -155,62 +155,74 @@ namespace IUHCampus.Guardian.AR
             if (m_ARCamera == null) m_ARCamera = Camera.main;
             if (m_PlayerTransform == null) FindReferences();
 
-            bool tapRequested = false;
-            Vector2 tapPos = Vector2.zero;
+            float playerDist = GetPlayerDistance();
+            if (UpdateProximityTrigger(playerDist)) return;
 
-            // Kiểm tra cự ly: Nếu đứng sát trong vòng 5 giây sẽ tự động vào trận Match-3
-            if (m_PlayerTransform == null) FindReferences();
-            float playerDist = m_PlayerTransform != null 
-                ? Vector3.Distance(m_PlayerTransform.position, transform.position)
-                : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 999f);
-
-            if (playerDist <= m_InteractionDistance)
-            {
-                m_ProximityTimer += Time.deltaTime;
-                if (m_ProximityTimer >= PROXIMITY_TRIGGER_SECONDS)
-                {
-                    m_ProximityTimer = 0f;
-                    StartCombatEncounter();
-                    return;
-                }
-            }
-            else
-            {
-                m_ProximityTimer = 0f;
-            }
-
-            // 1. Cảm ứng chạm màn hình điện thoại (Touch)
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == UnityEngine.TouchPhase.Began)
-            {
-                tapRequested = true;
-                tapPos = Input.GetTouch(0).position;
-            }
-            // 2. Click chuột trái trên máy tính
-            else if (Input.GetMouseButtonDown(0))
-            {
-                tapRequested = true;
-                tapPos = Input.mousePosition;
-            }
-
-            // 3. Phím tắt [E] hoặc [Space] hoặc nút ảo Interact trên Mobile Controls UI
             if (playerDist <= m_InteractionDistance && IUHInputHelper.IsInteractKeyDown())
             {
                 StartCombatEncounter();
                 return;
             }
 
-            if (tapRequested && m_ARCamera != null)
+            if (TryGetPointerTap(out Vector2 tapPos) && m_ARCamera != null)
             {
-                Ray ray = m_ARCamera.ScreenPointToRay(tapPos);
-                if (Physics.Raycast(ray, out RaycastHit hit, 35f))
-                {
-                    if (hit.transform.IsChildOf(m_MonsterObject.transform) ||
-                        (m_ActiveCorruptedObject != null && hit.transform.IsChildOf(m_ActiveCorruptedObject.transform)) ||
-                        hit.transform.IsChildOf(transform))
-                    {
-                        StartCombatEncounter();
-                    }
-                }
+                TryRaycastEncounterTap(tapPos);
+            }
+        }
+
+        private float GetPlayerDistance()
+        {
+            if (m_PlayerTransform != null)
+                return Vector3.Distance(m_PlayerTransform.position, transform.position);
+            if (m_ARCamera != null)
+                return Vector3.Distance(m_ARCamera.transform.position, transform.position);
+            return 999f;
+        }
+
+        private bool UpdateProximityTrigger(float playerDist)
+        {
+            if (playerDist > m_InteractionDistance)
+            {
+                m_ProximityTimer = 0f;
+                return false;
+            }
+
+            m_ProximityTimer += Time.deltaTime;
+            if (m_ProximityTimer >= PROXIMITY_TRIGGER_SECONDS)
+            {
+                m_ProximityTimer = 0f;
+                StartCombatEncounter();
+                return true;
+            }
+            return false;
+        }
+
+        private static bool TryGetPointerTap(out Vector2 tapPos)
+        {
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == UnityEngine.TouchPhase.Began)
+            {
+                tapPos = Input.GetTouch(0).position;
+                return true;
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                tapPos = Input.mousePosition;
+                return true;
+            }
+            tapPos = Vector2.zero;
+            return false;
+        }
+
+        private void TryRaycastEncounterTap(Vector2 tapPos)
+        {
+            Ray ray = m_ARCamera.ScreenPointToRay(tapPos);
+            if (!Physics.Raycast(ray, out RaycastHit hit, 35f)) return;
+
+            bool hitMonster = m_MonsterObject != null && hit.transform.IsChildOf(m_MonsterObject.transform);
+            bool hitProp = m_ActiveCorruptedObject != null && hit.transform.IsChildOf(m_ActiveCorruptedObject.transform);
+            if (hitMonster || hitProp || hit.transform.IsChildOf(transform))
+            {
+                StartCombatEncounter();
             }
         }
 
@@ -232,51 +244,52 @@ namespace IUHCampus.Guardian.AR
 
         private IEnumerator SpawnSequenceRoutine()
         {
-            // 1. Lựa chọn và kích hoạt loại vật thể nhiễm độc
             SelectAndActivateCorruptedObject();
+            yield return AnimateObjectPopIn(m_ActiveCorruptedObject);
 
-            // Hiệu ứng phình to vật thể (Pop-in animation)
-            if (m_ActiveCorruptedObject != null)
-            {
-                m_ActiveCorruptedObject.transform.localScale = Vector3.zero;
-                float elapsed = 0f;
-                while (elapsed < 0.45f)
-                {
-                    elapsed += Time.deltaTime;
-                    float t = elapsed / 0.45f;
-                    m_ActiveCorruptedObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.25f, Mathf.SmoothStep(0f, 1f, t));
-                    yield return null;
-                }
-            }
-
-            // 2. Bùng nổ khói tím & tia chớp pixel glitch
             if (m_PurpleSmokeParticles != null) m_PurpleSmokeParticles.Play();
             if (m_GlitchPixelParticles != null) m_GlitchPixelParticles.Play();
             if (m_PurpleAuraLight != null) m_PurpleAuraLight.enabled = true;
 
-            if (m_AutoPlaceOnStart)
-            {
-                // Trong khuôn viên trường 3D: vật thể nằm bốc khói tím cảnh báo,
-                // chờ sinh viên tiến lại gần thì quái vật mới thức tỉnh!
-                while (true)
-                {
-                    if (m_PlayerTransform == null) FindReferences();
-                    float dist = m_PlayerTransform != null 
-                        ? Vector3.Distance(m_PlayerTransform.position, transform.position) 
-                        : (m_ARCamera != null ? Vector3.Distance(m_ARCamera.transform.position, transform.position) : 999f);
-
-                    if (dist <= m_AwakenDistance) break;
-                    yield return new WaitForSeconds(0.2f);
-                }
-            }
+            if (m_AutoPlaceOnStart) yield return WaitUntilPlayerAwakens();
 
             IUHCombatAudio.PlayShield();
             IUHCameraShake.Shake(0.18f, 0.25f);
             IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 0.9f, "⚠️ DỊ TƯỢNG XUẤT HIỆN: DỮ LIỆU BỊ NHIỄM ĐỘC!", new Color(0.85f, 0.2f, 1f), 1.5f);
-
             yield return new WaitForSeconds(0.7f);
 
-            // 3. Quái vật Cyber Demon bước ra từ tâm lốc xoáy khói tím
+            yield return AnimateMonsterEmerge();
+
+            m_IsMonsterActive = true;
+            if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(true);
+            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.8f, "⚡ CHẠM ĐỂ CHIẾN ĐẤU [MATCH-3 RPG]!", new Color(0.15f, 0.95f, 1f), 1.5f);
+        }
+
+        private static IEnumerator AnimateObjectPopIn(GameObject target)
+        {
+            if (target == null) yield break;
+            target.transform.localScale = Vector3.zero;
+            const float duration = 0.45f;
+            for (float elapsed = 0f; elapsed < duration; elapsed += Time.deltaTime)
+            {
+                float t = elapsed / duration;
+                target.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.25f, Mathf.SmoothStep(0f, 1f, t));
+                yield return null;
+            }
+        }
+
+        private IEnumerator WaitUntilPlayerAwakens()
+        {
+            while (true)
+            {
+                if (m_PlayerTransform == null) FindReferences();
+                if (GetPlayerDistance() <= m_AwakenDistance) yield break;
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        private IEnumerator AnimateMonsterEmerge()
+        {
             if (m_MonsterObject != null)
             {
                 m_MonsterObject.SetActive(true);
@@ -287,27 +300,17 @@ namespace IUHCampus.Guardian.AR
             IUHCombatAudio.PlayBossRoar();
             IUHCameraShake.Shake(0.28f, 0.45f);
 
-            float spawnDuration = 0.85f;
-            float time = 0f;
-            while (time < spawnDuration)
+            const float spawnDuration = 0.85f;
+            for (float time = 0f; time < spawnDuration; time += Time.deltaTime)
             {
-                time += Time.deltaTime;
-                float t = time / spawnDuration;
-                float easeOut = Mathf.Sin(t * Mathf.PI * 0.5f);
-
+                float easeOut = Mathf.Sin((time / spawnDuration) * Mathf.PI * 0.5f);
                 if (m_MonsterObject != null)
                 {
-                    // Bước trồi lên mặt đất và mở rộng hình thể
                     m_MonsterObject.transform.localPosition = Vector3.Lerp(new Vector3(0f, -0.6f, 0.45f), new Vector3(0f, 0f, 0.65f), easeOut);
                     m_MonsterObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.4f, easeOut);
                 }
                 yield return null;
             }
-
-            m_IsMonsterActive = true;
-            if (m_TapPromptCanvas != null) m_TapPromptCanvas.SetActive(true);
-
-            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.8f, "⚡ CHẠM ĐỂ CHIẾN ĐẤU [MATCH-3 RPG]!", new Color(0.15f, 0.95f, 1f), 1.5f);
         }
 
         private void SelectAndActivateCorruptedObject()
@@ -412,25 +415,8 @@ namespace IUHCampus.Guardian.AR
 
         private IEnumerator PurificationSequenceRoutine()
         {
-            // 1. Quái vật tan biến trong bụi sáng vàng kim
-            if (m_MonsterObject != null)
-            {
-                float fadeDuration = 0.6f;
-                float elapsed = 0f;
-                Vector3 initScale = m_MonsterObject.transform.localScale;
+            yield return FadeOutMonsterRoutine();
 
-                while (elapsed < fadeDuration)
-                {
-                    elapsed += Time.deltaTime;
-                    float t = elapsed / fadeDuration;
-                    m_MonsterObject.transform.localScale = Vector3.Lerp(initScale, Vector3.zero, t);
-                    m_MonsterObject.transform.position += Vector3.up * 0.8f * Time.deltaTime;
-                    yield return null;
-                }
-                m_MonsterObject.SetActive(false);
-            }
-
-            // 2. Chuyển khói tím sang hào quang Thanh Tẩy Xanh Ngọc
             if (m_PurpleSmokeParticles != null) m_PurpleSmokeParticles.Stop();
             if (m_GlitchPixelParticles != null) m_GlitchPixelParticles.Stop();
 
@@ -443,7 +429,6 @@ namespace IUHCampus.Guardian.AR
             IUHCombatAudio.PlayHeal();
             IUHCombatAudio.PlayCoin();
 
-            // 3. Trao thưởng vào túi đồ sinh viên IUH
             if (IUHGuardianInventory.Instance != null)
             {
                 IUHGuardianInventory.Instance.AddGold(m_RewardGold);
@@ -451,19 +436,31 @@ namespace IUHCampus.Guardian.AR
             }
 
             IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 1.6f, $"✨ ĐÃ THANH TẨY! +{m_RewardGold} VÀNG & {m_RewardItem}!", new Color(0.3f, 1f, 0.5f), 1.8f);
-
             yield return new WaitForSeconds(3.0f);
+            yield return FadeAuraLightRoutine(5f, 0.8f, 1.5f);
+        }
 
-            // Giảm dần ánh sáng xanh ngọc
-            if (m_PurpleAuraLight != null)
+        private IEnumerator FadeOutMonsterRoutine()
+        {
+            if (m_MonsterObject == null) yield break;
+            const float fadeDuration = 0.6f;
+            Vector3 initScale = m_MonsterObject.transform.localScale;
+            for (float elapsed = 0f; elapsed < fadeDuration; elapsed += Time.deltaTime)
             {
-                float t = 0f;
-                while (t < 1.5f)
-                {
-                    t += Time.deltaTime;
-                    m_PurpleAuraLight.intensity = Mathf.Lerp(5f, 0.8f, t / 1.5f);
-                    yield return null;
-                }
+                m_MonsterObject.transform.localScale = Vector3.Lerp(initScale, Vector3.zero, elapsed / fadeDuration);
+                m_MonsterObject.transform.position += Vector3.up * 0.8f * Time.deltaTime;
+                yield return null;
+            }
+            m_MonsterObject.SetActive(false);
+        }
+
+        private IEnumerator FadeAuraLightRoutine(float fromIntensity, float toIntensity, float duration)
+        {
+            if (m_PurpleAuraLight == null) yield break;
+            for (float t = 0f; t < duration; t += Time.deltaTime)
+            {
+                m_PurpleAuraLight.intensity = Mathf.Lerp(fromIntensity, toIntensity, t / duration);
+                yield return null;
             }
         }
     }

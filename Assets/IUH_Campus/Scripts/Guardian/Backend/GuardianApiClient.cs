@@ -6,6 +6,16 @@ namespace IUHCampus.Guardian.Backend
 {
     public sealed partial class GuardianApiClient
     {
+        private const int HttpOk = 200;
+        private const int HttpCreated = 201;
+        private const int HttpSuccessMaxExclusive = 300;
+        private const int HttpNotFound = 404;
+        private const int HttpRequestTimeout = 408;
+        private const int HttpConflict = 409;
+        private const int HttpGone = 410;
+        private const int HttpTooManyRequests = 429;
+        private const int HttpServerErrorMin = 500;
+
         private readonly GuardianBackendConfig config;
         private readonly IGuardianHttpTransport transport;
         public GuardianApiClient(GuardianBackendConfig config, IGuardianHttpTransport transport = null)
@@ -22,10 +32,18 @@ namespace IUHCampus.Guardian.Backend
             catch (System.Net.WebException) { return new GuardianHttpResponse { NetworkError = true }; }
         }
 
-        private static GuardianRequestStatus Status(GuardianHttpResponse r) => r.NetworkError || r.StatusCode == 0 ?
-            GuardianRequestStatus.NetworkError : r.StatusCode >= 500 || r.StatusCode == 408 || r.StatusCode == 429 ? GuardianRequestStatus.ServerError :
-            r.StatusCode == 409 ? GuardianRequestStatus.Conflict : r.StatusCode >= 200 && r.StatusCode < 300 ?
-            GuardianRequestStatus.Success : GuardianRequestStatus.Invalid;
+        private static GuardianRequestStatus Status(GuardianHttpResponse r)
+        {
+            if (r.NetworkError || r.StatusCode == 0)
+                return GuardianRequestStatus.NetworkError;
+            if (r.StatusCode >= HttpServerErrorMin || r.StatusCode == HttpRequestTimeout || r.StatusCode == HttpTooManyRequests)
+                return GuardianRequestStatus.ServerError;
+            if (r.StatusCode == HttpConflict)
+                return GuardianRequestStatus.Conflict;
+            if (r.StatusCode >= HttpOk && r.StatusCode < HttpSuccessMaxExclusive)
+                return GuardianRequestStatus.Success;
+            return GuardianRequestStatus.Invalid;
+        }
 
         public async Awaitable<HealthResult> GetHealthAsync(CancellationToken cancellationToken = default)
         {
@@ -76,8 +94,8 @@ namespace IUHCampus.Guardian.Backend
             try
             {
                 var dto = JsonUtility.FromJson<EventDto>(r.Body);
-                if (dto == null || dto.event_id != value.EventId || (r.StatusCode == 201 ? dto.status != "recorded" :
-                    r.StatusCode != 200 || dto.status != "duplicate")) throw new ArgumentException();
+                if (dto == null || dto.event_id != value.EventId || (r.StatusCode == HttpCreated ? dto.status != "recorded" :
+                    r.StatusCode != HttpOk || dto.status != "duplicate")) throw new ArgumentException();
                 result.Outcome = dto.status == "recorded" ? GuardianEventOutcome.Recorded : GuardianEventOutcome.Duplicate;
                 result.CoreAwarded = dto.core_awarded; result.Cloud = dto.cloud;
             }

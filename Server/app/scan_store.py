@@ -8,6 +8,9 @@ import time
 from uuid import uuid4
 
 MONSTER_FEED = "guardian-monsters-revealed"
+MAX_INFECTED_PER_SESSION = 2
+SECONDS_PER_MINUTE = 60
+TOKEN_BYTES = 32
 SCAN_SCHEMA = """
 CREATE TABLE IF NOT EXISTS scan_sessions(
  id TEXT PRIMARY KEY, game_session_id TEXT NOT NULL, infected_classes TEXT NOT NULL,
@@ -58,22 +61,52 @@ class ScanStore:
         self.max_active = config["SCAN_MAX_ACTIVE_PER_GAME_SESSION"]
         self.cooldown = config["SCAN_COOLDOWN_SECONDS"]
         self.max_sessions = config["SCAN_MAX_SESSIONS_PER_GAME_SESSION"]
+        self.ttl = config["SCAN_SESSION_TTL_MINUTES"] * SECONDS_PER_MINUTE
+        self._validate_basic_limits()
+        self.classes = self._parse_pool(config)
+        self.hints = json.loads(Path(config["SCAN_HINTS_PATH"]).read_text(encoding="utf-8"))
+        self._validate_pool_and_hints()
+        self.minimum = min(self.minimum, len(self.classes))
+        self.maximum = min(self.maximum, len(self.classes))
+
+    def _validate_basic_limits(self):
         if self.max_active < 1 or self.max_sessions < 1 or not math.isfinite(self.cooldown) or self.cooldown < 0:
             raise ValueError("Invalid scan configuration")
-        self.ttl = config["SCAN_SESSION_TTL_MINUTES"] * 60
+
+    @staticmethod
+    def _parse_pool(config):
         pool = config["SCAN_INFECTED_POOL"]
         if not isinstance(pool, str):
             raise ValueError("Invalid SCAN_INFECTED_POOL: expected comma-separated class names")
-        self.classes = tuple(dict.fromkeys(label.strip() for label in pool.split(",") if label.strip()))
-        if not self.classes or any(label not in config["ALLOWED_CLASSES"] for label in self.classes):
+        classes = tuple(dict.fromkeys(label.strip() for label in pool.split(",") if label.strip()))
+        if not classes or any(label not in config["ALLOWED_CLASSES"] for label in classes):
             raise ValueError("Invalid SCAN_INFECTED_POOL: must be non-empty and contain only ALLOWED_CLASSES")
-        self.hints = json.loads(Path(config["SCAN_HINTS_PATH"]).read_text(encoding="utf-8"))
-        if (not 1 <= self.minimum <= self.maximum <= 2 or
-                not math.isfinite(self.ttl) or self.ttl <= 0 or
-                any(not isinstance(self.hints.get(label), str) or not self.hints[label] for label in self.classes)):
+        return classes
+
+    def _validate_pool_and_hints(self):
+        if (
+            not 1 <= self.minimum <= self.maximum <= MAX_INFECTED_PER_SESSION
+            or not math.isfinite(self.ttl)
+            or self.ttl <= 0
+            or any(not isinstance(self.hints.get(label), str) or not self.hints[label] for label in self.classes)
+        ):
             raise ValueError("Invalid scan configuration")
-        self.minimum = min(self.minimum, len(self.classes))
-        self.maximum = min(self.maximum, len(self.classes))
+
+    def _rejection(self, db, rows, now):
+        active = [
+            row
+            for row in rows
+            if row["expires_at"] > now
+            and self._revealed(db, row["id"]) < len(json.loads(row["infected_classes"]))
+        ]
+        if len(active) >= self.max_active:
+            return ScanSessionError("scan_session_active", 409, scan_session_id=active[0]["id"])
+        if len(rows) >= self.max_sessions:
+            return ScanSessionError("scan_limit_reached", 429)
+        if rows and now < rows[0]["created_at"] + self.cooldown:
+            retry_after = math.ceil(rows[0]["created_at"] + self.cooldown - now)
+            return ScanSessionError("scan_cooldown", 429, retry_after=retry_after)
+        return None
 
     def create(self, game_session_id):
         random = secrets.SystemRandom()
@@ -82,24 +115,29 @@ class ScanStore:
         now, scan_id = self.clock(), str(uuid4())
         rejection = None
         with self.store.transaction() as db:
-            rows = db.execute("SELECT * FROM scan_sessions WHERE game_session_id=? ORDER BY created_at DESC", (game_session_id,)).fetchall()
-            active = [row for row in rows if row["expires_at"] > now and
-                      self._revealed(db, row["id"]) < len(json.loads(row["infected_classes"]))]
-            if len(active) >= self.max_active:
-                rejection = ScanSessionError("scan_session_active", 409, scan_session_id=active[0]["id"])
-            elif len(rows) >= self.max_sessions:
-                rejection = ScanSessionError("scan_limit_reached", 429)
-            elif rows and now < rows[0]["created_at"] + self.cooldown:
-                rejection = ScanSessionError("scan_cooldown", 429, retry_after=math.ceil(rows[0]["created_at"] + self.cooldown - now))
+            rows = db.execute(
+                "SELECT * FROM scan_sessions WHERE game_session_id=? ORDER BY created_at DESC",
+                (game_session_id,),
+            ).fetchall()
+            rejection = self._rejection(db, rows, now)
             if rejection:
-                db.execute("INSERT INTO scan_rejections VALUES(?,1) ON CONFLICT(reason) DO UPDATE SET count=count+1", (rejection.error,))
+                db.execute(
+                    "INSERT INTO scan_rejections VALUES(?,1) ON CONFLICT(reason) DO UPDATE SET count=count+1",
+                    (rejection.error,),
+                )
             else:
-                db.execute("INSERT INTO scan_sessions VALUES(?,?,?,?,?,?)",
-                       (scan_id, game_session_id, json.dumps(infected), hint, now, now + self.ttl))
+                db.execute(
+                    "INSERT INTO scan_sessions VALUES(?,?,?,?,?,?)",
+                    (scan_id, game_session_id, json.dumps(infected), hint, now, now + self.ttl),
+                )
         if rejection:
             raise rejection
-        return {"scan_session_id": scan_id, "hint": hint, "max_monsters": len(infected),
-                "expires_at": self._iso(now + self.ttl)}
+        return {
+            "scan_session_id": scan_id,
+            "hint": hint,
+            "max_monsters": len(infected),
+            "expires_at": self._iso(now + self.ttl),
+        }
 
     def _session(self, db, scan_id):
         row = db.execute("SELECT * FROM scan_sessions WHERE id=?", (scan_id,)).fetchone()
@@ -140,7 +178,7 @@ class ScanStore:
                     "monsters_remaining": len(infected) - self._revealed(db, scan_id)}
 
     def _new_reveal(self, db, row, label, cloud_enabled):
-        token, event_id = secrets.token_urlsafe(32), str(uuid4())
+        token, event_id = secrets.token_urlsafe(TOKEN_BYTES), str(uuid4())
         now = self.clock()
         event = {"event_id": event_id, "session_id": row["game_session_id"], "quest_id": "ar_scan",
                  "milestone_id": "ar_monster", "event_type": "monster_revealed", "occurred_at": self._iso(now),

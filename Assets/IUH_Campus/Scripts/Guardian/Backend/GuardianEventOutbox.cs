@@ -12,10 +12,15 @@ namespace IUHCampus.Guardian.Backend
     /// <remarks>Config.maxAttempts is retained for serialized asset compatibility; transient retries have no attempt limit.</remarks>
     public sealed class GuardianEventOutbox
     {
+        private const string OutboxFileName = "guardian_outbox.json";
+        private const int SnapshotVersion = 1;
+        private const double MinDelaySeconds = 0.1;
+        private const int MaxBackoffExponent = 30;
+
         [Serializable] private sealed class Entry
         { public string id, json; public int attempts; public long nextAttemptTicks; }
         [Serializable] private sealed class Snapshot
-        { public int version = 1; public List<Entry> pending = new List<Entry>(); public List<Entry> rejected = new List<Entry>(); }
+        { public int version = SnapshotVersion; public List<Entry> pending = new List<Entry>(); public List<Entry> rejected = new List<Entry>(); }
         private readonly string path;
         private readonly GuardianBackendConfig config;
         private readonly GuardianApiClient client;
@@ -28,8 +33,9 @@ namespace IUHCampus.Guardian.Backend
 
         public GuardianEventOutbox(GuardianBackendConfig config, GuardianApiClient client, string path = null, Func<DateTime> utcNow = null)
         {
-            this.config = config; this.client = client;
-            this.path = path ?? Path.Combine(Application.persistentDataPath, "guardian_outbox.json");
+            this.config = config;
+            this.client = client;
+            this.path = path ?? Path.Combine(Application.persistentDataPath, OutboxFileName);
             this.utcNow = utcNow ?? (() => DateTime.UtcNow);
             state = Load();
         }
@@ -73,34 +79,49 @@ namespace IUHCampus.Guardian.Backend
         {
             if (result.Outcome == GuardianEventOutcome.Recorded || result.Outcome == GuardianEventOutcome.Duplicate)
             {
-                state.pending.RemoveAt(0); Save();
-                StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Synced); return;
+                state.pending.RemoveAt(0);
+                Save();
+                StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Synced);
+                return;
             }
             if (result.Outcome == GuardianEventOutcome.Invalid || result.Outcome == GuardianEventOutcome.Conflict)
             {
-                state.pending.RemoveAt(0); state.rejected.Add(entry); Save();
+                state.pending.RemoveAt(0);
+                state.rejected.Add(entry);
+                Save();
                 Debug.LogWarning("[IUH Guardian] Backend event rejected: " + entry.id + " (" + result.Outcome + ").");
-                StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Failed); return;
+                StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Failed);
+                return;
             }
-            if (entry.attempts < int.MaxValue) entry.attempts++;
-            double seconds = Math.Min(Math.Max(0.1, config.maxBackoffSeconds),
-                Math.Max(0.1, config.retryBaseSeconds) * Math.Pow(2, Math.Min(30, entry.attempts - 1)));
-            entry.nextAttemptTicks = utcNow().AddSeconds(seconds).Ticks;
+            if (entry.attempts < int.MaxValue)
+                entry.attempts++;
+            entry.nextAttemptTicks = utcNow().AddSeconds(ComputeBackoffSeconds(entry.attempts)).Ticks;
             Save();
             StatusChanged?.Invoke(entry.id, GuardianSyncStatus.Pending);
+        }
+
+        private double ComputeBackoffSeconds(int attempts)
+        {
+            double maxBackoff = Math.Max(MinDelaySeconds, config.maxBackoffSeconds);
+            double retryBase = Math.Max(MinDelaySeconds, config.retryBaseSeconds);
+            int exponent = Math.Min(MaxBackoffExponent, attempts - 1);
+            return Math.Min(maxBackoff, retryBase * Math.Pow(2, exponent));
         }
 
         private Snapshot Load()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));
-            if (!File.Exists(path) && File.Exists(path + ".tmp")) File.Move(path + ".tmp", path);
-            if (!File.Exists(path)) return new Snapshot();
+            if (!File.Exists(path) && File.Exists(path + ".tmp"))
+                File.Move(path + ".tmp", path);
+            if (!File.Exists(path))
+                return new Snapshot();
             try
             {
                 var loaded = JsonUtility.FromJson<Snapshot>(File.ReadAllText(path));
-                if (loaded == null || loaded.version != 1 || loaded.pending == null || loaded.rejected == null)
+                if (loaded == null || loaded.version != SnapshotVersion || loaded.pending == null || loaded.rejected == null)
                     throw new ArgumentException();
-                ValidateEntries(loaded.pending); ValidateEntries(loaded.rejected);
+                ValidateEntries(loaded.pending);
+                ValidateEntries(loaded.rejected);
                 return loaded;
             }
             catch (ArgumentException)

@@ -89,7 +89,22 @@ namespace IUHCampus.Combat
 
         private void BuildVisuals()
         {
-            // 1. Grenade Mesh & Cyber Neon Core
+            BuildGrenadeMesh();
+            BuildBeaconLight();
+            BuildCountdownCanvas();
+        }
+
+        private static Material CreateEmissiveLitMaterial(Color baseColor, Color emissionColor)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
+            mat.color = baseColor;
+            mat.EnableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", emissionColor);
+            return mat;
+        }
+
+        private void BuildGrenadeMesh()
+        {
             var coreGo = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             coreGo.name = "Grenade_Core_Mesh";
             coreGo.transform.SetParent(transform, false);
@@ -97,29 +112,22 @@ namespace IUHCampus.Combat
             Destroy(coreGo.GetComponent<Collider>());
 
             m_CoreRenderer = coreGo.GetComponent<Renderer>();
-            m_CoreMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            m_CoreMat.color = new Color(0.12f, 0.16f, 0.22f);
-            m_CoreMat.EnableKeyword("_EMISSION");
-            m_CoreMat.SetColor("_EmissionColor", new Color(1f, 0.45f, 0.05f) * 2f);
+            m_CoreMat = CreateEmissiveLitMaterial(new Color(0.12f, 0.16f, 0.22f), new Color(1f, 0.45f, 0.05f) * 2f);
             if (m_CoreMat.HasProperty("_Metallic")) m_CoreMat.SetFloat("_Metallic", 0.9f);
             if (m_CoreMat.HasProperty("_Smoothness")) m_CoreMat.SetFloat("_Smoothness", 0.85f);
             m_CoreRenderer.sharedMaterial = m_CoreMat;
 
-            // Neon Belt Ring around grenade equator
             var ringGo = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             ringGo.name = "Grenade_Neon_Ring";
             ringGo.transform.SetParent(transform, false);
             ringGo.transform.localScale = new Vector3(0.48f, 0.04f, 0.48f);
             Destroy(ringGo.GetComponent<Collider>());
+            ringGo.GetComponent<Renderer>().sharedMaterial =
+                CreateEmissiveLitMaterial(new Color(1f, 0.7f, 0.1f), new Color(1f, 0.7f, 0.1f) * 4f);
+        }
 
-            var ringRend = ringGo.GetComponent<Renderer>();
-            var ringMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            ringMat.color = new Color(1f, 0.7f, 0.1f);
-            ringMat.EnableKeyword("_EMISSION");
-            ringMat.SetColor("_EmissionColor", new Color(1f, 0.7f, 0.1f) * 4f);
-            ringRend.sharedMaterial = ringMat;
-
-            // 2. Beacon PointLight
+        private void BuildBeaconLight()
+        {
             var lightGo = new GameObject("Beacon_PointLight");
             lightGo.transform.SetParent(transform, false);
             lightGo.transform.localPosition = Vector3.up * 0.2f;
@@ -129,16 +137,17 @@ namespace IUHCampus.Combat
             m_BeaconLight.range = 5f;
             m_BeaconLight.intensity = 3.5f;
             m_BeaconLight.color = new Color(1f, 0.65f, 0.1f);
+        }
 
-            // 3. Floating 3D Countdown Display
+        private void BuildCountdownCanvas()
+        {
             m_TimerCanvasGo = new GameObject("Grenade_Countdown_Canvas");
             m_TimerCanvasGo.transform.SetParent(transform, false);
             m_TimerCanvasGo.transform.localPosition = Vector3.up * 0.65f;
 
             var canvas = m_TimerCanvasGo.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
-            var rt = m_TimerCanvasGo.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(160, 45);
+            m_TimerCanvasGo.GetComponent<RectTransform>().sizeDelta = new Vector2(160, 45);
             m_TimerCanvasGo.transform.localScale = Vector3.one * 0.012f;
 
             var textGo = new GameObject("Timer_Text", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
@@ -313,7 +322,20 @@ namespace IUHCampus.Combat
 
         private void SpawnExplosionVFX(Vector3 point)
         {
-            // Flash Light (Illuminates surroundings)
+            SpawnExplosionFlashLight(point);
+            GameObject fireball = CreateGlowSphere("Fireball_Core_VFX", point + Vector3.up * 0.5f, 0.8f,
+                new Color(1f, 0.35f, 0.05f, 0.95f), new Color(1f, 0.45f, 0.1f) * 8f, out Material fMat);
+            GameObject innerSun = CreateGlowSphere("Fireball_Inner_Sun", point + Vector3.up * 0.5f, 0.5f,
+                Color.white, Color.white * 10f, out Material sMat);
+            GameObject shockwave = CreateShockwaveRing(point, out Material swMat);
+            List<GameObject> sparks = SpawnExplosionSparks(point, 12);
+
+            var runner = new GameObject("Explosion_VFX_Animator").AddComponent<EmptyMonoRunner>();
+            runner.StartCoroutine(AnimateExplosionVFX(fireball, innerSun, shockwave, sparks, fMat, sMat, swMat, runner.gameObject));
+        }
+
+        private static void SpawnExplosionFlashLight(Vector3 point)
+        {
             GameObject flashLightGo = new GameObject("Explosion_Flash_Light");
             flashLightGo.transform.position = point + Vector3.up * 0.8f;
             var fLight = flashLightGo.AddComponent<Light>();
@@ -322,52 +344,36 @@ namespace IUHCampus.Combat
             fLight.intensity = 16f;
             fLight.color = new Color(1f, 0.7f, 0.25f);
             Destroy(flashLightGo, 0.25f);
+        }
 
-            // A. Expanding Core Fireball Sphere
-            GameObject fireball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            fireball.name = "Fireball_Core_VFX";
-            fireball.transform.position = point + Vector3.up * 0.5f;
-            fireball.transform.localScale = Vector3.one * 0.8f;
-            Destroy(fireball.GetComponent<Collider>());
+        private static GameObject CreateGlowSphere(string name, Vector3 pos, float scale, Color color, Color emission, out Material mat)
+        {
+            GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            go.name = name;
+            go.transform.position = pos;
+            go.transform.localScale = Vector3.one * scale;
+            Destroy(go.GetComponent<Collider>());
+            mat = CreateEmissiveLitMaterial(color, emission);
+            go.GetComponent<Renderer>().sharedMaterial = mat;
+            return go;
+        }
 
-            var rend = fireball.GetComponent<Renderer>();
-            var fMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            fMat.color = new Color(1f, 0.35f, 0.05f, 0.95f);
-            fMat.EnableKeyword("_EMISSION");
-            fMat.SetColor("_EmissionColor", new Color(1f, 0.45f, 0.1f) * 8f);
-            rend.sharedMaterial = fMat;
-
-            // B. Inner Electric Sunburst
-            GameObject innerSun = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            innerSun.name = "Fireball_Inner_Sun";
-            innerSun.transform.position = point + Vector3.up * 0.5f;
-            innerSun.transform.localScale = Vector3.one * 0.5f;
-            Destroy(innerSun.GetComponent<Collider>());
-
-            var sRend = innerSun.GetComponent<Renderer>();
-            var sMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            sMat.color = Color.white;
-            sMat.EnableKeyword("_EMISSION");
-            sMat.SetColor("_EmissionColor", Color.white * 10f);
-            sRend.sharedMaterial = sMat;
-
-            // C. Ground Shockwave Ring
+        private static GameObject CreateShockwaveRing(Vector3 point, out Material swMat)
+        {
             GameObject shockwave = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             shockwave.name = "Ground_Shockwave_Ring";
             shockwave.transform.position = point + Vector3.up * 0.1f;
             shockwave.transform.localScale = new Vector3(1f, 0.04f, 1f);
             Destroy(shockwave.GetComponent<Collider>());
+            swMat = CreateEmissiveLitMaterial(new Color(1f, 0.8f, 0.2f, 0.85f), new Color(1f, 0.75f, 0.2f) * 6f);
+            shockwave.GetComponent<Renderer>().sharedMaterial = swMat;
+            return shockwave;
+        }
 
-            var swRend = shockwave.GetComponent<Renderer>();
-            var swMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-            swMat.color = new Color(1f, 0.8f, 0.2f, 0.85f);
-            swMat.EnableKeyword("_EMISSION");
-            swMat.SetColor("_EmissionColor", new Color(1f, 0.75f, 0.2f) * 6f);
-            swRend.sharedMaterial = swMat;
-
-            // D. Sparks / Shrapnel Flying Outward
-            List<GameObject> sparks = new List<GameObject>();
-            int sparkCount = 12;
+        private static List<GameObject> SpawnExplosionSparks(Vector3 point, int sparkCount)
+        {
+            List<GameObject> sparks = new List<GameObject>(sparkCount);
+            Material sharedSparkMat = CreateEmissiveLitMaterial(new Color(1f, 0.9f, 0.3f), new Color(1f, 0.8f, 0.2f) * 10f);
             for (int i = 0; i < sparkCount; i++)
             {
                 var spark = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -375,20 +381,10 @@ namespace IUHCampus.Combat
                 spark.transform.position = point + Vector3.up * 0.4f;
                 spark.transform.localScale = Vector3.one * 0.22f;
                 Destroy(spark.GetComponent<Collider>());
-
-                var spRend = spark.GetComponent<Renderer>();
-                var spMat = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-                spMat.color = new Color(1f, 0.9f, 0.3f);
-                spMat.EnableKeyword("_EMISSION");
-                spMat.SetColor("_EmissionColor", new Color(1f, 0.8f, 0.2f) * 10f);
-                spRend.sharedMaterial = spMat;
-
+                spark.GetComponent<Renderer>().sharedMaterial = sharedSparkMat;
                 sparks.Add(spark);
             }
-
-            // Launch Animation Coroutine
-            var runner = new GameObject("Explosion_VFX_Animator").AddComponent<EmptyMonoRunner>();
-            runner.StartCoroutine(AnimateExplosionVFX(fireball, innerSun, shockwave, sparks, fMat, sMat, swMat, runner.gameObject));
+            return sparks;
         }
 
         private static IEnumerator AnimateExplosionVFX(
@@ -401,69 +397,61 @@ namespace IUHCampus.Combat
             Material swMat,
             GameObject runner)
         {
-            float elapsed = 0f;
-            float duration = 0.5f;
+            const float duration = 0.5f;
+            Vector3[] sparkVels = InitSparkVelocities(sparks.Count);
 
-            // Random velocities for sparks
-            Vector3[] sparkVels = new Vector3[sparks.Count];
-            for (int i = 0; i < sparks.Count; i++)
+            for (float elapsed = 0f; elapsed < duration; elapsed += Time.deltaTime)
             {
-                sparkVels[i] = UnityEngine.Random.onUnitSphere * UnityEngine.Random.Range(14f, 24f);
-                if (sparkVels[i].y < 2f) sparkVels[i].y = Mathf.Abs(sparkVels[i].y) + 2f;
-            }
-
-            while (elapsed < duration)
-            {
-                elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-
-                // Expand fireball
-                if (fireball != null)
-                {
-                    float scale = Mathf.Lerp(0.8f, 9.2f, Mathf.Sin(t * Mathf.PI * 0.5f));
-                    fireball.transform.localScale = Vector3.one * scale;
-
-                    float fade = 1f - t;
-                    fMat.SetColor("_EmissionColor", new Color(1f, 0.45f, 0.1f) * (8f * fade));
-                }
-
-                // Inner electric sun expands fast then fades
-                if (innerSun != null)
-                {
-                    float sunScale = Mathf.Lerp(0.5f, 5.0f, Mathf.Clamp01(t * 2f));
-                    innerSun.transform.localScale = Vector3.one * sunScale;
-                    float sunFade = Mathf.Clamp01(1f - t * 2.5f);
-                    sMat.SetColor("_EmissionColor", Color.white * (10f * sunFade));
-                }
-
-                // Expand ground shockwave ring
-                if (shockwave != null)
-                {
-                    float swScale = Mathf.Lerp(1.2f, 15.5f, t);
-                    shockwave.transform.localScale = new Vector3(swScale, 0.04f, swScale);
-                    float swFade = 1f - t;
-                    swMat.SetColor("_EmissionColor", new Color(1f, 0.75f, 0.2f) * (6f * swFade));
-                }
-
-                // Move sparks
-                for (int i = 0; i < sparks.Count; i++)
-                {
-                    if (sparks[i] != null)
-                    {
-                        sparks[i].transform.position += (sparkVels[i] + Vector3.down * 9.8f * elapsed) * Time.deltaTime;
-                        sparks[i].transform.localScale = Vector3.one * Mathf.Lerp(0.22f, 0.04f, t);
-                    }
-                }
-
+                UpdateExplosionFrame(fireball, innerSun, shockwave, sparks, sparkVels, fMat, sMat, swMat, elapsed, t);
                 yield return null;
             }
 
-            // Cleanup objects
             if (fireball != null) Destroy(fireball);
             if (innerSun != null) Destroy(innerSun);
             if (shockwave != null) Destroy(shockwave);
             foreach (var s in sparks) if (s != null) Destroy(s);
             if (runner != null) Destroy(runner);
+        }
+
+        private static Vector3[] InitSparkVelocities(int count)
+        {
+            Vector3[] sparkVels = new Vector3[count];
+            for (int i = 0; i < count; i++)
+            {
+                sparkVels[i] = UnityEngine.Random.onUnitSphere * UnityEngine.Random.Range(14f, 24f);
+                if (sparkVels[i].y < 2f) sparkVels[i].y = Mathf.Abs(sparkVels[i].y) + 2f;
+            }
+            return sparkVels;
+        }
+
+        private static void UpdateExplosionFrame(
+            GameObject fireball, GameObject innerSun, GameObject shockwave,
+            List<GameObject> sparks, Vector3[] sparkVels,
+            Material fMat, Material sMat, Material swMat, float elapsed, float t)
+        {
+            if (fireball != null)
+            {
+                fireball.transform.localScale = Vector3.one * Mathf.Lerp(0.8f, 9.2f, Mathf.Sin(t * Mathf.PI * 0.5f));
+                fMat.SetColor("_EmissionColor", new Color(1f, 0.45f, 0.1f) * (8f * (1f - t)));
+            }
+            if (innerSun != null)
+            {
+                innerSun.transform.localScale = Vector3.one * Mathf.Lerp(0.5f, 5.0f, Mathf.Clamp01(t * 2f));
+                sMat.SetColor("_EmissionColor", Color.white * (10f * Mathf.Clamp01(1f - t * 2.5f)));
+            }
+            if (shockwave != null)
+            {
+                float swScale = Mathf.Lerp(1.2f, 15.5f, t);
+                shockwave.transform.localScale = new Vector3(swScale, 0.04f, swScale);
+                swMat.SetColor("_EmissionColor", new Color(1f, 0.75f, 0.2f) * (6f * (1f - t)));
+            }
+            for (int i = 0; i < sparks.Count; i++)
+            {
+                if (sparks[i] == null) continue;
+                sparks[i].transform.position += (sparkVels[i] + Vector3.down * 9.8f * elapsed) * Time.deltaTime;
+                sparks[i].transform.localScale = Vector3.one * Mathf.Lerp(0.22f, 0.04f, t);
+            }
         }
     }
 

@@ -150,7 +150,26 @@ namespace IUHCampus.UI
 
         public void AutoWireReferences()
         {
-            // 1. Joystick
+            WireJoystickAndLookZone();
+            WireActionButtons();
+            WireDroneFlightButtons();
+            WireTopRightButtons();
+            CleanupLegacyUtilityButtons();
+            WirePlayerStatusWidgets();
+        }
+
+        private Button FindButton(params string[] paths)
+        {
+            foreach (var path in paths)
+            {
+                var btn = transform.Find(path)?.GetComponent<Button>();
+                if (btn != null) return btn;
+            }
+            return null;
+        }
+
+        private void WireJoystickAndLookZone()
+        {
             if (m_JoystickBase == null)
             {
                 m_JoystickBase = transform.Find("HUD_Movement/VirtualJoystick/JoystickBase")?.GetComponent<RectTransform>()
@@ -161,7 +180,6 @@ namespace IUHCampus.UI
                 m_JoystickHandle = m_JoystickBase.Find("JoystickHandle")?.GetComponent<RectTransform>();
             }
 
-            // 2. Touch Look Zone
             if (m_TouchLookZone == null)
             {
                 m_TouchLookZone = transform.Find("TouchLookZone")?.GetComponent<RectTransform>();
@@ -171,66 +189,41 @@ namespace IUHCampus.UI
                 // Chừa 120px phía trên góc phải để không nuốt touch của cụm nút HUD_TopRight (Camera AR, Kho đồ, Nâng cấp, Cài đặt)
                 m_TouchLookZone.offsetMax = new Vector2(0f, -120f);
             }
+        }
 
-            // 3. Action Buttons
-            if (m_BtnFire == null)
-            {
-                m_BtnFire = transform.Find("HUD_Actions/Fire_Button")?.GetComponent<Button>()
-                    ?? transform.Find("HUD_Actions/BtnFire")?.GetComponent<Button>()
-                    ?? transform.Find("BtnFire")?.GetComponent<Button>();
-            }
-            if (m_BtnInteract == null)
-            {
-                m_BtnInteract = transform.Find("HUD_Actions/Interact_Button")?.GetComponent<Button>()
-                    ?? transform.Find("BtnInteract")?.GetComponent<Button>();
-            }
-            if (m_BtnInteract != null)
-            {
-                m_InteractBtnText = m_BtnInteract.GetComponentInChildren<Text>();
-            }
-            if (m_BtnSprint == null)
-            {
-                m_BtnSprint = transform.Find("HUD_Actions/Run_Button")?.GetComponent<Button>()
-                    ?? transform.Find("BtnSprint")?.GetComponent<Button>();
-            }
-            if (m_BtnJump == null)
-            {
-                m_BtnJump = transform.Find("HUD_Actions/Jump_Button")?.GetComponent<Button>()
-                    ?? transform.Find("BtnJump")?.GetComponent<Button>();
-            }
-            if (m_BtnFireworks == null)
-            {
-                m_BtnFireworks = transform.Find("HUD_Actions/Firework_Button")?.GetComponent<Button>()
-                    ?? transform.Find("BtnFireworks")?.GetComponent<Button>();
-            }
-            if (m_BtnVehicle == null)
-            {
-                m_BtnVehicle = transform.Find("HUD_Actions/Vehicle_Button")?.GetComponent<Button>()
-                    ?? transform.Find("BtnVehicle")?.GetComponent<Button>();
-            }
+        private void WireActionButtons()
+        {
+            if (m_BtnFire == null) m_BtnFire = FindButton("HUD_Actions/Fire_Button", "HUD_Actions/BtnFire", "BtnFire");
+            if (m_BtnInteract == null) m_BtnInteract = FindButton("HUD_Actions/Interact_Button", "BtnInteract");
+            if (m_BtnInteract != null) m_InteractBtnText = m_BtnInteract.GetComponentInChildren<Text>();
+            if (m_BtnSprint == null) m_BtnSprint = FindButton("HUD_Actions/Run_Button", "BtnSprint");
+            if (m_BtnJump == null) m_BtnJump = FindButton("HUD_Actions/Jump_Button", "BtnJump");
+            if (m_BtnFireworks == null) m_BtnFireworks = FindButton("HUD_Actions/Firework_Button", "BtnFireworks");
+            if (m_BtnVehicle == null) m_BtnVehicle = FindButton("HUD_Actions/Vehicle_Button", "BtnVehicle");
+            if (m_BtnAim == null) m_BtnAim = FindButton("HUD_Actions/BtnAim", "BtnAim");
+            if (m_BtnMissile == null) m_BtnMissile = FindButton("HUD_Actions/BtnMissile", "BtnMissile");
+        }
+
+        private void WireDroneFlightButtons()
+        {
             if (m_BtnDroneLaunch == null)
             {
-                m_BtnDroneLaunch = transform.Find("HUD_Actions/Drone_Button")?.GetComponent<Button>()
-                    ?? m_BtnVehicle;
+                m_BtnDroneLaunch = FindButton("HUD_Actions/Drone_Button") ?? m_BtnVehicle;
             }
-
             if (m_DroneControlsRoot == null)
             {
                 m_DroneControlsRoot = transform.Find("HUD_DroneFlightControls")?.gameObject;
             }
-            if (m_DroneControlsRoot != null)
-            {
-                m_BtnDroneAscend = m_DroneControlsRoot.transform.Find("Btn_DroneAscend")?.GetComponent<Button>();
-                m_BtnDroneDescend = m_DroneControlsRoot.transform.Find("Btn_DroneDescend")?.GetComponent<Button>();
-                m_BtnDroneSupply = m_DroneControlsRoot.transform.Find("Btn_DroneSupply")?.GetComponent<Button>();
-                m_BtnDroneExit = m_DroneControlsRoot.transform.Find("Btn_DroneExit")?.GetComponent<Button>();
-            }
+            if (m_DroneControlsRoot == null) return;
 
-            // Combat buttons fallback
-            if (m_BtnAim == null) m_BtnAim = transform.Find("HUD_Actions/BtnAim")?.GetComponent<Button>() ?? transform.Find("BtnAim")?.GetComponent<Button>();
-            if (m_BtnMissile == null) m_BtnMissile = transform.Find("HUD_Actions/BtnMissile")?.GetComponent<Button>() ?? transform.Find("BtnMissile")?.GetComponent<Button>();
+            m_BtnDroneAscend = m_DroneControlsRoot.transform.Find("Btn_DroneAscend")?.GetComponent<Button>();
+            m_BtnDroneDescend = m_DroneControlsRoot.transform.Find("Btn_DroneDescend")?.GetComponent<Button>();
+            m_BtnDroneSupply = m_DroneControlsRoot.transform.Find("Btn_DroneSupply")?.GetComponent<Button>();
+            m_BtnDroneExit = m_DroneControlsRoot.transform.Find("Btn_DroneExit")?.GetComponent<Button>();
+        }
 
-            // 4. Top Right Buttons
+        private void WireTopRightButtons()
+        {
             if (m_BtnInventory == null)
             {
                 m_BtnInventory = transform.Find("HUD_Top/HUD_TopRight/Inventory_Button")?.GetComponent<Button>()
@@ -247,51 +240,53 @@ namespace IUHCampus.UI
                     ?? transform.Find("Settings_Button")?.GetComponent<Button>();
             }
 
-            // AR Camera Button
+            WireARButton();
+
+            if (IUHCampus.Guardian.AR.IUHLiveARController.Instance == null)
+            {
+                new GameObject("IUH_LIVE_AR_CONTROLLER", typeof(IUHCampus.Guardian.AR.IUHLiveARController));
+            }
+        }
+
+        private void WireARButton()
+        {
             if (m_BtnAR == null)
             {
                 m_BtnAR = transform.Find("HUD_Top/HUD_TopRight/AR_Button")?.GetComponent<Button>()
                     ?? transform.Find("AR_Button")?.GetComponent<Button>();
             }
-            if (m_BtnAR == null)
+            if (m_BtnAR != null) return;
+
+            var tr = transform.Find("HUD_Top/HUD_TopRight");
+            if (tr == null) return;
+
+            // Mở rộng HUD_TopRight để chứa đủ 4 nút (Cài đặt, Nâng cấp, Kho đồ, Camera AR)
+            var trRt = tr.GetComponent<RectTransform>();
+            if (trRt != null) trRt.sizeDelta = new Vector2(380f, 90f);
+
+            if (m_BtnSettings == null) return;
+
+            var arGo = Instantiate(m_BtnSettings.gameObject, tr, false);
+            arGo.name = "AR_Button";
+            arGo.GetComponent<RectTransform>().anchoredPosition = new Vector2(-270f, 0f);
+            var bgImg = arGo.GetComponent<Image>();
+            if (bgImg != null) bgImg.raycastTarget = true;
+
+            var txt = arGo.GetComponentInChildren<Text>();
+            if (txt != null)
             {
-                var tr = transform.Find("HUD_Top/HUD_TopRight");
-                if (tr != null)
-                {
-                    // Mở rộng HUD_TopRight để chứa đủ 4 nút (Cài đặt, Nâng cấp, Kho đồ, Camera AR)
-                    var trRt = tr.GetComponent<RectTransform>();
-                    if (trRt != null) trRt.sizeDelta = new Vector2(380f, 90f);
-
-                    if (m_BtnSettings != null)
-                    {
-                        var arGo = Instantiate(m_BtnSettings.gameObject, tr, false);
-                        arGo.name = "AR_Button";
-                        var rt = arGo.GetComponent<RectTransform>();
-                        rt.anchoredPosition = new Vector2(-270f, 0f);
-                        var bgImg = arGo.GetComponent<Image>();
-                        if (bgImg != null) bgImg.raycastTarget = true;
-
-                        var txt = arGo.GetComponentInChildren<Text>();
-                        if (txt != null)
-                        {
-                            txt.text = "Camera AR";
-                            txt.raycastTarget = false;
-                        }
-
-                        var icon = arGo.transform.Find("Icon")?.GetComponent<Image>();
-                        if (icon != null) icon.raycastTarget = false;
-
-                        m_BtnAR = arGo.GetComponent<Button>();
-                    }
-                }
+                txt.text = "Camera AR";
+                txt.raycastTarget = false;
             }
 
-            // Khởi tạo Live AR Controller nếu chưa có
-            if (IUHCampus.Guardian.AR.IUHLiveARController.Instance == null)
-            {
-                var liveArObj = new GameObject("IUH_LIVE_AR_CONTROLLER", typeof(IUHCampus.Guardian.AR.IUHLiveARController));
-            }
+            var icon = arGo.transform.Find("Icon")?.GetComponent<Image>();
+            if (icon != null) icon.raycastTarget = false;
 
+            m_BtnAR = arGo.GetComponent<Button>();
+        }
+
+        private void CleanupLegacyUtilityButtons()
+        {
             // Xóa triệt để 2 nút thô hình chữ nhật cũ: "HƯỚNG DẪN [H]" và "KHO ĐỒ & NÂNG CẤP [B]"
             // nếu còn sót lại từ scene cũ, tránh đè lên cụm nút tròn icon neon hiện đại.
             string[] legacyUglyNames = { "Btn_OpenControlsGuide", "Btn_HUD_OpenShop", "BtnKeyH", "BtnKeyB", "HUD_UtilityKeys" };
@@ -316,8 +311,10 @@ namespace IUHCampus.UI
                 Destroy(m_BtnKeyB.gameObject);
                 m_BtnKeyB = null;
             }
+        }
 
-            // 5. Player Status Widgets
+        private void WirePlayerStatusWidgets()
+        {
             if (m_HealthBarFill == null)
             {
                 m_HealthBarFill = transform.Find("HUD_Top/HUD_PlayerStatus/Health_Bar/Fill")?.GetComponent<Image>();
@@ -344,71 +341,97 @@ namespace IUHCampus.UI
 
         private void Update()
         {
-            if ((m_StarterInputs == null || m_ThirdPersonController == null) &&
-                Time.unscaledTime >= m_NextPlayerSearch)
+            EnsurePlayerReferences();
+
+            var droneCtrl = IUHCampus.Guardian.IUHGuardianDroneController.Instance;
+            bool isDroneActive = droneCtrl != null && droneCtrl.IsControlled;
+
+            EnsureExplorerMovementEnabled(isDroneActive);
+            SyncMovementInput(isDroneActive);
+            SyncTouchLookInput(isDroneActive);
+            ProcessHeldFire();
+
+            UpdateInteractContextLabel();
+            UpdatePlayerStatusUI();
+            SyncTouchLookZoneVisibility();
+            SyncDroneFlightModeUI();
+
+            // Phím F8 giả lập bật tắt UI mobile trên Editor/PC
+            if (Input.GetKeyDown(KeyCode.F8))
             {
-                m_NextPlayerSearch = Time.unscaledTime + IUHPlayerLocator.RetryInterval;
-                var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
-                if (student != null)
-                {
-                    m_StarterInputs = student.GetComponent<StarterAssetsInputs>();
-                    m_ThirdPersonController = student.GetComponent<ThirdPersonController>();
-                }
-                else
-                {
-                    m_ThirdPersonController = FindAnyObjectByType<ThirdPersonController>();
-                    if (m_ThirdPersonController != null)
-                    {
-                        m_StarterInputs = m_ThirdPersonController.GetComponent<StarterAssetsInputs>();
-                    }
-                }
+                m_ForceShowOnPC = !m_ForceShowOnPC;
+                CheckPlatformVisibility();
+            }
+        }
+
+        private void EnsurePlayerReferences()
+        {
+            if (m_StarterInputs != null && m_ThirdPersonController != null) return;
+            if (Time.unscaledTime < m_NextPlayerSearch) return;
+
+            m_NextPlayerSearch = Time.unscaledTime + IUHPlayerLocator.RetryInterval;
+            var student = GameObject.Find("Campus Student") ?? GameObject.Find("PlayerArmature") ?? GameObject.FindGameObjectWithTag("Player");
+            if (student != null)
+            {
+                m_StarterInputs = student.GetComponent<StarterAssetsInputs>();
+                m_ThirdPersonController = student.GetComponent<ThirdPersonController>();
+                return;
             }
 
-            bool isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
-
-            // Đảm bảo controller di chuyển luôn được bật khi ở chế độ khám phá bình thường
-            if (m_ThirdPersonController != null && !isDroneActive && !m_ThirdPersonController.enabled)
+            m_ThirdPersonController = FindAnyObjectByType<ThirdPersonController>();
+            if (m_ThirdPersonController != null)
             {
-                if (!IUHCampus.World.IUHConceptPreviewController.IsAnyUIOpen())
-                {
-                    m_ThirdPersonController.enabled = true;
-                }
+                m_StarterInputs = m_ThirdPersonController.GetComponent<StarterAssetsInputs>();
+            }
+        }
+
+        private void EnsureExplorerMovementEnabled(bool isDroneActive)
+        {
+            if (m_ThirdPersonController == null || isDroneActive || m_ThirdPersonController.enabled) return;
+            if (!IUHCampus.World.IUHConceptPreviewController.IsAnyUIOpen())
+            {
+                m_ThirdPersonController.enabled = true;
+            }
+        }
+
+        private void SyncMovementInput(bool isDroneActive)
+        {
+            if (m_StarterInputs == null) return;
+
+            if (isDroneActive)
+            {
+                // Khi đang lái drone, nhân vật người chơi đứng yên tại chỗ, KHÔNG chạy theo drone
+                m_StarterInputs.MoveInput(Vector2.zero);
+                m_StarterInputs.SprintInput(false);
+                m_StarterInputs.JumpInput(false);
+                return;
             }
 
-            // 1. Đồng bộ di chuyển từ Joystick vào Player controller & Tự động Chạy (Auto-Sprint)
-            if (m_StarterInputs != null)
+            if (m_IsDraggingJoystick && m_InputVector.sqrMagnitude > 0.001f)
             {
-                if (isDroneActive)
+                m_StarterInputs.MoveInput(m_InputVector);
+                // Kéo cần joystick > 65% bán kính -> tự động Chạy nhanh (Sprint)
+                bool autoSprint = m_InputVector.magnitude >= 0.65f || m_IsSprinting;
+                m_StarterInputs.SprintInput(autoSprint);
+                return;
+            }
+
+            if (!m_IsDraggingJoystick)
+            {
+                m_InputVector = Vector2.zero;
+                if (Application.isMobilePlatform && IUHInputHelper.VirtualMoveAxis.sqrMagnitude < 0.001f)
                 {
-                    // Khi đang lái drone, nhân vật người chơi đứng yên tại chỗ, KHÔNG chạy theo drone
                     m_StarterInputs.MoveInput(Vector2.zero);
                     m_StarterInputs.SprintInput(false);
-                    m_StarterInputs.JumpInput(false);
-                }
-                else if (m_IsDraggingJoystick && m_InputVector.sqrMagnitude > 0.001f)
-                {
-                    m_StarterInputs.MoveInput(m_InputVector);
-
-                    // Khi người chơi kéo cần joystick ra xa (> 65% bán kính), nhân vật tự động Chạy nhanh (Sprint)
-                    // Kéo nhẹ (< 65%) thì đi bộ bình thường
-                    bool autoSprint = m_InputVector.magnitude >= 0.65f || m_IsSprinting;
-                    m_StarterInputs.SprintInput(autoSprint);
-                }
-                else if (!m_IsDraggingJoystick)
-                {
-                    m_InputVector = Vector2.zero;
-                    if (Application.isMobilePlatform && IUHInputHelper.VirtualMoveAxis.sqrMagnitude < 0.001f)
-                    {
-                        m_StarterInputs.MoveInput(Vector2.zero);
-                        m_StarterInputs.SprintInput(false);
-                    }
                 }
             }
+        }
 
-            // 2. Đồng bộ xoay camera (Touch Look) mượt mà không khựng, không drift
+        private void SyncTouchLookInput(bool isDroneActive)
+        {
             if (IsTouchLookActive && m_AccumulatedLookDelta.sqrMagnitude > 0.0001f)
             {
-                if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled)
+                if (isDroneActive)
                 {
                     IUHCampus.Core.IUHInputHelper.VirtualDroneLook = new Vector2(m_AccumulatedLookDelta.x, -m_AccumulatedLookDelta.y) * 0.15f;
                     m_AccumulatedLookDelta = Vector2.zero;
@@ -416,64 +439,53 @@ namespace IUHCampus.UI
                 else if (m_StarterInputs != null)
                 {
                     m_StarterInputs.LookInput(m_AccumulatedLookDelta);
-                    m_AccumulatedLookDelta = Vector2.zero; // Tiêu thụ ngay delta frame này
+                    m_AccumulatedLookDelta = Vector2.zero;
                 }
             }
             else if (!IsTouchLookActive && Application.isMobilePlatform && m_StarterInputs != null)
             {
                 m_StarterInputs.LookInput(Vector2.zero);
             }
+        }
 
-            // 3. Xử lý giữ nút Bắn liên thanh trên Mobile (chỉ bắn khi bấm/giữ nút Bắn Súng)
-            if (m_IsFiringHeld)
+        private void ProcessHeldFire()
+        {
+            if (!m_IsFiringHeld) return;
+
+            IUHInputHelper.VirtualFireHeld = true;
+            if (Time.time >= m_NextContinuousFireTime)
             {
-                IUHInputHelper.VirtualFireHeld = true;
-                if (Time.time >= m_NextContinuousFireTime)
-                {
-                    m_NextContinuousFireTime = Time.time + 0.16f;
-                    if (IUHCampusCombatManager.Instance != null)
-                    {
-                        IUHCampusCombatManager.Instance.TryFireGun();
-                    }
-                }
+                m_NextContinuousFireTime = Time.time + 0.16f;
+                IUHCampusCombatManager.Instance?.TryFireGun();
             }
+        }
 
-            // 4. Cập nhật nhãn động cho nút Tương tác [E] (Khinh khí cầu, Xe, NPC)
-            UpdateInteractContextLabel();
-
-            // 5. Đồng bộ thanh máu và Level người chơi
-            UpdatePlayerStatusUI();
-
-            // 6. Tự động ẩn TouchLookZone khi có Modal mở (Album, Balo/Shop, Hướng dẫn) để không chặn cảm ứng bấm nút đóng
+        private void SyncTouchLookZoneVisibility()
+        {
             bool isAnyModalOpen = (IUHCampusActivitiesHUD.Instance != null && (IUHCampusActivitiesHUD.Instance.IsAlbumOpen || IUHCampusActivitiesHUD.Instance.IsMascotDialogOpen))
                 || (IUHCombatHUD.Instance != null && IUHCombatHUD.Instance.IsGuideOpen)
                 || (IUHUpgradeShopUI.Instance != null && IUHUpgradeShopUI.Instance.IsOpen);
 
-            if (m_TouchLookZone != null && m_TouchLookZone.gameObject.activeSelf == isAnyModalOpen)
-            {
-                m_TouchLookZone.gameObject.SetActive(!isAnyModalOpen);
-                if (isAnyModalOpen)
-                {
-                    m_LookPointerId = -999;
-                    IsTouchLookActive = false;
-                    StarterAssets.StarterAssetsInputs.IsTouchLookActive = false;
-                    m_AccumulatedLookDelta = Vector2.zero;
-                }
-            }
+            if (m_TouchLookZone == null || m_TouchLookZone.gameObject.activeSelf != isAnyModalOpen) return;
 
-            // 7. Đồng bộ giao diện điều khiển Drone khi đang bay
-            isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
+            m_TouchLookZone.gameObject.SetActive(!isAnyModalOpen);
+            if (isAnyModalOpen)
+            {
+                m_LookPointerId = -999;
+                IsTouchLookActive = false;
+                StarterAssets.StarterAssetsInputs.IsTouchLookActive = false;
+                m_AccumulatedLookDelta = Vector2.zero;
+            }
+        }
+
+        private void SyncDroneFlightModeUI()
+        {
+            bool isDroneActive = IUHCampus.Guardian.IUHGuardianDroneController.Instance != null
+                && IUHCampus.Guardian.IUHGuardianDroneController.Instance.IsControlled;
             if (isDroneActive != m_LastDroneActiveState)
             {
                 m_LastDroneActiveState = isDroneActive;
                 UpdateDroneFlightModeUI(isDroneActive);
-            }
-
-            // Phím F8 giả lập bật tắt UI mobile trên Editor/PC
-            if (Input.GetKeyDown(KeyCode.F8))
-            {
-                m_ForceShowOnPC = !m_ForceShowOnPC;
-                CheckPlatformVisibility();
             }
         }
 
@@ -574,282 +586,193 @@ namespace IUHCampus.UI
 
         public void SetupButtonListeners()
         {
-            // ===== 1. NÚT TƯƠNG TÁC [E] (Khinh khí cầu / Trận đấu / Dị tượng / Trò chuyện) ===== //
-            if (m_BtnInteract != null)
-            {
-                m_BtnInteract.onClick.RemoveAllListeners();
-                m_BtnInteract.onClick.AddListener(() => {
-                    if (IUHHotAirBalloonController.Instance != null && IUHHotAirBalloonController.Instance.IsPlayerNear)
-                    {
-                        IUHHotAirBalloonController.Instance.ToggleBoardOrLaunch();
-                    }
-                    else
-                    {
-                        IUHInputHelper.VirtualInteractPressed = true;
-                    }
-                    IUHCombatAudio.PlaySword();
-                });
-            }
+            SetupGameplayActionListeners();
+            SetupTopMenuListeners();
+            SetupCombatButtonListeners();
+            SetupLegacyUtilityListeners();
+            SetupDroneFlightListeners();
+        }
 
-            // ===== 2. NÚT CHẠY NHANH [Shift / Turbo] ===== //
-            if (m_BtnSprint != null)
-            {
-                var trigger = m_BtnSprint.gameObject.GetComponent<EventTrigger>() ?? m_BtnSprint.gameObject.AddComponent<EventTrigger>();
-                trigger.triggers.Clear();
+        private static void BindClick(Button btn, UnityEngine.Events.UnityAction action)
+        {
+            if (btn == null) return;
+            btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(action);
+        }
 
-                var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-                down.callback.AddListener((e) => {
+        private static void BindHoldTrigger(
+            Button btn,
+            UnityEngine.Events.UnityAction<BaseEventData> onDown,
+            UnityEngine.Events.UnityAction<BaseEventData> onUp)
+        {
+            if (btn == null) return;
+            var trigger = btn.gameObject.GetComponent<EventTrigger>() ?? btn.gameObject.AddComponent<EventTrigger>();
+            trigger.triggers.Clear();
+
+            var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
+            down.callback.AddListener(onDown);
+            trigger.triggers.Add(down);
+
+            var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
+            up.callback.AddListener(onUp);
+            trigger.triggers.Add(up);
+        }
+
+        private void SetupGameplayActionListeners()
+        {
+            BindClick(m_BtnInteract, () =>
+            {
+                if (IUHHotAirBalloonController.Instance != null && IUHHotAirBalloonController.Instance.IsPlayerNear)
+                {
+                    IUHHotAirBalloonController.Instance.ToggleBoardOrLaunch();
+                }
+                else
+                {
+                    IUHInputHelper.VirtualInteractPressed = true;
+                }
+                IUHCombatAudio.PlaySword();
+            });
+
+            BindHoldTrigger(
+                m_BtnSprint,
+                _ =>
+                {
                     m_IsSprinting = true;
                     IUHInputHelper.VirtualTurboHeld = true;
                     if (m_StarterInputs != null) m_StarterInputs.SprintInput(true);
-                });
-                trigger.triggers.Add(down);
-
-                var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-                up.callback.AddListener((e) => {
+                },
+                _ =>
+                {
                     m_IsSprinting = false;
                     IUHInputHelper.VirtualTurboHeld = false;
                     if (m_StarterInputs != null) m_StarterInputs.SprintInput(false);
                 });
-                trigger.triggers.Add(up);
-            }
 
-            // ===== 3. NÚT NHẢY [Space] ===== //
-            if (m_BtnJump != null)
+            BindClick(m_BtnJump, () => m_StarterInputs?.JumpInput(true));
+            BindClick(m_BtnFireworks, () => IUHCampusFireworksManager.Instance?.TriggerPlayerFirework());
+            BindClick(m_BtnVehicle, () => IUHInputHelper.VirtualVehiclePressed = true);
+        }
+
+        private void SetupTopMenuListeners()
+        {
+            BindClick(m_BtnInventory, () =>
             {
-                m_BtnJump.onClick.RemoveAllListeners();
-                m_BtnJump.onClick.AddListener(() => {
-                    if (m_StarterInputs != null)
-                    {
-                        m_StarterInputs.JumpInput(true);
-                    }
-                });
-            }
+                IUHCombatAudio.PlayShield();
+                if (IUHCampusActivitiesHUD.Instance != null)
+                {
+                    IUHCampusActivitiesHUD.Instance.ToggleAlbum();
+                }
+                else if (IUHUpgradeShopUI.Instance != null)
+                {
+                    IUHUpgradeShopUI.Instance.ToggleShop();
+                }
+            });
 
-            // ===== 4. NÚT BẮN PHÁO HOA LỄ HỘI [K/B] ===== //
-            if (m_BtnFireworks != null)
+            BindClick(m_BtnUpgrade, () =>
             {
-                m_BtnFireworks.onClick.RemoveAllListeners();
-                m_BtnFireworks.onClick.AddListener(() => {
-                    if (IUHCampusFireworksManager.Instance != null)
-                    {
-                        IUHCampusFireworksManager.Instance.TriggerPlayerFirework();
-                    }
-                });
-            }
+                IUHCombatAudio.PlayCoin();
+                IUHUpgradeShopUI.Instance?.ToggleShop();
+            });
 
-            // ===== 5. NÚT LÊN/XUỐNG XE & KHINH KHÍ CẦU [V] ===== //
-            if (m_BtnVehicle != null)
+            BindClick(m_BtnSettings, () =>
             {
-                m_BtnVehicle.onClick.RemoveAllListeners();
-                m_BtnVehicle.onClick.AddListener(() => {
-                    IUHInputHelper.VirtualVehiclePressed = true;
-                });
-            }
+                IUHCombatAudio.PlayShield();
+                IUHCombatHUD.Instance?.ToggleGuide();
+            });
 
-            // ===== 6. TOP RIGHT: KHO ĐỒ (Inventory / Album) ===== //
-            if (m_BtnInventory != null)
+            BindClick(m_BtnAR, () =>
             {
-                m_BtnInventory.onClick.RemoveAllListeners();
-                m_BtnInventory.onClick.AddListener(() => {
-                    IUHCombatAudio.PlayShield();
-                    if (IUHCampusActivitiesHUD.Instance != null)
-                    {
-                        IUHCampusActivitiesHUD.Instance.ToggleAlbum();
-                    }
-                    else if (IUHUpgradeShopUI.Instance != null)
-                    {
-                        IUHUpgradeShopUI.Instance.ToggleShop();
-                    }
-                });
-            }
+                Debug.Log("[IUH] Bấm nút Camera AR!");
+                IUHCombatAudio.PlayShield();
+                var arCtrl = IUHCampus.Guardian.AR.IUHLiveARController.Instance;
+                if (arCtrl == null)
+                {
+                    var liveObj = new GameObject("IUH_LIVE_AR_CONTROLLER", typeof(IUHCampus.Guardian.AR.IUHLiveARController));
+                    arCtrl = liveObj.GetComponent<IUHCampus.Guardian.AR.IUHLiveARController>();
+                }
+                arCtrl?.OpenARMode();
+            });
+        }
 
-            // ===== 7. TOP RIGHT: NÂNG CẤP (Upgrade Shop) ===== //
-            if (m_BtnUpgrade != null)
-            {
-                m_BtnUpgrade.onClick.RemoveAllListeners();
-                m_BtnUpgrade.onClick.AddListener(() => {
-                    IUHCombatAudio.PlayCoin();
-                    if (IUHUpgradeShopUI.Instance != null)
-                    {
-                        IUHUpgradeShopUI.Instance.ToggleShop();
-                    }
-                });
-            }
-
-            // ===== 8. TOP RIGHT: CÀI ĐẶT (Settings / Guide) ===== //
-            if (m_BtnSettings != null)
-            {
-                m_BtnSettings.onClick.RemoveAllListeners();
-                m_BtnSettings.onClick.AddListener(() => {
-                    IUHCombatAudio.PlayShield();
-                    if (IUHCombatHUD.Instance != null)
-                    {
-                        IUHCombatHUD.Instance.ToggleGuide();
-                    }
-                });
-            }
-
-            // ===== 8.B. TOP RIGHT: MỞ CHẾ ĐỘ THỰC TẾ ẢO CAMERA AR ===== //
-            if (m_BtnAR != null)
-            {
-                m_BtnAR.onClick.RemoveAllListeners();
-                m_BtnAR.onClick.AddListener(() => {
-                    Debug.Log("[IUH] Bấm nút Camera AR!");
-                    IUHCombatAudio.PlayShield();
-                    var arCtrl = IUHCampus.Guardian.AR.IUHLiveARController.Instance;
-                    if (arCtrl == null)
-                    {
-                        var liveObj = new GameObject("IUH_LIVE_AR_CONTROLLER", typeof(IUHCampus.Guardian.AR.IUHLiveARController));
-                        arCtrl = liveObj.GetComponent<IUHCampus.Guardian.AR.IUHLiveARController>();
-                    }
-                    if (arCtrl != null)
-                    {
-                        arCtrl.OpenARMode();
-                    }
-                });
-            }
-
-            // ===== 9. COMBAT: NÚT BẮN (nếu có) ===== //
-            if (m_BtnFire != null)
-            {
-                var trigger = m_BtnFire.gameObject.GetComponent<EventTrigger>() ?? m_BtnFire.gameObject.AddComponent<EventTrigger>();
-                trigger.triggers.Clear();
-
-                var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-                down.callback.AddListener((e) => {
+        private void SetupCombatButtonListeners()
+        {
+            BindHoldTrigger(
+                m_BtnFire,
+                _ =>
+                {
                     m_IsFiringHeld = true;
                     m_NextContinuousFireTime = 0f;
                     IUHInputHelper.VirtualFirePressed = true;
                     IUHInputHelper.VirtualFireHeld = true;
-                    if (IUHCampusCombatManager.Instance != null)
-                    {
-                        IUHCampusCombatManager.Instance.TryFireGun();
-                    }
-                });
-                trigger.triggers.Add(down);
-
-                var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-                up.callback.AddListener((e) => {
+                    IUHCampusCombatManager.Instance?.TryFireGun();
+                },
+                _ =>
+                {
                     m_IsFiringHeld = false;
                     IUHInputHelper.VirtualFireHeld = false;
                 });
-                trigger.triggers.Add(up);
-            }
 
-            // ===== 10. COMBAT: NÚT NGẮM (nếu có) ===== //
-            if (m_BtnAim != null)
+            BindClick(m_BtnAim, () =>
             {
-                m_BtnAim.onClick.RemoveAllListeners();
-                m_BtnAim.onClick.AddListener(() => {
-                    IUHInputHelper.VirtualAimToggled = !IUHInputHelper.VirtualAimToggled;
-                    IUHCombatAudio.PlayLaserShoot();
-                });
-            }
+                IUHInputHelper.VirtualAimToggled = !IUHInputHelper.VirtualAimToggled;
+                IUHCombatAudio.PlayLaserShoot();
+            });
 
-            // ===== 11. COMBAT: NÚT TÊN LỬA (nếu có) ===== //
-            if (m_BtnMissile != null)
+            BindClick(m_BtnMissile, () =>
             {
-                m_BtnMissile.onClick.RemoveAllListeners();
-                m_BtnMissile.onClick.AddListener(() => {
-                    IUHInputHelper.VirtualMissilePressed = true;
-                    if (IUHCampusCombatManager.Instance != null)
-                    {
-                        IUHCampusCombatManager.Instance.UseAntiAirMissile();
-                    }
-                });
-            }
+                IUHInputHelper.VirtualMissilePressed = true;
+                IUHCampusCombatManager.Instance?.UseAntiAirMissile();
+            });
+        }
 
-            // ===== 12. PHÍM NHỎ [H] (HƯỚNG DẪN / BẢNG TRỢ GIÚP / CÒI XE) ===== //
-            if (m_BtnKeyH != null)
+        private void SetupLegacyUtilityListeners()
+        {
+            BindClick(m_BtnKeyH, () =>
             {
-                m_BtnKeyH.onClick.RemoveAllListeners();
-                m_BtnKeyH.onClick.AddListener(() => {
-                    IUHInputHelper.VirtualHelpPressed = true;
-                    IUHCombatAudio.PlayShield();
-                    var hud = IUHCombatHUD.Instance ?? FindAnyObjectByType<IUHCombatHUD>(FindObjectsInactive.Include);
-                    if (hud != null)
-                    {
-                        hud.ToggleGuide();
-                    }
-                });
-            }
+                IUHInputHelper.VirtualHelpPressed = true;
+                IUHCombatAudio.PlayShield();
+                var hud = IUHCombatHUD.Instance ?? FindAnyObjectByType<IUHCombatHUD>(FindObjectsInactive.Include);
+                hud?.ToggleGuide();
+            });
 
-            // ===== 13. PHÍM NHỎ [B] (BALO / CỬA HÀNG / THẢ BOM) ===== //
-            if (m_BtnKeyB != null)
+            BindClick(m_BtnKeyB, () =>
             {
-                m_BtnKeyB.onClick.RemoveAllListeners();
-                m_BtnKeyB.onClick.AddListener(() => {
-                    IUHInputHelper.VirtualBackpackPressed = true;
-                    IUHCombatAudio.PlayCoin();
-                    var shop = IUHUpgradeShopUI.Instance ?? FindAnyObjectByType<IUHUpgradeShopUI>(FindObjectsInactive.Include);
-                    if (shop != null)
-                    {
-                        shop.ToggleShop();
-                    }
-                });
-            }
+                IUHInputHelper.VirtualBackpackPressed = true;
+                IUHCombatAudio.PlayCoin();
+                var shop = IUHUpgradeShopUI.Instance ?? FindAnyObjectByType<IUHUpgradeShopUI>(FindObjectsInactive.Include);
+                shop?.ToggleShop();
+            });
+        }
 
-            // ===== 14. DRONE FLIGHT CONTROLS ===== //
-            if (m_BtnDroneLaunch != null)
+        private void SetupDroneFlightListeners()
+        {
+            BindClick(m_BtnDroneLaunch, () =>
             {
-                m_BtnDroneLaunch.onClick.RemoveAllListeners();
-                m_BtnDroneLaunch.onClick.AddListener(() => {
-                    IUHCombatAudio.PlayLaserShoot();
-                    if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null)
-                    {
-                        IUHCampus.Guardian.IUHGuardianDroneController.Instance.SetControlled(true);
-                    }
-                });
-            }
+                IUHCombatAudio.PlayLaserShoot();
+                IUHCampus.Guardian.IUHGuardianDroneController.Instance?.SetControlled(true);
+            });
 
-            if (m_BtnDroneExit != null)
+            BindClick(m_BtnDroneExit, () =>
             {
-                m_BtnDroneExit.onClick.RemoveAllListeners();
-                m_BtnDroneExit.onClick.AddListener(() => {
-                    IUHCombatAudio.PlayShield();
-                    if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null)
-                    {
-                        IUHCampus.Guardian.IUHGuardianDroneController.Instance.SetControlled(false);
-                    }
-                });
-            }
+                IUHCombatAudio.PlayShield();
+                IUHCampus.Guardian.IUHGuardianDroneController.Instance?.SetControlled(false);
+            });
 
-            if (m_BtnDroneSupply != null)
+            BindClick(m_BtnDroneSupply, () =>
             {
-                m_BtnDroneSupply.onClick.RemoveAllListeners();
-                m_BtnDroneSupply.onClick.AddListener(() => {
-                    IUHCombatAudio.PlayCoin();
-                    if (IUHCampus.Guardian.IUHGuardianDroneController.Instance != null)
-                    {
-                        IUHCampus.Guardian.IUHGuardianDroneController.Instance.DropSupplyAirdrop();
-                    }
-                });
-            }
+                IUHCombatAudio.PlayCoin();
+                IUHCampus.Guardian.IUHGuardianDroneController.Instance?.DropSupplyAirdrop();
+            });
 
-            if (m_BtnDroneAscend != null)
-            {
-                var trigger = m_BtnDroneAscend.gameObject.GetComponent<EventTrigger>() ?? m_BtnDroneAscend.gameObject.AddComponent<EventTrigger>();
-                trigger.triggers.Clear();
-                var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-                down.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = 1f; });
-                trigger.triggers.Add(down);
-                var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-                up.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = 0f; });
-                trigger.triggers.Add(up);
-            }
+            BindHoldTrigger(
+                m_BtnDroneAscend,
+                _ => IUHInputHelper.VirtualDroneAltitude = 1f,
+                _ => IUHInputHelper.VirtualDroneAltitude = 0f);
 
-            if (m_BtnDroneDescend != null)
-            {
-                var trigger = m_BtnDroneDescend.gameObject.GetComponent<EventTrigger>() ?? m_BtnDroneDescend.gameObject.AddComponent<EventTrigger>();
-                trigger.triggers.Clear();
-                var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-                down.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = -1f; });
-                trigger.triggers.Add(down);
-                var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-                up.callback.AddListener((e) => { IUHInputHelper.VirtualDroneAltitude = 0f; });
-                trigger.triggers.Add(up);
-            }
+            BindHoldTrigger(
+                m_BtnDroneDescend,
+                _ => IUHInputHelper.VirtualDroneAltitude = -1f,
+                _ => IUHInputHelper.VirtualDroneAltitude = 0f);
         }
 
         public void SetupJoystickEvents()
@@ -944,51 +867,47 @@ namespace IUHCampus.UI
             trigger.triggers.Clear();
 
             var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-            down.callback.AddListener((data) => {
-                var ped = (PointerEventData)data;
-                if (m_LookPointerId == -999)
-                {
-                    m_LookPointerId = ped.pointerId;
-                    m_PreviousLookTouchPos = ped.position;
-                    IsTouchLookActive = true;
-                    StarterAssets.StarterAssetsInputs.IsTouchLookActive = true;
-                    m_AccumulatedLookDelta = Vector2.zero;
-                }
-            });
+            down.callback.AddListener(data => OnTouchLookDown((PointerEventData)data));
             trigger.triggers.Add(down);
 
             var drag = new EventTrigger.Entry { eventID = EventTriggerType.Drag };
-            drag.callback.AddListener((data) => {
-                var ped = (PointerEventData)data;
-                if (ped.pointerId == m_LookPointerId)
-                {
-                    Vector2 currentPos = ped.position;
-                    Vector2 rawDelta = currentPos - m_PreviousLookTouchPos;
-                    m_PreviousLookTouchPos = currentPos;
-
-                    // INVERT Y: Vuốt ngón tay lên trên (rawDelta.y > 0) -> camera ngửa mặt lên trời (pitch âm)!
-                    Vector2 frameLookDelta = new Vector2(rawDelta.x, -rawDelta.y) * m_LookSensitivity;
-                    m_AccumulatedLookDelta += frameLookDelta;
-                }
-            });
+            drag.callback.AddListener(data => OnTouchLookDrag((PointerEventData)data));
             trigger.triggers.Add(drag);
 
             var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-            up.callback.AddListener((data) => {
-                var ped = (PointerEventData)data;
-                if (ped.pointerId == m_LookPointerId)
-                {
-                    m_LookPointerId = -999;
-                    IsTouchLookActive = false;
-                    StarterAssets.StarterAssetsInputs.IsTouchLookActive = false;
-                    m_AccumulatedLookDelta = Vector2.zero;
-                    if (m_StarterInputs != null)
-                    {
-                        m_StarterInputs.LookInput(Vector2.zero);
-                    }
-                }
-            });
+            up.callback.AddListener(data => OnTouchLookUp((PointerEventData)data));
             trigger.triggers.Add(up);
+        }
+
+        private void OnTouchLookDown(PointerEventData ped)
+        {
+            if (m_LookPointerId != -999) return;
+            m_LookPointerId = ped.pointerId;
+            m_PreviousLookTouchPos = ped.position;
+            IsTouchLookActive = true;
+            StarterAssets.StarterAssetsInputs.IsTouchLookActive = true;
+            m_AccumulatedLookDelta = Vector2.zero;
+        }
+
+        private void OnTouchLookDrag(PointerEventData ped)
+        {
+            if (ped.pointerId != m_LookPointerId) return;
+            Vector2 currentPos = ped.position;
+            Vector2 rawDelta = currentPos - m_PreviousLookTouchPos;
+            m_PreviousLookTouchPos = currentPos;
+
+            // INVERT Y: Vuốt ngón tay lên trên (rawDelta.y > 0) -> camera ngửa mặt lên trời (pitch âm)
+            m_AccumulatedLookDelta += new Vector2(rawDelta.x, -rawDelta.y) * m_LookSensitivity;
+        }
+
+        private void OnTouchLookUp(PointerEventData ped)
+        {
+            if (ped.pointerId != m_LookPointerId) return;
+            m_LookPointerId = -999;
+            IsTouchLookActive = false;
+            StarterAssets.StarterAssetsInputs.IsTouchLookActive = false;
+            m_AccumulatedLookDelta = Vector2.zero;
+            m_StarterInputs?.LookInput(Vector2.zero);
         }
     }
 }

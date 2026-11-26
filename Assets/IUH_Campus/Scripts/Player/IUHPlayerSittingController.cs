@@ -218,43 +218,11 @@ namespace IUHCampus.Player
                 if (m_ThirdPersonController != null) m_ThirdPersonController.enabled = false;
                 if (m_StarterInputs != null) m_StarterInputs.move = Vector2.zero;
 
-                Vector3 startPos = transform.position;
-                Quaternion startRot = transform.rotation;
-                float elapsed = 0f;
-
-                while (elapsed < transitionDuration)
-                {
-                    elapsed += Time.deltaTime;
-                    float t = Mathf.SmoothStep(0f, 1f, elapsed / transitionDuration);
-                    transform.position = Vector3.Lerp(startPos, m_SeatPosition, t);
-                    transform.rotation = Quaternion.Slerp(startRot, m_SeatRotation, t);
-                    m_SitBlend = t;
-                    yield return null;
-                }
-
-                transform.position = m_SeatPosition;
-                transform.rotation = m_SeatRotation;
-                m_SitBlend = 1f;
+                yield return BlendTransform(m_SeatPosition, m_SeatRotation, 0f, 1f);
             }
             else
             {
-                Vector3 startPos = transform.position;
-                Quaternion startRot = transform.rotation;
-                float elapsed = 0f;
-
-                while (elapsed < transitionDuration)
-                {
-                    elapsed += Time.deltaTime;
-                    float t = Mathf.SmoothStep(0f, 1f, elapsed / transitionDuration);
-                    transform.position = Vector3.Lerp(startPos, m_StandPosition, t);
-                    transform.rotation = Quaternion.Slerp(startRot, m_StandRotation, t);
-                    m_SitBlend = 1f - t;
-                    yield return null;
-                }
-
-                transform.position = m_StandPosition;
-                transform.rotation = m_StandRotation;
-                m_SitBlend = 0f;
+                yield return BlendTransform(m_StandPosition, m_StandRotation, 1f, 0f);
 
                 if (m_TargetBench != null)
                 {
@@ -268,6 +236,27 @@ namespace IUHCampus.Player
             }
 
             m_TransitionRoutine = null;
+        }
+
+        private IEnumerator BlendTransform(Vector3 targetPos, Quaternion targetRot, float startBlend, float endBlend)
+        {
+            Vector3 startPos = transform.position;
+            Quaternion startRot = transform.rotation;
+            float elapsed = 0f;
+
+            while (elapsed < transitionDuration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.SmoothStep(0f, 1f, elapsed / transitionDuration);
+                transform.position = Vector3.Lerp(startPos, targetPos, t);
+                transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
+                m_SitBlend = Mathf.Lerp(startBlend, endBlend, t);
+                yield return null;
+            }
+
+            transform.position = targetPos;
+            transform.rotation = targetRot;
+            m_SitBlend = endBlend;
         }
 
         private void LateUpdate()
@@ -284,37 +273,27 @@ namespace IUHCampus.Player
                 m_Hips.localPosition = new Vector3(m_StandingHipLocalPos.x, standingHipY - actualSink, m_StandingHipLocalPos.z);
             }
 
-            if (m_LeftUpperLeg != null && m_LeftLowerLeg != null)
-            {
-                Quaternion origKnee = m_LeftLowerLeg.rotation;
-                Quaternion thighPitch = Quaternion.AngleAxis(-thighAngle * m_SitBlend, right);
-                Quaternion thighSpread = Quaternion.AngleAxis(-legSpread * m_SitBlend, forward);
+            ApplySittingLegPose(m_LeftUpperLeg, m_LeftLowerLeg, right, forward, -1f);
+            ApplySittingLegPose(m_RightUpperLeg, m_RightLowerLeg, right, forward, 1f);
+            ApplySittingArmPose(m_LeftUpperArm, m_LeftLowerArm, right);
+            ApplySittingArmPose(m_RightUpperArm, m_RightLowerArm, right);
+        }
 
-                m_LeftUpperLeg.rotation = (thighPitch * thighSpread) * m_LeftUpperLeg.rotation;
-                m_LeftLowerLeg.rotation = origKnee;
-            }
+        private void ApplySittingLegPose(Transform upperLeg, Transform lowerLeg, Vector3 right, Vector3 forward, float spreadSign)
+        {
+            if (upperLeg == null || lowerLeg == null) return;
+            Quaternion origKnee = lowerLeg.rotation;
+            Quaternion thighPitch = Quaternion.AngleAxis(-thighAngle * m_SitBlend, right);
+            Quaternion thighSpread = Quaternion.AngleAxis(spreadSign * legSpread * m_SitBlend, forward);
+            upperLeg.rotation = (thighPitch * thighSpread) * upperLeg.rotation;
+            lowerLeg.rotation = origKnee;
+        }
 
-            if (m_RightUpperLeg != null && m_RightLowerLeg != null)
-            {
-                Quaternion origKnee = m_RightLowerLeg.rotation;
-                Quaternion thighPitch = Quaternion.AngleAxis(-thighAngle * m_SitBlend, right);
-                Quaternion thighSpread = Quaternion.AngleAxis(legSpread * m_SitBlend, forward);
-
-                m_RightUpperLeg.rotation = (thighPitch * thighSpread) * m_RightUpperLeg.rotation;
-                m_RightLowerLeg.rotation = origKnee;
-            }
-
-            if (m_LeftUpperArm != null && m_LeftLowerArm != null)
-            {
-                m_LeftUpperArm.rotation = Quaternion.AngleAxis(-armRestAngle * m_SitBlend, right) * m_LeftUpperArm.rotation;
-                m_LeftLowerArm.rotation = Quaternion.AngleAxis(elbowBendAngle * m_SitBlend, right) * m_LeftLowerArm.rotation;
-            }
-
-            if (m_RightUpperArm != null && m_RightLowerArm != null)
-            {
-                m_RightUpperArm.rotation = Quaternion.AngleAxis(-armRestAngle * m_SitBlend, right) * m_RightUpperArm.rotation;
-                m_RightLowerArm.rotation = Quaternion.AngleAxis(elbowBendAngle * m_SitBlend, right) * m_RightLowerArm.rotation;
-            }
+        private void ApplySittingArmPose(Transform upperArm, Transform lowerArm, Vector3 right)
+        {
+            if (upperArm == null || lowerArm == null) return;
+            upperArm.rotation = Quaternion.AngleAxis(-armRestAngle * m_SitBlend, right) * upperArm.rotation;
+            lowerArm.rotation = Quaternion.AngleAxis(elbowBendAngle * m_SitBlend, right) * lowerArm.rotation;
         }
 
         private void OnGUI()

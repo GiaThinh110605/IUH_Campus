@@ -204,69 +204,10 @@ namespace IUHCampus.Guardian
         public void SetControlled(bool controlled)
         {
             m_IsControlled = controlled;
-
             FindPlayerAndCameras();
 
-            if (m_IsControlled)
-            {
-                if (m_ThirdPersonController != null)
-                {
-                    m_ThirdPersonController.enabled = false;
-                }
-                if (m_StarterInputs != null)
-                {
-                    m_StarterInputs.move = Vector2.zero;
-                    m_StarterInputs.look = Vector2.zero;
-                    m_StarterInputs.sprint = false;
-                    m_StarterInputs.jump = false;
-                    m_StarterInputs.cursorLocked = false;
-                    m_StarterInputs.cursorInputForLook = false;
-                }
-                var anim = m_ThirdPersonController != null ? m_ThirdPersonController.GetComponent<Animator>() : null;
-                if (anim != null)
-                {
-                    anim.SetFloat("Speed", 0f);
-                    anim.SetFloat("MotionSpeed", 0f);
-                }
-                if (m_PlayerMainCamera != null)
-                {
-                    m_PlayerMainCamera.enabled = false;
-                }
-
-                if (m_PlayerTransform != null)
-                {
-                    transform.position = m_PlayerTransform.position + Vector3.up * 3.5f + m_PlayerTransform.forward * 2f;
-                    m_CurrentYaw = m_PlayerTransform.eulerAngles.y;
-                    m_CurrentPitch = 0f;
-                }
-
-                UpdateActiveCamera();
-                if (m_DroneHUD != null) m_DroneHUD.SetDroneHUDActive(true);
-            }
-            else
-            {
-                StopCinematicIfActive();
-
-                // Return to student with unlocked movement
-                if (m_ThirdPersonController != null)
-                {
-                    m_ThirdPersonController.enabled = true;
-                }
-                if (m_StarterInputs != null)
-                {
-                    m_StarterInputs.cursorLocked = true;
-                    m_StarterInputs.cursorInputForLook = true;
-                }
-                if (m_PlayerMainCamera != null)
-                {
-                    m_PlayerMainCamera.enabled = true;
-                }
-
-                if (m_FPVCamera != null) m_FPVCamera.enabled = false;
-                if (m_TPPCamera != null) m_TPPCamera.enabled = false;
-
-                if (m_DroneHUD != null) m_DroneHUD.SetDroneHUDActive(false);
-            }
+            if (m_IsControlled) EnableDroneControl();
+            else DisableDroneControl();
 
             foreach (var r in m_Rotors)
             {
@@ -274,52 +215,107 @@ namespace IUHCampus.Guardian
             }
         }
 
+        private void EnableDroneControl()
+        {
+            if (m_ThirdPersonController != null) m_ThirdPersonController.enabled = false;
+            if (m_StarterInputs != null)
+            {
+                m_StarterInputs.move = Vector2.zero;
+                m_StarterInputs.look = Vector2.zero;
+                m_StarterInputs.sprint = false;
+                m_StarterInputs.jump = false;
+                m_StarterInputs.cursorLocked = false;
+                m_StarterInputs.cursorInputForLook = false;
+            }
+            var anim = m_ThirdPersonController != null ? m_ThirdPersonController.GetComponent<Animator>() : null;
+            if (anim != null)
+            {
+                anim.SetFloat("Speed", 0f);
+                anim.SetFloat("MotionSpeed", 0f);
+            }
+            if (m_PlayerMainCamera != null) m_PlayerMainCamera.enabled = false;
+
+            if (m_PlayerTransform != null)
+            {
+                transform.position = m_PlayerTransform.position + Vector3.up * 3.5f + m_PlayerTransform.forward * 2f;
+                m_CurrentYaw = m_PlayerTransform.eulerAngles.y;
+                m_CurrentPitch = 0f;
+            }
+
+            UpdateActiveCamera();
+            if (m_DroneHUD != null) m_DroneHUD.SetDroneHUDActive(true);
+        }
+
+        private void DisableDroneControl()
+        {
+            StopCinematicIfActive();
+            if (m_ThirdPersonController != null) m_ThirdPersonController.enabled = true;
+            if (m_StarterInputs != null)
+            {
+                m_StarterInputs.cursorLocked = true;
+                m_StarterInputs.cursorInputForLook = true;
+            }
+            if (m_PlayerMainCamera != null) m_PlayerMainCamera.enabled = true;
+            if (m_FPVCamera != null) m_FPVCamera.enabled = false;
+            if (m_TPPCamera != null) m_TPPCamera.enabled = false;
+            if (m_DroneHUD != null) m_DroneHUD.SetDroneHUDActive(false);
+        }
+
         private void HandleFlightInput()
         {
-            float h = Input.GetAxis("Horizontal"); // A/D
-            float v = Input.GetAxis("Vertical");   // W/S
-            float up = 0f;
+            ReadFlightAxes(out float h, out float v, out float up);
+            bool isBoosting = Input.GetKey(KeyCode.LeftShift) || IUHCampus.Core.IUHInputHelper.VirtualDroneBoost;
+            UpdateDroneOrientation(h, v);
+            ApplyDroneMotion(h, v, up, isBoosting);
+            UpdateRotorFeedback(isBoosting);
+        }
+
+        private static void ReadFlightAxes(out float h, out float v, out float up)
+        {
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
+            up = 0f;
             if (Input.GetKey(KeyCode.Space)) up += 1f;
             if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C)) up -= 1f;
 
-            // Support Mobile Joystick
             if (IUHCampus.Core.IUHInputHelper.VirtualMoveAxis.sqrMagnitude > 0.01f)
             {
                 h = IUHCampus.Core.IUHInputHelper.VirtualMoveAxis.x;
                 v = IUHCampus.Core.IUHInputHelper.VirtualMoveAxis.y;
             }
-
-            // Support Mobile Altitude buttons (Lên / Xuống)
             if (Mathf.Abs(IUHCampus.Core.IUHInputHelper.VirtualDroneAltitude) > 0.01f)
             {
                 up = IUHCampus.Core.IUHInputHelper.VirtualDroneAltitude;
             }
+        }
 
-            bool isBoosting = Input.GetKey(KeyCode.LeftShift) || IUHCampus.Core.IUHInputHelper.VirtualDroneBoost;
-            float speed = m_FlySpeed * (isBoosting ? m_BoostMultiplier : 1.0f);
-
+        private void UpdateDroneOrientation(float h, float v)
+        {
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
-
-            // Support Mobile Touch Look swipe
             if (IUHCampus.Core.IUHInputHelper.VirtualDroneLook.sqrMagnitude > 0.001f)
             {
                 mouseX += IUHCampus.Core.IUHInputHelper.VirtualDroneLook.x;
                 mouseY += IUHCampus.Core.IUHInputHelper.VirtualDroneLook.y;
                 IUHCampus.Core.IUHInputHelper.VirtualDroneLook = Vector2.zero;
             }
-
             if (Input.GetKey(KeyCode.Q)) mouseX -= 1f;
             if (Input.GetKey(KeyCode.E)) mouseX += 1f;
 
             m_CurrentYaw += mouseX * m_RotationSpeed * Time.deltaTime;
             m_CurrentPitch = Mathf.Clamp(m_CurrentPitch - mouseY * m_RotationSpeed * 0.7f * Time.deltaTime, -60f, 60f);
 
-            Quaternion yawRotation = Quaternion.Euler(0f, m_CurrentYaw, 0f);
-            Vector3 forward = yawRotation * Vector3.forward;
-            Vector3 right = yawRotation * Vector3.right;
+            float targetRoll = -h * m_MaxTiltAngle;
+            float targetPitch = (v * m_MaxTiltAngle * 0.6f) + m_CurrentPitch;
+            m_CurrentRoll = Mathf.Lerp(m_CurrentRoll, targetRoll, Time.deltaTime * m_TiltSmoothSpeed);
+            transform.rotation = Quaternion.Euler(targetPitch, m_CurrentYaw, m_CurrentRoll);
+        }
 
-            Vector3 moveDir = (forward * v + right * h).normalized;
+        private void ApplyDroneMotion(float h, float v, float up, bool isBoosting)
+        {
+            float speed = m_FlySpeed * (isBoosting ? m_BoostMultiplier : 1.0f);
+            Quaternion yawRotation = Quaternion.Euler(0f, m_CurrentYaw, 0f);
+            Vector3 moveDir = ((yawRotation * Vector3.forward) * v + (yawRotation * Vector3.right) * h).normalized;
             Vector3 targetVel = moveDir * speed + Vector3.up * (up * m_AscendSpeed);
 
             m_Velocity = Vector3.Lerp(m_Velocity, targetVel, Time.deltaTime * 6f);
@@ -331,25 +327,20 @@ namespace IUHCampus.Guardian
                 pos.y = 0.6f;
                 transform.position = pos;
             }
+        }
 
-            float targetRoll = -h * m_MaxTiltAngle;
-            float targetPitch = (v * m_MaxTiltAngle * 0.6f) + m_CurrentPitch;
-            m_CurrentRoll = Mathf.Lerp(m_CurrentRoll, targetRoll, Time.deltaTime * m_TiltSmoothSpeed);
-
-            transform.rotation = Quaternion.Euler(targetPitch, m_CurrentYaw, m_CurrentRoll);
-
+        private void UpdateRotorFeedback(bool isBoosting)
+        {
             float throttle = Mathf.Clamp01(m_Velocity.magnitude / (m_FlySpeed * m_BoostMultiplier));
             foreach (var r in m_Rotors)
             {
                 if (r != null) r.SetThrottle(throttle);
             }
-
             if (m_RotorAudioSource != null)
             {
                 m_RotorAudioSource.pitch = Mathf.Lerp(0.85f, 1.45f, throttle);
                 m_RotorAudioSource.volume = Mathf.Lerp(0.4f, 0.85f, throttle);
             }
-
             m_Battery = Mathf.Max(0f, m_Battery - Time.deltaTime * (isBoosting ? 0.4f : 0.15f));
         }
 
@@ -440,36 +431,13 @@ namespace IUHCampus.Guardian
         private IEnumerator AirdropSupplyRoutine()
         {
             PlayDropSFX();
-
-            // Spawn glowing crate under drone
-            GameObject crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            crate.name = "Airdrop_Supply_Box";
-            crate.transform.position = transform.position + Vector3.down * 0.8f;
-            crate.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
-
-            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            mat.color = new Color(0.1f, 0.9f, 0.4f);
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", new Color(0.1f, 1.2f, 0.4f));
-            crate.GetComponent<Renderer>().material = mat;
-
-            // Parachute umbrella top
-            GameObject canopy = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            canopy.name = "Chute_Canopy";
-            canopy.transform.SetParent(crate.transform, false);
-            canopy.transform.localPosition = new Vector3(0f, 1.3f, 0f);
-            canopy.transform.localScale = new Vector3(1.8f, 0.5f, 1.8f);
-            var chuteMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            chuteMat.color = new Color(0.8f, 1f, 0.8f);
-            canopy.GetComponent<Renderer>().material = chuteMat;
-
+            GameObject crate = SpawnAirdropCrate();
             if (m_DroneHUD != null)
             {
                 m_DroneHUD.ShowActionNotification("📦 ĐANG THẢ HÀNG CỨU TRỢ", "Thùng tiếp tế Nano đang bung dù hạ cánh...");
             }
 
-            // Descend smoothly
-            float fallSpeed = 3.6f;
+            const float fallSpeed = 3.6f;
             while (crate != null && crate.transform.position.y > 0.4f)
             {
                 crate.transform.position += Vector3.down * fallSpeed * Time.deltaTime;
@@ -480,26 +448,56 @@ namespace IUHCampus.Guardian
             if (crate != null)
             {
                 crate.transform.position = new Vector3(crate.transform.position.x, 0.35f, crate.transform.position.z);
-
-                // Heal player to 100%
-                if (IUHGuardianInventory.Instance != null)
-                {
-                    IUHGuardianInventory.Instance.RestoreFullHp();
-                    IUHGuardianInventory.Instance.AddItem("Bình Dược Liệu Nano (+50 HP)", 1);
-                }
-
-                IUHCombatAudio.PlayHeal();
-                PlayHealingChimeSFX();
-
-                if (m_DroneHUD != null)
-                {
-                    m_DroneHUD.ShowActionNotification("💚 TIẾP TẾ HOÀN TẤT!", "Sinh viên đã được HỒI PHỤC 100% MÁU & nhận +1 Bình Dược Liệu!");
-                }
-
-                // Disappear after a few seconds
+                DeliverAirdropReward();
                 yield return new WaitForSeconds(3.0f);
                 Destroy(crate);
             }
+        }
+
+        private GameObject SpawnAirdropCrate()
+        {
+            GameObject crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            crate.name = "Airdrop_Supply_Box";
+            crate.transform.position = transform.position + Vector3.down * 0.8f;
+            crate.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            crate.GetComponent<Renderer>().material = CreateLitMaterial(new Color(0.1f, 0.9f, 0.4f), new Color(0.1f, 1.2f, 0.4f), true);
+
+            GameObject canopy = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            canopy.name = "Chute_Canopy";
+            canopy.transform.SetParent(crate.transform, false);
+            canopy.transform.localPosition = new Vector3(0f, 1.3f, 0f);
+            canopy.transform.localScale = new Vector3(1.8f, 0.5f, 1.8f);
+            canopy.GetComponent<Renderer>().material = CreateLitMaterial(new Color(0.8f, 1f, 0.8f), Color.black, false);
+            return crate;
+        }
+
+        private void DeliverAirdropReward()
+        {
+            if (IUHGuardianInventory.Instance != null)
+            {
+                IUHGuardianInventory.Instance.RestoreFullHp();
+                IUHGuardianInventory.Instance.AddItem("Bình Dược Liệu Nano (+50 HP)", 1);
+            }
+
+            IUHCombatAudio.PlayHeal();
+            PlayHealingChimeSFX();
+
+            if (m_DroneHUD != null)
+            {
+                m_DroneHUD.ShowActionNotification("💚 TIẾP TẾ HOÀN TẤT!", "Sinh viên đã được HỒI PHỤC 100% MÁU & nhận +1 Bình Dược Liệu!");
+            }
+        }
+
+        private static Material CreateLitMaterial(Color baseColor, Color emissionColor, bool emissive)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            mat.color = baseColor;
+            if (emissive)
+            {
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", emissionColor);
+            }
+            return mat;
         }
 
         // ==========================================
@@ -513,23 +511,7 @@ namespace IUHCampus.Guardian
         private IEnumerator EmpBombRoutine()
         {
             PlayDropSFX();
-
-            GameObject bomb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            bomb.name = "Data_EMP_Bomb";
-            bomb.transform.position = transform.position + Vector3.down * 0.8f;
-            bomb.transform.localScale = new Vector3(0.5f, 0.7f, 0.5f);
-
-            var mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            mat.color = new Color(0.7f, 0.1f, 1.0f);
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", new Color(1.2f, 0.2f, 2.0f));
-            bomb.GetComponent<Renderer>().material = mat;
-
-            // Electric Light on bomb
-            var bombLight = bomb.AddComponent<Light>();
-            bombLight.color = new Color(0.8f, 0.2f, 1f);
-            bombLight.range = 8f;
-            bombLight.intensity = 2f;
+            GameObject bomb = SpawnEmpBomb();
 
             if (m_DroneHUD != null)
             {
@@ -544,60 +526,64 @@ namespace IUHCampus.Guardian
                 yield return null;
             }
 
-            if (bomb != null)
+            if (bomb == null) yield break;
+
+            Vector3 blastPos = bomb.transform.position;
+            Destroy(bomb);
+            GameObject ring = DetonateEmpBomb(blastPos);
+
+            const float ringDuration = 0.6f;
+            for (float elapsed = 0f; elapsed < ringDuration && ring != null; elapsed += Time.deltaTime)
             {
-                Vector3 blastPos = bomb.transform.position;
-                Destroy(bomb);
-
-                // EMP Shockwave explosion
-                PlayThunderSFX();
-                IUHCameraShake.Shake(0.35f, 0.45f);
-
-                // Shockwave ring
-                GameObject ring = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                ring.name = "EMP_Shockwave_Ring";
-                ring.transform.position = blastPos + Vector3.up * 0.1f;
-                ring.transform.localScale = new Vector3(1f, 0.05f, 1f);
-                Destroy(ring.GetComponent<Collider>());
-                var ringMat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-                ringMat.color = new Color(0.8f, 0.3f, 1f);
-                ringMat.EnableKeyword("_EMISSION");
-                ringMat.SetColor("_EmissionColor", new Color(1.5f, 0.5f, 2.5f));
-                ring.GetComponent<Renderer>().material = ringMat;
-
-                // Stun and damage monsters in 14m radius
-                var monsters = Object.FindObjectsByType<IUHMonsterEncounter>(FindObjectsSortMode.None);
-                int hitCount = 0;
-                foreach (var m in monsters)
-                {
-                    if (m != null && m.gameObject.activeInHierarchy)
-                    {
-                        float d = Vector3.Distance(blastPos, m.transform.position);
-                        if (d <= 14f)
-                        {
-                            hitCount++;
-                            // Stun monster cooldown
-                            m.ApplyEmpStun(5.0f);
-                        }
-                    }
-                }
-
-                if (m_DroneHUD != null)
-                {
-                    m_DroneHUD.ShowActionNotification("⚡ NỔ SÓNG ĐIỆN TỪ EMP!", $"Đã làm CHOÁNG {hitCount} quái vật trong 5 GIÂY & phá hủy lá chắn dữ liệu!");
-                }
-
-                // Expand ring
-                float ringElapsed = 0f;
-                while (ringElapsed < 0.6f && ring != null)
-                {
-                    ringElapsed += Time.deltaTime;
-                    float scale = Mathf.Lerp(1f, 22f, ringElapsed / 0.6f);
-                    ring.transform.localScale = new Vector3(scale, 0.05f, scale);
-                    yield return null;
-                }
-                if (ring != null) Destroy(ring);
+                float scale = Mathf.Lerp(1f, 22f, elapsed / ringDuration);
+                ring.transform.localScale = new Vector3(scale, 0.05f, scale);
+                yield return null;
             }
+            if (ring != null) Destroy(ring);
+        }
+
+        private GameObject SpawnEmpBomb()
+        {
+            GameObject bomb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            bomb.name = "Data_EMP_Bomb";
+            bomb.transform.position = transform.position + Vector3.down * 0.8f;
+            bomb.transform.localScale = new Vector3(0.5f, 0.7f, 0.5f);
+            bomb.GetComponent<Renderer>().material = CreateLitMaterial(new Color(0.7f, 0.1f, 1.0f), new Color(1.2f, 0.2f, 2.0f), true);
+
+            var bombLight = bomb.AddComponent<Light>();
+            bombLight.color = new Color(0.8f, 0.2f, 1f);
+            bombLight.range = 8f;
+            bombLight.intensity = 2f;
+            return bomb;
+        }
+
+        private GameObject DetonateEmpBomb(Vector3 blastPos)
+        {
+            PlayThunderSFX();
+            IUHCameraShake.Shake(0.35f, 0.45f);
+
+            GameObject ring = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            ring.name = "EMP_Shockwave_Ring";
+            ring.transform.position = blastPos + Vector3.up * 0.1f;
+            ring.transform.localScale = new Vector3(1f, 0.05f, 1f);
+            Destroy(ring.GetComponent<Collider>());
+            ring.GetComponent<Renderer>().material = CreateLitMaterial(new Color(0.8f, 0.3f, 1f), new Color(1.5f, 0.5f, 2.5f), true);
+
+            int hitCount = 0;
+            foreach (var m in Object.FindObjectsByType<IUHMonsterEncounter>(FindObjectsSortMode.None))
+            {
+                if (m != null && m.gameObject.activeInHierarchy && Vector3.Distance(blastPos, m.transform.position) <= 14f)
+                {
+                    hitCount++;
+                    m.ApplyEmpStun(5.0f);
+                }
+            }
+
+            if (m_DroneHUD != null)
+            {
+                m_DroneHUD.ShowActionNotification("⚡ NỔ SÓNG ĐIỆN TỪ EMP!", $"Đã làm CHOÁNG {hitCount} quái vật trong 5 GIÂY & phá hủy lá chắn dữ liệu!");
+            }
+            return ring;
         }
 
         // ==========================================
@@ -713,55 +699,9 @@ namespace IUHCampus.Guardian
         public void CapturePhotoRecon()
         {
             PlayShutterSFX();
+            if (m_DroneHUD != null) m_DroneHUD.TriggerShutterFlash();
 
-            if (m_DroneHUD != null)
-            {
-                m_DroneHUD.TriggerShutterFlash();
-            }
-
-            Camera activeCam = m_UseFPV ? m_FPVCamera : m_TPPCamera;
-            if (activeCam == null) activeCam = Camera.main;
-
-            string targetName = "Toà nhà Giảng đường IUH";
-            int goldReward = 50;
-            int dataCoreReward = 1;
-
-            if (activeCam != null)
-            {
-                Ray ray = new Ray(activeCam.transform.position, activeCam.transform.forward);
-                if (Physics.Raycast(ray, out RaycastHit hit, 150f))
-                {
-                    string hitName = hit.collider.gameObject.name;
-                    if (hitName.Contains("MONSTER") || hitName.Contains("Demon") || hitName.Contains("Orc") || hitName.Contains("Backpack"))
-                    {
-                        targetName = $"Phát hiện Quái Vật Dữ Liệu [{hitName}]";
-                        goldReward = 100;
-                        dataCoreReward = 2;
-                    }
-                    else if (hitName.Contains("CHEST") || hitName.Contains("Chest"))
-                    {
-                        targetName = $"Rương Báu Ẩn [{hitName}]";
-                        goldReward = 80;
-                        dataCoreReward = 2;
-                    }
-                    else if (hitName.Contains("CANTEEN") || hitName.Contains("Căn Tin"))
-                    {
-                        targetName = "Khu Vực Căn Tin Sinh Viên IUH";
-                        goldReward = 40;
-                    }
-                    else if (hitName.Contains("FESTIVAL") || hitName.Contains("Festival"))
-                    {
-                        targetName = "Sân Khấu Lễ Hội Âm Nhạc IUH";
-                        goldReward = 60;
-                    }
-                    else if (transform.position.y > 18f)
-                    {
-                        targetName = $"Nóc Toà Nhà Trung Tâm IUH (Độ cao {transform.position.y:F0}m)";
-                        goldReward = 75;
-                        dataCoreReward = 1;
-                    }
-                }
-            }
+            ResolveReconTarget(out string targetName, out int goldReward, out int dataCoreReward);
 
             if (IUHGuardianInventory.Instance != null)
             {
@@ -772,6 +712,49 @@ namespace IUHCampus.Guardian
             if (m_DroneHUD != null)
             {
                 m_DroneHUD.ShowReconReport(targetName, goldReward, dataCoreReward);
+            }
+        }
+
+        private void ResolveReconTarget(out string targetName, out int goldReward, out int dataCoreReward)
+        {
+            targetName = "Toà nhà Giảng đường IUH";
+            goldReward = 50;
+            dataCoreReward = 1;
+
+            Camera activeCam = m_UseFPV ? m_FPVCamera : m_TPPCamera;
+            if (activeCam == null) activeCam = Camera.main;
+            if (activeCam == null) return;
+
+            Ray ray = new Ray(activeCam.transform.position, activeCam.transform.forward);
+            if (!Physics.Raycast(ray, out RaycastHit hit, 150f)) return;
+
+            string hitName = hit.collider.gameObject.name;
+            if (hitName.Contains("MONSTER") || hitName.Contains("Demon") || hitName.Contains("Orc") || hitName.Contains("Backpack"))
+            {
+                targetName = $"Phát hiện Quái Vật Dữ Liệu [{hitName}]";
+                goldReward = 100;
+                dataCoreReward = 2;
+            }
+            else if (hitName.Contains("CHEST") || hitName.Contains("Chest"))
+            {
+                targetName = $"Rương Báu Ẩn [{hitName}]";
+                goldReward = 80;
+                dataCoreReward = 2;
+            }
+            else if (hitName.Contains("CANTEEN") || hitName.Contains("Căn Tin"))
+            {
+                targetName = "Khu Vực Căn Tin Sinh Viên IUH";
+                goldReward = 40;
+            }
+            else if (hitName.Contains("FESTIVAL") || hitName.Contains("Festival"))
+            {
+                targetName = "Sân Khấu Lễ Hội Âm Nhạc IUH";
+                goldReward = 60;
+            }
+            else if (transform.position.y > 18f)
+            {
+                targetName = $"Nóc Toà Nhà Trung Tâm IUH (Độ cao {transform.position.y:F0}m)";
+                goldReward = 75;
             }
         }
 

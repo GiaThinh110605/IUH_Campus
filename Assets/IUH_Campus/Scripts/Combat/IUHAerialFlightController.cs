@@ -238,9 +238,38 @@ namespace IUHCampus.Combat
         {
             if (m_MainCamera == null) m_MainCamera = Camera.main;
 
-            // 1. Thu nhận input di chuyển WASD / Phím mũi tên (Đa hệ thống)
-            Vector2 inputDir = m_Inputs != null ? m_Inputs.move : Vector2.zero;
+            Vector2 inputDir = ReadHorizontalFlightInput();
+            float targetSpeed = IsFlightSprintHeld() ? m_SprintFlySpeed : m_FlySpeed;
 
+            Vector3 camForward = m_MainCamera != null ? m_MainCamera.transform.forward : transform.forward;
+            Vector3 camRight = m_MainCamera != null ? m_MainCamera.transform.right : transform.right;
+            Vector3 planarForward = new Vector3(camForward.x, 0f, camForward.z).normalized;
+            Vector3 planarRight = new Vector3(camRight.x, 0f, camRight.z).normalized;
+
+            Vector3 horizontalMove = inputDir.sqrMagnitude > 0.01f
+                ? (planarForward * inputDir.y + planarRight * inputDir.x).normalized * targetSpeed
+                : Vector3.zero;
+
+            float verticalMove = ReadVerticalFlightSpeed();
+            float hoverBob = (inputDir.sqrMagnitude < 0.01f && Mathf.Abs(verticalMove) < 0.01f)
+                ? Mathf.Sin(Time.time * 3f) * 0.18f
+                : 0f;
+
+            Vector3 targetVelocity = new Vector3(horizontalMove.x, verticalMove + hoverBob, horizontalMove.z);
+            m_CurrentVelocity = Vector3.Lerp(m_CurrentVelocity, targetVelocity, Time.deltaTime * m_Acceleration);
+
+            if (transform.position.y > m_MaxAltitude && m_CurrentVelocity.y > 0f)
+                m_CurrentVelocity.y = 0f;
+
+            if (m_Controller != null && m_Controller.enabled)
+                m_Controller.Move(m_CurrentVelocity * Time.deltaTime);
+
+            ApplyFlightRotationAndLanding(horizontalMove, verticalMove);
+        }
+
+        private Vector2 ReadHorizontalFlightInput()
+        {
+            Vector2 inputDir = m_Inputs != null ? m_Inputs.move : Vector2.zero;
 #if ENABLE_INPUT_SYSTEM
             if (inputDir.sqrMagnitude < 0.01f && Keyboard.current != null)
             {
@@ -263,41 +292,28 @@ namespace IUHCampus.Combat
                 }
             }
             catch {}
+            return inputDir;
+        }
 
-            // 2. Sprint tăng tốc
-            bool isSprinting = (m_Inputs != null && m_Inputs.sprint);
+        private bool IsFlightSprintHeld()
+        {
+            bool isSprinting = m_Inputs != null && m_Inputs.sprint;
 #if ENABLE_INPUT_SYSTEM
             if (!isSprinting && Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed)
-            {
                 isSprinting = true;
-            }
 #endif
             try
             {
                 if (!isSprinting && Input.GetKey(KeyCode.LeftShift)) isSprinting = true;
             }
             catch {}
+            return isSprinting;
+        }
 
-            float targetSpeed = isSprinting ? m_SprintFlySpeed : m_FlySpeed;
-
-            // 3. Tính toán hướng di chuyển ngang phẳng theo góc nhìn của Camera
-            Vector3 camForward = m_MainCamera != null ? m_MainCamera.transform.forward : transform.forward;
-            Vector3 camRight = m_MainCamera != null ? m_MainCamera.transform.right : transform.right;
-
-            Vector3 planarForward = new Vector3(camForward.x, 0f, camForward.z).normalized;
-            Vector3 planarRight = new Vector3(camRight.x, 0f, camRight.z).normalized;
-
-            Vector3 horizontalMove = Vector3.zero;
-            if (inputDir.sqrMagnitude > 0.01f)
-            {
-                horizontalMove = (planarForward * inputDir.y + planarRight * inputDir.x).normalized * targetSpeed;
-            }
-
-            // 4. Bay lên (Space) / Bay xuống (Ctrl hoặc C)
-            float verticalMove = 0f;
+        private float ReadVerticalFlightSpeed()
+        {
             bool ascendKey = false;
             bool descendKey = false;
-
 #if ENABLE_INPUT_SYSTEM
             if (Keyboard.current != null)
             {
@@ -312,28 +328,15 @@ namespace IUHCampus.Combat
             }
             catch {}
 
+            float verticalMove = 0f;
             if (ascendKey) verticalMove += m_VerticalSpeed;
             if (descendKey) verticalMove -= m_VerticalSpeed;
+            return verticalMove;
+        }
 
-            // Nhấp nhô lơ lửng nhẹ khi đứng yên trên không (hover bob)
-            float hoverBob = (inputDir.sqrMagnitude < 0.01f && Mathf.Abs(verticalMove) < 0.01f) ? Mathf.Sin(Time.time * 3f) * 0.18f : 0f;
-
-            Vector3 targetVelocity = new Vector3(horizontalMove.x, verticalMove + hoverBob, horizontalMove.z);
-            m_CurrentVelocity = Vector3.Lerp(m_CurrentVelocity, targetVelocity, Time.deltaTime * m_Acceleration);
-
-            // Giới hạn trần bay tối đa
-            if (transform.position.y > m_MaxAltitude && m_CurrentVelocity.y > 0f)
-            {
-                m_CurrentVelocity.y = 0f;
-            }
-
-            // Áp dụng di chuyển lên CharacterController
-            if (m_Controller != null && m_Controller.enabled)
-            {
-                m_Controller.Move(m_CurrentVelocity * Time.deltaTime);
-            }
-
-            // 5. Xoay thân nhân vật theo hướng bay (CHỈ XOAY KHI CÓ DI CHUYỂN, TUYỆT ĐỐI KHÔNG TỰ XOAY KHI ĐỨNG YÊN ĐỂ TRÁNH VÒNG LẶP XOAY MÁY ẢNH)
+        private void ApplyFlightRotationAndLanding(Vector3 horizontalMove, float verticalMove)
+        {
+            // Only rotate while moving horizontally to avoid camera spin loops when hovering idle.
             if (horizontalMove.sqrMagnitude > 0.1f)
             {
                 float targetAngle = Mathf.Atan2(horizontalMove.x, horizontalMove.z) * Mathf.Rad2Deg;
@@ -341,7 +344,6 @@ namespace IUHCampus.Combat
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
 
-            // 6. Tự động tiếp đất an toàn nếu chạm đất khi đang chủ động bay hạ cánh
             if (m_Controller != null && m_Controller.isGrounded && verticalMove < -0.1f)
             {
                 StopFlight();

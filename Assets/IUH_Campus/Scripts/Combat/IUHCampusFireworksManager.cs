@@ -260,90 +260,87 @@ namespace IUHCampus.Combat
         /// </summary>
         private IEnumerator FireworkSequenceRoutine(Vector3 start, Vector3 apex, Color primaryColor, Color secondaryColor)
         {
-            // Âm thanh vút phóng
             IUHCombatAudio.PlayFireworkWhistle();
+            GameObject rocket = CreateFireworkRocket(start, primaryColor, secondaryColor);
 
-            // 1. Tạo rocket bay vút
-            GameObject rocket = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            rocket.name = "Firework_Rocket";
-            rocket.transform.position = start;
-            rocket.transform.localScale = Vector3.one * 0.35f;
-
-            if (rocket.GetComponent<Collider>() != null) Destroy(rocket.GetComponent<Collider>());
-
-            // Material phát sáng
-            var rend = rocket.GetComponent<Renderer>();
-            Material rocketMat = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Mobile/Particles/Additive") ?? Shader.Find("Standard"));
-            rocketMat.color = primaryColor;
-            if (rocketMat.HasProperty("_EmissionColor"))
-            {
-                rocketMat.EnableKeyword("_EMISSION");
-                rocketMat.SetColor("_EmissionColor", primaryColor * 4.0f);
-            }
-            rend.sharedMaterial = rocketMat;
-
-            // Trail vệt đuôi lấp lánh
-            var trail = rocket.AddComponent<TrailRenderer>();
-            trail.time = 0.35f;
-            trail.startWidth = 0.45f;
-            trail.endWidth = 0.05f;
-            trail.sharedMaterial = rocketMat;
-            trail.colorGradient = MakeGradient(primaryColor, secondaryColor);
-
-            // Bay lên đỉnh quỹ đạo
             float flightDuration = UnityEngine.Random.Range(0.48f, 0.65f);
-            float elapsed = 0f;
-
-            while (elapsed < flightDuration)
+            for (float elapsed = 0f; elapsed < flightDuration; elapsed += Time.deltaTime)
             {
-                elapsed += Time.deltaTime;
                 float t = elapsed / flightDuration;
-
-                // Đường bay gia tốc mượt mà có chút uốn lượn tự nhiên
                 float easeT = Mathf.Sin(t * Mathf.PI * 0.5f);
                 Vector3 currentPos = Vector3.Lerp(start, apex, easeT);
                 currentPos.x += Mathf.Sin(t * 10f) * 0.25f;
-
                 if (rocket != null) rocket.transform.position = currentPos;
                 yield return null;
             }
 
             Vector3 burstPos = rocket != null ? rocket.transform.position : apex;
             if (rocket != null) Destroy(rocket);
-
-            // 2. Kích nổ tại đỉnh (Burst Explosion)
             SpawnBurstExplosion(burstPos, primaryColor, secondaryColor);
+        }
+
+        private GameObject CreateFireworkRocket(Vector3 start, Color primaryColor, Color secondaryColor)
+        {
+            GameObject rocket = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            rocket.name = "Firework_Rocket";
+            rocket.transform.position = start;
+            rocket.transform.localScale = Vector3.one * 0.35f;
+            if (rocket.GetComponent<Collider>() != null) Destroy(rocket.GetComponent<Collider>());
+
+            Material rocketMat = CreateUnlitEmissiveMat(primaryColor, primaryColor * 4.0f);
+            rocket.GetComponent<Renderer>().sharedMaterial = rocketMat;
+
+            var trail = rocket.AddComponent<TrailRenderer>();
+            trail.time = 0.35f;
+            trail.startWidth = 0.45f;
+            trail.endWidth = 0.05f;
+            trail.sharedMaterial = rocketMat;
+            trail.colorGradient = MakeGradient(primaryColor, secondaryColor);
+            return rocket;
+        }
+
+        private static Material CreateUnlitEmissiveMat(Color color, Color emission)
+        {
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Mobile/Particles/Additive") ?? Shader.Find("Standard"));
+            mat.color = color;
+            if (mat.HasProperty("_EmissionColor"))
+            {
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", emission);
+            }
+            return mat;
         }
 
         private void SpawnBurstExplosion(Vector3 pos, Color pColor, Color sColor)
         {
-            // Âm thanh nổ rền vang
             IUHCombatAudio.PlayFireworkBurst();
-
             GameObject burstRoot = new GameObject("Firework_Burst_FX");
             burstRoot.transform.position = pos;
 
-            // A. Quầng sáng Flash chớp nháy (Central Flash)
+            GameObject flash = CreateBurstFlash(burstRoot.transform, out Material fMat);
+            Light pointLight = CreateBurstPointLight(burstRoot.transform, pColor);
+            CreateBurstParticleSystem(burstRoot.transform, pColor, sColor, fMat);
+
+            StartCoroutine(FadeOutBurstRoutine(burstRoot, flash, pointLight, 1.8f));
+        }
+
+        private static GameObject CreateBurstFlash(Transform parent, out Material fMat)
+        {
             GameObject flash = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             flash.name = "Burst_Flash";
-            flash.transform.SetParent(burstRoot.transform, false);
+            flash.transform.SetParent(parent, false);
             flash.transform.localPosition = Vector3.zero;
             flash.transform.localScale = Vector3.one * 1.5f;
             if (flash.GetComponent<Collider>() != null) Destroy(flash.GetComponent<Collider>());
+            fMat = CreateUnlitEmissiveMat(Color.white, Color.white * 6.0f);
+            flash.GetComponent<Renderer>().sharedMaterial = fMat;
+            return flash;
+        }
 
-            var fRend = flash.GetComponent<Renderer>();
-            var fMat = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Mobile/Particles/Additive") ?? Shader.Find("Standard"));
-            fMat.color = Color.white;
-            if (fMat.HasProperty("_EmissionColor"))
-            {
-                fMat.EnableKeyword("_EMISSION");
-                fMat.SetColor("_EmissionColor", Color.white * 6.0f);
-            }
-            fRend.sharedMaterial = fMat;
-
-            // B. Đèn chiếu sáng môi trường thời gian thực (Volumetric Flash Light)
+        private static Light CreateBurstPointLight(Transform parent, Color pColor)
+        {
             var lightGo = new GameObject("Burst_PointLight");
-            lightGo.transform.SetParent(burstRoot.transform, false);
+            lightGo.transform.SetParent(parent, false);
             lightGo.transform.localPosition = Vector3.zero;
 
             var pointLight = lightGo.AddComponent<Light>();
@@ -351,10 +348,13 @@ namespace IUHCampus.Combat
             pointLight.color = pColor;
             pointLight.range = 55f;
             pointLight.intensity = 6.5f;
+            return pointLight;
+        }
 
-            // C. Hệ thống hạt pháo hoa bung xòe hình cầu (Particle Explosion)
+        private void CreateBurstParticleSystem(Transform parent, Color pColor, Color sColor, Material fallbackMat)
+        {
             var psGo = new GameObject("Burst_Particles");
-            psGo.transform.SetParent(burstRoot.transform, false);
+            psGo.transform.SetParent(parent, false);
             psGo.transform.localPosition = Vector3.zero;
 
             var ps = psGo.AddComponent<ParticleSystem>();
@@ -387,13 +387,8 @@ namespace IUHCampus.Combat
             sizeCurve.AddKey(1f, 0f);
             sizeOverLifetime.size = new ParticleSystem.MinMaxCurve(1f, sizeCurve);
 
-            var psr = psGo.GetComponent<ParticleSystemRenderer>();
-            psr.sharedMaterial = m_ParticleSharedMat != null ? m_ParticleSharedMat : fMat;
-
+            psGo.GetComponent<ParticleSystemRenderer>().sharedMaterial = m_ParticleSharedMat != null ? m_ParticleSharedMat : fallbackMat;
             ps.Play();
-
-            // Coroutine làm mờ đèn và quầng sáng
-            StartCoroutine(FadeOutBurstRoutine(burstRoot, flash, pointLight, 1.8f));
         }
 
         private IEnumerator FadeOutBurstRoutine(GameObject root, GameObject flash, Light light, float duration)

@@ -90,91 +90,79 @@ namespace IUHCampus.Combat
 
         public void TakeDamage(int damage, Vector3 attackerPos)
         {
-            if (m_IsDead) return;
-            if (m_InvulnerableTime > 0f) return;
-
-            // Invulnerable while playing Match-3 puzzle minigame
-            if (IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null && IUHCampus.Guardian.Match3.Match3CombatManager.Instance.IsCombatActive)
-            {
+            if (m_IsDead || m_InvulnerableTime > 0f) return;
+            if (IUHCampus.Guardian.Match3.Match3CombatManager.Instance != null &&
+                IUHCampus.Guardian.Match3.Match3CombatManager.Instance.IsCombatActive)
                 return;
-            }
 
-            m_InvulnerableTime = 0.35f; // i-frames
+            m_InvulnerableTime = 0.35f;
             m_LastDamageTime = Time.time;
 
-            int remainingDamage = damage;
-
-            // Absorb with shield first
-            if (m_CurrentShield > 0)
-            {
-                if (m_CurrentShield >= remainingDamage)
-                {
-                    m_CurrentShield -= remainingDamage;
-                    remainingDamage = 0;
-                    IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 2.1f, $"🛡️ GIÁP ĐỠ: -{damage}", new Color(0.2f, 0.85f, 1f), 1.2f);
-                }
-                else
-                {
-                    remainingDamage -= m_CurrentShield;
-                    m_CurrentShield = 0;
-                    IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 2.1f, "⚡ VỠ GIÁP!", new Color(1f, 0.4f, 0.2f), 1.3f);
-                }
-            }
-
-            // Remainder goes to real HP
+            int remainingDamage = AbsorbWithShield(damage);
             if (remainingDamage > 0)
             {
                 m_CurrentHp = Mathf.Max(0, m_CurrentHp - remainingDamage);
                 IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 2.3f, $"💔 MẤT MÁU: -{remainingDamage} HP!", new Color(1f, 0.25f, 0.25f), 1.4f);
-
-                // Check Emergency Drone Supply when HP drops low (<= 35%)
                 if (IUHEmergencyDroneSupplyManager.Instance != null)
                 {
                     IUHEmergencyDroneSupplyManager.Instance.OnPlayerHealthChanged(m_CurrentHp, m_MaxHp);
                 }
             }
 
-            // Hurt reaction
+            ApplyDamageFeedback(attackerPos);
+            UpdateUI();
+
+            if (m_CurrentHp <= 0) HandleZeroHealth();
+        }
+
+        private int AbsorbWithShield(int damage)
+        {
+            if (m_CurrentShield <= 0) return damage;
+
+            if (m_CurrentShield >= damage)
+            {
+                m_CurrentShield -= damage;
+                IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 2.1f, $"🛡️ GIÁP ĐỠ: -{damage}", new Color(0.2f, 0.85f, 1f), 1.2f);
+                return 0;
+            }
+
+            int overflow = damage - m_CurrentShield;
+            m_CurrentShield = 0;
+            IUHCombatFloatingText.Spawn(transform.position + Vector3.up * 2.1f, "⚡ VỠ GIÁP!", new Color(1f, 0.4f, 0.2f), 1.3f);
+            return overflow;
+        }
+
+        private void ApplyDamageFeedback(Vector3 attackerPos)
+        {
             if (m_Animator != null)
             {
                 try { m_Animator.CrossFadeInFixedTime("PlayerHurt", 0.05f); } catch {}
             }
 
-            // Flash Screen Blood Red
             TriggerDamageFlash();
-
-            // Audio & Camera Shake
             IUHCombatAudio.PlayPunchHit();
             IUHCameraShake.Shake(0.18f, 0.1f);
 
-            // Knockback away from attacker
-            Vector3 pushDir = (transform.position - attackerPos);
+            Vector3 pushDir = transform.position - attackerPos;
             pushDir.y = 0;
             if (pushDir.sqrMagnitude > 0.01f)
             {
                 var cc = GetComponent<CharacterController>();
-                if (cc != null && cc.enabled)
-                {
-                    cc.Move(pushDir.normalized * 0.75f);
-                }
+                if (cc != null && cc.enabled) cc.Move(pushDir.normalized * 0.75f);
             }
+        }
 
-            UpdateUI();
-
-            // Check Death / Drone Emergency Revive
-            if (m_CurrentHp <= 0)
+        private void HandleZeroHealth()
+        {
+            if (IUHEmergencyDroneSupplyManager.Instance != null && IUHEmergencyDroneSupplyManager.Instance.TryEmergencyRevive())
             {
-                if (IUHEmergencyDroneSupplyManager.Instance != null && IUHEmergencyDroneSupplyManager.Instance.TryEmergencyRevive())
-                {
-                    m_CurrentHp = m_MaxHp;
-                    m_CurrentShield = m_MaxShield;
-                    m_InvulnerableTime = 3.0f;
-                    UpdateUI();
-                    return;
-                }
-
-                Die();
+                m_CurrentHp = m_MaxHp;
+                m_CurrentShield = m_MaxShield;
+                m_InvulnerableTime = 3.0f;
+                UpdateUI();
+                return;
             }
+            Die();
         }
 
         public void Heal(int amount)

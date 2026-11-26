@@ -47,6 +47,12 @@ namespace IUHCampus.Guardian
 
         [SerializeField] private ScrollRect m_ItemsScrollRect;
 
+        private const int MaxUpgradeLevel = 5;
+        private const float UpgradeShakeIntensity = 0.15f;
+        private const float UpgradeShakeDuration = 0.2f;
+        private static readonly Color ActiveTabColor = new Color(0.2f, 0.65f, 1f);
+        private static readonly Color IdleTabColor = new Color(0.12f, 0.18f, 0.28f);
+
         private ThirdPersonController m_PlayerController;
         private StarterAssetsInputs m_PlayerInputs;
         private bool m_IsOpen;
@@ -175,18 +181,15 @@ namespace IUHCampus.Guardian
             if (m_TabUpgradesContent != null) m_TabUpgradesContent.SetActive(tabIndex == 0);
             if (m_TabInventoryContent != null) m_TabInventoryContent.SetActive(tabIndex == 1);
 
-            Color activeColor = new Color(0.2f, 0.65f, 1f);
-            Color idleColor = new Color(0.12f, 0.18f, 0.28f);
-
             if (m_BtnTabUpgrades != null)
             {
                 var img = m_BtnTabUpgrades.GetComponent<Image>();
-                if (img != null) img.color = tabIndex == 0 ? activeColor : idleColor;
+                if (img != null) img.color = tabIndex == 0 ? ActiveTabColor : IdleTabColor;
             }
             if (m_BtnTabInventory != null)
             {
                 var img = m_BtnTabInventory.GetComponent<Image>();
-                if (img != null) img.color = tabIndex == 1 ? activeColor : idleColor;
+                if (img != null) img.color = tabIndex == 1 ? ActiveTabColor : IdleTabColor;
             }
 
             RefreshAllUI();
@@ -197,7 +200,7 @@ namespace IUHCampus.Guardian
             if (IUHGuardianInventory.Instance != null && IUHGuardianInventory.Instance.UpgradeSword())
             {
                 IUHCombatAudio.PlayCoin();
-                IUHCameraShake.Shake(0.15f, 0.2f);
+                IUHCameraShake.Shake(UpgradeShakeIntensity, UpgradeShakeDuration);
             }
         }
 
@@ -206,7 +209,7 @@ namespace IUHCampus.Guardian
             if (IUHGuardianInventory.Instance != null && IUHGuardianInventory.Instance.UpgradeShield())
             {
                 IUHCombatAudio.PlayCoin();
-                IUHCameraShake.Shake(0.15f, 0.2f);
+                IUHCameraShake.Shake(UpgradeShakeIntensity, UpgradeShakeDuration);
             }
         }
 
@@ -215,7 +218,7 @@ namespace IUHCampus.Guardian
             if (IUHGuardianInventory.Instance != null && IUHGuardianInventory.Instance.UpgradeMaxHp())
             {
                 IUHCombatAudio.PlayCoin();
-                IUHCameraShake.Shake(0.15f, 0.2f);
+                IUHCameraShake.Shake(UpgradeShakeIntensity, UpgradeShakeDuration);
             }
         }
 
@@ -224,67 +227,45 @@ namespace IUHCampus.Guardian
             var inv = IUHGuardianInventory.Instance;
             if (inv == null) return;
 
-            // Currency
             if (m_TxtGold != null) m_TxtGold.text = $"<b>{inv.Gold} Vàng</b>";
 
-            // Sword Upgrade
-            int swLvl = inv.SwordLevel;
-            int swDmg = inv.GetSwordDamage();
-            int swCost = inv.GetSwordUpgradeCost();
-            if (m_TxtSwordCurrent != null) m_TxtSwordCurrent.text = $"Cấp {swLvl}: <b>{swDmg} DMG / ô kiếm</b>";
-            if (swLvl < 5)
-            {
-                if (m_TxtSwordNext != null) m_TxtSwordNext.text = $"Tiếp: <b>{inv.GetNextSwordDamage()} DMG</b>";
-                if (m_TxtBtnSword != null) m_TxtBtnSword.text = $"NÂNG CẤP ({swCost} Vàng)";
-                if (m_BtnUpgradeSword != null) m_BtnUpgradeSword.interactable = inv.Gold >= swCost;
-            }
-            else
-            {
-                if (m_TxtSwordNext != null) m_TxtSwordNext.text = "<color=#4ADE80><b>ĐẠT TỐI ĐA (MAX)</b></color>";
-                if (m_TxtBtnSword != null) m_TxtBtnSword.text = "TỐI ĐA";
-                if (m_BtnUpgradeSword != null) m_BtnUpgradeSword.interactable = false;
-            }
+            RefreshUpgradeRow(
+                m_TxtSwordCurrent, m_TxtSwordNext, m_TxtBtnSword, m_BtnUpgradeSword,
+                inv.SwordLevel, $"Cấp {inv.SwordLevel}: <b>{inv.GetSwordDamage()} DMG / ô kiếm</b>",
+                $"Tiếp: <b>{inv.GetNextSwordDamage()} DMG</b>", inv.GetSwordUpgradeCost(), inv.Gold);
 
-            // Shield Upgrade
-            int shLvl = inv.ShieldLevel;
-            int shVal = inv.GetShieldValue();
-            int shCost = inv.GetShieldUpgradeCost();
-            if (m_TxtShieldCurrent != null) m_TxtShieldCurrent.text = $"Cấp {shLvl}: <b>{shVal} Giáp / ô khiên</b>";
-            if (shLvl < 5)
-            {
-                if (m_TxtShieldNext != null) m_TxtShieldNext.text = $"Tiếp: <b>{inv.GetNextShieldValue()} Giáp</b>";
-                if (m_TxtBtnShield != null) m_TxtBtnShield.text = $"NÂNG CẤP ({shCost} Vàng)";
-                if (m_BtnUpgradeShield != null) m_BtnUpgradeShield.interactable = inv.Gold >= shCost;
-            }
-            else
-            {
-                if (m_TxtShieldNext != null) m_TxtShieldNext.text = "<color=#4ADE80><b>ĐẠT TỐI ĐA (MAX)</b></color>";
-                if (m_TxtBtnShield != null) m_TxtBtnShield.text = "TỐI ĐA";
-                if (m_BtnUpgradeShield != null) m_BtnUpgradeShield.interactable = false;
-            }
+            RefreshUpgradeRow(
+                m_TxtShieldCurrent, m_TxtShieldNext, m_TxtBtnShield, m_BtnUpgradeShield,
+                inv.ShieldLevel, $"Cấp {inv.ShieldLevel}: <b>{inv.GetShieldValue()} Giáp / ô khiên</b>",
+                $"Tiếp: <b>{inv.GetNextShieldValue()} Giáp</b>", inv.GetShieldUpgradeCost(), inv.Gold);
 
-            // HP Upgrade
-            int hpLvl = inv.MaxHpLevel;
-            int hpVal = inv.GetMaxHp();
-            int hpCost = inv.GetMaxHpUpgradeCost();
-            if (m_TxtHpCurrent != null) m_TxtHpCurrent.text = $"Cấp {hpLvl}: <b>{hpVal} Máu Tối Đa</b>";
-            if (hpLvl < 5)
-            {
-                if (m_TxtHpNext != null) m_TxtHpNext.text = $"Tiếp: <b>{inv.GetNextMaxHp()} Máu</b>";
-                if (m_TxtBtnHp != null) m_TxtBtnHp.text = $"NÂNG CẤP ({hpCost} Vàng)";
-                if (m_BtnUpgradeHp != null) m_BtnUpgradeHp.interactable = inv.Gold >= hpCost;
-            }
-            else
-            {
-                if (m_TxtHpNext != null) m_TxtHpNext.text = "<color=#4ADE80><b>ĐẠT TỐI ĐA (MAX)</b></color>";
-                if (m_TxtBtnHp != null) m_TxtBtnHp.text = "TỐI ĐA";
-                if (m_BtnUpgradeHp != null) m_BtnUpgradeHp.interactable = false;
-            }
+            RefreshUpgradeRow(
+                m_TxtHpCurrent, m_TxtHpNext, m_TxtBtnHp, m_BtnUpgradeHp,
+                inv.MaxHpLevel, $"Cấp {inv.MaxHpLevel}: <b>{inv.GetMaxHp()} Máu Tối Đa</b>",
+                $"Tiếp: <b>{inv.GetNextMaxHp()} Máu</b>", inv.GetMaxHpUpgradeCost(), inv.Gold);
 
-            // Inventory Items
             RefreshInventoryTab(inv);
 
             if (m_CurrentTab == 1) ResetScrollToTop(m_ItemsScrollRect);
+        }
+
+        private static void RefreshUpgradeRow(
+            Text currentTxt, Text nextTxt, Text btnTxt, Button btn,
+            int level, string currentLabel, string nextLabel, int cost, int gold)
+        {
+            if (currentTxt != null) currentTxt.text = currentLabel;
+            if (level < MaxUpgradeLevel)
+            {
+                if (nextTxt != null) nextTxt.text = nextLabel;
+                if (btnTxt != null) btnTxt.text = $"NÂNG CẤP ({cost} Vàng)";
+                if (btn != null) btn.interactable = gold >= cost;
+            }
+            else
+            {
+                if (nextTxt != null) nextTxt.text = "<color=#4ADE80><b>ĐẠT TỐI ĐA (MAX)</b></color>";
+                if (btnTxt != null) btnTxt.text = "TỐI ĐA";
+                if (btn != null) btn.interactable = false;
+            }
         }
 
         private static void ResetScrollToTop(ScrollRect scroll)
@@ -299,13 +280,7 @@ namespace IUHCampus.Guardian
         {
             if (m_ItemsContainer == null) return;
 
-            // Clear old items
-            for (int i = m_ItemsContainer.childCount - 1; i >= 0; i--)
-            {
-                var child = m_ItemsContainer.GetChild(i);
-                child.SetParent(null, false);
-                Destroy(child.gameObject);
-            }
+            ClearContainer(m_ItemsContainer);
 
             var items = inv.Items;
             if (m_TxtEmptyInventory != null)
@@ -317,63 +292,79 @@ namespace IUHCampus.Guardian
 
             foreach (var item in items)
             {
-                GameObject row = new GameObject("ItemRow", typeof(RectTransform), typeof(Image));
-                row.transform.SetParent(m_ItemsContainer, false);
-                var rowRt = row.GetComponent<RectTransform>();
-                rowRt.sizeDelta = new Vector2(760f, 48f);
-                row.GetComponent<Image>().color = new Color(0.08f, 0.12f, 0.2f, 0.9f);
-
-                // Name & Count
-                GameObject nameGo = new GameObject("Name", typeof(RectTransform), typeof(Text));
-                nameGo.transform.SetParent(row.transform, false);
-                var nameRt = nameGo.GetComponent<RectTransform>();
-                nameRt.anchorMin = new Vector2(0.03f, 0.5f);
-                nameRt.anchorMax = new Vector2(0.03f, 0.5f);
-                nameRt.pivot = new Vector2(0f, 0.5f);
-                nameRt.sizeDelta = new Vector2(330f, 36f);
-                var nameTxt = nameGo.GetComponent<Text>();
-                nameTxt.text = $"<b>{item.name}</b> <color=#FDE047>x{item.count}</color>\n<size=11><color=#94A3B8>{item.description}</color></size>";
-                nameTxt.font = font;
-                nameTxt.fontSize = 13;
-                nameTxt.color = Color.white;
-                nameTxt.alignment = TextAnchor.MiddleLeft;
-
-                // Use Button if consumable
+                GameObject row = CreateInventoryRow(item.name, item.count, item.description, font);
                 if (item.isConsumable)
                 {
-                    GameObject btnGo = new GameObject("BtnUse", typeof(RectTransform), typeof(Image), typeof(Button));
-                    btnGo.transform.SetParent(row.transform, false);
-                    var btnRt = btnGo.GetComponent<RectTransform>();
-                    btnRt.anchorMin = new Vector2(0.85f, 0.5f);
-                    btnRt.anchorMax = new Vector2(0.85f, 0.5f);
-                    btnRt.sizeDelta = new Vector2(100f, 32f);
-                    btnGo.GetComponent<Image>().color = new Color(0.16f, 0.65f, 0.38f);
-
-                    GameObject bTxtGo = new GameObject("Text", typeof(RectTransform), typeof(Text));
-                    bTxtGo.transform.SetParent(btnGo.transform, false);
-                    var bTxtRt = bTxtGo.GetComponent<RectTransform>();
-                    bTxtRt.anchorMin = Vector2.zero;
-                    bTxtRt.anchorMax = Vector2.one;
-                    bTxtRt.sizeDelta = Vector2.zero;
-                    var bTxt = bTxtGo.GetComponent<Text>();
-                    bTxt.text = "SỬ DỤNG";
-                    bTxt.font = font;
-                    bTxt.fontSize = 12;
-                    bTxt.fontStyle = FontStyle.Bold;
-                    bTxt.alignment = TextAnchor.MiddleCenter;
-                    bTxt.color = Color.white;
-
-                    string curItemName = item.name;
-                    btnGo.GetComponent<Button>().onClick.AddListener(() =>
-                    {
-                        if (inv.UseItem(curItemName))
-                        {
-                            IUHCombatAudio.PlayHeal();
-                            IUHCameraShake.Shake(0.15f, 0.2f);
-                        }
-                    });
+                    CreateUseButton(row.transform, font, inv, item.name);
                 }
             }
+        }
+
+        private static void ClearContainer(Transform container)
+        {
+            for (int i = container.childCount - 1; i >= 0; i--)
+            {
+                var child = container.GetChild(i);
+                child.SetParent(null, false);
+                Destroy(child.gameObject);
+            }
+        }
+
+        private GameObject CreateInventoryRow(string itemName, int count, string description, Font font)
+        {
+            GameObject row = new GameObject("ItemRow", typeof(RectTransform), typeof(Image));
+            row.transform.SetParent(m_ItemsContainer, false);
+            row.GetComponent<RectTransform>().sizeDelta = new Vector2(760f, 48f);
+            row.GetComponent<Image>().color = new Color(0.08f, 0.12f, 0.2f, 0.9f);
+
+            GameObject nameGo = new GameObject("Name", typeof(RectTransform), typeof(Text));
+            nameGo.transform.SetParent(row.transform, false);
+            var nameRt = nameGo.GetComponent<RectTransform>();
+            nameRt.anchorMin = new Vector2(0.03f, 0.5f);
+            nameRt.anchorMax = new Vector2(0.03f, 0.5f);
+            nameRt.pivot = new Vector2(0f, 0.5f);
+            nameRt.sizeDelta = new Vector2(330f, 36f);
+            var nameTxt = nameGo.GetComponent<Text>();
+            nameTxt.text = $"<b>{itemName}</b> <color=#FDE047>x{count}</color>\n<size=11><color=#94A3B8>{description}</color></size>";
+            nameTxt.font = font;
+            nameTxt.fontSize = 13;
+            nameTxt.color = Color.white;
+            nameTxt.alignment = TextAnchor.MiddleLeft;
+            return row;
+        }
+
+        private static void CreateUseButton(Transform rowTransform, Font font, IUHGuardianInventory inv, string itemName)
+        {
+            GameObject btnGo = new GameObject("BtnUse", typeof(RectTransform), typeof(Image), typeof(Button));
+            btnGo.transform.SetParent(rowTransform, false);
+            var btnRt = btnGo.GetComponent<RectTransform>();
+            btnRt.anchorMin = new Vector2(0.85f, 0.5f);
+            btnRt.anchorMax = new Vector2(0.85f, 0.5f);
+            btnRt.sizeDelta = new Vector2(100f, 32f);
+            btnGo.GetComponent<Image>().color = new Color(0.16f, 0.65f, 0.38f);
+
+            GameObject bTxtGo = new GameObject("Text", typeof(RectTransform), typeof(Text));
+            bTxtGo.transform.SetParent(btnGo.transform, false);
+            var bTxtRt = bTxtGo.GetComponent<RectTransform>();
+            bTxtRt.anchorMin = Vector2.zero;
+            bTxtRt.anchorMax = Vector2.one;
+            bTxtRt.sizeDelta = Vector2.zero;
+            var bTxt = bTxtGo.GetComponent<Text>();
+            bTxt.text = "SỬ DỤNG";
+            bTxt.font = font;
+            bTxt.fontSize = 12;
+            bTxt.fontStyle = FontStyle.Bold;
+            bTxt.alignment = TextAnchor.MiddleCenter;
+            bTxt.color = Color.white;
+
+            btnGo.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                if (inv.UseItem(itemName))
+                {
+                    IUHCombatAudio.PlayHeal();
+                    IUHCameraShake.Shake(UpgradeShakeIntensity, UpgradeShakeDuration);
+                }
+            });
         }
     }
 }
