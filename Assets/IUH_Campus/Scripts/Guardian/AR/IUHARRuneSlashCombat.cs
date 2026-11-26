@@ -122,6 +122,16 @@ namespace IUHCampus.Guardian.AR
             m_BladeTrail.emitting = false;
         }
 
+        private static Material CreateUnlitMaterial(Color color)
+        {
+            Shader shader = Shader.Find("Universal Render Pipeline/Unlit")
+                ?? Shader.Find("Sprites/Default")
+                ?? Shader.Find("Unlit/Texture");
+            var mat = new Material(shader);
+            mat.color = color;
+            return mat;
+        }
+
         private void BuildCombatUI()
         {
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf")
@@ -129,6 +139,17 @@ namespace IUHCampus.Guardian.AR
                 ?? Font.CreateDynamicFontFromOSFont("Helvetica", 16)
                 ?? Font.CreateDynamicFontFromOSFont("Arial", 16);
 
+            CreateCombatCanvas();
+            BuildBossHealthBar(font);
+            BuildPlayerStatusBars(font);
+            BuildHudOverlays(font);
+            BuildEndGameModals(font);
+
+            m_CombatCanvasRoot.SetActive(false);
+        }
+
+        private void CreateCombatCanvas()
+        {
             m_CombatCanvasRoot = new GameObject("IUH_AR_CYBER_SLASH_CANVAS", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             m_CombatCanvasRoot.transform.SetParent(transform, false);
 
@@ -140,120 +161,44 @@ namespace IUHCampus.Guardian.AR
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 0.5f;
+        }
 
-            // 1. Boss HP Container (Top-Center)
-            GameObject bossBarGO = new GameObject("Boss_HP_Container", typeof(RectTransform), typeof(Image));
-            bossBarGO.transform.SetParent(m_CombatCanvasRoot.transform, false);
-            var bbRt = bossBarGO.GetComponent<RectTransform>();
-            bbRt.anchorMin = new Vector2(0.5f, 1f); bbRt.anchorMax = new Vector2(0.5f, 1f);
-            bbRt.pivot = new Vector2(0.5f, 1f);
-            bbRt.anchoredPosition = new Vector2(0f, -18f);
-            bbRt.sizeDelta = new Vector2(620f, 54f);
-            bossBarGO.GetComponent<Image>().color = new Color(0.05f, 0.08f, 0.16f, 0.92f);
+        private void BuildBossHealthBar(Font font)
+        {
+            GameObject bossBarGO = CreatePanel(m_CombatCanvasRoot.transform, "Boss_HP_Container",
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                new Vector2(0f, -18f), new Vector2(620f, 54f), new Color(0.05f, 0.08f, 0.16f, 0.92f));
 
-            GameObject bossFillGO = new GameObject("Fill", typeof(RectTransform), typeof(Image));
-            bossFillGO.transform.SetParent(bossBarGO.transform, false);
-            var bfRt = bossFillGO.GetComponent<RectTransform>();
-            bfRt.anchorMin = new Vector2(0.02f, 0.15f); bfRt.anchorMax = new Vector2(0.98f, 0.85f);
-            bfRt.sizeDelta = Vector2.zero;
-            m_BossHpFill = bossFillGO.GetComponent<Image>();
-            m_BossHpFill.type = Image.Type.Filled;
-            m_BossHpFill.fillMethod = Image.FillMethod.Horizontal;
-            m_BossHpFill.color = new Color(0.9f, 0.2f, 0.35f, 0.95f);
+            m_BossHpFill = CreateFilledBar(bossBarGO.transform, "Fill",
+                new Vector2(0.02f, 0.15f), new Vector2(0.98f, 0.85f), new Color(0.9f, 0.2f, 0.35f, 0.95f));
+            m_BossHpText = CreateOutlinedText(bossBarGO.transform, "Text", font,
+                "👹 TIỂU QUỶ DỮ LIỆU: 1000 / 1000", 15, Color.white, new Color(0.25f, 0f, 0.08f, 0.9f));
+        }
 
-            GameObject bossTxtGO = new GameObject("Text", typeof(RectTransform), typeof(Text), typeof(Outline));
-            bossTxtGO.transform.SetParent(bossBarGO.transform, false);
-            var btRt = bossTxtGO.GetComponent<RectTransform>();
-            btRt.anchorMin = Vector2.zero; btRt.anchorMax = Vector2.one; btRt.sizeDelta = Vector2.zero;
-            m_BossHpText = bossTxtGO.GetComponent<Text>();
-            m_BossHpText.font = font;
-            m_BossHpText.text = "👹 TIỂU QUỶ DỮ LIỆU: 1000 / 1000";
-            m_BossHpText.fontSize = 15;
-            m_BossHpText.fontStyle = FontStyle.Bold;
-            m_BossHpText.alignment = TextAnchor.MiddleCenter;
-            m_BossHpText.color = Color.white;
-            bossTxtGO.GetComponent<Outline>().effectColor = new Color(0.25f, 0f, 0.08f, 0.9f);
+        private void BuildPlayerStatusBars(Font font)
+        {
+            GameObject playerStatusGO = CreatePanel(m_CombatCanvasRoot.transform, "Player_Status_Container",
+                new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f),
+                new Vector2(25f, -85f), new Vector2(270f, 75f), new Color(0.04f, 0.07f, 0.14f, 0.92f));
 
-            // 2. Player Status & Ultimate Energy (Top-Left)
-            GameObject playerStatusGO = new GameObject("Player_Status_Container", typeof(RectTransform), typeof(Image));
-            playerStatusGO.transform.SetParent(m_CombatCanvasRoot.transform, false);
-            var psRt = playerStatusGO.GetComponent<RectTransform>();
-            psRt.anchorMin = new Vector2(0f, 1f); psRt.anchorMax = new Vector2(0f, 1f);
-            psRt.pivot = new Vector2(0f, 1f);
-            psRt.anchoredPosition = new Vector2(25f, -85f);
-            psRt.sizeDelta = new Vector2(270f, 75f);
-            playerStatusGO.GetComponent<Image>().color = new Color(0.04f, 0.07f, 0.14f, 0.92f);
+            m_PlayerHpFill = CreateFilledBar(playerStatusGO.transform, "HP_Fill",
+                new Vector2(0.04f, 0.52f), new Vector2(0.96f, 0.92f), new Color(0.2f, 0.95f, 0.45f, 0.95f));
+            m_PlayerHpText = CreateOutlinedText(m_PlayerHpFill.transform, "HP_Text", font,
+                "🛡️ SINH VIÊN: 100 / 100", 12, Color.white, new Color(0.02f, 0.15f, 0.05f, 0.9f));
 
-            // HP Bar
-            GameObject pFillGO = new GameObject("HP_Fill", typeof(RectTransform), typeof(Image));
-            pFillGO.transform.SetParent(playerStatusGO.transform, false);
-            var pfRt = pFillGO.GetComponent<RectTransform>();
-            pfRt.anchorMin = new Vector2(0.04f, 0.52f); pfRt.anchorMax = new Vector2(0.96f, 0.92f);
-            pfRt.sizeDelta = Vector2.zero;
-            m_PlayerHpFill = pFillGO.GetComponent<Image>();
-            m_PlayerHpFill.type = Image.Type.Filled;
-            m_PlayerHpFill.fillMethod = Image.FillMethod.Horizontal;
-            m_PlayerHpFill.color = new Color(0.2f, 0.95f, 0.45f, 0.95f);
+            m_UltimateEnergyFill = CreateFilledBar(playerStatusGO.transform, "Ult_Fill",
+                new Vector2(0.04f, 0.08f), new Vector2(0.96f, 0.48f), new Color(1f, 0.85f, 0.1f, 0.95f));
+            m_UltimateEnergyText = CreateOutlinedText(m_UltimateEnergyFill.transform, "Ult_Text", font,
+                "⚡ NĂNG LƯỢNG TỐI THƯỢNG: 0%", 11, Color.white, new Color(0.2f, 0.15f, 0f, 0.9f));
+        }
 
-            GameObject pTxtGO = new GameObject("HP_Text", typeof(RectTransform), typeof(Text), typeof(Outline));
-            pTxtGO.transform.SetParent(pFillGO.transform, false);
-            var ptRt = pTxtGO.GetComponent<RectTransform>();
-            ptRt.anchorMin = Vector2.zero; ptRt.anchorMax = Vector2.one; ptRt.sizeDelta = Vector2.zero;
-            m_PlayerHpText = pTxtGO.GetComponent<Text>();
-            m_PlayerHpText.font = font;
-            m_PlayerHpText.text = "🛡️ SINH VIÊN: 100 / 100";
-            m_PlayerHpText.fontSize = 12;
-            m_PlayerHpText.fontStyle = FontStyle.Bold;
-            m_PlayerHpText.alignment = TextAnchor.MiddleCenter;
-            m_PlayerHpText.color = Color.white;
-            pTxtGO.GetComponent<Outline>().effectColor = new Color(0.02f, 0.15f, 0.05f, 0.9f);
+        private void BuildHudOverlays(Font font)
+        {
+            CreateFeedbackButton(m_CombatCanvasRoot.transform, "Btn_Exit_Combat",
+                new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f),
+                new Vector2(25f, -22f), new Vector2(170f, 50f), new Color(0.85f, 0.15f, 0.2f, 0.92f),
+                font, "✕ THOÁT", 15, ExitCombatToCampus);
 
-            // Ultimate Energy Bar
-            GameObject ultFillGO = new GameObject("Ult_Fill", typeof(RectTransform), typeof(Image));
-            ultFillGO.transform.SetParent(playerStatusGO.transform, false);
-            var ufRt = ultFillGO.GetComponent<RectTransform>();
-            ufRt.anchorMin = new Vector2(0.04f, 0.08f); ufRt.anchorMax = new Vector2(0.96f, 0.48f);
-            ufRt.sizeDelta = Vector2.zero;
-            m_UltimateEnergyFill = ultFillGO.GetComponent<Image>();
-            m_UltimateEnergyFill.type = Image.Type.Filled;
-            m_UltimateEnergyFill.fillMethod = Image.FillMethod.Horizontal;
-            m_UltimateEnergyFill.color = new Color(1f, 0.85f, 0.1f, 0.95f);
-
-            GameObject ultTxtGO = new GameObject("Ult_Text", typeof(RectTransform), typeof(Text), typeof(Outline));
-            ultTxtGO.transform.SetParent(ultFillGO.transform, false);
-            var utRt = ultTxtGO.GetComponent<RectTransform>();
-            utRt.anchorMin = Vector2.zero; utRt.anchorMax = Vector2.one; utRt.sizeDelta = Vector2.zero;
-            m_UltimateEnergyText = ultTxtGO.GetComponent<Text>();
-            m_UltimateEnergyText.font = font;
-            m_UltimateEnergyText.text = "⚡ NĂNG LƯỢNG TỐI THƯỢNG: 0%";
-            m_UltimateEnergyText.fontSize = 11;
-            m_UltimateEnergyText.fontStyle = FontStyle.Bold;
-            m_UltimateEnergyText.alignment = TextAnchor.MiddleCenter;
-            m_UltimateEnergyText.color = Color.white;
-            ultTxtGO.GetComponent<Outline>().effectColor = new Color(0.2f, 0.15f, 0f, 0.9f);
-
-            // 3. Nút Thoát Trận [✕ THOÁT] (Top-Left)
-            GameObject exitBtnGO = new GameObject("Btn_Exit_Combat", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            exitBtnGO.transform.SetParent(m_CombatCanvasRoot.transform, false);
-            var exRt = exitBtnGO.GetComponent<RectTransform>();
-            exRt.anchorMin = new Vector2(0f, 1f); exRt.anchorMax = new Vector2(0f, 1f);
-            exRt.pivot = new Vector2(0f, 1f);
-            exRt.anchoredPosition = new Vector2(25f, -22f);
-            exRt.sizeDelta = new Vector2(170f, 50f);
-            exitBtnGO.GetComponent<Image>().color = new Color(0.85f, 0.15f, 0.2f, 0.92f);
-
-            GameObject exTxt = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            exTxt.transform.SetParent(exitBtnGO.transform, false);
-            var etxRt = exTxt.GetComponent<RectTransform>();
-            etxRt.anchorMin = Vector2.zero; etxRt.anchorMax = Vector2.one; etxRt.sizeDelta = Vector2.zero;
-            var t = exTxt.GetComponent<Text>();
-            t.font = font; t.text = "✕ THOÁT"; t.fontSize = 15; t.fontStyle = FontStyle.Bold;
-            t.alignment = TextAnchor.MiddleCenter; t.color = Color.white;
-            t.raycastTarget = false;
-
-            exitBtnGO.GetComponent<Button>().onClick.AddListener(ExitCombatToCampus);
-
-            // 4. Instruction Banner (Top-Center)
             GameObject bannerGO = new GameObject("Instruction_Banner", typeof(RectTransform), typeof(Text), typeof(Outline));
             bannerGO.transform.SetParent(m_CombatCanvasRoot.transform, false);
             var bnRt = bannerGO.GetComponent<RectTransform>();
@@ -270,7 +215,6 @@ namespace IUHCampus.Guardian.AR
             m_InstructionBanner.color = new Color(1f, 0.92f, 0.3f);
             bannerGO.GetComponent<Outline>().effectColor = new Color(0.1f, 0.05f, 0f, 0.9f);
 
-            // 5. Combo Counter (Left-Center)
             GameObject comboGO = new GameObject("Combo_Text", typeof(RectTransform), typeof(Text), typeof(Outline));
             comboGO.transform.SetParent(m_CombatCanvasRoot.transform, false);
             var cbRt = comboGO.GetComponent<RectTransform>();
@@ -287,14 +231,15 @@ namespace IUHCampus.Guardian.AR
             comboGO.GetComponent<Outline>().effectColor = new Color(0f, 0.15f, 0.3f, 0.9f);
             m_ComboText.gameObject.SetActive(false);
 
-            // 6. Ultimate Cut Line UI
-            m_UltimateCutLineUI = new GameObject("Ultimate_Cut_Line", typeof(RectTransform), typeof(Image));
-            m_UltimateCutLineUI.transform.SetParent(m_CombatCanvasRoot.transform, false);
-            var clRt = m_UltimateCutLineUI.GetComponent<RectTransform>();
-            clRt.anchorMin = new Vector2(0.5f, 0.5f); clRt.anchorMax = new Vector2(0.5f, 0.5f);
-            clRt.sizeDelta = new Vector2(700f, 6f);
-            clRt.localRotation = Quaternion.Euler(0f, 0f, -25f);
-            m_UltimateCutLineUI.GetComponent<Image>().color = new Color(1f, 0.85f, 0.1f, 0.95f);
+            BuildUltimateCutLineUI(font);
+        }
+
+        private void BuildUltimateCutLineUI(Font font)
+        {
+            m_UltimateCutLineUI = CreatePanel(m_CombatCanvasRoot.transform, "Ultimate_Cut_Line",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                Vector2.zero, new Vector2(700f, 6f), new Color(1f, 0.85f, 0.1f, 0.95f));
+            m_UltimateCutLineUI.GetComponent<RectTransform>().localRotation = Quaternion.Euler(0f, 0f, -25f);
 
             GameObject uAlert = new GameObject("AlertText", typeof(RectTransform), typeof(Text), typeof(Outline));
             uAlert.transform.SetParent(m_UltimateCutLineUI.transform, false);
@@ -311,44 +256,36 @@ namespace IUHCampus.Guardian.AR
             m_UltimateAlertText.alignment = TextAnchor.MiddleCenter;
             m_UltimateAlertText.color = new Color(1f, 0.95f, 0.3f);
             uAlert.GetComponent<Outline>().effectColor = new Color(0.3f, 0.15f, 0f, 0.9f);
-
             m_UltimateCutLineUI.SetActive(false);
-
-            // 7. Modals: Victory & Defeat
-            BuildEndGameModals(font);
-
-            m_CombatCanvasRoot.SetActive(false);
         }
 
         private void BuildEndGameModals(Font font)
         {
-            // Victory Modal
-            m_VictoryModal = new GameObject("Modal_Victory", typeof(RectTransform), typeof(Image));
-            m_VictoryModal.transform.SetParent(m_CombatCanvasRoot.transform, false);
-            var vRt = m_VictoryModal.GetComponent<RectTransform>();
-            vRt.anchorMin = new Vector2(0.5f, 0.5f); vRt.anchorMax = new Vector2(0.5f, 0.5f);
-            vRt.sizeDelta = new Vector2(640f, 360f);
-            m_VictoryModal.GetComponent<Image>().color = new Color(0.04f, 0.08f, 0.16f, 0.96f);
+            BuildVictoryModal(font);
+            BuildDefeatModal(font);
+        }
 
-            GameObject vTitle = new GameObject("Title", typeof(RectTransform), typeof(Text), typeof(Outline));
-            vTitle.transform.SetParent(m_VictoryModal.transform, false);
-            var vtRt = vTitle.GetComponent<RectTransform>();
+        private void BuildVictoryModal(Font font)
+        {
+            m_VictoryModal = CreatePanel(m_CombatCanvasRoot.transform, "Modal_Victory",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                Vector2.zero, new Vector2(640f, 360f), new Color(0.04f, 0.08f, 0.16f, 0.96f));
+
+            var vt = CreateOutlinedText(m_VictoryModal.transform, "Title", font,
+                "🏆 CHIẾN THẮNG TUYỆT ĐỐI!\nQUÁI VẬT ĐÃ BỊ CHÉM ĐÔI & THANH TẨY", 20,
+                new Color(0.3f, 1f, 0.6f), new Color(0f, 0.2f, 0.1f, 0.9f));
+            var vtRt = vt.GetComponent<RectTransform>();
             vtRt.anchorMin = new Vector2(0f, 0.68f); vtRt.anchorMax = Vector2.one; vtRt.sizeDelta = Vector2.zero;
-            var vt = vTitle.GetComponent<Text>();
-            vt.font = font; vt.text = "🏆 CHIẾN THẮNG TUYỆT ĐỐI!\nQUÁI VẬT ĐÃ BỊ CHÉM ĐÔI & THANH TẨY";
-            vt.fontSize = 20; vt.fontStyle = FontStyle.Bold; vt.alignment = TextAnchor.MiddleCenter;
-            vt.color = new Color(0.3f, 1f, 0.6f);
-            vTitle.GetComponent<Outline>().effectColor = new Color(0f, 0.2f, 0.1f, 0.9f);
 
             GameObject vDesc = new GameObject("Desc", typeof(RectTransform), typeof(Text));
             vDesc.transform.SetParent(m_VictoryModal.transform, false);
             var vdRt = vDesc.GetComponent<RectTransform>();
             vdRt.anchorMin = new Vector2(0.05f, 0.42f); vdRt.anchorMax = new Vector2(0.95f, 0.68f); vdRt.sizeDelta = Vector2.zero;
             var vd = vDesc.GetComponent<Text>();
-            vd.font = font; vd.text = "✨ Đòn chém tối thượng đã giải thoát vật thể khỏi virus dữ liệu!\n🎁 Nhận thưởng: +300 IUH Coin & +80 Điểm Kinh Nghiệm";
+            vd.font = font;
+            vd.text = "✨ Đòn chém tối thượng đã giải thoát vật thể khỏi virus dữ liệu!\n🎁 Nhận thưởng: +300 IUH Coin & +80 Điểm Kinh Nghiệm";
             vd.fontSize = 14; vd.alignment = TextAnchor.MiddleCenter; vd.color = new Color(1f, 0.9f, 0.6f);
 
-            // Dòng đếm ngược tự động chuyển sang vật thể tiếp theo
             GameObject vCountGO = new GameObject("CountdownText", typeof(RectTransform), typeof(Text));
             vCountGO.transform.SetParent(m_VictoryModal.transform, false);
             var vcRt = vCountGO.GetComponent<RectTransform>();
@@ -361,79 +298,101 @@ namespace IUHCampus.Guardian.AR
             m_VictoryCountdownText.alignment = TextAnchor.MiddleCenter;
             m_VictoryCountdownText.color = new Color(0.35f, 0.9f, 1f);
 
-            // Nút 1: [ 🔍 QUÉT VẬT THỂ TIẾP THEO (AR) ]
-            GameObject vBtnScan = new GameObject("Btn_ScanNext", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            vBtnScan.transform.SetParent(m_VictoryModal.transform, false);
-            var vbsRt = vBtnScan.GetComponent<RectTransform>();
-            vbsRt.anchorMin = new Vector2(0.05f, 0.08f); vbsRt.anchorMax = new Vector2(0.52f, 0.26f);
-            vbsRt.sizeDelta = Vector2.zero;
-            vBtnScan.GetComponent<Image>().color = new Color(0.12f, 0.65f, 0.95f, 0.98f);
+            CreateFeedbackButton(m_VictoryModal.transform, "Btn_ScanNext",
+                new Vector2(0.05f, 0.08f), new Vector2(0.52f, 0.26f), new Vector2(0.5f, 0.5f),
+                Vector2.zero, Vector2.zero, new Color(0.12f, 0.65f, 0.95f, 0.98f),
+                font, "🔍 QUÉT VẬT THỂ TIẾP", 15, ProceedToNextScan);
 
-            GameObject vbsTxt = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            vbsTxt.transform.SetParent(vBtnScan.transform, false);
-            var vbstRt = vbsTxt.GetComponent<RectTransform>();
-            vbstRt.anchorMin = Vector2.zero; vbstRt.anchorMax = Vector2.one; vbstRt.sizeDelta = Vector2.zero;
-            var vbst = vbsTxt.GetComponent<Text>();
-            vbst.font = font; vbst.text = "🔍 QUÉT VẬT THỂ TIẾP"; vbst.fontSize = 15; vbst.fontStyle = FontStyle.Bold;
-            vbst.alignment = TextAnchor.MiddleCenter; vbst.color = Color.white; vbst.raycastTarget = false;
+            CreateFeedbackButton(m_VictoryModal.transform, "Btn_ExitCampus",
+                new Vector2(0.55f, 0.08f), new Vector2(0.95f, 0.26f), new Vector2(0.5f, 0.5f),
+                Vector2.zero, Vector2.zero, new Color(0.25f, 0.32f, 0.42f, 0.95f),
+                font, "🚪 VỀ SÂN TRƯỜNG", 15, ExitCombatToCampus);
 
-            vBtnScan.GetComponent<Button>().onClick.AddListener(ProceedToNextScan);
-
-            // Nút 2: [ 🚪 VỀ SÂN TRƯỜNG ]
-            GameObject vBtnExit = new GameObject("Btn_ExitCampus", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            vBtnExit.transform.SetParent(m_VictoryModal.transform, false);
-            var vbeRt = vBtnExit.GetComponent<RectTransform>();
-            vbeRt.anchorMin = new Vector2(0.55f, 0.08f); vbeRt.anchorMax = new Vector2(0.95f, 0.26f);
-            vbeRt.sizeDelta = Vector2.zero;
-            vBtnExit.GetComponent<Image>().color = new Color(0.25f, 0.32f, 0.42f, 0.95f);
-
-            GameObject vbeTxt = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            vbeTxt.transform.SetParent(vBtnExit.transform, false);
-            var vbetRt = vbeTxt.GetComponent<RectTransform>();
-            vbetRt.anchorMin = Vector2.zero; vbetRt.anchorMax = Vector2.one; vbetRt.sizeDelta = Vector2.zero;
-            var vbet = vbeTxt.GetComponent<Text>();
-            vbet.font = font; vbet.text = "🚪 VỀ SÂN TRƯỜNG"; vbet.fontSize = 15; vbet.fontStyle = FontStyle.Bold;
-            vbet.alignment = TextAnchor.MiddleCenter; vbet.color = Color.white; vbet.raycastTarget = false;
-
-            vBtnExit.GetComponent<Button>().onClick.AddListener(ExitCombatToCampus);
             m_VictoryModal.SetActive(false);
+        }
 
-            // Defeat Modal
-            m_DefeatModal = new GameObject("Modal_Defeat", typeof(RectTransform), typeof(Image));
-            m_DefeatModal.transform.SetParent(m_CombatCanvasRoot.transform, false);
-            var dRt = m_DefeatModal.GetComponent<RectTransform>();
-            dRt.anchorMin = new Vector2(0.5f, 0.5f); dRt.anchorMax = new Vector2(0.5f, 0.5f);
-            dRt.sizeDelta = new Vector2(580f, 290f);
-            m_DefeatModal.GetComponent<Image>().color = new Color(0.14f, 0.04f, 0.06f, 0.96f);
+        private void BuildDefeatModal(Font font)
+        {
+            m_DefeatModal = CreatePanel(m_CombatCanvasRoot.transform, "Modal_Defeat",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                Vector2.zero, new Vector2(580f, 290f), new Color(0.14f, 0.04f, 0.06f, 0.96f));
 
-            GameObject dTitle = new GameObject("Title", typeof(RectTransform), typeof(Text), typeof(Outline));
-            dTitle.transform.SetParent(m_DefeatModal.transform, false);
-            var dtRt = dTitle.GetComponent<RectTransform>();
+            var dt = CreateOutlinedText(m_DefeatModal.transform, "Title", font,
+                "⚠️ THẤT BẠI!\nBỊ BOM ĐỘC GAI NHỌN HẠ GỤC", 20,
+                new Color(1f, 0.3f, 0.35f), new Color(0.2f, 0f, 0f, 0.9f));
+            var dtRt = dt.GetComponent<RectTransform>();
             dtRt.anchorMin = new Vector2(0f, 0.65f); dtRt.anchorMax = Vector2.one; dtRt.sizeDelta = Vector2.zero;
-            var dt = dTitle.GetComponent<Text>();
-            dt.font = font; dt.text = "⚠️ THẤT BẠI!\nBỊ BOM ĐỘC GAI NHỌN HẠ GỤC";
-            dt.fontSize = 20; dt.fontStyle = FontStyle.Bold; dt.alignment = TextAnchor.MiddleCenter;
-            dt.color = new Color(1f, 0.3f, 0.35f);
-            dTitle.GetComponent<Outline>().effectColor = new Color(0.2f, 0f, 0f, 0.9f);
 
-            GameObject dBtn = new GameObject("Btn_Exit", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            dBtn.transform.SetParent(m_DefeatModal.transform, false);
-            var dbRt = dBtn.GetComponent<RectTransform>();
-            dbRt.anchorMin = new Vector2(0.5f, 0.15f); dbRt.anchorMax = new Vector2(0.5f, 0.15f);
-            dbRt.pivot = new Vector2(0.5f, 0f);
-            dbRt.sizeDelta = new Vector2(250f, 52f);
-            dBtn.GetComponent<Image>().color = new Color(0.85f, 0.2f, 0.25f, 0.95f);
+            CreateFeedbackButton(m_DefeatModal.transform, "Btn_Exit",
+                new Vector2(0.5f, 0.15f), new Vector2(0.5f, 0.15f), new Vector2(0.5f, 0f),
+                Vector2.zero, new Vector2(250f, 52f), new Color(0.85f, 0.2f, 0.25f, 0.95f),
+                font, "RÚT LUI", 15, ExitCombatToCampus);
 
-            GameObject dbTxt = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            dbTxt.transform.SetParent(dBtn.transform, false);
-            var dbtRt = dbTxt.GetComponent<RectTransform>();
-            dbtRt.anchorMin = Vector2.zero; dbtRt.anchorMax = Vector2.one; dbtRt.sizeDelta = Vector2.zero;
-            var dbt = dbTxt.GetComponent<Text>();
-            dbt.font = font; dbt.text = "RÚT LUI"; dbt.fontSize = 15; dbt.fontStyle = FontStyle.Bold;
-            dbt.alignment = TextAnchor.MiddleCenter; dbt.color = Color.white; dbt.raycastTarget = false;
-
-            dBtn.GetComponent<Button>().onClick.AddListener(ExitCombatToCampus);
             m_DefeatModal.SetActive(false);
+        }
+
+        private static GameObject CreatePanel(
+            Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax,
+            Vector2 pivot, Vector2 anchoredPos, Vector2 sizeDelta, Color color)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+            var rt = go.GetComponent<RectTransform>();
+            rt.anchorMin = anchorMin; rt.anchorMax = anchorMax; rt.pivot = pivot;
+            rt.anchoredPosition = anchoredPos; rt.sizeDelta = sizeDelta;
+            go.GetComponent<Image>().color = color;
+            return go;
+        }
+
+        private static Image CreateFilledBar(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Color color)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+            var rt = go.GetComponent<RectTransform>();
+            rt.anchorMin = anchorMin; rt.anchorMax = anchorMax; rt.sizeDelta = Vector2.zero;
+            var img = go.GetComponent<Image>();
+            img.type = Image.Type.Filled;
+            img.fillMethod = Image.FillMethod.Horizontal;
+            img.color = color;
+            return img;
+        }
+
+        private static Text CreateOutlinedText(
+            Transform parent, string name, Font font, string text, int fontSize, Color color, Color outlineColor)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Text), typeof(Outline));
+            go.transform.SetParent(parent, false);
+            var rt = go.GetComponent<RectTransform>();
+            rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one; rt.sizeDelta = Vector2.zero;
+            var txt = go.GetComponent<Text>();
+            txt.font = font; txt.text = text; txt.fontSize = fontSize;
+            txt.fontStyle = FontStyle.Bold; txt.alignment = TextAnchor.MiddleCenter; txt.color = color;
+            go.GetComponent<Outline>().effectColor = outlineColor;
+            return txt;
+        }
+
+        private static void CreateFeedbackButton(
+            Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot,
+            Vector2 anchoredPos, Vector2 sizeDelta, Color bgColor, Font font, string label, int fontSize,
+            UnityEngine.Events.UnityAction onClick)
+        {
+            GameObject btnGO = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
+            btnGO.transform.SetParent(parent, false);
+            var rt = btnGO.GetComponent<RectTransform>();
+            rt.anchorMin = anchorMin; rt.anchorMax = anchorMax; rt.pivot = pivot;
+            rt.anchoredPosition = anchoredPos; rt.sizeDelta = sizeDelta;
+            btnGO.GetComponent<Image>().color = bgColor;
+
+            GameObject txtGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
+            txtGO.transform.SetParent(btnGO.transform, false);
+            var tRt = txtGO.GetComponent<RectTransform>();
+            tRt.anchorMin = Vector2.zero; tRt.anchorMax = Vector2.one; tRt.sizeDelta = Vector2.zero;
+            var txt = txtGO.GetComponent<Text>();
+            txt.font = font; txt.text = label; txt.fontSize = fontSize;
+            txt.fontStyle = FontStyle.Bold; txt.alignment = TextAnchor.MiddleCenter;
+            txt.color = Color.white; txt.raycastTarget = false;
+
+            btnGO.GetComponent<Button>().onClick.AddListener(onClick);
         }
 
         public void StartCombat(GameObject monsterAnchor, Camera arCamera)
@@ -473,71 +432,83 @@ namespace IUHCampus.Guardian.AR
 
         private IEnumerator ShapeTossingRoutine()
         {
-            int wave = 0;
-
             while (m_IsCombatActive && m_BossCurrentHp > 0 && m_PlayerCurrentHp > 0)
             {
                 if (!m_IsUltimatePhase)
                 {
-                    wave++;
-                    int shapeCount = UnityEngine.Random.Range(2, 4);
-
-                    // Quái vật gầm rú và lao tới tung đòn cử động sống động
-                    if (m_MonsterVisual != null)
-                    {
-                        var livingAnim = m_MonsterVisual.GetComponent<IUHARMonsterLivingController>();
-                        if (livingAnim != null) livingAnim.TriggerAttackRoar();
-                    }
-
-                    // Tung đợt khối dữ liệu bay lên
-                    for (int i = 0; i < shapeCount; i++)
-                    {
-                        if (!m_IsCombatActive || m_IsUltimatePhase || m_BossCurrentHp <= 0f) break;
-
-                        // Tỉ lệ xuất hiện các loại hình khối
-                        float roll = UnityEngine.Random.value;
-                        ShapeType chosenType = ShapeType.DataCube;
-                        if (roll < 0.22f) chosenType = ShapeType.SpikeBomb; // 22% bom độc
-                        else if (roll < 0.45f) chosenType = ShapeType.EnergyStar; // 23% ngôi sao hồi máu
-                        else if (roll < 0.65f) chosenType = ShapeType.DataPyramid; // 20% kim tự tháp
-                        else chosenType = ShapeType.DataCube; // 35% khối vuông
-
-                        SpawnFlyingShape(chosenType);
-                        yield return new WaitForSeconds(UnityEngine.Random.Range(0.25f, 0.45f));
-                    }
-
+                    yield return SpawnShapeWaveRoutine();
                     if (!m_IsCombatActive || m_BossCurrentHp <= 0f) break;
 
                     yield return new WaitForSeconds(UnityEngine.Random.Range(2.2f, 3.2f));
-
                     if (!m_IsCombatActive || m_BossCurrentHp <= 0f) break;
 
-                    // Nếu năng lượng Ultimate đạt 100% hoặc Boss còn dưới 25% máu -> Kích hoạt Ultimate Slash
                     if (m_UltimateEnergy >= 100f || m_BossCurrentHp <= 250f)
                     {
                         yield return TriggerUltimateSlashPhase();
                     }
                 }
-
                 yield return null;
             }
 
-            // Dừng hoàn toàn và xóa sạch các khối khi quái vật hết máu
-            if (m_BossCurrentHp <= 0f)
+            if (m_BossCurrentHp <= 0f) ClearAllActiveShapes();
+        }
+
+        private IEnumerator SpawnShapeWaveRoutine()
+        {
+            if (m_MonsterVisual != null)
             {
-                ClearAllActiveShapes();
+                var livingAnim = m_MonsterVisual.GetComponent<IUHARMonsterLivingController>();
+                if (livingAnim != null) livingAnim.TriggerAttackRoar();
             }
+
+            int shapeCount = UnityEngine.Random.Range(2, 4);
+            for (int i = 0; i < shapeCount; i++)
+            {
+                if (!m_IsCombatActive || m_IsUltimatePhase || m_BossCurrentHp <= 0f) yield break;
+                SpawnFlyingShape(PickRandomShapeType());
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0.25f, 0.45f));
+            }
+        }
+
+        private static ShapeType PickRandomShapeType()
+        {
+            float roll = UnityEngine.Random.value;
+            if (roll < 0.22f) return ShapeType.SpikeBomb;
+            if (roll < 0.45f) return ShapeType.EnergyStar;
+            if (roll < 0.65f) return ShapeType.DataPyramid;
+            return ShapeType.DataCube;
         }
 
         private void SpawnFlyingShape(ShapeType type)
         {
             if (m_ARCamera == null || m_MonsterAnchor == null || !m_IsCombatActive || m_BossCurrentHp <= 0f) return;
 
-            Vector3 spawnOrigin = m_MonsterAnchor.transform.position + new Vector3(UnityEngine.Random.Range(-0.4f, 0.4f), 0.2f, UnityEngine.Random.Range(-0.2f, 0.2f));
+            GameObject shapeObj = CreateShapeVisual(type, out Color shapeColor);
+            shapeObj.GetComponent<Renderer>().sharedMaterial = CreateUnlitMaterial(shapeColor);
+            shapeObj.transform.position = m_MonsterAnchor.transform.position +
+                new Vector3(UnityEngine.Random.Range(-0.4f, 0.4f), 0.2f, UnityEngine.Random.Range(-0.2f, 0.2f));
 
-            GameObject shapeObj = null;
-            Color shapeColor = Color.cyan;
+            float upForce = UnityEngine.Random.Range(2.2f, 3.4f);
+            float sideForce = UnityEngine.Random.Range(-0.85f, 0.85f);
+            float forwardForce = UnityEngine.Random.Range(-0.4f, 0.2f);
+            Vector3 initVel = (Vector3.up * upForce) + (m_ARCamera.transform.right * sideForce) + (m_ARCamera.transform.forward * forwardForce);
 
+            m_ActiveShapes.Add(new FlyingCyberShape
+            {
+                gameObject = shapeObj,
+                shapeType = type,
+                velocity = initVel,
+                rotationAxis = UnityEngine.Random.onUnitSphere,
+                rotationSpeed = UnityEngine.Random.Range(120f, 360f),
+                isSliced = false,
+                lifetime = 0f
+            });
+            IUHCombatAudio.PlayPunchWhoosh();
+        }
+
+        private static GameObject CreateShapeVisual(ShapeType type, out Color shapeColor)
+        {
+            GameObject shapeObj;
             if (type == ShapeType.DataCube)
             {
                 shapeObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -547,69 +518,43 @@ namespace IUHCampus.Guardian.AR
             }
             else if (type == ShapeType.EnergyStar)
             {
-                // Ngôi sao năng lượng (Capsule hoặc Cylinder xoay ngang)
                 shapeObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 shapeObj.name = "Energy_Star";
                 shapeObj.transform.localScale = new Vector3(0.28f, 0.05f, 0.28f);
-                shapeColor = new Color(1f, 0.9f, 0.1f, 0.95f); // Vàng kim rực rỡ
+                shapeColor = new Color(1f, 0.9f, 0.1f, 0.95f);
             }
             else if (type == ShapeType.DataPyramid)
             {
                 shapeObj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 shapeObj.name = "Data_Pyramid";
                 shapeObj.transform.localScale = new Vector3(0.22f, 0.35f, 0.22f);
-                shapeColor = new Color(0.85f, 0.2f, 1f, 0.95f); // Tím neon
+                shapeColor = new Color(0.85f, 0.2f, 1f, 0.95f);
             }
-            else // SpikeBomb
+            else
             {
                 shapeObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 shapeObj.name = "Spike_Bomb";
                 shapeObj.transform.localScale = Vector3.one * 0.32f;
-                shapeColor = new Color(0.95f, 0.12f, 0.18f, 0.95f); // Đỏ cảnh báo
-
-                // Gắn thêm các gai nhọn nhỏ quanh bom
-                for (int g = 0; g < 4; g++)
-                {
-                    var spike = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    spike.transform.SetParent(shapeObj.transform, false);
-                    spike.transform.localScale = new Vector3(0.18f, 1.25f, 0.18f);
-                    spike.transform.localRotation = Quaternion.Euler(g * 45f, g * 45f, 0f);
-                    var spCol = spike.GetComponent<Collider>();
-                    if (spCol != null) Destroy(spCol);
-                }
+                shapeColor = new Color(0.95f, 0.12f, 0.18f, 0.95f);
+                AttachBombSpikes(shapeObj.transform);
             }
 
             var col = shapeObj.GetComponent<Collider>();
             if (col != null) Destroy(col);
+            return shapeObj;
+        }
 
-            Shader sh = Shader.Find("Universal Render Pipeline/Unlit")
-                ?? Shader.Find("Sprites/Default")
-                ?? Shader.Find("Unlit/Texture");
-            var mat = new Material(sh);
-            mat.color = shapeColor;
-            shapeObj.GetComponent<Renderer>().sharedMaterial = mat;
-
-            shapeObj.transform.position = spawnOrigin;
-
-            // Vận tốc phóng bay parabol lên không trung trên bàn
-            float upForce = UnityEngine.Random.Range(2.2f, 3.4f);
-            float sideForce = UnityEngine.Random.Range(-0.85f, 0.85f);
-            float forwardForce = UnityEngine.Random.Range(-0.4f, 0.2f);
-            Vector3 initVel = (Vector3.up * upForce) + (m_ARCamera.transform.right * sideForce) + (m_ARCamera.transform.forward * forwardForce);
-
-            var shape = new FlyingCyberShape
+        private static void AttachBombSpikes(Transform parent)
+        {
+            for (int g = 0; g < 4; g++)
             {
-                gameObject = shapeObj,
-                shapeType = type,
-                velocity = initVel,
-                rotationAxis = UnityEngine.Random.onUnitSphere,
-                rotationSpeed = UnityEngine.Random.Range(120f, 360f),
-                isSliced = false,
-                lifetime = 0f
-            };
-
-            m_ActiveShapes.Add(shape);
-            IUHCombatAudio.PlayPunchWhoosh();
+                var spike = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                spike.transform.SetParent(parent, false);
+                spike.transform.localScale = new Vector3(0.18f, 1.25f, 0.18f);
+                spike.transform.localRotation = Quaternion.Euler(g * 45f, g * 45f, 0f);
+                var spCol = spike.GetComponent<Collider>();
+                if (spCol != null) Destroy(spCol);
+            }
         }
 
         private void Update()
@@ -628,23 +573,7 @@ namespace IUHCampus.Guardian.AR
 
         private void HandleBladeSwipeInput()
         {
-            bool pointerDown = false;
-            bool pointerHeld = false;
-            Vector3 pointerPos = Vector3.zero;
-
-            if (Input.touchCount > 0)
-            {
-                Touch t = Input.GetTouch(0);
-                pointerPos = t.position;
-                if (t.phase == TouchPhase.Began) pointerDown = true;
-                if (t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary) pointerHeld = true;
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                pointerPos = Input.mousePosition;
-                if (Input.GetMouseButtonDown(0)) pointerDown = true;
-                pointerHeld = true;
-            }
+            ReadPointerState(out bool pointerDown, out bool pointerHeld, out Vector3 pointerPos);
 
             if (pointerDown)
             {
@@ -658,26 +587,36 @@ namespace IUHCampus.Guardian.AR
                 if (m_BladeTrail != null) m_BladeTrail.emitting = false;
             }
 
-            if (m_IsPointerDown && m_ARCamera != null)
+            if (!m_IsPointerDown || m_ARCamera == null) return;
+
+            Vector3 worldPos = m_ARCamera.ScreenToWorldPoint(new Vector3(pointerPos.x, pointerPos.y, 0.45f));
+            if (m_BladeFollower != null) m_BladeFollower.transform.position = worldPos;
+
+            if (Vector3.Distance(pointerPos, m_LastPointerScreenPos) <= 16f) return;
+
+            CheckSliceShapes(m_LastPointerScreenPos, pointerPos);
+            if (m_IsUltimatePhase) CheckUltimateSlash(m_LastPointerScreenPos, pointerPos);
+            m_LastPointerScreenPos = pointerPos;
+        }
+
+        private static void ReadPointerState(out bool pointerDown, out bool pointerHeld, out Vector3 pointerPos)
+        {
+            pointerDown = false;
+            pointerHeld = false;
+            pointerPos = Vector3.zero;
+
+            if (Input.touchCount > 0)
             {
-                // Vị trí tia chém trong không gian AR trước camera
-                Vector3 worldPos = m_ARCamera.ScreenToWorldPoint(new Vector3(pointerPos.x, pointerPos.y, 0.45f));
-                if (m_BladeFollower != null) m_BladeFollower.transform.position = worldPos;
-
-                float swipeDist = Vector3.Distance(pointerPos, m_LastPointerScreenPos);
-                if (swipeDist > 16f)
-                {
-                    // Kiểm tra chém trúng khối dữ liệu bay
-                    CheckSliceShapes(m_LastPointerScreenPos, pointerPos);
-
-                    // Kiểm tra chém đòn tối thượng (Ultimate Slash)
-                    if (m_IsUltimatePhase)
-                    {
-                        CheckUltimateSlash(m_LastPointerScreenPos, pointerPos);
-                    }
-
-                    m_LastPointerScreenPos = pointerPos;
-                }
+                Touch t = Input.GetTouch(0);
+                pointerPos = t.position;
+                pointerDown = t.phase == TouchPhase.Began;
+                pointerHeld = t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                pointerPos = Input.mousePosition;
+                pointerDown = Input.GetMouseButtonDown(0);
+                pointerHeld = true;
             }
         }
 
@@ -715,81 +654,71 @@ namespace IUHCampus.Guardian.AR
             Handheld.Vibrate();
 #endif
 
-            Color themeColor;
-
             if (s.shapeType == ShapeType.SpikeBomb)
             {
-                themeColor = new Color(1f, 0.18f, 0.12f, 1f);
-                // CHÉM TRÚNG BOM ĐỘC GAI NHỌN!
-                DamagePlayer(25f);
-                m_ComboCount = 0;
-                if (m_ComboText != null) m_ComboText.gameObject.SetActive(false);
-
-                IUHCombatAudio.PlayBossHit();
-                IUHCombatFloatingText.Spawn(hitPos, "💥 BOM ĐỘC PHÁT NỔ! -25 HP", themeColor, 1.5f);
-
-                // Hiệu ứng nổ bom độc hoành tráng
-                SpawnShockwaveRing(hitPos, themeColor, 1.8f);
-                SpawnCyberSparks(hitPos, Vector3.up, themeColor, 45);
-                TriggerScreenPunch(0.12f, 0.035f);
-
-                Destroy(s.gameObject);
-                m_ActiveShapes.RemoveAt(index);
+                HandleSpikeBombHit(s, index, hitPos);
                 return;
             }
 
-            // CHÉM TRÚNG KHỐI HỢP LỆ!
             IUHCombatAudio.PlaySword();
             m_ComboCount++;
             ShowComboUI();
 
-            if (s.shapeType == ShapeType.EnergyStar)
-            {
-                themeColor = new Color(1f, 0.92f, 0.15f, 1f);
-                // HỒI MÁU CHO NGƯỜI CHƠI
-                HealPlayer(20f);
-                IUHCombatAudio.PlayHeal();
-                IUHCombatFloatingText.Spawn(hitPos, "💚 +20 HP HỒI PHỤC!", new Color(0.3f, 1f, 0.5f), 1.3f);
-            }
-            else if (s.shapeType == ShapeType.DataPyramid)
-            {
-                themeColor = new Color(0.85f, 0.2f, 1f, 1f);
-                // SÓNG XUNG KÍCH SÁT THƯƠNG LAN
-                DamageBoss(80f);
-                IUHCombatAudio.PlaySkillBurst();
-                IUHCombatFloatingText.Spawn(hitPos, "⚡ SÓNG XUNG KÍCH -80 HP!", themeColor, 1.5f);
-            }
-            else // DataCube
-            {
-                themeColor = new Color(0.15f, 0.95f, 1f, 1f);
-                // SÁT THƯƠNG CƠ BẢN
-                float dmg = 50f + m_ComboCount * 6f;
-                DamageBoss(dmg);
-                IUHCombatFloatingText.Spawn(hitPos, $"⚔️ CHÉM BỔ ĐÔI -{dmg:F0}!", themeColor, 1.2f);
-            }
+            Color themeColor = ApplyValidSliceReward(s.shapeType, hitPos);
 
-            // === BỘ HIỆU ỨNG CHÉM CỰC MẮT (CYBER CUT VFX SUITE) === //
-            // 1. Vệt sáng đường chém sắc lẹm (Glowing Neon Slice Plane)
             SpawnNeonSliceArc(hitPos, cutDir, themeColor);
-
-            // 2. Bùng nổ cụm tia lửa điện & mảnh năng lượng (Cyber Sparks Eruption)
             SpawnCyberSparks(hitPos, cutDir, themeColor, 32);
-
-            // 3. Vòng sóng xung kích công nghệ giãn nở (Shockwave Hologram Ring)
             SpawnShockwaveRing(hitPos, themeColor, 1.25f);
-
-            // 4. Giật rung màn hình tạo cảm giác lực chém (Micro Camera Punch)
             TriggerScreenPunch(0.06f, 0.018f);
 
-            // Tích nạp năng lượng Ultimate
             m_UltimateEnergy = Mathf.Min(100f, m_UltimateEnergy + 15f);
             UpdateHPDisplays();
 
-            // TẠO 2 NỬA VĂNG SANG 2 BÊN THEO HƯỚNG VẾT CHÉM (DYNAMIC DISSOLVE SLICES)
             SpawnSlicedHalves(s, cutDir, themeColor);
+            Destroy(s.gameObject);
+            m_ActiveShapes.RemoveAt(index);
+        }
+
+        private void HandleSpikeBombHit(FlyingCyberShape s, int index, Vector3 hitPos)
+        {
+            Color bombColor = new Color(1f, 0.18f, 0.12f, 1f);
+            DamagePlayer(25f);
+            m_ComboCount = 0;
+            if (m_ComboText != null) m_ComboText.gameObject.SetActive(false);
+
+            IUHCombatAudio.PlayBossHit();
+            IUHCombatFloatingText.Spawn(hitPos, "💥 BOM ĐỘC PHÁT NỔ! -25 HP", bombColor, 1.5f);
+            SpawnShockwaveRing(hitPos, bombColor, 1.8f);
+            SpawnCyberSparks(hitPos, Vector3.up, bombColor, 45);
+            TriggerScreenPunch(0.12f, 0.035f);
 
             Destroy(s.gameObject);
             m_ActiveShapes.RemoveAt(index);
+        }
+
+        private Color ApplyValidSliceReward(ShapeType shapeType, Vector3 hitPos)
+        {
+            if (shapeType == ShapeType.EnergyStar)
+            {
+                HealPlayer(20f);
+                IUHCombatAudio.PlayHeal();
+                IUHCombatFloatingText.Spawn(hitPos, "💚 +20 HP HỒI PHỤC!", new Color(0.3f, 1f, 0.5f), 1.3f);
+                return new Color(1f, 0.92f, 0.15f, 1f);
+            }
+            if (shapeType == ShapeType.DataPyramid)
+            {
+                Color color = new Color(0.85f, 0.2f, 1f, 1f);
+                DamageBoss(80f);
+                IUHCombatAudio.PlaySkillBurst();
+                IUHCombatFloatingText.Spawn(hitPos, "⚡ SÓNG XUNG KÍCH -80 HP!", color, 1.5f);
+                return color;
+            }
+
+            Color cubeColor = new Color(0.15f, 0.95f, 1f, 1f);
+            float dmg = 50f + m_ComboCount * 6f;
+            DamageBoss(dmg);
+            IUHCombatFloatingText.Spawn(hitPos, $"⚔️ CHÉM BỔ ĐÔI -{dmg:F0}!", cubeColor, 1.2f);
+            return cubeColor;
         }
 
         private void SpawnNeonSliceArc(Vector3 hitPos, Vector3 cutDir, Color color)

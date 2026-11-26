@@ -107,11 +107,21 @@ namespace IUHCampus.Guardian.AR
 
         private void BuildARInfrastructure()
         {
-            // 1. Root thế giới 3D AR
             m_ARWorldRoot = new GameObject("IUH_LIVE_AR_WORLD_ROOT");
             m_ARWorldRoot.transform.SetParent(transform, false);
 
-            // 2. Camera AR
+            CreateARCamera();
+            CreateARBackgroundQuad();
+            Spawn3DMonsterAndCorruptedProps();
+            BuildAIDeepLearningHUD();
+
+            if (m_MonsterAnchor != null) m_MonsterAnchor.SetActive(false);
+            m_ARWorldRoot.SetActive(false);
+            m_ARCanvasRoot.SetActive(false);
+        }
+
+        private void CreateARCamera()
+        {
             GameObject camGO = new GameObject("AR_Live_Camera", typeof(Camera));
             camGO.transform.SetParent(m_ARWorldRoot.transform, false);
             camGO.transform.localPosition = Vector3.zero;
@@ -128,8 +138,10 @@ namespace IUHCampus.Guardian.AR
             var uCam = m_ARCamera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>()
                 ?? m_ARCamera.gameObject.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             uCam.renderType = UnityEngine.Rendering.Universal.CameraRenderType.Base;
+        }
 
-            // 3. 3D Background Quad chiếu feed Camera (đặt ở z = 9m sau các vật thể 3D ở z = 2.2m)
+        private void CreateARBackgroundQuad()
+        {
             m_ARBackgroundQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
             m_ARBackgroundQuad.name = "AR_Camera_Background_Quad";
             m_ARBackgroundQuad.transform.SetParent(m_ARCamera.transform, false);
@@ -139,36 +151,23 @@ namespace IUHCampus.Guardian.AR
             var quadCol = m_ARBackgroundQuad.GetComponent<Collider>();
             if (quadCol != null) Destroy(quadCol);
 
-            Shader unlitShader = Shader.Find("Universal Render Pipeline/Unlit") 
+            Shader unlitShader = Shader.Find("Universal Render Pipeline/Unlit")
                 ?? Shader.Find("Universal Render Pipeline/Lit")
                 ?? Shader.Find("Sprites/Default")
-                ?? Shader.Find("Unlit/Texture") 
+                ?? Shader.Find("Unlit/Texture")
                 ?? Shader.Find("UI/Default");
             m_CameraQuadMaterial = new Material(unlitShader);
             m_CameraQuadMaterial.color = Color.white;
             m_ARBackgroundQuad.GetComponent<Renderer>().sharedMaterial = m_CameraQuadMaterial;
-
-            // 4. Spawn Quái vật 3D & Balo thực tế trong không gian AR (ở z = 2.2m trước camera)
-            Spawn3DMonsterAndCorruptedProps();
-
-            // 5. Canvas HUD Deep Learning AI Vision
-            BuildAIDeepLearningHUD();
-
-            // Mặc định ẩn quái vật và hạ tầng AR cho đến khi quét được vật thể thực tế
-            if (m_MonsterAnchor != null) m_MonsterAnchor.SetActive(false);
-            m_ARWorldRoot.SetActive(false);
-            m_ARCanvasRoot.SetActive(false);
         }
 
         private void Spawn3DMonsterAndCorruptedProps()
         {
             m_MonsterAnchor = new GameObject("AR_Monster_Anchor");
             m_MonsterAnchor.transform.SetParent(m_ARWorldRoot.transform, false);
-            // Căn chỉnh vị trí vừa vặn giữa tầm mắt: cao -0.32m, xa 2.7m phía trước camera
             m_MonsterAnchor.transform.localPosition = new Vector3(0f, -0.32f, 2.7f);
             m_MonsterAnchor.transform.localRotation = Quaternion.identity;
 
-            // Hologram Reticle vòng tròn công nghệ dưới sàn/mặt bàn thực tế
             GameObject floorReticle = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             floorReticle.name = "Floor_Holo_Ring";
             floorReticle.transform.SetParent(m_MonsterAnchor.transform, false);
@@ -177,7 +176,6 @@ namespace IUHCampus.Guardian.AR
             var col = floorReticle.GetComponent<Collider>();
             if (col != null) Destroy(col);
 
-            // Ánh sáng tím Neon bao trùm quái vật
             GameObject lightGO = new GameObject("AR_Monster_Light");
             lightGO.transform.SetParent(m_MonsterAnchor.transform, false);
             lightGO.transform.localPosition = new Vector3(0f, 0.8f, 0f);
@@ -187,32 +185,33 @@ namespace IUHCampus.Guardian.AR
             light.intensity = 4.0f;
             light.range = 6.0f;
 
-            // Load mô hình 3D BlueDemon thật từ Scene
-            var sceneMonster = GameObject.Find("MONSTER_01_BLUEDEMON") 
+            SpawnMonsterVisual();
+            SpawnCorruptedProps();
+        }
+
+        private void SpawnMonsterVisual()
+        {
+            var sceneMonster = GameObject.Find("MONSTER_01_BLUEDEMON")
                 ?? GameObject.Find("MONSTER_05_CORRUPTED_BACKPACK")
                 ?? GameObject.Find("BlueDemon");
 
             if (sceneMonster != null)
             {
-                var modelChild = sceneMonster.transform.Find("BlueDemon") 
+                var modelChild = sceneMonster.transform.Find("BlueDemon")
                     ?? (sceneMonster.transform.childCount > 0 ? sceneMonster.transform.GetChild(0) : null);
-
                 if (modelChild != null)
                 {
                     m_MonsterVisual = Instantiate(modelChild.gameObject, m_MonsterAnchor.transform, false);
                     m_MonsterVisual.name = "AR_Cyber_Demon_Model";
                     m_MonsterVisual.SetActive(true);
                     m_MonsterVisual.transform.localPosition = Vector3.zero;
-                    // Quay mặt về hướng camera người chơi (0 độ Y đối diện camera)
                     m_MonsterVisual.transform.localRotation = Quaternion.identity;
-                    // Kích thước chuẩn 0.40 (tổng chiều cao ~1.0m, thấy trọn vẹn toàn thân từ sừng, đầu, mắt đến bàn chân)
                     m_MonsterVisual.transform.localScale = Vector3.one * 0.40f;
                 }
             }
 
             if (m_MonsterVisual == null)
             {
-                // Fallback nếu không clone được mô hình
                 m_MonsterVisual = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 m_MonsterVisual.name = "AR_Cyber_Demon_Fallback";
                 m_MonsterVisual.transform.SetParent(m_MonsterAnchor.transform, false);
@@ -220,18 +219,16 @@ namespace IUHCampus.Guardian.AR
                 m_MonsterVisual.transform.localScale = new Vector3(0.40f, 0.50f, 0.40f);
             }
 
-            // Gắn controller cử động sống động (Hover nhấp nhô, thở phập phồng, lắc lư ma quái, gầm rú tung chiêu)
             m_MonsterLivingController = m_MonsterVisual.GetComponent<IUHARMonsterLivingController>()
                 ?? m_MonsterVisual.AddComponent<IUHARMonsterLivingController>();
             m_MonsterLivingController.Initialize(m_ARCamera, Vector3.one * 0.40f);
 
-            // Box collider để nhận diện chạm ngón tay
             if (m_MonsterVisual.GetComponent<Collider>() == null)
-            {
                 m_MonsterVisual.AddComponent<BoxCollider>();
-            }
+        }
 
-            // Vật thể nhiễm độc: 1. Balo IUH
+        private void SpawnCorruptedProps()
+        {
             m_CorruptedBackpack = GameObject.CreatePrimitive(PrimitiveType.Cube);
             m_CorruptedBackpack.name = "AR_Prop_Backpack";
             m_CorruptedBackpack.transform.SetParent(m_MonsterAnchor.transform, false);
@@ -239,7 +236,6 @@ namespace IUHCampus.Guardian.AR
             m_CorruptedBackpack.transform.localScale = new Vector3(0.35f, 0.42f, 0.22f);
             m_CorruptedBackpack.SetActive(false);
 
-            // 2. Laptop Đồ Án (Thân máy phím + Màn hình mở nghiêng góc 110 độ)
             m_CorruptedLaptop = new GameObject("AR_Prop_Laptop");
             m_CorruptedLaptop.transform.SetParent(m_MonsterAnchor.transform, false);
             m_CorruptedLaptop.transform.localPosition = new Vector3(0f, 0.04f, 0.35f);
@@ -259,11 +255,9 @@ namespace IUHCampus.Guardian.AR
             laptopScreen.transform.localRotation = Quaternion.Euler(-25f, 0f, 0f);
             laptopScreen.transform.localScale = new Vector3(0.48f, 0.30f, 0.02f);
             var screenRend = laptopScreen.GetComponent<Renderer>();
-            if (screenRend != null) screenRend.material.color = new Color(0.08f, 0.85f, 1f); // Màn hình phát sáng Cyan Neon
+            if (screenRend != null) screenRend.material.color = new Color(0.08f, 0.85f, 1f);
+            m_CorruptedLaptop.SetActive(true);
 
-            m_CorruptedLaptop.SetActive(true); // Mặc định hiển thị Laptop cho người dùng
-
-            // 3. Sách Giáo Trình
             m_CorruptedTextbook = GameObject.CreatePrimitive(PrimitiveType.Cube);
             m_CorruptedTextbook.name = "AR_Prop_Textbook";
             m_CorruptedTextbook.transform.SetParent(m_MonsterAnchor.transform, false);
@@ -274,11 +268,20 @@ namespace IUHCampus.Guardian.AR
 
         private void BuildAIDeepLearningHUD()
         {
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") 
+            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf")
                 ?? Resources.GetBuiltinResource<Font>("Arial.ttf")
                 ?? Font.CreateDynamicFontFromOSFont("Helvetica", 16)
                 ?? Font.CreateDynamicFontFromOSFont("Arial", 16);
 
+            CreateARHudCanvas();
+            BuildHeaderPanel(font);
+            BuildTargetTabsBar(font);
+            BuildScannerReticle(font);
+            BuildScanActionButtons(font);
+        }
+
+        private void CreateARHudCanvas()
+        {
             m_ARCanvasRoot = new GameObject("IUH_LIVE_AR_HUD_CANVAS", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             m_ARCanvasRoot.transform.SetParent(transform, false);
 
@@ -290,8 +293,10 @@ namespace IUHCampus.Guardian.AR
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 0.5f;
+        }
 
-            // 1. Banner Header AI Deep Learning (Top-Center)
+        private void BuildHeaderPanel(Font font)
+        {
             GameObject headerGO = new GameObject("AI_Header_Panel", typeof(RectTransform), typeof(Image));
             headerGO.transform.SetParent(m_ARCanvasRoot.transform, false);
             var hRt = headerGO.GetComponent<RectTransform>();
@@ -304,8 +309,7 @@ namespace IUHCampus.Guardian.AR
             GameObject titleGO = new GameObject("Title", typeof(RectTransform), typeof(Text), typeof(Outline));
             titleGO.transform.SetParent(headerGO.transform, false);
             var tRt = titleGO.GetComponent<RectTransform>();
-            tRt.anchorMin = new Vector2(0f, 0.45f); tRt.anchorMax = Vector2.one;
-            tRt.sizeDelta = Vector2.zero;
+            tRt.anchorMin = new Vector2(0f, 0.45f); tRt.anchorMax = Vector2.one; tRt.sizeDelta = Vector2.zero;
             m_AiScanTitleText = titleGO.GetComponent<Text>();
             m_AiScanTitleText.font = font;
             m_AiScanTitleText.text = "🤖 AI CYBER VISION • YOLOv8 DEEP LEARNING MODEL";
@@ -313,23 +317,22 @@ namespace IUHCampus.Guardian.AR
             m_AiScanTitleText.fontStyle = FontStyle.Bold;
             m_AiScanTitleText.alignment = TextAnchor.MiddleCenter;
             m_AiScanTitleText.color = new Color(0.25f, 0.95f, 1f);
-
-            var tOutl = titleGO.GetComponent<Outline>();
-            tOutl.effectColor = new Color(0f, 0.2f, 0.4f, 0.9f);
+            titleGO.GetComponent<Outline>().effectColor = new Color(0f, 0.2f, 0.4f, 0.9f);
 
             GameObject subGO = new GameObject("SubTitle", typeof(RectTransform), typeof(Text));
             subGO.transform.SetParent(headerGO.transform, false);
             var stRt = subGO.GetComponent<RectTransform>();
-            stRt.anchorMin = Vector2.zero; stRt.anchorMax = new Vector2(1f, 0.45f);
-            stRt.sizeDelta = Vector2.zero;
+            stRt.anchorMin = Vector2.zero; stRt.anchorMax = new Vector2(1f, 0.45f); stRt.sizeDelta = Vector2.zero;
             m_AiScanStatusText = subGO.GetComponent<Text>();
             m_AiScanStatusText.font = font;
             m_AiScanStatusText.text = "🔍 Hướng camera vào Máy tính / Laptop để quét và nhận diện...";
             m_AiScanStatusText.fontSize = 13;
             m_AiScanStatusText.alignment = TextAnchor.MiddleCenter;
             m_AiScanStatusText.color = new Color(1f, 0.9f, 0.4f);
+        }
 
-            // 1.B. Thanh chọn đối tượng quét (Target Tabs Bar - Laptop, Balo, Sách, Tự động)
+        private void BuildTargetTabsBar(Font font)
+        {
             GameObject tabsBarGO = new GameObject("AI_Target_Tabs_Bar", typeof(RectTransform));
             tabsBarGO.transform.SetParent(m_ARCanvasRoot.transform, false);
             var tabsRt = tabsBarGO.GetComponent<RectTransform>();
@@ -354,27 +357,20 @@ namespace IUHCampus.Guardian.AR
                 trt.offsetMax = new Vector2(-4f, -2f);
 
                 var tImg = tabBtnGO.GetComponent<Image>();
-                bool isSelected = (targetIdx == m_CurrentPropIndex);
-                tImg.color = isSelected ? new Color(0.1f, 0.65f, 0.95f, 0.95f) : new Color(0.12f, 0.16f, 0.22f, 0.85f);
+                tImg.color = (targetIdx == m_CurrentPropIndex)
+                    ? new Color(0.1f, 0.65f, 0.95f, 0.95f)
+                    : new Color(0.12f, 0.16f, 0.22f, 0.85f);
                 tImg.raycastTarget = true;
 
-                GameObject tTxtGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
-                tTxtGO.transform.SetParent(tabBtnGO.transform, false);
-                var ttRt = tTxtGO.GetComponent<RectTransform>();
-                ttRt.anchorMin = Vector2.zero; ttRt.anchorMax = Vector2.one; ttRt.sizeDelta = Vector2.zero;
-                var tTxt = tTxtGO.GetComponent<Text>();
-                tTxt.font = font; tTxt.text = tabLabels[i]; tTxt.fontSize = 13; tTxt.fontStyle = FontStyle.Bold;
-                tTxt.alignment = TextAnchor.MiddleCenter; tTxt.color = Color.white;
-                tTxt.raycastTarget = false;
-
+                CreateCenteredButtonLabel(tabBtnGO.transform, font, tabLabels[i], 13);
                 var btn = tabBtnGO.GetComponent<Button>();
-                btn.onClick.AddListener(() => {
-                    SelectTargetCategory(targetIdx);
-                });
+                btn.onClick.AddListener(() => SelectTargetCategory(targetIdx));
                 m_TargetTabButtons.Add(btn);
             }
+        }
 
-            // 2. Khung Quét Cyber Reticle Bounding Box ở giữa màn hình
+        private void BuildScannerReticle(Font font)
+        {
             m_ScannerReticleRoot = new GameObject("AI_Scan_Bounding_Box", typeof(RectTransform));
             m_ScannerReticleRoot.transform.SetParent(m_ARCanvasRoot.transform, false);
             m_ScanBoxRect = m_ScannerReticleRoot.GetComponent<RectTransform>();
@@ -382,13 +378,11 @@ namespace IUHCampus.Guardian.AR
             m_ScanBoxRect.anchorMax = new Vector2(0.5f, 0.5f);
             m_ScanBoxRect.sizeDelta = new Vector2(420f, 380f);
 
-            // Bốn góc phát sáng khung ngắm (Corner Brackets)
             CreateCornerBracket(m_ScannerReticleRoot.transform, new Vector2(-1f, 1f), font);
             CreateCornerBracket(m_ScannerReticleRoot.transform, new Vector2(1f, 1f), font);
             CreateCornerBracket(m_ScannerReticleRoot.transform, new Vector2(-1f, -1f), font);
             CreateCornerBracket(m_ScannerReticleRoot.transform, new Vector2(1f, -1f), font);
 
-            // Tia laser đỏ/cyan quét lên xuống
             GameObject laserGO = new GameObject("ScanLaser", typeof(RectTransform), typeof(Image));
             laserGO.transform.SetParent(m_ScannerReticleRoot.transform, false);
             var lRt = laserGO.GetComponent<RectTransform>();
@@ -397,7 +391,6 @@ namespace IUHCampus.Guardian.AR
             m_ScanLaserLine = laserGO.GetComponent<Image>();
             m_ScanLaserLine.color = new Color(0.2f, 1.0f, 0.5f, 0.85f);
 
-            // Nhãn nhận diện AI bên trên Bounding Box
             GameObject badgeGO = new GameObject("AI_Target_Badge", typeof(RectTransform), typeof(Image));
             badgeGO.transform.SetParent(m_ScannerReticleRoot.transform, false);
             var bRt = badgeGO.GetComponent<RectTransform>();
@@ -407,128 +400,72 @@ namespace IUHCampus.Guardian.AR
             bRt.sizeDelta = new Vector2(420f, 34f);
             badgeGO.GetComponent<Image>().color = new Color(0.05f, 0.15f, 0.1f, 0.95f);
 
-            GameObject badgeTxtGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            badgeTxtGO.transform.SetParent(badgeGO.transform, false);
-            var btRt = badgeTxtGO.GetComponent<RectTransform>();
-            btRt.anchorMin = Vector2.zero; btRt.anchorMax = Vector2.one; btRt.sizeDelta = Vector2.zero;
-            m_AiConfidenceText = badgeTxtGO.GetComponent<Text>();
-            m_AiConfidenceText.font = font;
-            m_AiConfidenceText.text = "📡 ĐANG QUÉT TÌM VẬT THỂ DỮ LIỆU... [0%]";
-            m_AiConfidenceText.fontSize = 13;
-            m_AiConfidenceText.fontStyle = FontStyle.Bold;
-            m_AiConfidenceText.alignment = TextAnchor.MiddleCenter;
+            m_AiConfidenceText = CreateCenteredButtonLabel(badgeGO.transform, font, "📡 ĐANG QUÉT TÌM VẬT THỂ DỮ LIỆU... [0%]", 13);
             m_AiConfidenceText.color = new Color(0.3f, 0.85f, 1f);
-            m_AiConfidenceText.raycastTarget = false;
+        }
 
-            // 3. Nút [✕ THOÁT AR] (Góc trên trái)
-            GameObject exitBtnGO = new GameObject("Btn_Exit_AR", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            exitBtnGO.transform.SetParent(m_ARCanvasRoot.transform, false);
-            var exRt = exitBtnGO.GetComponent<RectTransform>();
-            exRt.anchorMin = new Vector2(0f, 1f); exRt.anchorMax = new Vector2(0f, 1f);
-            exRt.pivot = new Vector2(0f, 1f);
-            exRt.anchoredPosition = new Vector2(25f, -25f);
-            exRt.sizeDelta = new Vector2(170f, 55f);
-            var exImg = exitBtnGO.GetComponent<Image>();
-            exImg.color = new Color(0.85f, 0.15f, 0.2f, 0.92f);
-            exImg.raycastTarget = true;
+        private void BuildScanActionButtons(Font font)
+        {
+            var exitBtn = CreateARActionButton("Btn_Exit_AR",
+                new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f),
+                new Vector2(25f, -25f), new Vector2(170f, 55f),
+                new Color(0.85f, 0.15f, 0.2f, 0.92f), font, "✕ THOÁT AR", 16, true, out _);
+            exitBtn.onClick.AddListener(CloseARMode);
 
-            GameObject exTxt = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            exTxt.transform.SetParent(exitBtnGO.transform, false);
-            var etxRt = exTxt.GetComponent<RectTransform>();
-            etxRt.anchorMin = Vector2.zero; etxRt.anchorMax = Vector2.one; etxRt.sizeDelta = Vector2.zero;
-            var txt = exTxt.GetComponent<Text>();
-            txt.font = font; txt.text = "✕ THOÁT AR"; txt.fontSize = 16; txt.fontStyle = FontStyle.Bold;
-            txt.alignment = TextAnchor.MiddleCenter; txt.color = Color.white;
-            txt.raycastTarget = false;
-
-            exitBtnGO.GetComponent<Button>().onClick.AddListener(CloseARMode);
-
-            // 4. Nút [⚔️ KHIÊU CHIẾN & ĐẾM NGƯỢC 5S] (Góc dưới giữa - CHỈ HIỂN THỊ KHI ĐÃ QUÉT ĐƯỢC)
-            GameObject fightBtnGO = new GameObject("Btn_Fight_AR", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            fightBtnGO.transform.SetParent(m_ARCanvasRoot.transform, false);
-            var fRt = fightBtnGO.GetComponent<RectTransform>();
-            fRt.anchorMin = new Vector2(0.5f, 0f); fRt.anchorMax = new Vector2(0.5f, 0f);
-            fRt.pivot = new Vector2(0.5f, 0f);
-            fRt.anchoredPosition = new Vector2(0f, 32f);
-            fRt.sizeDelta = new Vector2(500f, 72f);
-            var fImg = fightBtnGO.GetComponent<Image>();
-            fImg.color = new Color(0.95f, 0.55f, 0.05f, 0.95f);
-            fImg.raycastTarget = true;
-            m_BtnFightAR = fightBtnGO.GetComponent<Button>();
-
-            GameObject fTxtGO = new GameObject("Text", typeof(RectTransform), typeof(Text), typeof(Outline));
-            fTxtGO.transform.SetParent(fightBtnGO.transform, false);
-            var ftRt = fTxtGO.GetComponent<RectTransform>();
-            ftRt.anchorMin = Vector2.zero; ftRt.anchorMax = Vector2.one; ftRt.sizeDelta = Vector2.zero;
-            m_CountdownText = fTxtGO.GetComponent<Text>();
-            m_CountdownText.font = font;
-            m_CountdownText.text = "⚡ CHIẾN ĐẤU AR: VUỐT CHÉM (5.0s)";
-            m_CountdownText.fontSize = 17;
-            m_CountdownText.fontStyle = FontStyle.Bold;
-            m_CountdownText.alignment = TextAnchor.MiddleCenter;
-            m_CountdownText.color = Color.white;
-            m_CountdownText.raycastTarget = false;
-
-            var fOutl = fTxtGO.GetComponent<Outline>();
-            fOutl.effectColor = new Color(0.3f, 0.1f, 0f, 0.9f);
-
+            m_BtnFightAR = CreateARActionButton("Btn_Fight_AR",
+                new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
+                new Vector2(0f, 32f), new Vector2(500f, 72f),
+                new Color(0.95f, 0.55f, 0.05f, 0.95f), font, "⚡ CHIẾN ĐẤU AR: VUỐT CHÉM (5.0s)", 17, true, out m_CountdownText);
+            m_CountdownText.gameObject.AddComponent<Outline>().effectColor = new Color(0.3f, 0.1f, 0f, 0.9f);
             m_BtnFightAR.onClick.AddListener(TriggerARRuneSlashCombat);
-            m_BtnFightAR.gameObject.SetActive(false); // Ẩn mặc định ban đầu
+            m_BtnFightAR.gameObject.SetActive(false);
 
-            // 4.B. Nút [ 🔍 QUÉT & KHÓA MỤC TIÊU ] (Góc dưới giữa - DÀNH CHO NGƯỜI CHƠI CHỦ ĐỘNG QUÉT VẬT THỂ)
-            GameObject scanBtnGO = new GameObject("Btn_Manual_Scan", typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback));
-            scanBtnGO.transform.SetParent(m_ARCanvasRoot.transform, false);
-            var sRt = scanBtnGO.GetComponent<RectTransform>();
-            sRt.anchorMin = new Vector2(0.5f, 0f); sRt.anchorMax = new Vector2(0.5f, 0f);
-            sRt.pivot = new Vector2(0.5f, 0f);
-            sRt.anchoredPosition = new Vector2(0f, 32f);
-            sRt.sizeDelta = new Vector2(500f, 72f);
-            var sImg = scanBtnGO.GetComponent<Image>();
-            sImg.color = new Color(0.08f, 0.65f, 0.92f, 0.95f);
-            sImg.raycastTarget = true;
-            m_BtnManualScan = scanBtnGO.GetComponent<Button>();
-
-            GameObject sTxtGO = new GameObject("Text", typeof(RectTransform), typeof(Text), typeof(Outline));
-            sTxtGO.transform.SetParent(scanBtnGO.transform, false);
-            var stTxtRt = sTxtGO.GetComponent<RectTransform>();
-            stTxtRt.anchorMin = Vector2.zero; stTxtRt.anchorMax = Vector2.one; stTxtRt.sizeDelta = Vector2.zero;
-            var sTxt = sTxtGO.GetComponent<Text>();
-            sTxt.font = font;
-            sTxt.text = "🔍 [ QUÉT ĐỒ VẬT ]";
-            sTxt.fontSize = 17;
-            sTxt.fontStyle = FontStyle.Bold;
-            sTxt.alignment = TextAnchor.MiddleCenter;
-            sTxt.color = Color.white;
-            sTxt.raycastTarget = false;
-            m_BtnManualScanText = sTxt;
-
-            var sOutl = sTxtGO.GetComponent<Outline>();
-            sOutl.effectColor = new Color(0.02f, 0.2f, 0.4f, 0.9f);
-
-            m_BtnManualScan.onClick.AddListener(() => {
-                TriggerManualScanSequence();
-            });
+            m_BtnManualScan = CreateARActionButton("Btn_Manual_Scan",
+                new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
+                new Vector2(0f, 32f), new Vector2(500f, 72f),
+                new Color(0.08f, 0.65f, 0.92f, 0.95f), font, "🔍 [ QUÉT ĐỒ VẬT ]", 17, true, out m_BtnManualScanText);
+            m_BtnManualScanText.gameObject.AddComponent<Outline>().effectColor = new Color(0.02f, 0.2f, 0.4f, 0.9f);
+            m_BtnManualScan.onClick.AddListener(TriggerManualScanSequence);
             m_BtnManualScan.gameObject.SetActive(true);
 
-            // 5. Nút [🔄 ĐỔI VẬT THỂ] (Góc dưới phải)
-            GameObject cycleBtnGO = new GameObject("Btn_Cycle_Prop", typeof(RectTransform), typeof(Image), typeof(Button));
-            cycleBtnGO.transform.SetParent(m_ARCanvasRoot.transform, false);
-            var cyRt = cycleBtnGO.GetComponent<RectTransform>();
-            cyRt.anchorMin = new Vector2(1f, 0f); cyRt.anchorMax = new Vector2(1f, 0f);
-            cyRt.pivot = new Vector2(1f, 0f);
-            cyRt.anchoredPosition = new Vector2(-25f, 32f);
-            cyRt.sizeDelta = new Vector2(210f, 55f);
-            cycleBtnGO.GetComponent<Image>().color = new Color(0.15f, 0.45f, 0.85f, 0.92f);
+            var cycleBtn = CreateARActionButton("Btn_Cycle_Prop",
+                new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f),
+                new Vector2(-25f, 32f), new Vector2(210f, 55f),
+                new Color(0.15f, 0.45f, 0.85f, 0.92f), font, "🔄 ĐỔI VẬT THỂ", 15, false, out _);
+            cycleBtn.onClick.AddListener(CycleCorruptedProp);
+        }
 
-            GameObject cyTxt = new GameObject("Text", typeof(RectTransform), typeof(Text));
-            cyTxt.transform.SetParent(cycleBtnGO.transform, false);
-            var cytRt = cyTxt.GetComponent<RectTransform>();
-            cytRt.anchorMin = Vector2.zero; cytRt.anchorMax = Vector2.one; cytRt.sizeDelta = Vector2.zero;
-            var cTxt = cyTxt.GetComponent<Text>();
-            cTxt.font = font; cTxt.text = "🔄 ĐỔI VẬT THỂ"; cTxt.fontSize = 15; cTxt.fontStyle = FontStyle.Bold;
-            cTxt.alignment = TextAnchor.MiddleCenter; cTxt.color = Color.white;
+        private Button CreateARActionButton(
+            string name, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot,
+            Vector2 anchoredPos, Vector2 sizeDelta, Color bgColor, Font font,
+            string label, int fontSize, bool withFeedback, out Text labelText)
+        {
+            GameObject btnGO = withFeedback
+                ? new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button), typeof(IUHCampus.UI.IUHButtonFeedback))
+                : new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+            btnGO.transform.SetParent(m_ARCanvasRoot.transform, false);
+            var rt = btnGO.GetComponent<RectTransform>();
+            rt.anchorMin = anchorMin; rt.anchorMax = anchorMax; rt.pivot = pivot;
+            rt.anchoredPosition = anchoredPos; rt.sizeDelta = sizeDelta;
+            var img = btnGO.GetComponent<Image>();
+            img.color = bgColor;
+            img.raycastTarget = true;
 
-            cycleBtnGO.GetComponent<Button>().onClick.AddListener(CycleCorruptedProp);
+            labelText = CreateCenteredButtonLabel(btnGO.transform, font, label, fontSize);
+            return btnGO.GetComponent<Button>();
+        }
+
+        private static Text CreateCenteredButtonLabel(Transform parent, Font font, string text, int fontSize)
+        {
+            GameObject txtGO = new GameObject("Text", typeof(RectTransform), typeof(Text));
+            txtGO.transform.SetParent(parent, false);
+            var rt = txtGO.GetComponent<RectTransform>();
+            rt.anchorMin = Vector2.zero; rt.anchorMax = Vector2.one; rt.sizeDelta = Vector2.zero;
+            var txt = txtGO.GetComponent<Text>();
+            txt.font = font; txt.text = text; txt.fontSize = fontSize;
+            txt.fontStyle = FontStyle.Bold; txt.alignment = TextAnchor.MiddleCenter;
+            txt.color = Color.white; txt.raycastTarget = false;
+            return txt;
         }
 
         private void CreateCornerBracket(Transform parent, Vector2 cornerDir, Font font)
@@ -622,22 +559,30 @@ namespace IUHCampus.Guardian.AR
             }
 #endif
 
-            string backCamName = "";
+            InitializeWebCamTexture(FindPreferredCameraName());
+
+            float waitTimer = 0f;
+            while (m_WebCamTexture != null && !m_WebCamTexture.isPlaying && waitTimer < 2.0f)
+            {
+                waitTimer += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            BindWebCamToQuad();
+        }
+
+        private static string FindPreferredCameraName()
+        {
             WebCamDevice[] devices = WebCamTexture.devices;
             for (int i = 0; i < devices.Length; i++)
             {
-                if (!devices[i].isFrontFacing)
-                {
-                    backCamName = devices[i].name;
-                    break;
-                }
+                if (!devices[i].isFrontFacing) return devices[i].name;
             }
+            return devices.Length > 0 ? devices[0].name : "";
+        }
 
-            if (string.IsNullOrEmpty(backCamName) && devices.Length > 0)
-            {
-                backCamName = devices[0].name;
-            }
-
+        private void InitializeWebCamTexture(string backCamName)
+        {
             if (m_WebCamTexture != null)
             {
                 if (m_WebCamTexture.isPlaying) m_WebCamTexture.Stop();
@@ -647,38 +592,25 @@ namespace IUHCampus.Guardian.AR
 
             try
             {
-                if (!string.IsNullOrEmpty(backCamName))
-                {
-                    m_WebCamTexture = new WebCamTexture(backCamName, 1280, 720, 30);
-                }
-                else
-                {
-                    m_WebCamTexture = new WebCamTexture(1280, 720, 30);
-                }
-
+                m_WebCamTexture = !string.IsNullOrEmpty(backCamName)
+                    ? new WebCamTexture(backCamName, 1280, 720, 30)
+                    : new WebCamTexture(1280, 720, 30);
                 m_WebCamTexture.Play();
             }
             catch (Exception ex)
             {
                 Debug.LogError("[IUH] Error starting WebCamTexture: " + ex);
             }
+        }
 
-            // Chờ webcam khởi động luồng khung hình
-            float waitTimer = 0f;
-            while (m_WebCamTexture != null && !m_WebCamTexture.isPlaying && waitTimer < 2.0f)
-            {
-                waitTimer += Time.unscaledDeltaTime;
-                yield return null;
-            }
-
-            if (m_CameraQuadMaterial != null && m_WebCamTexture != null)
-            {
-                m_CameraQuadMaterial.mainTexture = m_WebCamTexture;
-                if (m_CameraQuadMaterial.HasProperty("_BaseMap"))
-                    m_CameraQuadMaterial.SetTexture("_BaseMap", m_WebCamTexture);
-                if (m_CameraQuadMaterial.HasProperty("_MainTex"))
-                    m_CameraQuadMaterial.SetTexture("_MainTex", m_WebCamTexture);
-            }
+        private void BindWebCamToQuad()
+        {
+            if (m_CameraQuadMaterial == null || m_WebCamTexture == null) return;
+            m_CameraQuadMaterial.mainTexture = m_WebCamTexture;
+            if (m_CameraQuadMaterial.HasProperty("_BaseMap"))
+                m_CameraQuadMaterial.SetTexture("_BaseMap", m_WebCamTexture);
+            if (m_CameraQuadMaterial.HasProperty("_MainTex"))
+                m_CameraQuadMaterial.SetTexture("_MainTex", m_WebCamTexture);
         }
 
         public void CloseARMode()
@@ -906,57 +838,47 @@ namespace IUHCampus.Guardian.AR
 
         private ARAnalysisResult PerformRealCameraAnalysis(int targetPropIndex)
         {
-            var res = new ARAnalysisResult();
-            res.detectedPropIndex = targetPropIndex;
-            string targetName = targetPropIndex == 1 ? "Laptop / Máy Tính" : (targetPropIndex == 0 ? "Balo" : "Sách Giáo Trình");
-
             if (m_WebCamTexture == null || !m_WebCamTexture.isPlaying)
-            {
-                res.isSuccess = false;
-                res.confidence = 10f;
-                res.message = "Camera chưa truyền khung hình. Vui lòng thử lại!";
-                return res;
-            }
+                return FailedAnalysis(targetPropIndex, 10f, "Camera chưa truyền khung hình. Vui lòng thử lại!");
 
             try
             {
                 int w = m_WebCamTexture.width;
                 int h = m_WebCamTexture.height;
                 if (w < 64 || h < 64)
-                {
-                    res.isSuccess = false;
-                    res.confidence = 10f;
-                    res.message = "Đang đồng bộ khung hình camera...";
-                    return res;
-                }
+                    return FailedAnalysis(targetPropIndex, 10f, "Đang đồng bộ khung hình camera...");
 
                 Color32[] pixels = m_WebCamTexture.GetPixels32();
                 if (pixels == null || pixels.Length != w * h)
-                {
-                    res.isSuccess = false;
-                    res.confidence = 10f;
-                    res.message = "Không đọc được dữ liệu điểm ảnh camera!";
-                    return res;
-                }
+                    return FailedAnalysis(targetPropIndex, 10f, "Không đọc được dữ liệu điểm ảnh camera!");
 
                 VisionFeatures features = IUHARVisionAnalyzer.ExtractFeatures(pixels, w, h);
                 VisionAnalysisResult vResult = IUHARVisionAnalyzer.Analyze(features, targetPropIndex);
-
-                res.isSuccess = vResult.isSuccess;
-                res.confidence = vResult.confidence;
-                res.message = vResult.message;
-                res.details = vResult.details;
-                return res;
+                return new ARAnalysisResult
+                {
+                    isSuccess = vResult.isSuccess,
+                    detectedPropIndex = targetPropIndex,
+                    confidence = vResult.confidence,
+                    message = vResult.message,
+                    details = vResult.details
+                };
             }
             catch (System.Exception ex)
             {
                 Debug.LogWarning($"[IUH AR Camera Analyzer] Error: {ex.Message}");
+                return FailedAnalysis(targetPropIndex, 15f, "Không phân tích được khung hình. Vui lòng thử lại!");
             }
+        }
 
-            res.isSuccess = false;
-            res.confidence = 15f;
-            res.message = "Không phân tích được khung hình. Vui lòng thử lại!";
-            return res;
+        private static ARAnalysisResult FailedAnalysis(int targetPropIndex, float confidence, string message)
+        {
+            return new ARAnalysisResult
+            {
+                isSuccess = false,
+                detectedPropIndex = targetPropIndex,
+                confidence = confidence,
+                message = message
+            };
         }
 
         public void TriggerManualScanSequence()
@@ -970,96 +892,75 @@ namespace IUHCampus.Guardian.AR
             m_IsScanningActive = true;
             IUHCombatAudio.PlayLaserShoot();
 
-            if (m_BtnManualScan != null)
-            {
-                m_BtnManualScan.interactable = false;
-            }
-            if (m_BtnManualScanText != null)
-            {
-                m_BtnManualScanText.text = "⏳ [ ĐANG PHÂN TÍCH... ]";
-            }
+            if (m_BtnManualScan != null) m_BtnManualScan.interactable = false;
+            if (m_BtnManualScanText != null) m_BtnManualScanText.text = "⏳ [ ĐANG PHÂN TÍCH... ]";
 
-            string targetName = m_CurrentPropIndex == 1 ? "Laptop / Máy Tính" : (m_CurrentPropIndex == 0 ? "Balo" : "Sách Giáo Trình");
-
-            float scanDuration = 1.2f;
-            float elapsed = 0f;
-
-            while (elapsed < scanDuration)
-            {
-                elapsed += Time.deltaTime;
-                float progress = Mathf.Clamp01(elapsed / scanDuration);
-                int pct = Mathf.RoundToInt(progress * 100f);
-
-                if (m_AiConfidenceText != null)
-                {
-                    m_AiConfidenceText.text = $"📡 ĐANG TRÍCH XUẤT ĐẶC TRƯNG [{targetName.ToUpper()}]... [{pct}%]";
-                    m_AiConfidenceText.color = new Color(0.3f, 0.85f, 1f);
-                }
-
-                if (m_AiScanStatusText != null)
-                {
-                    m_AiScanStatusText.text = $"🔍 Đang tính toán độ tương phản, mật độ cạnh & viền {targetName}...";
-                    m_AiScanStatusText.color = new Color(1f, 0.9f, 0.4f);
-                }
-
-                yield return null;
-            }
-
+            yield return AnimateScanProgressRoutine(GetPropDisplayName(m_CurrentPropIndex), 1.2f);
             m_IsScanningActive = false;
 
-            // THỰC HIỆN PHÂN TÍCH HÌNH ẢNH CAMERA THỰC TẾ
             ARAnalysisResult result = PerformRealCameraAnalysis(m_CurrentPropIndex);
-
             if (!result.isSuccess)
             {
-                // THẤT BẠI: VÁCH TƯỜNG HOẶC BỀ MẶT TRƠN
-                IUHCombatAudio.PlayPunchWhoosh();
-#if UNITY_IOS || UNITY_ANDROID
-                Handheld.Vibrate();
-#endif
-                if (m_AiConfidenceText != null)
-                {
-                    m_AiConfidenceText.text = $"⚠️ ĐỘ TIN CẬY THẤP: {result.confidence:F0}% - {result.message}";
-                    m_AiConfidenceText.color = new Color(1f, 0.35f, 0.35f);
-                }
-
-                string curTargetName = m_CurrentPropIndex == 1 ? "Laptop / Máy Tính" : (m_CurrentPropIndex == 0 ? "Balo" : "Sách Giáo Trình");
-
-                if (m_AiScanStatusText != null)
-                {
-                    m_AiScanStatusText.text = $"❌ {result.message}";
-                    m_AiScanStatusText.color = new Color(1f, 0.45f, 0.25f);
-                }
-
-                if (m_BtnManualScan != null)
-                {
-                    m_BtnManualScan.gameObject.SetActive(true);
-                    m_BtnManualScan.interactable = true;
-                }
-                if (m_BtnManualScanText != null)
-                {
-                    m_BtnManualScanText.text = "🔍 [ QUÉT ĐỒ VẬT ]";
-                }
-
+                HandleScanFailure(result);
                 yield break;
             }
 
-            // THÀNH CÔNG: KHÓA MỤC TIÊU LAPTOP THẬT
             IUHCombatAudio.PlaySkillBurst();
-
             if (m_AiConfidenceText != null)
             {
                 m_AiConfidenceText.text = $"✅ {result.message} ({result.confidence:F0}%)";
                 m_AiConfidenceText.color = new Color(0.2f, 1f, 0.4f);
             }
-
-            if (m_BtnManualScan != null)
-            {
-                m_BtnManualScan.gameObject.SetActive(false);
-            }
+            if (m_BtnManualScan != null) m_BtnManualScan.gameObject.SetActive(false);
 
             OnObjectDetectedSuccessfully();
         }
+
+        private IEnumerator AnimateScanProgressRoutine(string targetName, float scanDuration)
+        {
+            for (float elapsed = 0f; elapsed < scanDuration; elapsed += Time.deltaTime)
+            {
+                int pct = Mathf.RoundToInt(Mathf.Clamp01(elapsed / scanDuration) * 100f);
+                if (m_AiConfidenceText != null)
+                {
+                    m_AiConfidenceText.text = $"📡 ĐANG TRÍCH XUẤT ĐẶC TRƯNG [{targetName.ToUpper()}]... [{pct}%]";
+                    m_AiConfidenceText.color = new Color(0.3f, 0.85f, 1f);
+                }
+                if (m_AiScanStatusText != null)
+                {
+                    m_AiScanStatusText.text = $"🔍 Đang tính toán độ tương phản, mật độ cạnh & viền {targetName}...";
+                    m_AiScanStatusText.color = new Color(1f, 0.9f, 0.4f);
+                }
+                yield return null;
+            }
+        }
+
+        private void HandleScanFailure(ARAnalysisResult result)
+        {
+            IUHCombatAudio.PlayPunchWhoosh();
+#if UNITY_IOS || UNITY_ANDROID
+            Handheld.Vibrate();
+#endif
+            if (m_AiConfidenceText != null)
+            {
+                m_AiConfidenceText.text = $"⚠️ ĐỘ TIN CẬY THẤP: {result.confidence:F0}% - {result.message}";
+                m_AiConfidenceText.color = new Color(1f, 0.35f, 0.35f);
+            }
+            if (m_AiScanStatusText != null)
+            {
+                m_AiScanStatusText.text = $"❌ {result.message}";
+                m_AiScanStatusText.color = new Color(1f, 0.45f, 0.25f);
+            }
+            if (m_BtnManualScan != null)
+            {
+                m_BtnManualScan.gameObject.SetActive(true);
+                m_BtnManualScan.interactable = true;
+            }
+            if (m_BtnManualScanText != null) m_BtnManualScanText.text = "🔍 [ QUÉT ĐỒ VẬT ]";
+        }
+
+        private static string GetPropDisplayName(int propIndex) =>
+            propIndex == 1 ? "Laptop / Máy Tính" : (propIndex == 0 ? "Balo" : "Sách Giáo Trình");
 
         private IEnumerator DeepLearningInferenceRoutine()
         {
@@ -1083,94 +984,69 @@ namespace IUHCampus.Guardian.AR
         {
             m_TargetDetected = true;
             m_AutoFightTimer = 0f;
+            if (m_BtnManualScan != null) m_BtnManualScan.gameObject.SetActive(false);
 
-            if (m_BtnManualScan != null)
-            {
-                m_BtnManualScan.gameObject.SetActive(false);
-            }
+            PositionMonsterInFrontOfCamera();
+            ActivateTargetProp(m_CurrentPropIndex);
 
-            // ĐẶT LẠI VỊ TRÍ QUÁI VẬT & VẬT THỂ 3D THEO GÓC NHÌN CAMERA HIỆN TẠI (KHÔNG GHI NHỚ VỊ TRÍ CŨ)
-            if (m_ARCamera != null && m_MonsterAnchor != null)
-            {
-                Vector3 camPos = m_ARCamera.transform.position;
-                Vector3 camFwd = m_ARCamera.transform.forward;
-                Vector3 horizFwd = new Vector3(camFwd.x, 0f, camFwd.z).normalized;
-                if (horizFwd.sqrMagnitude < 0.01f) horizFwd = camFwd;
-
-                m_MonsterAnchor.transform.position = camPos + horizFwd * 2.4f + Vector3.down * 0.32f;
-
-                Vector3 lookDir = camPos - m_MonsterAnchor.transform.position;
-                lookDir.y = 0f;
-                if (lookDir.sqrMagnitude > 0.001f)
-                {
-                    m_MonsterAnchor.transform.rotation = Quaternion.LookRotation(lookDir);
-                }
-            }
-
-            // Kích hoạt đúng vật thể 3D tương ứng với mục tiêu nhận diện
-            if (m_CurrentPropIndex == 1) // Laptop / Máy Tính
-            {
-                if (m_CorruptedLaptop != null) m_CorruptedLaptop.SetActive(true);
-                if (m_CorruptedBackpack != null) m_CorruptedBackpack.SetActive(false);
-                if (m_CorruptedTextbook != null) m_CorruptedTextbook.SetActive(false);
-            }
-            else if (m_CurrentPropIndex == 0) // Balo
-            {
-                if (m_CorruptedBackpack != null) m_CorruptedBackpack.SetActive(true);
-                if (m_CorruptedLaptop != null) m_CorruptedLaptop.SetActive(false);
-                if (m_CorruptedTextbook != null) m_CorruptedTextbook.SetActive(false);
-            }
-            else // Sách
-            {
-                if (m_CorruptedTextbook != null) m_CorruptedTextbook.SetActive(true);
-                if (m_CorruptedBackpack != null) m_CorruptedBackpack.SetActive(false);
-                if (m_CorruptedLaptop != null) m_CorruptedLaptop.SetActive(false);
-            }
-
-            string propName = m_CurrentPropIndex == 1 ? "Laptop / Máy Tính" : (m_CurrentPropIndex == 0 ? "Balo" : "Sách Giáo Trình");
+            string propName = GetPropDisplayName(m_CurrentPropIndex);
             string propClass = m_CurrentPropIndex == 1 ? "laptop" : (m_CurrentPropIndex == 0 ? "backpack" : "book");
             float conf = UnityEngine.Random.Range(0.962f, 0.994f);
             m_DetectedLabel = propClass;
             m_DetectedConfidence = conf;
 
-            // 1. Âm thanh và rung phản hồi
             IUHCombatAudio.PlayLaserShoot();
             IUHCombatAudio.PlayShield();
 #if UNITY_IOS || UNITY_ANDROID
             Handheld.Vibrate();
 #endif
 
-            // 2. Cập nhật HUD nhận diện AI
             if (m_AiConfidenceText != null)
             {
                 m_AiConfidenceText.text = $"✓ ĐÃ KHÓA MỤC TIÊU: {propName.ToUpper()} (YOLOv8 • {conf * 100f:F1}%)";
                 m_AiConfidenceText.color = new Color(0.3f, 1f, 0.5f);
             }
-
             if (m_AiScanStatusText != null)
             {
                 m_AiScanStatusText.text = $"⚠️ ĐÃ PHÁT HIỆN DỊ TƯỢNG: Tiểu Quỷ Dữ Liệu đang chiếm giữ [{propName}]!";
                 m_AiScanStatusText.color = new Color(1f, 0.4f, 0.3f);
             }
-
-            // 3. HIỂN THỊ QUÁI VẬT VÀ VẬT THỂ NHIỄM ĐỘC 3D
             if (m_MonsterAnchor != null)
             {
                 m_MonsterAnchor.SetActive(true);
                 StartCoroutine(AnimateMonsterSpawnRoutine());
             }
-
-            // 4. HIỂN THỊ NÚT CHIẾN ĐẤU AR (VUỐT CHÉM)
-            if (m_BtnFightAR != null)
-            {
-                m_BtnFightAR.gameObject.SetActive(true);
-            }
-
-            // 5. Thông báo nổi trên không gian thực tế
+            if (m_BtnFightAR != null) m_BtnFightAR.gameObject.SetActive(true);
             if (m_ARCamera != null)
             {
-                IUHCombatFloatingText.Spawn(m_ARCamera.transform.position + m_ARCamera.transform.forward * 2f, $"⚡ XUẤT HIỆN QUÁI VẬT DỮ LIỆU TẠI {propName.ToUpper()}!", new Color(1f, 0.25f, 0.25f), 2.5f);
+                IUHCombatFloatingText.Spawn(m_ARCamera.transform.position + m_ARCamera.transform.forward * 2f,
+                    $"⚡ XUẤT HIỆN QUÁI VẬT DỮ LIỆU TẠI {propName.ToUpper()}!", new Color(1f, 0.25f, 0.25f), 2.5f);
             }
+        }
+
+        private void PositionMonsterInFrontOfCamera()
+        {
+            if (m_ARCamera == null || m_MonsterAnchor == null) return;
+            Vector3 camPos = m_ARCamera.transform.position;
+            Vector3 camFwd = m_ARCamera.transform.forward;
+            Vector3 horizFwd = new Vector3(camFwd.x, 0f, camFwd.z).normalized;
+            if (horizFwd.sqrMagnitude < 0.01f) horizFwd = camFwd;
+
+            m_MonsterAnchor.transform.position = camPos + horizFwd * 2.4f + Vector3.down * 0.32f;
+
+            Vector3 lookDir = camPos - m_MonsterAnchor.transform.position;
+            lookDir.y = 0f;
+            if (lookDir.sqrMagnitude > 0.001f)
+            {
+                m_MonsterAnchor.transform.rotation = Quaternion.LookRotation(lookDir);
+            }
+        }
+
+        private void ActivateTargetProp(int propIndex)
+        {
+            if (m_CorruptedLaptop != null) m_CorruptedLaptop.SetActive(propIndex == 1);
+            if (m_CorruptedBackpack != null) m_CorruptedBackpack.SetActive(propIndex == 0);
+            if (m_CorruptedTextbook != null) m_CorruptedTextbook.SetActive(propIndex != 0 && propIndex != 1);
         }
 
         private IEnumerator AnimateMonsterSpawnRoutine()
@@ -1192,60 +1068,19 @@ namespace IUHCampus.Guardian.AR
 
         public void PrepareNextObjectScan()
         {
-            // 1. Tắt giao diện chiến đấu Combat HUD
-            if (IUHARRuneSlashCombat.Instance != null)
-            {
-                IUHARRuneSlashCombat.Instance.CloseCombatUI();
-            }
+            if (IUHARRuneSlashCombat.Instance != null) IUHARRuneSlashCombat.Instance.CloseCombatUI();
+            if (m_ARCanvasRoot != null) m_ARCanvasRoot.SetActive(true);
+            if (m_MonsterAnchor != null) m_MonsterAnchor.SetActive(false);
 
-            // 2. Mở lại HUD Quét AR Camera
-            if (m_ARCanvasRoot != null)
-            {
-                m_ARCanvasRoot.SetActive(true);
-            }
-
-            // 3. Ẩn quái vật đã bị tiêu diệt
-            if (m_MonsterAnchor != null)
-            {
-                m_MonsterAnchor.SetActive(false);
-            }
-
-            // 4. Chuyển sang mục tiêu tiếp theo (Laptop -> Balo -> Sách -> Laptop)
             m_CurrentPropIndex = (m_CurrentPropIndex + 1) % 3;
             if (m_CorruptedBackpack != null) m_CorruptedBackpack.SetActive(false);
             if (m_CorruptedLaptop != null) m_CorruptedLaptop.SetActive(false);
             if (m_CorruptedTextbook != null) m_CorruptedTextbook.SetActive(false);
 
-            // Cập nhật giao diện tab
-            int[] propIndices = { 1, 0, 2 };
-            for (int i = 0; i < m_TargetTabButtons.Count; i++)
-            {
-                if (m_TargetTabButtons[i] == null) continue;
-                var img = m_TargetTabButtons[i].GetComponent<UnityEngine.UI.Image>();
-                if (img != null)
-                {
-                    bool isSel = (propIndices[i] == m_CurrentPropIndex);
-                    img.color = isSel ? new Color(0.1f, 0.65f, 0.95f, 0.95f) : new Color(0.12f, 0.16f, 0.22f, 0.85f);
-                }
-            }
+            UpdateTabButtonColors();
+            ResetScanControlsForNextTarget();
 
-            // 5. Khởi động lại trạng thái quét vật thể thực tế
-            m_TargetDetected = false;
-            m_IsScanningActive = false;
-            m_AutoFightTimer = 0f;
-
-            if (m_BtnFightAR != null) m_BtnFightAR.gameObject.SetActive(false);
-            if (m_BtnManualScan != null)
-            {
-                m_BtnManualScan.gameObject.SetActive(true);
-                m_BtnManualScan.interactable = true;
-            }
-            if (m_BtnManualScanText != null)
-            {
-                m_BtnManualScanText.text = "🔍 [ QUÉT ĐỒ VẬT ]";
-            }
-
-            string nextName = m_CurrentPropIndex == 1 ? "Laptop / Máy Tính" : (m_CurrentPropIndex == 0 ? "Balo" : "Sách Giáo Trình");
+            string nextName = GetPropDisplayName(m_CurrentPropIndex);
             if (m_AiConfidenceText != null)
             {
                 m_AiConfidenceText.text = $"📡 ĐÃ CHUYỂN SANG: [{nextName.ToUpper()}] - SẴN SÀNG QUÉT";
@@ -1256,13 +1091,40 @@ namespace IUHCampus.Guardian.AR
                 m_AiScanStatusText.text = $"🔍 VẬT THỂ TIẾP THEO: [{nextName}] - Hãy hướng camera vào {nextName} thật và bấm QUÉT!";
                 m_AiScanStatusText.color = new Color(1f, 0.9f, 0.4f);
             }
-
             if (m_ARCamera != null)
             {
-                IUHCombatFloatingText.Spawn(m_ARCamera.transform.position + m_ARCamera.transform.forward * 2f, $"✨ CHUYỂN MỤC TIÊU QUÉT TIẾP THEO: {nextName.ToUpper()}!", new Color(0.2f, 0.95f, 1f), 2.5f);
+                IUHCombatFloatingText.Spawn(m_ARCamera.transform.position + m_ARCamera.transform.forward * 2f,
+                    $"✨ CHUYỂN MỤC TIÊU QUÉT TIẾP THEO: {nextName.ToUpper()}!", new Color(0.2f, 0.95f, 1f), 2.5f);
             }
-
             IUHCombatAudio.PlayCoin();
+        }
+
+        private void UpdateTabButtonColors()
+        {
+            int[] propIndices = { 1, 0, 2 };
+            for (int i = 0; i < m_TargetTabButtons.Count; i++)
+            {
+                if (m_TargetTabButtons[i] == null) continue;
+                var img = m_TargetTabButtons[i].GetComponent<Image>();
+                if (img == null) continue;
+                bool isSel = propIndices[i] == m_CurrentPropIndex;
+                img.color = isSel ? new Color(0.1f, 0.65f, 0.95f, 0.95f) : new Color(0.12f, 0.16f, 0.22f, 0.85f);
+            }
+        }
+
+        private void ResetScanControlsForNextTarget()
+        {
+            m_TargetDetected = false;
+            m_IsScanningActive = false;
+            m_AutoFightTimer = 0f;
+
+            if (m_BtnFightAR != null) m_BtnFightAR.gameObject.SetActive(false);
+            if (m_BtnManualScan != null)
+            {
+                m_BtnManualScan.gameObject.SetActive(true);
+                m_BtnManualScan.interactable = true;
+            }
+            if (m_BtnManualScanText != null) m_BtnManualScanText.text = "🔍 [ QUÉT ĐỒ VẬT ]";
         }
 
         public void CycleCorruptedProp()
